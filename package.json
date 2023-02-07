@@ -54,7 +54,7 @@
   },
   "packageManager": "yarn@3.4.1",
   "devDependencies": {
-    "craco-alias": "^3.0.1",
-    "eslint-config-react-app": "^7.0.1"
+    "@yarnpkg/sdks": "^3.0.0-rc.38",
+    "craco-alias": "^3.0.1"
   }
 }
