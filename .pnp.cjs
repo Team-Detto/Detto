@@ -36,13 +36,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@testing-library/user-event", "virtual:990f75af0e4e97bc6ae8f77688032fa0cb741f39b94d672bd3c1007a785e4716099a18d80092328073a846a121401dd5fae4622660399ff5a4cd78fe25f2791c#npm:13.5.0"],\
             ["@toast-ui/editor", "npm:3.2.1"],\
             ["@types/jest", "npm:27.5.2"],\
-            ["@types/node", "npm:16.18.12"],\
+            ["@types/node", "npm:18.13.0"],\
             ["@types/react", "npm:18.0.27"],\
             ["@types/react-dom", "npm:18.0.10"],\
             ["@types/react-helmet-async", "npm:1.0.3"],\
             ["@types/react-icons", "npm:3.0.0"],\
             ["@types/react-router-dom", "npm:5.3.3"],\
             ["craco", "npm:0.0.3"],\
+            ["craco-alias", "npm:3.0.1"],\
             ["eslint-config-react-app", "virtual:990f75af0e4e97bc6ae8f77688032fa0cb741f39b94d672bd3c1007a785e4716099a18d80092328073a846a121401dd5fae4622660399ff5a4cd78fe25f2791c#npm:7.0.1"],\
             ["firebase", "npm:9.17.1"],\
             ["react", "npm:18.2.0"],\
@@ -6043,13 +6044,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@types/node", [\
-        ["npm:16.18.12", {\
-          "packageLocation": "./.yarn/cache/@types-node-npm-16.18.12-74fb2c13d9-fc32711824.zip/node_modules/@types/node/",\
-          "packageDependencies": [\
-            ["@types/node", "npm:16.18.12"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["npm:18.13.0", {\
           "packageLocation": "./.yarn/cache/@types-node-npm-18.13.0-00f732af8e-4ea10f8802.zip/node_modules/@types/node/",\
           "packageDependencies": [\
@@ -9332,6 +9326,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["craco-alias", [\
+        ["npm:3.0.1", {\
+          "packageLocation": "./.yarn/cache/craco-alias-npm-3.0.1-dc457f5431-8d9a2bf38f.zip/node_modules/craco-alias/",\
+          "packageDependencies": [\
+            ["craco-alias", "npm:3.0.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["create-ecdh", [\
         ["npm:4.0.4", {\
           "packageLocation": "./.yarn/cache/create-ecdh-npm-4.0.4-1048ce2035-0dd7fca971.zip/node_modules/create-ecdh/",\
@@ -10166,13 +10169,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@testing-library/user-event", "virtual:990f75af0e4e97bc6ae8f77688032fa0cb741f39b94d672bd3c1007a785e4716099a18d80092328073a846a121401dd5fae4622660399ff5a4cd78fe25f2791c#npm:13.5.0"],\
             ["@toast-ui/editor", "npm:3.2.1"],\
             ["@types/jest", "npm:27.5.2"],\
-            ["@types/node", "npm:16.18.12"],\
+            ["@types/node", "npm:18.13.0"],\
             ["@types/react", "npm:18.0.27"],\
             ["@types/react-dom", "npm:18.0.10"],\
             ["@types/react-helmet-async", "npm:1.0.3"],\
             ["@types/react-icons", "npm:3.0.0"],\
             ["@types/react-router-dom", "npm:5.3.3"],\
             ["craco", "npm:0.0.3"],\
+            ["craco-alias", "npm:3.0.1"],\
             ["eslint-config-react-app", "virtual:990f75af0e4e97bc6ae8f77688032fa0cb741f39b94d672bd3c1007a785e4716099a18d80092328073a846a121401dd5fae4622660399ff5a4cd78fe25f2791c#npm:7.0.1"],\
             ["firebase", "npm:9.17.1"],\
             ["react", "npm:18.2.0"],\

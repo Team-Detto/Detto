@@ -11,7 +11,7 @@
     "@testing-library/user-event": "^13.2.1",
     "@toast-ui/editor": "^3.2.1",
     "@types/jest": "^27.0.1",
-    "@types/node": "^16.7.13",
+    "@types/node": "^18.13.0",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.0",
     "@types/react-helmet-async": "^1.0.3",
@@ -32,9 +32,9 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -54,6 +54,7 @@
   },
   "packageManager": "yarn@3.4.1",
   "devDependencies": {
+    "craco-alias": "^3.0.1",
     "eslint-config-react-app": "^7.0.1"
   }
 }
