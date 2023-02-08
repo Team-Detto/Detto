@@ -2,6 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
 import WebContainer from './common/WebContainer';
 import { useEffect, useState } from 'react';
+import usePopup from 'hooks/usePopup';
 
 interface headerTypes {
   isMain: boolean;
@@ -12,6 +13,8 @@ const Header = () => {
   const [hideGradient, setHideGradient] = useState<boolean>(true);
   const location = useLocation();
   const isMain = location.pathname === '/';
+
+  const { toggleMessageBox, toggleNotificationBox } = usePopup();
 
   const showHeaderGradientBackground = () => {
     const { scrollY } = window;
@@ -43,8 +46,10 @@ const Header = () => {
               <NavItemLi>
                 <Link to={'/findproject'}>팀원찾기</Link>
               </NavItemLi>
-              <NavItemLi>쪽지</NavItemLi>
-              <NavItemLi>알림</NavItemLi>
+              <NavItemLi onClick={() => toggleMessageBox()}>쪽지</NavItemLi>
+              <NavItemLi onClick={() => toggleNotificationBox()}>
+                알림
+              </NavItemLi>
               <NavItemLi>로그인하기</NavItemLi>
             </NavListUl>
           </Nav>
