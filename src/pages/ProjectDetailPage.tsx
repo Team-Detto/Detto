@@ -157,7 +157,7 @@ const WriterWrapper = styled.div`
 `;
 
 const IconWrapper = styled.div`
-  width: 279px;
+  width: 17.4375rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -191,13 +191,13 @@ const RecruitmentInfoContainer = styled.div`
   background-color: #fff;
   margin-top: 3.5rem;
   align-items: center;
-  padding: 40px;
+  padding: 2.5rem;
 `;
 
 const ProjectInfoWrapper = styled.div`
   width: 63.625rem;
   height: 12.5rem;
-  font-size: 20px;
+  font-size: 1.25rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -206,11 +206,11 @@ const ProjectInfoWrapper = styled.div`
 const ProjectInfoObject = styled.div`
   display: flex;
   align-items: center;
-  gap: 45px;
+  gap: 2.8125rem;
 `;
 
 const ProjectInfoKey = styled.div`
-  width: 88px;
+  width: 5.5rem;
 `;
 
 const ProjectInfoValue = styled.div``;
@@ -224,14 +224,14 @@ const MemberInfoWrapper = styled.div`
 `;
 
 const MemberInfoTitle = styled.div`
-  height: 32px;
+  height: 2rem;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 1.25rem;
 `;
 
 const MemberInfoBox = styled.div`
   height: 100%;
-  margin: 36px 0 1.25rem 0;
+  margin: 2.25rem 0 1.25rem 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -244,20 +244,20 @@ const MemberInfoDiv = styled.div`
 `;
 
 const PositionDiv = styled.div`
-  font-size: 24px;
+  font-size: 1.5rem;
   background-color: #6f64f2;
-  width: 127px;
-  height: 40px;
+  width: 7.9375rem;
+  height: 2.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
-  border-radius: 18px;
+  border-radius: 1.125rem;
 `;
 
 const MemberProfileImg = styled.img`
-  width: 64px;
-  height: 64px;
+  width: 4rem;
+  height: 4rem;
   border-radius: 50%;
   background-color: #aaaaaa;
 `;
@@ -268,7 +268,7 @@ const RecruitContentsContainer = styled.div`
 
 const ContentTitle = styled.div`
   font-weight: 500;
-  font-size: 24px;
+  font-size: 1.5rem;
 `;
 
 const ContentWrapper = styled.div`
@@ -277,7 +277,7 @@ const ContentWrapper = styled.div`
   margin-top: 1.6875rem;
   background-color: #fff;
   padding: 2.5rem;
-  font-size: 20px;
+  font-size: 1.25rem;
 `;
 
 const ButtonWrapper = styled.div`

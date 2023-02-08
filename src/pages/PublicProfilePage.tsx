@@ -45,11 +45,11 @@ export default PublicProfilePage;
 
 const PublicProfileContainer = styled.div`
   background-color: #fafafb;
-  height: 1320px;
+  height: 82.5rem;
 `;
 
 const PublicProfileWrapper = styled.div`
-  width: 1170px;
+  width: 73.125rem;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
@@ -57,27 +57,27 @@ const PublicProfileWrapper = styled.div`
 
 const ProfileBox = styled.div`
   width: 100%;
-  height: 228px;
-  margin-top: 204px;
+  height: 14.25rem;
+  margin-top: 12.75rem;
   display: flex;
   align-items: center;
-  gap: 39px;
+  gap: 2.4375rem;
 `;
 
 const ProfileImg = styled.div`
-  width: 228px;
-  height: 228px;
+  width: 14.25rem;
+  height: 14.25rem;
   background-color: #919191;
   border-radius: 50%;
 `;
 
 const ProfileInfoBox = styled.div`
-  width: 884px;
-  height: 166px;
+  width: 55.25rem;
+  height: 10.375rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  font-size: 20px;
+  font-size: 1.25rem;
 `;
 
 const NicknameAndMessageContainer = styled.div`
@@ -89,13 +89,13 @@ const NicknameAndMessageContainer = styled.div`
 const UserInformationDiv = styled.div`
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.625rem;
 `;
 
 const UserNicknameDiv = styled.div`
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 500;
-  width: 100px;
+  width: 6.25rem;
 `;
 
 const UserPositionDiv = styled.div`
@@ -104,12 +104,12 @@ const UserPositionDiv = styled.div`
 `;
 
 const MessageSendButton = styled.button`
-  width: 157px;
-  height: 56px;
+  width: 9.8125rem;
+  height: 3.5rem;
   background-color: #6f64f2;
   color: #fff;
-  border-radius: 10px;
-  font-size: 20px;
+  border-radius: 0.625rem;
+  font-size: 1.25rem;
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -119,11 +119,11 @@ const MessageSendButton = styled.button`
 const UserInfoObject = styled.div`
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.625rem;
 `;
 
 const UserInfoKey = styled.div`
-  width: 100px;
+  width: 6.25rem;
   color: #828282;
 `;
 
@@ -133,14 +133,14 @@ const UserInfoValue = styled.div`
 
 const UserSkillStackDiv = styled.div`
   background-color: #f2f4f6;
-  font-size: 12px;
-  border-radius: 10px;
-  padding: 0 12px;
+  font-size: 0.75rem;
+  border-radius: 0.625rem;
+  padding: 0 0.75rem;
 `;
 
 const UserProjectWrapper = styled.div`
-  margin-top: 126px;
-  font-size: 20px;
+  margin-top: 7.875rem;
+  font-size: 1.25rem;
   font-weight: 500;
 `;
 
