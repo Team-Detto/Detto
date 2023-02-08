@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import WebContainer from './common/WebContainer';
 import { useEffect, useState } from 'react';
 import usePopup from 'hooks/usePopup';
+import PopupContainer from './popup/PopupContainer';
 
 interface headerTypes {
   isMain: boolean;
@@ -35,6 +36,8 @@ const Header = () => {
     <HeaderContainer isMain={isMain} hideGradient={hideGradient}>
       <WebContainer>
         <HeaderWrapper>
+          {/* 쪽지/알림 팝업창 */}
+          <PopupContainer />
           <LogoBoxH1>
             <Link to={'/'}> Detto</Link>
           </LogoBoxH1>
