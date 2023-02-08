@@ -9,6 +9,7 @@ const reset = css`
     border-width: 0;
     border-style: solid;
     border-color: theme('borderColor.DEFAULT', 'currentColor');
+    font-family: 'Noto Sans KR' !important;
   }
   ::before,
   ::after {
@@ -19,7 +20,6 @@ const reset = css`
     -webkit-text-size-adjust: 100%;
     -moz-tab-size: 4;
     tab-size: 4;
-    font-family: theme('Noto Sans KR', sans-serif);
   }
   body {
     margin: 0;
