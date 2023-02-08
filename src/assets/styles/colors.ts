@@ -2,14 +2,14 @@ const COLORS = {
   black: '#000000',
   white: '#FFFFFF',
 
-  violetB: '#5D50F0',
+  violetB500: '#5D50F0',
   violetB400: '#6F64F2',
   violetB300: '#7E75E8',
   violetB200: '#948CF2',
   violetB100: '#AEA8F1',
   violetB50: '#DBD9F8',
 
-  violetA: '#704ADB',
+  violetA500: '#704ADB',
   violetA400: '#7852E3',
   violetA300: '#8B6FDB',
   violetA200: '#9F87E3',
