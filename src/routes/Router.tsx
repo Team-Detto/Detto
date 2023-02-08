@@ -27,20 +27,20 @@ const Router = () => {
       <Header />
       <Suspense fallback={<div>...loading</div>}>
         <Routes>
-          <Route path='/' element={<MainComponentPage />} />
-          <Route path='/mypage' element={<MyPageComonentPage />} />
-          <Route path='/findproject' element={<FindProjectComponentPage />} />
-          <Route path='/project/:id' element={<ProjectDetailComponentPage />} />
+          <Route path="/" element={<MainComponentPage />} />
+          <Route path="/mypage" element={<MyPageComonentPage />} />
+          <Route path="/findproject" element={<FindProjectComponentPage />} />
+          <Route path="/project/:id" element={<ProjectDetailComponentPage />} />
           <Route
-            path='/project/write/:id'
+            path="/project/write/:id"
             element={<ProjectWriteComponentPage />}
           />
           <Route
-            path='/project/write/:id'
+            path="/project/write/:id"
             element={<ProjectEditComponentPage />}
           />
-          <Route path='/profile/:id' element={<PublicProfileComponentPage />} />
-          <Route path='*' element={<ErrorPage />} />
+          <Route path="/profile/:id" element={<PublicProfileComponentPage />} />
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </Suspense>
     </BrowserRouter>
