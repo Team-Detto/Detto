@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 import WebContainer from './common/WebContainer';
 
 const Header = () => {
@@ -6,11 +7,17 @@ const Header = () => {
     <HeaderContainer>
       <WebContainer>
         <HeaderWrapper>
-          <LogoBoxH1>Detto</LogoBoxH1>
+          <LogoBoxH1>
+            <Link to={'/'}> Detto</Link>
+          </LogoBoxH1>
           <Nav>
             <NavListUl>
-              <NavItemLi>새 글 쓰기</NavItemLi>
-              <NavItemLi>팀원찾기</NavItemLi>
+              <NavItemLi>
+                <Link to={'/project/:id'}>새 글 쓰기</Link>
+              </NavItemLi>
+              <NavItemLi>
+                <Link to={'/findproject'}>팀원찾기</Link>
+              </NavItemLi>
               <NavItemLi>쪽지</NavItemLi>
               <NavItemLi>알림</NavItemLi>
               <NavItemLi>로그인하기</NavItemLi>

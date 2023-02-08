@@ -32,7 +32,7 @@ const Router = () => {
           <Route path="/findproject" element={<FindProjectComponentPage />} />
           <Route path="/project/:id" element={<ProjectDetailComponentPage />} />
           <Route
-            path="/project/write/:id"
+            path="/project/write"
             element={<ProjectWriteComponentPage />}
           />
           <Route
