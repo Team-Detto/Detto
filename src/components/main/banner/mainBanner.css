@@ -1,0 +1,15 @@
+.swiper-slide {
+  width: 100%;
+  height: 570px;
+  background: #f2f4f6;
+  text-align: center;
+}
+.swiper-button-next,
+.swiper-button-prev {
+  display: none;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  display: none;
+}
