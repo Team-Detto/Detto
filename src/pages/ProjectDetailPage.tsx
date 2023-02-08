@@ -1,8 +1,17 @@
 import styled from '@emotion/styled';
 import WebContainer from '../components/common/WebContainer';
 import { RiHeartAddLine, RiHeartAddFill, RiShareBoxLine } from 'react-icons/ri';
+import React, { useState } from 'react';
 
 const ProjectDetailPage = () => {
+  const [ApplyButtonTitle, setApplyButtonTitle] = useState('간단 지원하기');
+  const handleApplyButtonClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setApplyButtonTitle(
+      ApplyButtonTitle === '간단 지원하기' ? '지원 취소하기' : '간단 지원하기',
+    );
+  };
+
   return (
     <ProjectDetailContainer>
       <WebContainer>
@@ -79,7 +88,16 @@ const ProjectDetailPage = () => {
             <ContentWrapper>내용입니당</ContentWrapper>
           </RecruitContentsContainer>
           <ButtonWrapper>
-            <ApplyButton>간단 지원하기</ApplyButton>
+            <ApplyButton
+              onClick={(e) => {
+                handleApplyButtonClick(e);
+              }}
+              backgroundColor={
+                ApplyButtonTitle === '간단 지원하기' ? '#6f64f2' : '#464646'
+              }
+            >
+              {ApplyButtonTitle}
+            </ApplyButton>
           </ButtonWrapper>
         </ProjectDetailWrapper>
       </WebContainer>
@@ -269,10 +287,10 @@ const ButtonWrapper = styled.div`
   margin-top: 3.5rem;
 `;
 
-const ApplyButton = styled.button`
+const ApplyButton = styled.button<{ backgroundColor: string }>`
   width: 32.5625rem;
   height: 5.5rem;
-  background: #6f64f2;
+  background-color: ${(props) => props.backgroundColor};
   border-radius: 2.25rem;
   font-size: 1.75rem;
   color: #fff;
