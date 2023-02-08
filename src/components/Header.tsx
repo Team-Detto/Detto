@@ -1,10 +1,35 @@
+import { Link, useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
 import WebContainer from './common/WebContainer';
+import { useEffect, useState } from 'react';
+
+interface headerTypes {
+  isMain: boolean;
+  hideGradient: boolean;
+}
 
 const Header = () => {
+  const [hideGradient, setHideGradient] = useState<boolean>(true);
+  const location = useLocation();
+  const isMain = location.pathname === '/';
+
+  const showHeaderGradientBackground = () => {
+    const { scrollY } = window;
+    scrollY > 700 ? setHideGradient(false) : setHideGradient(true);
+  };
+
+  useEffect(() => {
+    if (isMain) {
+      window.addEventListener('scroll', showHeaderGradientBackground);
+    }
+
+    return () => {
+      window.removeEventListener('scroll', showHeaderGradientBackground);
+    };
+  }, [isMain]);
+
   return (
-    <HeaderContainer>
+    <HeaderContainer isMain={isMain} hideGradient={hideGradient}>
       <WebContainer>
         <HeaderWrapper>
           <LogoBoxH1>
@@ -13,7 +38,7 @@ const Header = () => {
           <Nav>
             <NavListUl>
               <NavItemLi>
-                <Link to={'/project/:id'}>새 글 쓰기</Link>
+                <Link to={'/project/write'}>새 글 쓰기</Link>
               </NavItemLi>
               <NavItemLi>
                 <Link to={'/findproject'}>팀원찾기</Link>
@@ -31,8 +56,17 @@ const Header = () => {
 
 export default Header;
 
-const HeaderContainer = styled.header`
+const HeaderContainer = styled.header<headerTypes>`
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 90;
   width: 100%;
+  background-image: ${(props) =>
+    props.isMain && props.hideGradient
+      ? 'linear-gradient(180deg, rgba(108, 108, 108, 0.47) 0%, rgba(217, 217, 217, 0) 100.87%)'
+      : 'none'};
+  background-color: ${(props) => (props.isMain ? 'transparent' : '#fff')};
 `;
 
 const HeaderWrapper = styled.div`
@@ -57,6 +91,7 @@ const NavListUl = styled.ul`
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  margin-right: 1.438rem;
 `;
 
 const NavItemLi = styled.li`
