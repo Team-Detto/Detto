@@ -4,6 +4,7 @@ import reportWebVitals from './reportWebVitals';
 
 import { RecoilRoot } from 'recoil';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { HelmetProvider } from 'react-helmet-async';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -12,11 +13,13 @@ const root = ReactDOM.createRoot(
 const queryClient = new QueryClient();
 
 root.render(
-  <RecoilRoot>
-    <QueryClientProvider client={queryClient}>
-      <App />
-    </QueryClientProvider>
-  </RecoilRoot>,
+  <HelmetProvider>
+    <RecoilRoot>
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>
+    </RecoilRoot>
+  </HelmetProvider>,
 );
 
 // If you want to start measuring performance in your app, pass a function
