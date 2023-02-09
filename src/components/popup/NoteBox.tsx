@@ -1,29 +1,40 @@
 import styled from '@emotion/styled';
+import { useQuery } from '@tanstack/react-query';
+import { getInboxNotes } from 'apis/note';
 import COLORS from 'assets/styles/colors';
 import usePopup from 'hooks/usePopup';
+import { getDate } from 'utils/date';
 import Message from './Message';
 import { PopupWrapper } from './styles';
 
-export default function MessageBox() {
+export default function NoteBox() {
   const {
     messageBoxOpen,
     // setMessageBoxOpen
   } = usePopup();
+
+  const { data: inbox }: any = useQuery({
+    queryKey: ['inbox'],
+    queryFn: getInboxNotes,
+  });
 
   return (
     <>
       {messageBoxOpen && (
         <PopupWrapper popup="message">
           <TitleWrapper>
-            읽지 않은 쪽지 <MessageCountSpan>(3)</MessageCountSpan>
+            읽지 않은 알림
+            <MessageCountSpan>
+              ({inbox ? inbox.filter(({ isRead }: any) => !isRead).length : 0})
+            </MessageCountSpan>
           </TitleWrapper>
           <MessageWrapper>
-            {messages.map((message, index) => (
+            {inbox?.map(({ id, title, date, isRead }: any) => (
               <Message
-                key={index}
-                title={message.title}
-                date={message.date}
-                isRead={message.isRead}
+                key={id}
+                title={title}
+                date={getDate(date)}
+                isRead={isRead}
               />
             ))}
           </MessageWrapper>

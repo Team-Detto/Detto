@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 
-export const messageBoxState = atom({
-  key: 'messageBoxState',
+export const noteBoxState = atom({
+  key: 'noteBoxState',
   default: false,
 });
 

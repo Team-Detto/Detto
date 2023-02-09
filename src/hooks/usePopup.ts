@@ -1,7 +1,7 @@
-import { messageBoxState, notificationBoxState } from './../recoil/atoms';
+import { noteBoxState, notificationBoxState } from './../recoil/atoms';
 import { useRecoilState } from 'recoil';
 const usePopup = () => {
-  const [messageBoxOpen, setMessageBoxOpen] = useRecoilState(messageBoxState);
+  const [messageBoxOpen, setMessageBoxOpen] = useRecoilState(noteBoxState);
   const [notificationBoxOpen, setNotificationBoxOpen] =
     useRecoilState(notificationBoxState);
 

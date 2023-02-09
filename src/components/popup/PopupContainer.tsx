@@ -1,11 +1,11 @@
-import MessageBox from './MessageBox';
+import NoteBox from './NoteBox';
 import NotificationBox from './NotificationBox';
 
 export default function PopupContainer() {
   return (
     <>
       <NotificationBox />
-      <MessageBox />
+      <NoteBox />
     </>
   );
 }
