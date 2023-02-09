@@ -31,7 +31,7 @@ const BackDrop = styled.div`
   bottom: 0;
   right: 0;
   z-index: 100;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(191, 191, 191, 0.05);
 `;
 
 const Container = styled.div`

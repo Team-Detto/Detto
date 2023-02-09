@@ -1,103 +1,31 @@
-import styled from '@emotion/styled';
+import { useLoginModal } from 'hooks';
 import { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
-import { modalState } from '../../recoil/atoms';
+import {
+  LoginPage0,
+  LoginPage1,
+  LoginPage2,
+  LoginPage3,
+  LoginPage4,
+} from 'components/login';
 
 export default function LoginModal() {
-  const [modal, setModal] = useRecoilState(modalState);
-  const page = 0;
+  const {
+    modal: { page },
+    updateModalSize,
+  } = useLoginModal();
 
-  const handleLoginButtonClick = () => {
-    setModal({
-      ...modal,
-      height: '503px',
-      width: '657px',
-    });
-  };
-
+  // 페이지에 따라 모달 크기 조절
   useEffect(() => {
     if (page === 0) {
-      setModal({
-        ...modal,
-        height: '503px',
-        width: '657px',
-      });
-    }
+      updateModalSize('41.0625rem', '31.4375rem');
+    } else if (page === 1) updateModalSize('44.0625rem', '27.25rem');
   }, [page]);
 
-  return (
-    <Container>
-      <KeyImg
-        src="https://user-images.githubusercontent.com/88768022/217797462-f5473b81-518e-4a2f-8b42-d6508a35a41c.png"
-        alt="login"
-      />
-      <LoginText>로그인을 해주세요</LoginText>
-      <LoginButtons>
-        {socialLogin.map(({ name, img }, idx) => (
-          <LoginButton onClick={handleLoginButtonClick} key={idx}>
-            <LogoImg src={img} alt={name} />
-          </LoginButton>
-        ))}
-      </LoginButtons>
-    </Container>
-  );
+  if (page === 0) return <LoginPage0 />;
+  if (page === 1) return <LoginPage1 />;
+  if (page === 2) return <LoginPage2 />;
+  if (page === 3) return <LoginPage3 />;
+  if (page === 4) return <LoginPage4 />;
+
+  return <div>modal</div>;
 }
-
-const Container = styled.div`
-  position: absolute;
-  left: 6.25rem;
-  top: 3.75rem;
-
-  width: 28.5625rem;
-  height: 21.4375rem;
-  margin: auto;
-`;
-
-const KeyImg = styled.img`
-  width: 5.125rem;
-  height: 5.125rem;
-  margin-bottom: 1.5625rem;
-`;
-
-const LoginText = styled.h2`
-  font-weight: 700;
-  font-size: 1.75rem;
-  line-height: 2.75rem;
-  margin-bottom: 1.5625rem;
-`;
-
-const LoginButtons = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const LoginButton = styled.button`
-  cursor: pointer;
-  transition: 100ms ease-in-out;
-  &:hover {
-    transform: scale(1.05);
-  }
-`;
-
-const LogoImg = styled.img`
-  width: 7.5rem;
-  height: 7.5rem;
-
-  box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.12);
-  border-radius: 0.75rem;
-`;
-
-const socialLogin = [
-  {
-    name: 'github',
-    img: 'https://user-images.githubusercontent.com/88768022/217803130-372da8ae-5689-43d8-b741-882a7289ad41.png',
-  },
-  {
-    name: 'kakao',
-    img: 'https://user-images.githubusercontent.com/88768022/217803137-f2b54570-50c1-4fb0-ac7a-c105ca2b6598.png',
-  },
-  {
-    name: 'google',
-    img: 'https://user-images.githubusercontent.com/88768022/217803146-90d21051-51b2-4a1e-80a1-549b52a4a586.png',
-  },
-];

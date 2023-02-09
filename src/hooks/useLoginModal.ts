@@ -22,7 +22,15 @@ const useLoginModal = () => {
     });
   };
 
-  return { isOpen, openModal, closeModal };
+  const updateModalSize = (width: string, height: string): void => {
+    setModal({
+      ...modal,
+      width,
+      height,
+    });
+  };
+
+  return { isOpen, modal, openModal, closeModal, updateModalSize };
 };
 
 export default useLoginModal;
