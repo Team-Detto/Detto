@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import { useLoginModal } from 'hooks';
-
-const KEY_IMG =
-  'https://user-images.githubusercontent.com/88768022/217797462-f5473b81-518e-4a2f-8b42-d6508a35a41c.png';
+import KEY_IMG from 'assets/images/login_key.png';
+import GITHUB_IMG from 'assets/images/login_github.png';
+import GOOGLE_IMG from 'assets/images/login_google.png';
+import KAKAO_IMG from 'assets/images/login_kakao.png';
 
 // 페이지 0 : 로그인
 export default function LoginPage0() {
@@ -78,14 +79,14 @@ const LogoImg = styled.img`
 const socialLogin = [
   {
     name: 'github',
-    img: 'https://user-images.githubusercontent.com/88768022/217803130-372da8ae-5689-43d8-b741-882a7289ad41.png',
+    img: GITHUB_IMG,
   },
   {
     name: 'kakao',
-    img: 'https://user-images.githubusercontent.com/88768022/217803137-f2b54570-50c1-4fb0-ac7a-c105ca2b6598.png',
+    img: KAKAO_IMG,
   },
   {
     name: 'google',
-    img: 'https://user-images.githubusercontent.com/88768022/217803146-90d21051-51b2-4a1e-80a1-549b52a4a586.png',
+    img: GOOGLE_IMG,
   },
 ];
