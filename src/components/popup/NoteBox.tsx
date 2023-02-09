@@ -9,8 +9,7 @@ import { PopupWrapper } from './styles';
 
 export default function NoteBox() {
   const {
-    messageBoxOpen,
-    // setMessageBoxOpen
+    popup: { isNoteOpen },
   } = usePopup();
 
   const { data: inbox }: any = useQuery({
@@ -20,7 +19,7 @@ export default function NoteBox() {
 
   return (
     <>
-      {messageBoxOpen && (
+      {isNoteOpen && (
         <PopupWrapper popup="message">
           <TitleWrapper>
             읽지 않은 알림
@@ -74,36 +73,3 @@ const MessageWrapper = styled.div`
     display: none;
   }
 `;
-
-const messages = [
-  {
-    title: '{프로젝트 이름}의 지원이 완료되었어요! ',
-    date: '2021.10.10 10:10',
-    isRead: false,
-  },
-  {
-    title: '[프론트앤드 팀원 모집] 이 프로젝트는 어때요?',
-    date: '2021.10.10 10:10',
-    isRead: false,
-  },
-  {
-    title: '{닉네임}님이 지원하신 {프로젝트 이름}이 마감되었어요',
-    date: '2021.10.10 10:10',
-    isRead: true,
-  },
-  {
-    title: '{프로젝트 이름}의 지원이 완료되었어요! ',
-    date: '2021.10.10 10:10',
-    isRead: false,
-  },
-  {
-    title: '[프론트앤드 팀원 모집] 이 프로젝트는 어때요?',
-    date: '2021.10.10 10:10',
-    isRead: true,
-  },
-  {
-    title: '{닉네임}님이 지원하신 {프로젝트 이름}이 마감되었어요',
-    date: '2021.10.10 10:10',
-    isRead: true,
-  },
-];

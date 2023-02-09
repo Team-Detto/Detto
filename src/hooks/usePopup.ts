@@ -1,51 +1,26 @@
-import { noteBoxState, notificationBoxState } from './../recoil/atoms';
+import { popupState } from './../recoil/atoms';
 import { useRecoilState } from 'recoil';
 const usePopup = () => {
-  const [messageBoxOpen, setMessageBoxOpen] = useRecoilState(noteBoxState);
-  const [notificationBoxOpen, setNotificationBoxOpen] =
-    useRecoilState(notificationBoxState);
-
-  // 쪽지함 열기 (알림함이 열려있으면 닫기)
-  const openMessageBox = () => {
-    setMessageBoxOpen(true);
-    setNotificationBoxOpen(false);
-  };
-
-  // 쪽지함 닫기
-  const closeMessageBox = () => {
-    setMessageBoxOpen(false);
-  };
+  const [popup, setPopup] = useRecoilState(popupState);
 
   // 쪽지함 토글 (알림함이 열려있으면 닫기)
   const toggleMessageBox = () => {
-    setMessageBoxOpen(!messageBoxOpen);
-    if (!messageBoxOpen) setNotificationBoxOpen(false);
-  };
-
-  // 알림함
-  const openNotificationBox = () => {
-    setNotificationBoxOpen(true);
-    setMessageBoxOpen(false);
-  };
-
-  // 알림함 닫기 (쪽지함이 열려있으면 닫기)
-  const closeNotificationBox = () => {
-    setNotificationBoxOpen(false);
+    setPopup({
+      isNoteOpen: !popup.isNoteOpen,
+      isNotificationOpen: false,
+    });
   };
 
   // 알림함 토글 (쪽지함이 열려있으면 닫기)
   const toggleNotificationBox = () => {
-    setNotificationBoxOpen(!notificationBoxOpen);
-    if (!notificationBoxOpen) setMessageBoxOpen(false);
+    setPopup({
+      isNoteOpen: false,
+      isNotificationOpen: !popup.isNotificationOpen,
+    });
   };
 
   return {
-    messageBoxOpen,
-    notificationBoxOpen,
-    closeMessageBox,
-    closeNotificationBox,
-    openMessageBox,
-    openNotificationBox,
+    popup,
     toggleMessageBox,
     toggleNotificationBox,
   };

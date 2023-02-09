@@ -9,8 +9,7 @@ import { PopupWrapper } from './styles';
 
 export default function NotificationBox() {
   const {
-    notificationBoxOpen,
-    // setNotificationBoxOpen
+    popup: { isNotificationOpen },
   } = usePopup();
 
   const { data: notifications }: any = useQuery({
@@ -20,7 +19,7 @@ export default function NotificationBox() {
 
   return (
     <>
-      {notificationBoxOpen && (
+      {isNotificationOpen && (
         <PopupWrapper popup="notification">
           <TitleWrapper>
             읽지 않은 알림

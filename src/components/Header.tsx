@@ -36,8 +36,7 @@ const Header = () => {
     <HeaderContainer isMain={isMain} hideGradient={hideGradient}>
       <WebContainer>
         <HeaderWrapper>
-          {/* 쪽지/알림 팝업창 */}
-          <PopupContainer />
+          <PopupContainer /> {/* 쪽지, 알림 팝업 컨테이너 */}
           <LogoBoxH1>
             <Link to={'/'}> Detto</Link>
           </LogoBoxH1>
@@ -49,10 +48,8 @@ const Header = () => {
               <NavItemLi>
                 <Link to={'/findproject'}>팀원찾기</Link>
               </NavItemLi>
-              <NavItemLi onClick={() => toggleMessageBox()}>쪽지</NavItemLi>
-              <NavItemLi onClick={() => toggleNotificationBox()}>
-                알림
-              </NavItemLi>
+              <NavItemLi onClick={toggleMessageBox}>쪽지</NavItemLi>
+              <NavItemLi onClick={toggleNotificationBox}>알림</NavItemLi>
               <NavItemLi>로그인하기</NavItemLi>
             </NavListUl>
           </Nav>
