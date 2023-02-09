@@ -1,11 +1,14 @@
 import styled from '@emotion/styled';
+import ProjectCalendar from './ProjectCalendar';
 import ProjectDetail from './ProjectDetail';
 import ProjectList from './ProjectList';
 
 const MainCalendar = () => {
   return (
     <MainCalendarWrap>
-      <CalendarContainer>Calendar</CalendarContainer>
+      <CalendarContainer>
+        <ProjectCalendar />
+      </CalendarContainer>
       <ProjectListContainer>
         <ProjectList />
       </ProjectListContainer>
@@ -26,7 +29,7 @@ const MainCalendarWrap = styled.div`
 const CalendarContainer = styled.div`
   width: 22.75rem;
   height: 26rem;
-  background-color: red;
+  /* background-color: red; */
 `;
 const ProjectListContainer = styled.div`
   width: 18.75rem;

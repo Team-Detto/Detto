@@ -88,9 +88,9 @@ const ProjectListSwiperContainer = styled(Swiper)`
     width: 290px;
     height: 85px;
     background: #ffffff;
-    border-radius: 0.5rem;
+    border-radius: 0.75rem;
     margin: 0 auto;
-    box-shadow: 0.7px 1px 4px 0.1px #cecccc;
+    box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.04);
     &:hover {
       border: 1px solid #5d50f0;
     }
