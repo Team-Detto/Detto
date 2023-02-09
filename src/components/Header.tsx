@@ -71,7 +71,7 @@ const HeaderContainer = styled.header<headerTypes>`
 
 const HeaderWrapper = styled.div`
   margin: 1.875rem 0.625rem;
-
+  height: 3rem;
   display: flex;
   justify-content: space-between;
   align-items: center;

@@ -24,6 +24,8 @@ const reset = css`
   body {
     margin: 0;
     line-height: inherit;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   hr {
     height: 0;
