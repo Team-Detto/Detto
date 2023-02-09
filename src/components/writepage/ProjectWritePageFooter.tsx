@@ -1,10 +1,14 @@
 import styled from '@emotion/styled';
 
-const ProjectWritePageFooter = () => {
+interface props {
+  onOpenButtonClickEvent: () => void;
+}
+
+const ProjectWritePageFooter = ({ onOpenButtonClickEvent }: props) => {
   return (
     <ProjectWritePageFooterContainer>
       <ProjectWritePageFooterEditBox></ProjectWritePageFooterEditBox>
-      <ProjectWritePageFooterCompleatedButton>
+      <ProjectWritePageFooterCompleatedButton onClick={onOpenButtonClickEvent}>
         작성 완료
       </ProjectWritePageFooterCompleatedButton>
     </ProjectWritePageFooterContainer>
