@@ -1,5 +1,3 @@
-import React from 'react';
-import { useState } from 'react';
 import useModal from 'hooks/useModal';
 import ConfirmAlert from 'components/common/ConfirmAlert';
 import WebContainer from 'components/common/WebContainer';
@@ -7,38 +5,12 @@ import ProjectWritePageBody from 'components/writepage/ProjectWritePageBody';
 import ProjectWritePageFooter from 'components/writepage/ProjectWritePageFooter';
 import ProjectWritePageHeader from 'components/writepage/ProjectWritePageHeader';
 import styled from '@emotion/styled';
-
-export interface WriteFormValueType {
-  [key: string]: string | number | string[];
-}
+import useWrite from 'hooks/useWrite';
 
 const ProjectWritePage = () => {
   const { isOpen, handleOpenButtonClick, handleCloseButtonClick } =
     useModal(false);
-
-  const [writeFormValue, setWriteFormValue] = useState({
-    title: '',
-    content: '',
-    plannerPosition: 0,
-    developerPosition: 0,
-    designerPosition: 0,
-    plannerStack: [''],
-    developerStack: [''],
-    designerStack: [''],
-    startDate: '',
-    endDate: '',
-    deadline: '',
-  });
-
-  const handleFormValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setWriteFormValue((prev) => {
-      return {
-        ...prev,
-        [name]: value,
-      };
-    });
-  };
+  const { writeFormValue, handleFormValueChange } = useWrite();
 
   return (
     <WebContainer>
@@ -52,6 +24,8 @@ const ProjectWritePage = () => {
           onFormValueChagneEvent={handleFormValueChange}
         />
         <ProjectWritePageFooter
+          writeFormValue={writeFormValue}
+          onFormValueChagneEvent={handleFormValueChange}
           onOpenButtonClickEvent={handleOpenButtonClick}
         />
         <ConfirmAlert
