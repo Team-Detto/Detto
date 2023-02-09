@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import COLORS from './colors';
 
 const reset = css`
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap%27');
@@ -199,6 +200,13 @@ const reset = css`
   }
   [hidden] {
     display: none;
+  }
+
+  /* Input Focus 색상 */
+  input:focus {
+    outline: none;
+    border: 2px solid ${COLORS.violetB400};
+    transition: 100ms ease-in-out;
   }
 `;
 
