@@ -3,8 +3,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper.min.css';
 import 'swiper/components/navigation/navigation.min.css';
 import styled from '@emotion/styled';
-// swiper module type
-// https://swiperjs.com/react
 
 const MainBanner = () => {
   SwiperCore.use([Navigation, Scrollbar, Pagination]);
@@ -13,17 +11,14 @@ const MainBanner = () => {
     <>
       <BannerSwiper
         pagination={{
-          el: '.swiper-pagination',
           clickable: true,
         }}
-        // modules={[Pagination]}
         spaceBetween={50}
         slidesPerView={1}
         navigation
       >
         <SwiperSlide>Slide 1</SwiperSlide>
         <SwiperSlide>Slide 2</SwiperSlide>
-        <div className="swiper-pagination"></div>
       </BannerSwiper>
     </>
   );
