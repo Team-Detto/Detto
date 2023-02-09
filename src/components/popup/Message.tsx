@@ -41,6 +41,8 @@ const MessageTitleDiv = styled.div<Pick<MessageProps, 'isRead'>>`
   align-items: center;
 
   color: ${COLORS.gray850};
+
+  cursor: pointer;
 `;
 
 const MessageDateDiv = styled.div`
