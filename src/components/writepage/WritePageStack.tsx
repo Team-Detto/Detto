@@ -1,8 +1,13 @@
 import { products, develops, designs } from 'utils/skills';
+import { WriteFormValueType } from 'hooks/useWrite';
 import SkillButton from 'components/common/SkillButton';
 import styled from '@emotion/styled';
 
-const WritePageStack = () => {
+interface Props {
+  writeFormValue: WriteFormValueType;
+}
+
+const WritePageStack = ({ writeFormValue }: Props) => {
   return (
     <WritePageStackContainer>
       <WritePageLeftBox>
@@ -15,30 +20,42 @@ const WritePageStack = () => {
           </WritePageStackProductLeftBox>
           <WritePageStackProductRightBox>
             {products.map((product) => (
-              <SkillButton key={product} name={product} />
+              <SkillButton
+                key={product}
+                name={product}
+                value={writeFormValue.plannerStack}
+              />
             ))}
           </WritePageStackProductRightBox>
         </WritePageStackProductBox>
-        <WritePageStackDeveloopBox>
-          <WritePageStackDevelopLeftBox>
-            <WritePageStackCategoryText>개발</WritePageStackCategoryText>
-          </WritePageStackDevelopLeftBox>
-          <WritePageStackDevelopRightBox>
-            {develops.map((develop) => (
-              <SkillButton key={develop} name={develop} />
-            ))}
-          </WritePageStackDevelopRightBox>
-        </WritePageStackDeveloopBox>
         <WritePageStackDesignBox>
           <WritePageStackDesignLeftBox>
             <WritePageStackCategoryText>디자인</WritePageStackCategoryText>
           </WritePageStackDesignLeftBox>
           <WritePageStackDesignRightBox>
             {designs.map((design) => (
-              <SkillButton key={design} name={design} />
+              <SkillButton
+                key={design}
+                name={design}
+                value={writeFormValue.designerStack}
+              />
             ))}
           </WritePageStackDesignRightBox>
         </WritePageStackDesignBox>
+        <WritePageStackDeveloopBox>
+          <WritePageStackDevelopLeftBox>
+            <WritePageStackCategoryText>개발</WritePageStackCategoryText>
+          </WritePageStackDevelopLeftBox>
+          <WritePageStackDevelopRightBox>
+            {develops.map((develop) => (
+              <SkillButton
+                key={develop}
+                name={develop}
+                value={writeFormValue.developerStack}
+              />
+            ))}
+          </WritePageStackDevelopRightBox>
+        </WritePageStackDeveloopBox>
       </WirtePageRightBox>
     </WritePageStackContainer>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { WriteFormValueType } from 'pages/ProjectWritePage';
+import { WriteFormValueType } from 'hooks/useWrite';
 import WritePageStack from './WritePageStack';
 import WritePagePosition from './WritePagePosition';
 import styled from '@emotion/styled';
@@ -23,7 +23,7 @@ const ProjectWritePageBody = ({
         />
       </WritePageBodyPositionBox>
       <WritePageBodyStackBox>
-        <WritePageStack />
+        <WritePageStack writeFormValue={writeFormValue} />
       </WritePageBodyStackBox>
       <WirtePageBodyEstimatedPeriodBox>
         <WritePageBodyPositionText>예상 기간</WritePageBodyPositionText>
