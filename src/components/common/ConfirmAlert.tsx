@@ -3,53 +3,28 @@ import styled from '@emotion/styled';
 interface props {
   isOpen: boolean;
   onClickEvent: () => void;
-  stack: string;
-  nickname: string;
   message: string;
-  confirmMessage: string;
 }
 
-const ConfirmAlert = ({
-  isOpen,
-  onClickEvent,
-  stack,
-  nickname,
-  message,
-  confirmMessage,
-}: props) => {
+const ConfirmAlert = ({ isOpen, onClickEvent, message }: props) => {
   return (
-    <ConfirmAlertBackDrop isOpen={isOpen}>
-      <ConfirmAlertContainer isOpen={isOpen}>
-        <ConfirmALertInfoContainer>
-          <ConfirmAlertAvatar />
-          <ConfirmAlertInfoTitle>
-            {stack} 작업을 많이 한 팀원이네요!
-          </ConfirmAlertInfoTitle>
-          <ConfirmAlertInviteTitle>
-            {nickname}님을 <br /> {message}?
-          </ConfirmAlertInviteTitle>
-        </ConfirmALertInfoContainer>
-        <ConfirmAlertButtonContainer>
-          <ConfirmAlertCancelButton onClick={onClickEvent}>
-            No
-          </ConfirmAlertCancelButton>
-          <ConfirmAlertInviteButton>{confirmMessage}!</ConfirmAlertInviteButton>
-        </ConfirmAlertButtonContainer>
-      </ConfirmAlertContainer>
-    </ConfirmAlertBackDrop>
+    <ConfirmAlertContainer isOpen={isOpen}>
+      <ConfirmALertInfoContainer>
+        <ConfirmAlertInfoTitle>
+          작업을 많이 한 팀원이네요!
+        </ConfirmAlertInfoTitle>
+        <ConfirmAlertInviteTitle>{message}</ConfirmAlertInviteTitle>
+      </ConfirmALertInfoContainer>
+      <ConfirmAlertButtonContainer>
+        <ConfirmAlertCancelButton onClick={onClickEvent}>
+          아니오
+        </ConfirmAlertCancelButton>
+        <ConfirmAlertInviteButton>예</ConfirmAlertInviteButton>
+      </ConfirmAlertButtonContainer>
+    </ConfirmAlertContainer>
   );
 };
 
-const ConfirmAlertBackDrop = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  z-index: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: ${(props: { isOpen: boolean }) => (props.isOpen ? 'block' : 'none')};
-`;
 const ConfirmAlertContainer = styled.div`
   position: fixed;
   width: 38.125rem;
@@ -60,7 +35,8 @@ const ConfirmAlertContainer = styled.div`
   transform: translate(-50%, -50%);
   padding: 15px;
   background: #fff;
-  border-radius: 8px;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
   display: ${(props: { isOpen: boolean }) => (props.isOpen ? 'block' : 'none')};
 `;
 const ConfirmALertInfoContainer = styled.div`
@@ -70,12 +46,6 @@ const ConfirmALertInfoContainer = styled.div`
   align-items: flex-start;
   padding: 2rem;
   gap: 1rem;
-`;
-const ConfirmAlertAvatar = styled.img`
-  width: 5.5rem;
-  height: 5.5rem;
-  border-radius: 50%;
-  background: #6f64f2;
 `;
 const ConfirmAlertInfoTitle = styled.p`
   width: 20rem;
