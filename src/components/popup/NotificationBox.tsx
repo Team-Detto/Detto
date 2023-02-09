@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { getNotifications } from 'apis/notification';
 import COLORS from 'assets/styles/colors';
-import usePopup from 'hooks/usePopup';
+import { usePopup } from 'hooks';
 import { getDate } from 'utils/date';
 import Message from './Message';
 import { PopupWrapper } from './styles';

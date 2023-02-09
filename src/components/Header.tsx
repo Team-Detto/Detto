@@ -2,8 +2,8 @@ import { Link, useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
 import WebContainer from './common/WebContainer';
 import { useEffect, useState } from 'react';
-import usePopup from 'hooks/usePopup';
 import PopupContainer from './popup/PopupContainer';
+import { useModal, usePopup } from 'hooks';
 
 interface headerTypes {
   isMain: boolean;
