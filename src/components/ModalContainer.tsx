@@ -1,8 +1,7 @@
-import React from 'react';
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import { useRecoilValue } from 'recoil';
-import { modalState } from '../../recoil/atoms';
+import { modalState } from '../recoil/atoms';
 import LoginModal from 'components/login/LoginModal';
 
 interface props {

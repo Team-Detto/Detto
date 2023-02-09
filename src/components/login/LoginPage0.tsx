@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import COLORS from 'assets/styles/colors';
 import { useLoginModal } from 'hooks';
 
 const KEY_IMG =
@@ -44,6 +45,7 @@ const KeyImg = styled.img`
 `;
 
 const Title = styled.h2`
+  color: ${COLORS.gray850};
   font-weight: 700;
   font-size: 1.75rem;
   line-height: 2.75rem;

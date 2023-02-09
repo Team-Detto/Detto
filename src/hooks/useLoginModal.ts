@@ -6,7 +6,7 @@ const useLoginModal = () => {
 
   const { isOpen } = modal;
 
-  const openModal = (type: string, page: number): void => {
+  const openModal = (type: string, page: number) => {
     setModal({
       ...modal,
       isOpen: true,
@@ -15,14 +15,14 @@ const useLoginModal = () => {
     });
   };
 
-  const closeModal = (): void => {
+  const closeModal = () => {
     setModal({
       ...modal,
       isOpen: false,
     });
   };
 
-  const updateModalSize = (width: string, height: string): void => {
+  const updateModalSize = (width: string, height: string) => {
     setModal({
       ...modal,
       width,
