@@ -1,6 +1,5 @@
 import { useRecoilState } from 'recoil';
 import { modalState } from '../recoil/atoms';
-import LoginModal from 'components/login/LoginModal';
 
 const useLoginModal = () => {
   const [modal, setModal] = useRecoilState(modalState);
@@ -23,21 +22,7 @@ const useLoginModal = () => {
     });
   };
 
-  const updateModalContent = (newContent: React.ReactNode): void => {
-    setModal({
-      ...modal,
-    });
-  };
-
-  const updateModalSize = (newHeight: string, newWidth: string): void => {
-    setModal({
-      ...modal,
-      height: newHeight,
-      width: newWidth,
-    });
-  };
-
-  return { isOpen, openModal, closeModal, updateModalContent, updateModalSize };
+  return { isOpen, openModal, closeModal };
 };
 
 export default useLoginModal;

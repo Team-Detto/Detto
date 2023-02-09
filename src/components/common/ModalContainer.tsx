@@ -13,12 +13,12 @@ interface props {
 const LOGIN = 'login';
 
 export default function ModalContainer() {
-  const { isOpen, width, height, type, page } = useRecoilValue(modalState);
+  const { isOpen, width, height, type } = useRecoilValue(modalState);
 
   return isOpen ? (
     <BackDrop>
       <Container width={width} height={height}>
-        {type === LOGIN && <LoginModal page={page} />}
+        {type === LOGIN && <LoginModal />}
       </Container>
     </BackDrop>
   ) : null;
