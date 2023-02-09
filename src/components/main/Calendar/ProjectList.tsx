@@ -1,55 +1,99 @@
-import SwiperCore, { Navigation, Pagination } from 'swiper';
+import SwiperCore, { Navigation, Pagination, Mousewheel } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper.min.css';
 import 'swiper/components/navigation/navigation.min.css';
 import 'swiper/components/pagination/pagination.min.css';
 import styled from '@emotion/styled';
 
-SwiperCore.use([Navigation, Pagination]);
+SwiperCore.use([Navigation, Pagination, Mousewheel]);
 
 const ProjectList = () => {
   return (
     <>
       <ProjectListSwiperContainer
-        spaceBetween={30}
+        spaceBetween={16}
         slidesPerView={3}
         navigation={true}
         pagination={{ clickable: true }}
-        mousewheel={true}
         direction="vertical"
+        mousewheel={true}
       >
-        <SwiperSlide>Slide 1</SwiperSlide>
-        <SwiperSlide>Slide 2</SwiperSlide>
-        <SwiperSlide>Slide 3</SwiperSlide>
-        <SwiperSlide>Slide 4</SwiperSlide>
-        <SwiperSlide>Slide 5</SwiperSlide>
-        <SwiperSlide>Slide 6</SwiperSlide>
+        <SwiperSlide>
+          <ProjectListTextContainer>
+            <ProjectRecruitment>
+              기획 3명 | 개발 2명 찾고 있어요!
+            </ProjectRecruitment>
+            <ProjectName>프로젝트 이름</ProjectName>
+            <ProjectDeadline>프로젝트 모집 마감일 YYYY.MM.DD</ProjectDeadline>
+          </ProjectListTextContainer>
+        </SwiperSlide>
+        <SwiperSlide>
+          <ProjectListTextContainer>
+            <ProjectRecruitment>
+              기획 3명 | 개발 2명 찾고 있어요!
+            </ProjectRecruitment>
+            <ProjectName>프로젝트 이름</ProjectName>
+            <ProjectDeadline>프로젝트 모집 마감일 YYYY.MM.DD</ProjectDeadline>
+          </ProjectListTextContainer>
+        </SwiperSlide>
+        <SwiperSlide>
+          <ProjectListTextContainer>
+            <ProjectRecruitment>
+              기획 3명 | 개발 2명 찾고 있어요!
+            </ProjectRecruitment>
+            <ProjectName>프로젝트 이름</ProjectName>
+            <ProjectDeadline>프로젝트 모집 마감일 YYYY.MM.DD</ProjectDeadline>
+          </ProjectListTextContainer>
+        </SwiperSlide>
+        <SwiperSlide>
+          <ProjectListTextContainer>
+            <ProjectRecruitment>
+              기획 3명 | 개발 2명 찾고 있어요!
+            </ProjectRecruitment>
+            <ProjectName>프로젝트 이름</ProjectName>
+            <ProjectDeadline>프로젝트 모집 마감일 YYYY.MM.DD</ProjectDeadline>
+          </ProjectListTextContainer>
+        </SwiperSlide>
+        <SwiperSlide>
+          <ProjectListTextContainer>
+            <ProjectRecruitment>
+              기획 3명 | 개발 2명 찾고 있어요!
+            </ProjectRecruitment>
+            <ProjectName>프로젝트 이름</ProjectName>
+            <ProjectDeadline>프로젝트 모집 마감일 YYYY.MM.DD</ProjectDeadline>
+          </ProjectListTextContainer>
+        </SwiperSlide>
+        <SwiperSlide>
+          <ProjectListTextContainer>
+            <ProjectRecruitment>
+              기획 3명 | 개발 2명 찾고 있어요!
+            </ProjectRecruitment>
+            <ProjectName>프로젝트 이름</ProjectName>
+            <ProjectDeadline>프로젝트 모집 마감일 YYYY.MM.DD</ProjectDeadline>
+          </ProjectListTextContainer>
+        </SwiperSlide>
       </ProjectListSwiperContainer>
     </>
   );
 };
 
 const ProjectListSwiperContainer = styled(Swiper)`
-  .swiper-container {
-    width: 18.75rem;
-    max-height: 26rem;
-    background: red;
-  }
-
   .swiper-wrapper {
     width: 18.75rem;
     height: 26rem;
-    background: #f2f4f6;
+    /* background: #f2f4f6; */
   }
 
   .swiper-slide {
-    width: 300px;
+    width: 290px;
     height: 85px;
-    background: purple;
+    background: #ffffff;
     border-radius: 0.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin: 0 auto;
+    box-shadow: 0.7px 1px 4px 0.1px #cecccc;
+    &:hover {
+      border: 1px solid #5d50f0;
+    }
   }
 
   .swiper-button-prev {
@@ -58,9 +102,27 @@ const ProjectListSwiperContainer = styled(Swiper)`
   .swiper-button-next {
     display: none;
   }
-  /* .swiper-pagination {
-    display: none;
-  } */
+  .swiper-pagination-bullet {
+    background: #5d50f0;
+  }
 `;
-
+const ProjectListTextContainer = styled.div`
+  margin: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+`;
+const ProjectRecruitment = styled.div`
+  font-size: 12px;
+  color: #616161;
+`;
+const ProjectName = styled.div`
+  font-size: 16px;
+  margin-bottom: 8px;
+`;
+const ProjectDeadline = styled.div`
+  font-size: 12px;
+  color: #616161;
+`;
 export default ProjectList;
