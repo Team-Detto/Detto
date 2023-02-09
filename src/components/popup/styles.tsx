@@ -9,7 +9,7 @@ export const PopupWrapper = styled.div<{ popup: string }>`
 
   position: absolute;
   width: 20.25rem;
-  height: 13.25rem;
+  height: 20.375rem; // 5개 높이
   // 쪽지/알림함 위치 조정
   right: ${(props) =>
     props.popup === 'notification' ? '2.625rem' : '7.125rem'};
