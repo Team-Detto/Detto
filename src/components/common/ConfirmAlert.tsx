@@ -10,9 +10,6 @@ const ConfirmAlert = ({ isOpen, onClickEvent, message }: props) => {
   return (
     <ConfirmAlertContainer isOpen={isOpen}>
       <ConfirmALertInfoContainer>
-        <ConfirmAlertInfoTitle>
-          작업을 많이 한 팀원이네요!
-        </ConfirmAlertInfoTitle>
         <ConfirmAlertInviteTitle>{message}</ConfirmAlertInviteTitle>
       </ConfirmALertInfoContainer>
       <ConfirmAlertButtonContainer>
@@ -28,7 +25,7 @@ const ConfirmAlert = ({ isOpen, onClickEvent, message }: props) => {
 const ConfirmAlertContainer = styled.div`
   position: fixed;
   width: 38.125rem;
-  height: 25.6875rem;
+  height: 17.6875rem;
   left: 50%;
   top: 50%;
   text-align: center;
@@ -47,16 +44,9 @@ const ConfirmALertInfoContainer = styled.div`
   padding: 2rem;
   gap: 1rem;
 `;
-const ConfirmAlertInfoTitle = styled.p`
-  width: 20rem;
-  height: 1.5rem;
-  font-weight: 600;
-  font-size: 1.25rem;
-  line-height: 1.5rem;
-  color: #6b7684;
-`;
+
 const ConfirmAlertInviteTitle = styled.p`
-  width: 20rem;
+  width: 100%;
   height: 6rem;
   font-weight: 600;
   font-size: 2.125rem;

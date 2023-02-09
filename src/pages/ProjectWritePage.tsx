@@ -20,7 +20,7 @@ const ProjectWritePage = () => {
         <ConfirmAlert
           isOpen={isOpen}
           onClickEvent={handleCloseButtonClick}
-          message="테스트"
+          message="게시글을 작성하시겠습니까?"
         />
       </ProjectWritePageWrapper>
     </WebContainer>
