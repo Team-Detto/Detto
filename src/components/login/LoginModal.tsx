@@ -16,9 +16,9 @@ export default function LoginModal() {
 
   // 페이지에 따라 모달 크기 조절
   useEffect(() => {
-    if (page === 0) {
-      updateModalSize('41.0625rem', '31.4375rem');
-    } else if (page === 1) updateModalSize('44.0625rem', '27.25rem');
+    modalSizes.forEach((size) => {
+      size.page === page && updateModalSize(size.width, size.height);
+    });
   }, [page]);
 
   if (page === 0) return <LoginPage0 />;
@@ -29,3 +29,11 @@ export default function LoginModal() {
 
   return <div>modal</div>;
 }
+
+const modalSizes = [
+  { page: 0, width: '41.0625rem', height: '31.4375rem' },
+  { page: 1, width: '44.0625rem', height: '27.25rem' },
+  { page: 2, width: '70rem', height: '39rem' },
+  { page: 3, width: '47.8125rem', height: '33.3125rem' },
+  { page: 4, width: '37.5625rem', height: '22.9375rem' },
+];

@@ -5,6 +5,7 @@ import { useLoginModal } from 'hooks';
 const KEY_IMG =
   'https://user-images.githubusercontent.com/88768022/217797462-f5473b81-518e-4a2f-8b42-d6508a35a41c.png';
 
+// 페이지 0 : 로그인
 export default function LoginPage0() {
   const { openModal } = useLoginModal();
 
@@ -29,13 +30,14 @@ export default function LoginPage0() {
 }
 
 const Container = styled.div`
-  position: absolute;
-  left: 6.25rem;
-  top: 3.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
-  width: 28.5625rem;
-  height: 21.4375rem;
-  margin: auto;
+  width: 100%;
+  height: 100%;
+
+  padding: 3.75rem 6.25rem;
 `;
 
 const KeyImg = styled.img`

@@ -34,6 +34,10 @@ const BackDrop = styled.div`
 `;
 
 const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   position: fixed;
   // width height 값 props로 받아와서 조절
   width: ${(props: props) => props.width};
