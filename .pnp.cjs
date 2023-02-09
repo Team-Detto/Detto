@@ -38,6 +38,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/jest", "npm:27.5.2"],\
             ["@types/node", "npm:18.13.0"],\
             ["@types/react", "npm:18.0.27"],\
+            ["@types/react-calendar", "npm:3.9.0"],\
             ["@types/react-dom", "npm:18.0.10"],\
             ["@types/react-helmet-async", "npm:1.0.3"],\
             ["@types/react-icons", "npm:3.0.0"],\
@@ -6114,6 +6115,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@types/react-calendar", [\
+        ["npm:3.9.0", {\
+          "packageLocation": "./.yarn/cache/@types-react-calendar-npm-3.9.0-d2fc83b98e-cddb6951c2.zip/node_modules/@types/react-calendar/",\
+          "packageDependencies": [\
+            ["@types/react-calendar", "npm:3.9.0"],\
+            ["@types/react", "npm:18.0.27"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@types/react-dom", [\
         ["npm:18.0.10", {\
           "packageLocation": "./.yarn/cache/@types-react-dom-npm-18.0.10-97fe360927-ff8282d500.zip/node_modules/@types/react-dom/",\
@@ -9335,6 +9346,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/jest", "npm:27.5.2"],\
             ["@types/node", "npm:18.13.0"],\
             ["@types/react", "npm:18.0.27"],\
+            ["@types/react-calendar", "npm:3.9.0"],\
             ["@types/react-dom", "npm:18.0.10"],\
             ["@types/react-helmet-async", "npm:1.0.3"],\
             ["@types/react-icons", "npm:3.0.0"],\

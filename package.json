@@ -13,6 +13,7 @@
     "@types/jest": "^27.0.1",
     "@types/node": "^18.13.0",
     "@types/react": "^18.0.27",
+    "@types/react-calendar": "^3.9.0",
     "@types/react-dom": "^18.0.0",
     "@types/react-helmet-async": "^1.0.3",
     "@types/react-icons": "^3.0.0",
