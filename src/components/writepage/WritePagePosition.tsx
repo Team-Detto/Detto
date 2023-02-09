@@ -11,58 +11,63 @@ const WritePagePosition = ({
   writeFormValue,
   onFormValueChagneEvent,
 }: Props) => {
+  const {
+    positions: {
+      plannerPosition,
+      designerPosition,
+      frontendPosition,
+      backendPosition,
+    },
+  } = writeFormValue;
+
   return (
     <WritePagePositionContainer>
       <LabelInput
         label="기획"
         text="명"
         input={{
-          id: '1',
+          id: 'plannerPosition',
           type: 'number',
           width: '7.5rem',
           height: '2.8125rem',
-          name: 'plannerPosition',
         }}
-        value={writeFormValue.plannerPosition}
+        value={plannerPosition}
         onChageEvent={onFormValueChagneEvent}
       />
       <LabelInput
         label="디자인"
         text="명"
         input={{
-          id: '1',
+          id: 'designerPosition',
           type: 'number',
           width: '7.5rem',
           height: '2.8125rem',
-          name: 'designerPosition',
         }}
-        value={writeFormValue.designerPosition}
+        value={designerPosition}
         onChageEvent={onFormValueChagneEvent}
       />
       <LabelInput
         label="프론트엔드"
         text="명"
         input={{
-          id: '1',
+          id: 'frontendPosition',
           type: 'number',
           width: '7.5rem',
           height: '2.8125rem',
-          name: 'frontendPosition',
         }}
-        value={writeFormValue.frontendPosition}
+        value={frontendPosition}
         onChageEvent={onFormValueChagneEvent}
       />
       <LabelInput
         label="백엔드"
         text="명"
         input={{
-          id: '1',
+          id: 'backendPosition',
           type: 'number',
           width: '7.5rem',
           height: '2.8125rem',
-          name: 'backendPosition',
         }}
-        value={writeFormValue.backendPosition}
+        value={backendPosition}
         onChageEvent={onFormValueChagneEvent}
       />
     </WritePagePositionContainer>
