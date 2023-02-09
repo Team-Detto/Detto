@@ -1,5 +1,5 @@
 import React from 'react';
-import { WriteFormValueType } from 'pages/ProjectWritePage';
+import { WriteFormValueType } from 'hooks/useWrite';
 import LabelInput from 'components/common/LabelInput';
 import styled from '@emotion/styled';
 interface Props {
@@ -18,7 +18,7 @@ const WritePagePosition = ({
         text="명"
         input={{
           id: '1',
-          type: 'text',
+          type: 'number',
           width: '7.5rem',
           height: '2.8125rem',
           name: 'plannerPosition',
@@ -27,29 +27,42 @@ const WritePagePosition = ({
         onChageEvent={onFormValueChagneEvent}
       />
       <LabelInput
-        label="개발"
-        text="명"
-        input={{
-          id: '1',
-          type: 'text',
-          width: '7.5rem',
-          height: '2.8125rem',
-          name: 'developerPosition',
-        }}
-        value={writeFormValue.developerPosition}
-        onChageEvent={onFormValueChagneEvent}
-      />
-      <LabelInput
         label="디자인"
         text="명"
         input={{
           id: '1',
-          type: 'text',
+          type: 'number',
           width: '7.5rem',
           height: '2.8125rem',
           name: 'designerPosition',
         }}
         value={writeFormValue.designerPosition}
+        onChageEvent={onFormValueChagneEvent}
+      />
+      <LabelInput
+        label="프론트엔드"
+        text="명"
+        input={{
+          id: '1',
+          type: 'number',
+          width: '7.5rem',
+          height: '2.8125rem',
+          name: 'frontendPosition',
+        }}
+        value={writeFormValue.frontendPosition}
+        onChageEvent={onFormValueChagneEvent}
+      />
+      <LabelInput
+        label="백엔드"
+        text="명"
+        input={{
+          id: '1',
+          type: 'number',
+          width: '7.5rem',
+          height: '2.8125rem',
+          name: 'backendPosition',
+        }}
+        value={writeFormValue.backendPosition}
         onChageEvent={onFormValueChagneEvent}
       />
     </WritePagePositionContainer>

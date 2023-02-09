@@ -45,7 +45,7 @@ const Label = styled.label`
   font-size: 20px;
   line-height: 1.75rem;
   color: #383838;
-  margin-right: 1.2rem;
+  margin-right: 1rem;
 `;
 const Text = styled.p`
   width: 1.125rem;

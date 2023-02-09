@@ -1,5 +1,5 @@
 import React from 'react';
-import { WriteFormValueType } from 'pages/ProjectWritePage';
+import { WriteFormValueType } from 'hooks/useWrite';
 import styled from '@emotion/styled';
 
 interface Props {
