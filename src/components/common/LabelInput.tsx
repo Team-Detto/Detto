@@ -1,16 +1,25 @@
+import React from 'react';
 import styled from '@emotion/styled';
 
 interface props {
-  input: { id: string; type: string; width: string; height: string };
+  input: {
+    id: string;
+    type: string;
+    width: string;
+    height: string;
+    name: string;
+  };
+  value: number | string | readonly string[] | undefined;
+  onChageEvent: (e: React.ChangeEvent<HTMLInputElement>) => void; // eslint-disable-line no-unused-vars
   label: string;
   text?: string;
 }
 
-const LabelInput = ({ input, label, text }: props) => {
+const LabelInput = ({ input, label, text, value, onChageEvent }: props) => {
   return (
     <LabelInputContainer>
       <Label htmlFor={input.id}>{label}</Label>
-      <Input {...input} />
+      <Input {...input} value={value} onChange={onChageEvent} />
       <Text>{text}</Text>
     </LabelInputContainer>
   );
@@ -26,6 +35,8 @@ const Input = styled.input`
   height: ${(props) => props.height};
   border: 1px solid #ced3db;
   border-radius: 4px;
+  text-align: end;
+  padding-right: 0.5rem;
   background: #ffffff;
 `;
 const Label = styled.label`
@@ -34,7 +45,7 @@ const Label = styled.label`
   font-size: 20px;
   line-height: 1.75rem;
   color: #383838;
-  margin-right: 1.2rem;
+  margin-right: 1rem;
 `;
 const Text = styled.p`
   width: 1.125rem;
