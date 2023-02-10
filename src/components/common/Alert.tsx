@@ -1,4 +1,6 @@
 import styled from '@emotion/styled';
+import { useEffect } from 'react';
+import { allowScroll, preventScroll } from 'utils/modal';
 
 interface props {
   isOpen: boolean;
@@ -8,6 +10,15 @@ interface props {
 }
 
 const Alert = ({ isOpen, onClickEvent, mainMsg, subMsg }: props) => {
+  useEffect(() => {
+    if (isOpen) {
+      const prevScrollY = preventScroll();
+      return () => {
+        allowScroll(prevScrollY);
+      };
+    }
+  }, [isOpen]);
+
   return (
     <AlertContainer isOpen={isOpen}>
       <AlertMessageContainer>

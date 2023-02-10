@@ -6,10 +6,10 @@ export interface WriteFormValueType {
   title: string;
   content: string;
   positions: {
-    plannerPosition: number;
-    designerPosition: number;
-    frontendPosition: number;
-    backendPosition: number;
+    planner: number;
+    designer: number;
+    frontend: number;
+    backend: number;
   };
   plannerStack: string[];
   developerStack: string[];
@@ -25,10 +25,10 @@ const useWrite = () => {
     title: '',
     content: '',
     positions: {
-      plannerPosition: 0,
-      designerPosition: 0,
-      frontendPosition: 0,
-      backendPosition: 0,
+      planner: 0,
+      designer: 0,
+      frontend: 0,
+      backend: 0,
     },
     plannerStack: [],
     developerStack: [],
@@ -48,10 +48,10 @@ const useWrite = () => {
   ) => {
     const { name, value } = e.target;
     if (
-      name === 'plannerPosition' ||
-      name === 'designerPosition' ||
-      name === 'frontendPosition' ||
-      name === 'backendPosition'
+      name === 'planner' ||
+      name === 'designer' ||
+      name === 'frontend' ||
+      name === 'backend'
     ) {
       setWriteFormValue((prev) => {
         return {

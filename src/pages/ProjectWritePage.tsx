@@ -1,5 +1,4 @@
-import useModal from 'hooks/useModal';
-import useWrite from 'hooks/useWrite';
+import { useModal, useWrite } from 'hooks';
 import ConfirmAlert from 'components/common/ConfirmAlert';
 import WebContainer from 'components/common/WebContainer';
 import ProjectWritePageBody from 'components/writepage/ProjectWritePageBody';
@@ -18,7 +17,7 @@ const ProjectWritePage = () => {
 
   return (
     <WebContainer>
-      <ProjectWritePageWrapper isOpen={isOpen}>
+      <ProjectWritePageWrapper>
         <ProjectWritePageHeader
           writeFormValue={writeFormValue}
           onFormValueChangeEvent={handleFormValueChange}
@@ -45,12 +44,6 @@ const ProjectWritePage = () => {
 
 const ProjectWritePageWrapper = styled.div`
   height: 133.5625rem;
-  position: ${(props: { isOpen: boolean }) =>
-    props.isOpen ? 'fixed' : 'static'};
-  top: ${(props: { isOpen: boolean }) =>
-    props.isOpen ? `-${window.scrollY}px` : '0'};
-  overflow-y: ${(props: { isOpen: boolean }) =>
-    props.isOpen ? 'scroll' : 'hidden'};
 `;
 
 export default ProjectWritePage;

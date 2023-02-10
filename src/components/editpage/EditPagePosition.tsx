@@ -1,22 +1,12 @@
-import React from 'react';
-import { WriteFormValueType } from 'hooks/useWrite';
 import LabelInput from 'components/common/LabelInput';
 import styled from '@emotion/styled';
-interface Props {
-  writeFormValue: WriteFormValueType;
-  onFormValueChagneEvent: (e: React.ChangeEvent<HTMLInputElement>) => void; // eslint-disable-line no-unused-vars
-}
+import { useWrite } from 'hooks';
 
-const WritePagePosition = ({
-  writeFormValue,
-  onFormValueChagneEvent,
-}: Props) => {
-  const {
-    positions: { planner, designer, frontend, backend },
-  } = writeFormValue;
+const EidtPagePosition = () => {
+  const { writeFormValue, handleFormValueChange } = useWrite();
 
   return (
-    <WritePagePositionContainer>
+    <PositionContainer>
       <LabelInput
         label="기획"
         text="명"
@@ -27,8 +17,8 @@ const WritePagePosition = ({
           height: '2.8125rem',
           name: 'planner',
         }}
-        value={planner}
-        onChageEvent={onFormValueChagneEvent}
+        value={writeFormValue.positions.planner}
+        onChageEvent={handleFormValueChange}
       />
       <LabelInput
         label="디자인"
@@ -40,8 +30,8 @@ const WritePagePosition = ({
           height: '2.8125rem',
           name: 'designer',
         }}
-        value={designer}
-        onChageEvent={onFormValueChagneEvent}
+        value={writeFormValue.positions.designer}
+        onChageEvent={handleFormValueChange}
       />
       <LabelInput
         label="프론트엔드"
@@ -53,8 +43,8 @@ const WritePagePosition = ({
           height: '2.8125rem',
           name: 'frontend',
         }}
-        value={frontend}
-        onChageEvent={onFormValueChagneEvent}
+        value={writeFormValue.positions.frontend}
+        onChageEvent={handleFormValueChange}
       />
       <LabelInput
         label="백엔드"
@@ -66,17 +56,17 @@ const WritePagePosition = ({
           height: '2.8125rem',
           name: 'backend',
         }}
-        value={backend}
-        onChageEvent={onFormValueChagneEvent}
+        value={writeFormValue.positions.backend}
+        onChageEvent={handleFormValueChange}
       />
-    </WritePagePositionContainer>
+    </PositionContainer>
   );
 };
 
-const WritePagePositionContainer = styled.div`
+const PositionContainer = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: row;
+  align-items: center;
 `;
 
-export default WritePagePosition;
+export default EidtPagePosition;

@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { allowScroll, preventScroll } from 'utils/modal';
 import styled from '@emotion/styled';
 
 interface props {
@@ -13,6 +15,15 @@ const ConfirmAlert = ({
   onClickEvent,
   onCloseEvent,
 }: props) => {
+  useEffect(() => {
+    if (isOpen) {
+      const prevScrollY = preventScroll();
+      return () => {
+        allowScroll(prevScrollY);
+      };
+    }
+  }, [isOpen]);
+
   return (
     <ConfirmAlertContainer isOpen={isOpen}>
       <ConfirmALertInfoContainer>
