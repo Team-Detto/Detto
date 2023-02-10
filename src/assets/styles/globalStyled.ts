@@ -203,10 +203,49 @@ const reset = css`
   }
 
   /* Input Focus 색상 */
-  input:focus {
-    outline: none;
-    border: 2px solid ${COLORS.violetB400};
-    transition: 100ms ease-in-out;
+  input[type='text'],
+  input[type='password'],
+  input[type='email'],
+  input[type='number'],
+  input[type='tel'],
+  input[type='url'],
+  input[type='search'],
+  input[type='date'],
+  input[type='month'],
+  input[type='week'],
+  input[type='time'],
+  input[type='datetime'],
+  input[type='datetime-local'],
+  input[type='color'],
+  textarea,
+  select {
+    &:focus {
+      outline: none;
+      border: 2px solid ${COLORS.violetB400};
+      transition: 100ms ease-in-out;
+    }
+  }
+
+  /* Input Placeholder 색상 */
+  input[type='text'],
+  input[type='password'],
+  input[type='email'],
+  input[type='number'],
+  input[type='tel'],
+  input[type='url'],
+  input[type='search'],
+  input[type='date'],
+  input[type='month'],
+  input[type='week'],
+  input[type='time'],
+  input[type='datetime'],
+  input[type='datetime-local'],
+  input[type='color'],
+  textarea,
+  select {
+    &::placeholder {
+      color: ${COLORS.gray300};
+    }
   }
 `;
 
