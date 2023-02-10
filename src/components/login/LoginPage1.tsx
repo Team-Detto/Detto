@@ -28,7 +28,10 @@ export default function LoginPage1() {
     <Container>
       <TextContainer>
         <TitleText>어떤 포지션인지 알려주세요</TitleText>
-        <SubText onClick={handleNextButtonClick}>(중복 선택 가능해요)</SubText>
+        <SubText>
+          (중복 선택 가능해요)
+          <span onClick={handleNextButtonClick}> (다음페이지)</span>
+        </SubText>
       </TextContainer>
       <Buttons>
         {position.map((pos) => (

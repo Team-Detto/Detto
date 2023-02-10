@@ -16,7 +16,10 @@ export default function LoginPage2() {
     <Container>
       <TextContainer>
         <TitleText>어떤 기술 스택을 하실 수 있으신지 선택해주세요</TitleText>
-        <SubText onClick={handleNextButtonClick}>(중복 선택 가능해요)</SubText>
+        <SubText>
+          (중복 선택 가능해요){' '}
+          <span onClick={handleNextButtonClick}>(다음 페이지)</span>
+        </SubText>
       </TextContainer>
       <WritePageStack />
     </Container>

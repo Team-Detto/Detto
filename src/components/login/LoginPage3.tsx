@@ -15,8 +15,9 @@ export default function LoginPage3() {
   return (
     <Container>
       <TextContainer>
-        <SubText onClick={handleNextButtonClick}>
-          나를 찾는 팀원이 많아지는 방법!
+        <SubText>
+          나를 찾는 팀원이 많아지는 방법!{' '}
+          <span onClick={handleNextButtonClick}>(다음페이지)</span>
         </SubText>
         <TitleText>팀원들에게 소개할 프로필을 입력해주세요</TitleText>
       </TextContainer>
@@ -54,7 +55,6 @@ const Container = styled.div`
 `;
 
 const TextContainer = styled.div`
-  width: 18rem;
   height: 8.3125rem;
   margin-bottom: 1.625rem;
 `;
@@ -70,6 +70,8 @@ const SubText = styled.h3`
 `;
 
 const TitleText = styled.h2`
+  width: 18rem;
+
   font-weight: 700;
   font-size: 1.75rem;
   line-height: 2.75rem;
