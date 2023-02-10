@@ -7,3 +7,16 @@ export const popupState = atom({
     isNotificationOpen: false,
   },
 });
+
+type ModalState = {
+  isOpen: boolean;
+  height: string;
+  width: string;
+  type: string;
+  page?: number;
+};
+
+export const modalState = atom<ModalState>({
+  key: 'modalState',
+  default: { isOpen: false, height: '400px', width: '400px', type: '' },
+});

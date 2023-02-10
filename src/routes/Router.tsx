@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from 'components/Header';
+import ModalContainer from 'components/ModalContainer';
 
 const MainComponentPage = React.lazy(() => import('pages/MainPage'));
 const MyPageComonentPage = React.lazy(() => import('pages/MyPage'));
@@ -25,6 +26,7 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Header />
+      <ModalContainer />
       <Suspense fallback={<div>...loading</div>}>
         <Routes>
           <Route path="/" element={<MainComponentPage />} />

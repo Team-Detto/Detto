@@ -2,8 +2,8 @@ import { Link, useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
 import WebContainer from './common/WebContainer';
 import { useEffect, useState } from 'react';
-import usePopup from 'hooks/usePopup';
 import PopupContainer from './popup/PopupContainer';
+import { useLoginModal, usePopup } from 'hooks';
 
 interface headerTypes {
   isMain: boolean;
@@ -16,6 +16,7 @@ const Header = () => {
   const isMain = location.pathname === '/';
 
   const { toggleMessageBox, toggleNotificationBox } = usePopup();
+  const { openModal } = useLoginModal();
 
   const showHeaderGradientBackground = () => {
     const { scrollY } = window;
@@ -50,7 +51,9 @@ const Header = () => {
               </NavItemLi>
               <NavItemLi onClick={toggleMessageBox}>쪽지</NavItemLi>
               <NavItemLi onClick={toggleNotificationBox}>알림</NavItemLi>
-              <NavItemLi>로그인하기</NavItemLi>
+              <NavItemLi onClick={() => openModal('login', 0)}>
+                로그인하기
+              </NavItemLi>
             </NavListUl>
           </Nav>
         </HeaderWrapper>

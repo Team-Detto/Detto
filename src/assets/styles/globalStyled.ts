@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import COLORS from './colors';
 
 const reset = css`
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap%27');
@@ -199,6 +200,52 @@ const reset = css`
   }
   [hidden] {
     display: none;
+  }
+
+  /* Input Focus 색상 */
+  input[type='text'],
+  input[type='password'],
+  input[type='email'],
+  input[type='number'],
+  input[type='tel'],
+  input[type='url'],
+  input[type='search'],
+  input[type='date'],
+  input[type='month'],
+  input[type='week'],
+  input[type='time'],
+  input[type='datetime'],
+  input[type='datetime-local'],
+  input[type='color'],
+  textarea,
+  select {
+    &:focus {
+      outline: none;
+      border: 2px solid ${COLORS.violetB400};
+      transition: 100ms ease-in-out;
+    }
+  }
+
+  /* Input Placeholder 색상 */
+  input[type='text'],
+  input[type='password'],
+  input[type='email'],
+  input[type='number'],
+  input[type='tel'],
+  input[type='url'],
+  input[type='search'],
+  input[type='date'],
+  input[type='month'],
+  input[type='week'],
+  input[type='time'],
+  input[type='datetime'],
+  input[type='datetime-local'],
+  input[type='color'],
+  textarea,
+  select {
+    &::placeholder {
+      color: ${COLORS.gray300};
+    }
   }
 `;
 
