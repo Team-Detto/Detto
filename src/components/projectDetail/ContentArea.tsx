@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import COLORS from 'assets/styles/colors';
 
 const ContentArea = ({ projectData }: any) => {
   return (
@@ -24,7 +25,7 @@ const ContentWrapper = styled.div`
   width: 73.75rem;
   height: 33.25rem;
   margin-top: 1.6875rem;
-  background-color: #fff;
+  background-color: ${COLORS.white};
   padding: 2.5rem;
   font-size: 1.25rem;
 `;

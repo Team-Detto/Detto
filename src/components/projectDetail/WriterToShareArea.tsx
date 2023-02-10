@@ -56,7 +56,7 @@ const WriterProfileImg = styled.img`
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
-  background-color: #aaaaaa;
+  background-color: #aaaaaa; //영역 표시용 임시 색상
 `;
 
 const WriterNickname = styled.p`

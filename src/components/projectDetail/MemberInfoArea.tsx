@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import COLORS from 'assets/styles/colors';
 
 const MemberInfoArea = () => {
   return (
@@ -59,13 +60,13 @@ const MemberInfoDiv = styled.div`
 
 const PositionDiv = styled.div`
   font-size: 1.5rem;
-  background-color: #6f64f2;
+  background-color: ${COLORS.violetB400};
   width: 7.9375rem;
   height: 2.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
+  color: ${COLORS.white};
   border-radius: 1.125rem;
 `;
 

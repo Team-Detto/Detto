@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import COLORS from 'assets/styles/colors';
 
 const ProjectInfoArea = ({ projectData }: any) => {
   return (
@@ -61,7 +62,7 @@ const ProjectInfoValue = styled.div`
   gap: 0.625rem;
 `;
 const ProjectInfoSkillValue = styled.div`
-  background-color: #f2f4f6;
+  background-color: ${COLORS.gray100};
   padding: 0 0.75rem;
   border-radius: 2rem;
 `;

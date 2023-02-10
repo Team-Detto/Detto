@@ -11,6 +11,7 @@ import MemberInfoArea from 'components/projectDetail/MemberInfoArea';
 import ContentArea from 'components/projectDetail/ContentArea';
 import ApplyButtonArea from 'components/projectDetail/ApplyButtonArea';
 import ApplicantListArea from 'components/projectDetail/ApplicantListArea';
+import COLORS from 'assets/styles/colors';
 
 const ProjectDetailPage = () => {
   const params = useParams<{ id: string }>();
@@ -63,7 +64,7 @@ const ProjectDetailPage = () => {
 export default ProjectDetailPage;
 
 const ProjectDetailContainer = styled.div`
-  background-color: #fcfcfc;
+  background-color: #fcfcfc; //색상표에 없는데 배경으로 사용되고 있음 문의하기
   padding-bottom: 100px;
   height: 100%;
 `;
@@ -80,7 +81,7 @@ const RecruitmentInfoContainer = styled.div`
   flex-direction: column;
   width: 73.75rem;
   height: 43.3125rem;
-  background-color: #fff;
+  background-color: ${COLORS.white};
   margin-top: 3.5rem;
   align-items: center;
   padding: 2.5rem;

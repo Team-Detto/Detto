@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import COLORS from 'assets/styles/colors';
 
 const TitleThumbnailArea = (props: any) => {
   const { projectData } = props;
@@ -23,8 +24,8 @@ const ProjectTitleWrapper = styled.div`
 `;
 
 const RecruitmentDiv = styled.div`
-  background-color: #6f64f2;
-  color: #fff;
+  background-color: ${COLORS.violetB400};
+  color: ${COLORS.white};
   padding: 0.625rem 1.875rem;
   border-radius: 2.5rem;
   font-size: 1.5rem;
@@ -39,5 +40,5 @@ const ProjectThumbnail = styled.img`
   width: 73.75rem;
   height: 36.5rem;
   margin-top: 1rem;
-  background-color: #dadada;
+  background-color: #dadada; //영역 표시용 임시 색상
 `;

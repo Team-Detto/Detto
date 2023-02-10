@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import COLORS from 'assets/styles/colors';
 import { useState } from 'react';
 
 const ApplyButtonArea = ({ projectData, userData }: any) => {
@@ -16,7 +17,9 @@ const ApplyButtonArea = ({ projectData, userData }: any) => {
           handleApplyButtonClick(e);
         }}
         backgroundColor={
-          ApplyButtonTitle === '간단 지원하기' ? '#6f64f2' : '#464646'
+          ApplyButtonTitle === '간단 지원하기'
+            ? `${COLORS.violetB400}`
+            : '#464646' //색상표에 없는데 사용되고 있음. 문의하기
         }
       >
         {ApplyButtonTitle}
@@ -40,5 +43,5 @@ const ApplyButton = styled.button<{ backgroundColor: string }>`
   background-color: ${(props) => props.backgroundColor};
   border-radius: 2.25rem;
   font-size: 1.75rem;
-  color: #fff;
+  color: ${COLORS.white};
 `;
