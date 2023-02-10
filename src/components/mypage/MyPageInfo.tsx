@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
-import SkillButton from 'components/common/SkillButton';
 import MyPageProfileImage from './MyPageProfileImage';
+import CareerRadioInput from './CareerRadioInput';
+import PositionCheckBox from './PositionCheckBox';
+import SkillList from './SkillList';
+import { User } from 'pages/MyPage';
 import COLORS from 'assets/styles/colors';
 import { designs, develops, products } from 'utils/skills';
-import CareerRadioInput from './CareerRadioInput';
-import PositionCheckBox, { ButtonsWrapper } from './PositionCheckBox';
-import { User } from 'pages/MyPage';
 
 interface MypageInfoProps {
   user: User;
@@ -37,25 +37,10 @@ const MyPageInfo = ({ user }: MypageInfoProps) => {
       <MyPageSkillsWrapper>
         <MyPageSkillsTitle>기술스택</MyPageSkillsTitle>
         {/* TODO :: 기술스택 기본 설정 추가 작업 필요 */}
-        <SkillTitle>기획</SkillTitle>
         <MypageSkillBox>
-          <ButtonsWrapper>
-            {products.map((product) => (
-              <SkillButton key={product} name={product} />
-            ))}
-          </ButtonsWrapper>
-          <SkillTitle>디자인</SkillTitle>
-          <ButtonsWrapper>
-            {designs.map((product) => (
-              <SkillButton key={product} name={product} />
-            ))}
-          </ButtonsWrapper>
-          <SkillTitle>개발</SkillTitle>
-          <ButtonsWrapper>
-            {develops.map((product) => (
-              <SkillButton key={product} name={product} />
-            ))}
-          </ButtonsWrapper>
+          <SkillList category="기획" skills={products} />
+          <SkillList category="디자인" skills={designs} />
+          <SkillList category="개발" skills={develops} />
         </MypageSkillBox>
       </MyPageSkillsWrapper>
       <InfoEditConfirmWrapper>
