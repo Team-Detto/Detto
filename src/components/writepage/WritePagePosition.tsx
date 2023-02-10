@@ -12,12 +12,7 @@ const WritePagePosition = ({
   onFormValueChagneEvent,
 }: Props) => {
   const {
-    positions: {
-      plannerPosition,
-      designerPosition,
-      frontendPosition,
-      backendPosition,
-    },
+    positions: { planner, designer, frontend, backend },
   } = writeFormValue;
 
   return (
@@ -26,52 +21,52 @@ const WritePagePosition = ({
         label="기획"
         text="명"
         input={{
-          id: 'plannerPosition',
+          id: 'planner',
           type: 'number',
           width: '7.5rem',
           height: '2.8125rem',
-          name: 'plannerPosition',
+          name: 'planner',
         }}
-        value={plannerPosition}
+        value={planner}
         onChageEvent={onFormValueChagneEvent}
       />
       <LabelInput
         label="디자인"
         text="명"
         input={{
-          id: 'designerPosition',
+          id: 'designer',
           type: 'number',
           width: '7.5rem',
           height: '2.8125rem',
-          name: 'designerPosition',
+          name: 'designer',
         }}
-        value={designerPosition}
+        value={designer}
         onChageEvent={onFormValueChagneEvent}
       />
       <LabelInput
         label="프론트엔드"
         text="명"
         input={{
-          id: 'frontendPosition',
+          id: 'frontend',
           type: 'number',
           width: '7.5rem',
           height: '2.8125rem',
-          name: 'frontendPosition',
+          name: 'frontend',
         }}
-        value={frontendPosition}
+        value={frontend}
         onChageEvent={onFormValueChagneEvent}
       />
       <LabelInput
         label="백엔드"
         text="명"
         input={{
-          id: 'backendPosition',
+          id: 'backend',
           type: 'number',
           width: '7.5rem',
           height: '2.8125rem',
-          name: 'backendPosition',
+          name: 'backend',
         }}
-        value={backendPosition}
+        value={backend}
         onChageEvent={onFormValueChagneEvent}
       />
     </WritePagePositionContainer>
