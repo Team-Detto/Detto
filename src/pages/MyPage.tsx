@@ -2,10 +2,12 @@ import styled from '@emotion/styled';
 import WebContainer from 'components/common/WebContainer';
 import MyPageInfo from 'components/mypage/MyPageInfo';
 import ProjectList from 'components/common/ProjectList';
+
 import MemberProfile from 'assets/images/project_member.png';
 import thumbnail from 'assets/images/project_thumbnail.png';
 
 export interface Project {
+  id: string;
   title: string;
   thumbnail: string;
   skills: string[];
@@ -22,9 +24,21 @@ interface Member {
   skill: string;
 }
 
+export interface User {
+  displayName: string;
+  uid: string;
+  email: string;
+  isJunior: boolean;
+  photoURL: string;
+  positions: string[];
+  skills: string[];
+}
+
 const MyPage = () => {
+  // 임시 목데이터
   const projects = [
     {
+      id: '1sdq',
       title: '프로젝트 이름입니다.',
       thumbnail: thumbnail,
       skills: ['React', 'Node.js', 'Figma'],
@@ -67,6 +81,7 @@ const MyPage = () => {
       ],
     },
     {
+      id: '123s2',
       title: '프로젝트 이름입니다.',
       thumbnail: thumbnail,
       skills: ['React', 'Node.js', 'Figma'],
