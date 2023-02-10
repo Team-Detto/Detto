@@ -3,6 +3,7 @@ import WebContainer from 'components/common/WebContainer';
 import ProjectList from 'components/common/ProjectList';
 import MemberProfile from 'assets/images/project_member.png';
 import thumbnail from 'assets/images/project_thumbnail.png';
+import COLORS from 'assets/styles/colors';
 
 const PublicProfilePage = () => {
   const projects = [
@@ -138,7 +139,7 @@ const PublicProfilePage = () => {
 export default PublicProfilePage;
 
 const PublicProfileContainer = styled.div`
-  background-color: #fafafb;
+  background-color: ${COLORS.gray50};
   height: 82.5rem;
 `;
 
@@ -161,7 +162,7 @@ const ProfileBox = styled.div`
 const ProfileImg = styled.div`
   width: 14.25rem;
   height: 14.25rem;
-  background-color: #919191;
+  background-color: #919191; //영역표시용 임시 색상
   border-radius: 50%;
 `;
 
@@ -193,15 +194,15 @@ const UserNicknameDiv = styled.div`
 `;
 
 const UserPositionDiv = styled.div`
-  color: #6b7684;
+  color: ${COLORS.gray750};
   font-weight: 500;
 `;
 
 const MessageSendButton = styled.button`
   width: 9.8125rem;
   height: 3.5rem;
-  background-color: #6f64f2;
-  color: #fff;
+  background-color: ${COLORS.violetB400};
+  color: ${COLORS.white};
   border-radius: 0.625rem;
   font-size: 1.25rem;
   font-weight: 700;
@@ -218,15 +219,15 @@ const UserInfoObject = styled.div`
 
 const UserInfoKey = styled.div`
   width: 6.25rem;
-  color: #828282;
+  color: #828282; //색상표에 없는데 사용되고 있음. 문의하기
 `;
 
 const UserInfoValue = styled.div`
-  color: #828282;
+  color: #828282; //색상표에 없는데 사용되고 있음. 문의하기
 `;
 
 const UserSkillStackDiv = styled.div`
-  background-color: #f2f4f6;
+  background-color: ${COLORS.gray100};
   font-size: 0.75rem;
   border-radius: 0.625rem;
   padding: 0 0.75rem;
