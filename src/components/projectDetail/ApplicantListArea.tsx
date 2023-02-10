@@ -71,6 +71,7 @@ const ProfileImage = styled.img`
 const NicknameDiv = styled.div`
   font-size: 18px;
   font-weight: 700;
+  color: ${COLORS.gray800};
 `;
 
 const PositionDiv = styled.div`
@@ -81,6 +82,7 @@ const PositionDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  color: ${COLORS.gray800};
 `;
 
 const StackWrap = styled.div`

@@ -55,6 +55,7 @@ const ProjectDetailPage = () => {
           <ContentArea projectData={projectData} />
         </ProjectDetailWrapper>
         <ApplyButtonArea projectData={projectData} userData={userData} />
+        {/* currentUser랑 글쓴이uid랑 같으면 보이게하기 */}
         <ApplicantListArea projectData={projectData} userData={userData} />
       </WebContainer>
     </ProjectDetailContainer>
