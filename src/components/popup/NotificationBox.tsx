@@ -17,33 +17,30 @@ export default function NotificationBox() {
     queryFn: getNotifications,
   });
 
+  if (!isNotificationOpen) return null;
   return (
-    <>
-      {isNotificationOpen && (
-        <PopupWrapper popup="notification">
-          <TitleWrapper>
-            읽지 않은 알림
-            <MessageCountSpan>
-              (
-              {notifications
-                ? notifications.filter(({ isRead }: any) => !isRead).length
-                : 0}
-              )
-            </MessageCountSpan>
-          </TitleWrapper>
-          <MessageWrapper>
-            {notifications?.map(({ id, title, date, isRead }: any) => (
-              <Message
-                key={id}
-                title={title}
-                date={getDate(date)}
-                isRead={isRead}
-              />
-            ))}
-          </MessageWrapper>
-        </PopupWrapper>
-      )}
-    </>
+    <PopupWrapper popup="notification">
+      <TitleWrapper>
+        읽지 않은 알림
+        <MessageCountSpan>
+          (
+          {notifications
+            ? notifications.filter(({ isRead }: any) => !isRead).length
+            : 0}
+          )
+        </MessageCountSpan>
+      </TitleWrapper>
+      <MessageWrapper>
+        {notifications?.map(({ id, title, date, isRead }: any) => (
+          <Message
+            key={id}
+            title={title}
+            date={getDate(date)}
+            isRead={isRead}
+          />
+        ))}
+      </MessageWrapper>
+    </PopupWrapper>
   );
 }
 
