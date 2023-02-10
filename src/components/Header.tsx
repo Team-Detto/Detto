@@ -10,6 +10,9 @@ interface headerTypes {
   hideGradient: boolean;
 }
 
+// 메인 페이지에서 스크롤이 MAIN_SCROLL_Y 값 이상 되면 헤더의 배경색을 투명에서 하얀색으로 변경
+const MAIN_SCROLL_Y = 480;
+
 const Header = () => {
   const [hideGradient, setHideGradient] = useState<boolean>(true);
   const location = useLocation();
@@ -20,7 +23,7 @@ const Header = () => {
 
   const showHeaderGradientBackground = () => {
     const { scrollY } = window;
-    scrollY > 700 ? setHideGradient(false) : setHideGradient(true);
+    scrollY > MAIN_SCROLL_Y ? setHideGradient(false) : setHideGradient(true);
   };
 
   useEffect(() => {
@@ -43,6 +46,7 @@ const Header = () => {
           </LogoBoxH1>
           <Nav>
             <NavListUl>
+              {/* TODO :: 쪽지, 알림, 마이페이지, 로그아웃은 로그인 되었을 경우에만 보이도록 로직 추가 필요 */}
               <NavItemLi>
                 <Link to={'/project/write'}>새 글 쓰기</Link>
               </NavItemLi>
@@ -54,6 +58,11 @@ const Header = () => {
               <NavItemLi onClick={() => openModal('login', 0)}>
                 로그인하기
               </NavItemLi>
+              {/* 임시 주석처리 */}
+              {/* <NavItemLi>
+                <Link to={'/mypage'}>마이페이지</Link>
+              </NavItemLi>
+              <NavItemLi>로그아웃하기</NavItemLi> */}
             </NavListUl>
           </Nav>
         </HeaderWrapper>
@@ -70,11 +79,13 @@ const HeaderContainer = styled.header<headerTypes>`
   left: 0;
   z-index: 90;
   width: 100%;
-  background-image: ${(props) =>
-    props.isMain && props.hideGradient
+
+  background-image: ${({ isMain, hideGradient }) =>
+    isMain && hideGradient
       ? 'linear-gradient(180deg, rgba(108, 108, 108, 0.47) 0%, rgba(217, 217, 217, 0) 100.87%)'
       : 'none'};
-  background-color: ${(props) => (props.isMain ? 'transparent' : '#fff')};
+  background-color: ${({ hideGradient }) =>
+    hideGradient === true ? 'transparent' : '#fff'};
 `;
 
 const HeaderWrapper = styled.div`
