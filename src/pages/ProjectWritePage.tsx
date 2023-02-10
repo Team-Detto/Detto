@@ -1,5 +1,4 @@
-import useModal from 'hooks/useModal';
-import useWrite from 'hooks/useWrite';
+import { useModal, useWrite } from 'hooks';
 import ConfirmAlert from 'components/common/ConfirmAlert';
 import WebContainer from 'components/common/WebContainer';
 import ProjectWritePageBody from 'components/writepage/ProjectWritePageBody';
