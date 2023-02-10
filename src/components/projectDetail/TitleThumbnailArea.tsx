@@ -5,10 +5,14 @@ const TitleThumbnailArea = (props: any) => {
   const { projectData } = props;
   return (
     <>
-      <ProjectTitleWrapper>
-        <RecruitmentDiv>모집중</RecruitmentDiv>
-        <ProjectTitle>{projectData?.title ?? `제목`}</ProjectTitle>
-      </ProjectTitleWrapper>
+      <TitleToModifyButtonWrap>
+        <ProjectTitleWrapper>
+          <RecruitmentDiv>모집중</RecruitmentDiv>
+          <ProjectTitle>{projectData?.title ?? `제목`}</ProjectTitle>
+        </ProjectTitleWrapper>
+        {/* currentUser가 글쓴이인지 비교 true이면 수정하기 버튼 보여주기 */}
+        <ModifyButton>수정하기</ModifyButton>
+      </TitleToModifyButtonWrap>
       <ProjectThumbnail src={projectData?.thumbnailURL} />
     </>
   );
@@ -16,8 +20,13 @@ const TitleThumbnailArea = (props: any) => {
 
 export default TitleThumbnailArea;
 
-const ProjectTitleWrapper = styled.div`
+const TitleToModifyButtonWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
   margin-top: 16.125rem;
+`;
+
+const ProjectTitleWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 0.625rem;
@@ -34,6 +43,20 @@ const RecruitmentDiv = styled.div`
 const ProjectTitle = styled.div`
   font-size: 1.5rem;
   font-weight: 400;
+`;
+
+const ModifyButton = styled.button`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 16px;
+  gap: 10px;
+  background: ${COLORS.gray100};
+  color: ${COLORS.gray400};
+  border-radius: 4px;
+  width: 91px;
+  height: 48px;
 `;
 
 const ProjectThumbnail = styled.img`
