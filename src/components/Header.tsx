@@ -10,6 +10,9 @@ interface headerTypes {
   hideGradient: boolean;
 }
 
+// 메인 페이지에서 스크롤이 MAIN_SCROLL_Y 값 이상 되면 헤더의 배경색을 투명에서 하얀색으로 변경
+const MAIN_SCROLL_Y = 480;
+
 const Header = () => {
   const [hideGradient, setHideGradient] = useState<boolean>(true);
   const location = useLocation();
@@ -20,7 +23,7 @@ const Header = () => {
 
   const showHeaderGradientBackground = () => {
     const { scrollY } = window;
-    scrollY > 700 ? setHideGradient(false) : setHideGradient(true);
+    scrollY > MAIN_SCROLL_Y ? setHideGradient(false) : setHideGradient(true);
   };
 
   useEffect(() => {
