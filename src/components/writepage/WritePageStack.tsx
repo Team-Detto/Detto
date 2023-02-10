@@ -4,7 +4,7 @@ import SkillButton from 'components/common/SkillButton';
 import styled from '@emotion/styled';
 
 interface Props {
-  writeFormValue: WriteFormValueType;
+  writeFormValue?: WriteFormValueType;
 }
 
 const WritePageStack = ({ writeFormValue }: Props) => {
@@ -23,7 +23,7 @@ const WritePageStack = ({ writeFormValue }: Props) => {
               <SkillButton
                 key={product}
                 name={product}
-                value={writeFormValue.plannerStack}
+                value={writeFormValue?.plannerStack}
               />
             ))}
           </WritePageStackProductRightBox>
@@ -37,7 +37,7 @@ const WritePageStack = ({ writeFormValue }: Props) => {
               <SkillButton
                 key={design}
                 name={design}
-                value={writeFormValue.designerStack}
+                value={writeFormValue?.designerStack}
               />
             ))}
           </WritePageStackDesignRightBox>
@@ -51,7 +51,7 @@ const WritePageStack = ({ writeFormValue }: Props) => {
               <SkillButton
                 key={develop}
                 name={develop}
-                value={writeFormValue.developerStack}
+                value={writeFormValue?.developerStack}
               />
             ))}
           </WritePageStackDevelopRightBox>
