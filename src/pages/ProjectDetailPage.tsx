@@ -4,8 +4,8 @@ import WebContainer from '../components/common/WebContainer';
 import { firestore } from 'apis/firebaseService';
 import { getDoc, doc } from 'firebase/firestore';
 import { useParams } from 'react-router-dom';
-import TitleThumbnail from 'components/projectDetail/TitleThumbnail';
-import WriterToShareArea from 'components/projectDetail/WriterToShare';
+import TitleThumbnailArea from 'components/projectDetail/TitleThumbnailArea';
+import WriterToShareArea from 'components/projectDetail/WriterToShareArea';
 import ProjectInfoArea from 'components/projectDetail/ProjectInfoArea';
 import MemberInfoArea from 'components/projectDetail/MemberInfoArea';
 import ContentArea from 'components/projectDetail/ContentArea';
@@ -44,7 +44,7 @@ const ProjectDetailPage = () => {
     <ProjectDetailContainer>
       <WebContainer>
         <ProjectDetailWrapper>
-          <TitleThumbnail projectData={projectData} />
+          <TitleThumbnailArea projectData={projectData} />
           <WriterToShareArea projectData={projectData} userData={userData} />
           <RecruitmentInfoContainer>
             <ProjectInfoArea projectData={projectData} />

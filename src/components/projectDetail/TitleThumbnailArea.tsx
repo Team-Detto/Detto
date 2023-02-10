@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-const TitleThumbnail = (props: any) => {
+const TitleThumbnailArea = (props: any) => {
   const { projectData } = props;
   return (
     <>
@@ -13,7 +13,7 @@ const TitleThumbnail = (props: any) => {
   );
 };
 
-export default TitleThumbnail;
+export default TitleThumbnailArea;
 
 const ProjectTitleWrapper = styled.div`
   margin-top: 16.125rem;
