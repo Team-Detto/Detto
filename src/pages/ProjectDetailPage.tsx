@@ -10,6 +10,7 @@ import ProjectInfoArea from 'components/projectDetail/ProjectInfoArea';
 import MemberInfoArea from 'components/projectDetail/MemberInfoArea';
 import ContentArea from 'components/projectDetail/ContentArea';
 import ApplyButtonArea from 'components/projectDetail/ApplyButtonArea';
+import ApplicantListArea from 'components/projectDetail/ApplicantListArea';
 
 const ProjectDetailPage = () => {
   const params = useParams<{ id: string }>();
@@ -53,6 +54,7 @@ const ProjectDetailPage = () => {
           <ContentArea projectData={projectData} />
         </ProjectDetailWrapper>
         <ApplyButtonArea projectData={projectData} userData={userData} />
+        <ApplicantListArea projectData={projectData} userData={userData} />
       </WebContainer>
     </ProjectDetailContainer>
   );
@@ -62,7 +64,8 @@ export default ProjectDetailPage;
 
 const ProjectDetailContainer = styled.div`
   background-color: #fcfcfc;
-  height: 163.25rem;
+  padding-bottom: 100px;
+  height: 100%;
 `;
 
 const ProjectDetailWrapper = styled.div`
