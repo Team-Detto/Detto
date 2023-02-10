@@ -7,6 +7,7 @@ import {
   LoginPage3,
   LoginPage4,
 } from 'components/login';
+import { allowScroll, preventScroll } from 'utils/modal';
 
 // 페이지 0 : 로그인
 // 페이지 1 : 포지션 선택
@@ -29,9 +30,9 @@ export default function LoginModal() {
 
   // 모달이 열려있을 때 body 스크롤 방지
   useEffect(() => {
-    document.body.style.overflow = 'hidden';
+    const prevScrollY = preventScroll();
     return () => {
-      document.body.style.overflow = 'unset';
+      allowScroll(prevScrollY);
     };
   }, []);
 
