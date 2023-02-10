@@ -27,6 +27,14 @@ export default function LoginModal() {
     });
   }, [page]);
 
+  // 모달이 열려있을 때 body 스크롤 방지
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
+
   if (page === 0) return <LoginPage0 />;
   if (page === 1) return <LoginPage1 />;
   if (page === 2) return <LoginPage2 />;

@@ -14,13 +14,14 @@ const LOGIN = 'login';
 export default function ModalContainer() {
   const { isOpen, width, height, type } = useRecoilValue(modalState);
 
-  return isOpen ? (
+  if (!isOpen) return null;
+  return (
     <BackDrop>
       <Container width={width} height={height}>
         {type === LOGIN && <LoginModal />}
       </Container>
     </BackDrop>
-  ) : null;
+  );
 }
 
 const BackDrop = styled.div`
