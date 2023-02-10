@@ -70,11 +70,13 @@ const HeaderContainer = styled.header<headerTypes>`
   left: 0;
   z-index: 90;
   width: 100%;
-  background-image: ${(props) =>
-    props.isMain && props.hideGradient
+
+  background-image: ${({ isMain, hideGradient }) =>
+    isMain && hideGradient
       ? 'linear-gradient(180deg, rgba(108, 108, 108, 0.47) 0%, rgba(217, 217, 217, 0) 100.87%)'
       : 'none'};
-  background-color: ${(props) => (props.isMain ? 'transparent' : '#fff')};
+  background-color: ${({ hideGradient }) =>
+    hideGradient === true ? 'transparent' : '#fff'};
 `;
 
 const HeaderWrapper = styled.div`
