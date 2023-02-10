@@ -3,13 +3,21 @@ import styled from '@emotion/styled';
 
 interface props {
   name: string;
+  value?: string[];
 }
 
-const SkillButton = ({ name }: props) => {
+const SkillButton = ({ name, value }: props) => {
   const [isActive, setIsActive] = useState(false);
 
   const handleActiveButton = () => {
     setIsActive(!isActive);
+
+    if (!value) return;
+    if (!value.includes(name)) {
+      value.push(name);
+    } else {
+      value.splice(value.indexOf(name), 1);
+    }
   };
 
   return (

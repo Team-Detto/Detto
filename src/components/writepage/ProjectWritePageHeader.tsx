@@ -1,9 +1,24 @@
+import React from 'react';
+import { WriteFormValueType } from 'hooks/useWrite';
 import styled from '@emotion/styled';
 
-const ProjectWritePageHeader = () => {
+interface Props {
+  writeFormValue: WriteFormValueType;
+  onFormValueChangeEvent: (e: React.ChangeEvent<HTMLInputElement>) => void; // eslint-disable-line no-unused-vars
+}
+
+const ProjectWritePageHeader = ({
+  writeFormValue,
+  onFormValueChangeEvent,
+}: Props) => {
   return (
     <WritePageHeaderContainer>
-      <WritePageHeaderInput placeholder="제목입니다." />
+      <WritePageHeaderInput
+        placeholder="제목입니다."
+        name="title"
+        value={writeFormValue.title}
+        onChange={onFormValueChangeEvent}
+      />
     </WritePageHeaderContainer>
   );
 };

@@ -2,21 +2,29 @@ import styled from '@emotion/styled';
 
 interface props {
   isOpen: boolean;
-  onClickEvent: () => void;
   message: string;
+  onClickEvent: () => void;
+  onCloseEvent: () => void;
 }
 
-const ConfirmAlert = ({ isOpen, onClickEvent, message }: props) => {
+const ConfirmAlert = ({
+  isOpen,
+  message,
+  onClickEvent,
+  onCloseEvent,
+}: props) => {
   return (
     <ConfirmAlertContainer isOpen={isOpen}>
       <ConfirmALertInfoContainer>
         <ConfirmAlertInviteTitle>{message}</ConfirmAlertInviteTitle>
       </ConfirmALertInfoContainer>
       <ConfirmAlertButtonContainer>
-        <ConfirmAlertCancelButton onClick={onClickEvent}>
+        <ConfirmAlertCancelButton onClick={onCloseEvent}>
           아니오
         </ConfirmAlertCancelButton>
-        <ConfirmAlertInviteButton>예</ConfirmAlertInviteButton>
+        <ConfirmAlertInviteButton onClick={onClickEvent}>
+          예
+        </ConfirmAlertInviteButton>
       </ConfirmAlertButtonContainer>
     </ConfirmAlertContainer>
   );

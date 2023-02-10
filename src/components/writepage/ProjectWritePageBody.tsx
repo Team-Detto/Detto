@@ -1,25 +1,53 @@
+import React from 'react';
+import { WriteFormValueType } from 'hooks/useWrite';
 import WritePageStack from './WritePageStack';
 import WritePagePosition from './WritePagePosition';
 import styled from '@emotion/styled';
 
-const ProjectWritePageBody = () => {
+interface Props {
+  writeFormValue: WriteFormValueType;
+  onFormValueChagneEvent: (e: React.ChangeEvent<HTMLInputElement>) => void; // eslint-disable-line no-unused-vars
+}
+
+const ProjectWritePageBody = ({
+  writeFormValue,
+  onFormValueChagneEvent,
+}: Props) => {
   return (
     <WritePageBodyContainer>
       <WritePageBodyPositionBox>
         <WritePageBodyPositionText>필요 포지션</WritePageBodyPositionText>
-        <WritePagePosition />
+        <WritePagePosition
+          writeFormValue={writeFormValue}
+          onFormValueChagneEvent={onFormValueChagneEvent}
+        />
       </WritePageBodyPositionBox>
       <WritePageBodyStackBox>
-        <WritePageStack />
+        <WritePageStack writeFormValue={writeFormValue} />
       </WritePageBodyStackBox>
       <WirtePageBodyEstimatedPeriodBox>
         <WritePageBodyPositionText>예상 기간</WritePageBodyPositionText>
-        <WritePageBodyDateInput type="date" />
-        <WritePageBodyDateInput type="date" />
+        <WritePageBodyDateInput
+          type="date"
+          name="startDate"
+          value={writeFormValue.startDate}
+          onChange={onFormValueChagneEvent}
+        />
+        <WritePageBodyDateInput
+          type="date"
+          name="endDate"
+          value={writeFormValue.endDate}
+          onChange={onFormValueChagneEvent}
+        />
       </WirtePageBodyEstimatedPeriodBox>
       <WritePageBodyDeadlineBox>
         <WritePageBodyPositionText>모집 마감일</WritePageBodyPositionText>
-        <WritePageBodyDateInput type="date" />
+        <WritePageBodyDateInput
+          type="date"
+          name="deadline"
+          value={writeFormValue.deadline}
+          onChange={onFormValueChagneEvent}
+        />
       </WritePageBodyDeadlineBox>
     </WritePageBodyContainer>
   );
