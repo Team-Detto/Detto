@@ -1,11 +1,14 @@
 import styled from '@emotion/styled';
-import defaultImage from 'assets/images/default_profile.jpg';
 
-const MyPageProfileImage = () => {
+interface MyPageProfileImageProps {
+  photoUrl: string;
+}
+
+const MyPageProfileImage = ({ photoUrl }: MyPageProfileImageProps) => {
   return (
     <ProfileImageWrapper>
       <ProfileImageBox>
-        <ProfileImage src={defaultImage} alt="프로필이미지" />
+        <ProfileImage src={photoUrl} alt="프로필이미지" />
       </ProfileImageBox>
       <ProfileButtonBox>
         <ProfileButton btnType={'edit'}>수정</ProfileButton>

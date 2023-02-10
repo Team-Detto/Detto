@@ -1,8 +1,8 @@
 export const positions = [
-  { type: 'frontend', name: '프론트엔드' },
-  { type: 'backend', name: '백엔드' },
   { type: 'planner', name: '기획' },
   { type: 'designer', name: '디자이너' },
+  { type: 'frontend', name: '프론트엔드' },
+  { type: 'backend', name: '백엔드' },
 ];
 
 export const career = [

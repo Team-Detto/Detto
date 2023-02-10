@@ -2,12 +2,32 @@ import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import { career } from 'utils/positions';
 
-const CareerRadioInput = () => {
+interface CareerRadioInputProps {
+  isJunior: boolean;
+}
+
+const CareerRadioInput = ({ isJunior }: CareerRadioInputProps) => {
   return (
     <>
       {career.map((career) => (
         <CareerRadioBox key={career.id}>
-          <InfoRadioBoxInput type="radio" id={career.id} name="isJunior" />
+          {isJunior ? (
+            <InfoRadioBoxInput
+              type="radio"
+              id={career.id}
+              name="isJunior"
+              defaultValue={career.value}
+              defaultChecked
+            />
+          ) : (
+            <InfoRadioBoxInput
+              type="radio"
+              id={career.id}
+              defaultValue={career.value}
+              name="isJunior"
+            />
+          )}
+
           <InfoRadioBoxLabel htmlFor={career.id}>
             <InfocCheckBoxSpan>{career.value}</InfocCheckBoxSpan>
           </InfoRadioBoxLabel>
@@ -45,6 +65,7 @@ const InfoRadioBoxInput = styled.input`
 `;
 
 const InfoRadioBoxLabel = styled.label`
+  display: block;
   padding: 0.5rem 1rem;
   height: 2.25rem;
   cursor: pointer;
@@ -52,6 +73,11 @@ const InfoRadioBoxLabel = styled.label`
   background-color: #f2f4f6;
   font-size: 0.75rem;
   color: #383838;
+  transition: transform 300ms ease-in-out;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 
 const InfocCheckBoxSpan = styled.span``;

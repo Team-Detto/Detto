@@ -2,36 +2,51 @@ import styled from '@emotion/styled';
 import SkillButton from 'components/common/SkillButton';
 import MyPageProfileImage from './MyPageProfileImage';
 import COLORS from 'assets/styles/colors';
-import { develops, products } from 'utils/skills';
+import { designs, develops, products } from 'utils/skills';
 import CareerRadioInput from './CareerRadioInput';
 import PositionCheckBox, { ButtonsWrapper } from './PositionCheckBox';
+import { User } from 'pages/MyPage';
 
-const MyPageInfo = () => {
+interface MypageInfoProps {
+  user: User;
+}
+
+const MyPageInfo = ({ user }: MypageInfoProps) => {
   return (
     <MyPageTopContainer>
       <MypageInfoTopContainer>
-        <MyPageProfileImage />
+        <MyPageProfileImage photoUrl={user?.photoURL} />
         <InfoWrapper>
           <InfoItemDiv>
             <InfoTitle htmlFor="nickname">닉네임</InfoTitle>
-            <InfoNicknameInput type="text" defaultValue={'데토'} />
+            <InfoNicknameInput
+              type="text"
+              defaultValue={user?.displayName || ''}
+            />
           </InfoItemDiv>
           <InfoItemDiv>
             <InfoTitle>경력</InfoTitle>
-            <CareerRadioInput />
+            <CareerRadioInput isJunior={user?.isJunior} />
           </InfoItemDiv>
           <InfoItemDiv>
             <InfoTitle>포지션</InfoTitle>
-            <PositionCheckBox />
+            <PositionCheckBox userPoisitons={user?.positions} />
           </InfoItemDiv>
         </InfoWrapper>
       </MypageInfoTopContainer>
       <MyPageSkillsWrapper>
         <MyPageSkillsTitle>기술스택</MyPageSkillsTitle>
+        {/* TODO :: 기술스택 기본 설정 추가 작업 필요 */}
+        <SkillTitle>기획</SkillTitle>
         <MypageSkillBox>
-          <SkillTitle>기획 디자인</SkillTitle>
           <ButtonsWrapper>
             {products.map((product) => (
+              <SkillButton key={product} name={product} />
+            ))}
+          </ButtonsWrapper>
+          <SkillTitle>디자인</SkillTitle>
+          <ButtonsWrapper>
+            {designs.map((product) => (
               <SkillButton key={product} name={product} />
             ))}
           </ButtonsWrapper>
