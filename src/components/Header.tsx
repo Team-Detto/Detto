@@ -84,8 +84,8 @@ const HeaderContainer = styled.header<headerTypes>`
     isMain && hideGradient
       ? 'linear-gradient(180deg, rgba(108, 108, 108, 0.47) 0%, rgba(217, 217, 217, 0) 100.87%)'
       : 'none'};
-  background-color: ${({ hideGradient }) =>
-    hideGradient === true ? 'transparent' : '#fff'};
+  background-color: ${({ isMain, hideGradient }) =>
+    isMain && hideGradient ? 'transparent' : '#fff'};
 `;
 
 const HeaderWrapper = styled.div`
