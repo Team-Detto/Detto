@@ -46,6 +46,7 @@ const Header = () => {
           </LogoBoxH1>
           <Nav>
             <NavListUl>
+              {/* TODO :: 쪽지, 알림, 마이페이지, 로그아웃은 로그인 되었을 경우에만 보이도록 로직 추가 필요 */}
               <NavItemLi>
                 <Link to={'/project/write'}>새 글 쓰기</Link>
               </NavItemLi>
@@ -57,6 +58,11 @@ const Header = () => {
               <NavItemLi onClick={() => openModal('login', 0)}>
                 로그인하기
               </NavItemLi>
+              {/* 임시 주석처리 */}
+              {/* <NavItemLi>
+                <Link to={'/mypage'}>마이페이지</Link>
+              </NavItemLi>
+              <NavItemLi>로그아웃하기</NavItemLi> */}
             </NavListUl>
           </Nav>
         </HeaderWrapper>
