@@ -38,8 +38,6 @@ const useWrite = () => {
     deadline: '',
   });
 
-  console.log(writeFormValue);
-
   const handleCreateProjectButtonClick = () => {
     firebaseCreateProjectRequest(writeFormValue);
     navigate('/');
@@ -49,12 +47,30 @@ const useWrite = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
-    setWriteFormValue((prev) => {
-      return {
-        ...prev,
-        [name]: value,
-      };
-    });
+    if (
+      name === 'plannerPosition' ||
+      name === 'designerPosition' ||
+      name === 'frontendPosition' ||
+      name === 'backendPosition'
+    ) {
+      setWriteFormValue((prev) => {
+        return {
+          ...prev,
+          positions: {
+            ...prev.positions,
+            [name]: Number(value),
+          },
+        };
+      });
+      return;
+    } else {
+      setWriteFormValue((prev) => {
+        return {
+          ...prev,
+          [name]: value,
+        };
+      });
+    }
   };
 
   return {

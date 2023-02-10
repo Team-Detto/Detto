@@ -30,7 +30,7 @@ const WritePagePosition = ({
           type: 'number',
           width: '7.5rem',
           height: '2.8125rem',
-          name: 'positions{}',
+          name: 'plannerPosition',
         }}
         value={plannerPosition}
         onChageEvent={onFormValueChagneEvent}
@@ -43,7 +43,7 @@ const WritePagePosition = ({
           type: 'number',
           width: '7.5rem',
           height: '2.8125rem',
-          name: 'positions{}',
+          name: 'designerPosition',
         }}
         value={designerPosition}
         onChageEvent={onFormValueChagneEvent}
@@ -56,7 +56,7 @@ const WritePagePosition = ({
           type: 'number',
           width: '7.5rem',
           height: '2.8125rem',
-          name: 'positions{}',
+          name: 'frontendPosition',
         }}
         value={frontendPosition}
         onChageEvent={onFormValueChagneEvent}
@@ -69,7 +69,7 @@ const WritePagePosition = ({
           type: 'number',
           width: '7.5rem',
           height: '2.8125rem',
-          name: 'positions',
+          name: 'backendPosition',
         }}
         value={backendPosition}
         onChageEvent={onFormValueChagneEvent}
