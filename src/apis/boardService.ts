@@ -7,9 +7,12 @@ export const firebaseCreateProjectRequest = async (
 ) => {
   await addDoc(collection(firestore, 'post'), {
     ...formData,
+    startDate: new Date(formData.startDate).getTime(),
+    endDate: new Date(formData.endDate).getTime(),
+    deadline: new Date(formData.deadline).getTime(),
     view: 0,
     like: 0,
-    createdAt: new Date(),
+    createdAt: Date.now(),
     isRecruiting: false,
     isClosed: false,
   });
