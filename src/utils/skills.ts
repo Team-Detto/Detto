@@ -1,5 +1,5 @@
-export const products = ['Figma', 'Notion', 'Protopie', 'Framer'];
-export const develops = [
+export const products: string[] = ['Figma', 'Notion', 'Protopie', 'Framer'];
+export const develops: string[] = [
   'JavaScript',
   'TypeScript',
   'React',
@@ -28,4 +28,10 @@ export const develops = [
   'AWS',
   'Kubernetes',
 ];
-export const designs = ['Figma', 'Notion', 'Protopie', 'Framer', 'Zeplin'];
+export const designs: string[] = [
+  'Figma',
+  'Notion',
+  'Protopie',
+  'Framer',
+  'Zeplin',
+];

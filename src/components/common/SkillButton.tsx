@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useState, useCallback } from 'react';
 import styled from '@emotion/styled';
 
 interface props {
@@ -9,16 +9,15 @@ interface props {
 const SkillButton = ({ name, value }: props) => {
   const [isActive, setIsActive] = useState(false);
 
-  const handleActiveButton = () => {
-    setIsActive(!isActive);
-
+  const handleActiveButton = useCallback(() => {
+    setIsActive((prev: boolean) => !prev);
     if (!value) return;
     if (!value.includes(name)) {
       value.push(name);
-    } else {
-      value.splice(value.indexOf(name), 1);
+      return;
     }
-  };
+    value.splice(value.indexOf(name), 1);
+  }, [setIsActive]);
 
   return (
     <SkillButtonContainer>
@@ -45,4 +44,4 @@ const SkillBtn = styled.button`
   }
 `;
 
-export default SkillButton;
+export default memo(SkillButton);
