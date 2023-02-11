@@ -35,6 +35,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@testing-library/react", "virtual:990f75af0e4e97bc6ae8f77688032fa0cb741f39b94d672bd3c1007a785e4716099a18d80092328073a846a121401dd5fae4622660399ff5a4cd78fe25f2791c#npm:13.4.0"],\
             ["@testing-library/user-event", "virtual:990f75af0e4e97bc6ae8f77688032fa0cb741f39b94d672bd3c1007a785e4716099a18d80092328073a846a121401dd5fae4622660399ff5a4cd78fe25f2791c#npm:13.5.0"],\
             ["@toast-ui/editor", "npm:3.2.1"],\
+            ["@toast-ui/editor-plugin-color-syntax", "npm:3.1.0"],\
+            ["@toast-ui/react-editor", "virtual:990f75af0e4e97bc6ae8f77688032fa0cb741f39b94d672bd3c1007a785e4716099a18d80092328073a846a121401dd5fae4622660399ff5a4cd78fe25f2791c#npm:3.2.2"],\
             ["@types/jest", "npm:27.5.2"],\
             ["@types/node", "npm:18.13.0"],\
             ["@types/react", "npm:18.0.27"],\
@@ -63,6 +65,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-scripts", "virtual:990f75af0e4e97bc6ae8f77688032fa0cb741f39b94d672bd3c1007a785e4716099a18d80092328073a846a121401dd5fae4622660399ff5a4cd78fe25f2791c#npm:5.0.1"],\
             ["recoil", "virtual:990f75af0e4e97bc6ae8f77688032fa0cb741f39b94d672bd3c1007a785e4716099a18d80092328073a846a121401dd5fae4622660399ff5a4cd78fe25f2791c#npm:0.7.6"],\
             ["swiper", "npm:6.8.4"],\
+            ["tui-color-picker", "npm:2.2.8"],\
             ["typescript", "patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=23ec76"],\
             ["web-vitals", "npm:2.1.4"]\
           ],\
@@ -5680,7 +5683,42 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["prosemirror-keymap", "npm:1.2.0"],\
             ["prosemirror-model", "npm:1.19.0"],\
             ["prosemirror-state", "npm:1.4.2"],\
+            ["prosemirror-transform", "npm:1.7.1"],\
             ["prosemirror-view", "npm:1.30.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@toast-ui/editor-plugin-color-syntax", [\
+        ["npm:3.1.0", {\
+          "packageLocation": "./.yarn/cache/@toast-ui-editor-plugin-color-syntax-npm-3.1.0-1688766a0c-e4f47afbdc.zip/node_modules/@toast-ui/editor-plugin-color-syntax/",\
+          "packageDependencies": [\
+            ["@toast-ui/editor-plugin-color-syntax", "npm:3.1.0"],\
+            ["tui-color-picker", "npm:2.2.8"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@toast-ui/react-editor", [\
+        ["npm:3.2.2", {\
+          "packageLocation": "./.yarn/cache/@toast-ui-react-editor-npm-3.2.2-8c3b0b867a-a069f10c9e.zip/node_modules/@toast-ui/react-editor/",\
+          "packageDependencies": [\
+            ["@toast-ui/react-editor", "npm:3.2.2"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:990f75af0e4e97bc6ae8f77688032fa0cb741f39b94d672bd3c1007a785e4716099a18d80092328073a846a121401dd5fae4622660399ff5a4cd78fe25f2791c#npm:3.2.2", {\
+          "packageLocation": "./.yarn/__virtual__/@toast-ui-react-editor-virtual-2770663df2/0/cache/@toast-ui-react-editor-npm-3.2.2-8c3b0b867a-a069f10c9e.zip/node_modules/@toast-ui/react-editor/",\
+          "packageDependencies": [\
+            ["@toast-ui/react-editor", "virtual:990f75af0e4e97bc6ae8f77688032fa0cb741f39b94d672bd3c1007a785e4716099a18d80092328073a846a121401dd5fae4622660399ff5a4cd78fe25f2791c#npm:3.2.2"],\
+            ["@toast-ui/editor", "npm:3.2.1"],\
+            ["@types/react", "npm:18.0.27"],\
+            ["prosemirror-transform", "npm:1.7.1"],\
+            ["react", "npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react",\
+            "react"\
           ],\
           "linkType": "HARD"\
         }]\
@@ -9343,6 +9381,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@testing-library/react", "virtual:990f75af0e4e97bc6ae8f77688032fa0cb741f39b94d672bd3c1007a785e4716099a18d80092328073a846a121401dd5fae4622660399ff5a4cd78fe25f2791c#npm:13.4.0"],\
             ["@testing-library/user-event", "virtual:990f75af0e4e97bc6ae8f77688032fa0cb741f39b94d672bd3c1007a785e4716099a18d80092328073a846a121401dd5fae4622660399ff5a4cd78fe25f2791c#npm:13.5.0"],\
             ["@toast-ui/editor", "npm:3.2.1"],\
+            ["@toast-ui/editor-plugin-color-syntax", "npm:3.1.0"],\
+            ["@toast-ui/react-editor", "virtual:990f75af0e4e97bc6ae8f77688032fa0cb741f39b94d672bd3c1007a785e4716099a18d80092328073a846a121401dd5fae4622660399ff5a4cd78fe25f2791c#npm:3.2.2"],\
             ["@types/jest", "npm:27.5.2"],\
             ["@types/node", "npm:18.13.0"],\
             ["@types/react", "npm:18.0.27"],\
@@ -9371,6 +9411,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-scripts", "virtual:990f75af0e4e97bc6ae8f77688032fa0cb741f39b94d672bd3c1007a785e4716099a18d80092328073a846a121401dd5fae4622660399ff5a4cd78fe25f2791c#npm:5.0.1"],\
             ["recoil", "virtual:990f75af0e4e97bc6ae8f77688032fa0cb741f39b94d672bd3c1007a785e4716099a18d80092328073a846a121401dd5fae4622660399ff5a4cd78fe25f2791c#npm:0.7.6"],\
             ["swiper", "npm:6.8.4"],\
+            ["tui-color-picker", "npm:2.2.8"],\
             ["typescript", "patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=23ec76"],\
             ["web-vitals", "npm:2.1.4"]\
           ],\
@@ -19087,6 +19128,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packagePeers": [\
             "@types/typescript",\
             "typescript"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["tui-color-picker", [\
+        ["npm:2.2.8", {\
+          "packageLocation": "./.yarn/cache/tui-color-picker-npm-2.2.8-cd63eccaa5-d0a7dadf1d.zip/node_modules/tui-color-picker/",\
+          "packageDependencies": [\
+            ["tui-color-picker", "npm:2.2.8"]\
           ],\
           "linkType": "HARD"\
         }]\
