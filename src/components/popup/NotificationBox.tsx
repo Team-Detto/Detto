@@ -4,7 +4,7 @@ import { getNotifications } from 'apis/notification';
 import COLORS from 'assets/styles/colors';
 import { usePopup } from 'hooks';
 import { getDate } from 'utils/date';
-import Message from './Message';
+import NotificationMessage from './NotificationMessage';
 import { PopupWrapper } from './styles';
 
 export default function NotificationBox() {
@@ -32,7 +32,7 @@ export default function NotificationBox() {
       </TitleWrapper>
       <MessageWrapper>
         {notifications?.map(({ id, title, date, isRead }: any) => (
-          <Message
+          <NotificationMessage
             key={id}
             title={title}
             date={getDate(date)}

@@ -21,3 +21,46 @@ export const PopupWrapper = styled.div<{ popup: string }>`
 
   overflow: hidden;
 `;
+
+// Message
+export const MessageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0.75rem;
+  gap: 0.125rem;
+
+  height: 3.5625rem;
+
+  background: #ffffff;
+
+  border-bottom: 1px solid #e1e5eb;
+`;
+
+export const MessageTitleDiv = styled.div<{ isRead: boolean }>`
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: ${(props) => (props.isRead ? '400' : '700')};
+  font-size: 0.75rem;
+  line-height: 140%;
+
+  display: flex;
+  align-items: center;
+
+  color: ${COLORS.gray850};
+
+  cursor: pointer;
+`;
+
+export const MessageDateDiv = styled.div`
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.625rem;
+  line-height: 140%;
+
+  display: flex;
+  align-items: center;
+
+  color: ${COLORS.gray800};
+`;

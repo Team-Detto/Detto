@@ -3,11 +3,20 @@ import { useQuery } from '@tanstack/react-query';
 import { getInboxNotes } from 'apis/note';
 import COLORS from 'assets/styles/colors';
 import { usePopup } from 'hooks';
+import React, { useState } from 'react';
 import { getDate } from 'utils/date';
-import Message from './Message';
+import NoteMessage from './NoteMessage';
 import { PopupWrapper } from './styles';
 
+const boxList = [
+  { id: 'inbox', label: '받은 쪽지함' },
+  { id: 'outbox', label: '보낸 쪽지함' },
+];
+
 export default function NoteBox() {
+  // 받은 쪽지함, 보낸 쪽지함 선택 상태
+  const [selectedBox, setSelectedBox] = useState('inbox');
+
   const {
     popup: { isNoteOpen },
   } = usePopup();
@@ -21,19 +30,30 @@ export default function NoteBox() {
     <>
       {isNoteOpen && (
         <PopupWrapper popup="message">
-          <TitleWrapper>
-            읽지 않은 알림
-            <MessageCountSpan>
-              ({inbox ? inbox.filter(({ isRead }: any) => !isRead).length : 0})
-            </MessageCountSpan>
-          </TitleWrapper>
+          <BoxContainer>
+            {/* inbox outbox radio button */}
+            {boxList.map(({ id, label }) => (
+              <React.Fragment key={id}>
+                <MenuToggleInput
+                  type="radio"
+                  name="message"
+                  id={id}
+                  value={selectedBox}
+                  onChange={() => setSelectedBox(id)}
+                  defaultChecked={id === 'inbox'}
+                />
+                <MenuLabel htmlFor={id}>{label}</MenuLabel>
+              </React.Fragment>
+            ))}
+          </BoxContainer>
           <MessageWrapper>
-            {inbox?.map(({ id, title, date, isRead }: any) => (
-              <Message
+            {inbox?.map(({ id, title, date, isRead, displayName }: any) => (
+              <NoteMessage
                 key={id}
                 title={title}
                 date={getDate(date)}
                 isRead={isRead}
+                displayName={displayName}
               />
             ))}
           </MessageWrapper>
@@ -43,7 +63,7 @@ export default function NoteBox() {
   );
 }
 
-const TitleWrapper = styled.div`
+const BoxContainer = styled.div`
   width: 100%;
   height: 2.5625rem;
 
@@ -54,15 +74,36 @@ const TitleWrapper = styled.div`
   flex-direction: row;
   align-items: flex-start;
 
-  padding: 0.75rem;
-  gap: 0.125rem;
-
-  background-color: ${COLORS.gray200};
+  border-bottom: 1px solid ${COLORS.gray200};
   color: ${COLORS.gray850};
 `;
 
-const MessageCountSpan = styled.span`
-  color: ${COLORS.violetB500};
+const MenuLabel = styled.label`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  width: 50%;
+  height: 100%;
+
+  padding: 0;
+  margin: 0;
+
+  background-color: ${COLORS.gray200};
+
+  cursor: pointer;
+`;
+
+const MenuToggleInput = styled.input`
+  display: none;
+
+  color: ${COLORS.gray850};
+
+  &:checked + label {
+    color: ${COLORS.violetB500};
+    background-color: ${COLORS.white};
+  }
 `;
 
 const MessageWrapper = styled.div`
