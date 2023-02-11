@@ -1,9 +1,9 @@
 import React from 'react';
-import { WriteFormValueType } from 'hooks/useWrite';
+import { WriteType } from 'types/write/writeType';
 import LabelInput from 'components/common/LabelInput';
 import styled from '@emotion/styled';
 interface Props {
-  writeFormValue: WriteFormValueType;
+  writeFormValue: WriteType.WriteFormType;
   onFormValueChagneEvent: (e: React.ChangeEvent<HTMLInputElement>) => void; // eslint-disable-line no-unused-vars
 }
 
