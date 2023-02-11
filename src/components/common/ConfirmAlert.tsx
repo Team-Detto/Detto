@@ -53,6 +53,7 @@ const ConfirmAlertContainer = styled.div`
   background: #fff;
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.25);
   border-radius: 12px;
+  z-index: 999;
   display: ${(props: { isOpen: boolean }) => (props.isOpen ? 'block' : 'none')};
 `;
 const ConfirmALertInfoContainer = styled.div`

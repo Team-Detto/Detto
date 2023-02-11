@@ -45,6 +45,7 @@ const AlertContainer = styled.div`
   background: #fff;
   border-radius: 16px;
   box-shadow: 0px 4px 10px rgba(117, 117, 117, 0.25);
+  z-index: 999;
   display: ${(props: { isOpen: boolean }) => (props.isOpen ? 'block' : 'none')};
 `;
 const AlertMessageContainer = styled.div`
