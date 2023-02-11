@@ -1,9 +1,11 @@
 import React from 'react';
-import SwiperCore, { Navigation, Scrollbar, Pagination } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/swiper.min.css';
-import 'swiper/components/navigation/navigation.min.css';
+// import SwiperCore, { Navigation, Scrollbar, Pagination } from 'swiper';
+// import { Swiper, SwiperSlide } from 'swiper/react';
+// import 'swiper/swiper.min.css';
+// import 'swiper/components/navigation/navigation.min.css';
 import styled from '@emotion/styled';
+import FindUserSlider from './FindUserSlider';
+
 const MainFindUsers = () => {
   return (
     <MainFindUsersWrap>
@@ -18,27 +20,9 @@ const MainFindUsers = () => {
           <MainFindUsersButton>백엔드</MainFindUsersButton>
         </MainFindUsersButtonContainer>
       </MainFindUsersContainer>
-      <MainFindUsersSwiperContainer>
-        <MainFindUsersSwiper
-          pagination={{
-            clickable: true,
-          }}
-          spaceBetween={50}
-          slidesPerView={5}
-          navigation
-        >
-          <SwiperSlide>Slide 1</SwiperSlide>
-          <SwiperSlide>Slide 2</SwiperSlide>
-          <SwiperSlide>Slide 3</SwiperSlide>
-          <SwiperSlide>Slide 4</SwiperSlide>
-          <SwiperSlide>Slide 5</SwiperSlide>
-          <SwiperSlide>Slide 1</SwiperSlide>
-          <SwiperSlide>Slide 2</SwiperSlide>
-          <SwiperSlide>Slide 3</SwiperSlide>
-          <SwiperSlide>Slide 4</SwiperSlide>
-          <SwiperSlide>Slide 5</SwiperSlide>
-        </MainFindUsersSwiper>
-      </MainFindUsersSwiperContainer>
+      <SlideArea>
+        <FindUserSlider />
+      </SlideArea>
     </MainFindUsersWrap>
   );
 };
@@ -126,36 +110,12 @@ const MainFindUsersButton = styled.button`
     line-height: 32px;
   }
 `;
-const MainFindUsersSwiperContainer = styled.div`
+const SlideArea = styled.div`
   padding: 0px;
   gap: 134px;
-  /* width: 864px;
-  height: 201px; */
-  width: 864px;
+
+  width: 1180px;
   height: 201px;
 `;
-const MainFindUsersSwiper = styled(Swiper)`
-  .swiper-wrapper {
-    width: 864px;
-    height: 201px;
-    margin: 0 auto;
-    background: purple;
-  }
 
-  .swiper-slide {
-    text-align: center;
-    padding: 0px;
-    gap: 16px;
-    width: 128px;
-    height: 201px;
-  }
-  .swiper-button-prev {
-    left: -50px;
-    background: red;
-    position: absolute;
-    z-index: 1000;
-  }
-  .swiper-button-next {
-  }
-`;
 export default MainFindUsers;
