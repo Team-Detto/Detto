@@ -7,8 +7,7 @@ import ProjectEditPageFooter from 'components/editpage/ProjectEditPageFooter';
 import styled from '@emotion/styled';
 
 const ProjectEditPage = () => {
-  const { isOpen, handleOpenButtonClick, handleCloseButtonClick } =
-    useModal(false);
+  const { isOpen, handleModalStateChange } = useModal(false);
 
   return (
     <WebContainer>
@@ -19,8 +18,8 @@ const ProjectEditPage = () => {
         <ConfirmAlert
           isOpen={isOpen}
           message="게시글을 수정하시겠습니까?"
-          onClickEvent={handleOpenButtonClick}
-          onCloseEvent={handleCloseButtonClick}
+          onClickEvent={handleModalStateChange}
+          onCloseEvent={handleModalStateChange}
         />
       </EditPageWrapper>
     </WebContainer>

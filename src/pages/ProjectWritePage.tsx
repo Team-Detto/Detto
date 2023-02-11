@@ -1,4 +1,4 @@
-import { useModal, useWrite } from 'hooks';
+import { useWrite } from 'hooks';
 import ConfirmAlert from 'components/common/ConfirmAlert';
 import WebContainer from 'components/common/WebContainer';
 import ProjectWritePageBody from 'components/writepage/ProjectWritePageBody';
@@ -7,11 +7,12 @@ import ProjectWritePageHeader from 'components/writepage/ProjectWritePageHeader'
 import styled from '@emotion/styled';
 
 const ProjectWritePage = () => {
-  const { isOpen, handleOpenButtonClick, handleCloseButtonClick } =
-    useModal(false);
   const {
+    isOpen,
+    editRef,
     writeFormValue,
     handleFormValueChange,
+    handleModalStateChange,
     handleCreateProjectButtonClick,
   } = useWrite();
 
@@ -27,15 +28,16 @@ const ProjectWritePage = () => {
           onFormValueChagneEvent={handleFormValueChange}
         />
         <ProjectWritePageFooter
+          editRef={editRef}
           writeFormValue={writeFormValue}
           onFormValueChagneEvent={handleFormValueChange}
-          onOpenButtonClickEvent={handleOpenButtonClick}
+          onOpenButtonClickEvent={handleModalStateChange}
         />
         <ConfirmAlert
           isOpen={isOpen}
           message="게시글을 작성하시겠습니까?"
           onClickEvent={handleCreateProjectButtonClick}
-          onCloseEvent={handleCloseButtonClick}
+          onCloseEvent={handleModalStateChange}
         />
       </ProjectWritePageWrapper>
     </WebContainer>
