@@ -1,83 +1,82 @@
-import React, { useState } from 'react';
+import { useState, useRef, useCallback, ChangeEvent } from 'react';
+import { useModal } from 'hooks';
 import { firebaseCreateProjectRequest } from 'apis/boardService';
 import { useNavigate } from 'react-router-dom';
-
-export interface WriteFormValueType {
-  title: string;
-  content: string;
-  positions: {
-    planner: number;
-    designer: number;
-    frontend: number;
-    backend: number;
-  };
-  plannerStack: string[];
-  developerStack: string[];
-  designerStack: string[];
-  startDate: string;
-  endDate: string;
-  deadline: string;
-}
+import { WriteType } from 'types/write/writeType';
 
 const useWrite = () => {
   const navigate = useNavigate();
-  const [writeFormValue, setWriteFormValue] = useState({
-    title: '',
-    content: '',
-    positions: {
-      planner: 0,
-      designer: 0,
-      frontend: 0,
-      backend: 0,
-    },
-    plannerStack: [],
-    developerStack: [],
-    designerStack: [],
-    startDate: '',
-    endDate: '',
-    deadline: '',
-  });
 
-  const handleCreateProjectButtonClick = () => {
-    firebaseCreateProjectRequest(writeFormValue);
-    navigate('/');
+  const editRef = useRef<any>(null);
+
+  const [writeFormValue, setWriteFormValue] = useState<WriteType.WriteFormType>(
+    initialWriteFormValue,
+  );
+
+  const { isOpen, handleModalStateChange } = useModal(false);
+
+  const handleCreateProjectButtonClick = async () => {
+    const markdownText = editRef.current.getInstance().getMarkdown();
+    await firebaseCreateProjectRequest(writeFormValue, markdownText);
+    navigate('/', {
+      replace: true,
+    });
   };
 
-  const handleFormValueChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    const { name, value } = e.target;
-    if (
-      name === 'planner' ||
-      name === 'designer' ||
-      name === 'frontend' ||
-      name === 'backend'
-    ) {
-      setWriteFormValue((prev) => {
-        return {
-          ...prev,
-          positions: {
-            ...prev.positions,
-            [name]: Number(value),
-          },
-        };
-      });
-      return;
-    } else {
-      setWriteFormValue((prev) => {
+  const handleFormValueChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const { name, value } = e.target;
+      const isPosition: boolean = [
+        'planner',
+        'designer',
+        'frontend',
+        'backend',
+      ].some((v: string) => v === name);
+      if (isPosition) {
+        setWriteFormValue((prev: WriteType.WriteFormType) => {
+          return {
+            ...prev,
+            positions: {
+              ...prev.positions,
+              [name]: Number(value),
+            },
+          };
+        });
+      }
+      setWriteFormValue((prev: WriteType.WriteFormType) => {
         return {
           ...prev,
           [name]: value,
         };
       });
-    }
-  };
+    },
+    [setWriteFormValue],
+  );
 
   return {
+    isOpen,
+    editRef,
     writeFormValue,
+    handleModalStateChange,
     handleFormValueChange,
     handleCreateProjectButtonClick,
   };
+};
+
+const initialWriteFormValue = {
+  title: '',
+  positions: {
+    planner: 0,
+    designer: 0,
+    frontend: 0,
+    backend: 0,
+  },
+  plannerStack: [],
+  developerStack: [],
+  designerStack: [],
+  startDate: '',
+  endDate: '',
+  deadline: '',
 };
 
 export default useWrite;
