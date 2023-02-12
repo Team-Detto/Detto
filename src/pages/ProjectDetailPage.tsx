@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import WebContainer from '../components/common/WebContainer';
 import { useParams } from 'react-router-dom';
@@ -11,7 +10,7 @@ import ContentArea from 'components/projectDetail/ContentArea';
 import ApplyButtonArea from 'components/projectDetail/ApplyButtonArea';
 import ApplicantListArea from 'components/projectDetail/ApplicantListArea';
 import COLORS from 'assets/styles/colors';
-import { useQueries, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 const ProjectDetailPage = () => {
   const params = useParams();

@@ -2,31 +2,36 @@ import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 
 const ApplicantListArea = ({ projectData, userData }: any) => {
+  const { applicants } = projectData;
+
   return (
     <ApplicantListContainer>
       <ApplicantListTitle>지원자 목록</ApplicantListTitle>
       <ApplicantListContent>
-        {projectData?.applicants?.map((applicant: any) => {
-          console.log(applicant);
-          return (
-            <ApplicantWrap>
-              <ProfileImage src={applicant.profileURL} />
-              <NicknameDiv>
-                {applicant.displayName ?? `사용자displayName`}
-              </NicknameDiv>
-              <PositionDiv>
-                {applicant.position ?? `사용자position`}
-              </PositionDiv>
-              {/* 개발, 디자인, 기획 스킬 모아서 배열로 만든 후에 map돌리기 */}
-              <StackWrap>
-                {applicant.skills.map((skill: any) => {
-                  return <StackDiv>{skill}</StackDiv>;
-                }) ?? `사용자stack`}
-              </StackWrap>
-              <InviteButton>팀원으로 초대하기</InviteButton>
-            </ApplicantWrap>
-          );
-        })}
+        {applicants ? (
+          applicants?.map((applicant: any) => {
+            return (
+              <ApplicantWrap>
+                <ProfileImage src={applicant.profileURL} />
+                <NicknameDiv>
+                  {applicant.displayName ?? `사용자displayName`}
+                </NicknameDiv>
+                <PositionDiv>
+                  {applicant.position ?? `사용자position`}
+                </PositionDiv>
+                {/* 개발, 디자인, 기획 스킬 모아서 배열로 만든 후에 map돌리기 */}
+                <StackWrap>
+                  {applicant.skills.map((skill: any) => {
+                    return <StackDiv>{skill}</StackDiv>;
+                  }) ?? `사용자stack`}
+                </StackWrap>
+                <InviteButton>팀원으로 초대하기</InviteButton>
+              </ApplicantWrap>
+            );
+          })
+        ) : (
+          <CannotFoundApplicant>아직 지원자가 없습니다 :/</CannotFoundApplicant>
+        )}
       </ApplicantListContent>
     </ApplicantListContainer>
   );
@@ -121,4 +126,14 @@ const InviteButton = styled.button`
   border: none;
   padding: 8px 16px;
   cursor: pointer;
+`;
+
+const CannotFoundApplicant = styled.div`
+  font-size: 32px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  color: ${COLORS.gray500};
 `;

@@ -5,7 +5,7 @@ const ContentArea = ({ projectData }: any) => {
   return (
     <RecruitContentsContainer>
       <ContentTitle>모집 안내</ContentTitle>
-      <ContentWrapper>{projectData?.contents ?? `내용입니다`}</ContentWrapper>
+      <ContentWrapper>{projectData?.content ?? `내용입니다`}</ContentWrapper>
     </RecruitContentsContainer>
   );
 };
