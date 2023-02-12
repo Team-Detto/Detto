@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import WebContainer from '../components/common/WebContainer';
-import { firestore } from 'apis/firebaseService';
-import { getDoc, doc } from 'firebase/firestore';
 import { useParams } from 'react-router-dom';
+import { findUser, viewProject } from 'apis/getPost';
 import TitleThumbnailArea from 'components/projectDetail/TitleThumbnailArea';
 import WriterToShareArea from 'components/projectDetail/WriterToShareArea';
 import ProjectInfoArea from 'components/projectDetail/ProjectInfoArea';
@@ -12,30 +11,20 @@ import ContentArea from 'components/projectDetail/ContentArea';
 import ApplyButtonArea from 'components/projectDetail/ApplyButtonArea';
 import ApplicantListArea from 'components/projectDetail/ApplicantListArea';
 import COLORS from 'assets/styles/colors';
+import { useQueries, useQuery } from '@tanstack/react-query';
 
 const ProjectDetailPage = () => {
-  const params = useParams<{ id: string }>();
-  const [projectData, setProjectData] = useState<any>(null);
-  const [userData, setUserData] = useState<any>(null);
+  const params = useParams();
 
-  useEffect(() => {
-    viewProject();
-    findUser(projectData?.uid);
-  }, []);
+  const { data: projectData } = useQuery({
+    queryKey: ['post', params],
+    queryFn: () => viewProject(params),
+  });
 
-  const viewProject = async () => {
-    const docRef = doc(firestore, 'ProjectPost', params.id as string);
-    const docSnap = await getDoc(docRef);
-    const data = docSnap.data();
-    setProjectData(data);
-  };
-
-  const findUser = async (uid: string) => {
-    const docRef = doc(firestore, 'user', uid);
-    const docSnap = await getDoc(docRef);
-    const data = docSnap.data();
-    setUserData(data);
-  };
+  const { data: userData } = useQuery({
+    queryKey: ['user', projectData?.uid],
+    queryFn: () => findUser(projectData?.uid),
+  });
 
   //projectData?.uid로 user테이블 조회해서 닉네임, 프로필 사진 가져오기
   //projectData?.uid 가 현재 uid랑 같은지 판별하고 같으면 수정하기 버튼 display, 지원하기 버튼 -> 마감하기 버튼으로 변경, 지원자 목록 보여주기
