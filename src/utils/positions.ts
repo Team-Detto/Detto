@@ -1,6 +1,6 @@
 export const positions = [
   { type: 'planner', name: '기획' },
-  { type: 'designer', name: '디자이너' },
+  { type: 'designer', name: '디자인' },
   { type: 'frontend', name: '프론트엔드' },
   { type: 'backend', name: '백엔드' },
 ];

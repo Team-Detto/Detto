@@ -36,11 +36,26 @@ const MyPageInfo = ({ user }: MypageInfoProps) => {
       </MypageInfoTopContainer>
       <MyPageSkillsWrapper>
         <MyPageSkillsTitle>기술스택</MyPageSkillsTitle>
-        {/* TODO :: 기술스택 기본 설정 추가 작업 필요 */}
+        {/* TODO :: 기획, 디자인 동시에 선택했을 경우에 대한 처리 추가 필요 */}
         <MypageSkillBox>
-          <SkillList category="기획" skills={products} />
-          <SkillList category="디자인" skills={designs} />
-          <SkillList category="개발" skills={develops} />
+          <SkillList
+            category="기획"
+            skills={products}
+            checkedPositions={user?.positions}
+            checkedSkills={user?.skills}
+          />
+          <SkillList
+            category="디자인"
+            skills={designs}
+            checkedPositions={user?.positions}
+            checkedSkills={user?.skills}
+          />
+          <SkillList
+            category="개발"
+            skills={develops}
+            checkedPositions={user?.positions}
+            checkedSkills={user?.skills}
+          />
         </MypageSkillBox>
       </MyPageSkillsWrapper>
       <InfoEditConfirmWrapper>
