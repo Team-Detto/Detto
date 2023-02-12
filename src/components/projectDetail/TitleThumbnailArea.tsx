@@ -1,8 +1,9 @@
+import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 
 const TitleThumbnailArea = (props: any) => {
-  const { projectData } = props;
+  const { projectData, params } = props;
   return (
     <>
       <TitleToModifyButtonWrap>
@@ -10,8 +11,10 @@ const TitleThumbnailArea = (props: any) => {
           <RecruitmentDiv>모집중</RecruitmentDiv>
           <ProjectTitle>{projectData?.title ?? `제목`}</ProjectTitle>
         </ProjectTitleWrapper>
-        {/* currentUser가 글쓴이인지 비교 true이면 수정하기 버튼 보여주기 */}
-        <ModifyButton>수정하기</ModifyButton>
+        {/* currentUser가 글쓴이인지 비교 true이면 수정하기 버튼 보여주기  */}
+        <Link to={`/project/write/${params}`}>
+          <ModifyButton>수정하기</ModifyButton>
+        </Link>
       </TitleToModifyButtonWrap>
       <ProjectThumbnail src={projectData?.thumbnailURL} />
     </>

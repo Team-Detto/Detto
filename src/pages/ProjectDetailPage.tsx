@@ -36,7 +36,7 @@ const ProjectDetailPage = () => {
       {projectData && userData && (
         <WebContainer>
           <ProjectDetailWrapper>
-            <TitleThumbnailArea projectData={projectData} />
+            <TitleThumbnailArea projectData={projectData} params={params.id} />
             <WriterToShareArea projectData={projectData} userData={userData} />
             <RecruitmentInfoContainer>
               <ProjectInfoArea projectData={projectData} />
