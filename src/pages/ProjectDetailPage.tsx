@@ -15,12 +15,12 @@ import { useQuery } from '@tanstack/react-query';
 const ProjectDetailPage = () => {
   const params = useParams();
 
-  const { data: projectData } = useQuery({
+  const { data: projectData, isLoading: projectIsLoading } = useQuery({
     queryKey: ['post', params],
     queryFn: () => viewProject(params),
   });
 
-  const { data: userData } = useQuery({
+  const { data: userData, isLoading: userIsLoading } = useQuery({
     queryKey: ['user', projectData?.uid],
     queryFn: () => findUser(projectData?.uid),
   });
@@ -32,20 +32,23 @@ const ProjectDetailPage = () => {
   //날짜 데이터 포맷팅
   return (
     <ProjectDetailContainer>
-      <WebContainer>
-        <ProjectDetailWrapper>
-          <TitleThumbnailArea projectData={projectData} />
-          <WriterToShareArea projectData={projectData} userData={userData} />
-          <RecruitmentInfoContainer>
-            <ProjectInfoArea projectData={projectData} />
-            <MemberInfoArea />
-          </RecruitmentInfoContainer>
-          <ContentArea projectData={projectData} />
-        </ProjectDetailWrapper>
-        <ApplyButtonArea projectData={projectData} userData={userData} />
-        {/* currentUser랑 글쓴이uid랑 같으면 보이게하기 */}
-        <ApplicantListArea projectData={projectData} userData={userData} />
-      </WebContainer>
+      {(projectIsLoading || userIsLoading) && <div>로딩중</div>}
+      {projectData && userData && (
+        <WebContainer>
+          <ProjectDetailWrapper>
+            <TitleThumbnailArea projectData={projectData} />
+            <WriterToShareArea projectData={projectData} userData={userData} />
+            <RecruitmentInfoContainer>
+              <ProjectInfoArea projectData={projectData} />
+              <MemberInfoArea />
+            </RecruitmentInfoContainer>
+            <ContentArea projectData={projectData} />
+          </ProjectDetailWrapper>
+          <ApplyButtonArea projectData={projectData} userData={userData} />
+          {/* currentUser랑 글쓴이uid랑 같으면 보이게하기 */}
+          <ApplicantListArea projectData={projectData} userData={userData} />
+        </WebContainer>
+      )}
     </ProjectDetailContainer>
   );
 };
