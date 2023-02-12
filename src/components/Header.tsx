@@ -39,8 +39,8 @@ const Header = () => {
   return (
     <HeaderContainer isMain={isMain} hideGradient={hideGradient}>
       <WebContainer>
+        <PopupContainer /> {/* 쪽지, 알림 팝업 컨테이너 */}
         <HeaderWrapper>
-          <PopupContainer /> {/* 쪽지, 알림 팝업 컨테이너 */}
           <LogoBoxH1>
             <Link to={'/'}> Detto</Link>
           </LogoBoxH1>

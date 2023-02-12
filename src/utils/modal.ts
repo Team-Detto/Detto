@@ -2,7 +2,7 @@
  * 스크롤을 방지하고 현재 위치를 반환한다.
  * @returns {number} 현재 스크롤 위치
  */
-export const preventScroll = () => {
+export const preventScroll = (): number => {
   const currentScrollY = window.scrollY;
   document.body.style.position = 'fixed';
   document.body.style.width = '100%';
