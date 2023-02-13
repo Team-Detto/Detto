@@ -4,7 +4,7 @@ const usePopup = () => {
   const [popup, setPopup] = useRecoilState(popupState);
 
   // 쪽지함 토글 (알림함이 열려있으면 닫기)
-  const toggleMessageBox = () => {
+  const toggleNoteBox = () => {
     setPopup({
       isNoteOpen: !popup.isNoteOpen,
       isNotificationOpen: false,
@@ -21,7 +21,7 @@ const usePopup = () => {
 
   return {
     popup,
-    toggleMessageBox,
+    toggleNoteBox,
     toggleNotificationBox,
   };
 };
