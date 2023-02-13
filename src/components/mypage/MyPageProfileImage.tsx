@@ -1,4 +1,6 @@
 import styled from '@emotion/styled';
+import defaultProfile from 'assets/images/default_profile.jpg';
+// TODO :: 디폴트 이미지 디자인 나올 경우 파일 경로 수정 필요
 
 interface MyPageProfileImageProps {
   photoUrl: string;
@@ -8,7 +10,14 @@ const MyPageProfileImage = ({ photoUrl }: MyPageProfileImageProps) => {
   return (
     <ProfileImageWrapper>
       <ProfileImageBox>
-        <ProfileImage src={photoUrl} alt="프로필이미지" />
+        <ProfileImage
+          src={
+            photoUrl === '' || photoUrl === undefined
+              ? defaultProfile
+              : photoUrl
+          }
+          alt="프로필이미지"
+        />
       </ProfileImageBox>
       <ProfileButtonBox>
         <ProfileButton btnType={'edit'}>수정</ProfileButton>
