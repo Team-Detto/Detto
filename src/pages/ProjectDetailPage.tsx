@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import WebContainer from '../components/common/WebContainer';
 import { useParams } from 'react-router-dom';
-import { findUser, viewProject } from 'apis/postDetail';
+import { findWithCollectionName, viewProject } from 'apis/postDetail';
 import TitleThumbnailArea from 'components/projectDetail/TitleThumbnailArea';
 import WriterToShareArea from 'components/projectDetail/WriterToShareArea';
 import ProjectInfoArea from 'components/projectDetail/ProjectInfoArea';
@@ -22,7 +22,7 @@ const ProjectDetailPage = () => {
 
   const { data: userData, isLoading: userIsLoading } = useQuery({
     queryKey: ['user', projectData?.uid],
-    queryFn: () => findUser(projectData?.uid), //여기서 TypeError: Cannot read property of undefined 에러남 uid 읽기 전에 요청돼서 그런듯?
+    queryFn: () => findWithCollectionName('user', projectData?.uid), //여기서 TypeError: Cannot read property of undefined 에러남 uid 읽기 전에 요청돼서 그런듯?
   });
 
   //projectData?.uid로 user테이블 조회해서 닉네임, 프로필 사진 가져오기
@@ -37,7 +37,11 @@ const ProjectDetailPage = () => {
         <WebContainer>
           <ProjectDetailWrapper>
             <TitleThumbnailArea projectData={projectData} params={params.id} />
-            <WriterToShareArea projectData={projectData} userData={userData} />
+            <WriterToShareArea
+              projectData={projectData}
+              pid={params.id}
+              userData={userData}
+            />
             <RecruitmentInfoContainer>
               <ProjectInfoArea projectData={projectData} />
               <MemberInfoArea />
