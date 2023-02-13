@@ -29,19 +29,31 @@ const ProjectInfoArea = ({ projectData }: any) => {
           <StackDiv>
             기획
             {plannerStack?.map((skill: string) => {
-              return <ProjectInfoSkillValue>{skill}</ProjectInfoSkillValue>;
+              return (
+                <ProjectInfoSkillValue key={skill}>
+                  {skill}
+                </ProjectInfoSkillValue>
+              );
             }) ?? '없음'}
           </StackDiv>
           <StackDiv>
             개발
             {developerStack?.map((skill: string) => {
-              return <ProjectInfoSkillValue>{skill}</ProjectInfoSkillValue>;
+              return (
+                <ProjectInfoSkillValue key={skill}>
+                  {skill}
+                </ProjectInfoSkillValue>
+              );
             }) ?? '없음'}
           </StackDiv>
           <StackDiv>
             디자인
             {designerStack?.map((skill: string) => {
-              return <ProjectInfoSkillValue>{skill}</ProjectInfoSkillValue>;
+              return (
+                <ProjectInfoSkillValue key={skill}>
+                  {skill}
+                </ProjectInfoSkillValue>
+              );
             }) ?? '없음'}
           </StackDiv>
         </ProjectInfoValue>

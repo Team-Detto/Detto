@@ -9,7 +9,7 @@ export const viewProject = async (params: any) => {
 };
 
 // user 정보 조회
-export const findUser = async (uid: any) => {
+export const findUser = async (uid: string) => {
   const docRef = doc(firestore, 'user', uid);
   const docSnap = await getDoc(docRef);
   return docSnap.data();

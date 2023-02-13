@@ -22,7 +22,7 @@ const ProjectDetailPage = () => {
 
   const { data: userData, isLoading: userIsLoading } = useQuery({
     queryKey: ['user', projectData?.uid],
-    queryFn: () => findUser(projectData?.uid),
+    queryFn: () => findUser(projectData?.uid), //여기서 TypeError: Cannot read property of undefined 에러남 uid 읽기 전에 요청돼서 그런듯?
   });
 
   //projectData?.uid로 user테이블 조회해서 닉네임, 프로필 사진 가져오기
