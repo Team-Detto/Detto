@@ -1,7 +1,16 @@
 import styled from '@emotion/styled';
+import { useState } from 'react';
 import { RiHeartAddLine, RiHeartAddFill, RiShareBoxLine } from 'react-icons/ri';
 
 const WriterToShareArea = ({ projectData, userData }: any) => {
+  const handleShare = (event: React.MouseEvent) => {
+    event.preventDefault();
+    navigator.share({
+      title: projectData?.title,
+      text: projectData?.content,
+      url: window.location.href,
+    });
+  };
   return (
     <WriterToShareContainer>
       <WriterWrapper>
@@ -16,8 +25,11 @@ const WriterToShareArea = ({ projectData, userData }: any) => {
           <RiHeartAddLine />
           관심 {projectData?.like ?? 0}
         </IconButton>
-        {/* Todo: 공유기능 추가하기 */}
-        <IconButton>
+        <IconButton
+          onClick={(event) => {
+            handleShare(event);
+          }}
+        >
           <RiShareBoxLine />
           공유
         </IconButton>

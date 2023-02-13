@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import WebContainer from '../components/common/WebContainer';
 import { useParams } from 'react-router-dom';
-import { findUser, viewProject } from 'apis/getPost';
+import { findUser, viewProject } from 'apis/postDetail';
 import TitleThumbnailArea from 'components/projectDetail/TitleThumbnailArea';
 import WriterToShareArea from 'components/projectDetail/WriterToShareArea';
 import ProjectInfoArea from 'components/projectDetail/ProjectInfoArea';
