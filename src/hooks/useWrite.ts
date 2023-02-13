@@ -1,8 +1,16 @@
 import { useState, useRef, useCallback, ChangeEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useModal } from 'hooks';
 import { firebaseCreateProjectRequest } from 'apis/boardService';
-import { useNavigate } from 'react-router-dom';
 import { WriteType } from 'types/write/writeType';
+import {
+  titleValidation,
+  contentValidation,
+  positionValidation,
+  stackValidation,
+  periodValidation,
+  deadlineValidation,
+} from './../utils/validation';
 
 const useWrite = () => {
   const navigate = useNavigate();
@@ -17,6 +25,42 @@ const useWrite = () => {
 
   const handleCreateProjectButtonClick = async () => {
     const markdownText = editRef.current.getInstance().getMarkdown();
+
+    const isTitleValid = titleValidation(writeFormValue.title);
+    const isContentValid = contentValidation(markdownText);
+    const isPositionValid = positionValidation(writeFormValue.positions);
+    const isStackValid = stackValidation(
+      writeFormValue.plannerStack,
+      writeFormValue.developerStack,
+      writeFormValue.designerStack,
+    );
+    const isPeriodValid = periodValidation(
+      writeFormValue.startDate,
+      writeFormValue.endDate,
+    );
+    const isDeadlineValid = deadlineValidation(writeFormValue.deadline);
+
+    if (!isTitleValid || !isContentValid) {
+      alert('제목과 내용을 입력해주세요.');
+      return;
+    }
+    if (!isPositionValid) {
+      alert('포지션을 선택해주세요.');
+      return;
+    }
+    if (!isStackValid) {
+      alert('스택을 선택해주세요.');
+      return;
+    }
+    if (!isPeriodValid) {
+      alert('기간을 선택해주세요.');
+      return;
+    }
+    if (!isDeadlineValid) {
+      alert('마감일을 선택해주세요.');
+      return;
+    }
+
     await firebaseCreateProjectRequest(writeFormValue, markdownText);
     navigate('/', {
       replace: true,
