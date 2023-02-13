@@ -126,7 +126,7 @@ const MyPage = () => {
   return (
     <MyPageContainer>
       <WebContainer>
-        <MyPageInfo user={userInfoData} />
+        <MyPageInfo user={userInfoData} uid={uid ?? ''} />
         <ProjectList
           sectionTitle="모집중인 프로젝트"
           nickname="detto"

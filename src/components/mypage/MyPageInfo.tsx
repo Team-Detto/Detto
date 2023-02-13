@@ -5,16 +5,28 @@ import SkillList from './SkillList';
 import COLORS from 'assets/styles/colors';
 import { designs, develops, products } from 'utils/skills';
 import Careers from './Careers';
+import { useState } from 'react';
 
 interface MypageInfoProps {
   user: User;
+  uid: string;
 }
 
-const MyPageInfo = ({ user }: MypageInfoProps) => {
+const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
+  const [profileImg, setProfileImg] = useState<string>(user?.photoURL);
+
+  // TODO :: 개인정보 수정 버튼 눌렀을 경우 DB 업데이트 필요
+
+  // TODO :: 로그인에서도 프로필 변경 로직 쓸 수 있도록 빼기
+
   return (
     <MyPageTopContainer>
       <MypageInfoTopContainer>
-        <MyPageProfileImage photoUrl={user?.photoURL} />
+        <MyPageProfileImage
+          profileImg={profileImg}
+          setProfileImg={setProfileImg}
+          uid={uid}
+        />
         <InfoWrapper>
           <InfoItemDiv>
             <InfoTitle htmlFor="nickname">닉네임</InfoTitle>
