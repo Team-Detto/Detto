@@ -1,42 +1,20 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import styled from '@emotion/styled';
 import defaultProfile from 'assets/images/default_profile.jpg';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { firestorage } from 'apis/firebaseService';
 // TODO :: 디폴트 이미지 디자인 나올 경우 파일 경로 수정 필요
 
 interface MyPageProfileImageProps {
   profileImg: string;
   setProfileImg: React.Dispatch<React.SetStateAction<string>>;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   uid: string;
 }
 
 const MyPageProfileImage = ({
   profileImg,
-  setProfileImg,
-  uid,
+  onChange,
 }: MyPageProfileImageProps) => {
   const imgRef = useRef<HTMLInputElement | null>(null);
-
-  const handleProfileImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file as Blob); // base64로 인코딩
-
-    uploadProfileImg(file).then((res) => setProfileImg(res));
-  };
-
-  console.log('profileImg', profileImg);
-
-  // 스토리지에 파일 업로드
-  const uploadProfileImg = async (file: any) => {
-    await uploadBytes(ref(firestorage, `${uid}/${file.name}`), file);
-
-    const imgUrl = await getDownloadURL(
-      ref(firestorage, `${uid}/${file.name}`),
-    );
-    return imgUrl;
-  };
 
   return (
     <ProfileImageWrapper>
@@ -49,12 +27,7 @@ const MyPageProfileImage = ({
           }
           alt="프로필이미지"
         />
-        <FileInput
-          type="file"
-          id="profile"
-          ref={imgRef}
-          onChange={handleProfileImgChange}
-        />
+        <FileInput type="file" id="profile" ref={imgRef} onChange={onChange} />
       </ProfileImageBox>
       <ProfileButtonBox>
         <ProfileButton
