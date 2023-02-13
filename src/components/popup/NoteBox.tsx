@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import { useQuery } from '@tanstack/react-query';
-import { getInboxNotes } from 'apis/note';
+import { useQueries } from '@tanstack/react-query';
+import { getInboxNotes, getOutboxNotes } from 'apis/note';
 import COLORS from 'assets/styles/colors';
 import { usePopup } from 'hooks';
 import React, { useState } from 'react';
@@ -21,9 +21,17 @@ export default function NoteBox() {
     popup: { isNoteOpen },
   } = usePopup();
 
-  const { data: inbox }: any = useQuery({
-    queryKey: ['inbox'],
-    queryFn: getInboxNotes,
+  const [{ data: inbox }, { data: outbox }] = useQueries({
+    queries: [
+      {
+        queryKey: ['inbox'],
+        queryFn: getInboxNotes,
+      },
+      {
+        queryKey: ['outbox'],
+        queryFn: getOutboxNotes,
+      },
+    ],
   });
 
   return (
@@ -47,15 +55,27 @@ export default function NoteBox() {
             ))}
           </BoxContainer>
           <MessageWrapper>
-            {inbox?.map(({ id, title, date, isRead, displayName }: any) => (
-              <NoteMessage
-                key={id}
-                title={title}
-                date={getDate(date)}
-                isRead={isRead}
-                displayName={displayName}
-              />
-            ))}
+            {selectedBox === 'inbox' &&
+              // TODO: 타입 지정
+              inbox?.map(({ id, title, date, isRead, displayName }: any) => (
+                <NoteMessage
+                  key={id}
+                  title={title}
+                  date={getDate(date)}
+                  isRead={isRead}
+                  displayName={displayName}
+                />
+              ))}
+            {selectedBox === 'outbox' &&
+              outbox?.map(({ id, title, date, isRead, displayName }: any) => (
+                <NoteMessage
+                  key={id}
+                  title={title}
+                  date={getDate(date)}
+                  isRead={isRead}
+                  displayName={displayName}
+                />
+              ))}
           </MessageWrapper>
         </PopupWrapper>
       )}
