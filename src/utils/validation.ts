@@ -9,7 +9,7 @@ export const contentValidation = (content: string) => {
 };
 
 export const positionValidation = (position: object) => {
-  if (!Object.values(position).every((value: number) => value <= 0)) {
+  if (Object.values(position).every((value: number) => value <= 0)) {
     return false;
   }
   return true;
