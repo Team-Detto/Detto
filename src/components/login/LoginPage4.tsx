@@ -33,6 +33,8 @@ const Container = styled.div`
 `;
 
 const TopContainer = styled.div`
+  width: 30rem;
+
   margin-left: 2.125rem;
 `;
 
@@ -71,6 +73,6 @@ const ConfirmButton = styled.button`
 
   padding: 1.3125rem 5.9375rem;
 
-  background: ${COLORS.violetB400};
+  background: ${COLORS.violetA400};
   border-radius: 1rem;
 `;
