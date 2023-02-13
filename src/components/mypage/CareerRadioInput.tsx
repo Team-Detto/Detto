@@ -1,51 +1,41 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
-import { career } from 'utils/positions';
 
 interface CareerRadioInputProps {
-  isJunior: boolean;
+  juniorFlag: boolean;
+  id: string;
+  value: string;
 }
 
-const CareerRadioInput = ({ isJunior }: CareerRadioInputProps) => {
+const CareerRadioInput = ({ juniorFlag, id, value }: CareerRadioInputProps) => {
+  console.log('juniorFlag', juniorFlag);
   return (
     <>
-      {career.map((career) => (
-        <CareerRadioBox key={career.id}>
-          {isJunior ? (
-            <InfoRadioBoxInput
-              type="radio"
-              id={career.id}
-              name="isJunior"
-              defaultValue={career.value}
-              defaultChecked
-            />
-          ) : (
-            <InfoRadioBoxInput
-              type="radio"
-              id={career.id}
-              defaultValue={career.value}
-              name="isJunior"
-            />
-          )}
+      {juniorFlag ? (
+        <InfoRadioBoxInput
+          type="radio"
+          id={id}
+          name="isJunior"
+          defaultValue={value}
+          defaultChecked
+        />
+      ) : (
+        <InfoRadioBoxInput
+          type="radio"
+          id={id}
+          defaultValue={value}
+          name="isJunior"
+        />
+      )}
 
-          <InfoRadioBoxLabel htmlFor={career.id}>
-            <InfocCheckBoxSpan>{career.value}</InfocCheckBoxSpan>
-          </InfoRadioBoxLabel>
-        </CareerRadioBox>
-      ))}
+      <InfoRadioBoxLabel htmlFor={id}>
+        <InfocCheckBoxSpan>{value}</InfocCheckBoxSpan>
+      </InfoRadioBoxLabel>
     </>
   );
 };
 
 export default CareerRadioInput;
-
-const CareerRadioBox = styled.div`
-  margin-right: 0.75rem;
-
-  &:last-child {
-    margin-right: 0;
-  }
-`;
 
 const InfoRadioBoxInput = styled.input`
   position: absolute;

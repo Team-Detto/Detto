@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import MyPageProfileImage from './MyPageProfileImage';
-import CareerRadioInput from './CareerRadioInput';
 import PositionCheckBox from './PositionCheckBox';
 import SkillList from './SkillList';
 import COLORS from 'assets/styles/colors';
 import { designs, develops, products } from 'utils/skills';
+import Careers from './Careers';
 
 interface MypageInfoProps {
   user: User;
@@ -25,7 +25,7 @@ const MyPageInfo = ({ user }: MypageInfoProps) => {
           </InfoItemDiv>
           <InfoItemDiv>
             <InfoTitle>경력</InfoTitle>
-            <CareerRadioInput isJunior={user?.isJunior} />
+            <Careers isJunior={user?.isJunior} />
           </InfoItemDiv>
           <InfoItemDiv>
             <InfoTitle>포지션</InfoTitle>
