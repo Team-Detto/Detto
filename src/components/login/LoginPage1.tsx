@@ -2,16 +2,18 @@ import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import { useLoginModal } from 'hooks';
 import { useState } from 'react';
+import ConfirmButton from './ConfirmButton';
+import Navigator from './Navigator';
 
 const position = ['기획', '디자인', '프론트', '백엔드'];
+const page = 1;
 
 // 페이지 1 : 포지션 선택
 export default function LoginPage1() {
   const { openModal } = useLoginModal();
 
-  // 확인 버튼 클릭 시 페이지 이동
   const handleNextButtonClick = () => {
-    openModal('login', 2);
+    openModal('login', page + 1);
   };
 
   const [selectedPosition, setSelectedPosition] = useState<string[]>([]);
@@ -24,14 +26,13 @@ export default function LoginPage1() {
     }
   };
 
+  // TODO: Input checkbox 태그로 변경
   return (
     <Container>
+      <Navigator page={page} />
       <TextContainer>
         <TitleText>어떤 포지션인지 알려주세요</TitleText>
-        <SubText>
-          (중복 선택 가능해요)
-          <span onClick={handleNextButtonClick}> (다음페이지)</span>
-        </SubText>
+        <SubText>(중복 선택 가능해요)</SubText>
       </TextContainer>
       <Buttons>
         {position.map((pos) => (
@@ -44,6 +45,7 @@ export default function LoginPage1() {
           </Button>
         ))}
       </Buttons>
+      <ConfirmButton onClick={handleNextButtonClick} />
     </Container>
   );
 }
@@ -53,14 +55,15 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
 
-  width: 100%;
   height: 100%;
+  width: 100%;
 
-  padding: 7.5rem 2.5rem;
+  padding: 2.5rem;
 `;
 
 const TextContainer = styled.div`
-  margin-bottom: 3rem;
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
 `;
 
 const TitleText = styled.h2`
@@ -82,6 +85,8 @@ const SubText = styled.h3`
 const Buttons = styled.div`
   display: flex;
   justify-content: space-between;
+
+  margin-bottom: 3.75rem;
 `;
 
 const Button = styled.button<{ selected: boolean }>`
@@ -96,7 +101,7 @@ const Button = styled.button<{ selected: boolean }>`
 
   // 버튼 선택 여부에 따라 색상 변경
   background-color: ${({ selected }) =>
-    selected ? COLORS.violetB400 : COLORS.gray100};
+    selected ? COLORS.violetA400 : COLORS.gray100};
   color: ${({ selected }) => (selected ? COLORS.white : COLORS.black)};
 
   transition: 100ms ease-in-out;
