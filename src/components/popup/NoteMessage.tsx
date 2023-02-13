@@ -1,21 +1,21 @@
+import { useGlobalModal } from 'hooks';
+import { useRecoilValue } from 'recoil';
 import { MessageContainer, MessageDateDiv, MessageTitleDiv } from './styles';
 
-type MessageProps = {
-  title: string;
-  date: string;
-  isRead: boolean;
-  displayName: string;
-};
+export default function NoteMessage({ data }: any) {
+  const { title, date, isRead, displayName } = data;
 
-export default function NoteMessage({
-  title,
-  date,
-  isRead,
-  displayName,
-}: MessageProps) {
+  const { openModal, openModalWithData } = useGlobalModal();
+
+  const handleTitleClick = () => {
+    openModalWithData('inbox', data);
+  };
+
   return (
     <MessageContainer>
-      <MessageTitleDiv isRead={isRead}>{title}</MessageTitleDiv>
+      <MessageTitleDiv isRead={isRead} onClick={handleTitleClick}>
+        {title}
+      </MessageTitleDiv>
       <MessageDateDiv>
         {displayName} | {date}
       </MessageDateDiv>

@@ -57,24 +57,12 @@ export default function NoteBox() {
           <MessageWrapper>
             {selectedBox === 'inbox' &&
               // TODO: 타입 지정
-              inbox?.map(({ id, title, date, isRead, displayName }: any) => (
-                <NoteMessage
-                  key={id}
-                  title={title}
-                  date={getDate(date)}
-                  isRead={isRead}
-                  displayName={displayName}
-                />
+              inbox?.map((data: any) => (
+                <NoteMessage key={data.id} data={data} />
               ))}
             {selectedBox === 'outbox' &&
-              outbox?.map(({ id, title, date, isRead, displayName }: any) => (
-                <NoteMessage
-                  key={id}
-                  title={title}
-                  date={getDate(date)}
-                  isRead={isRead}
-                  displayName={displayName}
-                />
+              outbox?.map((data: any) => (
+                <NoteMessage key={data.id} data={data} />
               ))}
           </MessageWrapper>
         </PopupWrapper>

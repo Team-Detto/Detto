@@ -7,7 +7,6 @@ import {
   LoginPage3,
   LoginPage4,
 } from 'components/login';
-import { allowScroll, preventScroll } from 'utils/modal';
 
 export default function LoginModal() {
   const {

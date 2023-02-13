@@ -13,7 +13,7 @@ const useGlobalModal = () => {
     });
   };
 
-  const openModalWithData = (type: string, data: object) => {
+  const openModalWithData = (type: string, data: Note) => {
     setModal({
       ...modal,
       isOpen: true,
