@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
-import { useLoginModal } from 'hooks';
+import { useGlobalModal } from 'hooks';
 import { useState } from 'react';
 import ConfirmButton from './ConfirmButton';
 import Navigator from './Navigator';
@@ -10,7 +10,7 @@ const page = 1;
 
 // 페이지 1 : 포지션 선택
 export default function LoginPage1() {
-  const { openModal } = useLoginModal();
+  const { openModal } = useGlobalModal();
 
   const handleNextButtonClick = () => {
     openModal('login', page + 1);

@@ -1,7 +1,7 @@
 import { useRecoilState } from 'recoil';
 import { modalState } from '../recoil/atoms';
 
-const useLoginModal = () => {
+const useGlobalModal = () => {
   const [modal, setModal] = useRecoilState(modalState);
 
   const { isOpen } = modal;
@@ -33,4 +33,4 @@ const useLoginModal = () => {
   return { isOpen, modal, openModal, closeModal, updateModalSize };
 };
 
-export default useLoginModal;
+export default useGlobalModal;

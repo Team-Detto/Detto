@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
-import { useLoginModal } from 'hooks';
+import { useGlobalModal } from 'hooks';
 import defaultImage from 'assets/images/default_profile.jpg';
 import Navigator from './Navigator';
 import ConfirmButton from './ConfirmButton';
@@ -9,7 +9,7 @@ const page = 3;
 
 // 페이지 3 : 프로필 사진, 닉네임 변경
 export default function LoginPage3() {
-  const { openModal } = useLoginModal();
+  const { openModal } = useGlobalModal();
 
   // 확인 버튼 클릭 시 페이지 이동
   const handleNextButtonClick = () => {

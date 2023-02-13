@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import WritePageStack from 'components/writepage/WritePageStack';
-import { useLoginModal } from 'hooks';
+import { useGlobalModal } from 'hooks';
 import ConfirmButton from './ConfirmButton';
 import Navigator from './Navigator';
 
@@ -9,7 +9,7 @@ const page = 2;
 
 // 페이지 2 : 기술스택 선택
 export default function LoginPage2() {
-  const { openModal } = useLoginModal();
+  const { openModal } = useGlobalModal();
 
   // 확인 버튼 클릭 시 페이지 이동
   const handleNextButtonClick = () => {

@@ -1,4 +1,4 @@
-import { useLoginModal } from 'hooks';
+import { useGlobalModal } from 'hooks';
 import { useEffect } from 'react';
 import {
   LoginPage0,
@@ -9,26 +9,21 @@ import {
 } from 'components/login';
 import { allowScroll, preventScroll } from 'utils/modal';
 
-// 페이지 0 : 로그인
-// 페이지 1 : 포지션 선택
-// 페이지 2 : 기술스택 선택
-// 페이지 3 : 프로필 사진, 닉네임 변경
-// 페이지 4 : 환영합니다!
-
 export default function LoginModal() {
   const {
     modal: { page },
     updateModalSize,
-  } = useLoginModal();
+  } = useGlobalModal();
 
   // 페이지에 따라 모달 크기 조절
   useEffect(() => {
-    modalSizes.forEach((size) => {
+    modals.forEach((size) => {
       size.page === page && updateModalSize(size.width, size.height);
     });
   }, [page]);
 
   // 모달이 열려있을 때 body 스크롤 방지
+  // TODO: 스크롤 없는 페이지에서는 스크롤 생기지 않게 하기
   useEffect(() => {
     const prevScrollY = preventScroll();
     return () => {
@@ -36,19 +31,43 @@ export default function LoginModal() {
     };
   }, []);
 
-  if (page === 0) return <LoginPage0 />;
-  if (page === 1) return <LoginPage1 />;
-  if (page === 2) return <LoginPage2 />;
-  if (page === 3) return <LoginPage3 />;
-  if (page === 4) return <LoginPage4 />;
-
-  return <div>modal</div>;
+  return modals[page].component;
 }
 
-const modalSizes = [
-  { page: 0, width: '41.0625rem', height: '31.4375rem' },
-  { page: 1, width: '44.0625rem', height: '28.875rem' },
-  { page: 2, width: '70rem', height: '46.625rem' },
-  { page: 3, width: '47.8125rem', height: '38.5625rem' },
-  { page: 4, width: '37.5625rem', height: '22.9375rem' },
+const modals = [
+  {
+    // 페이지 0 : 로그인
+    page: 0,
+    width: '41.0625rem',
+    height: '31.4375rem',
+    component: <LoginPage0 />,
+  },
+  {
+    // 페이지 1 : 포지션 선택
+    page: 1,
+    width: '44.0625rem',
+    height: '28.875rem',
+    component: <LoginPage1 />,
+  },
+  {
+    // 페이지 2 : 기술스택 선택
+    page: 2,
+    width: '70rem',
+    height: '46.625rem',
+    component: <LoginPage2 />,
+  },
+  {
+    // 페이지 3 : 프로필 사진, 닉네임 변경
+    page: 3,
+    width: '47.8125rem',
+    height: '38.5625rem',
+    component: <LoginPage3 />,
+  },
+  {
+    // 페이지 4 : 환영합니다!
+    page: 4,
+    width: '37.5625rem',
+    height: '22.9375rem',
+    component: <LoginPage4 />,
+  },
 ];

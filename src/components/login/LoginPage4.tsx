@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 import WELCOME_IMG from 'assets/images/login_welcome.png';
 import COLORS from 'assets/styles/colors';
-import { useLoginModal } from 'hooks';
+import { useGlobalModal } from 'hooks';
 
 // 페이지 4 : 환영합니다!
 export default function LoginPage4() {
-  const { closeModal } = useLoginModal();
+  const { closeModal } = useGlobalModal();
 
   return (
     <Container>

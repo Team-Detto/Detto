@@ -13,10 +13,16 @@ type ModalState = {
   height: string;
   width: string;
   type: string;
-  page?: number;
+  page: number;
 };
 
 export const modalState = atom<ModalState>({
   key: 'modalState',
-  default: { isOpen: false, height: '400px', width: '400px', type: '' },
+  default: {
+    page: 0,
+    isOpen: false,
+    height: '400px',
+    width: '400px',
+    type: '',
+  },
 });

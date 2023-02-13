@@ -2,14 +2,14 @@ import { IoChevronBack } from 'react-icons/io5';
 import { CgClose } from 'react-icons/cg';
 import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
-import { useLoginModal } from 'hooks';
+import { useGlobalModal } from 'hooks';
 
 type NavigatorProps = {
   page: number;
 };
 
 export default function Navigator({ page }: NavigatorProps) {
-  const { openModal, closeModal } = useLoginModal();
+  const { openModal, closeModal } = useGlobalModal();
 
   return (
     <Container>
