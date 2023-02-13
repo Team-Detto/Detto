@@ -3,7 +3,6 @@ import MyPageProfileImage from './MyPageProfileImage';
 import CareerRadioInput from './CareerRadioInput';
 import PositionCheckBox from './PositionCheckBox';
 import SkillList from './SkillList';
-import { User } from 'pages/MyPage';
 import COLORS from 'assets/styles/colors';
 import { designs, develops, products } from 'utils/skills';
 
@@ -36,25 +35,21 @@ const MyPageInfo = ({ user }: MypageInfoProps) => {
       </MypageInfoTopContainer>
       <MyPageSkillsWrapper>
         <MyPageSkillsTitle>기술스택</MyPageSkillsTitle>
-        {/* TODO :: 기획, 디자인 동시에 선택했을 경우에 대한 처리 추가 필요 */}
         <MypageSkillBox>
           <SkillList
             category="기획"
             skills={products}
-            checkedPositions={user?.positions}
-            checkedSkills={user?.skills}
+            checkedSkills={user?.plannerStack}
           />
           <SkillList
             category="디자인"
             skills={designs}
-            checkedPositions={user?.positions}
-            checkedSkills={user?.skills}
+            checkedSkills={user?.designerStack}
           />
           <SkillList
             category="개발"
             skills={develops}
-            checkedPositions={user?.positions}
-            checkedSkills={user?.skills}
+            checkedSkills={user?.developerStack}
           />
         </MypageSkillBox>
       </MyPageSkillsWrapper>

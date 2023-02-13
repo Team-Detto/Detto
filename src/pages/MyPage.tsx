@@ -25,16 +25,6 @@ interface Member {
   skill: string;
 }
 
-export interface User {
-  displayName: string;
-  uid: string;
-  email: string;
-  isJunior: boolean;
-  photoURL: string;
-  positions: string[];
-  skills: string[];
-}
-
 const MyPage = () => {
   // TODO :: 로그인 기능 구현 이후 세션스토리지 키값 받아오는 부분 수정 필요. firebase:authUser:파이어베이스 API key:[DEFAULT]
   const uid = sessionStorage.getItem('uid');
