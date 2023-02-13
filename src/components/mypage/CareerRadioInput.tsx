@@ -8,7 +8,6 @@ interface CareerRadioInputProps {
 }
 
 const CareerRadioInput = ({ juniorFlag, id, value }: CareerRadioInputProps) => {
-  console.log('juniorFlag', juniorFlag);
   return (
     <>
       {juniorFlag ? (
