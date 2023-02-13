@@ -5,10 +5,17 @@ import ProjectEditPageHeader from 'components/editpage/ProjectEditPageHeader';
 import ProjectEditPageBody from 'components/editpage/ProjectEditPageBody';
 import ProjectEditPageFooter from 'components/editpage/ProjectEditPageFooter';
 import styled from '@emotion/styled';
+import { useEffect, useState } from 'react';
+import { firebaseGetProjectDataRequest } from 'apis/boardService';
 
 const ProjectEditPage = () => {
-  const { isOpen, handleOpenButtonClick, handleCloseButtonClick } =
-    useModal(false);
+  const { isOpen, handleModalStateChange } = useModal(false);
+
+  const [projectData, setProjectData] = useState([]);
+
+  useEffect(() => {
+    firebaseGetProjectDataRequest(setProjectData);
+  }, [setProjectData]);
 
   return (
     <WebContainer>
@@ -19,8 +26,8 @@ const ProjectEditPage = () => {
         <ConfirmAlert
           isOpen={isOpen}
           message="게시글을 수정하시겠습니까?"
-          onClickEvent={handleOpenButtonClick}
-          onCloseEvent={handleCloseButtonClick}
+          onClickEvent={handleModalStateChange}
+          onCloseEvent={handleModalStateChange}
         />
       </EditPageWrapper>
     </WebContainer>

@@ -1,17 +1,16 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 
 const useModal = (initialValue: boolean) => {
   const [isOpen, setIsOpen] = useState<boolean>(initialValue);
 
-  const handleOpenButtonClick = (): void => {
-    setIsOpen(true);
-  };
+  const handleModalStateChange = useCallback(() => {
+    setIsOpen((prev: boolean) => !prev);
+  }, [setIsOpen]);
 
-  const handleCloseButtonClick = (): void => {
-    setIsOpen(false);
+  return {
+    isOpen,
+    handleModalStateChange,
   };
-
-  return { isOpen, handleOpenButtonClick, handleCloseButtonClick };
 };
 
 export default useModal;

@@ -1,10 +1,10 @@
 import { products, develops, designs } from 'utils/skills';
-import { WriteFormValueType } from 'hooks/useWrite';
+import { WriteType } from 'types/write/writeType';
 import SkillButton from 'components/common/SkillButton';
 import styled from '@emotion/styled';
 
 interface Props {
-  writeFormValue?: WriteFormValueType;
+  writeFormValue?: WriteType.WriteFormType;
 }
 
 const WritePageStack = ({ writeFormValue }: Props) => {
@@ -19,7 +19,7 @@ const WritePageStack = ({ writeFormValue }: Props) => {
             <WritePageStackCategoryText>기획</WritePageStackCategoryText>
           </WritePageStackProductLeftBox>
           <WritePageStackProductRightBox>
-            {products.map((product) => (
+            {products.map((product: string) => (
               <SkillButton
                 key={product}
                 name={product}
@@ -33,7 +33,7 @@ const WritePageStack = ({ writeFormValue }: Props) => {
             <WritePageStackCategoryText>디자인</WritePageStackCategoryText>
           </WritePageStackDesignLeftBox>
           <WritePageStackDesignRightBox>
-            {designs.map((design) => (
+            {designs.map((design: string) => (
               <SkillButton
                 key={design}
                 name={design}
@@ -47,7 +47,7 @@ const WritePageStack = ({ writeFormValue }: Props) => {
             <WritePageStackCategoryText>개발</WritePageStackCategoryText>
           </WritePageStackDevelopLeftBox>
           <WritePageStackDevelopRightBox>
-            {develops.map((develop) => (
+            {develops.map((develop: string) => (
               <SkillButton
                 key={develop}
                 name={develop}
