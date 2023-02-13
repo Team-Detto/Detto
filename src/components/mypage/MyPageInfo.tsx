@@ -5,56 +5,82 @@ import SkillList from './SkillList';
 import COLORS from 'assets/styles/colors';
 import { designs, develops, products } from 'utils/skills';
 import Careers from './Careers';
+import { useEffect } from 'react';
+import useProfileImage from 'hooks/useProfileImage';
 
 interface MypageInfoProps {
   user: User;
+  uid: string;
 }
 
-const MyPageInfo = ({ user }: MypageInfoProps) => {
+const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
+  const {
+    profileImg,
+    setProfileImg,
+    handleProfileImageChange,
+    handleProfileImageDelete,
+  } = useProfileImage(uid);
+
+  // TODO :: DB로 수정한 정보 업데이트
+  const handleUserInfoSubmit = (e: React.FormEvent<HTMLFormElement>) => {};
+
+  useEffect(() => {
+    if (user) {
+      setProfileImg(user?.photoURL);
+    }
+  }, [user]);
+
   return (
     <MyPageTopContainer>
-      <MypageInfoTopContainer>
-        <MyPageProfileImage photoUrl={user?.photoURL} />
-        <InfoWrapper>
-          <InfoItemDiv>
-            <InfoTitle htmlFor="nickname">닉네임</InfoTitle>
-            <InfoNicknameInput
-              type="text"
-              defaultValue={user?.displayName || ''}
+      <form onSubmit={handleUserInfoSubmit}>
+        <MypageInfoTopContainer>
+          <MyPageProfileImage
+            profileImg={profileImg}
+            setProfileImg={setProfileImg}
+            onChange={handleProfileImageChange}
+            onDelete={handleProfileImageDelete}
+            uid={uid}
+          />
+          <InfoWrapper>
+            <InfoItemDiv>
+              <InfoTitle htmlFor="nickname">닉네임</InfoTitle>
+              <InfoNicknameInput type="text" defaultValue={user?.displayName} />
+            </InfoItemDiv>
+            <InfoItemDiv>
+              <InfoTitle>경력</InfoTitle>
+              <Careers isJunior={user?.isJunior} />
+            </InfoItemDiv>
+            <InfoItemDiv>
+              <InfoTitle>포지션</InfoTitle>
+              <PositionCheckBox userPoisitons={user?.positions} />
+            </InfoItemDiv>
+          </InfoWrapper>
+        </MypageInfoTopContainer>
+        <MyPageSkillsWrapper>
+          <MyPageSkillsTitle>기술스택</MyPageSkillsTitle>
+          <MypageSkillBox>
+            <SkillList
+              category="기획"
+              skills={products}
+              checkedSkills={user?.plannerStack}
             />
-          </InfoItemDiv>
-          <InfoItemDiv>
-            <InfoTitle>경력</InfoTitle>
-            <Careers isJunior={user?.isJunior} />
-          </InfoItemDiv>
-          <InfoItemDiv>
-            <InfoTitle>포지션</InfoTitle>
-            <PositionCheckBox userPoisitons={user?.positions} />
-          </InfoItemDiv>
-        </InfoWrapper>
-      </MypageInfoTopContainer>
-      <MyPageSkillsWrapper>
-        <MyPageSkillsTitle>기술스택</MyPageSkillsTitle>
-        <MypageSkillBox>
-          <SkillList
-            category="기획"
-            skills={products}
-            checkedSkills={user?.plannerStack}
-          />
-          <SkillList
-            category="디자인"
-            skills={designs}
-            checkedSkills={user?.designerStack}
-          />
-          <SkillList
-            category="개발"
-            skills={develops}
-            checkedSkills={user?.developerStack}
-          />
-        </MypageSkillBox>
-      </MyPageSkillsWrapper>
+            <SkillList
+              category="디자인"
+              skills={designs}
+              checkedSkills={user?.designerStack}
+            />
+            <SkillList
+              category="개발"
+              skills={develops}
+              checkedSkills={user?.developerStack}
+            />
+          </MypageSkillBox>
+        </MyPageSkillsWrapper>
+      </form>
       <InfoEditConfirmWrapper>
-        <InfoEditConfirmBtn>개인정보 수정 완료</InfoEditConfirmBtn>
+        <InfoEditConfirmBtn type="submit">
+          개인정보 수정 완료
+        </InfoEditConfirmBtn>
       </InfoEditConfirmWrapper>
     </MyPageTopContainer>
   );

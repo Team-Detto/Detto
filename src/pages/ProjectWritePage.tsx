@@ -35,7 +35,8 @@ const ProjectWritePage = () => {
         />
         <ConfirmAlert
           isOpen={isOpen}
-          message="게시글을 작성하시겠습니까?"
+          message="게시물을 업로드할까요?"
+          subMessage="작성한 게시물은 마이페이지에서 볼 수 있습니다."
           onClickEvent={handleCreateProjectButtonClick}
           onCloseEvent={handleModalStateChange}
         />

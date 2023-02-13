@@ -38,6 +38,11 @@ const Input = styled.input`
   text-align: end;
   padding-right: 0.5rem;
   background: #ffffff;
+  ::-webkit-outer-spin-button,
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 `;
 const Label = styled.label`
   height: 1.75rem;

@@ -1,27 +1,47 @@
+import { useRef } from 'react';
 import styled from '@emotion/styled';
 import defaultProfile from 'assets/images/default_profile.jpg';
 // TODO :: 디폴트 이미지 디자인 나올 경우 파일 경로 수정 필요
 
 interface MyPageProfileImageProps {
-  photoUrl: string;
+  profileImg: string;
+  setProfileImg: React.Dispatch<React.SetStateAction<string>>;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onDelete: () => void;
+  uid: string;
 }
 
-const MyPageProfileImage = ({ photoUrl }: MyPageProfileImageProps) => {
+const MyPageProfileImage = ({
+  profileImg,
+  onChange,
+  onDelete,
+}: MyPageProfileImageProps) => {
+  const imgRef = useRef<HTMLInputElement | null>(null);
+
   return (
     <ProfileImageWrapper>
       <ProfileImageBox>
         <ProfileImage
           src={
-            photoUrl === '' || photoUrl === undefined
+            profileImg === '' || profileImg === undefined
               ? defaultProfile
-              : photoUrl
+              : profileImg
           }
           alt="프로필이미지"
         />
+        <FileInput type="file" id="profile" ref={imgRef} onChange={onChange} />
       </ProfileImageBox>
       <ProfileButtonBox>
-        <ProfileButton btnType={'edit'}>수정</ProfileButton>
-        <ProfileButton btnType={'delete'}>삭제</ProfileButton>
+        <ProfileButton
+          type="button"
+          btnType={'edit'}
+          onClick={() => imgRef.current?.click()}
+        >
+          수정
+        </ProfileButton>
+        <ProfileButton type="button" btnType={'delete'} onClick={onDelete}>
+          삭제
+        </ProfileButton>
       </ProfileButtonBox>
     </ProfileImageWrapper>
   );
@@ -55,6 +75,10 @@ const ProfileButtonBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const FileInput = styled.input`
+  visibility: hidden;
 `;
 
 const ProfileButton = styled.button<{ btnType: string }>`

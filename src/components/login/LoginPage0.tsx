@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
-import { useLoginModal } from 'hooks';
+import { useGlobalModal } from 'hooks';
 import KEY_IMG from 'assets/images/login_key.png';
 import GITHUB_IMG from 'assets/images/login_github.png';
 import GOOGLE_IMG from 'assets/images/login_google.png';
@@ -8,7 +8,7 @@ import KAKAO_IMG from 'assets/images/login_kakao.png';
 
 // 페이지 0 : 로그인
 export default function LoginPage0() {
-  const { openModal } = useLoginModal();
+  const { openModal } = useGlobalModal();
 
   // 로그인 버튼 클릭 시 페이지 이동
   const handleLoginButtonClick = () => {

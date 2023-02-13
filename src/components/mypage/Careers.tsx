@@ -7,7 +7,6 @@ interface CareersProps {
 }
 
 const Careers = ({ isJunior }: CareersProps) => {
-  console.log('isJunior', isJunior);
   return (
     <CareerRadioBox>
       <CareerRadioInput

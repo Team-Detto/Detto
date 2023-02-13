@@ -5,6 +5,7 @@ import styled from '@emotion/styled';
 interface props {
   isOpen: boolean;
   message: string;
+  subMessage: string;
   onClickEvent: () => void;
   onCloseEvent: () => void;
 }
@@ -12,6 +13,7 @@ interface props {
 const ConfirmAlert = ({
   isOpen,
   message,
+  subMessage,
   onClickEvent,
   onCloseEvent,
 }: props) => {
@@ -28,13 +30,14 @@ const ConfirmAlert = ({
     <ConfirmAlertContainer isOpen={isOpen}>
       <ConfirmALertInfoContainer>
         <ConfirmAlertInviteTitle>{message}</ConfirmAlertInviteTitle>
+        <ConfirmAlertSubTitle>{subMessage}</ConfirmAlertSubTitle>
       </ConfirmALertInfoContainer>
       <ConfirmAlertButtonContainer>
         <ConfirmAlertCancelButton onClick={onCloseEvent}>
-          아니오
+          NO
         </ConfirmAlertCancelButton>
         <ConfirmAlertInviteButton onClick={onClickEvent}>
-          예
+          YES
         </ConfirmAlertInviteButton>
       </ConfirmAlertButtonContainer>
     </ConfirmAlertContainer>
@@ -44,10 +47,9 @@ const ConfirmAlert = ({
 const ConfirmAlertContainer = styled.div`
   position: fixed;
   width: 38.125rem;
-  height: 17.6875rem;
+  height: 19.6875rem;
   left: 50%;
   top: 50%;
-  text-align: center;
   transform: translate(-50%, -50%);
   padding: 15px;
   background: #fff;
@@ -61,13 +63,11 @@ const ConfirmALertInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  gap: 1.5rem;
   padding: 2rem;
-  gap: 1rem;
 `;
-
 const ConfirmAlertInviteTitle = styled.p`
   width: 100%;
-  height: 6rem;
   font-weight: 600;
   font-size: 2.125rem;
   text-align: start;
@@ -75,11 +75,20 @@ const ConfirmAlertInviteTitle = styled.p`
   line-height: 140%;
   color: #191f28;
 `;
+const ConfirmAlertSubTitle = styled.p`
+  width: 100%;
+  height: 1.5rem;
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 1.5rem;
+  color: #6b7684;
+`;
 const ConfirmAlertButtonContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
+  margin-top: 2rem;
   gap: 1rem;
 `;
 const ConfirmAlertCancelButton = styled.button`

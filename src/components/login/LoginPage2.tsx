@@ -1,27 +1,32 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import WritePageStack from 'components/writepage/WritePageStack';
-import { useLoginModal } from 'hooks';
+import { useGlobalModal } from 'hooks';
+import ConfirmButton from './ConfirmButton';
+import Navigator from './Navigator';
+
+const page = 2;
 
 // 페이지 2 : 기술스택 선택
 export default function LoginPage2() {
-  const { openModal } = useLoginModal();
+  const { openModal } = useGlobalModal();
 
   // 확인 버튼 클릭 시 페이지 이동
   const handleNextButtonClick = () => {
-    openModal('login', 3);
+    openModal('login', page + 1);
   };
 
   return (
     <Container>
-      <TextContainer>
-        <TitleText>어떤 기술 스택을 하실 수 있으신지 선택해주세요</TitleText>
-        <SubText>
-          (중복 선택 가능해요){' '}
-          <span onClick={handleNextButtonClick}>(다음 페이지)</span>
-        </SubText>
-      </TextContainer>
-      <WritePageStack />
+      <Navigator page={page} />
+      <BodyContainer>
+        <TextContainer>
+          <TitleText>어떤 기술 스택을 하실 수 있으신지 선택해주세요</TitleText>
+          <SubText>(중복 선택 가능해요)</SubText>
+        </TextContainer>
+        <WritePageStack />
+      </BodyContainer>
+      <ConfirmButton onClick={handleNextButtonClick} />
     </Container>
   );
 }
@@ -29,16 +34,26 @@ export default function LoginPage2() {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
 
   width: 100%;
   height: 100%;
 
-  padding: 5rem 2.5rem;
+  padding: 2.5rem;
+`;
+
+const BodyContainer = styled.div`
+  height: 29rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  margin-bottom: 5.625rem;
 `;
 
 const TextContainer = styled.div`
-  margin-bottom: 5rem;
+  margin-top: 1.125rem;
 `;
 
 const TitleText = styled.h2`

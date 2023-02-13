@@ -31,7 +31,7 @@ const WritePageHeaderContainer = styled.div`
   margin-top: 10rem;
 `;
 const WritePageHeaderInput = styled.input`
-  width: 99%;
+  width: 73.75rem;
   height: 2.8125rem;
   border: 1px solid #ced3db;
   border-radius: 4px;

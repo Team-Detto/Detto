@@ -1,6 +1,6 @@
 import useModal from './useModal';
 import usePopup from './usePopup';
-import useLoginModal from './useLoginModal';
+import useGlobalModal from './useGlobalModal';
 import useWrite from './useWrite';
 
-export { useModal, usePopup, useLoginModal, useWrite };
+export { useModal, usePopup, useGlobalModal, useWrite };
