@@ -47,8 +47,8 @@ export default function LoginModal() {
 
 const modalSizes = [
   { page: 0, width: '41.0625rem', height: '31.4375rem' },
-  { page: 2, width: '70rem', height: '39rem' },
   { page: 1, width: '44.0625rem', height: '28.875rem' },
+  { page: 2, width: '70rem', height: '46.625rem' },
   { page: 3, width: '47.8125rem', height: '33.3125rem' },
   { page: 4, width: '37.5625rem', height: '22.9375rem' },
 ];
