@@ -1,6 +1,11 @@
 import { firestorage, firestore } from './firebaseService';
 import { doc, getDoc } from 'firebase/firestore';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import {
+  deleteObject,
+  getDownloadURL,
+  ref,
+  uploadBytes,
+} from 'firebase/storage';
 
 // 유저 프로필 기본정보 조회
 export const getUserInfoData = async (params: any) => {
@@ -22,8 +27,25 @@ export const getUserInfoData = async (params: any) => {
  */
 export const uploadProfileImg = async (file: any, uid: string) => {
   // TODO :: 업로드 이미지 용량 최적화
-  await uploadBytes(ref(firestorage, `${uid}`), file);
+  await uploadBytes(ref(firestorage, `${uid}.jpg`), file);
 
-  const imgUrl = await getDownloadURL(ref(firestorage, `${uid}`));
+  const imgUrl = await getDownloadURL(ref(firestorage, `${uid}.jpg`));
   return imgUrl;
+};
+
+/**
+ * 스토리지의 유저 프로필 파일 삭제
+ * @param uid : 유저 uid
+ */
+export const deleteProfileImg = async (uid: string) => {
+  const deleteRef = ref(firestorage, `${uid}.jpg`);
+  deleteObject(deleteRef)
+    .then(() => {
+      // TODO :: 삭제 성공 시
+      console.log('delete success');
+    })
+    .catch((error) =>
+      // TODO :: 삭제 실패 시 에러 페이지 이동
+      console.log('delete fail', error),
+    );
 };

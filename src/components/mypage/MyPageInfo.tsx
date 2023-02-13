@@ -14,8 +14,12 @@ interface MypageInfoProps {
 }
 
 const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
-  const { profileImg, setProfileImg, handleProfileImgChange } =
-    useProfileImage(uid);
+  const {
+    profileImg,
+    setProfileImg,
+    handleProfileImageChange,
+    handleProfileImageDelete,
+  } = useProfileImage(uid);
 
   // TODO :: DB로 수정한 정보 업데이트
   const handleUserInfoSubmit = (e: React.FormEvent<HTMLFormElement>) => {};
@@ -33,7 +37,8 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
           <MyPageProfileImage
             profileImg={profileImg}
             setProfileImg={setProfileImg}
-            onChange={handleProfileImgChange}
+            onChange={handleProfileImageChange}
+            onDelete={handleProfileImageDelete}
             uid={uid}
           />
           <InfoWrapper>

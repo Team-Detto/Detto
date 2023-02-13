@@ -7,12 +7,14 @@ interface MyPageProfileImageProps {
   profileImg: string;
   setProfileImg: React.Dispatch<React.SetStateAction<string>>;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onDelete: () => void;
   uid: string;
 }
 
 const MyPageProfileImage = ({
   profileImg,
   onChange,
+  onDelete,
 }: MyPageProfileImageProps) => {
   const imgRef = useRef<HTMLInputElement | null>(null);
 
@@ -37,7 +39,7 @@ const MyPageProfileImage = ({
         >
           수정
         </ProfileButton>
-        <ProfileButton type="button" btnType={'delete'}>
+        <ProfileButton type="button" btnType={'delete'} onClick={onDelete}>
           삭제
         </ProfileButton>
       </ProfileButtonBox>
