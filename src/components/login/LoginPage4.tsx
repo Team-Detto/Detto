@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 import WELCOME_IMG from 'assets/images/login_welcome.png';
 import COLORS from 'assets/styles/colors';
-import { useLoginModal } from 'hooks';
+import { useGlobalModal } from 'hooks';
 
 // 페이지 4 : 환영합니다!
 export default function LoginPage4() {
-  const { closeModal } = useLoginModal();
+  const { closeModal } = useGlobalModal();
 
   return (
     <Container>
@@ -33,6 +33,8 @@ const Container = styled.div`
 `;
 
 const TopContainer = styled.div`
+  width: 30rem;
+
   margin-left: 2.125rem;
 `;
 
@@ -71,6 +73,6 @@ const ConfirmButton = styled.button`
 
   padding: 1.3125rem 5.9375rem;
 
-  background: ${COLORS.violetB400};
+  background: ${COLORS.violetA400};
   border-radius: 1rem;
 `;

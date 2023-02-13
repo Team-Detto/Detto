@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import WebContainer from './common/WebContainer';
 import { useEffect, useState } from 'react';
 import PopupContainer from './popup/PopupContainer';
-import { useLoginModal, usePopup } from 'hooks';
+import { useGlobalModal, usePopup } from 'hooks';
 
 interface headerTypes {
   isMain: boolean;
@@ -19,7 +19,7 @@ const Header = () => {
   const isMain = location.pathname === '/';
 
   const { toggleMessageBox, toggleNotificationBox } = usePopup();
-  const { openModal } = useLoginModal();
+  const { openModal } = useGlobalModal();
 
   const showHeaderGradientBackground = () => {
     const { scrollY } = window;
