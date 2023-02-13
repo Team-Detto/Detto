@@ -13,6 +13,16 @@ const useGlobalModal = () => {
     });
   };
 
+  const openModalWithData = (type: string, data: object) => {
+    setModal({
+      ...modal,
+      isOpen: true,
+      type,
+      page: 0,
+      data,
+    });
+  };
+
   const closeModal = () => {
     setModal({
       ...modal,
@@ -28,7 +38,7 @@ const useGlobalModal = () => {
     });
   };
 
-  return { modal, openModal, closeModal, updateModalSize };
+  return { modal, openModal, openModalWithData, closeModal, updateModalSize };
 };
 
 export default useGlobalModal;
