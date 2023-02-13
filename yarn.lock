@@ -6309,7 +6309,6 @@ __metadata:
     react-slick: ^0.29.0
     recoil: ^0.7.6
     slick-carousel: ^1.8.1
-    swiper: 6.8.4
     tui-color-picker: ^2.2.8
     typescript: ^4.4.2
     web-vitals: ^2.1.0
@@ -6428,15 +6427,6 @@ __metadata:
     domhandler: ^4.2.0
     entities: ^2.0.0
   checksum: fbb0b01f87a8a2d18e6e5a388ad0f7ec4a5c05c06d219377da1abc7bb0f674d804f4a8a94e3f71ff15f6cb7dcfc75704a54b261db672b9b3ab03da6b758b0b22
-  languageName: node
-  linkType: hard
-
-"dom7@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "dom7@npm:3.0.0"
-  dependencies:
-    ssr-window: ^3.0.0-alpha.1
-  checksum: 5a1b8979ed35afb9cc6714ff048ce4599a24fd8a11069bb52a61ccae1bdc0716c2bd6b07c4338856d5664d984c0bee9f6b7616a01ffa09daaebfe02fee016e66
   languageName: node
   linkType: hard
 
@@ -13312,13 +13302,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ssr-window@npm:^3.0.0, ssr-window@npm:^3.0.0-alpha.1":
-  version: 3.0.0
-  resolution: "ssr-window@npm:3.0.0"
-  checksum: e619db7437874c89d2f4cea94ca8cbdfb4eed9f20d86fa193c29a17829c26d7ceefae344ac1699cc24ebb8d397fd0937a1043b5177a140c2504c9fda58bb5652
-  languageName: node
-  linkType: hard
-
 "ssri@npm:^9.0.0":
   version: 9.0.1
   resolution: "ssri@npm:9.0.1"
@@ -13664,16 +13647,6 @@ __metadata:
   bin:
     svgo: bin/svgo
   checksum: b92f71a8541468ffd0b81b8cdb36b1e242eea320bf3c1a9b2c8809945853e9d8c80c19744267eb91cabf06ae9d5fff3592d677df85a31be4ed59ff78534fa420
-  languageName: node
-  linkType: hard
-
-"swiper@npm:6.8.4":
-  version: 6.8.4
-  resolution: "swiper@npm:6.8.4"
-  dependencies:
-    dom7: ^3.0.0
-    ssr-window: ^3.0.0
-  checksum: 613239e71135b48378453a74abed9a33d56f147e704e3803f5ea960dbf9833a93e557ef0b75e7c2849328eb1b48fafab54f7ac5b88e8c3727283536c7740b13f
   languageName: node
   linkType: hard
 

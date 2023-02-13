@@ -35,7 +35,6 @@
     "react-slick": "^0.29.0",
     "recoil": "^0.7.6",
     "slick-carousel": "^1.8.1",
-    "swiper": "6.8.4",
     "tui-color-picker": "^2.2.8",
     "typescript": "^4.4.2",
     "web-vitals": "^2.1.0"

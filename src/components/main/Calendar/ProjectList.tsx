@@ -1,129 +1,264 @@
 import React from 'react';
-import SwiperCore, { Navigation, Pagination, Mousewheel } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/swiper.min.css';
-import 'swiper/components/navigation/navigation.min.css';
-import 'swiper/components/pagination/pagination.min.css';
+import Slider from 'react-slick';
 import styled from '@emotion/styled';
-
-SwiperCore.use([Navigation, Pagination, Mousewheel]);
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import VectorUp from 'assets/images/VectorUp.png';
+import VectorDown from 'assets/images/VectorDown.png';
 
 const ProjectList = () => {
+  const settings = {
+    infinite: false,
+    centerPadding: '40px',
+    slidesToShow: 3,
+    swipeToSlide: true,
+    vertical: true,
+  };
+
   return (
-    <>
-      <ProjectListSwiperContainer
-        spaceBetween={16}
-        slidesPerView={3}
-        navigation={true}
-        pagination={{ clickable: true }}
-        direction="vertical"
-        mousewheel={true}
-      >
-        <SwiperSlide>
-          <ProjectListTextContainer>
-            <ProjectRecruitment>
-              기획 3명 | 개발 2명 찾고 있어요!
-            </ProjectRecruitment>
-            <ProjectName>프로젝트 이름</ProjectName>
-            <ProjectDeadline>프로젝트 모집 마감일 YYYY.MM.DD</ProjectDeadline>
-          </ProjectListTextContainer>
-        </SwiperSlide>
-        <SwiperSlide>
-          <ProjectListTextContainer>
-            <ProjectRecruitment>
-              기획 3명 | 개발 2명 찾고 있어요!
-            </ProjectRecruitment>
-            <ProjectName>프로젝트 이름</ProjectName>
-            <ProjectDeadline>프로젝트 모집 마감일 YYYY.MM.DD</ProjectDeadline>
-          </ProjectListTextContainer>
-        </SwiperSlide>
-        <SwiperSlide>
-          <ProjectListTextContainer>
-            <ProjectRecruitment>
-              기획 3명 | 개발 2명 찾고 있어요!
-            </ProjectRecruitment>
-            <ProjectName>프로젝트 이름</ProjectName>
-            <ProjectDeadline>프로젝트 모집 마감일 YYYY.MM.DD</ProjectDeadline>
-          </ProjectListTextContainer>
-        </SwiperSlide>
-        <SwiperSlide>
-          <ProjectListTextContainer>
-            <ProjectRecruitment>
-              기획 3명 | 개발 2명 찾고 있어요!
-            </ProjectRecruitment>
-            <ProjectName>프로젝트 이름</ProjectName>
-            <ProjectDeadline>프로젝트 모집 마감일 YYYY.MM.DD</ProjectDeadline>
-          </ProjectListTextContainer>
-        </SwiperSlide>
-        <SwiperSlide>
-          <ProjectListTextContainer>
-            <ProjectRecruitment>
-              기획 3명 | 개발 2명 찾고 있어요!
-            </ProjectRecruitment>
-            <ProjectName>프로젝트 이름</ProjectName>
-            <ProjectDeadline>프로젝트 모집 마감일 YYYY.MM.DD</ProjectDeadline>
-          </ProjectListTextContainer>
-        </SwiperSlide>
-        <SwiperSlide>
-          <ProjectListTextContainer>
-            <ProjectRecruitment>
-              기획 3명 | 개발 2명 찾고 있어요!
-            </ProjectRecruitment>
-            <ProjectName>프로젝트 이름</ProjectName>
-            <ProjectDeadline>프로젝트 모집 마감일 YYYY.MM.DD</ProjectDeadline>
-          </ProjectListTextContainer>
-        </SwiperSlide>
-      </ProjectListSwiperContainer>
-    </>
+    <ProjectListWrap>
+      <ProjectListSlider {...settings}>
+        {/* card box */}
+        <ProjectListCardContainer>
+          <ProjectListCardTextBox>
+            <ProjectListCardFindUser>
+              기획 3명|개발 2명 찾고 있어요!
+            </ProjectListCardFindUser>
+            <ProjectListCardProjectName>
+              프로젝트 이름
+            </ProjectListCardProjectName>
+          </ProjectListCardTextBox>
+          <ProjectListCardDate>
+            프로젝트 모집 마감일 YYYY.MM.DD
+          </ProjectListCardDate>
+        </ProjectListCardContainer>
+        {/*  */}
+        <ProjectListCardContainer>
+          <ProjectListCardTextBox>
+            <ProjectListCardFindUser>
+              기획 3명|개발 2명 찾고 있어요!
+            </ProjectListCardFindUser>
+            <ProjectListCardProjectName>
+              프로젝트 이름
+            </ProjectListCardProjectName>
+          </ProjectListCardTextBox>
+          <ProjectListCardDate>
+            프로젝트 모집 마감일 YYYY.MM.DD
+          </ProjectListCardDate>
+        </ProjectListCardContainer>
+        <ProjectListCardContainer>
+          <ProjectListCardTextBox>
+            <ProjectListCardFindUser>
+              기획 3명|개발 2명 찾고 있어요!
+            </ProjectListCardFindUser>
+            <ProjectListCardProjectName>
+              프로젝트 이름
+            </ProjectListCardProjectName>
+          </ProjectListCardTextBox>
+          <ProjectListCardDate>
+            프로젝트 모집 마감일 YYYY.MM.DD
+          </ProjectListCardDate>
+        </ProjectListCardContainer>
+        <ProjectListCardContainer>
+          <ProjectListCardTextBox>
+            <ProjectListCardFindUser>
+              기획 3명|개발 2명 찾고 있어요!
+            </ProjectListCardFindUser>
+            <ProjectListCardProjectName>
+              프로젝트 이름
+            </ProjectListCardProjectName>
+          </ProjectListCardTextBox>
+          <ProjectListCardDate>
+            프로젝트 모집 마감일 YYYY.MM.DD
+          </ProjectListCardDate>
+        </ProjectListCardContainer>
+        <ProjectListCardContainer>
+          <ProjectListCardTextBox>
+            <ProjectListCardFindUser>
+              기획 3명|개발 2명 찾고 있어요!
+            </ProjectListCardFindUser>
+            <ProjectListCardProjectName>
+              프로젝트 이름
+            </ProjectListCardProjectName>
+          </ProjectListCardTextBox>
+          <ProjectListCardDate>
+            프로젝트 모집 마감일 YYYY.MM.DD
+          </ProjectListCardDate>
+        </ProjectListCardContainer>
+        <ProjectListCardContainer>
+          <ProjectListCardTextBox>
+            <ProjectListCardFindUser>
+              기획 3명|개발 2명 찾고 있어요!
+            </ProjectListCardFindUser>
+            <ProjectListCardProjectName>
+              프로젝트 이름
+            </ProjectListCardProjectName>
+          </ProjectListCardTextBox>
+          <ProjectListCardDate>
+            프로젝트 모집 마감일 YYYY.MM.DD
+          </ProjectListCardDate>
+        </ProjectListCardContainer>
+        <ProjectListCardContainer>
+          <ProjectListCardTextBox>
+            <ProjectListCardFindUser>
+              기획 3명|개발 2명 찾고 있어요!
+            </ProjectListCardFindUser>
+            <ProjectListCardProjectName>
+              프로젝트 이름
+            </ProjectListCardProjectName>
+          </ProjectListCardTextBox>
+          <ProjectListCardDate>
+            프로젝트 모집 마감일 YYYY.MM.DD
+          </ProjectListCardDate>
+        </ProjectListCardContainer>
+        <ProjectListCardContainer>
+          <ProjectListCardTextBox>
+            <ProjectListCardFindUser>
+              기획 3명|개발 2명 찾고 있어요!
+            </ProjectListCardFindUser>
+            <ProjectListCardProjectName>
+              프로젝트 이름
+            </ProjectListCardProjectName>
+          </ProjectListCardTextBox>
+          <ProjectListCardDate>
+            프로젝트 모집 마감일 YYYY.MM.DD
+          </ProjectListCardDate>
+        </ProjectListCardContainer>
+        <ProjectListCardContainer>
+          <ProjectListCardTextBox>
+            <ProjectListCardFindUser>
+              기획 3명|개발 2명 찾고 있어요!
+            </ProjectListCardFindUser>
+            <ProjectListCardProjectName>
+              프로젝트 이름
+            </ProjectListCardProjectName>
+          </ProjectListCardTextBox>
+          <ProjectListCardDate>
+            프로젝트 모집 마감일 YYYY.MM.DD
+          </ProjectListCardDate>
+        </ProjectListCardContainer>
+      </ProjectListSlider>
+    </ProjectListWrap>
   );
 };
 
-const ProjectListSwiperContainer = styled(Swiper)`
-  .swiper-wrapper {
-    width: 18.75rem;
-    height: 26rem;
-    /* background: #f2f4f6; */
+export default ProjectList;
+const ProjectListWrap = styled.div`
+  width: 300px;
+  height: 287px;
+`;
+const ProjectListSlider = styled(Slider)`
+  .slick-list {
+    width: 300px;
+    height: 287px !important;
+  }
+  .slick-arrow {
+    display: flex;
+    z-index: 10;
+  }
+  .slick-prev {
+    left: 47%;
+    top: -38px;
+    cursor: pointer;
+    content: 'prev';
+  }
+  .slick-prev:before {
+    width: 24px;
+    height: 24px;
+    content: url(${VectorUp});
   }
 
-  .swiper-slide {
-    width: 290px;
-    height: 85px;
-    background: #ffffff;
-    border-radius: 0.75rem;
-    margin: 0 auto;
-    box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.04);
-    &:hover {
-      border: 1px solid #5d50f0;
-    }
+  .slick-next {
+    left: 47%;
+    top: 324px;
+    cursor: pointer;
+    content: 'next';
   }
 
-  .swiper-button-prev {
-    display: none;
-  }
-  .swiper-button-next {
-    display: none;
-  }
-  .swiper-pagination-bullet {
-    background: #5d50f0;
+  .slick-next:before {
+    width: 24px;
+    height: 24px;
+
+    content: url(${VectorDown});
+    color: #000;
   }
 `;
-const ProjectListTextContainer = styled.div`
-  margin: 12px 16px;
+const ProjectListCardContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  padding: 12px 16px;
+  gap: 8px;
+
+  width: 300px;
+  height: 85px;
+  margin-bottom: 0.8rem;
+
+  background: #ffffff;
+
+  border: 1px solid #f2f4f6;
+  box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.04);
+  border-radius: 8px;
+  &:hover {
+    border: 1px solid #5d50f0;
+  }
+`;
+const ProjectListCardTextBox = styled.div`
+  display: flex;
+  flex-direction: column;
   align-items: flex-start;
+  padding: 0px;
+
+  width: 268px;
+  height: 38px;
+  margin-bottom: 5px;
 `;
-const ProjectRecruitment = styled.div`
-  font-size: 12px;
+const ProjectListCardFindUser = styled.div`
+  width: 268px;
+  height: 14px;
+
+  font-family: 'Noto Sans CJK KR';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 150%;
+  /* or 15px */
+
+  display: flex;
+  align-items: center;
+
   color: #616161;
 `;
-const ProjectName = styled.div`
+const ProjectListCardProjectName = styled.div`
+  width: 268px;
+  height: 24px;
+
+  font-family: 'Noto Sans CJK KR';
+  font-style: normal;
+  font-weight: 500;
   font-size: 16px;
-  margin-bottom: 8px;
+  line-height: 150%;
+  /* identical to box height, or 24px */
+
+  display: flex;
+  align-items: center;
+
+  color: #464646;
 `;
-const ProjectDeadline = styled.div`
-  font-size: 12px;
+const ProjectListCardDate = styled.div`
+  width: 268px;
+  height: 15px;
+
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 150%;
+  /* identical to box height, or 15px */
+
+  display: flex;
+  align-items: center;
+
   color: #616161;
 `;
-export default ProjectList;

@@ -38,77 +38,77 @@ const FindUserSlider = () => {
             <CardNickname>닉네임</CardNickname>
             <CardJob>프론트엔드</CardJob>
           </CardTextContainer>
-        </Card>{' '}
+        </Card>
         <Card>
           <CardImage />
           <CardTextContainer>
             <CardNickname>닉네임</CardNickname>
             <CardJob>프론트엔드</CardJob>
           </CardTextContainer>
-        </Card>{' '}
+        </Card>
         <Card>
           <CardImage />
           <CardTextContainer>
             <CardNickname>닉네임</CardNickname>
             <CardJob>프론트엔드</CardJob>
           </CardTextContainer>
-        </Card>{' '}
+        </Card>
         <Card>
           <CardImage />
           <CardTextContainer>
             <CardNickname>닉네임</CardNickname>
             <CardJob>프론트엔드</CardJob>
           </CardTextContainer>
-        </Card>{' '}
+        </Card>
         <Card>
           <CardImage />
           <CardTextContainer>
             <CardNickname>닉네임</CardNickname>
             <CardJob>프론트엔드</CardJob>
           </CardTextContainer>
-        </Card>{' '}
+        </Card>
         <Card>
           <CardImage />
           <CardTextContainer>
             <CardNickname>닉네임</CardNickname>
             <CardJob>프론트엔드</CardJob>
           </CardTextContainer>
-        </Card>{' '}
+        </Card>
         <Card>
           <CardImage />
           <CardTextContainer>
             <CardNickname>닉네임</CardNickname>
             <CardJob>프론트엔드</CardJob>
           </CardTextContainer>
-        </Card>{' '}
+        </Card>
         <Card>
           <CardImage />
           <CardTextContainer>
             <CardNickname>닉네임</CardNickname>
             <CardJob>프론트엔드</CardJob>
           </CardTextContainer>
-        </Card>{' '}
+        </Card>
         <Card>
           <CardImage />
           <CardTextContainer>
             <CardNickname>닉네임</CardNickname>
             <CardJob>프론트엔드</CardJob>
           </CardTextContainer>
-        </Card>{' '}
+        </Card>
         <Card>
           <CardImage />
           <CardTextContainer>
             <CardNickname>닉네임</CardNickname>
             <CardJob>프론트엔드</CardJob>
           </CardTextContainer>
-        </Card>{' '}
+        </Card>
         <Card>
           <CardImage />
           <CardTextContainer>
             <CardNickname>닉네임</CardNickname>
             <CardJob>프론트엔드</CardJob>
           </CardTextContainer>
-        </Card>{' '}
+        </Card>
         <Card>
           <CardImage />
           <CardTextContainer>
