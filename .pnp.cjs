@@ -70,7 +70,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-slick", "virtual:990f75af0e4e97bc6ae8f77688032fa0cb741f39b94d672bd3c1007a785e4716099a18d80092328073a846a121401dd5fae4622660399ff5a4cd78fe25f2791c#npm:0.29.0"],\
             ["recoil", "virtual:990f75af0e4e97bc6ae8f77688032fa0cb741f39b94d672bd3c1007a785e4716099a18d80092328073a846a121401dd5fae4622660399ff5a4cd78fe25f2791c#npm:0.7.6"],\
             ["slick-carousel", "virtual:990f75af0e4e97bc6ae8f77688032fa0cb741f39b94d672bd3c1007a785e4716099a18d80092328073a846a121401dd5fae4622660399ff5a4cd78fe25f2791c#npm:1.8.1"],\
-            ["swiper", "npm:6.8.4"],\
             ["tui-color-picker", "npm:2.2.8"],\
             ["typescript", "patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=23ec76"],\
             ["web-vitals", "npm:2.1.4"]\
@@ -9460,7 +9459,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-slick", "virtual:990f75af0e4e97bc6ae8f77688032fa0cb741f39b94d672bd3c1007a785e4716099a18d80092328073a846a121401dd5fae4622660399ff5a4cd78fe25f2791c#npm:0.29.0"],\
             ["recoil", "virtual:990f75af0e4e97bc6ae8f77688032fa0cb741f39b94d672bd3c1007a785e4716099a18d80092328073a846a121401dd5fae4622660399ff5a4cd78fe25f2791c#npm:0.7.6"],\
             ["slick-carousel", "virtual:990f75af0e4e97bc6ae8f77688032fa0cb741f39b94d672bd3c1007a785e4716099a18d80092328073a846a121401dd5fae4622660399ff5a4cd78fe25f2791c#npm:1.8.1"],\
-            ["swiper", "npm:6.8.4"],\
             ["tui-color-picker", "npm:2.2.8"],\
             ["typescript", "patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=23ec76"],\
             ["web-vitals", "npm:2.1.4"]\
@@ -9594,16 +9592,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["domelementtype", "npm:2.3.0"],\
             ["domhandler", "npm:4.3.1"],\
             ["entities", "npm:2.2.0"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["dom7", [\
-        ["npm:3.0.0", {\
-          "packageLocation": "./.yarn/cache/dom7-npm-3.0.0-28768f2034-5a1b8979ed.zip/node_modules/dom7/",\
-          "packageDependencies": [\
-            ["dom7", "npm:3.0.0"],\
-            ["ssr-window", "npm:3.0.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -18483,15 +18471,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
-      ["ssr-window", [\
-        ["npm:3.0.0", {\
-          "packageLocation": "./.yarn/cache/ssr-window-npm-3.0.0-8a2d34cc37-e619db7437.zip/node_modules/ssr-window/",\
-          "packageDependencies": [\
-            ["ssr-window", "npm:3.0.0"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
       ["ssri", [\
         ["npm:9.0.1", {\
           "packageLocation": "./.yarn/cache/ssri-npm-9.0.1-33ce27f4f8-fb58f5e46b.zip/node_modules/ssri/",\
@@ -18890,17 +18869,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["csso", "npm:4.2.0"],\
             ["picocolors", "npm:1.0.0"],\
             ["stable", "npm:0.1.8"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["swiper", [\
-        ["npm:6.8.4", {\
-          "packageLocation": "./.yarn/unplugged/swiper-npm-6.8.4-cb66fb3b39/node_modules/swiper/",\
-          "packageDependencies": [\
-            ["swiper", "npm:6.8.4"],\
-            ["dom7", "npm:3.0.0"],\
-            ["ssr-window", "npm:3.0.0"]\
           ],\
           "linkType": "HARD"\
         }]\
