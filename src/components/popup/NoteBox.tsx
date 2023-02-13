@@ -21,7 +21,7 @@ export default function NoteBox() {
     popup: { isNoteOpen },
   } = usePopup();
 
-  const [{ data: inbox }, { data: outbox }] = useQueries({
+  const [{ data: inboxData }, { data: outboxData }] = useQueries({
     queries: [
       {
         queryKey: ['inbox'],
@@ -39,7 +39,6 @@ export default function NoteBox() {
       {isNoteOpen && (
         <PopupWrapper popup="message">
           <BoxContainer>
-            {/* inbox outbox radio button */}
             {boxList.map(({ id, label }) => (
               <React.Fragment key={id}>
                 <MenuToggleInput
@@ -55,14 +54,14 @@ export default function NoteBox() {
             ))}
           </BoxContainer>
           <MessageWrapper>
+            {/* //TODO: 타입 지정 */}
             {selectedBox === 'inbox' &&
-              // TODO: 타입 지정
-              inbox?.map((data: any) => (
-                <NoteMessage key={data.id} data={data} />
+              inboxData?.map((data: any) => (
+                <NoteMessage type="inbox" key={data.id} data={data} />
               ))}
             {selectedBox === 'outbox' &&
-              outbox?.map((data: any) => (
-                <NoteMessage key={data.id} data={data} />
+              outboxData?.map((data: any) => (
+                <NoteMessage type="outbox" key={data.id} data={data} />
               ))}
           </MessageWrapper>
         </PopupWrapper>

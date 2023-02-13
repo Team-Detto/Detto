@@ -54,7 +54,7 @@ const NoteModal = () => {
           <ProfileImage src={photoURL} />
           <TitleText>{displayName}님께 쪽지 보내기</TitleText>
         </HeaderContainer>
-        <ContentTextarea placeholder="쪽지 내용을 입력해주세요." />
+        <ContentTextarea autoFocus placeholder="쪽지 내용을 입력해주세요." />
         <CustomButton label="쪽지를 보낼게요" onClick={handleSendNote} />
       </Container>
     );
@@ -65,11 +65,11 @@ const NoteModal = () => {
       <Container>
         <HeaderContainer>
           <ProfileImage src={photoURL} />
-          <TitleText>{title}</TitleText>
+          <TitleText>보낸 쪽지</TitleText>
           <DateText>{getDate(date)}</DateText>
         </HeaderContainer>
         <ContentText>{content}</ContentText>
-        <CustomButton label="답장하기" onClick={handleReply} />
+        <CustomButton label="확인" onClick={closeModal} />
       </Container>
     );
 
