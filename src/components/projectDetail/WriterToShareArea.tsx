@@ -3,6 +3,14 @@ import { useState } from 'react';
 import { RiHeartAddLine, RiHeartAddFill, RiShareBoxLine } from 'react-icons/ri';
 
 const WriterToShareArea = ({ projectData, userData }: any) => {
+  const [isLike, setIsLike] = useState<boolean>(false); //Todo: 관심버튼 클릭시 true/false로 변경해주기
+
+  const handleLike = (event: React.MouseEvent) => {
+    event.preventDefault();
+    setIsLike(!isLike);
+    console.log(isLike);
+  };
+
   const handleShare = (event: React.MouseEvent) => {
     event.preventDefault();
     navigator.share({
@@ -20,9 +28,13 @@ const WriterToShareArea = ({ projectData, userData }: any) => {
       </WriterWrapper>
       <IconWrapper>
         조회 {projectData?.view ?? 0}
-        <IconButton>
+        <IconButton
+          onClick={(event) => {
+            handleLike(event);
+          }}
+        >
           {/* Todo: 관심버튼 false->true이면 RiHeartAddFill아이콘으로 변경해주고 +1, true->false이면 RiHeartAddLine아이콘으로 변경해주고 -1*/}
-          <RiHeartAddLine />
+          {isLike ? <RiHeartAddFill /> : <RiHeartAddLine />}
           관심 {projectData?.like ?? 0}
         </IconButton>
         <IconButton
