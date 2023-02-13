@@ -22,10 +22,10 @@ const Button = styled.button`
   justify-content: center;
 
   color: #ffffff;
-  background-color: ${COLORS.violetA400};
+  background-color: ${COLORS.violetB400};
   border-radius: 1rem;
 
   &:hover {
-    background-color: ${COLORS.violetA300};
+    background-color: ${COLORS.violetB300};
   }
 `;

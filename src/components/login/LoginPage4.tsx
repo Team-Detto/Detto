@@ -73,6 +73,6 @@ const ConfirmButton = styled.button`
 
   padding: 1.3125rem 5.9375rem;
 
-  background: ${COLORS.violetA400};
+  background: ${COLORS.violetB400};
   border-radius: 1rem;
 `;
