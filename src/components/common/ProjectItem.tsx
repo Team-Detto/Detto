@@ -30,14 +30,14 @@ const ProjectItem = ({ project }: ProjectProps) => {
           <ProjectInfoLabel>함께하고 있는 팀원</ProjectInfoLabel>
           <ProjectMemberPositionBox>
             {project.participants.map((participant) => (
-              <ProjectMemberPositionList>
+              <ProjectMemberPositionList key={participant.type}>
                 <ProjectMemberPositionLabel>
                   {participant.type} {/* 포지션 라벨 ex.기획, 개발, 디자인*/}
                 </ProjectMemberPositionLabel>
 
                 <ProjectMemberList>
                   {participant.members.map((m) => (
-                    <ProjectMemberItem>
+                    <ProjectMemberItem key={m.uid}>
                       <ProjectMemberProfileImg
                         src={m.profile ?? defaultProfile}
                         alt="멤버닉네임"

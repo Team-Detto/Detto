@@ -18,7 +18,7 @@ const ProjectList = ({
     <ProjectListContainer>
       <ProjectListTitle>{`${nickname}님이 ${sectionTitle}`}</ProjectListTitle>
       {projects.map((project) => (
-        <ProjectItem project={project} />
+        <ProjectItem key={project.id} project={project} />
       ))}
     </ProjectListContainer>
   );

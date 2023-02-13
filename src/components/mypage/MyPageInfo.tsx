@@ -1,46 +1,56 @@
 import styled from '@emotion/styled';
-import SkillButton from 'components/common/SkillButton';
 import MyPageProfileImage from './MyPageProfileImage';
+import PositionCheckBox from './PositionCheckBox';
+import SkillList from './SkillList';
 import COLORS from 'assets/styles/colors';
-import { develops, products } from 'utils/skills';
-import CareerRadioInput from './CareerRadioInput';
-import PositionCheckBox, { ButtonsWrapper } from './PositionCheckBox';
+import { designs, develops, products } from 'utils/skills';
+import Careers from './Careers';
 
-const MyPageInfo = () => {
+interface MypageInfoProps {
+  user: User;
+}
+
+const MyPageInfo = ({ user }: MypageInfoProps) => {
   return (
     <MyPageTopContainer>
       <MypageInfoTopContainer>
-        <MyPageProfileImage />
+        <MyPageProfileImage photoUrl={user?.photoURL} />
         <InfoWrapper>
           <InfoItemDiv>
             <InfoTitle htmlFor="nickname">닉네임</InfoTitle>
-            <InfoNicknameInput type="text" defaultValue={'데토'} />
+            <InfoNicknameInput
+              type="text"
+              defaultValue={user?.displayName || ''}
+            />
           </InfoItemDiv>
           <InfoItemDiv>
             <InfoTitle>경력</InfoTitle>
-            <CareerRadioInput />
+            <Careers isJunior={user?.isJunior} />
           </InfoItemDiv>
           <InfoItemDiv>
             <InfoTitle>포지션</InfoTitle>
-            <PositionCheckBox />
+            <PositionCheckBox userPoisitons={user?.positions} />
           </InfoItemDiv>
         </InfoWrapper>
       </MypageInfoTopContainer>
       <MyPageSkillsWrapper>
         <MyPageSkillsTitle>기술스택</MyPageSkillsTitle>
         <MypageSkillBox>
-          <SkillTitle>기획 디자인</SkillTitle>
-          <ButtonsWrapper>
-            {products.map((product) => (
-              <SkillButton key={product} name={product} />
-            ))}
-          </ButtonsWrapper>
-          <SkillTitle>개발</SkillTitle>
-          <ButtonsWrapper>
-            {develops.map((product) => (
-              <SkillButton key={product} name={product} />
-            ))}
-          </ButtonsWrapper>
+          <SkillList
+            category="기획"
+            skills={products}
+            checkedSkills={user?.plannerStack}
+          />
+          <SkillList
+            category="디자인"
+            skills={designs}
+            checkedSkills={user?.designerStack}
+          />
+          <SkillList
+            category="개발"
+            skills={develops}
+            checkedSkills={user?.developerStack}
+          />
         </MypageSkillBox>
       </MyPageSkillsWrapper>
       <InfoEditConfirmWrapper>

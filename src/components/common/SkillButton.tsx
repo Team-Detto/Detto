@@ -1,12 +1,13 @@
-import { memo, useState, useCallback } from 'react';
+import { memo, useState, useEffect, useCallback } from 'react';
 import styled from '@emotion/styled';
 
 interface props {
   name: string;
   value?: string[];
+  isChecked?: boolean;
 }
 
-const SkillButton = ({ name, value }: props) => {
+const SkillButton = ({ name, value, isChecked }: props) => {
   const [isActive, setIsActive] = useState(false);
 
   const handleActiveButton = useCallback(() => {
@@ -18,6 +19,12 @@ const SkillButton = ({ name, value }: props) => {
     }
     value.splice(value.indexOf(name), 1);
   }, [setIsActive]);
+
+  useEffect(() => {
+    if (isChecked) {
+      setIsActive(true);
+    }
+  }, [isChecked]);
 
   return (
     <SkillButtonContainer>
