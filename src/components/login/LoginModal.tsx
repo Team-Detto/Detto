@@ -20,15 +20,6 @@ export default function LoginModal() {
     updateModalSize(modals[page].width, modals[page].height);
   }, [page]);
 
-  // 모달이 열려있을 때 body 스크롤 방지
-  // TODO: 스크롤 없는 페이지에서는 스크롤 생기지 않게 하기
-  useEffect(() => {
-    const prevScrollY = preventScroll();
-    return () => {
-      allowScroll(prevScrollY);
-    };
-  }, []);
-
   return modals[page].component;
 }
 
