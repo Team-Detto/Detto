@@ -1,3 +1,4 @@
+import React from 'react';
 import SwiperCore, { Navigation, Pagination, Mousewheel } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper.min.css';
