@@ -24,4 +24,8 @@ const Button = styled.button`
   color: #ffffff;
   background-color: ${COLORS.violetA400};
   border-radius: 1rem;
+
+  &:hover {
+    background-color: ${COLORS.violetA300};
+  }
 `;

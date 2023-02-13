@@ -15,6 +15,7 @@ interface props {
 const LOGIN = 'login';
 const INBOX = 'inbox';
 const OUTBOX = 'outbox';
+const REPLY = 'reply';
 
 export default function ModalContainer() {
   const { isOpen, width, height, type } = useRecoilValue(modalState);
@@ -35,6 +36,7 @@ export default function ModalContainer() {
         {type === LOGIN && <LoginModal />}
         {type === INBOX && <NoteModal />}
         {type === OUTBOX && <NoteModal />}
+        {type === REPLY && <NoteModal />}
       </Container>
     </BackDrop>
   );
