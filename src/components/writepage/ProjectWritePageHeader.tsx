@@ -16,6 +16,7 @@ const ProjectWritePageHeader = ({
       <WritePageHeaderInput
         placeholder="제목입니다."
         name="title"
+        type="text"
         value={writeFormValue.title}
         onChange={onFormValueChangeEvent}
       />
