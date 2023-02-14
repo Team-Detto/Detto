@@ -54,13 +54,23 @@ export const firebaseGetProjectDataRequest = (setProjectData: any) => {
 export const firebaseEditProjectRequest = async (
   id: string,
   editFormData: any,
+  markdownText: string,
+  image: any,
 ) => {
-  await updateDoc(doc(firestore, 'post', id), {
-    ...editFormData,
-    startDate: new Date(editFormData.startDate).getTime(),
-    endDate: new Date(editFormData.endDate).getTime(),
-    deadline: new Date(editFormData.deadline).getTime(),
-  });
+  try {
+    const sumnailUrl = await firebaseImageUploadRequest(image);
+
+    await updateDoc(doc(firestore, 'post', id), {
+      ...editFormData,
+      content: markdownText,
+      sumnail: sumnailUrl,
+      startDate: new Date(editFormData.startDate).getTime(),
+      endDate: new Date(editFormData.endDate).getTime(),
+      deadline: new Date(editFormData.deadline).getTime(),
+    });
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 export const firebaseDeleteProjectRequest = async (id: string) => {
