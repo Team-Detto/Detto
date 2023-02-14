@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
-import { positions } from 'utils/positions';
+import { positionList } from 'utils/positions';
 
 const ApplyPositionButton = (props: any) => {
   const { clickValue, setClickValue } = props;
@@ -12,7 +11,7 @@ const ApplyPositionButton = (props: any) => {
 
   return (
     <>
-      {positions.map((position: { name: string }, idx: number) => {
+      {positionList.map((position: { name: string }, idx: number) => {
         return (
           <PositionButton
             key={position.name}

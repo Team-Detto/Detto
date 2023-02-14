@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import { useModal } from 'hooks';
-import InviteModal from './InviteModal';
+import InviteModal from './modals/InviteModal';
 
 const ApplicantListArea = ({ projectData, userData }: any) => {
   const { applicants } = projectData;

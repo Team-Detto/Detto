@@ -3,7 +3,7 @@ import COLORS from 'assets/styles/colors';
 import Alert from 'components/common/Alert';
 import PositionButton from 'components/common/ApplyPositionButton';
 import { useModal } from 'hooks';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { allowScroll, preventScroll } from 'utils/modal';
 
 interface props {
@@ -15,7 +15,9 @@ interface props {
 const ApplyModal = ({ isOpen, message, onClickEvent }: props) => {
   const { isOpen: isAlertOpen, handleModalStateChange: onAlertClickEvent } =
     useModal(false);
-
+  const [usage, setUsage] = useState('done');
+  const [text, setText] = useState('');
+  const [clickValue, setClickValue] = useState(-1);
   useEffect(() => {
     if (isOpen) {
       const prevScrollY = preventScroll();
@@ -25,30 +27,17 @@ const ApplyModal = ({ isOpen, message, onClickEvent }: props) => {
     }
   }, [isOpen]);
 
-  const [text, setText] = useState('');
-  const [clickValue, setClickValue] = useState<number>(-1);
-
-  const displayText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setText(e.target.value);
-  };
-
   return (
     <>
-      <Alert
-        isOpen={isAlertOpen}
-        onClickEvent={onAlertClickEvent}
-        mainMsg="지원이 완료되었어요!"
-        subMsg="알림으로 결과를 알려드릴게요!"
-      />
       <ModalContainer isOpen={isOpen}>
         <ModalTitle>{message}</ModalTitle>
         <ContentContainer>
           <PositionContainer>
             <PositionTitle>
               포지션
-              <PositionNotificationSpan>
+              <PositionNotification>
                 (중복 선택이 불가능 해요)
-              </PositionNotificationSpan>
+              </PositionNotification>
             </PositionTitle>
             <PositionContentWrap>
               <PositionButton
@@ -62,10 +51,8 @@ const ApplyModal = ({ isOpen, message, onClickEvent }: props) => {
             <MotiveContentWrap>
               <MotiveTextArea
                 placeholder="지원동기를 입력해주세요"
-                onChange={(e) => displayText(e)}
+                onChange={(e) => setText(e.target.value)}
                 value={text}
-                //창 꺼지면 초기화시키기
-                // onChange={onChangeEvent}
               />
             </MotiveContentWrap>
           </MotiveContainer>
@@ -73,25 +60,50 @@ const ApplyModal = ({ isOpen, message, onClickEvent }: props) => {
         <ApplyButtonContainer>
           <MotiveButton
             onClick={() => {
-              onClickEvent();
               setText('');
               setClickValue(-1);
+              onClickEvent();
             }}
           >
             아니오
           </MotiveButton>
           <MotiveButton
             onClick={() => {
-              setText('');
-              setClickValue(-1);
-              onClickEvent();
-              onAlertClickEvent();
+              if (text === '' || clickValue === -1) {
+                setUsage('fail');
+                onAlertClickEvent();
+                return;
+              } else {
+                setUsage('done');
+                setText('');
+                setClickValue(-1);
+                onClickEvent();
+                onAlertClickEvent();
+              }
             }}
           >
             지원하기
           </MotiveButton>
         </ApplyButtonContainer>
+        {/* 지원실패 모달 위에 모달 띄워야해서 */}
+        <Alert
+          isOpen={isAlertOpen}
+          onClickEvent={onAlertClickEvent}
+          mainMsg="지원에 실패했어요!!"
+          subMsg="입력을 확인해주세요!"
+          usage={usage}
+          page="apply"
+        />
       </ModalContainer>
+      {/* 지원성공 */}
+      <Alert
+        isOpen={isAlertOpen}
+        onClickEvent={onAlertClickEvent}
+        mainMsg="지원이 완료되었어요!"
+        subMsg="알림으로 결과를 알려드릴게요!"
+        usage={usage}
+        page="apply"
+      />
     </>
   );
 };
@@ -154,7 +166,7 @@ const PositionTitle = styled.p`
   gap: 8px;
 `;
 
-const PositionNotificationSpan = styled.span`
+const PositionNotification = styled.span`
   font-weight: 500;
   font-size: 16px;
   line-height: 28px;
