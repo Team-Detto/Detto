@@ -1,10 +1,10 @@
-import React from 'react';
+import { MutableRefObject } from 'react';
 import TextEdiotr from 'components/TextEditor';
 import { WriteType } from 'types/write/writeType';
 import styled from '@emotion/styled';
 
 interface props {
-  editRef: React.MutableRefObject<any>;
+  editRef: MutableRefObject<any>;
   writeFormValue: WriteType.WriteFormType;
   onOpenButtonClickEvent: () => void;
 }

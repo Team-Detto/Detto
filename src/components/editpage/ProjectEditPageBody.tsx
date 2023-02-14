@@ -4,13 +4,17 @@ import EditPageStack from './EditPageStack';
 import styled from '@emotion/styled';
 
 interface Props {
+  imageRef: any;
   editFormValue: any;
   onFormValueChangeEvent: (e: ChangeEvent<HTMLInputElement>) => void;
+  onAddSumnailImageEvent: () => void;
 }
 
 const ProjectEditPageBody = ({
+  imageRef,
   editFormValue,
   onFormValueChangeEvent,
+  onAddSumnailImageEvent,
 }: Props) => {
   const {
     positions,
@@ -59,12 +63,15 @@ const ProjectEditPageBody = ({
           type="date"
           name="deadline"
           value={new Date(+new Date(deadline)).toISOString().split('T')[0]}
+          onChange={onFormValueChangeEvent}
         />
       </BodyDeadlineBox>
       <BodySumnailBox>
         <BodyText>썸네일 추가</BodyText>
-        <BodySumnailImage type="file" accept="image/*" />
-        <BodySumnailButton>사진 추가하기</BodySumnailButton>
+        <BodySumnailImage type="file" accept="image/*" ref={imageRef} />
+        <BodySumnailButton onClick={onAddSumnailImageEvent}>
+          사진 추가하기
+        </BodySumnailButton>
       </BodySumnailBox>
     </BodyContainer>
   );

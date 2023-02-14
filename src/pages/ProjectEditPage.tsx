@@ -8,7 +8,14 @@ import styled from '@emotion/styled';
 
 const ProjectEditPage = () => {
   const { isOpen, handleModalStateChange } = useModal(false);
-  const { editFormValue, handleFormValueChange } = useEdtiBoard();
+  const {
+    editRef,
+    imageRef,
+    editFormValue,
+    handleFormValueChange,
+    handleAddSumnailImage,
+    handleEditProjectButtonClick,
+  } = useEdtiBoard();
 
   return (
     <WebContainer>
@@ -18,10 +25,16 @@ const ProjectEditPage = () => {
           onFormValueChangeEvent={handleFormValueChange}
         />
         <ProjectEditPageBody
+          imageRef={imageRef}
           editFormValue={editFormValue}
           onFormValueChangeEvent={handleFormValueChange}
+          onAddSumnailImageEvent={handleAddSumnailImage}
         />
-        <ProjectEditPageFooter />
+        <ProjectEditPageFooter
+          editRef={editRef}
+          editFormValue={editFormValue}
+          onEditProjectButtonClickEvent={handleEditProjectButtonClick}
+        />
         <ConfirmAlert
           isOpen={isOpen}
           message="게시글을 수정하시겠습니까?"
