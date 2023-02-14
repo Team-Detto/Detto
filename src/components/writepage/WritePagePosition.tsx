@@ -44,7 +44,7 @@ const WritePagePosition = ({
         onChageEvent={onFormValueChagneEvent}
       />
       <LabelInput
-        label="프론트엔드"
+        label="프론트"
         text="명"
         input={{
           id: 'frontend',
@@ -76,7 +76,6 @@ const WritePagePosition = ({
 const WritePagePositionContainer = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: row;
 `;
 
 export default WritePagePosition;

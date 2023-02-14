@@ -1,10 +1,27 @@
+import { MutableRefObject } from 'react';
+import TextEdiotr from 'components/TextEditor';
+import { EditType } from 'types/write/writeType';
 import styled from '@emotion/styled';
 
-const ProjectEditPageFooter = () => {
+interface Props {
+  editRef: MutableRefObject<any>;
+  editFormValue: EditType.EditFormType;
+  onModalStateChangeEvent: () => void;
+}
+
+const ProjectEditPageFooter = ({
+  editRef,
+  editFormValue,
+  onModalStateChangeEvent,
+}: Props) => {
   return (
     <FooterContainer>
-      <FooterEditBox name="content" />
-      <FooterCompleatedButton>수정 완료</FooterCompleatedButton>
+      <FooterEditBox>
+        <TextEdiotr editRef={editRef} value={editFormValue.content} />
+      </FooterEditBox>
+      <FooterCompleatedButton onClick={onModalStateChangeEvent}>
+        수정 완료
+      </FooterCompleatedButton>
     </FooterContainer>
   );
 };
@@ -17,10 +34,11 @@ const FooterContainer = styled.div`
   align-items: center;
   justify-content: center;
 `;
-const FooterEditBox = styled.textarea`
+const FooterEditBox = styled.div`
   width: 73.75rem;
   height: 68.1875rem;
   border: 0.0625rem solid #ced3db;
+  z-index: 0;
 `;
 const FooterCompleatedButton = styled.button`
   width: 29.375rem;

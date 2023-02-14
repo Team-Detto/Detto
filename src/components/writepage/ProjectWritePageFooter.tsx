@@ -1,20 +1,15 @@
-import React from 'react';
+import { MutableRefObject } from 'react';
 import TextEdiotr from 'components/TextEditor';
 import { WriteType } from 'types/write/writeType';
 import styled from '@emotion/styled';
 
 interface props {
-  editRef: React.MutableRefObject<any>;
+  editRef: MutableRefObject<any>;
   writeFormValue: WriteType.WriteFormType;
-  onFormValueChagneEvent: (e: React.ChangeEvent<HTMLTextAreaElement>) => void; // eslint-disable-line no-unused-vars
   onOpenButtonClickEvent: () => void;
 }
 
-const ProjectWritePageFooter = ({
-  editRef,
-  onFormValueChagneEvent,
-  onOpenButtonClickEvent,
-}: props) => {
+const ProjectWritePageFooter = ({ editRef, onOpenButtonClickEvent }: props) => {
   return (
     <ProjectWritePageFooterContainer>
       <ProjectWritePageFooterEditBox>
@@ -39,6 +34,7 @@ const ProjectWritePageFooterEditBox = styled.div`
   width: 73.75rem;
   height: 68.1875rem;
   border: 0.0625rem solid #ced3db;
+  z-index: 0;
 `;
 const ProjectWritePageFooterCompleatedButton = styled.button`
   width: 29.375rem;
