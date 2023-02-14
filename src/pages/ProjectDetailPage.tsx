@@ -25,18 +25,15 @@ const ProjectDetailPage = () => {
 
   const { data: userData, isLoading: userIsLoading } = useQuery({
     queryKey: ['user', projectData?.uid],
-    queryFn: () => findWithCollectionName('user', projectData?.uid), //여기서 TypeError: Cannot read property of undefined 에러남 uid 읽기 전에 요청돼서 그런듯?
+    queryFn: () => findWithCollectionName('user', projectData?.uid), //여기서 TypeError: Cannot read property of undefined 에러남 https://github.com/microsoft/vscode/issues/116219
   });
 
   const { isOpen, handleModalStateChange } = useModal(false);
 
-  const handleAlert = () => {};
-
-  //projectData?.uid로 user테이블 조회해서 닉네임, 프로필 사진 가져오기
   //projectData?.uid 가 현재 uid랑 같은지 판별하고 같으면 수정하기 버튼 display, 지원하기 버튼 -> 마감하기 버튼으로 변경, 지원자 목록 보여주기
   //지원하기 버튼 클릭시 지원자 목록에 uid 추가
   //현재 참여중인 인원, 지원한 인원 uid로 모두 user테이블 조회해서 닉네임, 프로필 사진 가져오기???
-  //날짜 데이터 포맷팅
+
   return (
     <ProjectDetailContainer>
       {(projectIsLoading || userIsLoading) && <div>로딩중</div>}
