@@ -136,8 +136,8 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
       </InfoEditConfirmWrapper>
       <ConfirmAlert
         isOpen={isOpen}
-        message="게시물을 업로드할까요?"
-        subMessage="작성한 게시물은 마이페이지에서 볼 수 있습니다."
+        message="개인정보를 수정할까요?"
+        subMessage="수정한 정보는 곧바로 반영됩니다!"
         onClickEvent={handleUserInfoUpdate}
         onCloseEvent={handleModalStateChange}
       />

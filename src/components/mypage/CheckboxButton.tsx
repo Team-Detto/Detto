@@ -84,7 +84,7 @@ const CheckboxLabel = styled.label`
   transition: transform 300ms ease-in-out;
 
   &:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
 `;
 
