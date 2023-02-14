@@ -34,7 +34,7 @@ const useEdtiBoard = () => {
     });
   };
 
-  const handleAddSumnailImage = () => {
+  const handleAddThumbnailImage = () => {
     imageRef.current.click();
   };
 
@@ -76,7 +76,7 @@ const useEdtiBoard = () => {
     editFormValue,
     handleModalStateChange,
     handleFormValueChange,
-    handleAddSumnailImage,
+    handleAddThumbnailImage: handleAddThumbnailImage,
     handleEditProjectButtonClick,
   };
 };

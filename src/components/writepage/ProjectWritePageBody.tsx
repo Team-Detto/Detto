@@ -8,14 +8,14 @@ interface Props {
   imageRef: RefObject<HTMLInputElement>;
   writeFormValue: WriteType.WriteFormType;
   onFormValueChagneEvent: (e: React.ChangeEvent<HTMLInputElement>) => void; // eslint-disable-line no-unused-vars
-  onAddSumnailImageEvent: () => void;
+  onAddThumbnailImageEvent: () => void;
 }
 
 const ProjectWritePageBody = ({
   imageRef,
   writeFormValue,
   onFormValueChagneEvent,
-  onAddSumnailImageEvent,
+  onAddThumbnailImageEvent: onAddThumbnailImageEvent,
 }: Props) => {
   return (
     <WritePageBodyContainer>
@@ -53,17 +53,17 @@ const ProjectWritePageBody = ({
           onChange={onFormValueChagneEvent}
         />
       </WritePageBodyDeadlineBox>
-      <WritePageBodySumnailBox>
+      <WritePageBodyThumbnailBox>
         <WritePageBodyText>썸네일 추가</WritePageBodyText>
-        <WritePageBodySumnailImage
+        <WritePageBodyThumbnailImage
           type="file"
           accept="image/*"
           ref={imageRef}
         />
-        <WritePageBodySumnailButton onClick={onAddSumnailImageEvent}>
+        <WritePageBodyThumbnailButton onClick={onAddThumbnailImageEvent}>
           사진 추가하기
-        </WritePageBodySumnailButton>
-      </WritePageBodySumnailBox>
+        </WritePageBodyThumbnailButton>
+      </WritePageBodyThumbnailBox>
     </WritePageBodyContainer>
   );
 };
@@ -113,14 +113,14 @@ const WritePageBodyDeadlineBox = styled.div`
   display: flex;
   flex-direction: row;
 `;
-const WritePageBodySumnailBox = styled.div`
+const WritePageBodyThumbnailBox = styled.div`
   width: 100%;
   margin-top: 2rem;
   display: flex;
   flex-direction: row;
   padding-right: 7rem;
 `;
-const WritePageBodySumnailImage = styled.input`
+const WritePageBodyThumbnailImage = styled.input`
   padding: 10px 20px;
   width: 808px;
   height: 44px;
@@ -131,7 +131,7 @@ const WritePageBodySumnailImage = styled.input`
     display: none;
   }
 `;
-const WritePageBodySumnailButton = styled.button`
+const WritePageBodyThumbnailButton = styled.button`
   padding: 0.625rem 1.75rem;
   width: 226px;
   height: 43px;
