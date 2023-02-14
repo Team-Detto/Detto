@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react';
-import { firebaseGetProjectDataRequest } from 'apis/boardService';
-import { useModal } from 'hooks';
+import { useEdtiBoard, useModal } from 'hooks';
 import ConfirmAlert from 'components/common/ConfirmAlert';
 import WebContainer from 'components/common/WebContainer';
 import ProjectEditPageHeader from 'components/editpage/ProjectEditPageHeader';
@@ -10,18 +8,19 @@ import styled from '@emotion/styled';
 
 const ProjectEditPage = () => {
   const { isOpen, handleModalStateChange } = useModal(false);
-
-  const [projectData, setProjectData] = useState([]);
-
-  useEffect(() => {
-    firebaseGetProjectDataRequest(setProjectData);
-  }, [setProjectData]);
+  const { editFormValue, handleFormValueChange } = useEdtiBoard();
 
   return (
     <WebContainer>
       <EditPageWrapper>
-        <ProjectEditPageHeader />
-        <ProjectEditPageBody />
+        <ProjectEditPageHeader
+          editFormValue={editFormValue}
+          onFormValueChangeEvent={handleFormValueChange}
+        />
+        <ProjectEditPageBody
+          editFormValue={editFormValue}
+          onFormValueChangeEvent={handleFormValueChange}
+        />
         <ProjectEditPageFooter />
         <ConfirmAlert
           isOpen={isOpen}
