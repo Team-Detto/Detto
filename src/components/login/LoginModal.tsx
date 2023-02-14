@@ -7,6 +7,7 @@ import {
   LoginPage3,
   LoginPage4,
 } from 'components/login';
+import { allowScroll, preventScroll } from 'utils/modal';
 
 export default function LoginModal() {
   const {
@@ -18,6 +19,14 @@ export default function LoginModal() {
   useEffect(() => {
     updateModalSize(modals[page].width, modals[page].height);
   }, [page]);
+
+  // 모달이 열려있을 때 body 스크롤 방지
+  useEffect(() => {
+    const prevScrollY = preventScroll();
+    return () => {
+      allowScroll(prevScrollY);
+    };
+  }, []);
 
   return modals[page].component;
 }
