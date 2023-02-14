@@ -1,44 +1,23 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
-import { useCallback, useState } from 'react';
-import { nicknameValidation } from 'utils/validation';
-import { UserInfo } from './MyPageInfo';
 
 interface NicknameInputProps {
-  nickname: string;
-  setUserInfo: React.Dispatch<React.SetStateAction<UserInfo>>;
+  displayName: string;
+  onChangeNickname: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  validationMessage: string;
 }
 
-const NicknameInput = ({ nickname, setUserInfo }: NicknameInputProps) => {
-  const [validationMessage, setValidationMessage] = useState<string>('');
-
-  const handleNicknameChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { value } = e.currentTarget;
-      setUserInfo((prevState) => {
-        return { ...prevState, nickname: value };
-      });
-      const isValidate = nicknameValidation(value);
-
-      if (!isValidate) {
-        if (e.currentTarget.value.length === 0) {
-          setValidationMessage('닉네임은 2자 이상이어야 합니다.');
-        } else {
-          setValidationMessage('닉네임은 20자 이하여야 합니다.');
-        }
-      } else {
-        setValidationMessage('');
-      }
-    },
-    [],
-  );
-
+const NicknameInput = ({
+  displayName,
+  onChangeNickname,
+  validationMessage,
+}: NicknameInputProps) => {
   return (
     <InputBox>
       <InfoNicknameInput
         type="text"
-        defaultValue={nickname}
-        onChange={handleNicknameChange}
+        defaultValue={displayName}
+        onChange={onChangeNickname}
         minLength={2}
         maxLength={30}
       />

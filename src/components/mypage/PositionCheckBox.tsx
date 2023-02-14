@@ -1,16 +1,16 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback } from 'react';
 import styled from '@emotion/styled';
 import CheckBoxButton from './CheckboxButton';
-import { positions } from 'utils/positions';
-import { UserInfo } from './MyPageInfo';
+import { positionList } from 'utils/positions';
+import { UserInfo } from 'types/mypage/userInfo';
 
 interface PositionCheckBoxProps {
-  userPositions: string[];
+  positions: string[];
   setUserInfo: React.Dispatch<React.SetStateAction<UserInfo>>;
 }
 
 const PositionCheckBox = ({
-  userPositions,
+  positions,
   setUserInfo,
 }: PositionCheckBoxProps) => {
   const handleCheckedPositionsChange = useCallback(
@@ -21,7 +21,7 @@ const PositionCheckBox = ({
         setUserInfo((prevState) => {
           return {
             ...prevState,
-            userPositions: [...prevState.userPositions, value],
+            positions: [...prevState.positions, value],
           };
         });
       } else {
@@ -29,7 +29,7 @@ const PositionCheckBox = ({
         setUserInfo((prevState) => {
           return {
             ...prevState,
-            userPositions: prevState.userPositions.filter(
+            positions: prevState.positions.filter(
               (position) => position !== value,
             ),
           };
@@ -41,8 +41,8 @@ const PositionCheckBox = ({
 
   return (
     <ButtonsWrapper type={'info'}>
-      {positions.map((position) => {
-        const checkPosition = userPositions?.find(
+      {positionList.map((position) => {
+        const checkPosition = positions?.find(
           (userPosition) => userPosition === position.type,
         );
 

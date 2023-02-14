@@ -1,68 +1,62 @@
 import { useEffect, useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
 import styled from '@emotion/styled';
+import { useModal, useUpdateProfile } from 'hooks';
 import useProfileImage from 'hooks/useProfileImage';
 import MyPageProfileImage from './MyPageProfileImage';
 import PositionCheckBox from './PositionCheckBox';
 import SkillList from './SkillList';
 import NicknameInput from './NicknameInput';
 import Careers from './Careers';
+import ConfirmAlert from 'components/common/ConfirmAlert';
 import { designs, develops, products } from 'utils/skills';
 import COLORS from 'assets/styles/colors';
+import { updateUserInfoData } from 'apis/mypageUsers';
 
 interface MypageInfoProps {
   user: User;
   uid: string;
 }
 
-export interface UserInfo {
-  nickname: string;
-  photoURL: string;
-  isJunior: boolean;
-  userPositions: string[];
-  plannerStack: string[];
-  designerStack: string[];
-  developerStack: string[];
-}
-
-const initialUserInfo = {
-  nickname: '',
-  photoURL: '',
-  isJunior: false,
-  userPositions: [],
-  plannerStack: [],
-  designerStack: [],
-  developerStack: [],
-};
-
 const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
-  const [userInfo, setUserInfo] = useState<UserInfo>(initialUserInfo);
-  const {
-    nickname,
-    photoURL,
-    isJunior,
-    userPositions,
-    plannerStack,
-    designerStack,
-    developerStack,
-  } = userInfo;
+  const [isActive, setIsActive] = useState<boolean>(false);
+  const { userInfo, setUserInfo, handleNicknameChange, validationMessage } =
+    useUpdateProfile();
+  const { isOpen, handleModalStateChange } = useModal(false);
+  const { profileImg, handleProfileImageChange, handleProfileImageDelete } =
+    useProfileImage(uid, userInfo.photoURL);
 
-  const {
-    profileImg,
-    setProfileImg,
-    handleProfileImageChange,
-    handleProfileImageDelete,
-  } = useProfileImage(uid, photoURL);
+  const { mutate: updateUserInfoMutate } = useMutation(() =>
+    updateUserInfoData(uid, userInfo),
+  );
 
-  // TODO :: DB로 수정한 정보 업데이트
-  const handleUserInfoSubmit = (e: React.FormEvent<HTMLFormElement>) => {};
+  // DB로 수정 정보 업데이트
+  const handleUserInfoUpdate = () => {
+    console.log('plannerStack', userInfo.plannerStack);
+    console.log('designerStack', userInfo.designerStack);
+    console.log('developerStack', userInfo.developerStack);
+
+    setUserInfo((prev) => {
+      return {
+        ...prev,
+        plannerStack: userInfo.plannerStack,
+        designerStack: userInfo.designerStack,
+        developerStack: userInfo.developerStack,
+        photoURL: profileImg,
+      };
+    });
+
+    updateUserInfoMutate();
+    handleModalStateChange();
+  };
 
   useEffect(() => {
     if (user) {
       setUserInfo({
-        nickname: user?.displayName,
+        displayName: user?.displayName,
         photoURL: user?.photoURL,
         isJunior: user?.isJunior,
-        userPositions: user?.positions,
+        positions: user?.positions,
         plannerStack: user?.plannerStack || [''],
         designerStack: user?.designerStack || [''],
         developerStack: user?.developerStack || [''],
@@ -70,63 +64,77 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
     }
   }, [user]);
 
-  console.log('userInfo', userInfo);
+  useEffect(() => {
+    setIsActive(!isActive);
+  }, [userInfo]);
 
   return (
     <MyPageTopContainer>
-      <form onSubmit={handleUserInfoSubmit}>
-        <MypageInfoTopContainer>
-          <MyPageProfileImage
-            profileImg={profileImg}
-            setUserInfo={setUserInfo}
-            onChange={handleProfileImageChange}
-            onDelete={handleProfileImageDelete}
-            uid={uid}
+      <MypageInfoTopContainer>
+        <MyPageProfileImage
+          profileImg={profileImg}
+          onChange={handleProfileImageChange}
+          onDelete={handleProfileImageDelete}
+          uid={uid}
+        />
+        <InfoWrapper>
+          <InfoItemDiv>
+            <InfoTitle htmlFor="nickname">닉네임</InfoTitle>
+            <NicknameInput
+              displayName={userInfo.displayName}
+              onChangeNickname={handleNicknameChange}
+              validationMessage={validationMessage}
+            />
+          </InfoItemDiv>
+          <InfoItemDiv>
+            <InfoTitle>경력</InfoTitle>
+            <Careers isJunior={userInfo.isJunior} setUserInfo={setUserInfo} />
+          </InfoItemDiv>
+          <InfoItemDiv>
+            <InfoTitle>포지션</InfoTitle>
+            <PositionCheckBox
+              positions={userInfo.positions}
+              setUserInfo={setUserInfo}
+            />
+          </InfoItemDiv>
+        </InfoWrapper>
+      </MypageInfoTopContainer>
+      <MyPageSkillsWrapper>
+        <MyPageSkillsTitle>기술스택</MyPageSkillsTitle>
+        <MypageSkillBox>
+          <SkillList
+            category="기획"
+            skills={products}
+            checkedSkills={userInfo.plannerStack}
           />
-          <InfoWrapper>
-            <InfoItemDiv>
-              <InfoTitle htmlFor="nickname">닉네임</InfoTitle>
-              <NicknameInput nickname={nickname} setUserInfo={setUserInfo} />
-            </InfoItemDiv>
-            <InfoItemDiv>
-              <InfoTitle>경력</InfoTitle>
-              <Careers isJunior={isJunior} setUserInfo={setUserInfo} />
-            </InfoItemDiv>
-            <InfoItemDiv>
-              <InfoTitle>포지션</InfoTitle>
-              <PositionCheckBox
-                userPositions={userPositions}
-                setUserInfo={setUserInfo}
-              />
-            </InfoItemDiv>
-          </InfoWrapper>
-        </MypageInfoTopContainer>
-        <MyPageSkillsWrapper>
-          <MyPageSkillsTitle>기술스택</MyPageSkillsTitle>
-          <MypageSkillBox>
-            <SkillList
-              category="기획"
-              skills={products}
-              checkedSkills={plannerStack}
-            />
-            <SkillList
-              category="디자인"
-              skills={designs}
-              checkedSkills={designerStack}
-            />
-            <SkillList
-              category="개발"
-              skills={develops}
-              checkedSkills={developerStack}
-            />
-          </MypageSkillBox>
-        </MyPageSkillsWrapper>
-      </form>
+          <SkillList
+            category="디자인"
+            skills={designs}
+            checkedSkills={userInfo.designerStack}
+          />
+          <SkillList
+            category="개발"
+            skills={develops}
+            checkedSkills={userInfo.developerStack}
+          />
+        </MypageSkillBox>
+      </MyPageSkillsWrapper>
+
       <InfoEditConfirmWrapper>
-        <InfoEditConfirmBtn type="submit">
+        <InfoEditConfirmBtn
+          isActive={isActive}
+          onClick={handleModalStateChange}
+        >
           개인정보 수정 완료
         </InfoEditConfirmBtn>
       </InfoEditConfirmWrapper>
+      <ConfirmAlert
+        isOpen={isOpen}
+        message="게시물을 업로드할까요?"
+        subMessage="작성한 게시물은 마이페이지에서 볼 수 있습니다."
+        onClickEvent={handleUserInfoUpdate}
+        onCloseEvent={handleModalStateChange}
+      />
     </MyPageTopContainer>
   );
 };
@@ -171,12 +179,6 @@ const MyPageSkillsTitle = styled.h2`
 
 const MypageSkillBox = styled.div``;
 
-const SkillTitle = styled.p`
-  font-size: 0.75rem;
-  color: ${COLORS.gray850};
-  margin-bottom: 0.5625rem;
-`;
-
 const InfoEditConfirmWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -184,11 +186,12 @@ const InfoEditConfirmWrapper = styled.div`
   margin-bottom: 4.875rem;
 `;
 
-const InfoEditConfirmBtn = styled.button`
+const InfoEditConfirmBtn = styled.button<{ isActive: boolean }>`
   margin-top: 4.875rem;
   width: 14.375rem;
   height: 3rem;
   border-radius: 4px;
-  background-color: ${COLORS.gray100};
-  color: ${COLORS.gray750};
+  background-color: ${({ isActive }) =>
+    isActive ? COLORS.violetB500 : COLORS.gray100};
+  color: ${({ isActive }) => (isActive ? COLORS.white : COLORS.gray750)};
 `;

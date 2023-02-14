@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { useCallback } from 'react';
 import { career } from 'utils/positions';
 import CareerRadioInput from './CareerRadioInput';
-import { UserInfo } from './MyPageInfo';
+import { UserInfo } from 'types/mypage/userInfo';
 
 interface CareersProps {
   isJunior: boolean;
