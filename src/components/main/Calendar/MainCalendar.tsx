@@ -31,6 +31,7 @@ const MainCalendarWrap = styled.div`
 const CalendarContainer = styled.div`
   width: 22.75rem;
   height: 26rem;
+  position: relative;
   /* background-color: red; */
 `;
 const ProjectListContainer = styled.div`
@@ -40,7 +41,7 @@ const ProjectListContainer = styled.div`
   align-items: center;
   padding: 14px 0px;
   gap: 24px;
-  width: 300px;
+
   height: 411px;
   margin-left: 5rem;
   margin-right: 5rem;

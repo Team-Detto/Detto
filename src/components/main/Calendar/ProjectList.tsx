@@ -1,12 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Slider from 'react-slick';
 import styled from '@emotion/styled';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import VectorUp from 'assets/images/VectorUp.png';
 import VectorDown from 'assets/images/VectorDown.png';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { dayListState, detailListState } from '../../../recoil/atoms';
+import { getDate } from 'utils/date';
 
 const ProjectList = () => {
+  const dayList = useRecoilValue<any>(dayListState);
+  const setDetailList = useSetRecoilState(detailListState);
+
+  const detailList = (id: string) => {
+    const List = dayList.filter((el: any) => el.id === id);
+    return setDetailList(List);
+  };
+
   const settings = {
     infinite: false,
     centerPadding: '40px',
@@ -14,129 +25,38 @@ const ProjectList = () => {
     swipeToSlide: true,
     vertical: true,
   };
+  // console.log(detailList);
 
   return (
     <ProjectListWrap>
       <ProjectListSlider {...settings}>
-        {/* card box */}
-        <ProjectListCardContainer>
-          <ProjectListCardTextBox>
-            <ProjectListCardFindUser>
-              기획 3명|개발 2명 찾고 있어요!
-            </ProjectListCardFindUser>
-            <ProjectListCardProjectName>
-              프로젝트 이름
-            </ProjectListCardProjectName>
-          </ProjectListCardTextBox>
-          <ProjectListCardDate>
-            프로젝트 모집 마감일 YYYY.MM.DD
-          </ProjectListCardDate>
-        </ProjectListCardContainer>
-        {/*  */}
-        <ProjectListCardContainer>
-          <ProjectListCardTextBox>
-            <ProjectListCardFindUser>
-              기획 3명|개발 2명 찾고 있어요!
-            </ProjectListCardFindUser>
-            <ProjectListCardProjectName>
-              프로젝트 이름
-            </ProjectListCardProjectName>
-          </ProjectListCardTextBox>
-          <ProjectListCardDate>
-            프로젝트 모집 마감일 YYYY.MM.DD
-          </ProjectListCardDate>
-        </ProjectListCardContainer>
-        <ProjectListCardContainer>
-          <ProjectListCardTextBox>
-            <ProjectListCardFindUser>
-              기획 3명|개발 2명 찾고 있어요!
-            </ProjectListCardFindUser>
-            <ProjectListCardProjectName>
-              프로젝트 이름
-            </ProjectListCardProjectName>
-          </ProjectListCardTextBox>
-          <ProjectListCardDate>
-            프로젝트 모집 마감일 YYYY.MM.DD
-          </ProjectListCardDate>
-        </ProjectListCardContainer>
-        <ProjectListCardContainer>
-          <ProjectListCardTextBox>
-            <ProjectListCardFindUser>
-              기획 3명|개발 2명 찾고 있어요!
-            </ProjectListCardFindUser>
-            <ProjectListCardProjectName>
-              프로젝트 이름
-            </ProjectListCardProjectName>
-          </ProjectListCardTextBox>
-          <ProjectListCardDate>
-            프로젝트 모집 마감일 YYYY.MM.DD
-          </ProjectListCardDate>
-        </ProjectListCardContainer>
-        <ProjectListCardContainer>
-          <ProjectListCardTextBox>
-            <ProjectListCardFindUser>
-              기획 3명|개발 2명 찾고 있어요!
-            </ProjectListCardFindUser>
-            <ProjectListCardProjectName>
-              프로젝트 이름
-            </ProjectListCardProjectName>
-          </ProjectListCardTextBox>
-          <ProjectListCardDate>
-            프로젝트 모집 마감일 YYYY.MM.DD
-          </ProjectListCardDate>
-        </ProjectListCardContainer>
-        <ProjectListCardContainer>
-          <ProjectListCardTextBox>
-            <ProjectListCardFindUser>
-              기획 3명|개발 2명 찾고 있어요!
-            </ProjectListCardFindUser>
-            <ProjectListCardProjectName>
-              프로젝트 이름
-            </ProjectListCardProjectName>
-          </ProjectListCardTextBox>
-          <ProjectListCardDate>
-            프로젝트 모집 마감일 YYYY.MM.DD
-          </ProjectListCardDate>
-        </ProjectListCardContainer>
-        <ProjectListCardContainer>
-          <ProjectListCardTextBox>
-            <ProjectListCardFindUser>
-              기획 3명|개발 2명 찾고 있어요!
-            </ProjectListCardFindUser>
-            <ProjectListCardProjectName>
-              프로젝트 이름
-            </ProjectListCardProjectName>
-          </ProjectListCardTextBox>
-          <ProjectListCardDate>
-            프로젝트 모집 마감일 YYYY.MM.DD
-          </ProjectListCardDate>
-        </ProjectListCardContainer>
-        <ProjectListCardContainer>
-          <ProjectListCardTextBox>
-            <ProjectListCardFindUser>
-              기획 3명|개발 2명 찾고 있어요!
-            </ProjectListCardFindUser>
-            <ProjectListCardProjectName>
-              프로젝트 이름
-            </ProjectListCardProjectName>
-          </ProjectListCardTextBox>
-          <ProjectListCardDate>
-            프로젝트 모집 마감일 YYYY.MM.DD
-          </ProjectListCardDate>
-        </ProjectListCardContainer>
-        <ProjectListCardContainer>
-          <ProjectListCardTextBox>
-            <ProjectListCardFindUser>
-              기획 3명|개발 2명 찾고 있어요!
-            </ProjectListCardFindUser>
-            <ProjectListCardProjectName>
-              프로젝트 이름
-            </ProjectListCardProjectName>
-          </ProjectListCardTextBox>
-          <ProjectListCardDate>
-            프로젝트 모집 마감일 YYYY.MM.DD
-          </ProjectListCardDate>
-        </ProjectListCardContainer>
+        {dayList.map((data: any) => {
+          const Developer = data.positions.frontend + data.positions.backend;
+          const Designer = data.positions.designer;
+          const Planner = data.positions.planner;
+
+          return (
+            <ProjectListCardContainer
+              key={data}
+              onClick={() => {
+                detailList(data.id);
+              }}
+            >
+              <ProjectListCardTextBox>
+                <ProjectListCardFindUser>
+                  기획 {Planner}명 | 디자이너 {Designer}명 | 개발 {Developer}명
+                  찾고 있어요!
+                </ProjectListCardFindUser>
+                <ProjectListCardProjectName>
+                  {data.title}
+                </ProjectListCardProjectName>
+              </ProjectListCardTextBox>
+              <ProjectListCardDate>
+                프로젝트 모집 마감일 {getDate(data.endDate)}
+              </ProjectListCardDate>
+            </ProjectListCardContainer>
+          );
+        })}
       </ProjectListSlider>
     </ProjectListWrap>
   );
@@ -201,6 +121,9 @@ const ProjectListCardContainer = styled.div`
   box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.04);
   border-radius: 8px;
   &:hover {
+    border: 1px solid #5d50f0;
+  }
+  &:focus {
     border: 1px solid #5d50f0;
   }
 `;

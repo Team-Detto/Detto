@@ -1,15 +1,53 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import styled from '@emotion/styled';
 import React from 'react';
 import { log } from 'console';
 // 달력에 숫자만 보이게 만들기 위한 moment 라이브러리
 import moment from 'moment';
+import { firebaseGetProjectDataRequest } from 'apis/boardService';
+import { getDate } from 'utils/date';
+import { useSetRecoilState } from 'recoil';
+import { dayListState } from '../../../recoil/atoms';
 
 const ProjectCalendar = () => {
+  const [projectData, setProjectData] = useState<any>([]);
   const [value, onChange] = useState(new Date());
+  const setDayList = useSetRecoilState(dayListState);
+
+  // 날짜가 바뀔때마다 데이터를 가져옴
+  useEffect(() => {
+    firebaseGetProjectDataRequest(setProjectData);
+  }, [setProjectData]);
+
   //  선택 한 날짜 => moment(value).format('YYYY년 MM월 DD일')
-  console.log(moment(value).format('YYYY.MM.DD'));
+  const SelectDate = moment(value).format('YYYY.MM.DD');
+
+  // 해당 날의 생선된 프로젝트만 필터링
+  // const filterData = setDayList(
+  //   projectData.filter((el: any) => getDate(el.createdAt) === SelectDate),
+  // );
+
+  //  시작 부터 마감일까지 날짜를 배열로 만들어서 리턴
+  const getDayList = (startDate: any, endDate: any) => {
+    const dayList = [];
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    while (start <= end) {
+      dayList.push(new Date(start));
+      start.setDate(start.getDate() + 1);
+    }
+    return dayList;
+  };
+  //해당 날의 진행중인 프로젝트 필터링
+  const filterData = setDayList(
+    projectData.filter((el: any) =>
+      getDayList(el.startDate, el.endDate)
+        .map((el) => getDate(el))
+        .includes(SelectDate),
+    ),
+  );
+
   return (
     <>
       <ProjectCalendarWrap
