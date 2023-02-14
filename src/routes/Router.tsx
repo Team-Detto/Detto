@@ -21,13 +21,14 @@ const PublicProfileComponentPage = React.lazy(
   () => import('pages/PublicProfilePage'),
 );
 const ErrorPage = React.lazy(() => import('pages/ErrorPage'));
+const LoadingPage = React.lazy(() => import('pages/LoadingPage'));
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Header />
       <ModalContainer />
-      <Suspense fallback={<div>...loading</div>}>
+      <Suspense fallback={<LoadingPage />}>
         <Routes>
           <Route path="/" element={<MainComponentPage />} />
           <Route path="/mypage" element={<MyPageComonentPage />} />
