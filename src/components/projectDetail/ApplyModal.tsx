@@ -3,7 +3,7 @@ import COLORS from 'assets/styles/colors';
 import Alert from 'components/common/Alert';
 import PositionButton from 'components/common/ApplyPositionButton';
 import { useModal } from 'hooks';
-import { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { allowScroll, preventScroll } from 'utils/modal';
 
 interface props {
@@ -25,6 +25,13 @@ const ApplyModal = ({ isOpen, message, onClickEvent }: props) => {
     }
   }, [isOpen]);
 
+  const [text, setText] = useState('');
+  const [clickValue, setClickValue] = useState<number>(-1);
+
+  const displayText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setText(e.target.value);
+  };
+
   return (
     <>
       <Alert
@@ -44,7 +51,10 @@ const ApplyModal = ({ isOpen, message, onClickEvent }: props) => {
               </PositionNotificationSpan>
             </PositionTitle>
             <PositionContentWrap>
-              <PositionButton />
+              <PositionButton
+                clickValue={clickValue}
+                setClickValue={setClickValue}
+              />
             </PositionContentWrap>
           </PositionContainer>
           <MotiveContainer>
@@ -52,6 +62,8 @@ const ApplyModal = ({ isOpen, message, onClickEvent }: props) => {
             <MotiveContentWrap>
               <MotiveTextArea
                 placeholder="지원동기를 입력해주세요"
+                onChange={(e) => displayText(e)}
+                value={text}
                 //창 꺼지면 초기화시키기
                 // onChange={onChangeEvent}
               />
@@ -59,9 +71,19 @@ const ApplyModal = ({ isOpen, message, onClickEvent }: props) => {
           </MotiveContainer>
         </ContentContainer>
         <ApplyButtonContainer>
-          <MotiveButton onClick={onClickEvent}>아니오</MotiveButton>
           <MotiveButton
             onClick={() => {
+              onClickEvent();
+              setText('');
+              setClickValue(-1);
+            }}
+          >
+            아니오
+          </MotiveButton>
+          <MotiveButton
+            onClick={() => {
+              setText('');
+              setClickValue(-1);
               onClickEvent();
               onAlertClickEvent();
             }}

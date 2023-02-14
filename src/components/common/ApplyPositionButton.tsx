@@ -2,8 +2,8 @@ import styled from '@emotion/styled';
 import { useState } from 'react';
 import { positions } from 'utils/positions';
 
-const ApplyPositionButton = () => {
-  const [clickValue, setClickValue] = useState(0);
+const ApplyPositionButton = (props: any) => {
+  const { clickValue, setClickValue } = props;
 
   const onClickEvent = (e: React.MouseEvent, idx: number) => {
     e.preventDefault();
@@ -38,4 +38,8 @@ const PositionButton = styled.button`
     props.isActive === true ? '#5D50F0' : '#f2f4f6'};
   color: ${(props: { isActive: boolean }) =>
     props.isActive === true ? '#ffffff' : '#000000'};
+  &:hover {
+    transform: scale(1.1);
+    transition: transform 0.5s;
+  }
 `;
