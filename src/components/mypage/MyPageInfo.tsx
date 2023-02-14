@@ -1,12 +1,13 @@
+import { useCallback, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
+import useProfileImage from 'hooks/useProfileImage';
 import MyPageProfileImage from './MyPageProfileImage';
 import PositionCheckBox from './PositionCheckBox';
 import SkillList from './SkillList';
-import COLORS from 'assets/styles/colors';
-import { designs, develops, products } from 'utils/skills';
 import Careers from './Careers';
-import { useEffect } from 'react';
-import useProfileImage from 'hooks/useProfileImage';
+import { designs, develops, products } from 'utils/skills';
+import COLORS from 'assets/styles/colors';
+import NicknameInput from './NicknameInput';
 
 interface MypageInfoProps {
   user: User;
@@ -23,10 +24,12 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
 
   // TODO :: DB로 수정한 정보 업데이트
   const handleUserInfoSubmit = (e: React.FormEvent<HTMLFormElement>) => {};
+  const [nickname, setNickname] = useState<string>(user?.displayName);
 
   useEffect(() => {
     if (user) {
       setProfileImg(user?.photoURL);
+      setNickname(user?.displayName);
     }
   }, [user]);
 
@@ -44,7 +47,7 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
           <InfoWrapper>
             <InfoItemDiv>
               <InfoTitle htmlFor="nickname">닉네임</InfoTitle>
-              <InfoNicknameInput type="text" defaultValue={user?.displayName} />
+              <NicknameInput nickname={nickname} setNickname={setNickname} />
             </InfoItemDiv>
             <InfoItemDiv>
               <InfoTitle>경력</InfoTitle>
@@ -112,13 +115,6 @@ const InfoTitle = styled.label`
   color: #383838;
   text-align: right;
   margin-right: 3rem;
-`;
-
-const InfoNicknameInput = styled.input`
-  width: 22rem;
-  padding: 0.625rem 1.25rem;
-  border: 1px solid #ced3db;
-  border-radius: 4px;
 `;
 
 const MyPageSkillsWrapper = styled.div`
