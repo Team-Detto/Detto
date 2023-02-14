@@ -5,7 +5,6 @@ import defaultProfile from 'assets/images/default_profile.jpg';
 
 interface MyPageProfileImageProps {
   profileImg: string;
-  setProfileImg: React.Dispatch<React.SetStateAction<string>>;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onDelete: () => void;
   uid: string;

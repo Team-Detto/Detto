@@ -1,5 +1,5 @@
 import React from 'react';
-import { positions } from 'utils/positions';
+import { positionList } from 'utils/positions';
 import styled from '@emotion/styled';
 
 interface Props {
@@ -19,7 +19,7 @@ const FindProjectHeader = ({
     <FindProjectHeaderContainer>
       <FindProjectHeaderLeftBox>
         <FindProjectCategoryBox>
-          {positions.map((position) => (
+          {positionList.map((position) => (
             <FindProjectCategoryButton
               key={position.type}
               name={position.name}

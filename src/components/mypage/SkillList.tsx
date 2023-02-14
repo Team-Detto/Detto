@@ -1,12 +1,13 @@
 import styled from '@emotion/styled';
-import COLORS from 'assets/styles/colors';
+import { ChangeEvent } from 'react';
 import SkillButton from 'components/common/SkillButton';
 import { ButtonsWrapper } from './PositionCheckBox';
+import COLORS from 'assets/styles/colors';
 
 interface SkillListProps {
   category: string;
   skills: string[];
-  checkedSkills?: string[];
+  checkedSkills: string[];
 }
 
 const SkillList = ({ category, skills, checkedSkills }: SkillListProps) => {
@@ -21,6 +22,7 @@ const SkillList = ({ category, skills, checkedSkills }: SkillListProps) => {
               key={skill}
               name={skill}
               isChecked={isChecked ? true : false}
+              value={checkedSkills}
             />
           );
         })}
