@@ -47,7 +47,6 @@ const Container = styled.div`
   align-items: center;
 
   position: fixed;
-  // width height 값 props로 받아와서 조절
   width: ${(props: props) => props.width};
   height: ${(props: props) => props.height};
 
@@ -55,7 +54,6 @@ const Container = styled.div`
   top: 50%;
 
   transform: translate(-50%, -50%);
-  /* padding: 15px; */
   background: ${COLORS.white};
 
   border-radius: 8px;
