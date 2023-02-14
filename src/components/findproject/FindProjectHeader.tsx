@@ -98,7 +98,7 @@ const FindProjectToggleCricle = styled.div`
   border-radius: 3.125rem;
   position: absolute;
   left: 5%;
-  transition: all 0.5s ease-in-out;
+  transition: all 0.3s ease-in-out;
   ${(props: { toggle: boolean }) =>
     props.toggle ? 'transform: translateX(0)' : 'transform: translateX(100%)'};
 `;
@@ -108,7 +108,7 @@ const FindProjectToggleText = styled.p`
   font-size: 1.125rem;
   color: ${(props: { toggle: boolean }) =>
     !props.toggle ? '#5d50f0' : '#4E5968'};
-  transition: all 0.5s ease-in-out;
+  transition: all 0.3s ease-in-out;
 `;
 const FindProjectToggleSubText = styled.p`
   font-size: 1.125rem;
