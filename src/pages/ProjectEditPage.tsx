@@ -1,4 +1,4 @@
-import { useEdtiBoard, useModal } from 'hooks';
+import { useEdtiBoard } from 'hooks';
 import ConfirmAlert from 'components/common/ConfirmAlert';
 import WebContainer from 'components/common/WebContainer';
 import ProjectEditPageHeader from 'components/editpage/ProjectEditPageHeader';
@@ -7,11 +7,12 @@ import ProjectEditPageFooter from 'components/editpage/ProjectEditPageFooter';
 import styled from '@emotion/styled';
 
 const ProjectEditPage = () => {
-  const { isOpen, handleModalStateChange } = useModal(false);
   const {
+    isOpen,
     editRef,
     imageRef,
     editFormValue,
+    handleModalStateChange,
     handleFormValueChange,
     handleAddSumnailImage,
     handleEditProjectButtonClick,
@@ -33,13 +34,13 @@ const ProjectEditPage = () => {
         <ProjectEditPageFooter
           editRef={editRef}
           editFormValue={editFormValue}
-          onEditProjectButtonClickEvent={handleEditProjectButtonClick}
+          onModalStateChangeEvent={handleModalStateChange}
         />
         <ConfirmAlert
           isOpen={isOpen}
           message="게시글을 수정하시겠습니까?"
           subMessage="수정한 게시글은 마이페이지에서 확인할 수 있습니다."
-          onClickEvent={handleModalStateChange}
+          onClickEvent={handleEditProjectButtonClick}
           onCloseEvent={handleModalStateChange}
         />
       </EditPageWrapper>

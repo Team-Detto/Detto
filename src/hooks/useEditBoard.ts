@@ -2,6 +2,7 @@ import { useCallback, useState, ChangeEvent, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { firebaseEditProjectRequest } from 'apis/boardService';
 import { EditType } from './../types/write/writeType';
+import useModal from './useModal';
 
 const useEdtiBoard = () => {
   const { state } = useLocation();
@@ -11,6 +12,8 @@ const useEdtiBoard = () => {
   const imageRef = useRef<any>(null);
 
   const [editFormValue, setEditFormValue] = useState(state);
+
+  const { isOpen, handleModalStateChange } = useModal(false);
 
   const handleEditProjectButtonClick = async () => {
     const markdownText = editRef.current.getInstance().getMarkdown();
@@ -62,9 +65,11 @@ const useEdtiBoard = () => {
   );
 
   return {
+    isOpen,
     editRef,
     imageRef,
     editFormValue,
+    handleModalStateChange,
     handleFormValueChange,
     handleAddSumnailImage,
     handleEditProjectButtonClick,
