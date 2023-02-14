@@ -11,9 +11,10 @@ import Prism from 'prismjs';
 
 interface Props {
   editRef: MutableRefObject<any>;
+  value?: string;
 }
 
-const TextEdiotr = ({ editRef }: Props) => {
+const TextEdiotr = ({ editRef, value }: Props) => {
   const toolbarItems: Array<Array<string>> = [
     ['heading', 'bold', 'italic', 'strike'],
     ['hr'],
@@ -27,6 +28,7 @@ const TextEdiotr = ({ editRef }: Props) => {
   return (
     <Editor
       ref={editRef}
+      initialValue={value || ''}
       placeholder="내용을 입력해주세요."
       previewStyle="vertical"
       height="100%"
