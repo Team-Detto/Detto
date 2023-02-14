@@ -34,6 +34,7 @@ const ProjectWritePageFooterEditBox = styled.div`
   width: 73.75rem;
   height: 68.1875rem;
   border: 0.0625rem solid #ced3db;
+  z-index: 0;
 `;
 const ProjectWritePageFooterCompleatedButton = styled.button`
   width: 29.375rem;
