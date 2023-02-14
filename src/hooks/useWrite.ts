@@ -95,6 +95,7 @@ const useWrite = () => {
             },
           };
         });
+        return;
       }
       setWriteFormValue((prev: WriteType.WriteFormType) => {
         return {
