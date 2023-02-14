@@ -7,6 +7,7 @@ import {
   getAdditionalUserInfo,
   GoogleAuthProvider,
   User,
+  FacebookAuthProvider,
 } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 
@@ -16,6 +17,7 @@ const useSocialLogin = () => {
 
   const auth = getAuth();
   const githubProvider = new GithubAuthProvider();
+  const facebookProvider = new FacebookAuthProvider();
   const googleProvider = new GoogleAuthProvider();
 
   // 유저 컬렉션에 데이터를 추가하는 함수
@@ -61,15 +63,15 @@ const useSocialLogin = () => {
     signInWithPopupWithProvider(githubProvider);
   };
 
-  const handleKakaoLogin = () => {
-    console.log('kakao login');
+  const handleFacebookLogin = () => {
+    signInWithPopupWithProvider(facebookProvider);
   };
 
   const handleGoogleLogin = () => {
     signInWithPopupWithProvider(googleProvider);
   };
 
-  return { handleGithubLogin, handleKakaoLogin, handleGoogleLogin };
+  return { handleGithubLogin, handleFacebookLogin, handleGoogleLogin };
 };
 
 export default useSocialLogin;

@@ -2,13 +2,13 @@ import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import KEY_IMG from 'assets/images/login_key.png';
 import GITHUB_IMG from 'assets/images/login_github.png';
+import FACEBOOK_IMG from 'assets/images/login_facebook.png';
 import GOOGLE_IMG from 'assets/images/login_google.png';
-import KAKAO_IMG from 'assets/images/login_kakao.png';
 import useSocialLogin from 'hooks/useSocialLogin';
 
 // 페이지 0 : 로그인
 export default function LoginPage0() {
-  const { handleGithubLogin, handleGoogleLogin, handleKakaoLogin } =
+  const { handleGithubLogin, handleGoogleLogin, handleFacebookLogin } =
     useSocialLogin();
 
   return (
@@ -19,8 +19,8 @@ export default function LoginPage0() {
         <LoginButton onClick={handleGithubLogin}>
           <LogoImg src={GITHUB_IMG} alt="github" />
         </LoginButton>
-        <LoginButton onClick={handleKakaoLogin}>
-          <LogoImg src={KAKAO_IMG} alt="kakao" />
+        <LoginButton onClick={handleFacebookLogin}>
+          <LogoImg src={FACEBOOK_IMG} alt="facebook" />
         </LoginButton>
         <LoginButton onClick={handleGoogleLogin}>
           <LogoImg src={GOOGLE_IMG} alt="google" />
