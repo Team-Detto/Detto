@@ -101,7 +101,7 @@ const Button = styled.button<{ selected: boolean }>`
 
   // 버튼 선택 여부에 따라 색상 변경
   background-color: ${({ selected }) =>
-    selected ? COLORS.violetA400 : COLORS.gray100};
+    selected ? COLORS.violetB400 : COLORS.gray100};
   color: ${({ selected }) => (selected ? COLORS.white : COLORS.black)};
 
   transition: 100ms ease-in-out;

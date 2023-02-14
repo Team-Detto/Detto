@@ -5,8 +5,8 @@ import NotificationBox from './NotificationBox';
 export default function PopupContainer() {
   return (
     <Container>
-      <NotificationBox />
       <NoteBox />
+      <NotificationBox />
     </Container>
   );
 }

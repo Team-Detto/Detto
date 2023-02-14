@@ -3,6 +3,9 @@ import COLORS from 'assets/styles/colors';
 import { useRecoilValue } from 'recoil';
 import { modalState } from '../recoil/atoms';
 import LoginModal from 'components/login/LoginModal';
+import NoteModal from './popup/NoteModal';
+import { useEffect } from 'react';
+import { allowScroll, preventScroll } from 'utils/modal';
 
 interface props {
   width?: string;
@@ -10,15 +13,30 @@ interface props {
 }
 
 const LOGIN = 'login';
+const INBOX = 'inbox';
+const OUTBOX = 'outbox';
+const REPLY = 'reply';
 
 export default function ModalContainer() {
   const { isOpen, width, height, type } = useRecoilValue(modalState);
+
+  // 모달이 열려있을 때 body 스크롤 방지
+  // TODO: 스크롤 없는 페이지에서는 스크롤 생기지 않게 하기
+  useEffect(() => {
+    const prevScrollY = preventScroll();
+    return () => {
+      allowScroll(prevScrollY);
+    };
+  }, []);
 
   if (!isOpen) return null;
   return (
     <BackDrop>
       <Container width={width} height={height}>
         {type === LOGIN && <LoginModal />}
+        {type === INBOX && <NoteModal />}
+        {type === OUTBOX && <NoteModal />}
+        {type === REPLY && <NoteModal />}
       </Container>
     </BackDrop>
   );

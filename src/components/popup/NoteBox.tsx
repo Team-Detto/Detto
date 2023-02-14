@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import { useQuery } from '@tanstack/react-query';
-import { getInboxNotes } from 'apis/note';
+import { useQueries } from '@tanstack/react-query';
+import { getInboxNotes, getOutboxNotes } from 'apis/note';
 import COLORS from 'assets/styles/colors';
 import { usePopup } from 'hooks';
 import React, { useState } from 'react';
@@ -21,9 +21,17 @@ export default function NoteBox() {
     popup: { isNoteOpen },
   } = usePopup();
 
-  const { data: inbox }: any = useQuery({
-    queryKey: ['inbox'],
-    queryFn: getInboxNotes,
+  const [{ data: inboxData }, { data: outboxData }] = useQueries({
+    queries: [
+      {
+        queryKey: ['inbox'],
+        queryFn: getInboxNotes,
+      },
+      {
+        queryKey: ['outbox'],
+        queryFn: getOutboxNotes,
+      },
+    ],
   });
 
   return (
@@ -31,7 +39,6 @@ export default function NoteBox() {
       {isNoteOpen && (
         <PopupWrapper popup="message">
           <BoxContainer>
-            {/* inbox outbox radio button */}
             {boxList.map(({ id, label }) => (
               <React.Fragment key={id}>
                 <MenuToggleInput
@@ -47,15 +54,15 @@ export default function NoteBox() {
             ))}
           </BoxContainer>
           <MessageWrapper>
-            {inbox?.map(({ id, title, date, isRead, displayName }: any) => (
-              <NoteMessage
-                key={id}
-                title={title}
-                date={getDate(date)}
-                isRead={isRead}
-                displayName={displayName}
-              />
-            ))}
+            {/* //TODO: 타입 지정 */}
+            {selectedBox === 'inbox' &&
+              inboxData?.map((data: any) => (
+                <NoteMessage type="inbox" key={data.id} data={data} />
+              ))}
+            {selectedBox === 'outbox' &&
+              outboxData?.map((data: any) => (
+                <NoteMessage type="outbox" key={data.id} data={data} />
+              ))}
           </MessageWrapper>
         </PopupWrapper>
       )}

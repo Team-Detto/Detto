@@ -2,11 +2,12 @@ import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 
 type ButtonProps = {
+  label: string;
   onClick: () => void;
 };
 
-export default function ConfirmButton({ onClick }: ButtonProps) {
-  return <Button onClick={onClick}>확인</Button>;
+export default function CustomButton({ label, onClick }: ButtonProps) {
+  return <Button onClick={onClick}>{label}</Button>;
 }
 
 const Button = styled.button`
@@ -23,4 +24,8 @@ const Button = styled.button`
   color: #ffffff;
   background-color: ${COLORS.violetB400};
   border-radius: 1rem;
+
+  &:hover {
+    background-color: ${COLORS.violetB300};
+  }
 `;

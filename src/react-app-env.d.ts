@@ -10,3 +10,14 @@ interface User {
   designerStack?: string[];
   developerStack?: string[];
 }
+
+interface Note {
+  content: string;
+  date: number;
+  displayName: string;
+  isRead: boolean;
+  noteId: string;
+  photoURL: string;
+  title: string;
+  uid: string;
+}
