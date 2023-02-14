@@ -112,6 +112,7 @@ const useWrite = () => {
     editRef,
     imageRef,
     writeFormValue,
+    setWriteFormValue,
     handleModalStateChange,
     handleFormValueChange,
     handleAddThumbnailImage: handleAddThumbnailImage,
