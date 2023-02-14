@@ -1,9 +1,12 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
+import { useModal } from 'hooks';
+import ApplyModal from './ApplyModal';
+import UserInformationModal from './InviteModal';
 
 const ApplicantListArea = ({ projectData, userData }: any) => {
   const { applicants } = projectData;
-
+  const { isOpen, handleModalStateChange } = useModal(false);
   return (
     <ApplicantListContainer>
       <ApplicantListTitle>지원자 목록</ApplicantListTitle>
@@ -25,7 +28,16 @@ const ApplicantListArea = ({ projectData, userData }: any) => {
                     return <StackDiv>{skill}</StackDiv>;
                   }) ?? `사용자stack`}
                 </StackWrap>
-                <InviteButton>팀원으로 초대하기</InviteButton>
+                <InviteButton onClick={handleModalStateChange}>
+                  팀원으로 초대하기
+                </InviteButton>
+                <UserInformationModal
+                  isOpen={isOpen}
+                  applicantData={applicant}
+                  message="프로젝트를 지원해볼까요?"
+                  onClickEvent={handleModalStateChange}
+                  onCloseEvent={handleModalStateChange}
+                />
               </ApplicantWrap>
             );
           })

@@ -1,0 +1,187 @@
+import styled from '@emotion/styled';
+import COLORS from 'assets/styles/colors';
+import { useEffect } from 'react';
+import { allowScroll, preventScroll } from 'utils/modal';
+
+interface props {
+  isOpen: boolean;
+  applicantData: any;
+  message: string;
+  onClickEvent: () => void;
+  onCloseEvent: () => void;
+}
+
+const InviteModal = ({
+  isOpen,
+  applicantData,
+  message,
+  onClickEvent,
+  onCloseEvent,
+}: props) => {
+  useEffect(() => {
+    if (isOpen) {
+      const prevScrollY = preventScroll();
+      return () => {
+        allowScroll(prevScrollY);
+      };
+    }
+  }, [isOpen]);
+
+  return (
+    <ModalContainer isOpen={isOpen}>
+      <ModalWrapper>
+        <UserProfileImage src={applicantData?.profileURL} />
+        <UserSkillsContainer>
+          {applicantData?.skills.map((skill: string) => {
+            return <Skills>{skill}</Skills>;
+          })}
+          을/를 경험해 본 팀원이네요!
+        </UserSkillsContainer>
+
+        <InviteTitle>{applicantData?.displayName} 님을</InviteTitle>
+        <InviteTitle>팀원으로 초대할까요?</InviteTitle>
+
+        <MotiveContainer>
+          <MotiveTitle>지원 동기</MotiveTitle>
+          <MotiveContentWrap>
+            <MotiveText>{applicantData?.motive}</MotiveText>
+          </MotiveContentWrap>
+          <MotiveButtonContainer>
+            <MotiveButton onClick={onClickEvent}>아니오</MotiveButton>
+            <MotiveButton>네, 초대할게요!</MotiveButton>
+          </MotiveButtonContainer>
+        </MotiveContainer>
+      </ModalWrapper>
+    </ModalContainer>
+  );
+};
+
+export default InviteModal;
+
+const ModalContainer = styled.div`
+  position: fixed;
+  width: 705px;
+  height: 652px;
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+  padding: 44px 40px 24px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0px 4px 10px rgba(117, 117, 117, 0.25);
+  z-index: 999;
+  display: ${(props: { isOpen: boolean }) => (props.isOpen ? 'block' : 'none')};
+`;
+
+const ModalWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+
+  width: 625px;
+  height: 492px;
+`;
+
+const UserProfileImage = styled.img`
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background-color: ${COLORS.gray100};
+`;
+
+const UserSkillsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-weight: 600;
+  font-size: 20px;
+  color: #6b7684;
+  margin-top: 32px;
+  margin-bottom: 11px;
+  gap: 3px;
+`;
+
+const Skills = styled.span`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 12px;
+  gap: 10px;
+  /* width: 56px; */
+  height: 32px;
+  width: fit-content;
+  font-size: 12px;
+  overflow: hidden;
+  background: ${COLORS.gray100};
+  border-radius: 32px;
+`;
+
+const InviteTitle = styled.div`
+  font-weight: 600;
+  font-size: 24px;
+
+  color: #191f28;
+`;
+
+const MotiveContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  width: 625px;
+  height: 237px;
+  margin-top: 20px;
+`;
+
+const MotiveTitle = styled.p`
+  font-weight: 500;
+  font-size: 20px;
+`;
+
+const MotiveContentWrap = styled.div`
+  margin-top: 12px;
+`;
+
+const MotiveText = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 10px 28px;
+
+  width: 625px;
+  height: 197px;
+  border: 1px solid #ced3db;
+  border-radius: 4px;
+`;
+
+const MotiveButtonContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 20px;
+  margin-top: 32px;
+  width: 625px;
+  height: 60px;
+`;
+
+const MotiveButton = styled.button`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  gap: 10px;
+
+  width: 302.5px;
+  height: 60px;
+  border-radius: 8px;
+  /* violet B 400 */
+
+  background-color: ${(props: { children: string }) =>
+    props.children === '아니오' ? `${COLORS.gray100}` : `${COLORS.violetB400}`};
+  color: ${(props: { children: string }) =>
+    props.children === '아니오' ? `${COLORS.black}` : `${COLORS.white}`};
+`;
