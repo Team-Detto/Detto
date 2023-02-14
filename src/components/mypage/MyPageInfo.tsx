@@ -32,16 +32,10 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
 
   // DB로 수정 정보 업데이트
   const handleUserInfoUpdate = () => {
-    console.log('plannerStack', userInfo.plannerStack);
-    console.log('designerStack', userInfo.designerStack);
-    console.log('developerStack', userInfo.developerStack);
-
     setUserInfo((prev) => {
       return {
         ...prev,
-        plannerStack: userInfo.plannerStack,
-        designerStack: userInfo.designerStack,
-        developerStack: userInfo.developerStack,
+
         photoURL: profileImg,
       };
     });
@@ -51,17 +45,17 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
   };
 
   useEffect(() => {
-    if (user) {
-      setUserInfo({
-        displayName: user?.displayName,
-        photoURL: user?.photoURL,
-        isJunior: user?.isJunior,
-        positions: user?.positions,
-        plannerStack: user?.plannerStack || [''],
-        designerStack: user?.designerStack || [''],
-        developerStack: user?.developerStack || [''],
-      });
-    }
+    if (!user) return;
+
+    setUserInfo({
+      displayName: user?.displayName,
+      photoURL: user?.photoURL,
+      isJunior: user?.isJunior,
+      positions: user?.positions,
+      plannerStack: user?.plannerStack || [''],
+      designerStack: user?.designerStack || [''],
+      developerStack: user?.developerStack || [''],
+    });
   }, [user]);
 
   useEffect(() => {
@@ -106,16 +100,19 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
             category="기획"
             skills={products}
             checkedSkills={userInfo.plannerStack}
+            setUserInfo={setUserInfo}
           />
           <SkillList
             category="디자인"
             skills={designs}
             checkedSkills={userInfo.designerStack}
+            setUserInfo={setUserInfo}
           />
           <SkillList
             category="개발"
             skills={develops}
             checkedSkills={userInfo.developerStack}
+            setUserInfo={setUserInfo}
           />
         </MypageSkillBox>
       </MyPageSkillsWrapper>
