@@ -5,20 +5,33 @@ interface props {
   name: string;
   value?: string[];
   isChecked?: boolean;
+  setValue?: any;
+  type?: string;
 }
 
-const SkillButton = ({ name, value, isChecked }: props) => {
+const SkillButton = ({ name, value, isChecked, setValue, type }: props) => {
   const [isActive, setIsActive] = useState(false);
 
   const handleActiveButton = useCallback(() => {
     setIsActive((prev: boolean) => !prev);
     if (!value) return;
+    if (!type) return;
     if (!value.includes(name)) {
-      value.push(name);
+      setValue((prev: any) => {
+        return {
+          ...prev,
+          [type]: [...prev[type], name],
+        };
+      });
       return;
     }
-    value.splice(value.indexOf(name), 1);
-  }, [setIsActive]);
+    setValue((prev: any) => {
+      return {
+        ...prev,
+        [type]: prev[type].filter((item: string) => item !== name),
+      };
+    });
+  }, [name, setValue, type, value]);
 
   useEffect(() => {
     if (isChecked) {
@@ -49,4 +62,4 @@ const SkillBtn = styled.button`
   }
 `;
 
-export default SkillButton;
+export default memo(SkillButton);
