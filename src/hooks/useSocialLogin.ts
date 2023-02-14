@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { firestore } from 'apis/firebaseService';
 import { useGlobalModal } from 'hooks';
 import {
@@ -12,6 +13,8 @@ import {
 import { doc, setDoc } from 'firebase/firestore';
 
 const useSocialLogin = () => {
+  const [overlay, setOverlay] = useState<boolean>(false);
+
   const { openModal, closeModal } = useGlobalModal();
   const openNextPage = () => openModal('login', 1);
 
@@ -39,6 +42,7 @@ const useSocialLogin = () => {
   const signInWithPopupWithProvider = (
     provider: GithubAuthProvider | GoogleAuthProvider,
   ) => {
+    setOverlay(true);
     signInWithPopup(auth, provider)
       .then((result) => {
         const user = result.user;
@@ -54,9 +58,8 @@ const useSocialLogin = () => {
           closeModal();
         }
       })
-      .catch((error) => {
-        console.error('error: ', error);
-      });
+      .catch((error) => console.error('error: ', error))
+      .finally(() => setOverlay(false));
   };
 
   const handleGithubLogin = () => {
@@ -71,7 +74,7 @@ const useSocialLogin = () => {
     signInWithPopupWithProvider(googleProvider);
   };
 
-  return { handleGithubLogin, handleFacebookLogin, handleGoogleLogin };
+  return { overlay, handleGithubLogin, handleFacebookLogin, handleGoogleLogin };
 };
 
 export default useSocialLogin;

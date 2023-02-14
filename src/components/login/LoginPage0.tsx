@@ -8,11 +8,13 @@ import useSocialLogin from 'hooks/useSocialLogin';
 
 // 페이지 0 : 로그인
 export default function LoginPage0() {
-  const { handleGithubLogin, handleGoogleLogin, handleFacebookLogin } =
+  const { overlay, handleGithubLogin, handleGoogleLogin, handleFacebookLogin } =
     useSocialLogin();
 
   return (
     <Container>
+      {/* 로그인 팝업창이 열려있을 때 모달창 상호작용을 방지하기 위한 오버레이 */}
+      <Overlay overlay={overlay} />
       <KeyImg src={KEY_IMG} alt="login" />
       <Title>로그인을 해주세요</Title>
       <LoginButtons>
@@ -39,6 +41,20 @@ const Container = styled.div`
   height: 100%;
 
   padding: 3.75rem 6.25rem;
+`;
+
+const Overlay = styled.div<{ overlay: boolean }>`
+  display: ${(props) => (props.overlay ? 'block' : 'none')};
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 1000;
+  opacity: 0.5;
 `;
 
 const KeyImg = styled.img`
