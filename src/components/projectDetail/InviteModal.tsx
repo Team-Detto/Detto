@@ -1,23 +1,21 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
+import Alert from 'components/common/Alert';
+import { useModal } from 'hooks';
 import { useEffect } from 'react';
 import { allowScroll, preventScroll } from 'utils/modal';
 
 interface props {
   isOpen: boolean;
   applicantData: any;
-  message: string;
   onClickEvent: () => void;
   onCloseEvent: () => void;
 }
 
-const InviteModal = ({
-  isOpen,
-  applicantData,
-  message,
-  onClickEvent,
-  onCloseEvent,
-}: props) => {
+const InviteModal = ({ isOpen, applicantData, onClickEvent }: props) => {
+  const { isOpen: isAlertOpen, handleModalStateChange: onAlertClickEvent } =
+    useModal(false);
+
   useEffect(() => {
     if (isOpen) {
       const prevScrollY = preventScroll();
@@ -28,31 +26,46 @@ const InviteModal = ({
   }, [isOpen]);
 
   return (
-    <ModalContainer isOpen={isOpen}>
-      <ModalWrapper>
-        <UserProfileImage src={applicantData?.profileURL} />
-        <UserSkillsContainer>
-          {applicantData?.skills.map((skill: string) => {
-            return <Skills>{skill}</Skills>;
-          })}
-          을/를 경험해 본 팀원이네요!
-        </UserSkillsContainer>
+    <>
+      <Alert
+        isOpen={isAlertOpen}
+        onClickEvent={onAlertClickEvent}
+        mainMsg="팀원을 초대했어요!"
+        subMsg="현재 참여한 인원에서 확인할 수 있어요!"
+      />
+      <ModalContainer isOpen={isOpen}>
+        <ModalWrapper>
+          <UserProfileImage src={applicantData?.profileURL} />
+          <UserSkillsContainer>
+            {applicantData?.skills.map((skill: string) => {
+              return <Skills key={skill}>{skill}</Skills>;
+            })}
+            을/를 경험해 본 팀원이네요!
+          </UserSkillsContainer>
 
-        <InviteTitle>{applicantData?.displayName} 님을</InviteTitle>
-        <InviteTitle>팀원으로 초대할까요?</InviteTitle>
+          <InviteTitle>{applicantData?.displayName} 님을</InviteTitle>
+          <InviteTitle>팀원으로 초대할까요?</InviteTitle>
 
-        <MotiveContainer>
-          <MotiveTitle>지원 동기</MotiveTitle>
-          <MotiveContentWrap>
-            <MotiveText>{applicantData?.motive}</MotiveText>
-          </MotiveContentWrap>
-          <MotiveButtonContainer>
-            <MotiveButton onClick={onClickEvent}>아니오</MotiveButton>
-            <MotiveButton>네, 초대할게요!</MotiveButton>
-          </MotiveButtonContainer>
-        </MotiveContainer>
-      </ModalWrapper>
-    </ModalContainer>
+          <MotiveContainer>
+            <MotiveTitle>지원 동기</MotiveTitle>
+            <MotiveContentWrap>
+              <MotiveText>{applicantData?.motive}</MotiveText>
+            </MotiveContentWrap>
+            <MotiveButtonContainer>
+              <MotiveButton onClick={onClickEvent}>아니오</MotiveButton>
+              <MotiveButton
+                onClick={() => {
+                  onClickEvent();
+                  onAlertClickEvent();
+                }}
+              >
+                네, 초대할게요!
+              </MotiveButton>
+            </MotiveButtonContainer>
+          </MotiveContainer>
+        </ModalWrapper>
+      </ModalContainer>
+    </>
   );
 };
 

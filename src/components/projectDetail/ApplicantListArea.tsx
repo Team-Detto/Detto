@@ -1,8 +1,7 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import { useModal } from 'hooks';
-import ApplyModal from './ApplyModal';
-import UserInformationModal from './InviteModal';
+import InviteModal from './InviteModal';
 
 const ApplicantListArea = ({ projectData, userData }: any) => {
   const { applicants } = projectData;
@@ -14,27 +13,22 @@ const ApplicantListArea = ({ projectData, userData }: any) => {
         {applicants ? (
           applicants?.map((applicant: any) => {
             return (
-              <ApplicantWrap>
+              <ApplicantWrap key={applicant.displayName}>
                 <ProfileImage src={applicant.profileURL} />
-                <NicknameDiv>
-                  {applicant.displayName ?? `사용자displayName`}
-                </NicknameDiv>
-                <PositionDiv>
-                  {applicant.position ?? `사용자position`}
-                </PositionDiv>
+                <NicknameDiv>{applicant.displayName}</NicknameDiv>
+                <PositionDiv>{applicant.position}</PositionDiv>
                 {/* 개발, 디자인, 기획 스킬 모아서 배열로 만든 후에 map돌리기 */}
                 <StackWrap>
                   {applicant.skills.map((skill: any) => {
                     return <StackDiv>{skill}</StackDiv>;
-                  }) ?? `사용자stack`}
+                  })}
                 </StackWrap>
                 <InviteButton onClick={handleModalStateChange}>
                   팀원으로 초대하기
                 </InviteButton>
-                <UserInformationModal
+                <InviteModal
                   isOpen={isOpen}
                   applicantData={applicant}
-                  message="프로젝트를 지원해볼까요?"
                   onClickEvent={handleModalStateChange}
                   onCloseEvent={handleModalStateChange}
                 />
