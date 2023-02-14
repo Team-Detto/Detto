@@ -28,7 +28,7 @@ const SkillButton = ({ name, value, isChecked }: props) => {
 
   return (
     <SkillButtonContainer>
-      <SkillBtn isActive={isActive} onClick={handleActiveButton}>
+      <SkillBtn type="button" isActive={isActive} onClick={handleActiveButton}>
         {name}
       </SkillBtn>
     </SkillButtonContainer>
@@ -43,12 +43,10 @@ const SkillBtn = styled.button`
     props.isActive === true ? '#ffffff' : '#000000'};
   border-radius: 32px;
   padding: 5px 15px;
-  transform: scale(1);
   transition: transform 0.5s;
   &:hover {
-    transform: scale(1.1);
-    transition: transform 0.5s;
+    transform: scale(1.05);
   }
 `;
 
-export default memo(SkillButton);
+export default SkillButton;

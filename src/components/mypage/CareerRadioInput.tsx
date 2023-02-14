@@ -5,9 +5,15 @@ interface CareerRadioInputProps {
   juniorFlag: boolean;
   id: string;
   value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const CareerRadioInput = ({ juniorFlag, id, value }: CareerRadioInputProps) => {
+const CareerRadioInput = ({
+  juniorFlag,
+  id,
+  value,
+  onChange,
+}: CareerRadioInputProps) => {
   return (
     <>
       {juniorFlag ? (
@@ -17,6 +23,7 @@ const CareerRadioInput = ({ juniorFlag, id, value }: CareerRadioInputProps) => {
           name="isJunior"
           defaultValue={value}
           defaultChecked
+          onChange={onChange}
         />
       ) : (
         <InfoRadioBoxInput
@@ -24,6 +31,7 @@ const CareerRadioInput = ({ juniorFlag, id, value }: CareerRadioInputProps) => {
           id={id}
           defaultValue={value}
           name="isJunior"
+          onChange={onChange}
         />
       )}
 
