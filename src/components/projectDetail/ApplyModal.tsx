@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
+import Alert from 'components/common/Alert';
 import PositionButton from 'components/common/ApplyPositionButton';
+import { useModal } from 'hooks';
 
 import { useCallback, useEffect, useState } from 'react';
 import { allowScroll, preventScroll } from 'utils/modal';
@@ -14,6 +16,8 @@ interface props {
 
 const ApplyModal = ({ isOpen, message, onClickEvent, onCloseEvent }: props) => {
   const positions = ['기획', '디자인', '프론트', '백엔드'];
+  const { isOpen: isAlertOpen, handleModalStateChange: onAlertClickEvent } =
+    useModal(false);
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
@@ -26,36 +30,52 @@ const ApplyModal = ({ isOpen, message, onClickEvent, onCloseEvent }: props) => {
   }, [isOpen]);
 
   return (
-    <ModalContainer isOpen={isOpen}>
-      <ModalTitle>{message}</ModalTitle>
-      <ContentContainer>
-        <PositionContainer>
-          <PositionTitle>
-            포지션
-            <PositionNotification>
-              (중복 선택이 불가능 해요)
-            </PositionNotification>
-          </PositionTitle>
-          <PositionContentWrap>
-            {positions.map((position, idx) => {
-              return <PositionButton name={position} idx={idx} />;
-            })}
-          </PositionContentWrap>
-        </PositionContainer>
-        <MotiveContainer>
-          <MotiveTitle>지원동기</MotiveTitle>
-          <MotiveContentWrap>
-            <MotiveTextArea
-              placeholder="지원동기를 입력해주세요"
-              // onChange={onChangeEvent}
-            />
-          </MotiveContentWrap>
-        </MotiveContainer>
-      </ContentContainer>
-      <AlertButtonContainer>
-        <AlertButton onClick={onClickEvent}>확인</AlertButton>
-      </AlertButtonContainer>
-    </ModalContainer>
+    <>
+      <Alert
+        isOpen={isAlertOpen}
+        onClickEvent={onAlertClickEvent}
+        mainMsg="지원이 완료되었어요!"
+        subMsg="알림으로 결과를 알려드릴게요!"
+      />
+      <ModalContainer isOpen={isOpen}>
+        <ModalTitle>{message}</ModalTitle>
+        <ContentContainer>
+          <PositionContainer>
+            <PositionTitle>
+              포지션
+              <PositionNotification>
+                (중복 선택이 불가능 해요)
+              </PositionNotification>
+            </PositionTitle>
+            <PositionContentWrap>
+              {positions.map((position, idx) => {
+                return <PositionButton name={position} idx={idx} />;
+              })}
+            </PositionContentWrap>
+          </PositionContainer>
+          <MotiveContainer>
+            <MotiveTitle>지원동기</MotiveTitle>
+            <MotiveContentWrap>
+              <MotiveTextArea
+                placeholder="지원동기를 입력해주세요"
+                //창 꺼지면 초기화시키기
+                // onChange={onChangeEvent}
+              />
+            </MotiveContentWrap>
+          </MotiveContainer>
+        </ContentContainer>
+        <AlertButtonContainer>
+          <AlertButton
+            onClick={() => {
+              onClickEvent();
+              onAlertClickEvent();
+            }}
+          >
+            확인
+          </AlertButton>
+        </AlertButtonContainer>
+      </ModalContainer>
+    </>
   );
 };
 
