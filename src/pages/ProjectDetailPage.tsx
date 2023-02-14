@@ -12,6 +12,9 @@ import ApplicantListArea from 'components/projectDetail/ApplicantListArea';
 import COLORS from 'assets/styles/colors';
 import { useQuery } from '@tanstack/react-query';
 
+import { useModal } from 'hooks';
+import ApplyModal from 'components/projectDetail/ApplyModal';
+
 const ProjectDetailPage = () => {
   const params = useParams();
 
@@ -24,6 +27,10 @@ const ProjectDetailPage = () => {
     queryKey: ['user', projectData?.uid],
     queryFn: () => findWithCollectionName('user', projectData?.uid), //여기서 TypeError: Cannot read property of undefined 에러남 uid 읽기 전에 요청돼서 그런듯?
   });
+
+  const { isOpen, handleModalStateChange } = useModal(false);
+
+  const handleAlert = () => {};
 
   //projectData?.uid로 user테이블 조회해서 닉네임, 프로필 사진 가져오기
   //projectData?.uid 가 현재 uid랑 같은지 판별하고 같으면 수정하기 버튼 display, 지원하기 버튼 -> 마감하기 버튼으로 변경, 지원자 목록 보여주기
@@ -48,7 +55,17 @@ const ProjectDetailPage = () => {
             </RecruitmentInfoContainer>
             <ContentArea projectData={projectData} />
           </ProjectDetailWrapper>
-          <ApplyButtonArea projectData={projectData} userData={userData} />
+          <ApplyButtonArea
+            projectData={projectData}
+            userData={userData}
+            onOpenButtonClickEvent={handleModalStateChange}
+          />
+          <ApplyModal
+            isOpen={isOpen}
+            message="프로젝트를 지원해볼까요?"
+            onClickEvent={handleModalStateChange}
+            onCloseEvent={handleModalStateChange}
+          />
           {/* currentUser랑 글쓴이uid랑 같으면 보이게하기 */}
           <ApplicantListArea projectData={projectData} userData={userData} />
         </WebContainer>
