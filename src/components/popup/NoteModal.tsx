@@ -3,6 +3,7 @@ import COLORS from 'assets/styles/colors';
 import { useGlobalModal } from 'hooks';
 import { useEffect } from 'react';
 import { getDate } from 'utils/date';
+import { allowScroll, preventScroll } from 'utils/modal';
 import CustomButton from './CustomButton';
 
 const INBOX = 'inbox';
@@ -30,6 +31,11 @@ const NoteModal = () => {
 
   useEffect(() => {
     updateModalSize('41.0625rem', '29.4375rem');
+    // 모달이 열려있을 때 body 스크롤 방지
+    const prevScrollY = preventScroll();
+    return () => {
+      allowScroll(prevScrollY);
+    };
   }, []);
 
   // 받은쪽지함 쪽지 읽기
