@@ -1,14 +1,14 @@
 import styled from '@emotion/styled';
 
-const ErrorPage = () => {
+const LoadingPage = () => {
   return (
     <Container>
-      <ErrorImg src={require('assets/images/logo_error.png')} />
+      <LoadingImg src={require('assets/images/logo_loading.png')} />
     </Container>
   );
 };
 
-export default ErrorPage;
+export default LoadingPage;
 
 const Container = styled.div`
   width: 1200px;
@@ -20,7 +20,7 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const ErrorImg = styled.img`
-  width: 35.2931rem;
-  height: 18.6563rem;
+const LoadingImg = styled.img`
+  width: 20.4375rem;
+  height: 12.9375rem;
 `;
