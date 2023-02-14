@@ -25,11 +25,19 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
   // TODO :: DB로 수정한 정보 업데이트
   const handleUserInfoSubmit = (e: React.FormEvent<HTMLFormElement>) => {};
   const [nickname, setNickname] = useState<string>(user?.displayName);
+  const [isJuniorChecked, setIsJuniorChecked] = useState<boolean>(
+    user?.isJunior,
+  );
+  const [checkedPositions, setCheckedPositions] = useState<string[]>(
+    user?.positions,
+  );
 
   useEffect(() => {
     if (user) {
       setProfileImg(user?.photoURL);
       setNickname(user?.displayName);
+      setIsJuniorChecked(user?.isJunior);
+      setCheckedPositions(user?.positions);
     }
   }, [user]);
 
@@ -51,11 +59,17 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
             </InfoItemDiv>
             <InfoItemDiv>
               <InfoTitle>경력</InfoTitle>
-              <Careers isJunior={user?.isJunior} />
+              <Careers
+                isJunior={isJuniorChecked}
+                setIsJuniorChecked={setIsJuniorChecked}
+              />
             </InfoItemDiv>
             <InfoItemDiv>
               <InfoTitle>포지션</InfoTitle>
-              <PositionCheckBox userPoisitons={user?.positions} />
+              <PositionCheckBox
+                userPoisitons={checkedPositions}
+                setCheckedPositions={setCheckedPositions}
+              />
             </InfoItemDiv>
           </InfoWrapper>
         </MypageInfoTopContainer>

@@ -1,12 +1,33 @@
+import { useCallback } from 'react';
 import styled from '@emotion/styled';
-import { positions } from 'utils/positions';
 import CheckBoxButton from './CheckboxButton';
+import { positions } from 'utils/positions';
 
 interface PositionCheckBoxProps {
   userPoisitons: string[];
+  setCheckedPositions: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-const PositionCheckBox = ({ userPoisitons }: PositionCheckBoxProps) => {
+const PositionCheckBox = ({
+  userPoisitons,
+  setCheckedPositions,
+}: PositionCheckBoxProps) => {
+  const handleCheckedPositionsChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { value, checked } = e.target;
+
+      if (checked) {
+        setCheckedPositions((prev) => [...prev, value]);
+      } else {
+        // 체크 해제된 값 필터링하기
+        setCheckedPositions((prev) =>
+          prev.filter((position) => position !== value),
+        );
+      }
+    },
+    [],
+  );
+
   return (
     <ButtonsWrapper type={'info'}>
       {positions.map((position) => {
@@ -20,12 +41,14 @@ const PositionCheckBox = ({ userPoisitons }: PositionCheckBoxProps) => {
             type={position.type}
             name={position.name}
             isChecked={true}
+            onChange={handleCheckedPositionsChange}
           />
         ) : (
           <CheckBoxButton
             key={position.type}
             type={position.type}
             name={position.name}
+            onChange={handleCheckedPositionsChange}
           />
         );
       })}
