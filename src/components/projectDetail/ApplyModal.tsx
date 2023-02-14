@@ -64,16 +64,17 @@ const ApplyModal = ({ isOpen, message, onClickEvent, onCloseEvent }: props) => {
             </MotiveContentWrap>
           </MotiveContainer>
         </ContentContainer>
-        <AlertButtonContainer>
-          <AlertButton
+        <ApplyButtonContainer>
+          <MotiveButton onClick={onClickEvent}>아니오</MotiveButton>
+          <MotiveButton
             onClick={() => {
               onClickEvent();
               onAlertClickEvent();
             }}
           >
-            확인
-          </AlertButton>
-        </AlertButtonContainer>
+            지원하기
+          </MotiveButton>
+        </ApplyButtonContainer>
       </ModalContainer>
     </>
   );
@@ -158,25 +159,6 @@ const PositionContentWrap = styled.div`
   height: 40px;
 `;
 
-// const PositionButton = styled.button`
-//   width: 146px;
-//   height: 40px;
-//   padding: 8px 48px;
-//   gap: 19px;
-//   background-color: ${(props: { isActive: boolean }) =>
-//     props.isActive === true ? `${COLORS.violetB400}` : `${COLORS.gray50}`};
-//   color: ${(props: { isActive: boolean }) =>
-//     props.isActive === true ? `${COLORS.white}` : `${COLORS.black}`};
-//   border-radius: 32px;
-
-//   transform: scale(1);
-//   transition: transform 0.5s;
-//   &:hover {
-//     transform: scale(1.1);
-//     transition: transform 0.5s;
-//   }
-// `;
-
 const MotiveContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -210,10 +192,18 @@ const MotiveTextArea = styled.textarea`
   border-radius: 4px;
 `;
 
-const AlertButtonContainer = styled.div`
+const ApplyButtonContainer = styled.div`
   width: 100%;
   margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 20px;
+  width: 625px;
+  height: 60px;
 `;
+
 const AlertButton = styled.button`
   display: flex;
   flex-direction: row;
@@ -226,4 +216,23 @@ const AlertButton = styled.button`
   height: 62px;
   background: #fafafb;
   border-radius: 16px;
+`;
+
+const MotiveButton = styled.button`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  gap: 10px;
+
+  width: 302.5px;
+  height: 60px;
+  border-radius: 8px;
+  /* violet B 400 */
+
+  background-color: ${(props: { children: string }) =>
+    props.children === '아니오' ? `${COLORS.gray100}` : `${COLORS.violetB400}`};
+  color: ${(props: { children: string }) =>
+    props.children === '아니오' ? `${COLORS.black}` : `${COLORS.white}`};
 `;
