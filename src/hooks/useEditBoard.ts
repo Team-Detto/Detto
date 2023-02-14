@@ -1,5 +1,5 @@
 import { useCallback, useState, ChangeEvent, useRef } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { firebaseEditProjectRequest } from 'apis/boardService';
 import { EditType } from './../types/write/writeType';
 import useModal from './useModal';
@@ -7,6 +7,7 @@ import useModal from './useModal';
 const useEdtiBoard = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
+  const params = useParams();
 
   const editRef = useRef<any>(null);
   const imageRef = useRef<any>(null);
@@ -18,8 +19,12 @@ const useEdtiBoard = () => {
   const handleEditProjectButtonClick = async () => {
     const markdownText = editRef.current.getInstance().getMarkdown();
 
+    if (!params.id) {
+      return;
+    }
+
     await firebaseEditProjectRequest(
-      'r6CZfcnP6eHEHsfUH5Ll',
+      params.id,
       editFormValue,
       markdownText,
       imageRef.current.files[0],

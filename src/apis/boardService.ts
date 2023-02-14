@@ -63,7 +63,7 @@ export const firebaseEditProjectRequest = async (
     await updateDoc(doc(firestore, 'post', id), {
       ...editFormData,
       content: markdownText,
-      sumnail: sumnailUrl,
+      sumnail: sumnailUrl === null ? editFormData.sumnail : sumnailUrl,
       startDate: new Date(editFormData.startDate).getTime(),
       endDate: new Date(editFormData.endDate).getTime(),
       deadline: new Date(editFormData.deadline).getTime(),
