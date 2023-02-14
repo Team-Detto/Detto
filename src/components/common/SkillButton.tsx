@@ -28,7 +28,7 @@ const SkillButton = ({ name, value, isChecked }: props) => {
 
   return (
     <SkillButtonContainer>
-      <SkillBtn isActive={isActive} onClick={handleActiveButton}>
+      <SkillBtn type="button" isActive={isActive} onClick={handleActiveButton}>
         {name}
       </SkillBtn>
     </SkillButtonContainer>

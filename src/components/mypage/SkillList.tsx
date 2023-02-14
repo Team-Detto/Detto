@@ -7,15 +7,9 @@ interface SkillListProps {
   category: string;
   skills: string[];
   checkedSkills?: string[];
-  setCheckedSkills?: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-const SkillList = ({
-  category,
-  skills,
-  checkedSkills,
-  setCheckedSkills,
-}: SkillListProps) => {
+const SkillList = ({ category, skills, checkedSkills }: SkillListProps) => {
   return (
     <>
       <SkillTitle>{category}</SkillTitle>
@@ -27,6 +21,7 @@ const SkillList = ({
               key={skill}
               name={skill}
               isChecked={isChecked ? true : false}
+              value={checkedSkills}
             />
           );
         })}

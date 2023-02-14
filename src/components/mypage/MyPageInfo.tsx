@@ -1,13 +1,13 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import useProfileImage from 'hooks/useProfileImage';
 import MyPageProfileImage from './MyPageProfileImage';
 import PositionCheckBox from './PositionCheckBox';
 import SkillList from './SkillList';
+import NicknameInput from './NicknameInput';
 import Careers from './Careers';
 import { designs, develops, products } from 'utils/skills';
 import COLORS from 'assets/styles/colors';
-import NicknameInput from './NicknameInput';
 
 interface MypageInfoProps {
   user: User;
@@ -20,7 +20,7 @@ export interface UserInfo {
   isJunior: boolean;
   userPositions: string[];
   plannerStack: string[];
-  designStack: string[];
+  designerStack: string[];
   developerStack: string[];
 }
 
@@ -30,24 +30,31 @@ const initialUserInfo = {
   isJunior: false,
   userPositions: [],
   plannerStack: [],
-  designStack: [],
+  designerStack: [],
   developerStack: [],
 };
 
 const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
+  const [userInfo, setUserInfo] = useState<UserInfo>(initialUserInfo);
+  const {
+    nickname,
+    photoURL,
+    isJunior,
+    userPositions,
+    plannerStack,
+    designerStack,
+    developerStack,
+  } = userInfo;
+
   const {
     profileImg,
     setProfileImg,
     handleProfileImageChange,
     handleProfileImageDelete,
-  } = useProfileImage(uid);
+  } = useProfileImage(uid, photoURL);
 
   // TODO :: DB로 수정한 정보 업데이트
   const handleUserInfoSubmit = (e: React.FormEvent<HTMLFormElement>) => {};
-  // TODO :: state를 userInfo 하나로 관리
-  const [userInfo, setUserInfo] = useState<UserInfo>(initialUserInfo);
-
-  const { nickname, isJunior, userPositions } = userInfo;
 
   useEffect(() => {
     if (user) {
@@ -57,7 +64,7 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
         isJunior: user?.isJunior,
         userPositions: user?.positions,
         plannerStack: user?.plannerStack || [''],
-        designStack: user?.designerStack || [''],
+        designerStack: user?.designerStack || [''],
         developerStack: user?.developerStack || [''],
       });
     }
@@ -71,7 +78,7 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
         <MypageInfoTopContainer>
           <MyPageProfileImage
             profileImg={profileImg}
-            setProfileImg={setProfileImg}
+            setUserInfo={setUserInfo}
             onChange={handleProfileImageChange}
             onDelete={handleProfileImageDelete}
             uid={uid}
@@ -100,17 +107,17 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
             <SkillList
               category="기획"
               skills={products}
-              checkedSkills={user?.plannerStack}
+              checkedSkills={plannerStack}
             />
             <SkillList
               category="디자인"
               skills={designs}
-              checkedSkills={user?.designerStack}
+              checkedSkills={designerStack}
             />
             <SkillList
               category="개발"
               skills={develops}
-              checkedSkills={user?.developerStack}
+              checkedSkills={developerStack}
             />
           </MypageSkillBox>
         </MyPageSkillsWrapper>
