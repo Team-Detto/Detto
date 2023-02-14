@@ -1,7 +1,5 @@
 import styled from '@emotion/styled';
 import WebContainer from '../components/common/WebContainer';
-import { useParams } from 'react-router-dom';
-import { findWithCollectionName, viewProject } from 'apis/postDetail';
 import TitleThumbnailArea from 'components/projectDetail/TitleThumbnailArea';
 import WriterToShareArea from 'components/projectDetail/WriterToShareArea';
 import ProjectInfoArea from 'components/projectDetail/ProjectInfoArea';
@@ -9,11 +7,12 @@ import MemberInfoArea from 'components/projectDetail/MemberInfoArea';
 import ContentArea from 'components/projectDetail/ContentArea';
 import ApplyButtonArea from 'components/projectDetail/ApplyButtonArea';
 import ApplicantListArea from 'components/projectDetail/ApplicantListArea';
-import COLORS from 'assets/styles/colors';
-import { useQuery } from '@tanstack/react-query';
-
-import { useModal } from 'hooks';
 import ApplyModal from 'components/projectDetail/ApplyModal';
+import COLORS from 'assets/styles/colors';
+import { findWithCollectionName, viewProject } from 'apis/postDetail';
+import { useQuery } from '@tanstack/react-query';
+import { useParams } from 'react-router-dom';
+import { useModal } from 'hooks';
 
 const ProjectDetailPage = () => {
   const params = useParams();
@@ -39,7 +38,6 @@ const ProjectDetailPage = () => {
   //날짜 데이터 포맷팅
   return (
     <ProjectDetailContainer>
-      {(projectIsLoading || userIsLoading) && <div>로딩중</div>}
       {projectData && userData && (
         <WebContainer>
           <ProjectDetailWrapper>
@@ -64,7 +62,6 @@ const ProjectDetailPage = () => {
             isOpen={isOpen}
             message="프로젝트를 지원해볼까요?"
             onClickEvent={handleModalStateChange}
-            onCloseEvent={handleModalStateChange}
           />
           {/* currentUser랑 글쓴이uid랑 같으면 보이게하기 */}
           <ApplicantListArea projectData={projectData} userData={userData} />

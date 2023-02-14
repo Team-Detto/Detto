@@ -3,22 +3,18 @@ import COLORS from 'assets/styles/colors';
 import Alert from 'components/common/Alert';
 import PositionButton from 'components/common/ApplyPositionButton';
 import { useModal } from 'hooks';
-
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { allowScroll, preventScroll } from 'utils/modal';
 
 interface props {
   isOpen: boolean;
   message: string;
   onClickEvent: () => void;
-  onCloseEvent: () => void;
 }
 
-const ApplyModal = ({ isOpen, message, onClickEvent, onCloseEvent }: props) => {
-  const positions = ['기획', '디자인', '프론트', '백엔드'];
+const ApplyModal = ({ isOpen, message, onClickEvent }: props) => {
   const { isOpen: isAlertOpen, handleModalStateChange: onAlertClickEvent } =
     useModal(false);
-  const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -43,14 +39,12 @@ const ApplyModal = ({ isOpen, message, onClickEvent, onCloseEvent }: props) => {
           <PositionContainer>
             <PositionTitle>
               포지션
-              <PositionNotification>
+              <PositionNotificationSpan>
                 (중복 선택이 불가능 해요)
-              </PositionNotification>
+              </PositionNotificationSpan>
             </PositionTitle>
             <PositionContentWrap>
-              {positions.map((position, idx) => {
-                return <PositionButton name={position} idx={idx} />;
-              })}
+              <PositionButton />
             </PositionContentWrap>
           </PositionContainer>
           <MotiveContainer>
@@ -138,7 +132,7 @@ const PositionTitle = styled.p`
   gap: 8px;
 `;
 
-const PositionNotification = styled.span`
+const PositionNotificationSpan = styled.span`
   font-weight: 500;
   font-size: 16px;
   line-height: 28px;
