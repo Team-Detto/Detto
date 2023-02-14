@@ -10,6 +10,7 @@ interface SkillListProps {
   skills: string[];
   checkedSkills: string[];
   setUserInfo: React.Dispatch<React.SetStateAction<UserInfo>>;
+  handleButtonActive: () => void;
 }
 
 const SkillList = ({
@@ -17,6 +18,7 @@ const SkillList = ({
   skills,
   checkedSkills,
   setUserInfo,
+  handleButtonActive,
 }: SkillListProps) => {
   let stackName = '';
 
@@ -36,6 +38,7 @@ const SkillList = ({
   // 체크된 값, 체크되지 않은 값을 구분하여 state 갱신
   const handleCheckedPositionsChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
+      handleButtonActive();
       const { value, checked } = e.target;
 
       switch (category) {

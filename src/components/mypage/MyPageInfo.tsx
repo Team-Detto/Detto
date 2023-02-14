@@ -19,9 +19,14 @@ interface MypageInfoProps {
 }
 
 const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
-  const [isActive, setIsActive] = useState<boolean>(false);
-  const { userInfo, setUserInfo, handleNicknameChange, validationMessage } =
-    useUpdateProfile();
+  const {
+    userInfo,
+    setUserInfo,
+    handleNicknameChange,
+    validationMessage,
+    activeButton,
+    handleButtonActive,
+  } = useUpdateProfile();
   const { isOpen, handleModalStateChange } = useModal(false);
   const { profileImg, handleProfileImageChange, handleProfileImageDelete } =
     useProfileImage(uid, userInfo.photoURL);
@@ -58,10 +63,6 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
     });
   }, [user]);
 
-  useEffect(() => {
-    setIsActive(!isActive);
-  }, [userInfo]);
-
   return (
     <MyPageTopContainer>
       <MypageInfoTopContainer>
@@ -82,11 +83,16 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
           </InfoItemDiv>
           <InfoItemDiv>
             <InfoTitle>경력</InfoTitle>
-            <Careers isJunior={userInfo.isJunior} setUserInfo={setUserInfo} />
+            <Careers
+              isJunior={userInfo.isJunior}
+              setUserInfo={setUserInfo}
+              handleButtonActive={handleButtonActive}
+            />
           </InfoItemDiv>
           <InfoItemDiv>
             <InfoTitle>포지션</InfoTitle>
             <PositionCheckBox
+              handleButtonActive={handleButtonActive}
               positions={userInfo.positions}
               setUserInfo={setUserInfo}
             />
@@ -101,25 +107,28 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
             skills={products}
             checkedSkills={userInfo.plannerStack}
             setUserInfo={setUserInfo}
+            handleButtonActive={handleButtonActive}
           />
           <SkillList
             category="디자인"
             skills={designs}
             checkedSkills={userInfo.designerStack}
             setUserInfo={setUserInfo}
+            handleButtonActive={handleButtonActive}
           />
           <SkillList
             category="개발"
             skills={develops}
             checkedSkills={userInfo.developerStack}
             setUserInfo={setUserInfo}
+            handleButtonActive={handleButtonActive}
           />
         </MypageSkillBox>
       </MyPageSkillsWrapper>
 
       <InfoEditConfirmWrapper>
         <InfoEditConfirmBtn
-          isActive={isActive}
+          isActive={activeButton}
           onClick={handleModalStateChange}
         >
           개인정보 수정 완료
@@ -191,4 +200,9 @@ const InfoEditConfirmBtn = styled.button<{ isActive: boolean }>`
   background-color: ${({ isActive }) =>
     isActive ? COLORS.violetB500 : COLORS.gray100};
   color: ${({ isActive }) => (isActive ? COLORS.white : COLORS.gray750)};
+  transition: all 300ms ease-in-out;
+
+  &:hover {
+    background-color: ${COLORS.violetB300};
+  }
 `;
