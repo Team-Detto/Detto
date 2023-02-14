@@ -1,4 +1,5 @@
 import { ChangeEvent } from 'react';
+import { EditType } from 'types/write/writeType';
 import EidtPagePosition from './EditPagePosition';
 import EditPageStack from './EditPageStack';
 import styled from '@emotion/styled';
@@ -6,15 +7,17 @@ import styled from '@emotion/styled';
 interface Props {
   imageRef: any;
   editFormValue: any;
+  setEditFormValue: (value: EditType.EditFormType) => void;
   onFormValueChangeEvent: (e: ChangeEvent<HTMLInputElement>) => void;
-  onAdThumbnailImageEvent: () => void;
+  onAddThumbnailImageEvent: () => void;
 }
 
 const ProjectEditPageBody = ({
   imageRef,
   editFormValue,
+  setEditFormValue,
   onFormValueChangeEvent,
-  onAdThumbnailImageEvent: onAddThumbnailImageEvent,
+  onAddThumbnailImageEvent,
 }: Props) => {
   const {
     positions,
@@ -40,6 +43,7 @@ const ProjectEditPageBody = ({
           plannerStack={plannerStack}
           designerStack={designerStack}
           developerStack={developerStack}
+          setEditFormValue={setEditFormValue}
         />
       </BodyStackBox>
       <BodyEstimatedPeriodBox>

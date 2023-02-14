@@ -7,6 +7,7 @@ import styled from '@emotion/styled';
 interface Props {
   imageRef: RefObject<HTMLInputElement>;
   writeFormValue: WriteType.WriteFormType;
+  setWriteFormValue: (value: WriteType.WriteFormType) => void;
   onFormValueChagneEvent: (e: React.ChangeEvent<HTMLInputElement>) => void; // eslint-disable-line no-unused-vars
   onAddThumbnailImageEvent: () => void;
 }
@@ -14,8 +15,9 @@ interface Props {
 const ProjectWritePageBody = ({
   imageRef,
   writeFormValue,
+  setWriteFormValue,
   onFormValueChagneEvent,
-  onAddThumbnailImageEvent: onAddThumbnailImageEvent,
+  onAddThumbnailImageEvent,
 }: Props) => {
   return (
     <WritePageBodyContainer>
@@ -27,7 +29,10 @@ const ProjectWritePageBody = ({
         />
       </WritePageBodyPositionBox>
       <WritePageBodyStackBox>
-        <WritePageStack writeFormValue={writeFormValue} />
+        <WritePageStack
+          writeFormValue={writeFormValue}
+          setWriteFormValue={setWriteFormValue}
+        />
       </WritePageBodyStackBox>
       <WirtePageBodyEstimatedPeriodBox>
         <WritePageBodyText>예상 기간</WritePageBodyText>
