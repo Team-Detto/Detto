@@ -26,8 +26,8 @@ const FindProjectPage = () => {
     <FindProjectPageWrapper>
       <WebContainer>
         <FindProjectHeader
-          category={category}
           toggle={toggle}
+          category={category}
           onCategoryClickEvent={handleCategoryClick}
           onToggleClickEvent={handleToggleClick}
         />
