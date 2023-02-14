@@ -1,28 +1,39 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import CheckBoxButton from './CheckboxButton';
 import { positions } from 'utils/positions';
+import { UserInfo } from './MyPageInfo';
 
 interface PositionCheckBoxProps {
-  userPoisitons: string[];
-  setCheckedPositions: React.Dispatch<React.SetStateAction<string[]>>;
+  userPositions: string[];
+  setUserInfo: React.Dispatch<React.SetStateAction<UserInfo>>;
 }
 
 const PositionCheckBox = ({
-  userPoisitons,
-  setCheckedPositions,
+  userPositions,
+  setUserInfo,
 }: PositionCheckBoxProps) => {
   const handleCheckedPositionsChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const { value, checked } = e.target;
 
       if (checked) {
-        setCheckedPositions((prev) => [...prev, value]);
+        setUserInfo((prevState) => {
+          return {
+            ...prevState,
+            userPositions: [...prevState.userPositions, value],
+          };
+        });
       } else {
         // 체크 해제된 값 필터링하기
-        setCheckedPositions((prev) =>
-          prev.filter((position) => position !== value),
-        );
+        setUserInfo((prevState) => {
+          return {
+            ...prevState,
+            userPositions: prevState.userPositions.filter(
+              (position) => position !== value,
+            ),
+          };
+        });
       }
     },
     [],
@@ -31,7 +42,7 @@ const PositionCheckBox = ({
   return (
     <ButtonsWrapper type={'info'}>
       {positions.map((position) => {
-        const checkPosition = userPoisitons?.find(
+        const checkPosition = userPositions?.find(
           (userPosition) => userPosition === position.type,
         );
 

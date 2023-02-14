@@ -2,16 +2,24 @@ import styled from '@emotion/styled';
 import { useCallback } from 'react';
 import { career } from 'utils/positions';
 import CareerRadioInput from './CareerRadioInput';
+import { UserInfo } from './MyPageInfo';
 
 interface CareersProps {
   isJunior: boolean;
-  setIsJuniorChecked: React.Dispatch<React.SetStateAction<boolean>>;
+  setUserInfo: React.Dispatch<React.SetStateAction<UserInfo>>;
 }
 
-const Careers = ({ isJunior, setIsJuniorChecked }: CareersProps) => {
+const Careers = ({ isJunior, setUserInfo }: CareersProps) => {
   const handleCheckedRadioChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setIsJuniorChecked(e.target.value === 'isJunior' ? true : false);
+      const { id } = e.currentTarget;
+
+      setUserInfo((prevState) => {
+        return {
+          ...prevState,
+          isJunior: id === 'junior' ? true : false,
+        };
+      });
     },
     [],
   );

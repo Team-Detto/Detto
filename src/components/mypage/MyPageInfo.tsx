@@ -14,6 +14,26 @@ interface MypageInfoProps {
   uid: string;
 }
 
+export interface UserInfo {
+  nickname: string;
+  photoURL: string;
+  isJunior: boolean;
+  userPositions: string[];
+  plannerStack: string[];
+  designStack: string[];
+  developerStack: string[];
+}
+
+const initialUserInfo = {
+  nickname: '',
+  photoURL: '',
+  isJunior: false,
+  userPositions: [],
+  plannerStack: [],
+  designStack: [],
+  developerStack: [],
+};
+
 const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
   const {
     profileImg,
@@ -24,22 +44,26 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
 
   // TODO :: DB로 수정한 정보 업데이트
   const handleUserInfoSubmit = (e: React.FormEvent<HTMLFormElement>) => {};
-  const [nickname, setNickname] = useState<string>(user?.displayName);
-  const [isJuniorChecked, setIsJuniorChecked] = useState<boolean>(
-    user?.isJunior,
-  );
-  const [checkedPositions, setCheckedPositions] = useState<string[]>(
-    user?.positions,
-  );
+  // TODO :: state를 userInfo 하나로 관리
+  const [userInfo, setUserInfo] = useState<UserInfo>(initialUserInfo);
+
+  const { nickname, isJunior, userPositions } = userInfo;
 
   useEffect(() => {
     if (user) {
-      setProfileImg(user?.photoURL);
-      setNickname(user?.displayName);
-      setIsJuniorChecked(user?.isJunior);
-      setCheckedPositions(user?.positions);
+      setUserInfo({
+        nickname: user?.displayName,
+        photoURL: user?.photoURL,
+        isJunior: user?.isJunior,
+        userPositions: user?.positions,
+        plannerStack: user?.plannerStack || [''],
+        designStack: user?.designerStack || [''],
+        developerStack: user?.developerStack || [''],
+      });
     }
   }, [user]);
+
+  console.log('userInfo', userInfo);
 
   return (
     <MyPageTopContainer>
@@ -55,20 +79,17 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
           <InfoWrapper>
             <InfoItemDiv>
               <InfoTitle htmlFor="nickname">닉네임</InfoTitle>
-              <NicknameInput nickname={nickname} setNickname={setNickname} />
+              <NicknameInput nickname={nickname} setUserInfo={setUserInfo} />
             </InfoItemDiv>
             <InfoItemDiv>
               <InfoTitle>경력</InfoTitle>
-              <Careers
-                isJunior={isJuniorChecked}
-                setIsJuniorChecked={setIsJuniorChecked}
-              />
+              <Careers isJunior={isJunior} setUserInfo={setUserInfo} />
             </InfoItemDiv>
             <InfoItemDiv>
               <InfoTitle>포지션</InfoTitle>
               <PositionCheckBox
-                userPoisitons={checkedPositions}
-                setCheckedPositions={setCheckedPositions}
+                userPositions={userPositions}
+                setUserInfo={setUserInfo}
               />
             </InfoItemDiv>
           </InfoWrapper>

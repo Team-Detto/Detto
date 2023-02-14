@@ -2,19 +2,23 @@ import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import { useCallback, useState } from 'react';
 import { nicknameValidation } from 'utils/validation';
+import { UserInfo } from './MyPageInfo';
 
 interface NicknameInputProps {
   nickname: string;
-  setNickname: React.Dispatch<React.SetStateAction<string>>;
+  setUserInfo: React.Dispatch<React.SetStateAction<UserInfo>>;
 }
 
-const NicknameInput = ({ nickname, setNickname }: NicknameInputProps) => {
+const NicknameInput = ({ nickname, setUserInfo }: NicknameInputProps) => {
   const [validationMessage, setValidationMessage] = useState<string>('');
 
   const handleNicknameChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setNickname(e.currentTarget.value);
-      const isValidate = nicknameValidation(e.currentTarget.value);
+      const { value } = e.currentTarget;
+      setUserInfo((prevState) => {
+        return { ...prevState, nickname: value };
+      });
+      const isValidate = nicknameValidation(value);
 
       if (!isValidate) {
         if (e.currentTarget.value.length === 0) {
