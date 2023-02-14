@@ -72,7 +72,7 @@ const useWrite = () => {
     });
   };
 
-  const handleAddSumnailImage = () => {
+  const handleAddThumbnailImage = () => {
     imageRef.current.click();
   };
 
@@ -114,7 +114,7 @@ const useWrite = () => {
     writeFormValue,
     handleModalStateChange,
     handleFormValueChange,
-    handleAddSumnailImage,
+    handleAddThumbnailImage: handleAddThumbnailImage,
     handleCreateProjectButtonClick,
   };
 };

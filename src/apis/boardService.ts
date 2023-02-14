@@ -18,7 +18,7 @@ export const firebaseCreateProjectRequest = async (
   image: any,
 ) => {
   try {
-    const sumnailUrl = await firebaseImageUploadRequest(image);
+    const thumbnailUrl = await firebaseImageUploadRequest(image);
 
     await addDoc(collection(firestore, 'post'), {
       ...formData,
@@ -26,7 +26,7 @@ export const firebaseCreateProjectRequest = async (
       endDate: new Date(formData.endDate).getTime(),
       deadline: new Date(formData.deadline).getTime(),
       content: markdownText,
-      sumnail: sumnailUrl,
+      thumbnail: thumbnailUrl,
       view: 0,
       like: 0,
       createdAt: Date.now(),
@@ -58,12 +58,12 @@ export const firebaseEditProjectRequest = async (
   image: any,
 ) => {
   try {
-    const sumnailUrl = await firebaseImageUploadRequest(image);
+    const thumbnailUrl = await firebaseImageUploadRequest(image);
 
     await updateDoc(doc(firestore, 'post', id), {
       ...editFormData,
       content: markdownText,
-      sumnail: sumnailUrl === null ? editFormData.sumnail : sumnailUrl,
+      thumbnail: thumbnailUrl === null ? editFormData.thumbnail : thumbnailUrl,
       startDate: new Date(editFormData.startDate).getTime(),
       endDate: new Date(editFormData.endDate).getTime(),
       deadline: new Date(editFormData.deadline).getTime(),
@@ -73,6 +73,7 @@ export const firebaseEditProjectRequest = async (
   }
 };
 
+// firebase post 데이터 삭제
 export const firebaseDeleteProjectRequest = async (id: string) => {
   await deleteDoc(doc(firestore, 'post', id));
 };

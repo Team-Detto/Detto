@@ -7,14 +7,14 @@ interface Props {
   imageRef: any;
   editFormValue: any;
   onFormValueChangeEvent: (e: ChangeEvent<HTMLInputElement>) => void;
-  onAddSumnailImageEvent: () => void;
+  onAdThumbnailImageEvent: () => void;
 }
 
 const ProjectEditPageBody = ({
   imageRef,
   editFormValue,
   onFormValueChangeEvent,
-  onAddSumnailImageEvent,
+  onAdThumbnailImageEvent: onAddThumbnailImageEvent,
 }: Props) => {
   const {
     positions,
@@ -66,13 +66,13 @@ const ProjectEditPageBody = ({
           onChange={onFormValueChangeEvent}
         />
       </BodyDeadlineBox>
-      <BodySumnailBox>
+      <BodyThumbnailBox>
         <BodyText>썸네일 추가</BodyText>
-        <BodySumnailImage type="file" accept="image/*" ref={imageRef} />
-        <BodySumnailButton onClick={onAddSumnailImageEvent}>
+        <BodyThumbnailImage type="file" accept="image/*" ref={imageRef} />
+        <BodyThumbnailButton onClick={onAddThumbnailImageEvent}>
           사진 추가하기
-        </BodySumnailButton>
-      </BodySumnailBox>
+        </BodyThumbnailButton>
+      </BodyThumbnailBox>
     </BodyContainer>
   );
 };
@@ -122,14 +122,14 @@ const BodyDeadlineBox = styled.div`
   display: flex;
   flex-direction: row;
 `;
-const BodySumnailBox = styled.div`
+const BodyThumbnailBox = styled.div`
   width: 100%;
   margin-top: 2rem;
   display: flex;
   flex-direction: row;
   padding-right: 7rem;
 `;
-const BodySumnailImage = styled.input`
+const BodyThumbnailImage = styled.input`
   padding: 10px 20px;
   width: 808px;
   height: 44px;
@@ -140,7 +140,7 @@ const BodySumnailImage = styled.input`
     display: none;
   }
 `;
-const BodySumnailButton = styled.button`
+const BodyThumbnailButton = styled.button`
   padding: 0.625rem 1.75rem;
   width: 226px;
   height: 43px;

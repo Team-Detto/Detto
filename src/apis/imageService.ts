@@ -5,7 +5,7 @@ export const firebaseImageUploadRequest = async (image: any) => {
   if (image === undefined) {
     return null;
   }
-  const sumnailImgRef = ref(firestorage, `sumnail/${image.name}`);
-  await uploadBytes(sumnailImgRef, image);
-  return await getDownloadURL(sumnailImgRef);
+  const thumbnailImgRef = ref(firestorage, `thumbnail/${image.name}`);
+  await uploadBytes(thumbnailImgRef, image);
+  return await getDownloadURL(thumbnailImgRef);
 };
