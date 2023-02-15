@@ -1,8 +1,9 @@
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import styled from '@emotion/styled';
-import WebContainer from 'components/common/WebContainer';
 import MyPageInfo from 'components/mypage/MyPageInfo';
 import ProjectList from 'components/common/ProjectList';
+import LeftTab from 'components/mypage/LeftTab';
 import { getUserInfoData } from 'apis/mypageUsers';
 import MemberProfile from 'assets/images/project_member.png';
 import thumbnail from 'assets/images/project_thumbnail.png';
@@ -26,6 +27,7 @@ interface Member {
 }
 
 const MyPage = () => {
+  const [activeTab, setActiveTab] = useState('개인정보');
   const userLocal = localStorage.getItem('user');
   const currentUser = JSON.parse(userLocal ?? '');
   const uid = currentUser.uid;
@@ -127,24 +129,31 @@ const MyPage = () => {
 
   return (
     <MyPageContainer>
-      <WebContainer>
-        <MyPageInfo user={userInfoData} uid={uid ?? ''} />
-        <ProjectList
-          sectionTitle="모집중인 프로젝트"
-          nickname="detto"
-          projects={projects}
-        />
-        <ProjectList
-          sectionTitle="지원한 프로젝트"
-          nickname="detto"
-          projects={projects}
-        />
-        <ProjectList
-          sectionTitle="관심있는 프로젝트"
-          nickname="detto"
-          projects={projects}
-        />
-      </WebContainer>
+      <LeftTab activeTab={activeTab} setActiveTab={setActiveTab} />
+      <MypageContentsWrapper>
+        {activeTab === '개인정보' && (
+          <MyPageInfo user={userInfoData} uid={uid ?? ''} />
+        )}
+        {activeTab === '프로젝트' && (
+          <ProjectListWrapper>
+            <ProjectList
+              sectionTitle="모집중인 프로젝트"
+              nickname="detto"
+              projects={projects}
+            />
+            <ProjectList
+              sectionTitle="지원한 프로젝트"
+              nickname="detto"
+              projects={projects}
+            />
+            <ProjectList
+              sectionTitle="관심있는 프로젝트"
+              nickname="detto"
+              projects={projects}
+            />
+          </ProjectListWrapper>
+        )}
+      </MypageContentsWrapper>
     </MyPageContainer>
   );
 };
@@ -155,4 +164,12 @@ const MyPageContainer = styled.div`
   width: 100%;
   height: 100%;
   background-color: #fcfcfc;
+  display: flex;
 `;
+
+const MypageContentsWrapper = styled.main`
+  display: block;
+  padding: 10rem 3.75rem 0 2.375rem;
+`;
+
+const ProjectListWrapper = styled.div``;

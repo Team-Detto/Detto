@@ -6,7 +6,7 @@ import useProfileImage from 'hooks/useProfileImage';
 import MyPageProfileImage from './MyPageProfileImage';
 import PositionCheckBox from './PositionCheckBox';
 import SkillList from './SkillList';
-import NicknameInput from './NicknameInput';
+import TextInput from './TextInput';
 import Careers from './Careers';
 import ConfirmAlert from 'components/common/ConfirmAlert';
 import { designs, develops, products } from 'utils/skills';
@@ -75,10 +75,19 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
         <InfoWrapper>
           <InfoItemDiv>
             <InfoTitle htmlFor="nickname">닉네임</InfoTitle>
-            <NicknameInput
-              displayName={userInfo.displayName}
-              onChangeNickname={handleNicknameChange}
+            <TextInput
+              value={userInfo.displayName}
+              onChangeValue={handleNicknameChange}
               validationMessage={validationMessage}
+            />
+          </InfoItemDiv>
+          <InfoItemDiv>
+            {/* TODO :: 연락처 관련 로직 수정 필요 */}
+            <InfoTitle htmlFor="contact">연락처</InfoTitle>
+            <TextInput
+              value={''}
+              onChangeValue={handleNicknameChange}
+              validationMessage={''}
             />
           </InfoItemDiv>
           <InfoItemDiv>
@@ -147,7 +156,7 @@ export default MyPageInfo;
 const MyPageTopContainer = styled.div``;
 
 const MypageInfoTopContainer = styled.div`
-  padding-top: 14.875rem;
+  padding-top: 3.125rem;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -158,7 +167,7 @@ const InfoWrapper = styled.div``;
 const InfoItemDiv = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 2.25rem;
+  margin-bottom: 1.625rem;
 `;
 
 const InfoTitle = styled.label`
@@ -190,7 +199,7 @@ const InfoEditConfirmWrapper = styled.div`
 `;
 
 const InfoEditConfirmBtn = styled.button<{ isActive: boolean }>`
-  margin-top: 4.875rem;
+  margin-top: 2rem;
   width: 14.375rem;
   height: 3rem;
   border-radius: 4px;

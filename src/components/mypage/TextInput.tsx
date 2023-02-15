@@ -1,23 +1,23 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 
-interface NicknameInputProps {
-  displayName: string;
-  onChangeNickname: (e: React.ChangeEvent<HTMLInputElement>) => void;
+interface TextInputProps {
+  value: string;
+  onChangeValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
   validationMessage: string;
 }
 
-const NicknameInput = ({
-  displayName,
-  onChangeNickname,
+const TextInput = ({
+  value,
+  onChangeValue,
   validationMessage,
-}: NicknameInputProps) => {
+}: TextInputProps) => {
   return (
     <InputBox>
-      <InfoNicknameInput
+      <InfoTextInput
         type="text"
-        defaultValue={displayName}
-        onChange={onChangeNickname}
+        defaultValue={value}
+        onChange={onChangeValue}
         minLength={2}
         maxLength={30}
       />
@@ -26,17 +26,19 @@ const NicknameInput = ({
   );
 };
 
-export default NicknameInput;
+export default TextInput;
 
 const InputBox = styled.div`
   height: 2.875rem;
 `;
 
-const InfoNicknameInput = styled.input`
+const InfoTextInput = styled.input`
   width: 22rem;
   padding: 0.625rem 1.25rem;
   border: 1px solid #ced3db;
   border-radius: 4px;
+  color: ${COLORS.gray800};
+  font-size: 1.125rem;
 `;
 
 const ValidationMessage = styled.p`
