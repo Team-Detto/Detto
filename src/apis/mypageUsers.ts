@@ -12,7 +12,7 @@ import { UserInfo } from 'types/mypage/userInfo';
 export const getUserInfoData = async (params: any) => {
   const [_, uid] = params.queryKey;
 
-  const docRef = doc(firestore, 'user', `${uid}`);
+  const docRef = doc(firestore, 'users', `${uid}`);
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
@@ -58,7 +58,7 @@ export const deleteProfileImg = async (uid: string) => {
  */
 export const updateUserInfoData = async (uid: string, userInfo: UserInfo) => {
   try {
-    await updateDoc(doc(firestore, 'user', `${uid}`), {
+    await updateDoc(doc(firestore, 'users', `${uid}`), {
       ...userInfo,
     });
 
