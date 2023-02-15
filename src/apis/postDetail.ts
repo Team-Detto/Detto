@@ -56,16 +56,7 @@ export const updateApplicants = async (
   motive: string,
   recruit?: boolean,
 ) => {
-  // const applicants = {
-  //   displayName: displayName,
-  //   profileURL: profileURL,
-  //   skills: skills,
-  //   position: position,
-  //   motive: motive,
-  // };
-  console.log('skills', skills);
   const docRef = doc(firestore, 'post', pid);
-  // await setDoc(docRef, { applicants }, { merge: true });
   await setDoc(
     docRef,
     {

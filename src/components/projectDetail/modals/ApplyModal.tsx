@@ -2,13 +2,12 @@ import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import Alert from 'components/common/Alert';
 import PositionButton from 'components/common/ApplyPositionButton';
-import { useModal } from 'hooks';
+import { useAuth, useModal } from 'hooks';
 import { useEffect, useState } from 'react';
 import { allowScroll, preventScroll } from 'utils/modal';
 import { positionList } from 'utils/positions';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { findWithCollectionName, updateApplicants } from 'apis/postDetail';
-import { authService } from 'apis/firebaseService';
 
 interface props {
   isOpen: boolean;
@@ -23,7 +22,7 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
   const [usage, setUsage] = useState('done');
   const [motive, setMotive] = useState('');
   const [clickValue, setClickValue] = useState(-1);
-  const uid = authService?.currentUser?.uid as string;
+  const { uid } = useAuth();
 
   const { data: userData } = useQuery({
     queryKey: ['users', uid], //currentUser.uid로 수정
