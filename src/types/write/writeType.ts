@@ -24,8 +24,10 @@ export namespace WriteType {
 export namespace EditType {
   export interface EditFormType {
     uid: string;
+    id: string;
     title: string;
     content: string;
+    thumbnail: string;
     positions: Position.Developers;
     plannerStack: string[];
     developerStack: string[];
