@@ -17,12 +17,12 @@ import ApplyModal from 'components/projectDetail/modals/ApplyModal';
 const ProjectDetailPage = () => {
   const params = useParams();
 
-  const { data: projectData, isLoading: projectIsLoading } = useQuery({
-    queryKey: ['post', params],
-    queryFn: () => viewProject(params),
+  const { data: projectData } = useQuery({
+    queryKey: ['post', params?.id],
+    queryFn: () => viewProject(params?.id),
   });
 
-  const { data: userData, isLoading: userIsLoading } = useQuery({
+  const { data: userData } = useQuery({
     queryKey: ['user', projectData?.uid],
     queryFn: () => findWithCollectionName('user', projectData?.uid), //여기서 TypeError: Cannot read property of undefined 에러남 https://github.com/microsoft/vscode/issues/116219
   });
@@ -61,6 +61,7 @@ const ProjectDetailPage = () => {
             onClickEvent={handleModalStateChange}
           />
           {/* currentUser랑 글쓴이uid랑 같으면 보이게하기 */}
+
           <ApplicantListArea projectData={projectData} userData={userData} />
         </WebContainer>
       )}

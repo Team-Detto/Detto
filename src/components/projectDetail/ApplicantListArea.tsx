@@ -6,20 +6,22 @@ import InviteModal from './modals/InviteModal';
 const ApplicantListArea = ({ projectData, userData }: any) => {
   const { applicants } = projectData;
   const { isOpen, handleModalStateChange } = useModal(false);
+
   return (
     <ApplicantListContainer>
       <ApplicantListTitle>지원자 목록</ApplicantListTitle>
       <ApplicantListContent>
-        {applicants ? (
-          applicants?.map((applicant: any) => {
+        {applicants && applicants ? (
+          // applicants?.forEach((applicant: any, idx: number) => {
+          Object.keys(applicants).map((key) => {
             return (
-              <ApplicantWrap key={applicant.displayName}>
-                <ProfileImage src={applicant.profileURL} />
-                <NicknameDiv>{applicant.displayName}</NicknameDiv>
-                <PositionDiv>{applicant.position}</PositionDiv>
+              <ApplicantWrap key={applicants[key]?.displayName}>
+                <ProfileImage src={applicants[key]?.profileURL} />
+                <NicknameDiv>{applicants[key]?.displayName}</NicknameDiv>
+                <PositionDiv>{applicants[key]?.position}</PositionDiv>
                 {/* 개발, 디자인, 기획 스킬 모아서 배열로 만든 후에 map돌리기 */}
                 <StackWrap>
-                  {applicant.skills.map((skill: any) => {
+                  {applicants[key]?.skills.map((skill: any) => {
                     return <StackDiv key={skill}>{skill}</StackDiv>;
                   })}
                 </StackWrap>
@@ -28,9 +30,9 @@ const ApplicantListArea = ({ projectData, userData }: any) => {
                 </InviteButton>
                 <InviteModal
                   isOpen={isOpen}
-                  applicantData={applicant}
+                  applicantData={applicants[key]}
                   onClickEvent={handleModalStateChange}
-                  onCloseEvent={handleModalStateChange}
+                  //pid
                 />
               </ApplicantWrap>
             );

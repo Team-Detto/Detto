@@ -2,19 +2,42 @@ import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import Alert from 'components/common/Alert';
 import { useModal } from 'hooks';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { allowScroll, preventScroll } from 'utils/modal';
-
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { findWithCollectionName, updateParticipants } from 'apis/postDetail';
+import { useParams } from 'react-router-dom';
 interface props {
   isOpen: boolean;
   applicantData: any;
   onClickEvent: () => void;
-  onCloseEvent: () => void;
 }
 
 const InviteModal = ({ isOpen, applicantData, onClickEvent }: props) => {
   const { isOpen: isAlertOpen, handleModalStateChange: onAlertClickEvent } =
     useModal(false);
+
+  const [key, setKey] = useState('');
+
+  const { data: postData } = useQuery({
+    queryKey: ['6zDpuv1af8LzMlQkmceO'], //currentUser.uid로 수정
+    queryFn: () => findWithCollectionName('post', '6zDpuv1af8LzMlQkmceO'), //currentUser.uid로 수정
+  });
+  const applicants = postData?.applicants;
+  const uidArray = Object.keys(applicants).map((keys: any, idx: number) => {
+    // if (keys === 'userID') {
+    //   setKey(keys);
+    // }
+  });
+  // console.log(key);
+
+  const { mutate: applicantMutate } = useMutation(() =>
+    updateParticipants(
+      '6zDpuv1af8LzMlQkmceO', //pid로 수정
+      'userID', //currentUser.uid로 수정
+      true,
+    ),
+  );
 
   useEffect(() => {
     if (isOpen) {
@@ -33,6 +56,7 @@ const InviteModal = ({ isOpen, applicantData, onClickEvent }: props) => {
         mainMsg="팀원을 초대했어요!"
         subMsg="현재 참여한 인원에서 확인할 수 있어요!"
         usage="done"
+        page="apply"
       />
       <ModalContainer isOpen={isOpen}>
         <ModalWrapper>
@@ -58,6 +82,9 @@ const InviteModal = ({ isOpen, applicantData, onClickEvent }: props) => {
                 onClick={() => {
                   onClickEvent();
                   onAlertClickEvent();
+                  applicantMutate();
+                  //데이터 추가
+                  //데이터 삭제
                 }}
               >
                 네, 초대할게요!

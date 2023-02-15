@@ -29,12 +29,14 @@ const ApplyModal = ({ isOpen, message, onClickEvent }: props) => {
 
   const { mutate: applicantMutate } = useMutation(() =>
     updateApplicants(
-      '6zDpuv1af8LzMlQkmceO',
+      '6zDpuv1af8LzMlQkmceO', //pid로 수정
+      userData?.uid,
       userData?.displayName,
       userData?.photoURL,
       userData?.skills,
       positionList[clickValue].name,
       motive,
+      false,
     ),
   );
 
@@ -95,10 +97,10 @@ const ApplyModal = ({ isOpen, message, onClickEvent }: props) => {
                 return;
               } else {
                 setUsage('done');
-                setMotive('');
-                setClickValue(-1);
-                onClickEvent();
-                onAlertClickEvent();
+                setMotive(''); //지원동기 초기화
+                setClickValue(-1); //포지션 초기화
+                onClickEvent(); //모달 닫기
+                onAlertClickEvent(); //지원성공 모달 띄우기
 
                 applicantMutate(userData?.uid);
                 console.log(
@@ -265,7 +267,7 @@ const ApplyButtonContainer = styled.div`
 const AlertButton = styled.button`
   display: flex;
   flex-direction: row;
-  motive-align: center;
+  text-align: center;
   justify-content: center;
   padding: 21px 95px;
   gap: 10px;
