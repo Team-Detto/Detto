@@ -1,56 +1,61 @@
 import styled from '@emotion/styled';
+import { firestore } from 'apis/firebaseService';
 import COLORS from 'assets/styles/colors';
-import { useGlobalModal } from 'hooks';
+import { doc, updateDoc } from 'firebase/firestore';
+import { useAuth, useGlobalModal } from 'hooks';
 import React, { useState } from 'react';
+import { positionList } from 'utils/positions';
 import ConfirmButton from './ConfirmButton';
 import Navigator from './Navigator';
-
-const position = ['기획', '디자인', '프론트', '백엔드'];
 
 // 페이지 1 : 포지션 선택
 const page = 1;
 
 export default function SetPositions() {
+  const [positions, setPositions] = useState<string[]>([]);
+
   const { openModal } = useGlobalModal();
+  const { uid } = useAuth();
 
-  const handleNextButtonClick = () => {
-    openModal('login', page + 1);
-  };
-
-  const [selectedPosition, setSelectedPosition] = useState<string[]>([]);
-
-  const handleSelectedPosition = (pos: string) => {
-    if (selectedPosition.includes(pos)) {
-      setSelectedPosition(selectedPosition.filter((p) => p !== pos));
+  const handleCheckPositions = (isChecked: boolean, pos: string) => {
+    if (!isChecked) {
+      setPositions(positions.filter((p) => p !== pos).sort());
     } else {
-      setSelectedPosition([...selectedPosition, pos]);
+      setPositions([...positions, pos].sort().sort());
     }
   };
 
-  // TODO: Input checkbox 태그로 변경
+  const handleConfirmButtonClick = async () => {
+    if (!uid) return;
+    await updateDoc(doc(firestore, `users/${uid}`), {
+      positions,
+    });
+    openModal('login', page + 1);
+  };
+
   return (
     <Container>
       <Navigator page={page} back />
       <TextContainer>
-        <TitleText>
-          어떤 포지션인지 알려주세요
-          <SubText>(중복 선택 가능해요)</SubText>
-        </TitleText>
+        <TitleText>어떤 포지션인지 알려주세요</TitleText>
+        <SubText>(중복 선택 가능해요)</SubText>
       </TextContainer>
       <Buttons>
-        {position.map((pos) => (
-          <React.Fragment key={pos}>
+        {positionList.map(({ type, name }) => (
+          <React.Fragment key={type}>
             <MenuToggleInput
               type="checkbox"
               name="position"
-              id={pos}
-              value={pos}
+              id={type}
+              onChange={(e) =>
+                handleCheckPositions(e.currentTarget.checked, type)
+              }
             />
-            <MenuLabel htmlFor={pos}>{pos}</MenuLabel>
+            <MenuLabel htmlFor={type}>{name}</MenuLabel>
           </React.Fragment>
         ))}
       </Buttons>
-      <ConfirmButton onClick={handleNextButtonClick} />
+      <ConfirmButton onClick={handleConfirmButtonClick} />
     </Container>
   );
 }
