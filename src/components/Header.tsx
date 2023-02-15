@@ -1,11 +1,8 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import WebContainer from './common/WebContainer';
-import { useEffect, useState } from 'react';
 import PopupContainer from './popup/PopupContainer';
-import { useGlobalModal, usePopup } from 'hooks';
-import { signOut } from 'firebase/auth';
-import { authService } from 'apis/firebaseService';
+import { useGlobalModal, useHeader, usePopup } from 'hooks';
 import COLORS from 'assets/styles/colors';
 
 interface headerTypes {
@@ -13,51 +10,10 @@ interface headerTypes {
   hideGradient: boolean;
 }
 
-// 메인 페이지에서 스크롤이 MAIN_SCROLL_Y 값 이상 되면 헤더의 배경색을 투명에서 하얀색으로 변경
-const MAIN_SCROLL_Y = 480;
-
 const Header = () => {
-  const [hideGradient, setHideGradient] = useState<boolean>(true);
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const isMain = location.pathname === '/';
-
   const { toggleNoteBox, toggleNotificationBox } = usePopup();
   const { openModal } = useGlobalModal();
-
-  const userLocal = localStorage.getItem('user');
-
-  // 높이에 따라 배경색 그라디언트 표시 여부 결정하는 함수
-  const showHeaderGradientBackground = () => {
-    const { scrollY } = window;
-    scrollY > MAIN_SCROLL_Y ? setHideGradient(false) : setHideGradient(true);
-  };
-
-  // 로그아웃
-  const handleLogoutClick = () => {
-    signOut(authService).then(() => {
-      localStorage.removeItem('user');
-      navigate('/', { replace: true });
-      setIsLoggedIn(false);
-    });
-  };
-
-  useEffect(() => {
-    if (isMain) {
-      window.addEventListener('scroll', showHeaderGradientBackground);
-    }
-
-    return () => {
-      window.removeEventListener('scroll', showHeaderGradientBackground);
-    };
-  }, [isMain]);
-
-  useEffect(() => {
-    if (userLocal) {
-      setIsLoggedIn(true);
-    }
-  }, [userLocal]);
+  const { isMain, isLoggedIn, hideGradient, handleLogoutClick } = useHeader();
 
   return (
     <HeaderContainer isMain={isMain} hideGradient={hideGradient}>
@@ -69,7 +25,6 @@ const Header = () => {
           </LogoBoxH1>
           <Nav>
             <NavListUl>
-              {/* TODO :: 쪽지, 알림, 마이페이지, 로그아웃은 로그인 되었을 경우에만 보이도록 로직 추가 필요 */}
               <NavItemLi>
                 <Link to={'/project/write'}>새 글 쓰기</Link>
               </NavItemLi>
@@ -87,7 +42,6 @@ const Header = () => {
                   로그인하기
                 </NavItemLi>
               )}
-              {/* 임시 주석처리 */}
               {isLoggedIn && (
                 <NavItemLi>
                   <Link to={'/mypage'}>마이페이지</Link>
