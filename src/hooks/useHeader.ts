@@ -2,6 +2,7 @@ import { authService } from 'apis/firebaseService';
 import { signOut } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import useAuth from './useAuth';
 
 // 메인 페이지에서 스크롤이 MAIN_SCROLL_Y 값 이상 되면 헤더의 배경색을 투명에서 하얀색으로 변경
 const MAIN_SCROLL_Y = 480;
@@ -9,11 +10,11 @@ const MAIN_SCROLL_Y = 480;
 const useHeader = () => {
   const [hideGradient, setHideGradient] = useState<boolean>(true);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const localUser = useAuth();
 
   const navigate = useNavigate();
   const location = useLocation();
 
-  const localUser = localStorage.getItem('user');
   const isMain = location.pathname === '/';
 
   // 높이에 따라 배경색 그라디언트 표시 여부 결정하는 함수
@@ -44,7 +45,11 @@ const useHeader = () => {
 
   // 유저 로그인 여부 판단
   useEffect(() => {
-    if (localUser) {
+    // 빈 객체({}) 인지 판단
+    if (
+      Object.keys(localUser).length !== 0 &&
+      localUser.constructor === Object
+    ) {
       setIsLoggedIn(true);
     }
   }, [localUser]);
