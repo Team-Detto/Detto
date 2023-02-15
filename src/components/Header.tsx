@@ -33,6 +33,15 @@ const Header = () => {
     scrollY > MAIN_SCROLL_Y ? setHideGradient(false) : setHideGradient(true);
   };
 
+  // 로그아웃
+  const handleLogoutClick = () => {
+    signOut(authService).then(() => {
+      localStorage.removeItem('user');
+      navigate('/', { replace: true });
+      setIsLoggedIn(false);
+    });
+  };
+
   useEffect(() => {
     if (isMain) {
       window.addEventListener('scroll', showHeaderGradientBackground);
@@ -83,7 +92,9 @@ const Header = () => {
                   <Link to={'/mypage'}>마이페이지</Link>
                 </NavItemLi>
               )}
-              {isLoggedIn && <NavItemLi>로그아웃</NavItemLi>}
+              {isLoggedIn && (
+                <NavItemLi onClick={handleLogoutClick}>로그아웃</NavItemLi>
+              )}
             </NavListUl>
           </Nav>
         </HeaderWrapper>
