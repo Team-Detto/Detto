@@ -32,6 +32,7 @@ const useFindProject = () => {
   };
 
   return {
+    projects,
     filterProjects,
     category,
     toggle,
