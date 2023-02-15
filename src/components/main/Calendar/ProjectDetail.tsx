@@ -1,37 +1,54 @@
 import styled from '@emotion/styled';
-
+import { useRecoilValue } from 'recoil';
+import { detailListState } from '../../../recoil/atoms';
+import { getDate } from 'utils/date';
 const ProjectDetail = () => {
+  const detailList = useRecoilValue<any>(detailListState);
+
   return (
     <ProjectDetailWrap>
-      <ProjectDetailContainer>
-        <ProjectDetailSproutTextDiv>🌱 새싹 레벨</ProjectDetailSproutTextDiv>
-        <ProjectDetailTitleAreaDiv>팀원을 구해요!</ProjectDetailTitleAreaDiv>
-      </ProjectDetailContainer>
-      <ProjectDetailContainer>
-        <ProjectDetailTextAreaDiv>프로젝트 이름</ProjectDetailTextAreaDiv>
-        <div>프로젝트 이름입니다</div>
-      </ProjectDetailContainer>
-      <ProjectDetailContainer>
-        <ProjectDetailTextAreaDiv>필요 스택</ProjectDetailTextAreaDiv>
-        <div>Node.js</div>
-      </ProjectDetailContainer>
-      <ProjectDetailContainer>
-        <ProjectDetailTextAreaDiv>팀원 레벨</ProjectDetailTextAreaDiv>
-        <div>새싹</div>
-      </ProjectDetailContainer>
-      <ProjectDetailContainer>
-        <ProjectDetailTextAreaDiv>기간</ProjectDetailTextAreaDiv>
-        <div>YYYY.MM.DD - YYYY.MM.DD</div>
-      </ProjectDetailContainer>
-      <ProjectDetailContainer>
-        <ProjectDetailTextAreaDiv>근무지</ProjectDetailTextAreaDiv>
-        <div>대한 민국</div>
-      </ProjectDetailContainer>
+      {detailList?.map((data: any) => {
+        return (
+          <div key={data}>
+            <ProjectDetailContainer>
+              <ProjectDetailSproutTextDiv>
+                🌱 새싹 레벨
+              </ProjectDetailSproutTextDiv>
+              <ProjectDetailTitleAreaDiv>
+                팀원을 구해요!
+              </ProjectDetailTitleAreaDiv>
+            </ProjectDetailContainer>
+            <ProjectDetailContainer>
+              <ProjectDetailTextAreaDiv>프로젝트 이름</ProjectDetailTextAreaDiv>
+              <div>{data.title}</div>
+            </ProjectDetailContainer>
+            <ProjectDetailContainer>
+              <ProjectDetailTextAreaDiv>필요 스택</ProjectDetailTextAreaDiv>
+              <div>{data.developerStack}</div>
+            </ProjectDetailContainer>
+            <ProjectDetailContainer>
+              <ProjectDetailTextAreaDiv>팀원 레벨</ProjectDetailTextAreaDiv>
+              <div>새싹</div>
+            </ProjectDetailContainer>
+            <ProjectDetailContainer>
+              <ProjectDetailTextAreaDiv>기간</ProjectDetailTextAreaDiv>
+              <div>
+                {getDate(data.startDate)} ~ {getDate(data.endDate)}
+              </div>
+            </ProjectDetailContainer>
+            <ProjectDetailContainer>
+              <ProjectDetailTextAreaDiv>근무지</ProjectDetailTextAreaDiv>
+              <div>대한 민국</div>
+            </ProjectDetailContainer>
 
-      <ProjectDetailButton>지원하러 가기</ProjectDetailButton>
+            <ProjectDetailButton>지원하러 가기</ProjectDetailButton>
+          </div>
+        );
+      })}
     </ProjectDetailWrap>
   );
 };
+
 const ProjectDetailWrap = styled.div`
   width: 18.75rem;
   height: 12.125rem;
