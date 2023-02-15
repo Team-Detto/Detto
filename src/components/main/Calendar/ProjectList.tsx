@@ -25,7 +25,6 @@ const ProjectList = () => {
     swipeToSlide: true,
     vertical: true,
   };
-  // console.log(detailList);
 
   return (
     <ProjectListWrap>
@@ -52,7 +51,7 @@ const ProjectList = () => {
                 </ProjectListCardProjectName>
               </ProjectListCardTextBox>
               <ProjectListCardDate>
-                프로젝트 모집 마감일 {getDate(data.endDate)}
+                프로젝트 모집 마감일 {getDate(data.deadline)}
               </ProjectListCardDate>
             </ProjectListCardContainer>
           );

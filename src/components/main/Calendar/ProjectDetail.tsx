@@ -1,15 +1,13 @@
 import styled from '@emotion/styled';
-import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { detailListState } from '../../../recoil/atoms';
 import { getDate } from 'utils/date';
 const ProjectDetail = () => {
   const detailList = useRecoilValue<any>(detailListState);
-  console.log(detailList);
 
   return (
     <ProjectDetailWrap>
-      {detailList.map((data: any) => {
+      {detailList?.map((data: any) => {
         return (
           <div key={data}>
             <ProjectDetailContainer>

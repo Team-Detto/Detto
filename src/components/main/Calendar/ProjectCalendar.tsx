@@ -23,16 +23,11 @@ const ProjectCalendar = () => {
   //  선택 한 날짜 => moment(value).format('YYYY년 MM월 DD일')
   const SelectDate = moment(value).format('YYYY.MM.DD');
 
-  // 해당 날의 생선된 프로젝트만 필터링
-  // const filterData = setDayList(
-  //   projectData.filter((el: any) => getDate(el.createdAt) === SelectDate),
-  // );
-
   //  시작 부터 마감일까지 날짜를 배열로 만들어서 리턴
-  const getDayList = (startDate: any, endDate: any) => {
+  const getDayList = (createAt: any, deadline: any) => {
     const dayList = [];
-    const start = new Date(startDate);
-    const end = new Date(endDate);
+    const start = new Date(createAt);
+    const end = new Date(deadline);
     while (start <= end) {
       dayList.push(new Date(start));
       start.setDate(start.getDate() + 1);
@@ -42,7 +37,7 @@ const ProjectCalendar = () => {
   //해당 날의 진행중인 프로젝트 필터링
   const filterData = setDayList(
     projectData.filter((el: any) =>
-      getDayList(el.startDate, el.endDate)
+      getDayList(el.createdAt, el.deadline)
         .map((el) => getDate(el))
         .includes(SelectDate),
     ),
