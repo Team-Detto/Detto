@@ -3,22 +3,40 @@ import COLORS from 'assets/styles/colors';
 import Alert from 'components/common/Alert';
 import PositionButton from 'components/common/ApplyPositionButton';
 import { useModal } from 'hooks';
-
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { allowScroll, preventScroll } from 'utils/modal';
+import { positionList } from 'utils/positions';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { findWithCollectionName, updateApplicants } from 'apis/postDetail';
 
 interface props {
   isOpen: boolean;
   message: string;
   onClickEvent: () => void;
-  onCloseEvent: () => void;
 }
 
-const ApplyModal = ({ isOpen, message, onClickEvent, onCloseEvent }: props) => {
-  const positions = ['기획', '디자인', '프론트', '백엔드'];
+const ApplyModal = ({ isOpen, message, onClickEvent }: props) => {
   const { isOpen: isAlertOpen, handleModalStateChange: onAlertClickEvent } =
     useModal(false);
-  const [isActive, setIsActive] = useState(false);
+  const [usage, setUsage] = useState('done');
+  const [motive, setMotive] = useState('');
+  const [clickValue, setClickValue] = useState(-1);
+
+  const { data: userData } = useQuery({
+    queryKey: ['userID'], //currentUser.uid로 수정
+    queryFn: () => findWithCollectionName('user', 'userID'), //currentUser.uid로 수정
+  });
+
+  const { mutate: applicantMutate } = useMutation(() =>
+    updateApplicants(
+      '6zDpuv1af8LzMlQkmceO',
+      userData?.displayName,
+      userData?.photoURL,
+      userData?.skills,
+      positionList[clickValue].name,
+      motive,
+    ),
+  );
 
   useEffect(() => {
     if (isOpen) {
@@ -31,12 +49,6 @@ const ApplyModal = ({ isOpen, message, onClickEvent, onCloseEvent }: props) => {
 
   return (
     <>
-      <Alert
-        isOpen={isAlertOpen}
-        onClickEvent={onAlertClickEvent}
-        mainMsg="지원이 완료되었어요!"
-        subMsg="알림으로 결과를 알려드릴게요!"
-      />
       <ModalContainer isOpen={isOpen}>
         <ModalTitle>{message}</ModalTitle>
         <ContentContainer>
@@ -48,9 +60,10 @@ const ApplyModal = ({ isOpen, message, onClickEvent, onCloseEvent }: props) => {
               </PositionNotification>
             </PositionTitle>
             <PositionContentWrap>
-              {positions.map((position, idx) => {
-                return <PositionButton name={position} idx={idx} />;
-              })}
+              <PositionButton
+                clickValue={clickValue}
+                setClickValue={setClickValue}
+              />
             </PositionContentWrap>
           </PositionContainer>
           <MotiveContainer>
@@ -58,24 +71,69 @@ const ApplyModal = ({ isOpen, message, onClickEvent, onCloseEvent }: props) => {
             <MotiveContentWrap>
               <MotiveTextArea
                 placeholder="지원동기를 입력해주세요"
-                //창 꺼지면 초기화시키기
-                // onChange={onChangeEvent}
+                onChange={(e: any) => setMotive(e.target.value)}
+                value={motive}
               />
             </MotiveContentWrap>
           </MotiveContainer>
         </ContentContainer>
         <ApplyButtonContainer>
-          <MotiveButton onClick={onClickEvent}>아니오</MotiveButton>
           <MotiveButton
             onClick={() => {
-              onClickEvent();
-              onAlertClickEvent();
+              setMotive(''); //지원동기 초기화
+              setClickValue(-1); //포지션 초기화
+              onClickEvent(); //모달 닫기
+            }}
+          >
+            아니오
+          </MotiveButton>
+          <MotiveButton
+            onClick={() => {
+              if (motive === '' || clickValue === -1) {
+                setUsage('fail');
+                onAlertClickEvent();
+                return;
+              } else {
+                setUsage('done');
+                setMotive('');
+                setClickValue(-1);
+                onClickEvent();
+                onAlertClickEvent();
+
+                applicantMutate(userData?.uid);
+                console.log(
+                  '포지션:',
+                  positionList[clickValue].name,
+                  '지원동기:',
+                  motive,
+                );
+                //버튼 변경 이벤트
+                //데이터 삽입,삭제 이벤트
+              }
             }}
           >
             지원하기
           </MotiveButton>
         </ApplyButtonContainer>
+        {/* 지원실패 모달 위에 모달 띄워야해서 */}
+        <Alert
+          isOpen={isAlertOpen}
+          onClickEvent={onAlertClickEvent}
+          mainMsg="지원에 실패했어요!!"
+          subMsg="입력을 확인해주세요!"
+          usage={usage}
+          page="apply"
+        />
       </ModalContainer>
+      {/* 지원성공 */}
+      <Alert
+        isOpen={isAlertOpen}
+        onClickEvent={onAlertClickEvent}
+        mainMsg="지원이 완료되었어요!"
+        subMsg="알림으로 결과를 알려드릴게요!"
+        usage={usage}
+        page="apply"
+      />
     </>
   );
 };
@@ -207,7 +265,7 @@ const ApplyButtonContainer = styled.div`
 const AlertButton = styled.button`
   display: flex;
   flex-direction: row;
-  text-align: center;
+  motive-align: center;
   justify-content: center;
   padding: 21px 95px;
   gap: 10px;

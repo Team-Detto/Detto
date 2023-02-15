@@ -7,15 +7,26 @@ interface props {
   onClickEvent: () => void;
   mainMsg: string;
   subMsg: string;
+  usage?: string;
+  page?: string;
 }
 
-const Alert = ({ isOpen, onClickEvent, mainMsg, subMsg }: props) => {
+const Alert = ({
+  isOpen,
+  onClickEvent,
+  mainMsg,
+  subMsg,
+  usage,
+  page,
+}: props) => {
   useEffect(() => {
-    if (isOpen) {
-      const prevScrollY = preventScroll();
-      return () => {
-        allowScroll(prevScrollY);
-      };
+    if (page !== 'apply') {
+      if (isOpen) {
+        const prevScrollY = preventScroll();
+        return () => {
+          allowScroll(prevScrollY);
+        };
+      }
     }
   }, [isOpen]);
 
@@ -23,7 +34,9 @@ const Alert = ({ isOpen, onClickEvent, mainMsg, subMsg }: props) => {
     <AlertBackDrop isOpen={isOpen}>
       <AlertContainer isOpen={isOpen}>
         <AlertMessageContainer>
-          <AlertMessageEmotion>🎉</AlertMessageEmotion>
+          <AlertMessageEmotion>
+            {usage === 'done' ? '🎉' : '😭'}
+          </AlertMessageEmotion>
           <AlertMessageMainMessage>{mainMsg}!</AlertMessageMainMessage>
           <AlertMessageSubMessage>{subMsg}</AlertMessageSubMessage>
         </AlertMessageContainer>

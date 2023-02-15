@@ -1,16 +1,28 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { positionList } from 'utils/positions';
 
-const ApplyPositionButton = ({ name, idx }: { name: string; idx: number }) => {
-  const [isActive, setIsActive] = useState(false);
-  const onClickEvent = () => {
-    setIsActive(false);
-    setIsActive(!isActive);
+const ApplyPositionButton = (props: any) => {
+  const { clickValue, setClickValue } = props;
+
+  const onClickEvent = (e: React.MouseEvent, idx: number) => {
+    e.preventDefault();
+    setClickValue(idx);
   };
+
   return (
-    <PositionButton onClick={onClickEvent} key={idx} isActive={isActive}>
-      {name}
-    </PositionButton>
+    <>
+      {positionList.map((position: { name: string }, idx: number) => {
+        return (
+          <PositionButton
+            key={position.name}
+            onClick={(e) => onClickEvent(e, idx)}
+            isActive={clickValue === idx}
+          >
+            {position.name}
+          </PositionButton>
+        );
+      })}
+    </>
   );
 };
 
@@ -20,8 +32,13 @@ const PositionButton = styled.button`
   width: 146px;
   height: 40px;
   border-radius: 16px;
+
   background-color: ${(props: { isActive: boolean }) =>
     props.isActive === true ? '#5D50F0' : '#f2f4f6'};
   color: ${(props: { isActive: boolean }) =>
     props.isActive === true ? '#ffffff' : '#000000'};
+  &:hover {
+    transform: scale(1.1);
+    transition: transform 0.5s;
+  }
 `;
