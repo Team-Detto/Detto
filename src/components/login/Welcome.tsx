@@ -4,7 +4,7 @@ import COLORS from 'assets/styles/colors';
 import { useGlobalModal } from 'hooks';
 
 // 페이지 4 : 환영합니다!
-export default function LoginPage4() {
+export default function Welcome() {
   const { closeModal } = useGlobalModal();
 
   return (
