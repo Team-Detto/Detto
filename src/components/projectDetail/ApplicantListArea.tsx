@@ -24,9 +24,7 @@ const ApplicantListArea = ({ projectData, pid }: any) => {
       <ApplicantListTitle>지원자 목록</ApplicantListTitle>
       <ApplicantListContent>
         {applicants && applicants ? (
-          // applicants?.forEach((applicant: any, idx: number) => {
           Object.keys(applicants).map((key) => {
-            // console.log('test', applicants[key]);
             if (applicants[key]?.recruit === false)
               return (
                 <ApplicantWrap key={applicants[key]?.uid}>
@@ -42,11 +40,9 @@ const ApplicantListArea = ({ projectData, pid }: any) => {
                     onClick={() => {
                       handleModalStateChange();
                       setApplicantKey(key);
-                      // console.log('key', key);
                     }}
                   >
                     팀원으로 초대하기
-                    {/* 이거 누르면 지원한 사람의 uid가 전달돼야함 */}
                   </InviteButton>
                   <InviteModal
                     isOpen={isOpen}

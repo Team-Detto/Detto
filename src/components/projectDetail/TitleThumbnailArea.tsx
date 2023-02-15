@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
+import ConfirmAlert from 'components/common/ConfirmAlert';
 import { useMutation } from '@tanstack/react-query';
 import { deleteProject } from 'apis/postDetail';
-import ConfirmAlert from 'components/common/ConfirmAlert';
 import { useAuth, useModal } from 'hooks';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,7 +12,7 @@ const TitleThumbnailArea = (props: any) => {
   const { projectData, pid } = props;
   const { thumbnail, title, isRecruiting } = projectData;
   const { isOpen, handleModalStateChange } = useModal(false);
-  //글 삭제하기
+  //글 삭제하기 useMutation
   const { mutate: deleteProjectMutate } = useMutation(() => deleteProject(pid));
   const { uid } = useAuth();
   const handleDeleteProject = () => {

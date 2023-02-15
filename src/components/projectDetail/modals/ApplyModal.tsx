@@ -25,8 +25,8 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
   const { uid } = useAuth();
 
   const { data: userData } = useQuery({
-    queryKey: ['users', uid], //currentUser.uid로 수정
-    queryFn: () => findWithCollectionName('users', uid), //currentUser.uid로 수정
+    queryKey: ['users', uid],
+    queryFn: () => findWithCollectionName('users', uid),
   });
   //userData 구조 분해 할당
 

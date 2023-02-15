@@ -48,7 +48,7 @@ const ProjectDetailPage = () => {
             />
             <RecruitmentInfoContainer>
               <ProjectInfoArea projectData={projectData} />
-              <MemberInfoArea />
+              <MemberInfoArea applicantsData={projectData?.applicants} />
             </RecruitmentInfoContainer>
             <ContentArea projectData={projectData} />
           </ProjectDetailWrapper>
