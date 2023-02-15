@@ -38,7 +38,8 @@ export default LeftTab;
 
 const LeftTabWrapper = styled.div`
   min-width: 14.375rem;
-  min-height: 100%;
+  min-height: 100vh;
+  max-height: 100%;
   background-color: ${COLORS.gray50};
   border-right: 1px solid ${COLORS.gray200};
   padding-top: 12.75rem;

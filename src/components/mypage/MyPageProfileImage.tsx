@@ -111,7 +111,7 @@ const ProfileImgEditButton = styled.div`
   position: absolute;
   right: 3px;
   bottom: 1.875rem;
-  z-index: 100;
+  z-index: 1;
 
   width: 2.5rem;
   height: 2.5rem;
