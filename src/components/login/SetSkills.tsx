@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
+import { firestore } from 'apis/firebaseService';
 import COLORS from 'assets/styles/colors';
-import WritePageStack from 'components/writepage/WritePageStack';
-import { useGlobalModal } from 'hooks';
+import { doc, updateDoc } from 'firebase/firestore';
+import { useAuth, useGlobalModal } from 'hooks';
+import { useState } from 'react';
 import ConfirmButton from './ConfirmButton';
 import Navigator from './Navigator';
 import SetSkillsPageStack from './SetSkillsPageStack';
@@ -10,10 +12,20 @@ import SetSkillsPageStack from './SetSkillsPageStack';
 const page = 2;
 
 export default function SetSkills() {
-  const { openModal } = useGlobalModal();
+  const [skills, setSkills] = useState({
+    plannerStack: [],
+    designerStack: [],
+    developerStack: [],
+  });
 
-  // 확인 버튼 클릭 시 페이지 이동
-  const handleNextButtonClick = () => {
+  const { openModal } = useGlobalModal();
+  const { uid } = useAuth();
+
+  const handleConfirmButtonClick = async () => {
+    if (!uid) return;
+    await updateDoc(doc(firestore, `users/${uid}`), {
+      ...skills,
+    });
     openModal('login', page + 1);
   };
 
@@ -25,9 +37,9 @@ export default function SetSkills() {
           <TitleText>어떤 기술 스택을 하실 수 있으신지 선택해주세요</TitleText>
           <SubText>(중복 선택 가능해요)</SubText>
         </TextContainer>
-        <SetSkillsPageStack />
+        <SetSkillsPageStack skills={skills} setSkills={setSkills} />
       </BodyContainer>
-      <ConfirmButton onClick={handleNextButtonClick} />
+      <ConfirmButton onClick={handleConfirmButtonClick} />
     </Container>
   );
 }

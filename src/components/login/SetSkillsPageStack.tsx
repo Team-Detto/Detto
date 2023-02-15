@@ -2,51 +2,51 @@ import styled from '@emotion/styled';
 import SkillButton from 'components/common/SkillButton';
 import { designs, develops, products } from 'utils/skills';
 
-export default function SetSkillsPageStack() {
+export default function SetSkillsPageStack({ skills, setSkills }: any) {
   return (
     <Container>
-      <PositionContainer>
-        <PositionLabel>기획</PositionLabel>
+      <RowContainer>
+        <Label>기획</Label>
         <Skills>
-          {products.map((product: string) => (
+          {products.map((skill: string) => (
             <SkillButton
-              key={product}
-              name={product}
+              key={skill}
+              name={skill}
               type="plannerStack"
-              // value={writeFormValue?.plannerStack}
-              // setValue={setWriteFormValue}
+              value={skills.plannerStack}
+              setValue={setSkills}
             />
           ))}
         </Skills>
-      </PositionContainer>
-      <PositionContainer>
-        <PositionLabel>디자인</PositionLabel>
+      </RowContainer>
+      <RowContainer>
+        <Label>디자인</Label>
         <Skills>
-          {designs.map((design: string) => (
+          {designs.map((skill: string) => (
             <SkillButton
-              key={design}
-              name={design}
+              key={skill}
+              name={skill}
               type="designerStack"
-              // value={writeFormValue?.designerStack}
-              // setValue={setWriteFormValue}
+              value={skills.designerStack}
+              setValue={setSkills}
             />
           ))}
         </Skills>
-      </PositionContainer>
-      <PositionContainer>
-        <PositionLabel>개발</PositionLabel>
+      </RowContainer>
+      <RowContainer>
+        <Label>개발</Label>
         <Skills>
-          {develops.map((develop: string) => (
+          {develops.map((skill: string) => (
             <SkillButton
-              key={develop}
-              name={develop}
+              key={skill}
+              name={skill}
               type="developerStack"
-              // value={writeFormValue?.developerStack}
-              // setValue={setWriteFormValue}
+              value={skills.developerStack}
+              setValue={setSkills}
             />
           ))}
         </Skills>
-      </PositionContainer>
+      </RowContainer>
     </Container>
   );
 }
@@ -58,13 +58,13 @@ const Container = styled.div`
   gap: 2.1875rem;
 `;
 
-const PositionContainer = styled.div`
+const RowContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
 `;
 
-const PositionLabel = styled.div`
+const Label = styled.div`
   width: 3.5rem;
 
   font-weight: 500;
