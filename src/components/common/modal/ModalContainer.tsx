@@ -1,19 +1,15 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import { useRecoilValue } from 'recoil';
-import { modalState } from '../recoil/atoms';
+import { modalState } from '../../../recoil/atoms';
 import LoginModal from 'components/login/LoginModal';
-import NoteModal from './popup/NoteModal';
+import NoteModal from '../../popup/NoteModal';
+import { modalTypes } from './modal';
 
 interface props {
   width?: string;
   height?: string;
 }
-
-const LOGIN = 'login';
-const INBOX = 'inbox';
-const OUTBOX = 'outbox';
-const REPLY = 'reply';
 
 export default function ModalContainer() {
   const { isOpen, width, height, type } = useRecoilValue(modalState);
@@ -22,10 +18,10 @@ export default function ModalContainer() {
   return (
     <BackDrop>
       <Container width={width} height={height}>
-        {type === LOGIN && <LoginModal />}
-        {type === INBOX && <NoteModal />}
-        {type === OUTBOX && <NoteModal />}
-        {type === REPLY && <NoteModal />}
+        {type === modalTypes.login && <LoginModal />}
+        {type === modalTypes.inbox && <NoteModal />}
+        {type === modalTypes.outbox && <NoteModal />}
+        {type === modalTypes.reply && <NoteModal />}
       </Container>
     </BackDrop>
   );

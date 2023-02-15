@@ -64,3 +64,82 @@ export const MessageDateDiv = styled.div`
 
   color: ${COLORS.gray800};
 `;
+
+// Note
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  width: 100%;
+  height: 100%;
+
+  padding: 1.25rem 1rem;
+`;
+
+export const HeaderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 1rem;
+`;
+
+export const ProfileImage = styled.img`
+  width: 2rem;
+  height: 2rem;
+
+  border-radius: 100%;
+
+  margin-right: 0.625rem;
+`;
+
+export const TitleText = styled.h2`
+  flex: 1;
+
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 44px;
+
+  color: ${COLORS.gray850};
+`;
+
+export const DateText = styled.p`
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 28px;
+
+  color: ${COLORS.gray750};
+`;
+
+export const ContentText = styled.p`
+  width: 100%;
+  height: 17.8125rem;
+  padding: 10px 28px;
+
+  font-weight: 400;
+  font-size: 1.125rem;
+  line-height: 200%;
+
+  color: ${COLORS.gray900};
+
+  border: 1px solid ${COLORS.gray300};
+  border-radius: 4px;
+
+  overflow: auto;
+`;
+
+export const ContentTextarea = styled.textarea`
+  width: 100%;
+  height: 285px;
+  padding: 10px 28px;
+
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 200%;
+
+  border: 1px solid ${COLORS.gray300};
+  border-radius: 4px;
+
+  resize: none;
+`;
