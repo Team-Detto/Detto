@@ -12,9 +12,10 @@ const ProjectEditPage = () => {
     editRef,
     imageRef,
     editFormValue,
+    setEditFormValue,
     handleModalStateChange,
     handleFormValueChange,
-    handleAddThumbnailImage: handleAddThumbnailImage,
+    handleAddThumbnailImage,
     handleEditProjectButtonClick,
   } = useEdtiBoard();
 
@@ -28,8 +29,9 @@ const ProjectEditPage = () => {
         <ProjectEditPageBody
           imageRef={imageRef}
           editFormValue={editFormValue}
+          setEditFormValue={setEditFormValue}
           onFormValueChangeEvent={handleFormValueChange}
-          onAdThumbnailImageEvent={handleAddThumbnailImage}
+          onAddThumbnailImageEvent={handleAddThumbnailImage}
         />
         <ProjectEditPageFooter
           editRef={editRef}
