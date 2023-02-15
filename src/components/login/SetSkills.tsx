@@ -5,10 +5,10 @@ import { useGlobalModal } from 'hooks';
 import ConfirmButton from './ConfirmButton';
 import Navigator from './Navigator';
 
+// 페이지 2 : 기술스택 선택
 const page = 2;
 
-// 페이지 2 : 기술스택 선택
-export default function LoginPage2() {
+export default function SetSkills() {
   const { openModal } = useGlobalModal();
 
   // 확인 버튼 클릭 시 페이지 이동

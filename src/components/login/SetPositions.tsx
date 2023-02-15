@@ -6,10 +6,11 @@ import ConfirmButton from './ConfirmButton';
 import Navigator from './Navigator';
 
 const position = ['기획', '디자인', '프론트', '백엔드'];
-const page = 1;
 
 // 페이지 1 : 포지션 선택
-export default function LoginPage1() {
+const page = 1;
+
+export default function SetPositions() {
   const { openModal } = useGlobalModal();
 
   const handleNextButtonClick = () => {

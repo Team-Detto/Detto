@@ -1,17 +1,17 @@
 import LoginModal from './LoginModal';
-import LoginPage0 from './LoginPage0';
-import LoginPage1 from './LoginPage1';
-import LoginPage2 from './LoginPage2';
-import LoginPage3 from './LoginPage3';
-import LoginPage4 from './LoginPage4';
+import SocialLogin from './SocialLogin';
+import SetPositions from './SetPositions';
+import SetSkills from './SetSkills';
+import SetProfile from './SetProfile';
+import Welcome from './Welcome';
 
 export {
   LoginModal,
-  LoginPage0,
-  LoginPage1,
-  LoginPage2,
-  LoginPage3,
-  LoginPage4,
+  SocialLogin,
+  SetPositions,
+  SetSkills,
+  SetProfile,
+  Welcome,
 };
 
 // 페이지 0 : 로그인

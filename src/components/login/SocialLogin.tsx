@@ -7,7 +7,7 @@ import GOOGLE_IMG from 'assets/images/login_google.png';
 import useSocialLogin from 'hooks/useSocialLogin';
 
 // 페이지 0 : 로그인
-export default function LoginPage0() {
+export default function SocialLogin() {
   const { overlay, handleGithubLogin, handleGoogleLogin, handleFacebookLogin } =
     useSocialLogin();
 
