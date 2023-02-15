@@ -39,7 +39,7 @@ const CheckBoxButton = ({ type, name, isChecked, onChange }: CheckBoxProps) => {
 };
 
 const CheckBoxWrapper = styled.div`
-  margin-right: 0.625rem;
+  margin-right: 0.5rem;
 
   &:last-child {
     margin-right: 0;
@@ -60,22 +60,23 @@ const CheckBoxInput = styled.input`
   &:checked + label {
     background-color: ${COLORS.violetB400};
     color: ${COLORS.white};
+    font-weight: 500;
   }
 `;
 
 const CheckboxLabel = styled.label`
   display: block;
-  padding: 0.5rem 1rem;
+  padding: 0.45rem 1.125rem;
   height: 2.25rem;
   cursor: pointer;
   border-radius: 2rem;
   background-color: #f2f4f6;
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   color: #383838;
   transition: transform 300ms ease-in-out;
 
   &:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
 `;
 

@@ -1,10 +1,14 @@
 import styled from '@emotion/styled';
 import React from 'react';
+import { useRecoilValue } from 'recoil';
+import { detailListState } from '../../../recoil/atoms';
 import ProjectCalendar from './ProjectCalendar';
 import ProjectDetail from './ProjectDetail';
 import ProjectList from './ProjectList';
 
 const MainCalendar = () => {
+  const detailList = useRecoilValue<any>(detailListState);
+
   return (
     <MainCalendarWrap>
       <CalendarContainer>
@@ -13,7 +17,13 @@ const MainCalendar = () => {
       <ProjectListContainer>
         <ProjectList />
       </ProjectListContainer>
-      <ProjectDetailContainer>
+      <ProjectDetailContainer
+        style={
+          detailList.length > 0
+            ? { border: '1px solid #5d50f0' }
+            : { border: 'none' }
+        }
+      >
         <ProjectDetail />
       </ProjectDetailContainer>
     </MainCalendarWrap>
@@ -31,7 +41,7 @@ const MainCalendarWrap = styled.div`
 const CalendarContainer = styled.div`
   width: 22.75rem;
   height: 26rem;
-  /* background-color: red; */
+  position: relative;
 `;
 const ProjectListContainer = styled.div`
   display: flex;
@@ -40,7 +50,7 @@ const ProjectListContainer = styled.div`
   align-items: center;
   padding: 14px 0px;
   gap: 24px;
-  width: 300px;
+
   height: 411px;
   margin-left: 5rem;
   margin-right: 5rem;
@@ -48,7 +58,7 @@ const ProjectListContainer = styled.div`
 const ProjectDetailContainer = styled.div`
   width: 21.75rem;
   height: 22.4375rem;
-  border: 1px solid #5d50f0;
+  /* border: 1px solid #5d50f0; */
   border-radius: 0.75rem;
 `;
 

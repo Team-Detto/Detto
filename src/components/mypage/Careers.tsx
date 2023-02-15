@@ -7,9 +7,14 @@ import { UserInfo } from 'types/mypage/userInfo';
 interface CareersProps {
   isJunior: boolean;
   setUserInfo: React.Dispatch<React.SetStateAction<UserInfo>>;
+  handleButtonActive: () => void;
 }
 
-const Careers = ({ isJunior, setUserInfo }: CareersProps) => {
+const Careers = ({
+  isJunior,
+  setUserInfo,
+  handleButtonActive,
+}: CareersProps) => {
   const handleCheckedRadioChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const { id } = e.currentTarget;
@@ -20,6 +25,8 @@ const Careers = ({ isJunior, setUserInfo }: CareersProps) => {
           isJunior: id === 'junior' ? true : false,
         };
       });
+
+      handleButtonActive();
     },
     [],
   );

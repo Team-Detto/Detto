@@ -9,10 +9,8 @@ const MainRecommendation = () => {
           이런 프로젝트는 어때요?
         </MainRecommendationTitle>
         <MainRecommendationButtonContainer>
-          <MainRecommendationButton>기획</MainRecommendationButton>
-          <MainRecommendationButton>디자인</MainRecommendationButton>
-          <MainRecommendationButton>프론트</MainRecommendationButton>
-          <MainRecommendationButton>백엔드</MainRecommendationButton>
+          <MainRecommendationButton>조회순</MainRecommendationButton>
+          <MainRecommendationButton>관심순</MainRecommendationButton>
         </MainRecommendationButtonContainer>
         <MainRecommendationCardContainer>
           <ContantCard />
@@ -65,7 +63,7 @@ const MainRecommendationButtonContainer = styled.div`
   padding: 0px;
   gap: 19px;
 
-  width: 625px;
+  width: 301px;
   height: 48px;
 `;
 const MainRecommendationButton = styled.button`

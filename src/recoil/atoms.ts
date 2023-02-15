@@ -37,3 +37,13 @@ export const modalState = atom<ModalState>({
     },
   },
 });
+
+export const dayListState = atom<[]>({
+  key: 'dayListState',
+  default: [],
+});
+
+export const detailListState = atom<[]>({
+  key: 'detailListState',
+  default: [],
+});

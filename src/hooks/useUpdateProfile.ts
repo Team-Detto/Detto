@@ -5,6 +5,7 @@ import { nicknameValidation } from 'utils/validation';
 const useUpdateProfile = () => {
   const [userInfo, setUserInfo] = useState<UserInfo>(initialUserInfo);
   const [validationMessage, setValidationMessage] = useState<string>('');
+  const [activeButton, setActiveButton] = useState<boolean>(false);
 
   const handleUserInfoChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -24,7 +25,6 @@ const useUpdateProfile = () => {
   const handleNicknameChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const { value } = e.currentTarget;
-
       const isValidate = nicknameValidation(value);
 
       if (!isValidate) {
@@ -37,6 +37,7 @@ const useUpdateProfile = () => {
         setValidationMessage('');
       }
 
+      handleButtonActive();
       setUserInfo((prevState) => {
         return { ...prevState, displayName: value };
       });
@@ -44,12 +45,20 @@ const useUpdateProfile = () => {
     [],
   );
 
+  const handleButtonActive = useCallback(() => {
+    if (!activeButton) {
+      setActiveButton(true);
+    }
+  }, []);
+
   return {
     userInfo,
     setUserInfo,
     handleUserInfoChange,
     validationMessage,
     handleNicknameChange,
+    activeButton,
+    handleButtonActive,
   };
 };
 

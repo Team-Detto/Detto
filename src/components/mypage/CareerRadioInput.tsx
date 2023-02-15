@@ -63,17 +63,17 @@ const InfoRadioBoxInput = styled.input`
 
 const InfoRadioBoxLabel = styled.label`
   display: block;
-  padding: 0.5rem 1rem;
+  padding: 0.45rem 1.125rem;
   height: 2.25rem;
   cursor: pointer;
   border-radius: 2rem;
   background-color: #f2f4f6;
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   color: #383838;
   transition: transform 300ms ease-in-out;
 
   &:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
 `;
 
