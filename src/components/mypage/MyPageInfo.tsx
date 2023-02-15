@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import styled from '@emotion/styled';
 import { useModal, useUpdateProfile } from 'hooks';
+import styled from '@emotion/styled';
 import useProfileImage from 'hooks/useProfileImage';
 import MyPageProfileImage from './MyPageProfileImage';
 import PositionCheckBox from './PositionCheckBox';
@@ -107,21 +107,18 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
             skills={products}
             checkedSkills={userInfo.plannerStack}
             setUserInfo={setUserInfo}
-            handleButtonActive={handleButtonActive}
           />
           <SkillList
             category="디자인"
             skills={designs}
             checkedSkills={userInfo.designerStack}
             setUserInfo={setUserInfo}
-            handleButtonActive={handleButtonActive}
           />
           <SkillList
             category="개발"
             skills={develops}
             checkedSkills={userInfo.developerStack}
             setUserInfo={setUserInfo}
-            handleButtonActive={handleButtonActive}
           />
         </MypageSkillBox>
       </MyPageSkillsWrapper>

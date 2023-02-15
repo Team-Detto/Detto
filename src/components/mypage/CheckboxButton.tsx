@@ -4,25 +4,18 @@ import COLORS from 'assets/styles/colors';
 interface CheckBoxProps {
   type: string;
   name: string;
-  stackName?: string;
   isChecked?: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const CheckBoxButton = ({
-  type,
-  name,
-  isChecked,
-  onChange,
-  stackName,
-}: CheckBoxProps) => {
+const CheckBoxButton = ({ type, name, isChecked, onChange }: CheckBoxProps) => {
   return (
-    <CheckBoxWrapper key={type} isStack={stackName ? true : false}>
+    <CheckBoxWrapper key={type}>
       {isChecked && (
         <CheckBoxInput
           type="checkbox"
-          id={type + stackName}
-          name={stackName ? stackName : 'skills'}
+          id={type}
+          name="skills"
           value={type}
           defaultChecked
           onChange={onChange}
@@ -31,23 +24,22 @@ const CheckBoxButton = ({
       {!isChecked && (
         <CheckBoxInput
           type="checkbox"
-          id={type + stackName}
+          id={type}
           value={type}
-          name={stackName ? stackName : 'skills'}
+          name="skills"
           onChange={onChange}
         />
       )}
 
-      <CheckboxLabel htmlFor={type + stackName}>
+      <CheckboxLabel htmlFor={type}>
         <CheckBoxText>{name}</CheckBoxText>
       </CheckboxLabel>
     </CheckBoxWrapper>
   );
 };
 
-const CheckBoxWrapper = styled.div<{ isStack: boolean }>`
-  margin-right: ${({ isStack }) => (isStack ? '0' : '0.5rem')};
-  margin-bottom: ${({ isStack }) => (isStack ? '0.5rem' : '0')};
+const CheckBoxWrapper = styled.div`
+  margin-right: 0.5rem;
 
   &:last-child {
     margin-right: 0;
