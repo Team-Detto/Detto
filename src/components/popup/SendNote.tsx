@@ -12,6 +12,8 @@ import {
   TitleText,
 } from './styles';
 import { getUserInfoData } from 'apis/mypageUsers';
+import styled from '@emotion/styled';
+import COLORS from 'assets/styles/colors';
 
 export default function SendNote({ uid }: { uid: string }) {
   const { closeModal } = useGlobalModal();
@@ -33,8 +35,22 @@ export default function SendNote({ uid }: { uid: string }) {
         <ProfileImage src={user.photoURL} />
         <TitleText>{user.displayName}님께 쪽지 보내기</TitleText>
       </HeaderContainer>
-      <ContentTextarea autoFocus placeholder="쪽지 내용을 입력해주세요." />
+      <TitleInput type="text" placeholder="제목을 입력해주세요." autoFocus />
+      <ContentTextarea placeholder="내용을 입력해주세요." />
       <CustomButton label="쪽지를 보낼게요" onClick={sendNote} />
     </Container>
   );
 }
+
+const TitleInput = styled.input`
+  width: 100%;
+  padding: 10px 28px;
+
+  font-weight: 400;
+  font-size: 18px;
+
+  border: 1px solid ${COLORS.gray300};
+  border-radius: 4px;
+
+  resize: none;
+`;

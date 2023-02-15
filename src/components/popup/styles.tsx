@@ -131,7 +131,8 @@ export const ContentText = styled.p`
 
 export const ContentTextarea = styled.textarea`
   width: 100%;
-  height: 285px;
+  /* height: 285px; */
+  height: 230px;
   padding: 10px 28px;
 
   font-weight: 400;
