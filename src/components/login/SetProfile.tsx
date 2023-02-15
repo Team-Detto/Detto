@@ -1,9 +1,17 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
-import { useGlobalModal } from 'hooks';
+import {
+  useAuth,
+  useGlobalModal,
+  useProfileImage,
+  useUpdateProfile,
+} from 'hooks';
 import defaultImage from 'assets/images/default_profile.jpg';
 import Navigator from './Navigator';
 import ConfirmButton from './ConfirmButton';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { getUserInfoData, updateUserInfoData } from 'apis/mypageUsers';
+import { useEffect, useRef } from 'react';
 
 // 페이지 3 : 프로필 사진, 닉네임 변경
 const page = 3;
@@ -11,10 +19,48 @@ const page = 3;
 export default function SetProfile() {
   const { openModal } = useGlobalModal();
 
-  // 확인 버튼 클릭 시 페이지 이동
-  const handleNextButtonClick = () => {
+  const user = useAuth();
+  const { uid } = user;
+
+  const { data: userInfoData }: any = useQuery({
+    queryKey: ['userInfo', uid],
+    queryFn: getUserInfoData,
+  });
+
+  const { userInfo, setUserInfo, handleNicknameChange, validationMessage } =
+    useUpdateProfile();
+  const { profileImg, handleProfileImageChange, handleProfileImageDelete } =
+    useProfileImage(uid, userInfoData?.photoURL);
+
+  const { mutate: updateUserInfoMutate } = useMutation(() =>
+    updateUserInfoData(uid, userInfo),
+  );
+
+  const imgRef = useRef<HTMLInputElement | null>(null);
+
+  const handleConfirmButtonClick = () => {
+    updateUserInfoMutate();
     openModal('login', page + 1);
   };
+
+  useEffect(() => {
+    setUserInfo({
+      displayName: userInfoData?.displayName,
+      photoURL: userInfoData?.photoURL,
+      isJunior: userInfoData?.isJunior,
+      positions: userInfoData?.positions,
+      plannerStack: userInfoData?.plannerStack,
+      designerStack: userInfoData?.designerStack,
+      developerStack: userInfoData?.developerStack,
+    });
+  }, [userInfoData]);
+
+  useEffect(() => {
+    setUserInfo((prev) => ({
+      ...prev,
+      photoURL: profileImg,
+    }));
+  }, [profileImg]);
 
   return (
     <Container>
@@ -26,28 +72,40 @@ export default function SetProfile() {
         </TextContainer>
         <ProfileContainer>
           <ProfileImageContainer>
-            <ProfileImage src={defaultImage} />
+            <ProfileImage
+              src={profileImg || defaultImage}
+              alt="프로필 이미지"
+            />
+            <FileInput
+              type="file"
+              id="profile"
+              ref={imgRef}
+              onChange={handleProfileImageChange}
+            />
             <ButtonContainer>
-              {['수정', '삭제'].map((text) => (
-                <Button key={text} text={text}>
-                  {text}
-                </Button>
-              ))}
+              <Button color="violet" onClick={() => imgRef.current?.click()}>
+                수정
+              </Button>
+              <Button onClick={handleProfileImageDelete}>삭제</Button>
             </ButtonContainer>
           </ProfileImageContainer>
           <NicknameContainer>
-            <NicknameLabel>
-              닉네임
+            <NicknameLabel htmlFor="nickname">닉네임</NicknameLabel>
+            <NicknameInputContainer>
               <NicknameInput
-                placeholder="입력해주세요"
+                id="nickname"
+                defaultValue={userInfoData?.displayName}
+                onChange={handleNicknameChange}
                 type="text"
-                name="name"
+                minLength={2}
+                maxLength={30}
               />
-            </NicknameLabel>
+              <ValidationMessage>{validationMessage}</ValidationMessage>
+            </NicknameInputContainer>
           </NicknameContainer>
         </ProfileContainer>
       </BodyContainer>
-      <ConfirmButton onClick={handleNextButtonClick} />
+      <ConfirmButton onClick={handleConfirmButtonClick} />
     </Container>
   );
 }
@@ -95,6 +153,7 @@ const TitleText = styled.h2`
 const ProfileContainer = styled.div`
   display: flex;
   justify-content: space-around;
+  align-items: flex-start;
 `;
 
 const ProfileImageContainer = styled.div`
@@ -111,6 +170,14 @@ const ProfileImageContainer = styled.div`
 const ProfileImage = styled.img`
   width: 8.75rem;
   height: 8.75rem;
+
+  border-radius: 100%;
+
+  object-fit: cover;
+`;
+
+const FileInput = styled.input`
+  visibility: hidden;
 `;
 
 const ButtonContainer = styled.div`
@@ -118,10 +185,10 @@ const ButtonContainer = styled.div`
   justify-content: space-between;
 `;
 
-const Button = styled.button<{ text: string }>`
-  background-color: ${({ text }) =>
-    text === '수정' ? COLORS.violetB400 : COLORS.gray300};
-  font-weight: ${({ text }) => (text === '수정' ? 700 : 400)};
+const Button = styled.button<{ color?: string }>`
+  background-color: ${({ color }) =>
+    color === 'violet' ? COLORS.violetB400 : COLORS.gray300};
+  font-weight: ${({ color }) => (color === 'violet' ? 700 : 400)};
 
   color: ${COLORS.white};
 
@@ -139,7 +206,11 @@ const Button = styled.button<{ text: string }>`
   }
 `;
 
-const NicknameContainer = styled.div``;
+const NicknameContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
 
 const NicknameLabel = styled.label`
   font-weight: 500;
@@ -153,6 +224,13 @@ const NicknameLabel = styled.label`
   color: #383838;
 `;
 
+const NicknameInputContainer = styled.div`
+  display: flex;
+  position: relative;
+
+  margin-left: 1.4375rem;
+`;
+
 const NicknameInput = styled.input`
   padding: 10px 20px;
 
@@ -164,9 +242,15 @@ const NicknameInput = styled.input`
   border: 1px solid ${COLORS.gray300};
   border-radius: 4px;
 
-  margin-left: 1.4375rem;
-
   ::placeholder {
     color: ${COLORS.gray300};
   }
+`;
+
+const ValidationMessage = styled.p`
+  position: absolute;
+  top: 2.75rem;
+  font-size: 0.75rem;
+  padding-left: 0.25rem;
+  color: ${COLORS.red};
 `;
