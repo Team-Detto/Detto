@@ -56,7 +56,7 @@ const Overlay = styled.div<{ overlay: boolean }>`
   height: 100%;
 
   z-index: 1000;
-  opacity: 0.5;
+  background-color: rgba(255, 255, 255, 0.3);
 `;
 
 const KeyImg = styled.img`
