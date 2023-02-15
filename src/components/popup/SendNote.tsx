@@ -16,12 +16,11 @@ export default function SendNote({ receiverUid }: { receiverUid: string }) {
   const [disabled, setDisabled] = useState(false);
 
   const { closeModal } = useGlobalModal();
-  const { updateNoteCollection, receiver, note, setNote } =
-    useNote(receiverUid);
+  const { sendNote, receiver, note, setNote } = useNote(receiverUid);
 
   const handleSendButtonClick = async () => {
     setDisabled(true);
-    await updateNoteCollection();
+    sendNote();
     closeModal();
   };
 

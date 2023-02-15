@@ -1,7 +1,7 @@
 import { firestore } from 'apis/firebaseService';
 import { doc, updateDoc } from 'firebase/firestore';
 import { getUserInfoData } from 'apis/mypageUsers';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useAuth } from 'hooks';
 import { v4 as uuid } from 'uuid';
 import { useState } from 'react';
@@ -20,14 +20,14 @@ const useNote = (receiverUid: string) => {
 
   /**
    * @description 쪽지를 보낼 때, inbox, outbox에 각각 쪽지를 저장하는 함수
-   * @returns Promise<[]>
+   * @returns Promise<void>
    */
-  const updateNoteCollection = () => {
+  const updateNoteCollection = async () => {
     if (!receiver) return;
     const noteId = uuid();
     const date = Date.now();
 
-    return Promise.all([
+    await Promise.all([
       updateDoc(doc(firestore, `inbox/${receiver.uid}`), {
         [noteId]: {
           noteId,
@@ -55,7 +55,15 @@ const useNote = (receiverUid: string) => {
     ]);
   };
 
-  return { updateNoteCollection, receiver, note, setNote };
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation(updateNoteCollection, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['inbox', sender.uid]);
+      queryClient.invalidateQueries(['outbox', sender.uid]);
+    },
+  });
+
+  return { sendNote: mutate, receiver, note, setNote };
 };
 
 export default useNote;
