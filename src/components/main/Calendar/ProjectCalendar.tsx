@@ -2,9 +2,6 @@ import { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import styled from '@emotion/styled';
 import React from 'react';
-import { log } from 'console';
-// 달력에 숫자만 보이게 만들기 위한 moment 라이브러리
-import moment from 'moment';
 import { firebaseGetProjectDataRequest } from 'apis/boardService';
 import { getDate } from 'utils/date';
 import { useSetRecoilState } from 'recoil';
@@ -20,8 +17,8 @@ const ProjectCalendar = () => {
     firebaseGetProjectDataRequest(setProjectData);
   }, [setProjectData]);
 
-  //  선택 한 날짜 => moment(value).format('YYYY년 MM월 DD일')
-  const SelectDate = moment(value).format('YYYY.MM.DD');
+  //  선택 한 날짜
+  const SelectDate = getDate(value.getTime());
 
   //  시작 부터 마감일까지 날짜를 배열로 만들어서 리턴
   const getDayList = (createAt: any, deadline: any) => {
@@ -35,10 +32,10 @@ const ProjectCalendar = () => {
     return dayList;
   };
   //해당 날의 진행중인 프로젝트 필터링
-  const filterData = setDayList(
+  setDayList(
     projectData.filter((el: any) =>
       getDayList(el.createdAt, el.deadline)
-        .map((el) => getDate(el))
+        .map((el) => getDate(el.getTime()))
         .includes(SelectDate),
     ),
   );
@@ -49,7 +46,7 @@ const ProjectCalendar = () => {
         onChange={onChange}
         value={value}
         // 달력에 숫자만 보이게 만들기 위한 moment 라이브러리
-        formatDay={(locale, date) => moment(date).format('DD')}
+        formatDay={(locale, date) => `${date.getDate()}`}
       />
     </>
   );
