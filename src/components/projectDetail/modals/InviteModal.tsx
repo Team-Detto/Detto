@@ -32,6 +32,7 @@ const InviteModal = ({ isOpen, applicantData, onClickEvent }: props) => {
         onClickEvent={onAlertClickEvent}
         mainMsg="팀원을 초대했어요!"
         subMsg="현재 참여한 인원에서 확인할 수 있어요!"
+        usage="done"
       />
       <ModalContainer isOpen={isOpen}>
         <ModalWrapper>

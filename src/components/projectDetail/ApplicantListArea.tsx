@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import { useModal } from 'hooks';
-import InviteModal from './InviteModal';
+import InviteModal from './modals/InviteModal';
 
 const ApplicantListArea = ({ projectData, userData }: any) => {
   const { applicants } = projectData;
@@ -20,7 +20,7 @@ const ApplicantListArea = ({ projectData, userData }: any) => {
                 {/* 개발, 디자인, 기획 스킬 모아서 배열로 만든 후에 map돌리기 */}
                 <StackWrap>
                   {applicant.skills.map((skill: any) => {
-                    return <StackDiv>{skill}</StackDiv>;
+                    return <StackDiv key={skill}>{skill}</StackDiv>;
                   })}
                 </StackWrap>
                 <InviteButton onClick={handleModalStateChange}>
