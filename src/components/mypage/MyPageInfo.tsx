@@ -82,6 +82,15 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
             />
           </InfoItemDiv>
           <InfoItemDiv>
+            {/* TODO :: 연락처 관련 로직 수정 필요 */}
+            <InfoTitle htmlFor="contact">연락처</InfoTitle>
+            <TextInput
+              value={''}
+              onChangeValue={handleNicknameChange}
+              validationMessage={''}
+            />
+          </InfoItemDiv>
+          <InfoItemDiv>
             <InfoTitle>경력</InfoTitle>
             <Careers
               isJunior={userInfo.isJunior}
@@ -158,7 +167,7 @@ const InfoWrapper = styled.div``;
 const InfoItemDiv = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 2.25rem;
+  margin-bottom: 1.625rem;
 `;
 
 const InfoTitle = styled.label`
