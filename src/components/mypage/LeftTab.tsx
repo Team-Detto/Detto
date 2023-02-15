@@ -1,12 +1,33 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 
-const LeftTab = () => {
+interface LeftTabProps {
+  activeTab: string;
+  setActiveTab: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const LeftTab = ({ activeTab, setActiveTab }: LeftTabProps) => {
+  // 탭 활성화하는 함수
+  const handleTabClick = (e: React.MouseEvent<HTMLLIElement>) => {
+    const { innerText } = e.currentTarget;
+    setActiveTab(innerText);
+  };
+
   return (
     <LeftTabWrapper>
       <LeftTabList>
-        <LeftTabItem isActive={true}>개인 정보</LeftTabItem>
-        <LeftTabItem isActive={false}>프로젝트</LeftTabItem>
+        <LeftTabItem
+          isActive={activeTab === '개인정보' ? true : false}
+          onClick={handleTabClick}
+        >
+          개인정보
+        </LeftTabItem>
+        <LeftTabItem
+          isActive={activeTab === '프로젝트' ? true : false}
+          onClick={handleTabClick}
+        >
+          프로젝트
+        </LeftTabItem>
       </LeftTabList>
       <WithdrawalBox>탈퇴하기</WithdrawalBox>
     </LeftTabWrapper>
