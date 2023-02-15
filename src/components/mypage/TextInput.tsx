@@ -37,6 +37,8 @@ const InfoTextInput = styled.input`
   padding: 0.625rem 1.25rem;
   border: 1px solid #ced3db;
   border-radius: 4px;
+  color: ${COLORS.gray800};
+  font-size: 1.125rem;
 `;
 
 const ValidationMessage = styled.p`
