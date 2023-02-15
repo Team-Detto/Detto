@@ -255,6 +255,11 @@ const reset = css`
     -moz-user-drag: none;
     -o-user-drag: none;
   }
+
+  html,
+  body {
+    height: 100%;
+  }
 `;
 
 export default reset;
