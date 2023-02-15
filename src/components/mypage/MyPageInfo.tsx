@@ -6,7 +6,7 @@ import useProfileImage from 'hooks/useProfileImage';
 import MyPageProfileImage from './MyPageProfileImage';
 import PositionCheckBox from './PositionCheckBox';
 import SkillList from './SkillList';
-import NicknameInput from './NicknameInput';
+import TextInput from './TextInput';
 import Careers from './Careers';
 import ConfirmAlert from 'components/common/ConfirmAlert';
 import { designs, develops, products } from 'utils/skills';
@@ -75,9 +75,9 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
         <InfoWrapper>
           <InfoItemDiv>
             <InfoTitle htmlFor="nickname">닉네임</InfoTitle>
-            <NicknameInput
-              displayName={userInfo.displayName}
-              onChangeNickname={handleNicknameChange}
+            <TextInput
+              value={userInfo.displayName}
+              onChangeValue={handleNicknameChange}
               validationMessage={validationMessage}
             />
           </InfoItemDiv>
