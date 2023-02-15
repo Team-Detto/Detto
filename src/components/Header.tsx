@@ -1,40 +1,19 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import styled from '@emotion/styled';
 import WebContainer from './common/WebContainer';
-import { useEffect, useState } from 'react';
 import PopupContainer from './popup/PopupContainer';
-import { useGlobalModal, usePopup } from 'hooks';
+import { useGlobalModal, useHeader, usePopup } from 'hooks';
+import COLORS from 'assets/styles/colors';
 
 interface headerTypes {
   isMain: boolean;
   hideGradient: boolean;
 }
 
-// 메인 페이지에서 스크롤이 MAIN_SCROLL_Y 값 이상 되면 헤더의 배경색을 투명에서 하얀색으로 변경
-const MAIN_SCROLL_Y = 480;
-
 const Header = () => {
-  const [hideGradient, setHideGradient] = useState<boolean>(true);
-  const location = useLocation();
-  const isMain = location.pathname === '/';
-
   const { toggleNoteBox, toggleNotificationBox } = usePopup();
   const { openModal } = useGlobalModal();
-
-  const showHeaderGradientBackground = () => {
-    const { scrollY } = window;
-    scrollY > MAIN_SCROLL_Y ? setHideGradient(false) : setHideGradient(true);
-  };
-
-  useEffect(() => {
-    if (isMain) {
-      window.addEventListener('scroll', showHeaderGradientBackground);
-    }
-
-    return () => {
-      window.removeEventListener('scroll', showHeaderGradientBackground);
-    };
-  }, [isMain]);
+  const { isMain, isLoggedIn, hideGradient, handleLogoutClick } = useHeader();
 
   return (
     <HeaderContainer isMain={isMain} hideGradient={hideGradient}>
@@ -46,23 +25,32 @@ const Header = () => {
           </LogoBoxH1>
           <Nav>
             <NavListUl>
-              {/* TODO :: 쪽지, 알림, 마이페이지, 로그아웃은 로그인 되었을 경우에만 보이도록 로직 추가 필요 */}
               <NavItemLi>
-                <Link to={'/project/write'}>새 글 쓰기</Link>
+                <NavItemLink to={'/project/write'}>새 글 쓰기</NavItemLink>
               </NavItemLi>
               <NavItemLi>
-                <Link to={'/findproject'}>팀원찾기</Link>
+                <NavItemLink to={'/findproject'}>팀원찾기</NavItemLink>
               </NavItemLi>
-              <NavItemLi onClick={toggleNoteBox}>쪽지</NavItemLi>
-              <NavItemLi onClick={toggleNotificationBox}>알림</NavItemLi>
-              <NavItemLi onClick={() => openModal('login', 0)}>
-                로그인하기
-              </NavItemLi>
-              {/* 임시 주석처리 */}
-              {/* <NavItemLi>
-                <Link to={'/mypage'}>마이페이지</Link>
-              </NavItemLi>
-              <NavItemLi>로그아웃하기</NavItemLi> */}
+              {isLoggedIn && (
+                <NavItemLi onClick={toggleNoteBox}>쪽지</NavItemLi>
+              )}
+              {isLoggedIn && (
+                <NavItemLi onClick={toggleNotificationBox}>알림</NavItemLi>
+              )}
+              {!isLoggedIn && (
+                <NavItemLi onClick={() => openModal('login', 0)}>
+                  로그인하기
+                </NavItemLi>
+              )}
+
+              {isLoggedIn && (
+                <NavItemLi>
+                  <NavItemLink to={'/mypage'}>마이페이지</NavItemLink>
+                </NavItemLi>
+              )}
+              {isLoggedIn && (
+                <NavItemLi onClick={handleLogoutClick}>로그아웃</NavItemLi>
+              )}
             </NavListUl>
           </Nav>
         </HeaderWrapper>
@@ -82,7 +70,7 @@ const HeaderContainer = styled.header<headerTypes>`
 
   background-image: ${({ isMain, hideGradient }) =>
     isMain && hideGradient
-      ? 'linear-gradient(180deg, rgba(108, 108, 108, 0.47) 0%, rgba(217, 217, 217, 0) 100.87%)'
+      ? 'linear-gradient(180deg, rgba(242, 242, 242, 0.47) 0%, rgba(217, 217, 217, 0) 107.87%)'
       : 'none'};
   background-color: ${({ isMain, hideGradient }) =>
     isMain && hideGradient ? 'transparent' : '#fff'};
@@ -100,6 +88,7 @@ const LogoBoxH1 = styled.h1`
   font-size: 2.5rem;
   font-weight: 800;
   color: #5d50f0;
+  margin-top: -0.5rem;
   margin-left: 1.438rem;
   cursor: pointer;
 `;
@@ -117,9 +106,22 @@ const NavItemLi = styled.li`
   margin-right: 2.625rem;
   cursor: pointer;
   font-size: 1rem;
+  font-weight: 700;
   color: #4e5968;
+  transition: all 300ms ease-in-out;
 
   &:last-child {
     margin-right: 0;
+  }
+
+  &:hover {
+    color: ${COLORS.violetB500};
+    transform: scale(1.01);
+  }
+`;
+
+const NavItemLink = styled(NavLink)`
+  &.active {
+    color: ${COLORS.violetB500};
   }
 `;

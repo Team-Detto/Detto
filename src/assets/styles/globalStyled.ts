@@ -247,6 +247,14 @@ const reset = css`
       color: ${COLORS.gray300};
     }
   }
+
+  /* 이미지 드래그 잔상방지 추가 */
+  img {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+  }
 `;
 
 export default reset;
