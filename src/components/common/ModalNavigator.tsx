@@ -4,19 +4,23 @@ import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
 import { useGlobalModal } from 'hooks';
 
-type NavigatorProps = {
+type ModalNavigatorProps = {
   page: number;
   back?: boolean;
   close?: boolean;
 };
 
-export default function Navigator({ page, back, close }: NavigatorProps) {
-  const { openModal, closeModal } = useGlobalModal();
+export default function ModalNavigator({
+  page,
+  back,
+  close,
+}: ModalNavigatorProps) {
+  const { modal, openModal, closeModal } = useGlobalModal();
 
   return (
     <Container>
       {back && (
-        <BackButton onClick={() => openModal('login', page - 1)}>
+        <BackButton onClick={() => openModal(modal.type, modal.page - 1)}>
           <IoChevronBack
             style={{ width: '1.5rem', height: '1.5rem', color: COLORS.gray700 }}
           />

@@ -5,7 +5,7 @@ import GITHUB_IMG from 'assets/images/login_github.png';
 import FACEBOOK_IMG from 'assets/images/login_facebook.png';
 import GOOGLE_IMG from 'assets/images/login_google.png';
 import useSocialLogin from 'hooks/useSocialLogin';
-import Navigator from './Navigator';
+import ModalNavigator from '../common/ModalNavigator';
 
 // 페이지 0 : 로그인
 export default function SocialLogin() {
@@ -16,7 +16,7 @@ export default function SocialLogin() {
     <Container>
       {/* 로그인 팝업창이 열려있을 때 모달창 상호작용을 방지하기 위한 오버레이 */}
       <Overlay overlay={overlay} />
-      <Navigator page={0} close />
+      <ModalNavigator page={0} close />
       <KeyImg src={KEY_IMG} alt="login" />
       <Title>로그인을 해주세요</Title>
       <LoginButtons>

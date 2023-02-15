@@ -6,7 +6,7 @@ import { useAuth, useGlobalModal } from 'hooks';
 import React, { useState } from 'react';
 import { positionList } from 'utils/positions';
 import ConfirmButton from './ConfirmButton';
-import Navigator from './Navigator';
+import ModalNavigator from '../common/ModalNavigator';
 
 // 페이지 1 : 포지션 선택
 const page = 1;
@@ -35,7 +35,7 @@ export default function SetPositions() {
 
   return (
     <Container>
-      <Navigator page={page} back />
+      <ModalNavigator page={page} back />
       <TextContainer>
         <TitleText>어떤 포지션인지 알려주세요</TitleText>
         <SubText>(중복 선택 가능해요)</SubText>
