@@ -16,6 +16,7 @@ const useWrite = () => {
   const navigate = useNavigate();
 
   const editRef = useRef<any>(null);
+  const imageRef = useRef<any>(null);
 
   const [writeFormValue, setWriteFormValue] = useState<WriteType.WriteFormType>(
     initialWriteFormValue,
@@ -61,10 +62,18 @@ const useWrite = () => {
       return;
     }
 
-    await firebaseCreateProjectRequest(writeFormValue, markdownText);
+    await firebaseCreateProjectRequest(
+      writeFormValue,
+      markdownText,
+      imageRef.current.files[0],
+    );
     navigate('/', {
       replace: true,
     });
+  };
+
+  const handleAddThumbnailImage = () => {
+    imageRef.current.click();
   };
 
   const handleFormValueChange = useCallback(
@@ -86,6 +95,7 @@ const useWrite = () => {
             },
           };
         });
+        return;
       }
       setWriteFormValue((prev: WriteType.WriteFormType) => {
         return {
@@ -100,9 +110,12 @@ const useWrite = () => {
   return {
     isOpen,
     editRef,
+    imageRef,
     writeFormValue,
+    setWriteFormValue,
     handleModalStateChange,
     handleFormValueChange,
+    handleAddThumbnailImage: handleAddThumbnailImage,
     handleCreateProjectButtonClick,
   };
 };

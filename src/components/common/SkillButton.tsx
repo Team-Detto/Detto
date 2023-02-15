@@ -5,20 +5,33 @@ interface props {
   name: string;
   value?: string[];
   isChecked?: boolean;
+  setValue?: any;
+  type?: string;
 }
 
-const SkillButton = ({ name, value, isChecked }: props) => {
+const SkillButton = ({ name, value, isChecked, setValue, type }: props) => {
   const [isActive, setIsActive] = useState(false);
 
   const handleActiveButton = useCallback(() => {
     setIsActive((prev: boolean) => !prev);
     if (!value) return;
+    if (!type) return;
     if (!value.includes(name)) {
-      value.push(name);
+      setValue((prev: any) => {
+        return {
+          ...prev,
+          [type]: [...prev[type], name],
+        };
+      });
       return;
     }
-    value.splice(value.indexOf(name), 1);
-  }, [setIsActive]);
+    setValue((prev: any) => {
+      return {
+        ...prev,
+        [type]: prev[type].filter((item: string) => item !== name),
+      };
+    });
+  }, [name, setValue, type, value]);
 
   useEffect(() => {
     if (isChecked) {
@@ -28,7 +41,7 @@ const SkillButton = ({ name, value, isChecked }: props) => {
 
   return (
     <SkillButtonContainer>
-      <SkillBtn isActive={isActive} onClick={handleActiveButton}>
+      <SkillBtn type="button" isActive={isActive} onClick={handleActiveButton}>
         {name}
       </SkillBtn>
     </SkillButtonContainer>
@@ -43,11 +56,9 @@ const SkillBtn = styled.button`
     props.isActive === true ? '#ffffff' : '#000000'};
   border-radius: 32px;
   padding: 5px 15px;
-  transform: scale(1);
   transition: transform 0.5s;
   &:hover {
-    transform: scale(1.1);
-    transition: transform 0.5s;
+    transform: scale(1.05);
   }
 `;
 

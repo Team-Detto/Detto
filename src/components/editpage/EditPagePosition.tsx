@@ -1,10 +1,13 @@
 import LabelInput from 'components/common/LabelInput';
+import { Position } from 'types/position/positionType';
 import styled from '@emotion/styled';
-import { useWrite } from 'hooks';
 
-const EidtPagePosition = () => {
-  const { writeFormValue, handleFormValueChange } = useWrite();
+interface Props {
+  positions: Position.Developers;
+  onFormValueChangeEvent: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
 
+const EidtPagePosition = ({ positions, onFormValueChangeEvent }: Props) => {
   return (
     <PositionContainer>
       <LabelInput
@@ -17,8 +20,8 @@ const EidtPagePosition = () => {
           height: '2.8125rem',
           name: 'planner',
         }}
-        value={writeFormValue.positions.planner}
-        onChageEvent={handleFormValueChange}
+        value={positions.planner || 0}
+        onChageEvent={onFormValueChangeEvent}
       />
       <LabelInput
         label="디자인"
@@ -30,11 +33,11 @@ const EidtPagePosition = () => {
           height: '2.8125rem',
           name: 'designer',
         }}
-        value={writeFormValue.positions.designer}
-        onChageEvent={handleFormValueChange}
+        value={positions.designer ? positions.designer : 0}
+        onChageEvent={onFormValueChangeEvent}
       />
       <LabelInput
-        label="프론트엔드"
+        label="프론트"
         text="명"
         input={{
           id: 'frontend',
@@ -43,8 +46,8 @@ const EidtPagePosition = () => {
           height: '2.8125rem',
           name: 'frontend',
         }}
-        value={writeFormValue.positions.frontend}
-        onChageEvent={handleFormValueChange}
+        value={positions.frontend || 0}
+        onChageEvent={onFormValueChangeEvent}
       />
       <LabelInput
         label="백엔드"
@@ -56,8 +59,8 @@ const EidtPagePosition = () => {
           height: '2.8125rem',
           name: 'backend',
         }}
-        value={writeFormValue.positions.backend}
-        onChageEvent={handleFormValueChange}
+        value={positions.backend || 0}
+        onChageEvent={onFormValueChangeEvent}
       />
     </PositionContainer>
   );

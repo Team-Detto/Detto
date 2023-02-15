@@ -18,7 +18,7 @@ const Header = () => {
   const location = useLocation();
   const isMain = location.pathname === '/';
 
-  const { toggleMessageBox, toggleNotificationBox } = usePopup();
+  const { toggleNoteBox, toggleNotificationBox } = usePopup();
   const { openModal } = useGlobalModal();
 
   const showHeaderGradientBackground = () => {
@@ -53,7 +53,7 @@ const Header = () => {
               <NavItemLi>
                 <Link to={'/findproject'}>팀원찾기</Link>
               </NavItemLi>
-              <NavItemLi onClick={toggleMessageBox}>쪽지</NavItemLi>
+              <NavItemLi onClick={toggleNoteBox}>쪽지</NavItemLi>
               <NavItemLi onClick={toggleNotificationBox}>알림</NavItemLi>
               <NavItemLi onClick={() => openModal('login', 0)}>
                 로그인하기

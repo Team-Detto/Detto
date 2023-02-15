@@ -20,18 +20,31 @@ const Alert = ({ isOpen, onClickEvent, mainMsg, subMsg }: props) => {
   }, [isOpen]);
 
   return (
-    <AlertContainer isOpen={isOpen}>
-      <AlertMessageContainer>
-        <AlertMessageEmotion>🎉</AlertMessageEmotion>
-        <AlertMessageMainMessage>{mainMsg}!</AlertMessageMainMessage>
-        <AlertMessageSubMessage>{subMsg}</AlertMessageSubMessage>
-      </AlertMessageContainer>
-      <AlertButtonContainer>
-        <AlertButton onClick={onClickEvent}>확인</AlertButton>
-      </AlertButtonContainer>
-    </AlertContainer>
+    <AlertBackDrop isOpen={isOpen}>
+      <AlertContainer isOpen={isOpen}>
+        <AlertMessageContainer>
+          <AlertMessageEmotion>🎉</AlertMessageEmotion>
+          <AlertMessageMainMessage>{mainMsg}!</AlertMessageMainMessage>
+          <AlertMessageSubMessage>{subMsg}</AlertMessageSubMessage>
+        </AlertMessageContainer>
+        <AlertButtonContainer>
+          <AlertButton onClick={onClickEvent}>확인</AlertButton>
+        </AlertButtonContainer>
+      </AlertContainer>
+    </AlertBackDrop>
   );
 };
+
+const AlertBackDrop = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 0;
+  background: rgba(24, 24, 24, 0.14);
+  display: ${(props: { isOpen: boolean }) => (props.isOpen ? 'block' : 'none')};
+`;
 
 const AlertContainer = styled.div`
   position: fixed;

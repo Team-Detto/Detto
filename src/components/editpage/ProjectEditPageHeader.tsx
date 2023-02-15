@@ -1,9 +1,23 @@
+import { EditType } from 'types/write/writeType';
 import styled from '@emotion/styled';
 
-const ProjectEditPageHeader = () => {
+interface Props {
+  editFormValue: any;
+  onFormValueChangeEvent: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+const ProjectEditPageHeader = ({
+  editFormValue,
+  onFormValueChangeEvent,
+}: Props) => {
   return (
     <HeaderContainer>
-      <HeaderInput placeholder="제목입니다." name="title" />
+      <HeaderInput
+        placeholder="제목입니다."
+        name="title"
+        value={editFormValue?.title || ''}
+        onChange={onFormValueChangeEvent}
+      />
     </HeaderContainer>
   );
 };
@@ -16,7 +30,7 @@ const HeaderContainer = styled.div`
   margin-top: 10rem;
 `;
 const HeaderInput = styled.input`
-  width: 99%;
+  width: 73.75rem;
   height: 2.8125rem;
   border: 1px solid #ced3db;
   border-radius: 4px;

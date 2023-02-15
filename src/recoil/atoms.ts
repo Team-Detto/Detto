@@ -14,6 +14,7 @@ type ModalState = {
   width: string;
   type: string;
   page: number;
+  data: Note;
 };
 
 export const modalState = atom<ModalState>({
@@ -24,6 +25,16 @@ export const modalState = atom<ModalState>({
     height: '400px',
     width: '400px',
     type: '',
+    data: {
+      content: '',
+      date: 0,
+      displayName: '',
+      isRead: false,
+      noteId: '',
+      photoURL: '',
+      title: '',
+      uid: '',
+    },
   },
 });
 

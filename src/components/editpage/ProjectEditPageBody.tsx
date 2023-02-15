@@ -1,26 +1,82 @@
-import styled from '@emotion/styled';
+import { ChangeEvent } from 'react';
+import { EditType } from 'types/write/writeType';
 import EidtPagePosition from './EditPagePosition';
 import EditPageStack from './EditPageStack';
+import styled from '@emotion/styled';
 
-const ProjectEditPageBody = () => {
+interface Props {
+  imageRef: any;
+  editFormValue: any;
+  setEditFormValue: (value: EditType.EditFormType) => void;
+  onFormValueChangeEvent: (e: ChangeEvent<HTMLInputElement>) => void;
+  onAddThumbnailImageEvent: () => void;
+}
+
+const ProjectEditPageBody = ({
+  imageRef,
+  editFormValue,
+  setEditFormValue,
+  onFormValueChangeEvent,
+  onAddThumbnailImageEvent,
+}: Props) => {
+  const {
+    positions,
+    plannerStack,
+    designerStack,
+    developerStack,
+    startDate,
+    endDate,
+    deadline,
+  } = editFormValue;
+
   return (
     <BodyContainer>
       <BodyPositionBox>
         <BodyText>필요 포지션</BodyText>
-        <EidtPagePosition />
+        <EidtPagePosition
+          positions={positions}
+          onFormValueChangeEvent={onFormValueChangeEvent}
+        />
       </BodyPositionBox>
       <BodyStackBox>
-        <EditPageStack />
+        <EditPageStack
+          plannerStack={plannerStack}
+          designerStack={designerStack}
+          developerStack={developerStack}
+          setEditFormValue={setEditFormValue}
+        />
       </BodyStackBox>
       <BodyEstimatedPeriodBox>
         <BodyText>예상 기간</BodyText>
-        <BodyDateInput type="date" name="startDate" />
-        <BodyDateInput type="date" name="endDate" />
+        <BodyDateInput
+          type="date"
+          name="startDate"
+          value={new Date(+new Date(startDate)).toISOString().split('T')[0]}
+          onChange={onFormValueChangeEvent}
+        />
+        <BodyDateInput
+          type="date"
+          name="endDate"
+          value={new Date(+new Date(endDate)).toISOString().split('T')[0]}
+          onChange={onFormValueChangeEvent}
+        />
       </BodyEstimatedPeriodBox>
       <BodyDeadlineBox>
         <BodyText>모집 마감일</BodyText>
-        <BodyDateInput type="date" name="deadline" />
+        <BodyDateInput
+          type="date"
+          name="deadline"
+          value={new Date(+new Date(deadline)).toISOString().split('T')[0]}
+          onChange={onFormValueChangeEvent}
+        />
       </BodyDeadlineBox>
+      <BodyThumbnailBox>
+        <BodyText>썸네일 추가</BodyText>
+        <BodyThumbnailImage type="file" accept="image/*" ref={imageRef} />
+        <BodyThumbnailButton onClick={onAddThumbnailImageEvent}>
+          사진 추가하기
+        </BodyThumbnailButton>
+      </BodyThumbnailBox>
     </BodyContainer>
   );
 };
@@ -36,7 +92,8 @@ const BodyPositionBox = styled.div`
 `;
 const BodyText = styled.h2`
   width: 10.5%;
-  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
   font-weight: 400;
   line-height: 1.75rem;
   letter-spacing: -0.02rem;
@@ -68,6 +125,33 @@ const BodyDeadlineBox = styled.div`
   padding-right: 25rem;
   display: flex;
   flex-direction: row;
+`;
+const BodyThumbnailBox = styled.div`
+  width: 100%;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  padding-right: 7rem;
+`;
+const BodyThumbnailImage = styled.input`
+  padding: 10px 20px;
+  width: 808px;
+  height: 44px;
+  background: #ffffff;
+  border: 1px solid #ced3db;
+  border-radius: 4px;
+  ::file-selector-button {
+    display: none;
+  }
+`;
+const BodyThumbnailButton = styled.button`
+  padding: 0.625rem 1.75rem;
+  width: 226px;
+  height: 43px;
+  background: #ced3db;
+  color: #ffffff;
+  border-radius: 8px;
+  margin-left: 2rem;
 `;
 
 export default ProjectEditPageBody;

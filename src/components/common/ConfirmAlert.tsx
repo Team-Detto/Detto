@@ -27,22 +27,35 @@ const ConfirmAlert = ({
   }, [isOpen]);
 
   return (
-    <ConfirmAlertContainer isOpen={isOpen}>
-      <ConfirmALertInfoContainer>
-        <ConfirmAlertInviteTitle>{message}</ConfirmAlertInviteTitle>
-        <ConfirmAlertSubTitle>{subMessage}</ConfirmAlertSubTitle>
-      </ConfirmALertInfoContainer>
-      <ConfirmAlertButtonContainer>
-        <ConfirmAlertCancelButton onClick={onCloseEvent}>
-          NO
-        </ConfirmAlertCancelButton>
-        <ConfirmAlertInviteButton onClick={onClickEvent}>
-          YES
-        </ConfirmAlertInviteButton>
-      </ConfirmAlertButtonContainer>
-    </ConfirmAlertContainer>
+    <ConfirmAlertBackDrop isOpen={isOpen}>
+      <ConfirmAlertContainer isOpen={isOpen}>
+        <ConfirmALertInfoContainer>
+          <ConfirmAlertInviteTitle>{message}</ConfirmAlertInviteTitle>
+          <ConfirmAlertSubTitle>{subMessage}</ConfirmAlertSubTitle>
+        </ConfirmALertInfoContainer>
+        <ConfirmAlertButtonContainer>
+          <ConfirmAlertCancelButton onClick={onCloseEvent}>
+            NO
+          </ConfirmAlertCancelButton>
+          <ConfirmAlertInviteButton onClick={onClickEvent}>
+            YES
+          </ConfirmAlertInviteButton>
+        </ConfirmAlertButtonContainer>
+      </ConfirmAlertContainer>
+    </ConfirmAlertBackDrop>
   );
 };
+
+const ConfirmAlertBackDrop = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 0;
+  background: rgba(24, 24, 24, 0.14);
+  display: ${(props: { isOpen: boolean }) => (props.isOpen ? 'block' : 'none')};
+`;
 
 const ConfirmAlertContainer = styled.div`
   position: fixed;

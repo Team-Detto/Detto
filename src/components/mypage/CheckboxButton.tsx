@@ -5,15 +5,31 @@ interface CheckBoxProps {
   type: string;
   name: string;
   isChecked?: boolean;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const CheckBoxButton = ({ type, name, isChecked }: CheckBoxProps) => {
+const CheckBoxButton = ({ type, name, isChecked, onChange }: CheckBoxProps) => {
   return (
     <CheckBoxWrapper key={type}>
       {isChecked && (
-        <CheckBoxInput type="checkbox" id={type} name="skills" defaultChecked />
+        <CheckBoxInput
+          type="checkbox"
+          id={type}
+          name="skills"
+          value={type}
+          defaultChecked
+          onChange={onChange}
+        />
       )}
-      {!isChecked && <CheckBoxInput type="checkbox" id={type} name="skills" />}
+      {!isChecked && (
+        <CheckBoxInput
+          type="checkbox"
+          id={type}
+          value={type}
+          name="skills"
+          onChange={onChange}
+        />
+      )}
 
       <CheckboxLabel htmlFor={type}>
         <CheckBoxText>{name}</CheckBoxText>

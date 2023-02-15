@@ -1,16 +1,48 @@
+import { useCallback } from 'react';
 import styled from '@emotion/styled';
-import { positions } from 'utils/positions';
 import CheckBoxButton from './CheckboxButton';
+import { positionList } from 'utils/positions';
+import { UserInfo } from 'types/mypage/userInfo';
 
 interface PositionCheckBoxProps {
-  userPoisitons: string[];
+  positions: string[];
+  setUserInfo: React.Dispatch<React.SetStateAction<UserInfo>>;
 }
 
-const PositionCheckBox = ({ userPoisitons }: PositionCheckBoxProps) => {
+const PositionCheckBox = ({
+  positions,
+  setUserInfo,
+}: PositionCheckBoxProps) => {
+  const handleCheckedPositionsChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { value, checked } = e.target;
+
+      if (checked) {
+        setUserInfo((prevState) => {
+          return {
+            ...prevState,
+            positions: [...prevState.positions, value],
+          };
+        });
+      } else {
+        // 체크 해제된 값 필터링하기
+        setUserInfo((prevState) => {
+          return {
+            ...prevState,
+            positions: prevState.positions.filter(
+              (position) => position !== value,
+            ),
+          };
+        });
+      }
+    },
+    [],
+  );
+
   return (
     <ButtonsWrapper type={'info'}>
-      {positions.map((position) => {
-        const checkPosition = userPoisitons?.find(
+      {positionList.map((position) => {
+        const checkPosition = positions?.find(
           (userPosition) => userPosition === position.type,
         );
 
@@ -20,12 +52,14 @@ const PositionCheckBox = ({ userPoisitons }: PositionCheckBoxProps) => {
             type={position.type}
             name={position.name}
             isChecked={true}
+            onChange={handleCheckedPositionsChange}
           />
         ) : (
           <CheckBoxButton
             key={position.type}
             type={position.type}
             name={position.name}
+            onChange={handleCheckedPositionsChange}
           />
         );
       })}

@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { deleteProfileImg, uploadProfileImg } from 'apis/mypageUsers';
 
-const useProfileImage = (uid: string) => {
+const useProfileImage = (uid: string, photoURL?: string) => {
   const [profileImg, setProfileImg] = useState<string>('');
 
   // input type="file"의 onChange 이벤트 핸들러
@@ -19,6 +19,10 @@ const useProfileImage = (uid: string) => {
     deleteProfileImg(uid);
     setProfileImg('');
   };
+
+  useEffect(() => {
+    setProfileImg(photoURL || '');
+  }, [photoURL]);
 
   return {
     handleProfileImageChange,

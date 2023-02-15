@@ -1,11 +1,12 @@
 import { firestorage, firestore } from './firebaseService';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import {
   deleteObject,
   getDownloadURL,
   ref,
   uploadBytes,
 } from 'firebase/storage';
+import { UserInfo } from 'types/mypage/userInfo';
 
 // 유저 프로필 기본정보 조회
 export const getUserInfoData = async (params: any) => {
@@ -48,4 +49,21 @@ export const deleteProfileImg = async (uid: string) => {
       // TODO :: 삭제 실패 시 에러 페이지 이동
       console.log('delete fail', error),
     );
+};
+
+/**
+ * 유저 프로필 업데이트
+ * @param uid : 유저 uid
+ * @param userInfo : 수정한 유저 정보 객체
+ */
+export const updateUserInfoData = async (uid: string, userInfo: UserInfo) => {
+  try {
+    await updateDoc(doc(firestore, 'user', `${uid}`), {
+      ...userInfo,
+    });
+
+    console.log('done!');
+  } catch (error) {
+    console.log('update fail', error);
+  }
 };

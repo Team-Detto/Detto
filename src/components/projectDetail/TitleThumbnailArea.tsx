@@ -12,7 +12,7 @@ const TitleThumbnailArea = (props: any) => {
           <ProjectTitle>{projectData?.title ?? `제목`}</ProjectTitle>
         </ProjectTitleWrapper>
         {/* currentUser가 글쓴이인지 비교 true이면 수정하기 버튼 보여주기  */}
-        <Link to={`/project/write/${params}`}>
+        <Link to={`/project/write/${params}`} state={projectData}>
           <ModifyButton>수정하기</ModifyButton>
         </Link>
       </TitleToModifyButtonWrap>

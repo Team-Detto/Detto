@@ -120,7 +120,7 @@ const ButtonContainer = styled.div`
 
 const Button = styled.button<{ text: string }>`
   background-color: ${({ text }) =>
-    text === '수정' ? COLORS.violetA400 : COLORS.gray300};
+    text === '수정' ? COLORS.violetB400 : COLORS.gray300};
   font-weight: ${({ text }) => (text === '수정' ? 700 : 400)};
 
   color: ${COLORS.white};

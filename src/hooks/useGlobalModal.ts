@@ -4,14 +4,22 @@ import { modalState } from '../recoil/atoms';
 const useGlobalModal = () => {
   const [modal, setModal] = useRecoilState(modalState);
 
-  const { isOpen } = modal;
-
   const openModal = (type: string, page: number) => {
     setModal({
       ...modal,
       isOpen: true,
       type,
       page,
+    });
+  };
+
+  const openModalWithData = (type: string, data: Note) => {
+    setModal({
+      ...modal,
+      isOpen: true,
+      type,
+      page: 0,
+      data,
     });
   };
 
@@ -30,7 +38,7 @@ const useGlobalModal = () => {
     });
   };
 
-  return { isOpen, modal, openModal, closeModal, updateModalSize };
+  return { modal, openModal, openModalWithData, closeModal, updateModalSize };
 };
 
 export default useGlobalModal;

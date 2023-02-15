@@ -1,8 +1,21 @@
 import { products, develops, designs } from 'utils/skills';
+import { EditType } from 'types/write/writeType';
 import SkillButton from 'components/common/SkillButton';
 import styled from '@emotion/styled';
 
-const EditPageStack = () => {
+interface Props {
+  plannerStack: string[];
+  designerStack: string[];
+  developerStack: string[];
+  setEditFormValue: (value: EditType.EditFormType) => void;
+}
+
+const EditPageStack = ({
+  plannerStack,
+  designerStack,
+  developerStack,
+  setEditFormValue,
+}: Props) => {
   return (
     <StackContainer>
       <StackPageLeftBox>
@@ -14,9 +27,19 @@ const EditPageStack = () => {
             <StackCategoryText>기획</StackCategoryText>
           </StackProductLeftBox>
           <StackProductRightBox>
-            {products.map((product) => (
-              <SkillButton key={product} name={product} />
-            ))}
+            {products.map((product) => {
+              const isChecked = plannerStack?.includes(product);
+              return (
+                <SkillButton
+                  key={product}
+                  name={product}
+                  type="plannerStack"
+                  value={plannerStack}
+                  isChecked={isChecked ? true : false}
+                  setValue={setEditFormValue}
+                />
+              );
+            })}
           </StackProductRightBox>
         </StackProductBox>
         <StackDeveloopBox>
@@ -24,9 +47,19 @@ const EditPageStack = () => {
             <StackCategoryText>디자인</StackCategoryText>
           </StackDevelopLeftBox>
           <StackDevelopRightBox>
-            {designs.map((design) => (
-              <SkillButton key={design} name={design} />
-            ))}
+            {designs.map((design) => {
+              const isChecked = designerStack?.includes(design);
+              return (
+                <SkillButton
+                  key={design}
+                  name={design}
+                  type="designerStack"
+                  value={designerStack}
+                  isChecked={isChecked ? true : false}
+                  setValue={setEditFormValue}
+                />
+              );
+            })}
           </StackDevelopRightBox>
         </StackDeveloopBox>
         <StackDesignBox>
@@ -34,9 +67,19 @@ const EditPageStack = () => {
             <StackCategoryText>개발</StackCategoryText>
           </StackDesignLeftBox>
           <StackDesignRightBox>
-            {develops.map((develop) => (
-              <SkillButton key={develop} name={develop} />
-            ))}
+            {develops.map((develop) => {
+              const isChecked = developerStack?.includes(develop);
+              return (
+                <SkillButton
+                  key={develop}
+                  name={develop}
+                  type="developerStack"
+                  value={developerStack}
+                  isChecked={isChecked ? true : false}
+                  setValue={setEditFormValue}
+                />
+              );
+            })}
           </StackDesignRightBox>
         </StackDesignBox>
       </StackPageRightBox>
