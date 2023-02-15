@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import styled from '@emotion/styled';
-import WebContainer from 'components/common/WebContainer';
 import MyPageInfo from 'components/mypage/MyPageInfo';
 import ProjectList from 'components/common/ProjectList';
+import LeftTab from 'components/mypage/LeftTab';
 import { getUserInfoData } from 'apis/mypageUsers';
 import MemberProfile from 'assets/images/project_member.png';
 import thumbnail from 'assets/images/project_thumbnail.png';
@@ -127,7 +127,8 @@ const MyPage = () => {
 
   return (
     <MyPageContainer>
-      <WebContainer>
+      <LeftTab />
+      <MypageContentsWrapper>
         <MyPageInfo user={userInfoData} uid={uid ?? ''} />
         <ProjectList
           sectionTitle="모집중인 프로젝트"
@@ -144,7 +145,7 @@ const MyPage = () => {
           nickname="detto"
           projects={projects}
         />
-      </WebContainer>
+      </MypageContentsWrapper>
     </MyPageContainer>
   );
 };
@@ -155,4 +156,10 @@ const MyPageContainer = styled.div`
   width: 100%;
   height: 100%;
   background-color: #fcfcfc;
+  display: flex;
+`;
+
+const MypageContentsWrapper = styled.main`
+  display: block;
+  padding: 10rem 3.75rem 0 2.375rem;
 `;

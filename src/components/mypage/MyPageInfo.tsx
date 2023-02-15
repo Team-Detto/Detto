@@ -147,7 +147,7 @@ export default MyPageInfo;
 const MyPageTopContainer = styled.div``;
 
 const MypageInfoTopContainer = styled.div`
-  padding-top: 14.875rem;
+  padding-top: 3.125rem;
   display: flex;
   justify-content: flex-start;
   align-items: center;
