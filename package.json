@@ -24,7 +24,6 @@
     "@types/react-router-dom": "^5.3.3",
     "@types/react-slick": "^0.23.10",
     "firebase": "^9.17.1",
-    "moment": "^2.29.4",
     "prismjs": "^1.29.0",
     "react": "^18.2.0",
     "react-calendar": "^4.0.0",
