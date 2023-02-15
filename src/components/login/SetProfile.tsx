@@ -160,4 +160,6 @@ const NicknameLabel = styled.label`
   letter-spacing: -0.02em;
 
   color: #383838;
+
+  margin-right: 1.4375rem;
 `;
