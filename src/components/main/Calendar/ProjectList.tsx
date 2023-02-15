@@ -13,6 +13,7 @@ const ProjectList = () => {
   const dayList = useRecoilValue<any>(dayListState);
   const setDetailList = useSetRecoilState(detailListState);
 
+  // 상세 리스트
   const detailList = (id: string) => {
     const List = dayList.filter((el: any) => el.id === id);
     return setDetailList(List);
@@ -20,16 +21,19 @@ const ProjectList = () => {
 
   const settings = {
     infinite: false,
+    initialSlide: 0,
     centerPadding: '40px',
     slidesToShow: 3,
+    slidesToScroll: 1,
     swipeToSlide: true,
     vertical: true,
+    draggable: true,
   };
 
   return (
     <ProjectListWrap>
       <ProjectListSlider {...settings}>
-        {dayList.map((data: any) => {
+        {dayList?.map((data: any) => {
           const Developer = data.positions.frontend + data.positions.backend;
           const Designer = data.positions.designer;
           const Planner = data.positions.planner;
