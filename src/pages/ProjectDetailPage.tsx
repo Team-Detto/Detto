@@ -62,7 +62,11 @@ const ProjectDetailPage = () => {
           />
           {/* currentUser랑 글쓴이uid랑 같으면 보이게하기 */}
 
-          <ApplicantListArea projectData={projectData} userData={userData} />
+          <ApplicantListArea
+            projectData={projectData}
+            userData={userData}
+            pid={params?.id}
+          />
         </WebContainer>
       )}
     </ProjectDetailContainer>

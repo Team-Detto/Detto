@@ -3,7 +3,7 @@ import COLORS from 'assets/styles/colors';
 import { useModal } from 'hooks';
 import InviteModal from './modals/InviteModal';
 
-const ApplicantListArea = ({ projectData, userData }: any) => {
+const ApplicantListArea = ({ projectData, pid }: any) => {
   const { applicants } = projectData;
   const { isOpen, handleModalStateChange } = useModal(false);
 
@@ -32,7 +32,7 @@ const ApplicantListArea = ({ projectData, userData }: any) => {
                   isOpen={isOpen}
                   applicantData={applicants[key]}
                   onClickEvent={handleModalStateChange}
-                  //pid
+                  pid={pid}
                 />
               </ApplicantWrap>
             );

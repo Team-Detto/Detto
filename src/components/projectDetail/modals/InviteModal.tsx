@@ -11,9 +11,10 @@ interface props {
   isOpen: boolean;
   applicantData: any;
   onClickEvent: () => void;
+  pid: string;
 }
 
-const InviteModal = ({ isOpen, applicantData, onClickEvent }: props) => {
+const InviteModal = ({ isOpen, applicantData, onClickEvent, pid }: props) => {
   const { isOpen: isAlertOpen, handleModalStateChange: onAlertClickEvent } =
     useModal(false);
 
@@ -33,7 +34,7 @@ const InviteModal = ({ isOpen, applicantData, onClickEvent }: props) => {
 
   const { mutate: applicantMutate } = useMutation(() =>
     updateParticipants(
-      '6zDpuv1af8LzMlQkmceO', //pid로 수정
+      pid, //pid로 수정
       'userID', //currentUser.uid로 수정
       true,
     ),
