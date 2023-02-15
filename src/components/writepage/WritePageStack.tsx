@@ -5,9 +5,10 @@ import styled from '@emotion/styled';
 
 interface Props {
   writeFormValue?: WriteType.WriteFormType;
+  setWriteFormValue?: (value: WriteType.WriteFormType) => void;
 }
 
-const WritePageStack = ({ writeFormValue }: Props) => {
+const WritePageStack = ({ writeFormValue, setWriteFormValue }: Props) => {
   return (
     <WritePageStackContainer>
       <WritePageLeftBox>
@@ -23,7 +24,9 @@ const WritePageStack = ({ writeFormValue }: Props) => {
               <SkillButton
                 key={product}
                 name={product}
+                type="plannerStack"
                 value={writeFormValue?.plannerStack}
+                setValue={setWriteFormValue}
               />
             ))}
           </WritePageStackProductRightBox>
@@ -37,7 +40,9 @@ const WritePageStack = ({ writeFormValue }: Props) => {
               <SkillButton
                 key={design}
                 name={design}
+                type="designerStack"
                 value={writeFormValue?.designerStack}
+                setValue={setWriteFormValue}
               />
             ))}
           </WritePageStackDesignRightBox>
@@ -51,7 +56,9 @@ const WritePageStack = ({ writeFormValue }: Props) => {
               <SkillButton
                 key={develop}
                 name={develop}
+                type="developerStack"
                 value={writeFormValue?.developerStack}
+                setValue={setWriteFormValue}
               />
             ))}
           </WritePageStackDevelopRightBox>

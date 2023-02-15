@@ -74,6 +74,7 @@ const useEdtiBoard = () => {
     editRef,
     imageRef,
     editFormValue,
+    setEditFormValue,
     handleModalStateChange,
     handleFormValueChange,
     handleAddThumbnailImage: handleAddThumbnailImage,

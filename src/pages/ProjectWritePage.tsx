@@ -12,9 +12,10 @@ const ProjectWritePage = () => {
     editRef,
     imageRef,
     writeFormValue,
+    setWriteFormValue,
     handleFormValueChange,
     handleModalStateChange,
-    handleAddThumbnailImage: handleAddThumbnailImage,
+    handleAddThumbnailImage,
     handleCreateProjectButtonClick,
   } = useWrite();
 
@@ -28,6 +29,7 @@ const ProjectWritePage = () => {
         <ProjectWritePageBody
           imageRef={imageRef}
           writeFormValue={writeFormValue}
+          setWriteFormValue={setWriteFormValue}
           onFormValueChagneEvent={handleFormValueChange}
           onAddThumbnailImageEvent={handleAddThumbnailImage}
         />

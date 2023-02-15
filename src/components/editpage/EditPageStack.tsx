@@ -1,4 +1,5 @@
 import { products, develops, designs } from 'utils/skills';
+import { EditType } from 'types/write/writeType';
 import SkillButton from 'components/common/SkillButton';
 import styled from '@emotion/styled';
 
@@ -6,12 +7,14 @@ interface Props {
   plannerStack: string[];
   designerStack: string[];
   developerStack: string[];
+  setEditFormValue: (value: EditType.EditFormType) => void;
 }
 
 const EditPageStack = ({
   plannerStack,
   designerStack,
   developerStack,
+  setEditFormValue,
 }: Props) => {
   return (
     <StackContainer>
@@ -30,8 +33,10 @@ const EditPageStack = ({
                 <SkillButton
                   key={product}
                   name={product}
+                  type="plannerStack"
                   value={plannerStack}
                   isChecked={isChecked ? true : false}
+                  setValue={setEditFormValue}
                 />
               );
             })}
@@ -48,8 +53,10 @@ const EditPageStack = ({
                 <SkillButton
                   key={design}
                   name={design}
+                  type="designerStack"
                   value={designerStack}
                   isChecked={isChecked ? true : false}
+                  setValue={setEditFormValue}
                 />
               );
             })}
@@ -66,8 +73,10 @@ const EditPageStack = ({
                 <SkillButton
                   key={develop}
                   name={develop}
+                  type="developerStack"
                   value={developerStack}
                   isChecked={isChecked ? true : false}
+                  setValue={setEditFormValue}
                 />
               );
             })}
