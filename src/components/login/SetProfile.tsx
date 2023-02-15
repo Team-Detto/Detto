@@ -6,12 +6,13 @@ import {
   useProfileImage,
   useUpdateProfile,
 } from 'hooks';
-import defaultImage from 'assets/images/default_profile.jpg';
 import ModalNavigator from '../common/ModalNavigator';
 import ConfirmButton from './ConfirmButton';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { getUserInfoData, updateUserInfoData } from 'apis/mypageUsers';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
+import MyPageProfileImage from 'components/mypage/MyPageProfileImage';
+import TextInput from 'components/mypage/TextInput';
 
 // 페이지 3 : 프로필 사진, 닉네임 변경
 const page = 3;
@@ -27,16 +28,19 @@ export default function SetProfile() {
     queryFn: getUserInfoData,
   });
 
-  const { userInfo, setUserInfo, handleNicknameChange, validationMessage } =
-    useUpdateProfile();
+  const {
+    userInfo,
+    setUserInfo,
+    handleNicknameChange,
+    validationMessage,
+    handleButtonActive,
+  } = useUpdateProfile();
   const { profileImg, handleProfileImageChange, handleProfileImageDelete } =
     useProfileImage(uid, userInfoData?.photoURL);
 
   const { mutate: updateUserInfoMutate } = useMutation(() =>
     updateUserInfoData(uid, userInfo),
   );
-
-  const imgRef = useRef<HTMLInputElement | null>(null);
 
   const handleConfirmButtonClick = () => {
     updateUserInfoMutate();
@@ -71,37 +75,21 @@ export default function SetProfile() {
           <TitleText>팀원들에게 소개할 프로필을 입력해주세요</TitleText>
         </TextContainer>
         <ProfileContainer>
-          <ProfileImageContainer>
-            <ProfileImage
-              src={profileImg || defaultImage}
-              alt="프로필 이미지"
-            />
-            <FileInput
-              type="file"
-              id="profile"
-              ref={imgRef}
-              onChange={handleProfileImageChange}
-            />
-            <ButtonContainer>
-              <Button color="violet" onClick={() => imgRef.current?.click()}>
-                수정
-              </Button>
-              <Button onClick={handleProfileImageDelete}>삭제</Button>
-            </ButtonContainer>
-          </ProfileImageContainer>
+          <MyPageProfileImage
+            profileImg={profileImg}
+            onChange={handleProfileImageChange}
+            onDelete={handleProfileImageDelete}
+            handleButtonActive={handleButtonActive}
+            setUserInfo={setUserInfo}
+            uid={uid}
+          />
           <NicknameContainer>
             <NicknameLabel htmlFor="nickname">닉네임</NicknameLabel>
-            <NicknameInputContainer>
-              <NicknameInput
-                id="nickname"
-                defaultValue={userInfoData?.displayName}
-                onChange={handleNicknameChange}
-                type="text"
-                minLength={2}
-                maxLength={30}
-              />
-              <ValidationMessage>{validationMessage}</ValidationMessage>
-            </NicknameInputContainer>
+            <TextInput
+              value={userInfo.displayName}
+              onChangeValue={handleNicknameChange}
+              validationMessage={validationMessage}
+            />
           </NicknameContainer>
         </ProfileContainer>
       </BodyContainer>
@@ -156,56 +144,6 @@ const ProfileContainer = styled.div`
   align-items: flex-start;
 `;
 
-const ProfileImageContainer = styled.div`
-  width: 8.75rem;
-  height: 13.375rem;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  margin-right: 2.375rem;
-`;
-
-const ProfileImage = styled.img`
-  width: 8.75rem;
-  height: 8.75rem;
-
-  border-radius: 100%;
-
-  object-fit: cover;
-`;
-
-const FileInput = styled.input`
-  visibility: hidden;
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const Button = styled.button<{ color?: string }>`
-  background-color: ${({ color }) =>
-    color === 'violet' ? COLORS.violetB400 : COLORS.gray300};
-  font-weight: ${({ color }) => (color === 'violet' ? 700 : 400)};
-
-  color: ${COLORS.white};
-
-  padding: 8px 16px;
-  gap: 10px;
-
-  width: 3.875rem;
-  height: 3rem;
-
-  border-radius: 0.25rem;
-
-  &:hover {
-    transform: scale(1.05);
-    transition: 100ms ease-in-out;
-  }
-`;
-
 const NicknameContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -222,35 +160,4 @@ const NicknameLabel = styled.label`
   letter-spacing: -0.02em;
 
   color: #383838;
-`;
-
-const NicknameInputContainer = styled.div`
-  display: flex;
-  position: relative;
-
-  margin-left: 1.4375rem;
-`;
-
-const NicknameInput = styled.input`
-  padding: 10px 20px;
-
-  width: 17.375rem;
-  height: 2.75rem;
-
-  background: ${COLORS.white};
-
-  border: 1px solid ${COLORS.gray300};
-  border-radius: 4px;
-
-  ::placeholder {
-    color: ${COLORS.gray300};
-  }
-`;
-
-const ValidationMessage = styled.p`
-  position: absolute;
-  top: 2.75rem;
-  font-size: 0.75rem;
-  padding-left: 0.25rem;
-  color: ${COLORS.red};
 `;
