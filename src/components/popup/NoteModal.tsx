@@ -1,14 +1,18 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
+import ModalNavigator from 'components/common/ModalNavigator';
 import { useGlobalModal } from 'hooks';
 import { useEffect } from 'react';
-import { getDate } from 'utils/date';
+import { getDateAndTime } from 'utils/date';
 import { allowScroll, preventScroll } from 'utils/modal';
 import CustomButton from './CustomButton';
 
-const INBOX = 'inbox';
-const OUTBOX = 'outbox';
-const REPLY = 'reply';
+const [INBOX, OUTBOX, REPLY, SEND_NOTE] = [
+  'inbox',
+  'outbox',
+  'reply',
+  'sendNote',
+];
 
 const NoteModal = () => {
   const {
@@ -20,17 +24,17 @@ const NoteModal = () => {
 
   const { displayName, title, date, content, photoURL } = data;
 
-  const handleReply = () => {
+  const handleReplyButtonClick = () => {
     openModalWithData(REPLY, data);
   };
 
-  const handleSendNote = () => {
+  const sendNote = () => {
     console.log('쪽지 보내기');
     closeModal();
   };
 
   useEffect(() => {
-    updateModalSize('41.0625rem', '29.4375rem');
+    updateModalSize('41.0625rem', '31.4375rem');
     // 모달이 열려있을 때 body 스크롤 방지
     const prevScrollY = preventScroll();
     return () => {
@@ -42,37 +46,39 @@ const NoteModal = () => {
   if (type === INBOX)
     return (
       <Container>
+        <ModalNavigator page={0} close />
         <HeaderContainer>
           <ProfileImage src={photoURL} />
           <TitleText>{title}</TitleText>
-          <DateText>{getDate(date)}</DateText>
+          <DateText>{getDateAndTime(date)}</DateText>
         </HeaderContainer>
         <ContentText>{content}</ContentText>
-        <CustomButton label="답장하기" onClick={handleReply} />
+        <CustomButton label="답장하기" onClick={handleReplyButtonClick} />
       </Container>
     );
 
-  // 답장하기
-  if (type === REPLY)
+  // 답장하기, 쪽지 보내기
+  if (type === REPLY || type === SEND_NOTE)
     return (
       <Container>
+        <ModalNavigator page={0} close />
         <HeaderContainer>
           <ProfileImage src={photoURL} />
           <TitleText>{displayName}님께 쪽지 보내기</TitleText>
         </HeaderContainer>
         <ContentTextarea autoFocus placeholder="쪽지 내용을 입력해주세요." />
-        <CustomButton label="쪽지를 보낼게요" onClick={handleSendNote} />
+        <CustomButton label="쪽지를 보낼게요" onClick={sendNote} />
       </Container>
     );
 
-  // 보낸쪽지함 쪽지 읽기
   if (type === OUTBOX)
+    // 보낸쪽지함 쪽지 읽기
     return (
       <Container>
         <HeaderContainer>
           <ProfileImage src={photoURL} />
           <TitleText>보낸 쪽지</TitleText>
-          <DateText>{getDate(date)}</DateText>
+          <DateText>{getDateAndTime(date)}</DateText>
         </HeaderContainer>
         <ContentText>{content}</ContentText>
         <CustomButton label="확인" onClick={closeModal} />

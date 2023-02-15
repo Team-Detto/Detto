@@ -15,12 +15,12 @@ export default function ModalNavigator({
   back,
   close,
 }: ModalNavigatorProps) {
-  const { openModal, closeModal } = useGlobalModal();
+  const { modal, openModal, closeModal } = useGlobalModal();
 
   return (
     <Container>
       {back && (
-        <BackButton onClick={() => openModal('login', page - 1)}>
+        <BackButton onClick={() => openModal(modal.type, modal.page - 1)}>
           <IoChevronBack
             style={{ width: '1.5rem', height: '1.5rem', color: COLORS.gray700 }}
           />
