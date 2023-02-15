@@ -1,11 +1,15 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 
+import { Viewer } from '@toast-ui/react-editor';
+
 const ContentArea = ({ projectData }: any) => {
   return (
     <RecruitContentsContainer>
       <ContentTitle>모집 안내</ContentTitle>
-      <ContentWrapper>{projectData?.content ?? `내용입니다`}</ContentWrapper>
+      <ContentWrapper>
+        <Viewer initialValue={projectData?.content} />
+      </ContentWrapper>
     </RecruitContentsContainer>
   );
 };
