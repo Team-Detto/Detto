@@ -190,7 +190,7 @@ const InfoEditConfirmWrapper = styled.div`
 `;
 
 const InfoEditConfirmBtn = styled.button<{ isActive: boolean }>`
-  margin-top: 4.875rem;
+  margin-top: 2rem;
   width: 14.375rem;
   height: 3rem;
   border-radius: 4px;
