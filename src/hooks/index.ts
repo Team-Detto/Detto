@@ -1,5 +1,6 @@
 import useAuth from './useAuth';
 import useModal from './useModal';
+import useNote from './useNote';
 import usePopup from './usePopup';
 import useGlobalModal from './useGlobalModal';
 import useWrite from './useWrite';
@@ -12,6 +13,7 @@ import useFindProject from './useFindProject';
 export {
   useAuth,
   useModal,
+  useNote,
   usePopup,
   useGlobalModal,
   useWrite,

@@ -1,9 +1,5 @@
-import { useQuery } from '@tanstack/react-query';
-import { v4 as uuid } from 'uuid';
-import { firestore } from 'apis/firebaseService';
 import ModalNavigator from 'components/common/modal/ModalNavigator';
-import { doc, updateDoc } from 'firebase/firestore';
-import { useAuth, useGlobalModal } from 'hooks';
+import { useGlobalModal, useNote } from 'hooks';
 import CustomButton from './CustomButton';
 import {
   Container,
@@ -12,56 +8,16 @@ import {
   ProfileImage,
   TitleText,
 } from './styles';
-import { getUserInfoData } from 'apis/mypageUsers';
 import { useState } from 'react';
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 
-export default function SendNote({ uid }: { uid: string }) {
-  const [note, setNote] = useState({
-    title: '',
-    content: '',
-  });
+export default function SendNote({ receiverUid }: { receiverUid: string }) {
   const [disabled, setDisabled] = useState(false);
 
   const { closeModal } = useGlobalModal();
-
-  const sender = useAuth();
-  const { data: receiver } = useQuery({
-    queryKey: ['user', uid],
-    queryFn: getUserInfoData,
-  });
-
-  const updateNoteCollection = () => {
-    if (!receiver) return;
-    const noteId = uuid();
-    const date = Date.now();
-
-    return Promise.all([
-      updateDoc(doc(firestore, `inbox/${receiver.uid}`), {
-        [noteId]: {
-          uid: sender.uid,
-          displayName: receiver.displayName,
-          photoURL: receiver.photoURL,
-          date,
-          title: note.title,
-          content: note.content,
-          isRead: false,
-        },
-      }),
-      updateDoc(doc(firestore, `outbox/${sender.uid}`), {
-        [noteId]: {
-          uid: receiver.uid,
-          displayName: sender.displayName,
-          photoURL: sender.photoURL,
-          date,
-          title: note.title,
-          content: note.content,
-          isRead: false,
-        },
-      }),
-    ]);
-  };
+  const { updateNoteCollection, receiver, note, setNote } =
+    useNote(receiverUid);
 
   const handleSendButtonClick = async () => {
     setDisabled(true);
