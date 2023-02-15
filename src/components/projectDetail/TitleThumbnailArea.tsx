@@ -4,17 +4,26 @@ import COLORS from 'assets/styles/colors';
 
 const TitleThumbnailArea = (props: any) => {
   const { projectData, params } = props;
+  console.log('projectData :', projectData);
+
   return (
     <>
       <TitleToModifyButtonWrap>
         <ProjectTitleWrapper>
-          <RecruitmentDiv>모집중</RecruitmentDiv>
-          <ProjectTitle>{projectData?.title ?? `제목`}</ProjectTitle>
+          {projectData?.isRecruiting ? (
+            <RecruitingDiv>모집중</RecruitingDiv>
+          ) : (
+            <RecruitedDiv>모집완료</RecruitedDiv>
+          )}
+          <ProjectTitle>{projectData?.title}</ProjectTitle>
         </ProjectTitleWrapper>
         {/* currentUser가 글쓴이인지 비교 true이면 수정하기 버튼 보여주기  */}
-        <Link to={`/project/write/${params}`} state={projectData}>
-          <ModifyButton>수정하기</ModifyButton>
-        </Link>
+        <ModifyDeleteButtonWrap>
+          <ModifyDeleteButton>글 삭제하기</ModifyDeleteButton>
+          <Link to={`/project/write/${params}`} state={projectData}>
+            <ModifyDeleteButton>수정하기</ModifyDeleteButton>
+          </Link>
+        </ModifyDeleteButtonWrap>
       </TitleToModifyButtonWrap>
       <ProjectThumbnail src={projectData?.thumbnailURL} />
     </>
@@ -35,9 +44,17 @@ const ProjectTitleWrapper = styled.div`
   gap: 0.625rem;
 `;
 
-const RecruitmentDiv = styled.div`
+const RecruitingDiv = styled.div`
   background-color: ${COLORS.violetB400};
   color: ${COLORS.white};
+  padding: 0.625rem 1.875rem;
+  border-radius: 2.5rem;
+  font-size: 1.5rem;
+`;
+
+const RecruitedDiv = styled.div`
+  background-color: ${COLORS.gray100};
+  color: ${COLORS.gray400};
   padding: 0.625rem 1.875rem;
   border-radius: 2.5rem;
   font-size: 1.5rem;
@@ -48,7 +65,12 @@ const ProjectTitle = styled.div`
   font-weight: 400;
 `;
 
-const ModifyButton = styled.button`
+const ModifyDeleteButtonWrap = styled.div`
+  display: flex;
+  gap: 1.25rem;
+`;
+
+const ModifyDeleteButton = styled.button`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -58,7 +80,7 @@ const ModifyButton = styled.button`
   background: ${COLORS.gray100};
   color: ${COLORS.gray400};
   border-radius: 4px;
-  width: 91px;
+  min-width: 91px;
   height: 48px;
 `;
 
