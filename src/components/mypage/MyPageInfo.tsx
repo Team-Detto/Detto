@@ -37,14 +37,6 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
 
   // DB로 수정 정보 업데이트
   const handleUserInfoUpdate = () => {
-    setUserInfo((prev) => {
-      return {
-        ...prev,
-
-        photoURL: profileImg,
-      };
-    });
-
     updateUserInfoMutate();
     handleModalStateChange();
   };
@@ -70,6 +62,8 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
           profileImg={profileImg}
           onChange={handleProfileImageChange}
           onDelete={handleProfileImageDelete}
+          handleButtonActive={handleButtonActive}
+          setUserInfo={setUserInfo}
           uid={uid}
         />
         <InfoWrapper>
