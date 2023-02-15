@@ -4,7 +4,7 @@ import COLORS from 'assets/styles/colors';
 import { doc, updateDoc } from 'firebase/firestore';
 import { useAuth, useGlobalModal } from 'hooks';
 import React, { useState } from 'react';
-import { positionList } from 'utils/positions';
+import { career as careerList, positionList } from 'utils/positions';
 import ConfirmButton from './ConfirmButton';
 import ModalNavigator from '../common/ModalNavigator';
 
@@ -13,6 +13,7 @@ const page = 1;
 
 export default function SetPositions() {
   const [positions, setPositions] = useState<string[]>([]);
+  const [career, setCareer] = useState<string>('');
 
   const { openModal } = useGlobalModal();
   const { uid } = useAuth();
@@ -29,6 +30,7 @@ export default function SetPositions() {
     if (!uid) return;
     await updateDoc(doc(firestore, `users/${uid}`), {
       positions,
+      isJunior: career === 'junior',
     });
     openModal('login', page + 1);
   };
@@ -43,7 +45,7 @@ export default function SetPositions() {
       <Buttons>
         {positionList.map(({ type, name }) => (
           <React.Fragment key={type}>
-            <MenuToggleInput
+            <Input
               type="checkbox"
               name="position"
               id={type}
@@ -51,7 +53,21 @@ export default function SetPositions() {
                 handleCheckPositions(e.currentTarget.checked, type)
               }
             />
-            <MenuLabel htmlFor={type}>{name}</MenuLabel>
+            <Label htmlFor={type}>{name}</Label>
+          </React.Fragment>
+        ))}
+      </Buttons>
+      <Buttons>
+        {careerList.map(({ id, value }) => (
+          <React.Fragment key={id}>
+            <Input
+              type="radio"
+              name="career"
+              value={id}
+              id={id}
+              onChange={(e) => setCareer(e.currentTarget.value)}
+            />
+            <Label htmlFor={id}>{value}</Label>
           </React.Fragment>
         ))}
       </Buttons>
@@ -63,7 +79,7 @@ export default function SetPositions() {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
 
   height: 100%;
   width: 100%;
@@ -72,8 +88,8 @@ const Container = styled.div`
 `;
 
 const TextContainer = styled.div`
-  margin-top: 2.5rem;
-  margin-bottom: 2.5rem;
+  /* margin-top: 2.5rem; */
+  /* margin-bottom: 2.5rem; */
 `;
 
 const TitleText = styled.h3`
@@ -94,12 +110,12 @@ const SubText = styled.h2`
 
 const Buttons = styled.div`
   display: flex;
-  justify-content: space-between;
+  gap: 19px;
 
-  margin-bottom: 3.75rem;
+  /* margin-bottom: 3.75rem; */
 `;
 
-const MenuLabel = styled.label`
+const Label = styled.label`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -121,7 +137,7 @@ const MenuLabel = styled.label`
   }
 `;
 
-const MenuToggleInput = styled.input`
+const Input = styled.input`
   display: none;
 
   color: ${COLORS.gray100};
