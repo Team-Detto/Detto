@@ -7,6 +7,7 @@ import useEdtiBoard from './useEditBoard';
 import useProfileImage from './useProfileImage';
 import useUpdateProfile from './useUpdateProfile';
 import useHeader from './useHeader';
+import useFindProject from './useFindProject';
 
 export {
   useAuth,
@@ -18,4 +19,5 @@ export {
   useProfileImage,
   useUpdateProfile,
   useHeader,
+  useFindProject,
 };

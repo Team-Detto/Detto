@@ -22,11 +22,11 @@ const EditPageStack = ({
         <StackText>필요 스택</StackText>
       </StackPageLeftBox>
       <StackPageRightBox>
-        <StackProductBox>
-          <StackProductLeftBox>
+        <StacktBox>
+          <StackLeftBox>
             <StackCategoryText>기획</StackCategoryText>
-          </StackProductLeftBox>
-          <StackProductRightBox>
+          </StackLeftBox>
+          <StackRightBox>
             {products.map((product) => {
               const isChecked = plannerStack?.includes(product);
               return (
@@ -40,13 +40,13 @@ const EditPageStack = ({
                 />
               );
             })}
-          </StackProductRightBox>
-        </StackProductBox>
-        <StackDeveloopBox>
-          <StackDevelopLeftBox>
+          </StackRightBox>
+        </StacktBox>
+        <StacktBox>
+          <StackLeftBox>
             <StackCategoryText>디자인</StackCategoryText>
-          </StackDevelopLeftBox>
-          <StackDevelopRightBox>
+          </StackLeftBox>
+          <StackRightBox>
             {designs.map((design) => {
               const isChecked = designerStack?.includes(design);
               return (
@@ -60,13 +60,13 @@ const EditPageStack = ({
                 />
               );
             })}
-          </StackDevelopRightBox>
-        </StackDeveloopBox>
-        <StackDesignBox>
-          <StackDesignLeftBox>
+          </StackRightBox>
+        </StacktBox>
+        <StacktBox>
+          <StackLeftBox>
             <StackCategoryText>개발</StackCategoryText>
-          </StackDesignLeftBox>
-          <StackDesignRightBox>
+          </StackLeftBox>
+          <StackRightBox>
             {develops.map((develop) => {
               const isChecked = developerStack?.includes(develop);
               return (
@@ -80,8 +80,8 @@ const EditPageStack = ({
                 />
               );
             })}
-          </StackDesignRightBox>
-        </StackDesignBox>
+          </StackRightBox>
+        </StacktBox>
       </StackPageRightBox>
     </StackContainer>
   );
@@ -110,45 +110,15 @@ const StackText = styled.h2`
   letter-spacing: -0.02rem;
   color: #383838;
 `;
-const StackProductBox = styled.div`
+const StacktBox = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
 `;
-const StackProductLeftBox = styled.div`
+const StackLeftBox = styled.div`
   width: 8%;
 `;
-const StackProductRightBox = styled.div`
-  width: 90%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 1rem;
-`;
-const StackDeveloopBox = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-`;
-const StackDevelopLeftBox = styled.div`
-  width: 8%;
-`;
-const StackDevelopRightBox = styled.div`
-  width: 90%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 1rem;
-`;
-const StackDesignBox = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-`;
-const StackDesignLeftBox = styled.div`
-  width: 8%;
-`;
-const StackDesignRightBox = styled.div`
+const StackRightBox = styled.div`
   width: 90%;
   display: flex;
   flex-direction: row;

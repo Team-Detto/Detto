@@ -1,4 +1,3 @@
-import React from 'react';
 import { positionList } from 'utils/positions';
 import styled from '@emotion/styled';
 
@@ -22,7 +21,7 @@ const FindProjectHeader = ({
           {positionList.map((position) => (
             <FindProjectCategoryButton
               key={position.type}
-              name={position.name}
+              name={position.type}
               category={category}
               onClick={onCategoryClickEvent}
             >
@@ -84,7 +83,7 @@ const FindProjectToggleButton = styled.button`
   border: none;
   cursor: pointer;
   background-color: ${(props: { toggle: boolean }) =>
-    !props.toggle ? '#5d50f0' : '#6B7684'};
+    props.toggle ? '#5d50f0' : '#6B7684'};
   position: relative;
   display: flex;
   justify-content: center;
@@ -100,14 +99,14 @@ const FindProjectToggleCricle = styled.div`
   left: 5%;
   transition: all 0.3s ease-in-out;
   ${(props: { toggle: boolean }) =>
-    props.toggle ? 'transform: translateX(0)' : 'transform: translateX(100%)'};
+    props.toggle ? 'transform: translateX(100%)' : 'transform: translateX(0)'};
 `;
 const FindProjectToggleText = styled.p`
   margin: 0rem 0.5rem 0rem 0.5rem;
   font-weight: 700;
   font-size: 1.125rem;
   color: ${(props: { toggle: boolean }) =>
-    !props.toggle ? '#5d50f0' : '#4E5968'};
+    props.toggle ? '#5d50f0' : '#4E5968'};
   transition: all 0.3s ease-in-out;
 `;
 const FindProjectToggleSubText = styled.p`

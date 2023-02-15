@@ -1,7 +1,10 @@
 import styled from '@emotion/styled';
 import ContantCard from 'components/ContentCard';
+import { useFindProject } from 'hooks';
 
 const MainRecommendation = () => {
+  const { projects, handleNavigateToProjectDetail } = useFindProject();
+
   return (
     <MainRecommendationWrap>
       <MainRecommendationContainer>
@@ -13,9 +16,16 @@ const MainRecommendation = () => {
           <MainRecommendationButton>관심순</MainRecommendationButton>
         </MainRecommendationButtonContainer>
         <MainRecommendationCardContainer>
-          <ContantCard />
-          <ContantCard />
-          <ContantCard />
+          {projects.map(
+            (project, index) =>
+              index < 3 && (
+                <ContantCard
+                  key={project.id}
+                  project={project}
+                  onNavigateToProjectDetailEvent={handleNavigateToProjectDetail}
+                />
+              ),
+          )}
         </MainRecommendationCardContainer>
       </MainRecommendationContainer>
       <MainRecommendationCardButton>전체 보기</MainRecommendationCardButton>
