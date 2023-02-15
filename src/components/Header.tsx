@@ -6,6 +6,7 @@ import PopupContainer from './popup/PopupContainer';
 import { useGlobalModal, usePopup } from 'hooks';
 import { signOut } from 'firebase/auth';
 import { authService } from 'apis/firebaseService';
+import COLORS from 'assets/styles/colors';
 
 interface headerTypes {
   isMain: boolean;
@@ -114,7 +115,7 @@ const HeaderContainer = styled.header<headerTypes>`
 
   background-image: ${({ isMain, hideGradient }) =>
     isMain && hideGradient
-      ? 'linear-gradient(180deg, rgba(108, 108, 108, 0.47) 0%, rgba(217, 217, 217, 0) 100.87%)'
+      ? 'linear-gradient(180deg, rgba(242, 242, 242, 0.47) 0%, rgba(217, 217, 217, 0) 107.87%)'
       : 'none'};
   background-color: ${({ isMain, hideGradient }) =>
     isMain && hideGradient ? 'transparent' : '#fff'};
@@ -132,6 +133,7 @@ const LogoBoxH1 = styled.h1`
   font-size: 2.5rem;
   font-weight: 800;
   color: #5d50f0;
+  margin-top: -0.5rem;
   margin-left: 1.438rem;
   cursor: pointer;
 `;
@@ -149,9 +151,16 @@ const NavItemLi = styled.li`
   margin-right: 2.625rem;
   cursor: pointer;
   font-size: 1rem;
+  font-weight: 700;
   color: #4e5968;
+  transition: all 300ms ease-in-out;
 
   &:last-child {
     margin-right: 0;
+  }
+
+  &:hover {
+    color: ${COLORS.violetB500};
+    transform: scale(1.01);
   }
 `;
