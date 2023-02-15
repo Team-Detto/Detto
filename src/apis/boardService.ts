@@ -16,6 +16,7 @@ export const firebaseCreateProjectRequest = async (
   formData: WriteType.WriteFormType,
   markdownText: string,
   image: any,
+  uid?: string,
 ) => {
   try {
     const thumbnailUrl = await firebaseImageUploadRequest(image);
@@ -30,8 +31,9 @@ export const firebaseCreateProjectRequest = async (
       view: 0,
       like: 0,
       createdAt: Date.now(),
-      isRecruiting: false,
+      isRecruiting: true,
       isClosed: false,
+      uid,
     });
   } catch (e) {
     console.error(e);
