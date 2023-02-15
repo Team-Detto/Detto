@@ -26,8 +26,10 @@ interface Member {
 }
 
 const MyPage = () => {
-  // TODO :: 로그인 기능 구현 이후 세션스토리지 키값 받아오는 부분 수정 필요. firebase:authUser:파이어베이스 API key:[DEFAULT]
-  const uid = sessionStorage.getItem('uid');
+  const userLocal = localStorage.getItem('user');
+  const currentUser = JSON.parse(userLocal ?? '');
+  const uid = currentUser.uid;
+
   const { data: userInfoData }: any = useQuery({
     queryKey: ['userInfo', uid],
     queryFn: getUserInfoData,
