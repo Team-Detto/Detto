@@ -1,11 +1,24 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import { useModal } from 'hooks';
+import { useEffect, useState } from 'react';
+import { allowScroll, preventScroll } from 'utils/modal';
 import InviteModal from './modals/InviteModal';
 
 const ApplicantListArea = ({ projectData, pid }: any) => {
   const { applicants } = projectData;
+  const [applicantKey, setApplicantKey] = useState('');
   const { isOpen, handleModalStateChange } = useModal(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      const prevScrollY = preventScroll();
+      return () => {
+        allowScroll(prevScrollY);
+      };
+    }
+  }, [isOpen]);
+  console.log('applicants', applicants);
 
   return (
     <ApplicantListContainer>
@@ -14,28 +27,38 @@ const ApplicantListArea = ({ projectData, pid }: any) => {
         {applicants && applicants ? (
           // applicants?.forEach((applicant: any, idx: number) => {
           Object.keys(applicants).map((key) => {
-            return (
-              <ApplicantWrap key={applicants[key]?.displayName}>
-                <ProfileImage src={applicants[key]?.profileURL} />
-                <NicknameDiv>{applicants[key]?.displayName}</NicknameDiv>
-                <PositionDiv>{applicants[key]?.position}</PositionDiv>
-                {/* 개발, 디자인, 기획 스킬 모아서 배열로 만든 후에 map돌리기 */}
-                <StackWrap>
-                  {applicants[key]?.skills.map((skill: any) => {
-                    return <StackDiv key={skill}>{skill}</StackDiv>;
-                  })}
-                </StackWrap>
-                <InviteButton onClick={handleModalStateChange}>
-                  팀원으로 초대하기
-                </InviteButton>
-                <InviteModal
-                  isOpen={isOpen}
-                  applicantData={applicants[key]}
-                  onClickEvent={handleModalStateChange}
-                  pid={pid}
-                />
-              </ApplicantWrap>
-            );
+            // console.log('test', applicants[key]);
+            if (applicants[key]?.recruit === false)
+              return (
+                <ApplicantWrap key={applicants[key]?.uid}>
+                  <ProfileImage src={applicants[key]?.profileURL} />
+                  <NicknameDiv>{applicants[key]?.displayName}</NicknameDiv>
+                  <PositionDiv>{applicants[key]?.position}</PositionDiv>
+                  {/* 개발, 디자인, 기획 스킬 모아서 배열로 만든 후에 map돌리기 */}
+                  <StackWrap>
+                    {applicants[key]?.skills.map((skill: any) => {
+                      return <StackDiv key={skill}>{skill}</StackDiv>;
+                    })}
+                  </StackWrap>
+                  <InviteButton
+                    onClick={() => {
+                      handleModalStateChange();
+                      setApplicantKey(key);
+                      // console.log('key', key);
+                    }}
+                  >
+                    팀원으로 초대하기
+                    {/* 이거 누르면 지원한 사람의 uid가 전달돼야함 */}
+                  </InviteButton>
+                  <InviteModal
+                    isOpen={isOpen}
+                    applicantData={applicants}
+                    onClickEvent={handleModalStateChange}
+                    pid={pid}
+                    applicantKey={applicantKey}
+                  />
+                </ApplicantWrap>
+              );
           })
         ) : (
           <CannotFoundApplicant>아직 지원자가 없습니다 :/</CannotFoundApplicant>

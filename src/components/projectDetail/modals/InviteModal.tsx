@@ -2,52 +2,37 @@ import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import Alert from 'components/common/Alert';
 import { useModal } from 'hooks';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { allowScroll, preventScroll } from 'utils/modal';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { findWithCollectionName, updateParticipants } from 'apis/postDetail';
+import { useMutation } from '@tanstack/react-query';
+import { updateParticipants } from 'apis/postDetail';
 import { useParams } from 'react-router-dom';
 interface props {
   isOpen: boolean;
   applicantData: any;
   onClickEvent: () => void;
   pid: string;
+  applicantKey: string;
 }
 
-const InviteModal = ({ isOpen, applicantData, onClickEvent, pid }: props) => {
+const InviteModal = ({
+  isOpen,
+  applicantData,
+  onClickEvent,
+  pid,
+  applicantKey,
+}: props) => {
   const { isOpen: isAlertOpen, handleModalStateChange: onAlertClickEvent } =
     useModal(false);
-
-  const [key, setKey] = useState('');
-
-  const { data: postData } = useQuery({
-    queryKey: ['6zDpuv1af8LzMlQkmceO'], //currentUser.uid로 수정
-    queryFn: () => findWithCollectionName('post', '6zDpuv1af8LzMlQkmceO'), //currentUser.uid로 수정
-  });
-  const applicants = postData?.applicants;
-  const uidArray = Object.keys(applicants).map((keys: any, idx: number) => {
-    // if (keys === 'userID') {
-    //   setKey(keys);
-    // }
-  });
-  // console.log(key);
-
+  // console.log('inviteModal', applicantData[applicantKey]);
+  // console.log('key', applicantKey);
   const { mutate: applicantMutate } = useMutation(() =>
     updateParticipants(
       pid, //pid로 수정
-      'userID', //currentUser.uid로 수정
+      applicantData[applicantKey]?.uid, //지원자uid
       true,
     ),
   );
-
-  useEffect(() => {
-    if (isOpen) {
-      const prevScrollY = preventScroll();
-      return () => {
-        allowScroll(prevScrollY);
-      };
-    }
-  }, [isOpen]);
 
   return (
     <>
@@ -61,21 +46,23 @@ const InviteModal = ({ isOpen, applicantData, onClickEvent, pid }: props) => {
       />
       <ModalContainer isOpen={isOpen}>
         <ModalWrapper>
-          <UserProfileImage src={applicantData?.profileURL} />
+          <UserProfileImage src={applicantData[applicantKey]?.profileURL} />
           <UserSkillsContainer>
-            {applicantData?.skills.map((skill: string) => {
+            {applicantData[applicantKey]?.skills.map((skill: string) => {
               return <Skills key={skill}>{skill}</Skills>;
             })}
             을/를 경험해 본 팀원이네요!
           </UserSkillsContainer>
 
-          <InviteTitle>{applicantData?.displayName} 님을</InviteTitle>
+          <InviteTitle>
+            {applicantData[applicantKey]?.displayName} 님을
+          </InviteTitle>
           <InviteTitle>팀원으로 초대할까요?</InviteTitle>
 
           <MotiveContainer>
             <MotiveTitle>지원 동기</MotiveTitle>
             <MotiveContentWrap>
-              <MotiveText>{applicantData?.motive}</MotiveText>
+              <MotiveText>{applicantData[applicantKey]?.motive}</MotiveText>
             </MotiveContentWrap>
             <MotiveButtonContainer>
               <MotiveButton onClick={onClickEvent}>아니오</MotiveButton>

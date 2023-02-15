@@ -69,6 +69,7 @@ export const updateApplicants = async (
     {
       applicants: {
         [uid]: {
+          uid: uid,
           displayName: displayName,
           profileURL: profileURL,
           skills: skills,
