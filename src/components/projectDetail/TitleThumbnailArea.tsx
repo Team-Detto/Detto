@@ -4,18 +4,17 @@ import COLORS from 'assets/styles/colors';
 import { useMutation } from '@tanstack/react-query';
 import { deleteProject } from 'apis/postDetail';
 import ConfirmAlert from 'components/common/ConfirmAlert';
-import { useModal } from 'hooks';
+import { useAuth, useModal } from 'hooks';
 import { useNavigate } from 'react-router-dom';
 
 const TitleThumbnailArea = (props: any) => {
   const navigate = useNavigate();
   const { projectData, pid } = props;
   const { thumbnail, title, isRecruiting } = projectData;
-  console.log('projectData :', projectData);
   const { isOpen, handleModalStateChange } = useModal(false);
   //글 삭제하기
   const { mutate: deleteProjectMutate } = useMutation(() => deleteProject(pid));
-
+  const { uid } = useAuth();
   const handleDeleteProject = () => {
     //삭제하기 버튼 클릭시
     //1. 프로젝트 삭제
@@ -46,15 +45,17 @@ const TitleThumbnailArea = (props: any) => {
           )}
           <ProjectTitle>{title}</ProjectTitle>
         </ProjectTitleWrapper>
-        {/* currentUser가 글쓴이인지 비교 true이면 수정하기 버튼 보여주기  */}
-        <ModifyDeleteButtonWrap>
-          <ModifyDeleteButton onClick={handleModalStateChange}>
-            글 삭제하기
-          </ModifyDeleteButton>
-          <Link to={`/project/write/${pid}`} state={projectData}>
-            <ModifyDeleteButton>수정하기</ModifyDeleteButton>
-          </Link>
-        </ModifyDeleteButtonWrap>
+
+        {uid === projectData.uid && (
+          <ModifyDeleteButtonWrap>
+            <ModifyDeleteButton onClick={handleModalStateChange}>
+              글 삭제하기
+            </ModifyDeleteButton>
+            <Link to={`/project/write/${pid}`} state={projectData}>
+              <ModifyDeleteButton>수정하기</ModifyDeleteButton>
+            </Link>
+          </ModifyDeleteButtonWrap>
+        )}
       </TitleToModifyButtonWrap>
       <ProjectThumbnail src={thumbnail} />
     </>

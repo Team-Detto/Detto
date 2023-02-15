@@ -11,7 +11,7 @@ import ApplyButtonArea from 'components/projectDetail/ApplyButtonArea';
 import ApplicantListArea from 'components/projectDetail/ApplicantListArea';
 import COLORS from 'assets/styles/colors';
 import { useQuery } from '@tanstack/react-query';
-import { useModal } from 'hooks';
+import { useAuth, useModal } from 'hooks';
 import ApplyModal from 'components/projectDetail/modals/ApplyModal';
 
 const ProjectDetailPage = () => {
@@ -22,7 +22,7 @@ const ProjectDetailPage = () => {
     queryKey: ['post', params?.id],
     queryFn: () => viewProject(params?.id),
   });
-
+  const { uid } = useAuth();
   //글쓴이 조회
   const { data: userData } = useQuery({
     queryKey: ['users', projectData?.uid],
@@ -64,12 +64,13 @@ const ProjectDetailPage = () => {
             pid={params.id as string}
           />
           {/* currentUser랑 글쓴이uid랑 같으면 보이게하기 */}
-
-          <ApplicantListArea
-            projectData={projectData}
-            userData={userData}
-            pid={params?.id}
-          />
+          {projectData?.uid === uid && (
+            <ApplicantListArea
+              projectData={projectData}
+              userData={userData}
+              pid={params?.id}
+            />
+          )}
         </WebContainer>
       )}
     </ProjectDetailContainer>
