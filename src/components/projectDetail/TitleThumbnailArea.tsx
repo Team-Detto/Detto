@@ -1,31 +1,61 @@
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
+import { useMutation } from '@tanstack/react-query';
+import { deleteProject } from 'apis/postDetail';
+import ConfirmAlert from 'components/common/ConfirmAlert';
+import { useModal } from 'hooks';
+import { useNavigate } from 'react-router-dom';
 
 const TitleThumbnailArea = (props: any) => {
-  const { projectData, params } = props;
-  console.log('projectData :', projectData);
+  const navigate = useNavigate();
+  const { projectData, pid } = props;
+  const { thumbnailURL, title, isRecruiting } = projectData;
+  const { isOpen, handleModalStateChange } = useModal(false);
+  //글 삭제하기
+  const { mutate: deleteProjectMutate } = useMutation(() => deleteProject(pid));
+
+  const handleDeleteProject = () => {
+    //삭제하기 버튼 클릭시
+    //1. 프로젝트 삭제
+    deleteProjectMutate(pid);
+    //2. 프로젝트에 참여중인 멤버들의 참여중인 프로젝트 목록에서 삭제
+    //3. 프로젝트에 지원한 멤버들의 지원한 프로젝트 목록에서 삭제
+    // => 모든 user데이터 조회???
+  };
 
   return (
     <>
+      <ConfirmAlert
+        isOpen={isOpen}
+        message="정말 삭제할까요?"
+        subMessage="게시글은 바로 사라집니다!"
+        onClickEvent={() => {
+          handleDeleteProject();
+          navigate('/');
+        }}
+        onCloseEvent={handleModalStateChange}
+      />
       <TitleToModifyButtonWrap>
         <ProjectTitleWrapper>
-          {projectData?.isRecruiting ? (
+          {isRecruiting ? (
             <RecruitingDiv>모집중</RecruitingDiv>
           ) : (
             <RecruitedDiv>모집완료</RecruitedDiv>
           )}
-          <ProjectTitle>{projectData?.title}</ProjectTitle>
+          <ProjectTitle>{title}</ProjectTitle>
         </ProjectTitleWrapper>
         {/* currentUser가 글쓴이인지 비교 true이면 수정하기 버튼 보여주기  */}
         <ModifyDeleteButtonWrap>
-          <ModifyDeleteButton>글 삭제하기</ModifyDeleteButton>
-          <Link to={`/project/write/${params}`} state={projectData}>
+          <ModifyDeleteButton onClick={handleModalStateChange}>
+            글 삭제하기
+          </ModifyDeleteButton>
+          <Link to={`/project/write/${pid}`} state={projectData}>
             <ModifyDeleteButton>수정하기</ModifyDeleteButton>
           </Link>
         </ModifyDeleteButtonWrap>
       </TitleToModifyButtonWrap>
-      <ProjectThumbnail src={projectData?.thumbnailURL} />
+      <ProjectThumbnail src={thumbnailURL} />
     </>
   );
 };

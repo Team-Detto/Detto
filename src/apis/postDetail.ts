@@ -7,6 +7,7 @@ import {
   arrayRemove,
   setDoc,
   FieldValue,
+  deleteDoc,
 } from 'firebase/firestore';
 
 // 프로젝트 상세 조회
@@ -101,3 +102,9 @@ export const updateParticipants = async (
     { merge: true },
   );
 };
+
+
+export const deleteProject = async (pid: string) => {
+  const docRef = doc(firestore, 'post', pid);
+  await deleteDoc(docRef);
+}
