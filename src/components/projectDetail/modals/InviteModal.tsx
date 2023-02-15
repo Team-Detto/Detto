@@ -4,26 +4,35 @@ import Alert from 'components/common/Alert';
 import { useModal } from 'hooks';
 import { useEffect } from 'react';
 import { allowScroll, preventScroll } from 'utils/modal';
-
+import { useMutation } from '@tanstack/react-query';
+import { updateParticipants } from 'apis/postDetail';
+import { useParams } from 'react-router-dom';
 interface props {
   isOpen: boolean;
   applicantData: any;
   onClickEvent: () => void;
-  onCloseEvent: () => void;
+  pid: string;
+  applicantKey: string;
 }
 
-const InviteModal = ({ isOpen, applicantData, onClickEvent }: props) => {
+const InviteModal = ({
+  isOpen,
+  applicantData,
+  onClickEvent,
+  pid,
+  applicantKey,
+}: props) => {
   const { isOpen: isAlertOpen, handleModalStateChange: onAlertClickEvent } =
     useModal(false);
-
-  useEffect(() => {
-    if (isOpen) {
-      const prevScrollY = preventScroll();
-      return () => {
-        allowScroll(prevScrollY);
-      };
-    }
-  }, [isOpen]);
+  // console.log('inviteModal', applicantData[applicantKey]);
+  // console.log('key', applicantKey);
+  const { mutate: applicantMutate } = useMutation(() =>
+    updateParticipants(
+      pid, //pid로 수정
+      applicantData[applicantKey]?.uid, //지원자uid
+      true,
+    ),
+  );
 
   return (
     <>
@@ -33,24 +42,27 @@ const InviteModal = ({ isOpen, applicantData, onClickEvent }: props) => {
         mainMsg="팀원을 초대했어요!"
         subMsg="현재 참여한 인원에서 확인할 수 있어요!"
         usage="done"
+        page="apply"
       />
       <ModalContainer isOpen={isOpen}>
         <ModalWrapper>
-          <UserProfileImage src={applicantData?.profileURL} />
+          <UserProfileImage src={applicantData[applicantKey]?.profileURL} />
           <UserSkillsContainer>
-            {applicantData?.skills.map((skill: string) => {
+            {applicantData[applicantKey]?.skills.map((skill: string) => {
               return <Skills key={skill}>{skill}</Skills>;
             })}
             을/를 경험해 본 팀원이네요!
           </UserSkillsContainer>
 
-          <InviteTitle>{applicantData?.displayName} 님을</InviteTitle>
+          <InviteTitle>
+            {applicantData[applicantKey]?.displayName} 님을
+          </InviteTitle>
           <InviteTitle>팀원으로 초대할까요?</InviteTitle>
 
           <MotiveContainer>
             <MotiveTitle>지원 동기</MotiveTitle>
             <MotiveContentWrap>
-              <MotiveText>{applicantData?.motive}</MotiveText>
+              <MotiveText>{applicantData[applicantKey]?.motive}</MotiveText>
             </MotiveContentWrap>
             <MotiveButtonContainer>
               <MotiveButton onClick={onClickEvent}>아니오</MotiveButton>
@@ -58,6 +70,9 @@ const InviteModal = ({ isOpen, applicantData, onClickEvent }: props) => {
                 onClick={() => {
                   onClickEvent();
                   onAlertClickEvent();
+                  applicantMutate();
+                  //데이터 추가
+                  //데이터 삭제
                 }}
               >
                 네, 초대할게요!

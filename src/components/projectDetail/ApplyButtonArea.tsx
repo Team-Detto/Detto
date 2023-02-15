@@ -2,11 +2,7 @@ import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import { useState } from 'react';
 
-const ApplyButtonArea = ({
-  projectData,
-  userData,
-  onOpenButtonClickEvent,
-}: any) => {
+const ApplyButtonArea = ({ onOpenButtonClickEvent }: any) => {
   const [ApplyButtonTitle, setApplyButtonTitle] = useState('간단 지원하기');
   const handleApplyButtonClick = (e: React.MouseEvent) => {
     e.preventDefault();
