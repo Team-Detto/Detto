@@ -7,14 +7,17 @@ import { UserInfo } from 'types/mypage/userInfo';
 interface PositionCheckBoxProps {
   positions: string[];
   setUserInfo: React.Dispatch<React.SetStateAction<UserInfo>>;
+  handleButtonActive: () => void;
 }
 
 const PositionCheckBox = ({
   positions,
   setUserInfo,
+  handleButtonActive,
 }: PositionCheckBoxProps) => {
   const handleCheckedPositionsChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
+      handleButtonActive();
       const { value, checked } = e.target;
 
       if (checked) {

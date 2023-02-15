@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import styled from '@emotion/styled';
 import { useModal, useUpdateProfile } from 'hooks';
+import styled from '@emotion/styled';
 import useProfileImage from 'hooks/useProfileImage';
 import MyPageProfileImage from './MyPageProfileImage';
 import PositionCheckBox from './PositionCheckBox';
@@ -19,9 +19,14 @@ interface MypageInfoProps {
 }
 
 const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
-  const [isActive, setIsActive] = useState<boolean>(false);
-  const { userInfo, setUserInfo, handleNicknameChange, validationMessage } =
-    useUpdateProfile();
+  const {
+    userInfo,
+    setUserInfo,
+    handleNicknameChange,
+    validationMessage,
+    activeButton,
+    handleButtonActive,
+  } = useUpdateProfile();
   const { isOpen, handleModalStateChange } = useModal(false);
   const { profileImg, handleProfileImageChange, handleProfileImageDelete } =
     useProfileImage(uid, userInfo.photoURL);
@@ -32,16 +37,10 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
 
   // DB로 수정 정보 업데이트
   const handleUserInfoUpdate = () => {
-    console.log('plannerStack', userInfo.plannerStack);
-    console.log('designerStack', userInfo.designerStack);
-    console.log('developerStack', userInfo.developerStack);
-
     setUserInfo((prev) => {
       return {
         ...prev,
-        plannerStack: userInfo.plannerStack,
-        designerStack: userInfo.designerStack,
-        developerStack: userInfo.developerStack,
+
         photoURL: profileImg,
       };
     });
@@ -51,22 +50,18 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
   };
 
   useEffect(() => {
-    if (user) {
-      setUserInfo({
-        displayName: user?.displayName,
-        photoURL: user?.photoURL,
-        isJunior: user?.isJunior,
-        positions: user?.positions,
-        plannerStack: user?.plannerStack || [''],
-        designerStack: user?.designerStack || [''],
-        developerStack: user?.developerStack || [''],
-      });
-    }
-  }, [user]);
+    if (!user) return;
 
-  useEffect(() => {
-    setIsActive(!isActive);
-  }, [userInfo]);
+    setUserInfo({
+      displayName: user?.displayName,
+      photoURL: user?.photoURL,
+      isJunior: user?.isJunior,
+      positions: user?.positions,
+      plannerStack: user?.plannerStack || [''],
+      designerStack: user?.designerStack || [''],
+      developerStack: user?.developerStack || [''],
+    });
+  }, [user]);
 
   return (
     <MyPageTopContainer>
@@ -88,11 +83,16 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
           </InfoItemDiv>
           <InfoItemDiv>
             <InfoTitle>경력</InfoTitle>
-            <Careers isJunior={userInfo.isJunior} setUserInfo={setUserInfo} />
+            <Careers
+              isJunior={userInfo.isJunior}
+              setUserInfo={setUserInfo}
+              handleButtonActive={handleButtonActive}
+            />
           </InfoItemDiv>
           <InfoItemDiv>
             <InfoTitle>포지션</InfoTitle>
             <PositionCheckBox
+              handleButtonActive={handleButtonActive}
               positions={userInfo.positions}
               setUserInfo={setUserInfo}
             />
@@ -106,23 +106,26 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
             category="기획"
             skills={products}
             checkedSkills={userInfo.plannerStack}
+            setUserInfo={setUserInfo}
           />
           <SkillList
             category="디자인"
             skills={designs}
             checkedSkills={userInfo.designerStack}
+            setUserInfo={setUserInfo}
           />
           <SkillList
             category="개발"
             skills={develops}
             checkedSkills={userInfo.developerStack}
+            setUserInfo={setUserInfo}
           />
         </MypageSkillBox>
       </MyPageSkillsWrapper>
 
       <InfoEditConfirmWrapper>
         <InfoEditConfirmBtn
-          isActive={isActive}
+          isActive={activeButton}
           onClick={handleModalStateChange}
         >
           개인정보 수정 완료
@@ -130,8 +133,8 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
       </InfoEditConfirmWrapper>
       <ConfirmAlert
         isOpen={isOpen}
-        message="게시물을 업로드할까요?"
-        subMessage="작성한 게시물은 마이페이지에서 볼 수 있습니다."
+        message="개인정보를 수정할까요?"
+        subMessage="수정한 정보는 곧바로 반영됩니다!"
         onClickEvent={handleUserInfoUpdate}
         onCloseEvent={handleModalStateChange}
       />
@@ -194,4 +197,9 @@ const InfoEditConfirmBtn = styled.button<{ isActive: boolean }>`
   background-color: ${({ isActive }) =>
     isActive ? COLORS.violetB500 : COLORS.gray100};
   color: ${({ isActive }) => (isActive ? COLORS.white : COLORS.gray750)};
+  transition: all 300ms ease-in-out;
+
+  &:hover {
+    background-color: ${COLORS.violetB300};
+  }
 `;
