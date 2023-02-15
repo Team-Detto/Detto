@@ -4,7 +4,7 @@ import COLORS from 'assets/styles/colors';
 const MemberInfoArea = () => {
   return (
     <MemberInfoWrapper>
-      <MemberInfoTitle>현재 참여중인 인원</MemberInfoTitle>
+      <MemberInfoTitle>현재 참여 중인 인원</MemberInfoTitle>
       <MemberInfoBox>
         <MemberInfoDiv>
           <PositionDiv>기획</PositionDiv>
