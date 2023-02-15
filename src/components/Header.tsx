@@ -1,9 +1,10 @@
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
 import WebContainer from './common/WebContainer';
 import PopupContainer from './popup/PopupContainer';
 import { useGlobalModal, useHeader, usePopup } from 'hooks';
 import COLORS from 'assets/styles/colors';
+import { useEffect } from 'react';
 
 interface headerTypes {
   isMain: boolean;
@@ -11,9 +12,15 @@ interface headerTypes {
 }
 
 const Header = () => {
-  const { toggleNoteBox, toggleNotificationBox } = usePopup();
+  const { closePopup, toggleNoteBox, toggleNotificationBox } = usePopup();
   const { openModal } = useGlobalModal();
   const { isMain, isLoggedIn, hideGradient, handleLogoutClick } = useHeader();
+  const location = useLocation();
+
+  // 페이지 이동 시 팝업 닫기
+  useEffect(() => {
+    closePopup();
+  }, [location.pathname]);
 
   return (
     <HeaderContainer isMain={isMain} hideGradient={hideGradient}>
