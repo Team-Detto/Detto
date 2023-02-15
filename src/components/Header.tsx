@@ -1,9 +1,11 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import WebContainer from './common/WebContainer';
 import { useEffect, useState } from 'react';
 import PopupContainer from './popup/PopupContainer';
 import { useGlobalModal, usePopup } from 'hooks';
+import { signOut } from 'firebase/auth';
+import { authService } from 'apis/firebaseService';
 
 interface headerTypes {
   isMain: boolean;
@@ -15,12 +17,17 @@ const MAIN_SCROLL_Y = 480;
 
 const Header = () => {
   const [hideGradient, setHideGradient] = useState<boolean>(true);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const navigate = useNavigate();
   const location = useLocation();
   const isMain = location.pathname === '/';
 
   const { toggleNoteBox, toggleNotificationBox } = usePopup();
   const { openModal } = useGlobalModal();
 
+  const userLocal = localStorage.getItem('user');
+
+  // 높이에 따라 배경색 그라디언트 표시 여부 결정하는 함수
   const showHeaderGradientBackground = () => {
     const { scrollY } = window;
     scrollY > MAIN_SCROLL_Y ? setHideGradient(false) : setHideGradient(true);
@@ -35,6 +42,12 @@ const Header = () => {
       window.removeEventListener('scroll', showHeaderGradientBackground);
     };
   }, [isMain]);
+
+  useEffect(() => {
+    if (userLocal) {
+      setIsLoggedIn(true);
+    }
+  }, [userLocal]);
 
   return (
     <HeaderContainer isMain={isMain} hideGradient={hideGradient}>
@@ -53,16 +66,24 @@ const Header = () => {
               <NavItemLi>
                 <Link to={'/findproject'}>팀원찾기</Link>
               </NavItemLi>
-              <NavItemLi onClick={toggleNoteBox}>쪽지</NavItemLi>
-              <NavItemLi onClick={toggleNotificationBox}>알림</NavItemLi>
-              <NavItemLi onClick={() => openModal('login', 0)}>
-                로그인하기
-              </NavItemLi>
+              {isLoggedIn && (
+                <NavItemLi onClick={toggleNoteBox}>쪽지</NavItemLi>
+              )}
+              {isLoggedIn && (
+                <NavItemLi onClick={toggleNotificationBox}>알림</NavItemLi>
+              )}
+              {!isLoggedIn && (
+                <NavItemLi onClick={() => openModal('login', 0)}>
+                  로그인하기
+                </NavItemLi>
+              )}
               {/* 임시 주석처리 */}
-              {/* <NavItemLi>
-                <Link to={'/mypage'}>마이페이지</Link>
-              </NavItemLi>
-              <NavItemLi>로그아웃하기</NavItemLi> */}
+              {isLoggedIn && (
+                <NavItemLi>
+                  <Link to={'/mypage'}>마이페이지</Link>
+                </NavItemLi>
+              )}
+              {isLoggedIn && <NavItemLi>로그아웃</NavItemLi>}
             </NavListUl>
           </Nav>
         </HeaderWrapper>
