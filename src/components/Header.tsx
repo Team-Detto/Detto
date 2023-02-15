@@ -2,9 +2,12 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
 import WebContainer from './common/WebContainer';
 import PopupContainer from './popup/PopupContainer';
-import { useGlobalModal, useHeader, usePopup } from 'hooks';
+import { useAuth, useGlobalModal, useHeader, usePopup } from 'hooks';
 import COLORS from 'assets/styles/colors';
 import { useEffect } from 'react';
+import { useQueries } from '@tanstack/react-query';
+import { getInboxNotes } from 'apis/note';
+import { getNotifications } from 'apis/notification';
 
 interface headerTypes {
   isMain: boolean;
@@ -22,10 +25,24 @@ const Header = () => {
     closePopup();
   }, [location.pathname]);
 
+  const { uid } = useAuth();
+  const [{ data: notes }, { data: notifiactions }] = useQueries({
+    queries: [
+      {
+        queryKey: ['inbox', uid],
+        queryFn: getInboxNotes,
+      },
+      {
+        queryKey: ['notifications', uid],
+        queryFn: getNotifications,
+      },
+    ],
+  });
+
   return (
     <HeaderContainer isMain={isMain} hideGradient={hideGradient}>
       <WebContainer>
-        <PopupContainer /> {/* 쪽지, 알림 팝업 컨테이너 */}
+        <PopupContainer />
         <HeaderWrapper>
           <LogoBoxH1>
             <Link to={'/'}> Detto</Link>
@@ -39,10 +56,16 @@ const Header = () => {
                 <NavItemLink to={'/findproject'}>팀원찾기</NavItemLink>
               </NavItemLi>
               {isLoggedIn && (
-                <NavItemLi onClick={toggleNoteBox}>쪽지</NavItemLi>
+                <NavItemLi onClick={toggleNoteBox}>
+                  쪽지
+                  <Count>({notes ? notes.length : 0})</Count>
+                </NavItemLi>
               )}
               {isLoggedIn && (
-                <NavItemLi onClick={toggleNotificationBox}>알림</NavItemLi>
+                <NavItemLi onClick={toggleNotificationBox}>
+                  알림
+                  <Count>({notifiactions ? notifiactions.length : 0})</Count>
+                </NavItemLi>
               )}
               {!isLoggedIn && (
                 <NavItemLi onClick={() => openModal('login', 0)}>
@@ -125,6 +148,10 @@ const NavItemLi = styled.li`
     color: ${COLORS.violetB500};
     transform: scale(1.01);
   }
+`;
+
+const Count = styled.span`
+  color: ${COLORS.violetB500};
 `;
 
 const NavItemLink = styled(NavLink)`
