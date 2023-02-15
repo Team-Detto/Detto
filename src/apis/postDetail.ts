@@ -43,3 +43,23 @@ export const updateMyProject = async (
     await updateDoc(docRef, { likedProjects: arrayRemove(pid) });
   }
 };
+
+export const updateApplicants = async (
+  pid: string,
+  displayName: string,
+  profileURL: string,
+  skills: string[],
+  position: string,
+  motive: string,
+) => {
+  const docRef = doc(firestore, 'post', pid);
+  await updateDoc(docRef, {
+    applicants: arrayUnion({
+      displayName: displayName,
+      profileURL: profileURL,
+      skills: skills,
+      position: position,
+      motive: motive,
+    }),
+  });
+};

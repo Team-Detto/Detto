@@ -11,7 +11,6 @@ import ApplyButtonArea from 'components/projectDetail/ApplyButtonArea';
 import ApplicantListArea from 'components/projectDetail/ApplicantListArea';
 import COLORS from 'assets/styles/colors';
 import { useQuery } from '@tanstack/react-query';
-
 import { useModal } from 'hooks';
 import ApplyModal from 'components/projectDetail/modals/ApplyModal';
 
@@ -36,7 +35,6 @@ const ProjectDetailPage = () => {
 
   return (
     <ProjectDetailContainer>
-      {(projectIsLoading || userIsLoading) && <div>로딩중</div>}
       {projectData && userData && (
         <WebContainer>
           <ProjectDetailWrapper>

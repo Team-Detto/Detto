@@ -5,6 +5,9 @@ import PositionButton from 'components/common/ApplyPositionButton';
 import { useModal } from 'hooks';
 import { useEffect, useState } from 'react';
 import { allowScroll, preventScroll } from 'utils/modal';
+import { positionList } from 'utils/positions';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { findWithCollectionName, updateApplicants } from 'apis/postDetail';
 
 interface props {
   isOpen: boolean;
@@ -16,8 +19,25 @@ const ApplyModal = ({ isOpen, message, onClickEvent }: props) => {
   const { isOpen: isAlertOpen, handleModalStateChange: onAlertClickEvent } =
     useModal(false);
   const [usage, setUsage] = useState('done');
-  const [text, setText] = useState('');
+  const [motive, setMotive] = useState('');
   const [clickValue, setClickValue] = useState(-1);
+
+  const { data: userData } = useQuery({
+    queryKey: ['userID'], //currentUser.uid로 수정
+    queryFn: () => findWithCollectionName('user', 'userID'), //currentUser.uid로 수정
+  });
+
+  const { mutate: applicantMutate } = useMutation(() =>
+    updateApplicants(
+      '6zDpuv1af8LzMlQkmceO',
+      userData?.displayName,
+      userData?.photoURL,
+      userData?.skills,
+      positionList[clickValue].name,
+      motive,
+    ),
+  );
+
   useEffect(() => {
     if (isOpen) {
       const prevScrollY = preventScroll();
@@ -51,8 +71,8 @@ const ApplyModal = ({ isOpen, message, onClickEvent }: props) => {
             <MotiveContentWrap>
               <MotiveTextArea
                 placeholder="지원동기를 입력해주세요"
-                onChange={(e) => setText(e.target.value)}
-                value={text}
+                onChange={(e: any) => setMotive(e.target.value)}
+                value={motive}
               />
             </MotiveContentWrap>
           </MotiveContainer>
@@ -60,25 +80,35 @@ const ApplyModal = ({ isOpen, message, onClickEvent }: props) => {
         <ApplyButtonContainer>
           <MotiveButton
             onClick={() => {
-              setText('');
-              setClickValue(-1);
-              onClickEvent();
+              setMotive(''); //지원동기 초기화
+              setClickValue(-1); //포지션 초기화
+              onClickEvent(); //모달 닫기
             }}
           >
             아니오
           </MotiveButton>
           <MotiveButton
             onClick={() => {
-              if (text === '' || clickValue === -1) {
+              if (motive === '' || clickValue === -1) {
                 setUsage('fail');
                 onAlertClickEvent();
                 return;
               } else {
                 setUsage('done');
-                setText('');
+                setMotive('');
                 setClickValue(-1);
                 onClickEvent();
                 onAlertClickEvent();
+
+                applicantMutate(userData?.uid);
+                console.log(
+                  '포지션:',
+                  positionList[clickValue].name,
+                  '지원동기:',
+                  motive,
+                );
+                //버튼 변경 이벤트
+                //데이터 삽입,삭제 이벤트
               }
             }}
           >
@@ -235,7 +265,7 @@ const ApplyButtonContainer = styled.div`
 const AlertButton = styled.button`
   display: flex;
   flex-direction: row;
-  text-align: center;
+  motive-align: center;
   justify-content: center;
   padding: 21px 95px;
   gap: 10px;
