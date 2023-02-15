@@ -19,13 +19,15 @@ const ApplicantListArea = ({ projectData, pid }: any) => {
     }
   }, [isOpen]);
 
+  let countFlag = 0;
   return (
     <ApplicantListContainer>
       <ApplicantListTitle>지원자 목록</ApplicantListTitle>
       <ApplicantListContent>
-        {applicants && applicants ? (
+        {applicants &&
           Object.keys(applicants).map((key) => {
-            if (applicants[key]?.recruit === false)
+            if (applicants[key]?.recruit === false) {
+              countFlag += 1;
               return (
                 <ApplicantWrap key={applicants[key]?.uid}>
                   <ProfileImage src={applicants[key]?.profileURL} />
@@ -53,11 +55,12 @@ const ApplicantListArea = ({ projectData, pid }: any) => {
                   />
                 </ApplicantWrap>
               );
-          })
-        ) : (
-          <CannotFoundApplicant>아직 지원자가 없습니다 :/</CannotFoundApplicant>
-        )}
+            }
+          })}
       </ApplicantListContent>
+      {countFlag === 0 && (
+        <CannotFoundApplicant>아직 지원자가 없어요 :/</CannotFoundApplicant>
+      )}
     </ApplicantListContainer>
   );
 };

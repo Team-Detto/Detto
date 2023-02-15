@@ -99,3 +99,9 @@ export const deleteProject = async (pid: string) => {
   const docRef = doc(firestore, 'post', pid);
   await deleteDoc(docRef);
 };
+
+export const updateRecruiting = async (pid: string, isRecruiting: any) => {
+  const docRef = doc(firestore, 'post', pid);
+  await updateDoc(docRef, { isRecruiting: isRecruiting });
+  console.log('isRecruit', isRecruiting);
+};
