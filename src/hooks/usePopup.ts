@@ -19,8 +19,17 @@ const usePopup = () => {
     });
   };
 
+  // 팝업 닫기 (페이지 이동 시 모든 팝업을 닫기 위한 목적)
+  const closePopup = () => {
+    setPopup({
+      isNoteOpen: false,
+      isNotificationOpen: false,
+    });
+  };
+
   return {
     popup,
+    closePopup,
     toggleNoteBox,
     toggleNotificationBox,
   };

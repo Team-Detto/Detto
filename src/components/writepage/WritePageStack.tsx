@@ -15,11 +15,11 @@ const WritePageStack = ({ writeFormValue, setWriteFormValue }: Props) => {
         <WritePageStackText>필요 스택</WritePageStackText>
       </WritePageLeftBox>
       <WirtePageRightBox>
-        <WritePageStackProductBox>
-          <WritePageStackProductLeftBox>
+        <WritePageStackBox>
+          <WritePageStackLeftBox>
             <WritePageStackCategoryText>기획</WritePageStackCategoryText>
-          </WritePageStackProductLeftBox>
-          <WritePageStackProductRightBox>
+          </WritePageStackLeftBox>
+          <WritePageStackRightBox>
             {products.map((product: string) => (
               <SkillButton
                 key={product}
@@ -29,13 +29,13 @@ const WritePageStack = ({ writeFormValue, setWriteFormValue }: Props) => {
                 setValue={setWriteFormValue}
               />
             ))}
-          </WritePageStackProductRightBox>
-        </WritePageStackProductBox>
-        <WritePageStackDesignBox>
-          <WritePageStackDesignLeftBox>
+          </WritePageStackRightBox>
+        </WritePageStackBox>
+        <WritePageStackBox>
+          <WritePageStackLeftBox>
             <WritePageStackCategoryText>디자인</WritePageStackCategoryText>
-          </WritePageStackDesignLeftBox>
-          <WritePageStackDesignRightBox>
+          </WritePageStackLeftBox>
+          <WritePageStackRightBox>
             {designs.map((design: string) => (
               <SkillButton
                 key={design}
@@ -45,13 +45,13 @@ const WritePageStack = ({ writeFormValue, setWriteFormValue }: Props) => {
                 setValue={setWriteFormValue}
               />
             ))}
-          </WritePageStackDesignRightBox>
-        </WritePageStackDesignBox>
-        <WritePageStackDeveloopBox>
-          <WritePageStackDevelopLeftBox>
+          </WritePageStackRightBox>
+        </WritePageStackBox>
+        <WritePageStackBox>
+          <WritePageStackLeftBox>
             <WritePageStackCategoryText>개발</WritePageStackCategoryText>
-          </WritePageStackDevelopLeftBox>
-          <WritePageStackDevelopRightBox>
+          </WritePageStackLeftBox>
+          <WritePageStackRightBox>
             {develops.map((develop: string) => (
               <SkillButton
                 key={develop}
@@ -61,8 +61,8 @@ const WritePageStack = ({ writeFormValue, setWriteFormValue }: Props) => {
                 setValue={setWriteFormValue}
               />
             ))}
-          </WritePageStackDevelopRightBox>
-        </WritePageStackDeveloopBox>
+          </WritePageStackRightBox>
+        </WritePageStackBox>
       </WirtePageRightBox>
     </WritePageStackContainer>
   );
@@ -91,45 +91,15 @@ const WritePageStackText = styled.h2`
   letter-spacing: -0.02rem;
   color: #383838;
 `;
-const WritePageStackProductBox = styled.div`
+const WritePageStackBox = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
 `;
-const WritePageStackProductLeftBox = styled.div`
+const WritePageStackLeftBox = styled.div`
   width: 8%;
 `;
-const WritePageStackProductRightBox = styled.div`
-  width: 90%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 1rem;
-`;
-const WritePageStackDeveloopBox = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-`;
-const WritePageStackDevelopLeftBox = styled.div`
-  width: 8%;
-`;
-const WritePageStackDevelopRightBox = styled.div`
-  width: 90%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 1rem;
-`;
-const WritePageStackDesignBox = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-`;
-const WritePageStackDesignLeftBox = styled.div`
-  width: 8%;
-`;
-const WritePageStackDesignRightBox = styled.div`
+const WritePageStackRightBox = styled.div`
   width: 90%;
   display: flex;
   flex-direction: row;

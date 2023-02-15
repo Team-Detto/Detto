@@ -1,17 +1,37 @@
-import React from 'react';
 import ContantCard from 'components/ContentCard';
 import styled from '@emotion/styled';
+import { EditType } from 'types/write/writeType';
 
 interface Props {
-  projects: any;
+  projects: EditType.EditFormType[];
+  toggle: boolean;
+  onNavigateToProjectDetailEvent: (path: string) => () => void;
 }
 
-const FindProjectList = ({ projects }: Props) => {
+const FindProjectList = ({
+  projects,
+  toggle,
+  onNavigateToProjectDetailEvent,
+}: Props) => {
   return (
     <FindProjectListContainer>
-      {projects.map((project: any) => (
-        <ContantCard key={project.id} />
-      ))}
+      {projects.map((project) =>
+        toggle ? (
+          project.isRecruiting && (
+            <ContantCard
+              key={project.id}
+              project={project}
+              onNavigateToProjectDetailEvent={onNavigateToProjectDetailEvent}
+            />
+          )
+        ) : (
+          <ContantCard
+            key={project.id}
+            project={project}
+            onNavigateToProjectDetailEvent={onNavigateToProjectDetailEvent}
+          />
+        ),
+      )}
     </FindProjectListContainer>
   );
 };

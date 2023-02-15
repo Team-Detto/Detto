@@ -1,13 +1,12 @@
 import { useState, useRef, useCallback, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useModal } from 'hooks';
+import { useAuth, useModal } from 'hooks';
 import { firebaseCreateProjectRequest } from 'apis/boardService';
 import { WriteType } from 'types/write/writeType';
 import {
   titleValidation,
   contentValidation,
   positionValidation,
-  stackValidation,
   periodValidation,
   deadlineValidation,
 } from './../utils/validation';
@@ -22,6 +21,7 @@ const useWrite = () => {
     initialWriteFormValue,
   );
 
+  const { uid } = useAuth();
   const { isOpen, handleModalStateChange } = useModal(false);
 
   const handleCreateProjectButtonClick = async () => {
@@ -30,11 +30,6 @@ const useWrite = () => {
     const isTitleValid = titleValidation(writeFormValue.title);
     const isContentValid = contentValidation(markdownText);
     const isPositionValid = positionValidation(writeFormValue.positions);
-    const isStackValid = stackValidation(
-      writeFormValue.plannerStack,
-      writeFormValue.developerStack,
-      writeFormValue.designerStack,
-    );
     const isPeriodValid = periodValidation(
       writeFormValue.startDate,
       writeFormValue.endDate,
@@ -47,10 +42,6 @@ const useWrite = () => {
     }
     if (!isPositionValid) {
       alert('포지션을 선택해주세요.');
-      return;
-    }
-    if (!isStackValid) {
-      alert('스택을 선택해주세요.');
       return;
     }
     if (!isPeriodValid) {
@@ -66,6 +57,7 @@ const useWrite = () => {
       writeFormValue,
       markdownText,
       imageRef.current.files[0],
+      uid,
     );
     navigate('/', {
       replace: true,
