@@ -10,7 +10,8 @@ import { useNavigate } from 'react-router-dom';
 const TitleThumbnailArea = (props: any) => {
   const navigate = useNavigate();
   const { projectData, pid } = props;
-  const { thumbnailURL, title, isRecruiting } = projectData;
+  const { thumbnail, title, isRecruiting } = projectData;
+  console.log('projectData :', projectData);
   const { isOpen, handleModalStateChange } = useModal(false);
   //글 삭제하기
   const { mutate: deleteProjectMutate } = useMutation(() => deleteProject(pid));
@@ -55,7 +56,7 @@ const TitleThumbnailArea = (props: any) => {
           </Link>
         </ModifyDeleteButtonWrap>
       </TitleToModifyButtonWrap>
-      <ProjectThumbnail src={thumbnailURL} />
+      <ProjectThumbnail src={thumbnail} />
     </>
   );
 };
