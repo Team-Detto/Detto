@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useModal } from 'hooks';
+import { useAuth, useModal } from 'hooks';
 import { firebaseCreateProjectRequest } from 'apis/boardService';
 import { WriteType } from 'types/write/writeType';
 import {
@@ -21,6 +21,7 @@ const useWrite = () => {
     initialWriteFormValue,
   );
 
+  const { uid } = useAuth();
   const { isOpen, handleModalStateChange } = useModal(false);
 
   const handleCreateProjectButtonClick = async () => {
@@ -56,6 +57,7 @@ const useWrite = () => {
       writeFormValue,
       markdownText,
       imageRef.current.files[0],
+      uid,
     );
     navigate('/', {
       replace: true,
