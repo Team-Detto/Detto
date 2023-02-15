@@ -39,7 +39,7 @@ export const updateMyProject = async (
   pid: string,
   isLiked: boolean | undefined,
 ) => {
-  const docRef = doc(firestore, 'myproject', uid);
+  const docRef = doc(firestore, 'myprojects', uid);
   if (isLiked === true) {
     await updateDoc(docRef, { likedProjects: arrayUnion(pid) });
   } else if (isLiked === false) {
@@ -51,7 +51,7 @@ export const updateApplicants = async (
   uid: string,
   displayName: string,
   profileURL: string,
-  skills: string[],
+  skills: any,
   position: string,
   motive: string,
   recruit?: boolean,
@@ -63,6 +63,7 @@ export const updateApplicants = async (
   //   position: position,
   //   motive: motive,
   // };
+  console.log('skills', skills);
   const docRef = doc(firestore, 'post', pid);
   // await setDoc(docRef, { applicants }, { merge: true });
   await setDoc(
@@ -103,8 +104,7 @@ export const updateParticipants = async (
   );
 };
 
-
 export const deleteProject = async (pid: string) => {
   const docRef = doc(firestore, 'post', pid);
   await deleteDoc(docRef);
-}
+};

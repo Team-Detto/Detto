@@ -18,7 +18,6 @@ const ApplicantListArea = ({ projectData, pid }: any) => {
       };
     }
   }, [isOpen]);
-  console.log('applicants', applicants);
 
   return (
     <ApplicantListContainer>
@@ -34,7 +33,6 @@ const ApplicantListArea = ({ projectData, pid }: any) => {
                   <ProfileImage src={applicants[key]?.profileURL} />
                   <NicknameDiv>{applicants[key]?.displayName}</NicknameDiv>
                   <PositionDiv>{applicants[key]?.position}</PositionDiv>
-                  {/* 개발, 디자인, 기획 스킬 모아서 배열로 만든 후에 map돌리기 */}
                   <StackWrap>
                     {applicants[key]?.skills.map((skill: any) => {
                       return <StackDiv key={skill}>{skill}</StackDiv>;

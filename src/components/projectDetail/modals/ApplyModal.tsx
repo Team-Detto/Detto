@@ -8,32 +8,46 @@ import { allowScroll, preventScroll } from 'utils/modal';
 import { positionList } from 'utils/positions';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { findWithCollectionName, updateApplicants } from 'apis/postDetail';
+import { authService } from 'apis/firebaseService';
 
 interface props {
   isOpen: boolean;
   message: string;
   onClickEvent: () => void;
+  pid: string;
 }
 
-const ApplyModal = ({ isOpen, message, onClickEvent }: props) => {
+const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
   const { isOpen: isAlertOpen, handleModalStateChange: onAlertClickEvent } =
     useModal(false);
   const [usage, setUsage] = useState('done');
   const [motive, setMotive] = useState('');
   const [clickValue, setClickValue] = useState(-1);
+  const uid = authService?.currentUser?.uid as string;
 
   const { data: userData } = useQuery({
-    queryKey: ['userID'], //currentUser.uid로 수정
-    queryFn: () => findWithCollectionName('user', 'userID'), //currentUser.uid로 수정
+    queryKey: ['users', uid], //currentUser.uid로 수정
+    queryFn: () => findWithCollectionName('users', uid), //currentUser.uid로 수정
   });
+  //userData 구조 분해 할당
+
+  //디자인스택, 개발스택, 기획 스택 합쳐서 중복제거
+  const skills = Array.from(
+    new Set(
+      userData?.designerStack.concat(
+        userData?.developerStack,
+        userData?.plannerStack,
+      ),
+    ),
+  );
 
   const { mutate: applicantMutate } = useMutation(() =>
     updateApplicants(
-      '6zDpuv1af8LzMlQkmceO', //pid로 수정
-      userData?.uid,
+      pid, //pid로 수정
+      uid,
       userData?.displayName,
       userData?.photoURL,
-      userData?.skills,
+      skills,
       positionList[clickValue].name,
       motive,
       false,
@@ -102,7 +116,7 @@ const ApplyModal = ({ isOpen, message, onClickEvent }: props) => {
                 onClickEvent(); //모달 닫기
                 onAlertClickEvent(); //지원성공 모달 띄우기
 
-                applicantMutate(userData?.uid);
+                applicantMutate(userData?.uid); //지원자 데이터 삽입
                 console.log(
                   '포지션:',
                   positionList[clickValue].name,

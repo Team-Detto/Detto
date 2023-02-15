@@ -24,8 +24,7 @@ const InviteModal = ({
 }: props) => {
   const { isOpen: isAlertOpen, handleModalStateChange: onAlertClickEvent } =
     useModal(false);
-  // console.log('inviteModal', applicantData[applicantKey]);
-  // console.log('key', applicantKey);
+
   const { mutate: applicantMutate } = useMutation(() =>
     updateParticipants(
       pid, //pid로 수정

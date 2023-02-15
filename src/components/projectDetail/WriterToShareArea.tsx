@@ -16,15 +16,15 @@ const WriterToShareArea = ({ projectData, pid, userData }: any) => {
   const { mutate: likedProjectMutate } = useMutation(() =>
     updateMyProject(uid, pid, isLike),
   );
-  const { data: myprojectData } = useQuery({
-    queryKey: ['myproject', uid],
-    queryFn: () => findWithCollectionName('myproject', uid),
+  const { data: myProjectData } = useQuery({
+    queryKey: ['myprojects', uid],
+    queryFn: () => findWithCollectionName('myprojects', uid),
   });
 
   //현재 사용자가 좋아요를 눌렀는지 확인하는 기능
   useEffect(() => {
-    setIsLike(myprojectData?.likedProjects?.includes(pid));
-  }, [myprojectData]);
+    setIsLike(myProjectData?.likedProjects?.includes(pid));
+  }, [myProjectData]);
 
   //isLike가 변경될 때마다 좋아요 수 및 좋아요한 프로젝트를 변경해주는 기능
   useEffect(() => {

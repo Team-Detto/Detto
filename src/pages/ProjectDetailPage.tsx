@@ -25,8 +25,8 @@ const ProjectDetailPage = () => {
 
   //글쓴이 조회
   const { data: userData } = useQuery({
-    queryKey: ['user', projectData?.uid],
-    queryFn: () => findWithCollectionName('user', projectData?.uid), //여기서 TypeError: Cannot read property of undefined 에러남 https://github.com/microsoft/vscode/issues/116219
+    queryKey: ['users', projectData?.uid],
+    queryFn: () => findWithCollectionName('users', projectData?.uid), //여기서 TypeError: Cannot read property of undefined 에러남 https://github.com/microsoft/vscode/issues/116219
   });
 
   const { isOpen, handleModalStateChange } = useModal(false);
@@ -43,7 +43,7 @@ const ProjectDetailPage = () => {
             <TitleThumbnailArea projectData={projectData} pid={params?.id} />
             <WriterToShareArea
               projectData={projectData}
-              pid={params.id}
+              pid={params?.id}
               userData={userData}
             />
             <RecruitmentInfoContainer>
@@ -61,6 +61,7 @@ const ProjectDetailPage = () => {
             isOpen={isOpen}
             message="프로젝트를 지원해볼까요?"
             onClickEvent={handleModalStateChange}
+            pid={params.id as string}
           />
           {/* currentUser랑 글쓴이uid랑 같으면 보이게하기 */}
 
