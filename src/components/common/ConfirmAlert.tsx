@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { allowScroll, preventScroll } from 'utils/modal';
 import styled from '@emotion/styled';
+import COLORS from 'assets/styles/colors';
 
 interface props {
   isOpen: boolean;
@@ -46,7 +47,7 @@ const ConfirmAlert = ({
   );
 };
 
-const ConfirmAlertBackDrop = styled.div`
+export const ConfirmAlertBackDrop = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -55,9 +56,10 @@ const ConfirmAlertBackDrop = styled.div`
   z-index: 0;
   background: rgba(24, 24, 24, 0.14);
   display: ${(props: { isOpen: boolean }) => (props.isOpen ? 'block' : 'none')};
+  z-index: 99;
 `;
 
-const ConfirmAlertContainer = styled.div`
+export const ConfirmAlertContainer = styled.div`
   position: fixed;
   width: 38.125rem;
   height: 19.6875rem;
@@ -71,7 +73,7 @@ const ConfirmAlertContainer = styled.div`
   z-index: 999;
   display: ${(props: { isOpen: boolean }) => (props.isOpen ? 'block' : 'none')};
 `;
-const ConfirmALertInfoContainer = styled.div`
+export const ConfirmALertInfoContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -79,7 +81,7 @@ const ConfirmALertInfoContainer = styled.div`
   gap: 1.5rem;
   padding: 2rem;
 `;
-const ConfirmAlertInviteTitle = styled.p`
+export const ConfirmAlertInviteTitle = styled.p`
   width: 100%;
   font-weight: 600;
   font-size: 2.125rem;
@@ -88,7 +90,7 @@ const ConfirmAlertInviteTitle = styled.p`
   line-height: 140%;
   color: #191f28;
 `;
-const ConfirmAlertSubTitle = styled.p`
+export const ConfirmAlertSubTitle = styled.p`
   width: 100%;
   height: 1.5rem;
   font-weight: 600;
@@ -96,7 +98,7 @@ const ConfirmAlertSubTitle = styled.p`
   line-height: 1.5rem;
   color: #6b7684;
 `;
-const ConfirmAlertButtonContainer = styled.div`
+export const ConfirmAlertButtonContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -104,18 +106,25 @@ const ConfirmAlertButtonContainer = styled.div`
   margin-top: 2rem;
   gap: 1rem;
 `;
-const ConfirmAlertCancelButton = styled.button`
+export const ConfirmAlertCancelButton = styled.button`
   width: 15.9375rem;
   height: 3.75rem;
   background: #f2f4f6;
   border-radius: 0.5rem;
+  transition: all 300ms ease-in-out;
+  color: #505967;
+
+  &:hover {
+    background-color: ${COLORS.gray200};
+  }
 `;
-const ConfirmAlertInviteButton = styled.button`
-  width: 15.9375rem;
-  height: 3.75rem;
+const ConfirmAlertInviteButton = styled(ConfirmAlertCancelButton)`
   background: #6f64f2;
-  color: #ffffff;
-  border-radius: 0.5rem;
+  color: ${COLORS.white};
+
+  &:hover {
+    background-color: ${COLORS.violetB300};
+  }
 `;
 
 export default ConfirmAlert;
