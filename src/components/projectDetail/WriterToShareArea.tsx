@@ -11,7 +11,7 @@ import { RiHeartAddLine, RiHeartAddFill, RiShareBoxLine } from 'react-icons/ri';
 const WriterToShareArea = ({ projectData, pid, userData }: any) => {
   const { uid, like, title, content } = projectData;
   const [countLike, setCountLike] = useState(like);
-  const [isLike, setIsLike] = useState<boolean>(); // 관심버튼 클릭시 true/false로 변경, 초기화해주면 동기화 문제 발생
+  const [isLike, setIsLike] = useState<boolean>(false); // 관심버튼 클릭시 true/false로 변경, 초기화해주면 동기화 문제 발생
   const { mutate: likeMutate } = useMutation(() => updateLike(pid, countLike));
   const { mutate: likedProjectMutate } = useMutation(() =>
     updateMyProject(uid, pid, isLike),

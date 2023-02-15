@@ -5,11 +5,13 @@ import {
   updateDoc,
   arrayUnion,
   arrayRemove,
+  setDoc,
+  FieldValue,
 } from 'firebase/firestore';
 
 // 프로젝트 상세 조회
-export const viewProject = async (params: any) => {
-  const postDocRef = doc(firestore, 'post', params.id);
+export const viewProject = async (pid: any) => {
+  const postDocRef = doc(firestore, 'post', pid);
   const docSnap = await getDoc(postDocRef);
   return docSnap.data();
 };
@@ -43,23 +45,59 @@ export const updateMyProject = async (
     await updateDoc(docRef, { likedProjects: arrayRemove(pid) });
   }
 };
-
 export const updateApplicants = async (
   pid: string,
+  uid: string,
   displayName: string,
   profileURL: string,
   skills: string[],
   position: string,
   motive: string,
+  recruit?: boolean,
+) => {
+  // const applicants = {
+  //   displayName: displayName,
+  //   profileURL: profileURL,
+  //   skills: skills,
+  //   position: position,
+  //   motive: motive,
+  // };
+  const docRef = doc(firestore, 'post', pid);
+  // await setDoc(docRef, { applicants }, { merge: true });
+  await setDoc(
+    docRef,
+    {
+      applicants: {
+        [uid]: {
+          uid: uid,
+          displayName: displayName,
+          profileURL: profileURL,
+          skills: skills,
+          position: position,
+          motive: motive,
+          recruit: recruit,
+        },
+      },
+    },
+    { merge: true },
+  );
+};
+
+export const updateParticipants = async (
+  pid: string,
+  uid: string,
+  recruit?: boolean,
 ) => {
   const docRef = doc(firestore, 'post', pid);
-  await updateDoc(docRef, {
-    applicants: arrayUnion({
-      displayName: displayName,
-      profileURL: profileURL,
-      skills: skills,
-      position: position,
-      motive: motive,
-    }),
-  });
+  await setDoc(
+    docRef,
+    {
+      applicants: {
+        [uid]: {
+          recruit: recruit,
+        },
+      },
+    },
+    { merge: true },
+  );
 };
