@@ -1,12 +1,14 @@
-import React from 'react';
-// import SwiperCore, { Navigation, Scrollbar, Pagination } from 'swiper';
-// import { Swiper, SwiperSlide } from 'swiper/react';
-// import 'swiper/swiper.min.css';
-// import 'swiper/components/navigation/navigation.min.css';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import FindUserSlider from './FindUserSlider';
-
 const MainFindUsers = () => {
+  const buttonType = [
+    { type: 'planner', name: '기획' },
+    { type: 'designer', name: '디자인' },
+    { type: 'frontend', name: '프론트' },
+    { type: 'backend', name: '백엔드' },
+  ];
+  const [tap, setTap] = useState('기획');
   return (
     <MainFindUsersWrap>
       <MainFindUsersContainer>
@@ -14,10 +16,18 @@ const MainFindUsers = () => {
           이런 팀원 분들이 기다리고 있어요!
         </MainFindUsersTitleDiv>
         <MainFindUsersButtonContainer>
-          <MainFindUsersButton>기획</MainFindUsersButton>
-          <MainFindUsersButton>디자인</MainFindUsersButton>
-          <MainFindUsersButton>프론트</MainFindUsersButton>
-          <MainFindUsersButton>백엔드</MainFindUsersButton>
+          {buttonType.map((position) => {
+            return (
+              <MainFindUsersButton
+                key={position.type}
+                name={position.name}
+                value={tap}
+                onClick={() => setTap(position.name)}
+              >
+                {position.name}
+              </MainFindUsersButton>
+            );
+          })}
         </MainFindUsersButtonContainer>
       </MainFindUsersContainer>
       <SlideArea>
@@ -85,7 +95,10 @@ const MainFindUsersButton = styled.button`
   width: 150px;
   height: 48px;
 
-  background: #fafafb;
+  background: ${(props: { name: string; value: string }) =>
+    props.name === props.value ? '#5d50f0' : '#ffffff'};
+  color: ${(props: { name: string; value: string }) =>
+    props.name === props.value ? '#ffffff' : '#4e5968'};
   border-radius: 36px;
 
   font-family: 'Noto Sans KR';
