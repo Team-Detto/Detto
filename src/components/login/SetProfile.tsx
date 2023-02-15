@@ -18,7 +18,7 @@ export default function SetProfile() {
 
   return (
     <Container>
-      <Navigator page={page} />
+      <Navigator page={page} back />
       <BodyContainer>
         <TextContainer>
           <SubText>나를 찾는 팀원이 많아지는 방법!</SubText>

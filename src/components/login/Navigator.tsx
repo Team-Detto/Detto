@@ -6,29 +6,38 @@ import { useGlobalModal } from 'hooks';
 
 type NavigatorProps = {
   page: number;
+  back?: boolean;
+  close?: boolean;
 };
 
-export default function Navigator({ page }: NavigatorProps) {
+export default function Navigator({ page, back, close }: NavigatorProps) {
   const { openModal, closeModal } = useGlobalModal();
 
   return (
     <Container>
-      <BackButton onClick={() => openModal('login', page - 1)}>
-        <IoChevronBack
-          style={{ width: '1.5rem', height: '1.5rem', color: COLORS.gray700 }}
-        />
-      </BackButton>
-      <CloseButton onClick={() => closeModal()}>
-        <CgClose
-          style={{ width: '1.5rem', height: '1.5rem', color: COLORS.gray700 }}
-        />
-      </CloseButton>
+      {back && (
+        <BackButton onClick={() => openModal('login', page - 1)}>
+          <IoChevronBack
+            style={{ width: '1.5rem', height: '1.5rem', color: COLORS.gray700 }}
+          />
+        </BackButton>
+      )}
+      {close && (
+        <CloseButton onClick={() => closeModal()}>
+          <CgClose
+            style={{ width: '1.5rem', height: '1.5rem', color: COLORS.gray700 }}
+          />
+        </CloseButton>
+      )}
     </Container>
   );
 }
 
 const Container = styled.div`
+  position: relative;
+
   width: 100%;
+  height: 1.5rem;
 
   display: flex;
   justify-content: space-between;
@@ -41,6 +50,9 @@ const BackButton = styled.button`
 `;
 
 const CloseButton = styled.button`
+  position: absolute;
+  right: 0;
+
   display: flex;
   align-items: center;
   justify-content: center;

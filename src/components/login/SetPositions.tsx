@@ -30,7 +30,7 @@ export default function SetPositions() {
   // TODO: Input checkbox 태그로 변경
   return (
     <Container>
-      <Navigator page={page} />
+      <Navigator page={page} back />
       <TextContainer>
         <TitleText>어떤 포지션인지 알려주세요</TitleText>
         <SubText>(중복 선택 가능해요)</SubText>

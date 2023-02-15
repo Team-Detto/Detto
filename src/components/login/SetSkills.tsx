@@ -18,7 +18,7 @@ export default function SetSkills() {
 
   return (
     <Container>
-      <Navigator page={page} />
+      <Navigator page={page} back />
       <BodyContainer>
         <TextContainer>
           <TitleText>어떤 기술 스택을 하실 수 있으신지 선택해주세요</TitleText>
