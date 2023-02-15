@@ -54,6 +54,16 @@ const SkillBtn = styled.button`
     props.isActive === true ? '#5D50F0' : '#f2f4f6'};
   color: ${(props: { isActive: boolean }) =>
     props.isActive === true ? '#ffffff' : '#000000'};
+
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 32px;
+
+  height: 2rem;
+
+  display: flex;
+  align-items: center;
+
   border-radius: 32px;
   padding: 5px 15px;
   transition: transform 0.5s;

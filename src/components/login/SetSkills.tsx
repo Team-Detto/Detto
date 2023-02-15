@@ -4,6 +4,7 @@ import WritePageStack from 'components/writepage/WritePageStack';
 import { useGlobalModal } from 'hooks';
 import ConfirmButton from './ConfirmButton';
 import Navigator from './Navigator';
+import SetSkillsPageStack from './SetSkillsPageStack';
 
 // 페이지 2 : 기술스택 선택
 const page = 2;
@@ -24,7 +25,7 @@ export default function SetSkills() {
           <TitleText>어떤 기술 스택을 하실 수 있으신지 선택해주세요</TitleText>
           <SubText>(중복 선택 가능해요)</SubText>
         </TextContainer>
-        <WritePageStack />
+        <SetSkillsPageStack />
       </BodyContainer>
       <ConfirmButton onClick={handleNextButtonClick} />
     </Container>
