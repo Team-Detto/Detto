@@ -1,3 +1,4 @@
+import useAuth from './useAuth';
 import useModal from './useModal';
 import usePopup from './usePopup';
 import useGlobalModal from './useGlobalModal';
@@ -7,6 +8,7 @@ import useProfileImage from './useProfileImage';
 import useUpdateProfile from './useUpdateProfile';
 
 export {
+  useAuth,
   useModal,
   usePopup,
   useGlobalModal,
