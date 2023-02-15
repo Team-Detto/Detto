@@ -17,8 +17,8 @@ const initializeUserCollections = (user: User) => {
   return Promise.all([
     setDoc(doc(firestore, 'users', user.uid), {
       uid: user.uid,
-      displayName: user.displayName,
-      email: user.email, // github의 경우 이메일 공개 여부에 따라 null로 할당되기도 함.
+      displayName: user.displayName || 'Anonymous',
+      email: user.email || '', // github의 경우 이메일 공개 여부에 따라 null로 할당되기도 함.
       photoURL: user.photoURL,
       designerStack: [],
       developerStack: [],
@@ -68,7 +68,6 @@ const useSocialLogin = () => {
         // 기존 유저일 경우, 모달 닫기
         closeModal();
       }
-      setOverlay(false);
     } catch (error) {
       console.error('error: ', error);
     } finally {
