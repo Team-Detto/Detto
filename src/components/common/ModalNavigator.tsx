@@ -4,13 +4,17 @@ import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
 import { useGlobalModal } from 'hooks';
 
-type NavigatorProps = {
+type ModalNavigatorProps = {
   page: number;
   back?: boolean;
   close?: boolean;
 };
 
-export default function Navigator({ page, back, close }: NavigatorProps) {
+export default function ModalNavigator({
+  page,
+  back,
+  close,
+}: ModalNavigatorProps) {
   const { openModal, closeModal } = useGlobalModal();
 
   return (

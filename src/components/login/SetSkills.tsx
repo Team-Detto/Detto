@@ -5,7 +5,7 @@ import { doc, updateDoc } from 'firebase/firestore';
 import { useAuth, useGlobalModal } from 'hooks';
 import { useState } from 'react';
 import ConfirmButton from './ConfirmButton';
-import Navigator from './Navigator';
+import ModalNavigator from '../common/ModalNavigator';
 import SetSkillsPageStack from './SetSkillsPageStack';
 
 // 페이지 2 : 기술스택 선택
@@ -31,7 +31,7 @@ export default function SetSkills() {
 
   return (
     <Container>
-      <Navigator page={page} back />
+      <ModalNavigator page={page} back />
       <BodyContainer>
         <TextContainer>
           <TitleText>어떤 기술 스택을 하실 수 있으신지 선택해주세요</TitleText>

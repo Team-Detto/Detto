@@ -7,7 +7,7 @@ import {
   useUpdateProfile,
 } from 'hooks';
 import defaultImage from 'assets/images/default_profile.jpg';
-import Navigator from './Navigator';
+import ModalNavigator from '../common/ModalNavigator';
 import ConfirmButton from './ConfirmButton';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { getUserInfoData, updateUserInfoData } from 'apis/mypageUsers';
@@ -64,7 +64,7 @@ export default function SetProfile() {
 
   return (
     <Container>
-      <Navigator page={page} back />
+      <ModalNavigator page={page} back />
       <BodyContainer>
         <TextContainer>
           <SubText>나를 찾는 팀원이 많아지는 방법!</SubText>
