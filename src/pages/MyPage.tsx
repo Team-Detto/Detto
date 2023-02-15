@@ -7,6 +7,7 @@ import LeftTab from 'components/mypage/LeftTab';
 import { getUserInfoData } from 'apis/mypageUsers';
 import MemberProfile from 'assets/images/project_member.png';
 import thumbnail from 'assets/images/project_thumbnail.png';
+import WebContainer from 'components/common/WebContainer';
 
 export interface Project {
   id: string;
@@ -130,30 +131,32 @@ const MyPage = () => {
   return (
     <MyPageContainer>
       <LeftTab activeTab={activeTab} setActiveTab={setActiveTab} />
-      <MypageContentsWrapper>
-        {activeTab === '개인정보' && (
-          <MyPageInfo user={userInfoData} uid={uid ?? ''} />
-        )}
-        {activeTab === '프로젝트' && (
-          <ProjectListWrapper>
-            <ProjectList
-              sectionTitle="모집중인 프로젝트"
-              nickname="detto"
-              projects={projects}
-            />
-            <ProjectList
-              sectionTitle="지원한 프로젝트"
-              nickname="detto"
-              projects={projects}
-            />
-            <ProjectList
-              sectionTitle="관심있는 프로젝트"
-              nickname="detto"
-              projects={projects}
-            />
-          </ProjectListWrapper>
-        )}
-      </MypageContentsWrapper>
+      <WebContainer>
+        <MypageContentsWrapper>
+          {activeTab === '개인정보' && (
+            <MyPageInfo user={userInfoData} uid={uid ?? ''} />
+          )}
+          {activeTab === '프로젝트' && (
+            <ProjectListWrapper>
+              <ProjectList
+                sectionTitle="모집중인 프로젝트"
+                nickname="detto"
+                projects={projects}
+              />
+              <ProjectList
+                sectionTitle="지원한 프로젝트"
+                nickname="detto"
+                projects={projects}
+              />
+              <ProjectList
+                sectionTitle="관심있는 프로젝트"
+                nickname="detto"
+                projects={projects}
+              />
+            </ProjectListWrapper>
+          )}
+        </MypageContentsWrapper>
+      </WebContainer>
     </MyPageContainer>
   );
 };
@@ -162,14 +165,14 @@ export default MyPage;
 
 const MyPageContainer = styled.div`
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
+  max-height: 100%;
   background-color: #fcfcfc;
   display: flex;
 `;
 
 const MypageContentsWrapper = styled.main`
-  display: block;
-  padding: 10rem 3.75rem 0 2.375rem;
+  padding: 10rem 2.5rem 0 2.375rem;
 `;
 
 const ProjectListWrapper = styled.div``;
