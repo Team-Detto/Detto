@@ -30,6 +30,7 @@ const useNote = (receiverUid: string) => {
     return Promise.all([
       updateDoc(doc(firestore, `inbox/${receiver.uid}`), {
         [noteId]: {
+          noteId,
           uid: sender.uid,
           displayName: receiver.displayName,
           photoURL: receiver.photoURL,
@@ -41,6 +42,7 @@ const useNote = (receiverUid: string) => {
       }),
       updateDoc(doc(firestore, `outbox/${sender.uid}`), {
         [noteId]: {
+          noteId,
           uid: receiver.uid,
           displayName: sender.displayName,
           photoURL: sender.photoURL,
