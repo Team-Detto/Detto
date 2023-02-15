@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import { useGlobalModal } from 'hooks';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import ConfirmButton from './ConfirmButton';
 import Navigator from './Navigator';
 
@@ -32,18 +32,22 @@ export default function SetPositions() {
     <Container>
       <Navigator page={page} back />
       <TextContainer>
-        <TitleText>어떤 포지션인지 알려주세요</TitleText>
-        <SubText>(중복 선택 가능해요)</SubText>
+        <TitleText>
+          어떤 포지션인지 알려주세요
+          <SubText>(중복 선택 가능해요)</SubText>
+        </TitleText>
       </TextContainer>
       <Buttons>
         {position.map((pos) => (
-          <Button
-            key={pos}
-            onClick={() => handleSelectedPosition(pos)}
-            selected={selectedPosition.includes(pos)}
-          >
-            {pos}
-          </Button>
+          <React.Fragment key={pos}>
+            <MenuToggleInput
+              type="checkbox"
+              name="position"
+              id={pos}
+              value={pos}
+            />
+            <MenuLabel htmlFor={pos}>{pos}</MenuLabel>
+          </React.Fragment>
         ))}
       </Buttons>
       <ConfirmButton onClick={handleNextButtonClick} />
@@ -67,7 +71,7 @@ const TextContainer = styled.div`
   margin-bottom: 2.5rem;
 `;
 
-const TitleText = styled.h2`
+const TitleText = styled.h3`
   color: ${COLORS.gray850};
   font-weight: 700;
   font-size: 1.75rem;
@@ -75,7 +79,7 @@ const TitleText = styled.h2`
   margin-bottom: 0.25rem;
 `;
 
-const SubText = styled.h3`
+const SubText = styled.h2`
   color: ${COLORS.gray750};
   font-weight: 500;
   font-size: 1rem;
@@ -90,23 +94,36 @@ const Buttons = styled.div`
   margin-bottom: 3.75rem;
 `;
 
-const Button = styled.button<{ selected: boolean }>`
+const MenuLabel = styled.label`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   width: 9.125rem;
   height: 5.1875rem;
 
+  font-size: 1.125rem;
+  font-weight: 400;
+
+  background-color: ${COLORS.gray50};
   border-radius: 1rem;
 
-  font-size: 1.125rem;
-  font-weight: 700;
-  line-height: 2rem;
-
-  // 버튼 선택 여부에 따라 색상 변경
-  background-color: ${({ selected }) =>
-    selected ? COLORS.violetB400 : COLORS.gray100};
-  color: ${({ selected }) => (selected ? COLORS.white : COLORS.black)};
+  cursor: pointer;
 
   transition: 100ms ease-in-out;
   &:hover {
     transform: scale(1.05);
+  }
+`;
+
+const MenuToggleInput = styled.input`
+  display: none;
+
+  color: ${COLORS.gray100};
+
+  &:checked + label {
+    color: ${COLORS.white};
+    background-color: ${COLORS.violetB400};
+    font-weight: 700;
   }
 `;
