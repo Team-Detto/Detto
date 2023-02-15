@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import styled from '@emotion/styled';
 import WebContainer from './common/WebContainer';
 import PopupContainer from './popup/PopupContainer';
@@ -26,10 +26,10 @@ const Header = () => {
           <Nav>
             <NavListUl>
               <NavItemLi>
-                <Link to={'/project/write'}>새 글 쓰기</Link>
+                <NavItemLink to={'/project/write'}>새 글 쓰기</NavItemLink>
               </NavItemLi>
               <NavItemLi>
-                <Link to={'/findproject'}>팀원찾기</Link>
+                <NavItemLink to={'/findproject'}>팀원찾기</NavItemLink>
               </NavItemLi>
               {isLoggedIn && (
                 <NavItemLi onClick={toggleNoteBox}>쪽지</NavItemLi>
@@ -42,9 +42,10 @@ const Header = () => {
                   로그인하기
                 </NavItemLi>
               )}
+
               {isLoggedIn && (
                 <NavItemLi>
-                  <Link to={'/mypage'}>마이페이지</Link>
+                  <NavItemLink to={'/mypage'}>마이페이지</NavItemLink>
                 </NavItemLi>
               )}
               {isLoggedIn && (
@@ -116,5 +117,11 @@ const NavItemLi = styled.li`
   &:hover {
     color: ${COLORS.violetB500};
     transform: scale(1.01);
+  }
+`;
+
+const NavItemLink = styled(NavLink)`
+  &.active {
+    color: ${COLORS.violetB500};
   }
 `;
