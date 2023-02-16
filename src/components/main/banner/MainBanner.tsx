@@ -11,7 +11,6 @@ const MainBanner = () => {
     infinite: true,
     slidesToShow: 1,
     slidesToScroll: 1,
-    // variableWidth: true,
   };
 
   return (
@@ -81,7 +80,6 @@ const BannerFirstTextBox = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-
   position: absolute;
   width: 356px;
   height: 205px;
@@ -91,23 +89,19 @@ const BannerFirstTextBox = styled.div`
 const BannerFirstTitle = styled.div`
   width: 356px;
   height: 116px;
-
   font-family: 'Noto Sans KR';
   font-style: normal;
   font-weight: 700;
   font-size: 36px;
   line-height: 160%;
-
   display: flex;
   align-items: center;
-
   color: #333d4b;
   margin-bottom: 25px;
 `;
 const BannerFirstSubTitle = styled.div`
   width: 327px;
   height: 64px;
-
   font-family: 'Noto Sans KR';
   font-style: normal;
   font-weight: 350;
