@@ -1,17 +1,32 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
-import defaultProfile from 'assets/images/default_profile.jpg';
-import { Project } from 'pages/MyPage';
-
+import { EditType } from 'types/write/writeType';
+import defaultThumbnail from 'assets/images/default_img.jpg';
+import ProjectItemMembers from './ProjectItemMembers';
 interface ProjectProps {
-  project: Project;
+  project: EditType.EditFormType;
+  pid: string;
+  onNavigateToProjectDetailEvent: (path: string) => () => void;
 }
 
-const ProjectItem = ({ project }: ProjectProps) => {
+const ProjectItem = ({
+  project,
+  pid,
+  onNavigateToProjectDetailEvent,
+}: ProjectProps) => {
+  console.log('project', project);
+  const { plannerStack, designerStack, developerStack, applicants }: any =
+    project;
+
+  const stacks = [].concat(plannerStack, designerStack, developerStack);
+
   return (
-    <ProjectItemContainer>
+    <ProjectItemContainer onClick={onNavigateToProjectDetailEvent(pid)}>
       <ProjectThumbnailWrapper>
-        <ProjectThumbnailImg src={project.thumbnail} alt="썸네일이미지" />
+        <ProjectThumbnailImg
+          src={project.thumbnail ?? defaultThumbnail}
+          alt="썸네일이미지"
+        />
       </ProjectThumbnailWrapper>
       <ProjectInfoWrapper>
         <ProjectInfoBox>
@@ -21,51 +36,18 @@ const ProjectItem = ({ project }: ProjectProps) => {
         <ProjectInfoBox>
           <ProjectInfoLabel>팀원스택</ProjectInfoLabel>
           <ProjectStackList>
-            {project.skills.map((skill) => (
-              <ProjectStackItem key={skill}>{skill}</ProjectStackItem>
-            ))}
+            {stacks
+              .filter((stack, pos) => stacks.indexOf(stack) === pos)
+              .map((stack, index) => {
+                if (index < 8)
+                  return (
+                    <ProjectStackItem key={stack}>{stack}</ProjectStackItem>
+                  );
+              })}
           </ProjectStackList>
         </ProjectInfoBox>
         <ProjectInfoBox>
-          <ProjectInfoLabel>함께하고 있는 팀원</ProjectInfoLabel>
-          <ProjectMemberPositionBox>
-            {/* 기획 */}
-            <ProjectMemberPositionList>
-              <ProjectMemberPositionLabel>기획</ProjectMemberPositionLabel>
-              <ProjectMemberList>
-                <ProjectMemberItem>
-                  <ProjectMemberProfileImg
-                    src={defaultProfile}
-                    alt="멤버닉네임"
-                  />
-                </ProjectMemberItem>
-              </ProjectMemberList>
-            </ProjectMemberPositionList>
-            {/* 개발 */}
-            <ProjectMemberPositionList>
-              <ProjectMemberPositionLabel>개발</ProjectMemberPositionLabel>
-              <ProjectMemberList>
-                <ProjectMemberItem>
-                  <ProjectMemberProfileImg
-                    src={defaultProfile}
-                    alt="멤버닉네임"
-                  />
-                </ProjectMemberItem>
-              </ProjectMemberList>
-            </ProjectMemberPositionList>
-            {/* 디자인 */}
-            <ProjectMemberPositionList>
-              <ProjectMemberPositionLabel>디자인</ProjectMemberPositionLabel>
-              <ProjectMemberList>
-                <ProjectMemberItem>
-                  <ProjectMemberProfileImg
-                    src={defaultProfile}
-                    alt="멤버닉네임"
-                  />
-                </ProjectMemberItem>
-              </ProjectMemberList>
-            </ProjectMemberPositionList>
-          </ProjectMemberPositionBox>
+          <ProjectItemMembers applicants={applicants} />
         </ProjectInfoBox>
       </ProjectInfoWrapper>
     </ProjectItemContainer>
