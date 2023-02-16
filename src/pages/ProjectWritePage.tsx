@@ -1,6 +1,7 @@
 import { useWrite } from 'hooks';
 import ConfirmAlert from 'components/common/ConfirmAlert';
 import WebContainer from 'components/common/WebContainer';
+import ValidationToastPopup from 'components/common/ValidationToastPopup';
 import ProjectWritePageBody from 'components/writepage/ProjectWritePageBody';
 import ProjectWritePageFooter from 'components/writepage/ProjectWritePageFooter';
 import ProjectWritePageHeader from 'components/writepage/ProjectWritePageHeader';
@@ -11,12 +12,15 @@ const ProjectWritePage = () => {
     isOpen,
     editRef,
     imageRef,
+    showToast,
+    ToastMessage,
     writeFormValue,
     setWriteFormValue,
     handleFormValueChange,
     handleModalStateChange,
     handleAddThumbnailImage,
     handleCreateProjectButtonClick,
+    handleCheckValidationButtonClick,
   } = useWrite();
 
   return (
@@ -36,7 +40,7 @@ const ProjectWritePage = () => {
         <ProjectWritePageFooter
           editRef={editRef}
           writeFormValue={writeFormValue}
-          onOpenButtonClickEvent={handleModalStateChange}
+          onOpenButtonClickEvent={handleCheckValidationButtonClick}
         />
         <ConfirmAlert
           isOpen={isOpen}
@@ -45,6 +49,7 @@ const ProjectWritePage = () => {
           onClickEvent={handleCreateProjectButtonClick}
           onCloseEvent={handleModalStateChange}
         />
+        {showToast && <ValidationToastPopup message={ToastMessage} />}
       </ProjectWritePageWrapper>
     </WebContainer>
   );
