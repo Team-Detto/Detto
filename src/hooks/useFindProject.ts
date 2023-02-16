@@ -10,10 +10,10 @@ const useFindProject = () => {
   const [category, setCategory] = useState<string>('planner');
   const [toggle, setToggle] = useState(false);
 
-  const filterProjects = projects.filter((project) => {
-    const { positions }: any = project;
-    return !!positions[category];
-  });
+  // const filterProjects = projects.filter((project) => {
+  //   const { positions }: any = project;
+  //   return !!positions[category];
+  // }); 필터 방법이게 좋을까?
 
   useEffect(() => {
     firebaseGetProjectDataRequest(setProjects);
@@ -33,7 +33,6 @@ const useFindProject = () => {
 
   return {
     projects,
-    filterProjects,
     category,
     toggle,
     handleCategoryClick,
