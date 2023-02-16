@@ -9,6 +9,7 @@ import {
   ContentText,
   DateText,
   HeaderContainer,
+  NameText,
   ProfileImage,
   TitleText,
 } from './styles';
@@ -27,9 +28,10 @@ export default function ReadOutboxNote({ data }: { data: Note }) {
       <ModalNavigator page={0} close />
       <HeaderContainer>
         <ProfileImage src={receiver.photoURL} />
-        <TitleText>보낸 쪽지</TitleText>
+        <NameText>{receiver.displayName}님께 보낸 쪽지</NameText>
         <DateText>{getDateAndTime(data.date)}</DateText>
       </HeaderContainer>
+      <TitleText>{data.title}</TitleText>
       <ContentText>{data.content}</ContentText>
       <CustomButton label="확인" onClick={closeModal} />
     </Container>

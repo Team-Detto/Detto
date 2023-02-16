@@ -35,12 +35,7 @@ const initializeUserCollections = (user: User) => {
     }),
     addDoc(collection(firestore, 'notes'), {
       senderUid: 'dyczcn8e6Ce1c7xq67EJHAfVsUK2',
-      senderDisplayName: 'Hyojin',
-      senderPhotoURL:
-        'https://user-images.githubusercontent.com/88768022/219316199-185b6b96-f846-4754-90aa-4a5055ca1731.png',
       receiverUid: user.uid,
-      receiverDisplayName: user.displayName || 'Anonymous',
-      receiverPhotoURL: user.photoURL,
       date,
       title: 'Detto에 오신 것을 환영합니다 🎉',
       content:

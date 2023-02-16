@@ -10,6 +10,7 @@ import {
   ContentText,
   DateText,
   HeaderContainer,
+  NameText,
   ProfileImage,
   TitleText,
 } from './styles';
@@ -32,10 +33,10 @@ export default function ReadInboxNote({ data }: { data: Note }) {
       <ModalNavigator page={0} close />
       <HeaderContainer>
         <ProfileImage src={sender.photoURL} />
-        <TitleText>{data.title}</TitleText>
+        <NameText>{sender.displayName}님께 받은 쪽지</NameText>
         <DateText>{getDateAndTime(data.date)}</DateText>
-        {/* <DateText>{data.senderDisplayName}</DateText> */}
       </HeaderContainer>
+      <TitleText>{data.title}</TitleText>
       <ContentText>{data.content}</ContentText>
       <CustomButton label="답장하기" onClick={handleReplyButtonClick} />
     </Container>

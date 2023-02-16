@@ -5,6 +5,7 @@ import {
   Container,
   ContentTextarea,
   HeaderContainer,
+  NameText,
   ProfileImage,
   TitleText,
 } from './styles';
@@ -32,7 +33,7 @@ export default function SendNote({ data }: { data: Note }) {
       <ModalNavigator page={0} close />
       <HeaderContainer>
         <ProfileImage src={receiver.photoURL} />
-        <TitleText>{receiver.displayName}님께 쪽지 보내기</TitleText>
+        <NameText>{receiver.displayName}님께 쪽지 보내기</NameText>
       </HeaderContainer>
       <TitleInput
         type="text"

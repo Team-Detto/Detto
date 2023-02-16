@@ -94,7 +94,7 @@ export const ProfileImage = styled.img`
   margin-right: 0.625rem;
 `;
 
-export const TitleText = styled.h2`
+export const NameText = styled.h2`
   flex: 1;
 
   font-weight: 700;
@@ -102,6 +102,20 @@ export const TitleText = styled.h2`
   line-height: 44px;
 
   color: ${COLORS.gray850};
+`;
+
+export const TitleText = styled.h2`
+  width: 100%;
+  padding: 10px 28px;
+
+  font-weight: 400;
+  font-size: 1.125rem;
+  line-height: 200%;
+
+  color: ${COLORS.gray900};
+
+  border: 1px solid ${COLORS.gray300};
+  border-radius: 4px;
 `;
 
 export const DateText = styled.p`
@@ -114,7 +128,7 @@ export const DateText = styled.p`
 
 export const ContentText = styled.p`
   width: 100%;
-  height: 17.8125rem;
+  height: 230px;
   padding: 10px 28px;
 
   font-weight: 400;
