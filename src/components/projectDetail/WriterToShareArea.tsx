@@ -11,7 +11,6 @@ import { RiHeartAddLine, RiHeartAddFill, RiShareBoxLine } from 'react-icons/ri';
 const WriterToShareArea = ({ projectData, pid, userData }: any) => {
   const { uid, like, title, content } = projectData;
   const [countLike, setCountLike] = useState(like);
-  const [isLike, setIsLike] = useState<boolean>(false); // 관심버튼 클릭시 true/false로 변경, 초기화해주면 동기화 문제 발생
   const { mutate: likeMutate } = useMutation(() => updateLike(pid, countLike));
   const { mutate: likedProjectMutate } = useMutation(() =>
     updateMyProject(uid, pid, isLike),
@@ -21,6 +20,9 @@ const WriterToShareArea = ({ projectData, pid, userData }: any) => {
     queryFn: () => findWithCollectionName('myprojects', uid),
   });
 
+  const [isLike, setIsLike] = useState<boolean>(
+    myProjectData?.likedProjects?.includes(pid),
+  ); // 초기값 false로 설정 시 페이지 이동시 다시 false로 초기화됨, 데이터베이스에서 가져온 값은 로드되는 동안 undefined 이므로 useEffect로 한번 더 설정함
   //현재 사용자가 좋아요를 눌렀는지 확인하는 기능
   useEffect(() => {
     setIsLike(myProjectData?.likedProjects?.includes(pid));
@@ -28,8 +30,8 @@ const WriterToShareArea = ({ projectData, pid, userData }: any) => {
 
   //isLike가 변경될 때마다 좋아요 수 및 좋아요한 프로젝트를 변경해주는 기능
   useEffect(() => {
-    likeMutate(pid, countLike);
-    likedProjectMutate(uid, pid);
+    likeMutate(pid, countLike); // 좋아요 수 변경
+    likedProjectMutate(pid); // likedProjects에 pid 추가/삭제
   }, [isLike]);
 
   //좋아요 기능
@@ -37,12 +39,13 @@ const WriterToShareArea = ({ projectData, pid, userData }: any) => {
     event.preventDefault();
     if (isLike === true) {
       setCountLike(countLike - 1);
+      setIsLike(!isLike);
       // 클릭했을 때 true인 경우
     } else if (isLike === false) {
       //클릭했을 때 false인 경우
       setCountLike(countLike + 1);
+      setIsLike(!isLike);
     }
-    setIsLike(!isLike);
   };
 
   //공유 기능
@@ -68,7 +71,6 @@ const WriterToShareArea = ({ projectData, pid, userData }: any) => {
             handleLike(event);
           }}
         >
-          {/* Todo: 관심버튼 false->true이면 RiHeartAddFill아이콘으로 변경해주고 +1, true->false이면 RiHeartAddLine아이콘으로 변경해주고 -1*/}
           {isLike ? <RiHeartAddFill /> : <RiHeartAddLine />}
           관심 {countLike ?? '없음'}
         </IconButton>

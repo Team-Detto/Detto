@@ -6,7 +6,6 @@ import {
   arrayUnion,
   arrayRemove,
   setDoc,
-  FieldValue,
   deleteDoc,
 } from 'firebase/firestore';
 
@@ -37,7 +36,7 @@ export const updateLike = async (pid: any, countLike: number) => {
 export const updateMyProject = async (
   uid: string,
   pid: string,
-  isLiked: boolean | undefined,
+  isLiked: boolean,
 ) => {
   const docRef = doc(firestore, 'myprojects', uid);
   if (isLiked === true) {
