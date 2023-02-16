@@ -12,15 +12,17 @@ import { useState } from 'react';
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 
-export default function SendNote({ receiverUid }: { receiverUid: string }) {
+export default function SendNote({ data }: { data: Note }) {
   const [disabled, setDisabled] = useState(false);
+  const [note, setNote] = useState<SendNote>({ title: '', content: '' });
 
   const { closeModal } = useGlobalModal();
-  const { sendNote, receiver, note, setNote } = useNote(receiverUid);
+  const { sendNote, receiver } = useNote(data.receiverUid);
 
   const handleSendButtonClick = async () => {
+    const receiverUid = data.senderUid;
     setDisabled(true);
-    sendNote();
+    sendNote({ note, receiverUid });
     closeModal();
   };
 

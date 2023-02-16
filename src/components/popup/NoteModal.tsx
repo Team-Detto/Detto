@@ -28,7 +28,7 @@ const NoteModal = () => {
 
   // 답장하기, 쪽지 보내기
   if (type === modalTypes.reply || type === modalTypes.sendNote) {
-    return <SendNote receiverUid={data.uid} />;
+    return <SendNote data={data} />;
   }
 
   // 보낸쪽지함 쪽지 읽기

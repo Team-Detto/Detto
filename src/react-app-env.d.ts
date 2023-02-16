@@ -36,6 +36,11 @@ interface Note {
   isRead: boolean;
 }
 
+interface SendNote {
+  title: string;
+  content: string;
+}
+
 interface Notification {
   id?: string;
   content: string;
