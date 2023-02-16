@@ -131,3 +131,15 @@ export const firebaseGetIsApplicantRequest = async (pid: any, uid: string) => {
     return false;
   }
 };
+
+//지원 취소 시 지원자 목록에서 삭제
+export const deleteApplicant = async (pid: string, uid: string) => {
+  const docRef = doc(firestore, 'post', pid);
+  await setDoc(
+    docRef,
+    {
+      applicants: { [uid]: {} },
+    },
+    { merge: true },
+  );
+};

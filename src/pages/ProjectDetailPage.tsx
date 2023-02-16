@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import WebContainer from '../components/common/WebContainer';
 import { useParams } from 'react-router-dom';
 import {
+  deleteApplicant,
   firebaseGetIsApplicantRequest,
   updateRecruiting,
   viewProject,
@@ -45,6 +46,15 @@ const ProjectDetailPage = () => {
 
   const { mutate: updateRecruitingMutate } = useMutation(
     () => updateRecruiting(params?.id as string, false),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['post', params?.id]); //마감하기 버튼 성공시 렌더링
+      },
+    },
+  );
+
+  const { mutate: deleteApplicantMutate } = useMutation(
+    () => deleteApplicant(params?.id as string, uid),
     {
       onSuccess: () => {
         queryClient.invalidateQueries(['post', params?.id]); //마감하기 버튼 성공시 렌더링
@@ -120,12 +130,12 @@ const ProjectDetailPage = () => {
             }
             onClickEvent={() => {
               isApplicant
-                ? handleCloseModalCloseChange()
+                ? (handleCloseModalCloseChange(), deleteApplicantMutate())
                 : handleAuthorButtonClick();
             }}
             onCloseEvent={handleCloseModalCloseChange}
           />
-          {/* currentUser랑 글쓴이uid랑 같고 모집중이면 보이게하기 */}
+          {/* currentUser랑 글쓴이uid랑 같고 모집중이면 지원자 목록 보이게하기 */}
           {projectData?.uid === uid && projectData?.isRecruiting === true && (
             <ApplicantListArea
               projectData={projectData}
