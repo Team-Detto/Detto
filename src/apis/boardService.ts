@@ -32,6 +32,7 @@ export const firebaseCreateProjectRequest = async (
       like: 0,
       createdAt: Date.now(),
       isRecruiting: true,
+      applicants: {},
       uid,
     });
   } catch (e) {
