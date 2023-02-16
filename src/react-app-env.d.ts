@@ -23,6 +23,19 @@ interface UserInfo {
 }
 
 interface Note {
+  id?: string;
+  content: string;
+  date: number;
+  displayName: string;
+  isRead: boolean;
+  noteId: string;
+  photoURL: string;
+  title: string;
+  uid: string;
+}
+
+interface Notification {
+  id?: string;
   content: string;
   date: number;
   displayName: string;

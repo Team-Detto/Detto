@@ -58,13 +58,28 @@ const Header = () => {
               {isLoggedIn && (
                 <NavItemLi onClick={toggleNoteBox}>
                   쪽지
-                  <Count>({notes ? notes.length : 0})</Count>
+                  <Count>
+                    (
+                    {notes
+                      ? notes.filter(({ isRead }: Partial<Note>) => !isRead)
+                          .length
+                      : 0}
+                    )
+                  </Count>
                 </NavItemLi>
               )}
               {isLoggedIn && (
                 <NavItemLi onClick={toggleNotificationBox}>
                   알림
-                  <Count>({notifiactions ? notifiactions.length : 0})</Count>
+                  <Count>
+                    (
+                    {notifiactions
+                      ? notifiactions.filter(
+                          ({ isRead }: Partial<Notification>) => !isRead,
+                        ).length
+                      : 0}
+                    )
+                  </Count>
                 </NavItemLi>
               )}
               {!isLoggedIn && (
