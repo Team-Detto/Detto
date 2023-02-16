@@ -118,3 +118,15 @@ export const updateRecruiting = async (pid: string, isRecruiting: any) => {
   await updateDoc(docRef, { isRecruiting: isRecruiting });
   console.log('isRecruit', isRecruiting);
 };
+
+// 지원 여부 확인
+export const firebaseGetIsApplicantRequest = async (pid: any, uid: string) => {
+  const postDocRef = doc(firestore, 'post', pid);
+  const docSnap = await getDoc(postDocRef);
+  const applicants = docSnap.data()?.applicants;
+  if (applicants) {
+    return applicants[uid] ? true : false;
+  } else {
+    return false;
+  }
+};
