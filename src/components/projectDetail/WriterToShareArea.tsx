@@ -15,7 +15,7 @@ const WriterToShareArea = ({ projectData, pid, userData }: any) => {
       </WriterWrapper>
       <IconWrapper>
         <Views pid={pid} view={view} />
-        <Likes pid={pid} uid={uid} like={like} />
+        <Likes pid={pid} like={like} />
         <Share title={title} content={content} />
       </IconWrapper>
     </WriterToShareContainer>
