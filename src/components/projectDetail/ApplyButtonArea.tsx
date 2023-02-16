@@ -11,7 +11,6 @@ const ApplyButtonArea = ({ projectData, pid, onOpenButtonClickEvent }: any) => {
   const [isRecruiting, setIsRecruiting] = useState<any>(
     projectData?.isRecruiting,
   );
-  console.log('pid ', pid);
 
   const { mutate: updateRecruitingMutate } = useMutation(() =>
     updateRecruiting(pid, isRecruiting),
@@ -19,7 +18,6 @@ const ApplyButtonArea = ({ projectData, pid, onOpenButtonClickEvent }: any) => {
 
   const handleAuthorButtonClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    console.log('1', isRecruiting);
     setIsRecruiting(!isRecruiting);
   };
 
@@ -38,10 +36,7 @@ const ApplyButtonArea = ({ projectData, pid, onOpenButtonClickEvent }: any) => {
           onOpenButtonClickEvent();
           if (uid === projectData.uid) {
             handleAuthorButtonClick(e);
-            console.log('2', isRecruiting);
             updateRecruitingMutate(pid, isRecruiting);
-
-            console.log('test');
           } else handleApplyButtonClick(e);
         }}
         backgroundColor={

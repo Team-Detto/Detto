@@ -15,7 +15,7 @@ const WriterToShareArea = ({ projectData, pid, userData }: any) => {
       </WriterWrapper>
       <IconWrapper>
         <Views pid={pid} view={view} />
-        <Likes pid={pid} uid={uid} like={like} />
+        <Likes pid={pid} like={like} />
         <Share title={title} content={content} />
       </IconWrapper>
     </WriterToShareContainer>
@@ -46,7 +46,6 @@ const WriterProfileImg = styled.img`
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
-  background-color: #aaaaaa; //영역 표시용 임시 색상
 `;
 
 const WriterNickname = styled.p`

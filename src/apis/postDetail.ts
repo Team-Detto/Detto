@@ -41,6 +41,22 @@ export const updateMyProject = async (
   }
 };
 
+//프로젝트 지원 시 업데이트
+export const updateAppliedProject = async (
+  uid: string,
+  pid: string,
+  recruited: boolean,
+) => {
+  const docRef = doc(firestore, 'myprojects', uid);
+  await setDoc(
+    docRef,
+    {
+      appliedProjects: { [pid]: { recruited: recruited } },
+    },
+    { merge: true },
+  );
+};
+
 export const updateApplicants = async (
   pid: string,
   uid: string,
@@ -90,11 +106,13 @@ export const updateParticipants = async (
   );
 };
 
+//프로젝트 삭제
 export const deleteProject = async (pid: string) => {
   const docRef = doc(firestore, 'post', pid);
   await deleteDoc(docRef);
 };
 
+//모집중, 모집마감 업데이트
 export const updateRecruiting = async (pid: string, isRecruiting: any) => {
   const docRef = doc(firestore, 'post', pid);
   await updateDoc(docRef, { isRecruiting: isRecruiting });

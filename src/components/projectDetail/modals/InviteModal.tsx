@@ -2,11 +2,9 @@ import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import Alert from 'components/common/Alert';
 import { useModal } from 'hooks';
-import { useEffect } from 'react';
-import { allowScroll, preventScroll } from 'utils/modal';
 import { useMutation } from '@tanstack/react-query';
-import { updateParticipants } from 'apis/postDetail';
-import { useParams } from 'react-router-dom';
+import { updateAppliedProject, updateParticipants } from 'apis/postDetail';
+
 interface props {
   isOpen: boolean;
   applicantData: any;
@@ -33,6 +31,10 @@ const InviteModal = ({
     ),
   );
 
+  const { mutate: invitedProjectMutate } = useMutation(() =>
+    updateAppliedProject(applicantData[applicantKey]?.uid, pid, true),
+  );
+
   return (
     <>
       <Alert
@@ -47,9 +49,11 @@ const InviteModal = ({
         <ModalWrapper>
           <UserProfileImage src={applicantData[applicantKey]?.profileURL} />
           <UserSkillsContainer>
-            {applicantData[applicantKey]?.skills.map((skill: string) => {
-              return <Skills key={skill}>{skill}</Skills>;
-            })}
+            {applicantData[applicantKey]?.skills
+              .slice(0, 5)
+              .map((skill: string) => {
+                return <Skills key={skill}>{skill}</Skills>;
+              })}
             을/를 경험해 본 팀원이네요!
           </UserSkillsContainer>
 
@@ -70,8 +74,8 @@ const InviteModal = ({
                   onClickEvent();
                   onAlertClickEvent();
                   applicantMutate();
-                  //데이터 추가
-                  //데이터 삭제
+                  invitedProjectMutate();
+                  //applicants 데이터 변경
                 }}
               >
                 네, 초대할게요!

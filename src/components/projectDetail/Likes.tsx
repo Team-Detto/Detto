@@ -1,12 +1,14 @@
 import styled from '@emotion/styled';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import { RiHeartAddLine, RiHeartAddFill } from 'react-icons/ri';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import React from 'react';
 import { updateLike, updateMyProject } from '../../apis/postDetail'; //여기서 에러 발생 :모듈 또는 해당 형식 선언을 찾을 수 없습니다.
 import { findWithCollectionName } from 'apis/findWithCollectionName';
+import { useAuth } from 'hooks';
 
-const Likes = ({ pid, uid, like }: any) => {
+const Likes = ({ pid, like }: any) => {
+  const { uid } = useAuth();
   const [countLike, setCountLike] = useState(like);
   const { mutate: likeMutate } = useMutation(() => updateLike(pid, countLike));
   const { mutate: likedProjectMutate } = useMutation(() =>
@@ -50,7 +52,11 @@ const Likes = ({ pid, uid, like }: any) => {
         handleLike(event);
       }}
     >
-      {isLike ? <RiHeartAddFill /> : <RiHeartAddLine />}
+      {isLike ? (
+        <AiFillHeart size="1.5rem" color="#F14181" />
+      ) : (
+        <AiOutlineHeart size="1.5rem" color="#6B7684" />
+      )}
       관심 {countLike ?? '없음'}
     </IconButton>
   );
