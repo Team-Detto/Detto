@@ -2,9 +2,10 @@ import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 
 const MemberInfoArea = ({ applicantsData }: any) => {
-  console.log(applicantsData);
-  const data = Object.keys(applicantsData).filter((key) => {
-    return applicantsData[key].recruit === true;
+  if (applicantsData === undefined) applicantsData = {};
+
+  const data = Object?.keys(applicantsData).filter((key) => {
+    return applicantsData?.[key]?.recruit === true;
   });
 
   return (
@@ -15,7 +16,7 @@ const MemberInfoArea = ({ applicantsData }: any) => {
           <MemberInfoDiv>
             <PositionDiv>기획</PositionDiv>
             {/*  Todo: 클릭시 공개프로필로 연결 */}
-            {data.map((key) => {
+            {data?.map((key) => {
               if (applicantsData[key].position === '기획')
                 return (
                   <MemberProfileImg

@@ -50,6 +50,7 @@ export const updateMyProject = async (
     await updateDoc(docRef, { likedProjects: arrayRemove(pid) });
   }
 };
+
 export const updateApplicants = async (
   pid: string,
   uid: string,
