@@ -32,6 +32,11 @@ export const updateLike = async (pid: any, countLike: number) => {
   await updateDoc(docRef, { like: countLike });
 };
 
+export const updateViews = async (pid: any, countViews: number) => {
+  const docRef = doc(firestore, 'post', pid);
+  await updateDoc(docRef, { view: countViews });
+};
+
 // 좋아요한 프로젝트 업데이트
 export const updateMyProject = async (
   uid: string,
