@@ -29,24 +29,42 @@ const ProjectItem = ({ project }: ProjectProps) => {
         <ProjectInfoBox>
           <ProjectInfoLabel>함께하고 있는 팀원</ProjectInfoLabel>
           <ProjectMemberPositionBox>
-            {project.participants.map((participant) => (
-              <ProjectMemberPositionList key={participant.type}>
-                <ProjectMemberPositionLabel>
-                  {participant.type} {/* 포지션 라벨 ex.기획, 개발, 디자인*/}
-                </ProjectMemberPositionLabel>
-
-                <ProjectMemberList>
-                  {participant.members.map((m) => (
-                    <ProjectMemberItem key={m.uid}>
-                      <ProjectMemberProfileImg
-                        src={m.profile ?? defaultProfile}
-                        alt="멤버닉네임"
-                      />
-                    </ProjectMemberItem>
-                  ))}
-                </ProjectMemberList>
-              </ProjectMemberPositionList>
-            ))}
+            {/* 기획 */}
+            <ProjectMemberPositionList>
+              <ProjectMemberPositionLabel>기획</ProjectMemberPositionLabel>
+              <ProjectMemberList>
+                <ProjectMemberItem>
+                  <ProjectMemberProfileImg
+                    src={defaultProfile}
+                    alt="멤버닉네임"
+                  />
+                </ProjectMemberItem>
+              </ProjectMemberList>
+            </ProjectMemberPositionList>
+            {/* 개발 */}
+            <ProjectMemberPositionList>
+              <ProjectMemberPositionLabel>개발</ProjectMemberPositionLabel>
+              <ProjectMemberList>
+                <ProjectMemberItem>
+                  <ProjectMemberProfileImg
+                    src={defaultProfile}
+                    alt="멤버닉네임"
+                  />
+                </ProjectMemberItem>
+              </ProjectMemberList>
+            </ProjectMemberPositionList>
+            {/* 디자인 */}
+            <ProjectMemberPositionList>
+              <ProjectMemberPositionLabel>디자인</ProjectMemberPositionLabel>
+              <ProjectMemberList>
+                <ProjectMemberItem>
+                  <ProjectMemberProfileImg
+                    src={defaultProfile}
+                    alt="멤버닉네임"
+                  />
+                </ProjectMemberItem>
+              </ProjectMemberList>
+            </ProjectMemberPositionList>
           </ProjectMemberPositionBox>
         </ProjectInfoBox>
       </ProjectInfoWrapper>
@@ -58,17 +76,17 @@ export default ProjectItem;
 
 const ProjectItemContainer = styled.div`
   width: 100%;
-  height: 13.75rem;
+  height: 20.625rem;
   display: flex;
-  align-items: center;
+
   background-color: ${COLORS.white};
   padding: 1.25rem 1rem;
   margin-bottom: 1.4rem;
 `;
 
 const ProjectThumbnailWrapper = styled.div`
-  width: 11.25rem;
-  height: 11.25rem;
+  width: 7.375rem;
+  height: 7.375rem;
   margin-right: 2.25rem;
 `;
 
@@ -104,6 +122,7 @@ const ProjectInfoLabel = styled.span`
 const ProjectInfoTitle = styled.h3`
   font-size: 1rem;
   color: ${COLORS.black};
+  font-weight: 500;
 `;
 
 const ProjectStackList = styled.ul`
@@ -130,20 +149,23 @@ const ProjectStackItem = styled.li`
 
 const ProjectMemberPositionBox = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   flex-wrap: wrap;
-  margin-top: 0.625rem;
 `;
 
 const ProjectMemberPositionList = styled.div`
   display: flex;
   align-items: center;
   margin-right: 1.75rem;
+  margin-top: 0.625rem;
 `;
 
 const ProjectMemberPositionLabel = styled.span`
   display: flex;
+  justify-content: center;
   align-items: center;
+  width: 4.375rem;
   height: 2rem;
   padding: 0 0.75rem;
   margin-right: 1.25rem;

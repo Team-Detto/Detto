@@ -121,16 +121,8 @@ const PublicProfilePage = () => {
             </ProfileInfoBox>
           </ProfileBox>
           <UserProjectWrapper>
-            <ProjectList
-              sectionTitle="현재 진행하고 있는 프로젝트"
-              nickname="detto"
-              projects={projects}
-            />
-            <ProjectList
-              sectionTitle="현재 모집하고 있는 프로젝트"
-              nickname="detto"
-              projects={projects}
-            />
+            <ProjectList projects={projects} />
+            <ProjectList projects={projects} />
           </UserProjectWrapper>
         </PublicProfileWrapper>
       </WebContainer>

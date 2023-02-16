@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import styled from '@emotion/styled';
 import { useAuth } from 'hooks';
@@ -9,6 +9,7 @@ import LeftTab from 'components/mypage/LeftTab';
 import { getUserInfoData } from 'apis/mypageUsers';
 import MemberProfile from 'assets/images/project_member.png';
 import thumbnail from 'assets/images/project_thumbnail.png';
+import ProjectsTab from 'components/mypage/ProjectsTab';
 
 export interface Project {
   id: string;
@@ -128,31 +129,24 @@ const MyPage = () => {
     },
   ];
 
+  useEffect(() => {
+    if (!uid) {
+      return;
+    }
+  });
+
   return (
     <MyPageContainer>
       <LeftTab activeTab={activeTab} setActiveTab={setActiveTab} />
       <WebContainer>
         <MypageContentsWrapper>
           {activeTab === '개인정보' && (
-            <MyPageInfo user={userInfoData} uid={uid ?? ''} />
+            <MyPageInfo user={userInfoData} uid={uid} />
           )}
           {activeTab === '프로젝트' && (
             <ProjectListWrapper>
-              <ProjectList
-                sectionTitle="모집중인 프로젝트"
-                nickname="detto"
-                projects={projects}
-              />
-              <ProjectList
-                sectionTitle="지원한 프로젝트"
-                nickname="detto"
-                projects={projects}
-              />
-              <ProjectList
-                sectionTitle="관심있는 프로젝트"
-                nickname="detto"
-                projects={projects}
-              />
+              <ProjectsTab category="current" />
+              <ProjectList projects={projects} />
             </ProjectListWrapper>
           )}
         </MypageContentsWrapper>
