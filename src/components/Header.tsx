@@ -6,8 +6,8 @@ import { useAuth, useGlobalModal, useHeader, usePopup } from 'hooks';
 import COLORS from 'assets/styles/colors';
 import { useEffect } from 'react';
 import { useQueries } from '@tanstack/react-query';
-import { getInboxNotes } from 'apis/note';
-import { getNotifications } from 'apis/notification';
+import { getInboxNotes } from 'apis/notes';
+import { getNotifications } from 'apis/notifications';
 
 interface headerTypes {
   isMain: boolean;

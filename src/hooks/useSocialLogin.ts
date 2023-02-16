@@ -14,6 +14,7 @@ import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
 
 // Firebase의 사용자 컬렉션을 초기화하는 함수
 const initializeUserCollections = (user: User) => {
+  const date = Date.now();
   return Promise.all([
     setDoc(doc(firestore, 'users', user.uid), {
       uid: user.uid,
@@ -40,13 +41,18 @@ const initializeUserCollections = (user: User) => {
       receiverUid: user.uid,
       receiverDisplayName: user.displayName || 'Anonymous',
       receiverPhotoURL: user.photoURL,
-      date: Date.now(),
+      date,
       title: 'Detto에 오신 것을 환영합니다 🎉',
       content:
         '프로젝트를 등록해 팀원을 모집하거나, 관심 있는 프로젝트에 지원해보세요!',
       isRead: false,
     }),
-    setDoc(doc(firestore, 'notifications', user.uid), {}),
+    addDoc(collection(firestore, 'notifications'), {
+      uid: user.uid,
+      date,
+      title: 'Detto에 오신 것을 환영합니다 🎉',
+      isRead: false,
+    }),
   ]);
 };
 
