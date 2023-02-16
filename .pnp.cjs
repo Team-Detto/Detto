@@ -48,7 +48,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react-icons", "npm:3.0.0"],\
             ["@types/react-router-dom", "npm:5.3.3"],\
             ["@types/react-slick", "npm:0.23.10"],\
-            ["@types/uuid", "npm:9.0.0"],\
             ["@typescript-eslint/eslint-plugin", "virtual:990f75af0e4e97bc6ae8f77688032fa0cb741f39b94d672bd3c1007a785e4716099a18d80092328073a846a121401dd5fae4622660399ff5a4cd78fe25f2791c#npm:5.51.0"],\
             ["@typescript-eslint/parser", "virtual:990f75af0e4e97bc6ae8f77688032fa0cb741f39b94d672bd3c1007a785e4716099a18d80092328073a846a121401dd5fae4622660399ff5a4cd78fe25f2791c#npm:5.51.0"],\
             ["@yarnpkg/sdks", "npm:3.0.0-rc.38"],\
@@ -73,7 +72,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["slick-carousel", "virtual:990f75af0e4e97bc6ae8f77688032fa0cb741f39b94d672bd3c1007a785e4716099a18d80092328073a846a121401dd5fae4622660399ff5a4cd78fe25f2791c#npm:1.8.1"],\
             ["tui-color-picker", "npm:2.2.8"],\
             ["typescript", "patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=23ec76"],\
-            ["uuid", "npm:9.0.0"],\
             ["web-vitals", "npm:2.1.4"]\
           ],\
           "linkType": "SOFT"\
@@ -6367,15 +6365,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
-      ["@types/uuid", [\
-        ["npm:9.0.0", {\
-          "packageLocation": "./.yarn/cache/@types-uuid-npm-9.0.0-979023c16f-59ae56d954.zip/node_modules/@types/uuid/",\
-          "packageDependencies": [\
-            ["@types/uuid", "npm:9.0.0"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
       ["@types/ws", [\
         ["npm:8.5.4", {\
           "packageLocation": "./.yarn/cache/@types-ws-npm-8.5.4-c0237574ef-fefbad20d2.zip/node_modules/@types/ws/",\
@@ -9448,7 +9437,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react-icons", "npm:3.0.0"],\
             ["@types/react-router-dom", "npm:5.3.3"],\
             ["@types/react-slick", "npm:0.23.10"],\
-            ["@types/uuid", "npm:9.0.0"],\
             ["@typescript-eslint/eslint-plugin", "virtual:990f75af0e4e97bc6ae8f77688032fa0cb741f39b94d672bd3c1007a785e4716099a18d80092328073a846a121401dd5fae4622660399ff5a4cd78fe25f2791c#npm:5.51.0"],\
             ["@typescript-eslint/parser", "virtual:990f75af0e4e97bc6ae8f77688032fa0cb741f39b94d672bd3c1007a785e4716099a18d80092328073a846a121401dd5fae4622660399ff5a4cd78fe25f2791c#npm:5.51.0"],\
             ["@yarnpkg/sdks", "npm:3.0.0-rc.38"],\
@@ -9473,7 +9461,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["slick-carousel", "virtual:990f75af0e4e97bc6ae8f77688032fa0cb741f39b94d672bd3c1007a785e4716099a18d80092328073a846a121401dd5fae4622660399ff5a4cd78fe25f2791c#npm:1.8.1"],\
             ["tui-color-picker", "npm:2.2.8"],\
             ["typescript", "patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=23ec76"],\
-            ["uuid", "npm:9.0.0"],\
             ["web-vitals", "npm:2.1.4"]\
           ],\
           "linkType": "SOFT"\
@@ -19617,13 +19604,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/uuid-npm-8.3.2-eca0baba53-5575a8a75c.zip/node_modules/uuid/",\
           "packageDependencies": [\
             ["uuid", "npm:8.3.2"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
-        ["npm:9.0.0", {\
-          "packageLocation": "./.yarn/cache/uuid-npm-9.0.0-46c41e3e43-8dd2c83c43.zip/node_modules/uuid/",\
-          "packageDependencies": [\
-            ["uuid", "npm:9.0.0"]\
           ],\
           "linkType": "HARD"\
         }]\
