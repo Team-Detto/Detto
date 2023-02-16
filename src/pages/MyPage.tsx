@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import styled from '@emotion/styled';
-import { useAuth } from 'hooks';
+import { useAuth, useProjectList } from 'hooks';
 import WebContainer from 'components/common/WebContainer';
 import MyPageInfo from 'components/mypage/MyPageInfo';
 import ProjectList from 'components/common/ProjectList';
@@ -31,6 +31,7 @@ interface Member {
 
 const MyPage = () => {
   const [activeTab, setActiveTab] = useState('개인정보');
+  const { activeProjectTab, handleProjectTabClick } = useProjectList();
   const { uid } = useAuth();
 
   const { data: userInfoData }: any = useQuery({
@@ -145,7 +146,10 @@ const MyPage = () => {
           )}
           {activeTab === '프로젝트' && (
             <ProjectListWrapper>
-              <ProjectsTab category="current" />
+              <ProjectsTab
+                category={activeProjectTab}
+                onTabClick={handleProjectTabClick}
+              />
               <ProjectList projects={projects} />
             </ProjectListWrapper>
           )}

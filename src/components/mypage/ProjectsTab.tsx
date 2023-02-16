@@ -4,9 +4,10 @@ import { projectTabNames } from 'utils/positions';
 
 interface ProjectsTabProps {
   category: string;
+  onTabClick: (e: React.MouseEvent<HTMLLIElement>) => void;
 }
 
-const ProjectsTab = ({ category }: ProjectsTabProps) => {
+const ProjectsTab = ({ category, onTabClick }: ProjectsTabProps) => {
   return (
     <ProjectsTabContainer>
       {projectTabNames.map((tabName) => (
@@ -14,6 +15,7 @@ const ProjectsTab = ({ category }: ProjectsTabProps) => {
           key={tabName.id}
           name={tabName.id}
           category={category}
+          onClick={onTabClick}
         >
           {tabName.value}
         </ProjectsTabButton>
@@ -46,5 +48,6 @@ const ProjectsTabButton = styled.span<{ name: string; category: string }>`
   font-weight: 500;
   color: ${({ category, name }) =>
     name === category ? COLORS.violetA500 : COLORS.gray400};
+  transition: all 300ms ease-in-out;
   cursor: pointer;
 `;

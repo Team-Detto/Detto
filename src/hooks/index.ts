@@ -11,6 +11,7 @@ import useUpdateProfile from './useUpdateProfile';
 import useHeader from './useHeader';
 import useFindProject from './useFindProject';
 import useToastPopup from './useToastPopup';
+import useProjectList from './useProjectList';
 
 export {
   useAuth,
@@ -26,4 +27,5 @@ export {
   useHeader,
   useFindProject,
   useToastPopup,
+  useProjectList,
 };

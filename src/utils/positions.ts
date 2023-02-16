@@ -11,8 +11,8 @@ export const career = [
 ];
 
 export const projectTabNames = [
-  { id: 'current', value: '참여한 프로젝트' },
-  { id: 'applied', value: '지원한 프로젝트' },
-  { id: 'posted', value: '모집중인 프로젝트' },
-  { id: 'liked', value: '관심있는 프로젝트' },
+  { id: 'currentProjects', value: '참여한 프로젝트' },
+  { id: 'appliedProjects', value: '지원한 프로젝트' },
+  { id: 'postedProjects', value: '모집중인 프로젝트' },
+  { id: 'likedProjects', value: '관심있는 프로젝트' },
 ];
