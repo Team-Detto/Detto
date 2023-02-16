@@ -2,11 +2,12 @@ import styled from '@emotion/styled';
 import { firestore } from 'apis/firebaseService';
 import COLORS from 'assets/styles/colors';
 import { doc, updateDoc } from 'firebase/firestore';
-import { useAuth, useGlobalModal } from 'hooks';
+import { useAuth, useGlobalModal, useToastPopup } from 'hooks';
 import React, { useState } from 'react';
 import { career as careerList, positionList } from 'utils/positions';
 import ConfirmButton from './ConfirmButton';
 import ModalNavigator from '../common/modal/ModalNavigator';
+import ValidationToastPopup from 'components/common/ValidationToastPopup';
 
 // 페이지 1 : 포지션 선택
 const page = 1;
@@ -15,6 +16,7 @@ export default function SetPositions() {
   const [positions, setPositions] = useState<string[]>([]);
   const [career, setCareer] = useState<string>('');
 
+  const { showToast, ToastMessage, handleToastPopup } = useToastPopup();
   const { openModal } = useGlobalModal();
   const { uid } = useAuth();
 
@@ -26,8 +28,22 @@ export default function SetPositions() {
     }
   };
 
+  // 포지션 선택 유효성 검사
+  const checkValidation = () => {
+    if (positions.length === 0) {
+      handleToastPopup('포지션을 선택해주세요.');
+      return false;
+    }
+    if (career === '') {
+      handleToastPopup('경력을 선택해주세요.');
+      return false;
+    }
+    return true;
+  };
+
   const handleConfirmButtonClick = async () => {
     if (!uid) return;
+    if (!checkValidation()) return;
     await updateDoc(doc(firestore, `users/${uid}`), {
       positions,
       isJunior: career === 'junior',
@@ -37,6 +53,7 @@ export default function SetPositions() {
 
   return (
     <Container>
+      {showToast && <ValidationToastPopup message={ToastMessage} top={2} />}
       <ModalNavigator page={page} back />
       <TextContainer>
         <TitleText>어떤 포지션인지 알려주세요</TitleText>
