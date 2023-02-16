@@ -4,10 +4,19 @@ import COLORS from 'assets/styles/colors';
 type ButtonProps = {
   label: string;
   onClick: () => void;
+  disabled?: boolean;
 };
 
-export default function CustomButton({ label, onClick }: ButtonProps) {
-  return <Button onClick={onClick}>{label}</Button>;
+export default function CustomButton({
+  label,
+  onClick,
+  disabled,
+}: ButtonProps) {
+  return (
+    <Button onClick={onClick} disabled={disabled}>
+      {label}
+    </Button>
+  );
 }
 
 const Button = styled.button`

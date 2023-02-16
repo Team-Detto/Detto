@@ -6,7 +6,7 @@ import { useAuth, useGlobalModal } from 'hooks';
 import React, { useState } from 'react';
 import { career as careerList, positionList } from 'utils/positions';
 import ConfirmButton from './ConfirmButton';
-import ModalNavigator from '../common/ModalNavigator';
+import ModalNavigator from '../common/modal/ModalNavigator';
 
 // 페이지 1 : 포지션 선택
 const page = 1;

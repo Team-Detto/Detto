@@ -5,7 +5,7 @@ import { doc, updateDoc } from 'firebase/firestore';
 import { useAuth, useGlobalModal } from 'hooks';
 import { useState } from 'react';
 import ConfirmButton from './ConfirmButton';
-import ModalNavigator from '../common/ModalNavigator';
+import ModalNavigator from 'components/common/modal/ModalNavigator';
 import SetSkillsPageStack from './SetSkillsPageStack';
 
 // 페이지 2 : 기술스택 선택

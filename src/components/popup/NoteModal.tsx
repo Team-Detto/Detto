@@ -1,37 +1,16 @@
-import styled from '@emotion/styled';
-import COLORS from 'assets/styles/colors';
-import ModalNavigator from 'components/common/ModalNavigator';
+import { modalTypes } from 'components/common/modal/modal';
 import { useGlobalModal } from 'hooks';
 import { useEffect } from 'react';
-import { getDateAndTime } from 'utils/date';
 import { allowScroll, preventScroll } from 'utils/modal';
-import CustomButton from './CustomButton';
-
-const [INBOX, OUTBOX, REPLY, SEND_NOTE] = [
-  'inbox',
-  'outbox',
-  'reply',
-  'sendNote',
-];
+import ReadInboxNote from './ReadInboxNote';
+import ReadOutboxNote from './ReadOutboxNote';
+import SendNote from './SendNote';
 
 const NoteModal = () => {
   const {
     modal: { type, data },
-    openModalWithData,
-    closeModal,
     updateModalSize,
   } = useGlobalModal();
-
-  const { displayName, title, date, content, photoURL } = data;
-
-  const handleReplyButtonClick = () => {
-    openModalWithData(REPLY, data);
-  };
-
-  const sendNote = () => {
-    console.log('쪽지 보내기');
-    closeModal();
-  };
 
   useEffect(() => {
     updateModalSize('41.0625rem', '31.4375rem');
@@ -43,127 +22,21 @@ const NoteModal = () => {
   }, []);
 
   // 받은쪽지함 쪽지 읽기
-  if (type === INBOX)
-    return (
-      <Container>
-        <ModalNavigator page={0} close />
-        <HeaderContainer>
-          <ProfileImage src={photoURL} />
-          <TitleText>{title}</TitleText>
-          <DateText>{getDateAndTime(date)}</DateText>
-        </HeaderContainer>
-        <ContentText>{content}</ContentText>
-        <CustomButton label="답장하기" onClick={handleReplyButtonClick} />
-      </Container>
-    );
+  if (type === modalTypes.inbox) {
+    return <ReadInboxNote data={data} />;
+  }
 
   // 답장하기, 쪽지 보내기
-  if (type === REPLY || type === SEND_NOTE)
-    return (
-      <Container>
-        <ModalNavigator page={0} close />
-        <HeaderContainer>
-          <ProfileImage src={photoURL} />
-          <TitleText>{displayName}님께 쪽지 보내기</TitleText>
-        </HeaderContainer>
-        <ContentTextarea autoFocus placeholder="쪽지 내용을 입력해주세요." />
-        <CustomButton label="쪽지를 보낼게요" onClick={sendNote} />
-      </Container>
-    );
+  if (type === modalTypes.reply || type === modalTypes.sendNote) {
+    return <SendNote receiverUid={data.uid} />;
+  }
 
-  if (type === OUTBOX)
-    // 보낸쪽지함 쪽지 읽기
-    return (
-      <Container>
-        <HeaderContainer>
-          <ProfileImage src={photoURL} />
-          <TitleText>보낸 쪽지</TitleText>
-          <DateText>{getDateAndTime(date)}</DateText>
-        </HeaderContainer>
-        <ContentText>{content}</ContentText>
-        <CustomButton label="확인" onClick={closeModal} />
-      </Container>
-    );
+  // 보낸쪽지함 쪽지 읽기
+  if (type === modalTypes.outbox) {
+    return <ReadOutboxNote data={data} />;
+  }
 
   return <div>Note Modal</div>;
 };
 
 export default NoteModal;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  width: 100%;
-  height: 100%;
-
-  padding: 1.25rem 1rem;
-`;
-
-const HeaderContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  padding: 0 1rem;
-`;
-
-const ProfileImage = styled.img`
-  width: 2rem;
-  height: 2rem;
-
-  border-radius: 100%;
-
-  margin-right: 0.625rem;
-`;
-
-const TitleText = styled.h2`
-  flex: 1;
-
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 44px;
-
-  color: ${COLORS.gray850};
-`;
-
-const DateText = styled.p`
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 28px;
-
-  color: ${COLORS.gray750};
-`;
-
-const ContentText = styled.p`
-  width: 100%;
-  height: 17.8125rem;
-  padding: 10px 28px;
-
-  font-weight: 400;
-  font-size: 1.125rem;
-  line-height: 200%;
-
-  color: ${COLORS.gray900};
-
-  border: 1px solid ${COLORS.gray300};
-  border-radius: 4px;
-
-  overflow: auto;
-`;
-
-const ContentTextarea = styled.textarea`
-  width: 100%;
-  height: 285px;
-  padding: 10px 28px;
-
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 200%;
-
-  border: 1px solid ${COLORS.gray300};
-  border-radius: 4px;
-
-  resize: none;
-`;

@@ -6,7 +6,7 @@ import {
   useProfileImage,
   useUpdateProfile,
 } from 'hooks';
-import ModalNavigator from '../common/ModalNavigator';
+import ModalNavigator from '../common/modal/ModalNavigator';
 import ConfirmButton from './ConfirmButton';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { getUserInfoData, updateUserInfoData } from 'apis/mypageUsers';
@@ -160,4 +160,6 @@ const NicknameLabel = styled.label`
   letter-spacing: -0.02em;
 
   color: #383838;
+
+  margin-right: 1.4375rem;
 `;

@@ -1,4 +1,5 @@
 import { useGlobalModal } from 'hooks';
+import { getDateAndTime } from 'utils/date';
 import { MessageContainer, MessageDateDiv, MessageTitleDiv } from './styles';
 
 interface NoteMessageProps {
@@ -24,7 +25,7 @@ export default function NoteMessage({ type, data }: NoteMessageProps) {
         {title}
       </MessageTitleDiv>
       <MessageDateDiv>
-        {displayName} | {date}
+        {displayName} | {getDateAndTime(date)}
       </MessageDateDiv>
     </MessageContainer>
   );

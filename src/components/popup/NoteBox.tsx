@@ -2,9 +2,8 @@ import styled from '@emotion/styled';
 import { useQueries } from '@tanstack/react-query';
 import { getInboxNotes, getOutboxNotes } from 'apis/note';
 import COLORS from 'assets/styles/colors';
-import { usePopup } from 'hooks';
+import { useAuth, usePopup } from 'hooks';
 import React, { useState } from 'react';
-import { getDate } from 'utils/date';
 import NoteMessage from './NoteMessage';
 import { PopupWrapper } from './styles';
 
@@ -20,15 +19,16 @@ export default function NoteBox() {
   const {
     popup: { isNoteOpen },
   } = usePopup();
+  const { uid } = useAuth();
 
   const [{ data: inboxData }, { data: outboxData }] = useQueries({
     queries: [
       {
-        queryKey: ['inbox'],
+        queryKey: ['inbox', uid],
         queryFn: getInboxNotes,
       },
       {
-        queryKey: ['outbox'],
+        queryKey: ['outbox', uid],
         queryFn: getOutboxNotes,
       },
     ],
@@ -54,14 +54,13 @@ export default function NoteBox() {
             ))}
           </BoxContainer>
           <MessageWrapper>
-            {/* //TODO: 타입 지정 */}
             {selectedBox === 'inbox' &&
               inboxData?.map((data: any) => (
-                <NoteMessage type="inbox" key={data.id} data={data} />
+                <NoteMessage key={data.id} type="inbox" data={data} />
               ))}
             {selectedBox === 'outbox' &&
               outboxData?.map((data: any) => (
-                <NoteMessage type="outbox" key={data.id} data={data} />
+                <NoteMessage key={data.id} type="outbox" data={data} />
               ))}
           </MessageWrapper>
         </PopupWrapper>

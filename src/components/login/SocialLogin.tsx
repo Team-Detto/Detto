@@ -5,7 +5,7 @@ import GITHUB_IMG from 'assets/images/login_github.png';
 import FACEBOOK_IMG from 'assets/images/login_facebook.png';
 import GOOGLE_IMG from 'assets/images/login_google.png';
 import useSocialLogin from 'hooks/useSocialLogin';
-import ModalNavigator from '../common/ModalNavigator';
+import ModalNavigator from '../common/modal/ModalNavigator';
 
 // 페이지 0 : 로그인
 export default function SocialLogin() {
