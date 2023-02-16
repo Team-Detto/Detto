@@ -42,7 +42,7 @@ const Header = () => {
   return (
     <HeaderContainer isMain={isMain} hideGradient={hideGradient}>
       <WebContainer>
-        <PopupContainer />
+        {isLoggedIn && <PopupContainer />}
         <HeaderWrapper>
           <LogoBoxH1>
             <Link to={'/'}> Detto</Link>
