@@ -1,5 +1,5 @@
 import ModalNavigator from 'components/common/modal/ModalNavigator';
-import { useGlobalModal, useNote } from 'hooks';
+import { useGlobalModal, useNote, useToastPopup } from 'hooks';
 import CustomButton from './CustomButton';
 import {
   Container,
@@ -8,12 +8,13 @@ import {
   NameText,
   ProfileImage,
 } from './styles';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import { staleTime } from 'utils/staleTime';
 import { useQuery } from '@tanstack/react-query';
 import { getUserInfoData } from 'apis/mypageUsers';
+import ValidationToastPopup from 'components/common/ValidationToastPopup';
 
 export default function SendNote({ data }: { data: Note }) {
   const [disabled, setDisabled] = useState(false);
@@ -28,7 +29,27 @@ export default function SendNote({ data }: { data: Note }) {
     staleTime: staleTime.user,
   });
 
+  const { showToast, ToastMessage, handleToastPopup } = useToastPopup();
+
+  // 쪽지 유효성 검사
+  const checkNoteValidation = useCallback(() => {
+    if (!note.title || !note.content) {
+      handleToastPopup('제목은 2자 이상, 내용은 5자 이상 입력해주세요.');
+      return false;
+    }
+    if (note.title.length < 2 || note.content.length < 5) {
+      handleToastPopup('제목은 2자 이상, 내용은 5자 이상 입력해주세요.');
+      return false;
+    }
+    if (note.title.length > 30 || note.content.length > 500) {
+      handleToastPopup('제목은 30자 이하, 내용은 500자 이하 입력해주세요.');
+      return false;
+    }
+    return true;
+  }, [note]);
+
   const handleSendButtonClick = async () => {
+    if (!checkNoteValidation()) return;
     setDisabled(true);
     sendNote({ note: note, receiverUid: data.senderUid });
     closeModal();
@@ -37,6 +58,7 @@ export default function SendNote({ data }: { data: Note }) {
   if (!receiver) return null;
   return (
     <Container>
+      {showToast && <ValidationToastPopup message={ToastMessage} top={2} />}
       <ModalNavigator page={0} close />
       <HeaderContainer>
         <ProfileImage src={receiver.photoURL} />
@@ -46,12 +68,14 @@ export default function SendNote({ data }: { data: Note }) {
         type="text"
         placeholder="제목을 입력해주세요."
         autoFocus
+        maxLength={30}
         value={note.title}
         onChange={(e) => setNote({ ...note, title: e.target.value })}
       />
       <ContentTextarea
         placeholder="내용을 입력해주세요."
         value={note.content}
+        maxLength={500}
         onChange={(e) => setNote({ ...note, content: e.target.value })}
       />
       <CustomButton
