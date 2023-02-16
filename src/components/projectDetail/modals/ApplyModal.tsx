@@ -50,16 +50,6 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
     }
   };
 
-  //디자인스택, 개발스택, 기획 스택 합쳐서 중복제거
-  //Todo 포지션 선택에 따라 스택 보여주기
-  // const skills = Array.from(
-  //   new Set(
-  //     userData?.designerStack.concat(
-  //       userData?.developerStack,
-  //       userData?.plannerStack,
-  //     ),
-  //   ),
-  // );
   let skills: string[] = [];
   switch (clickValue) {
     case 0: //기획
@@ -151,6 +141,7 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
           >
             아니오
           </MotiveButton>
+
           <MotiveButton
             onClick={(e) => {
               ApplyFunction(e);

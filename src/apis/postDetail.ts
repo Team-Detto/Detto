@@ -41,7 +41,7 @@ export const updateMyProject = async (
   }
 };
 
-//프로젝트 지원 시 업데이트
+//프로젝트 지원, 초대 완료 시 업데이트
 export const updateAppliedProject = async (
   uid: string,
   pid: string,

@@ -49,18 +49,18 @@ const ProjectDetailPage = () => {
   // 마감하기 버튼 이벤트 핸들러
   const handleAuthorButtonClick = () => {
     updateRecruitingMutate(params?.id as any, false as any);
-    handleCloseModalCloseChagne();
+    handleCloseModalCloseChange();
   };
 
   const {
     isOpen: isApply,
-    handleModalOpenChagne: handleApplyModalOpenChagne,
-    handleModalCloseChagne: handleApplyModalCloseChagne,
+    handleModalOpenChange: handleApplyModalOpenChange,
+    handleModalCloseChange: handleApplyModalCloseChange,
   } = useModal(false);
   const {
     isOpen: isClose,
-    handleModalOpenChagne: handleCloseModalOpenChagne,
-    handleModalCloseChagne: handleCloseModalCloseChagne,
+    handleModalOpenChange: handleCloseModalOpenChange,
+    handleModalCloseChange: handleCloseModalCloseChange,
   } = useModal(false);
 
   //projectData?.uid 가 현재 uid랑 같은지 판별하고 같으면 수정하기 버튼 display, 지원하기 버튼 -> 마감하기 버튼으로 변경, 지원자 목록 보여주기
@@ -87,13 +87,13 @@ const ProjectDetailPage = () => {
             pid={params?.id}
             isApplicant={isApplicant}
             projectData={projectData}
-            onApplyModalStateChangeEvent={handleApplyModalOpenChagne}
-            onCloseModalStateChangeEvent={handleCloseModalOpenChagne}
+            onApplyModalStateChangeEvent={handleApplyModalOpenChange}
+            onCloseModalStateChangeEvent={handleCloseModalOpenChange}
           />
           <ApplyModal
             isOpen={isApply}
             message="프로젝트를 지원해볼까요?"
-            onClickEvent={handleApplyModalCloseChagne}
+            onClickEvent={handleApplyModalCloseChange}
             pid={params.id as string}
           />
           <ConfirmAlert
@@ -110,10 +110,10 @@ const ProjectDetailPage = () => {
             }
             onClickEvent={() => {
               isApplicant
-                ? handleCloseModalCloseChagne()
+                ? handleCloseModalCloseChange()
                 : handleAuthorButtonClick();
             }}
-            onCloseEvent={handleCloseModalCloseChagne}
+            onCloseEvent={handleCloseModalCloseChange}
           />
           {/* currentUser랑 글쓴이uid랑 같으면 보이게하기 */}
           {projectData?.uid === uid && (
