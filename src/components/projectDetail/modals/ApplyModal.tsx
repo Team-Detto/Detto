@@ -7,7 +7,8 @@ import { useEffect, useState } from 'react';
 import { allowScroll, preventScroll } from 'utils/modal';
 import { positionList } from 'utils/positions';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { findWithCollectionName, updateApplicants } from 'apis/postDetail';
+import { updateApplicants } from 'apis/postDetail';
+import { findWithCollectionName } from 'apis/findWithCollectionName';
 
 interface props {
   isOpen: boolean;
@@ -114,14 +115,7 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
                 setClickValue(-1); //포지션 초기화
                 onClickEvent(); //모달 닫기
                 onAlertClickEvent(); //지원성공 모달 띄우기
-
                 applicantMutate(userData?.uid); //지원자 데이터 삽입
-                console.log(
-                  '포지션:',
-                  positionList[clickValue].name,
-                  '지원동기:',
-                  motive,
-                );
                 //버튼 변경 이벤트
                 //데이터 삽입,삭제 이벤트
               }
@@ -130,7 +124,7 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
             지원하기
           </MotiveButton>
         </ApplyButtonContainer>
-        {/* 지원실패 모달 위에 모달 띄워야해서 */}
+        {/* 지원실패 : 모달 위에 모달 띄워야해서 Container 내부에 있어야함 */}
         <Alert
           isOpen={isAlertOpen}
           onClickEvent={onAlertClickEvent}
