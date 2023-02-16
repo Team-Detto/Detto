@@ -12,7 +12,7 @@ const useNote = (receiverUid: string) => {
   });
 
   /**
-   * @description 쪽지를 보낼 때, inbox, outbox에 각각 쪽지를 저장하는 함수
+   * @description messages 컬렉션에 쪽지를 저장하는 함수
    * @returns Promise<void>
    */
   const updateNoteCollection = async ({

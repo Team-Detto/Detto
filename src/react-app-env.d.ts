@@ -25,11 +25,7 @@ interface UserInfo {
 interface Note {
   id: string;
   senderUid: string;
-  senderDisplayName: string;
-  senderPhotoURL: string;
   receiverUid: string;
-  receiverDisplayName: string;
-  receiverPhotoURL: string;
   date: number;
   title: string;
   content: string;

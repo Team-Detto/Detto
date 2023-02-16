@@ -28,11 +28,7 @@ export const modalState = atom<ModalState>({
     data: {
       id: '',
       senderUid: '',
-      senderDisplayName: '',
-      senderPhotoURL: '',
       receiverUid: '',
-      receiverDisplayName: '',
-      receiverPhotoURL: '',
       date: 0,
       title: '',
       content: '',
