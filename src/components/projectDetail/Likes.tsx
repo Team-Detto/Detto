@@ -38,14 +38,13 @@ const Likes = ({ pid, uid, like }: any) => {
   //좋아요 기능
   const handleLike = (event: React.MouseEvent) => {
     event.preventDefault();
+    setIsLike(!isLike);
     if (isLike === true) {
-      setCountLike(countLike - 1);
-      setIsLike(!isLike);
       // 클릭했을 때 true인 경우
+      setCountLike(countLike - 1);
     } else if (isLike === false) {
       //클릭했을 때 false인 경우
       setCountLike(countLike + 1);
-      setIsLike(!isLike);
     }
   };
   return (
