@@ -7,7 +7,6 @@ import {
   HeaderContainer,
   NameText,
   ProfileImage,
-  TitleText,
 } from './styles';
 import { useState } from 'react';
 import styled from '@emotion/styled';
@@ -21,9 +20,8 @@ export default function SendNote({ data }: { data: Note }) {
   const { sendNote, receiver } = useNote(data.receiverUid);
 
   const handleSendButtonClick = async () => {
-    const receiverUid = data.senderUid;
     setDisabled(true);
-    sendNote({ note, receiverUid });
+    sendNote(note);
     closeModal();
   };
 

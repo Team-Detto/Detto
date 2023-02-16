@@ -17,13 +17,7 @@ const useNote = (receiverUid: string) => {
    * @description messages 컬렉션에 쪽지를 저장하는 함수
    * @returns Promise<void>
    */
-  const updateNoteCollection = async ({
-    note,
-    receiverUid,
-  }: {
-    note: SendNote;
-    receiverUid: string;
-  }) => {
+  const updateNoteCollection = async (note: SendNote) => {
     const data = await getDoc(doc(firestore, 'users', receiverUid));
     if (!data.exists()) {
       throw new Error('존재하지 않는 사용자입니다.');
