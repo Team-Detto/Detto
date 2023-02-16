@@ -12,6 +12,9 @@ export const positionValidation = (position: object) => {
   if (Object.values(position).every((value: number) => value <= 0)) {
     return false;
   }
+  if (Object.values(position).some((value: number) => value < 0)) {
+    return false;
+  }
   return true;
 };
 
@@ -21,8 +24,9 @@ export const periodValidation = (startDate: string, endDate: string) => {
   return true;
 };
 
-export const deadlineValidation = (deadline: string) => {
+export const deadlineValidation = (deadline: string, TodayDate: string) => {
   if (deadline === '') return false;
+  if (deadline < TodayDate) return false;
   return true;
 };
 
