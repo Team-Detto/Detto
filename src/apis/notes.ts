@@ -7,7 +7,6 @@ import { firestore } from 'apis/firebaseService';
  * @returns 사용자가 받은 쪽지를 시간 내림차순으로 정렬한 배열
  */
 export const getInboxNotes = async (params: any) => {
-  console.log('inbox');
   const [_, uid] = params.queryKey;
   const docRef = collection(firestore, `notes`);
   const q = query(
@@ -26,7 +25,6 @@ export const getInboxNotes = async (params: any) => {
  * @returns 사용자가 보낸 쪽지를 시간 내림차순으로 정렬한 배열
  */
 export const getOutboxNotes = async (params: any) => {
-  console.log('outbox');
   const [_, uid] = params.queryKey;
   const docRef = collection(firestore, `notes`);
   const q = query(

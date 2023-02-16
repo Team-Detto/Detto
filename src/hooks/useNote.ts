@@ -7,7 +7,7 @@ import { useAuth } from 'hooks';
 const useNote = (receiverUid: string) => {
   const sender = useAuth();
   const { data: receiver } = useQuery({
-    queryKey: ['user', receiverUid],
+    queryKey: ['users', receiverUid],
     queryFn: getUserInfoData,
   });
 

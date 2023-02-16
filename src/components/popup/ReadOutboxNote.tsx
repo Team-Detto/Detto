@@ -17,8 +17,9 @@ import {
 export default function ReadOutboxNote({ data }: { data: Note }) {
   const { closeModal } = useGlobalModal();
 
+  // receiver의 프로필 정보
   const { data: receiver } = useQuery({
-    queryKey: ['user', data.receiverUid],
+    queryKey: ['users', data.receiverUid],
     queryFn: getUserInfoData,
   });
 

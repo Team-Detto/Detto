@@ -18,8 +18,9 @@ import {
 export default function ReadInboxNote({ data }: { data: Note }) {
   const { openModalWithData } = useGlobalModal();
 
+  // sender의 프로필 정보
   const { data: sender } = useQuery({
-    queryKey: ['user', data.senderUid],
+    queryKey: ['users', data.senderUid],
     queryFn: getUserInfoData,
   });
 
