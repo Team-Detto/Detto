@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import Alert from 'components/common/Alert';
 import { useModal } from 'hooks';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateAppliedProject, updateParticipants } from 'apis/postDetail';
 
 interface props {
@@ -20,6 +20,7 @@ const InviteModal = ({
   pid,
   applicantKey,
 }: props) => {
+  const queryClient = useQueryClient();
   const { isOpen: isAlertOpen, handleModalStateChange: onAlertClickEvent } =
     useModal(false);
 
@@ -31,8 +32,16 @@ const InviteModal = ({
     ),
   );
 
-  const { mutate: invitedProjectMutate } = useMutation(() =>
-    updateAppliedProject(applicantData[applicantKey]?.uid, pid, true),
+  const { mutate: invitedProjectMutate } = useMutation(
+    () => updateAppliedProject(applicantData[applicantKey]?.uid, pid, true),
+    {
+      onSuccess: () => {
+        setTimeout(() => {
+          // 모달 바로 꺼져서 1초 뒤에 쿼리 재요청
+          queryClient.invalidateQueries(['post', pid]);
+        }, 1000);
+      },
+    },
   );
 
   return (

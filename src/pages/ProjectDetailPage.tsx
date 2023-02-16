@@ -15,13 +15,14 @@ import ContentArea from 'components/projectDetail/ContentArea';
 import ApplyButtonArea from 'components/projectDetail/ApplyButtonArea';
 import ApplicantListArea from 'components/projectDetail/ApplicantListArea';
 import COLORS from 'assets/styles/colors';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useAuth, useModal } from 'hooks';
 import ApplyModal from 'components/projectDetail/modals/ApplyModal';
 import ConfirmAlert from 'components/common/ConfirmAlert';
 
 const ProjectDetailPage = () => {
   const params = useParams();
+  const queryClient = useQueryClient();
 
   //프로젝트 데이터 조회
   const { data: projectData } = useQuery({
@@ -42,8 +43,13 @@ const ProjectDetailPage = () => {
     queryFn: () => firebaseGetIsApplicantRequest(params?.id, uid),
   });
 
-  const { mutate: updateRecruitingMutate } = useMutation(() =>
-    updateRecruiting(params?.id as string, false),
+  const { mutate: updateRecruitingMutate } = useMutation(
+    () => updateRecruiting(params?.id as string, false),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['post', params?.id]); //마감하기 버튼 성공시 렌더링
+      },
+    },
   );
 
   // 마감하기 버튼 이벤트 핸들러
@@ -57,6 +63,7 @@ const ProjectDetailPage = () => {
     handleModalOpenChange: handleApplyModalOpenChange,
     handleModalCloseChange: handleApplyModalCloseChange,
   } = useModal(false);
+
   const {
     isOpen: isClose,
     handleModalOpenChange: handleCloseModalOpenChange,
@@ -87,8 +94,8 @@ const ProjectDetailPage = () => {
             pid={params?.id}
             isApplicant={isApplicant}
             projectData={projectData}
-            onApplyModalStateChangeEvent={handleApplyModalOpenChange}
-            onCloseModalStateChangeEvent={handleCloseModalOpenChange}
+            onApplyModalStateChangeEvent={handleApplyModalOpenChange} //지원하기 : 지원취소
+            onCloseModalStateChangeEvent={handleCloseModalOpenChange} //마감하기
           />
           <ApplyModal
             isOpen={isApply}
@@ -116,13 +123,13 @@ const ProjectDetailPage = () => {
             onCloseEvent={handleCloseModalCloseChange}
           />
           {/* currentUser랑 글쓴이uid랑 같으면 보이게하기 */}
-          {projectData?.uid === uid && (
-            <ApplicantListArea
-              projectData={projectData}
-              userData={userData}
-              pid={params?.id}
-            />
-          )}
+          {/* {projectData?.uid === uid && ( */}
+          <ApplicantListArea
+            projectData={projectData}
+            userData={userData}
+            pid={params?.id}
+          />
+          {/* )} */}
         </WebContainer>
       )}
     </ProjectDetailContainer>

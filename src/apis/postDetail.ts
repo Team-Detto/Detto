@@ -124,7 +124,8 @@ export const firebaseGetIsApplicantRequest = async (pid: any, uid: string) => {
   const postDocRef = doc(firestore, 'post', pid);
   const docSnap = await getDoc(postDocRef);
   const applicants = docSnap.data()?.applicants;
-  if (applicants) {
+  if (applicants.recruit === false) {
+    //지원자 중 초대된 사람까지 제외
     return applicants[uid] ? true : false;
   } else {
     return false;

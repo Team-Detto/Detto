@@ -6,7 +6,7 @@ import { useAuth, useModal } from 'hooks';
 import React, { useEffect, useState } from 'react';
 import { allowScroll, preventScroll } from 'utils/modal';
 import { positionList } from 'utils/positions';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { updateApplicants, updateAppliedProject } from 'apis/postDetail';
 import { findWithCollectionName } from 'apis/findWithCollectionName';
 
@@ -24,6 +24,7 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
   const [motive, setMotive] = useState('');
   const [clickValue, setClickValue] = useState(-1);
   const { uid } = useAuth();
+  const queryClient = useQueryClient();
 
   const { data: userData } = useQuery({
     queryKey: ['users', uid],
@@ -84,12 +85,18 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
   );
 
   //지원하기 클릭 시 appliedProject에 추가
-  const { mutate: projectMutate } = useMutation(() =>
-    updateAppliedProject(
-      uid, //현재 유저의 uid
-      pid, //현재 프로젝트의 pid
-      false, //초대 여부
-    ),
+  const { mutate: projectMutate } = useMutation(
+    () =>
+      updateAppliedProject(
+        uid, //현재 유저의 uid
+        pid, //현재 프로젝트의 pid
+        false, //초대 여부
+      ),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['post', pid]);
+      },
+    },
   );
 
   useEffect(() => {
