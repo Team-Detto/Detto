@@ -4,7 +4,8 @@ import { useFindProject } from 'hooks';
 import { useState } from 'react';
 
 const MainRecommendation = () => {
-  const { projects, handleNavigateToProjectDetail } = useFindProject();
+  const { projects, likedProjects, handleNavigateToProjectDetail } =
+    useFindProject();
   const tapType = [
     { type: 'inquiry', name: '조회순' },
     { type: 'attention', name: '관심순' },
@@ -37,6 +38,7 @@ const MainRecommendation = () => {
                 <ContantCard
                   key={project.id}
                   project={project}
+                  likedProjects={likedProjects}
                   onNavigateToProjectDetailEvent={handleNavigateToProjectDetail}
                 />
               ),

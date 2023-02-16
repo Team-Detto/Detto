@@ -6,6 +6,7 @@ interface Props {
   projects: EditType.EditFormType[];
   toggle: boolean;
   category: string;
+  likedProjects: string[];
   onNavigateToProjectDetailEvent: (path: string) => () => void;
 }
 
@@ -13,6 +14,7 @@ const FindProjectList = ({
   projects,
   toggle,
   category,
+  likedProjects,
   onNavigateToProjectDetailEvent,
 }: Props) => {
   return (
@@ -25,6 +27,7 @@ const FindProjectList = ({
               <ContantCard
                 key={project.id}
                 project={project}
+                likedProjects={likedProjects}
                 onNavigateToProjectDetailEvent={onNavigateToProjectDetailEvent}
               />
             )
@@ -32,6 +35,7 @@ const FindProjectList = ({
             <ContantCard
               key={project.id}
               project={project}
+              likedProjects={likedProjects}
               onNavigateToProjectDetailEvent={onNavigateToProjectDetailEvent}
             />
           ),

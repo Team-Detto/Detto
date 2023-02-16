@@ -5,10 +5,15 @@ import styled from '@emotion/styled';
 
 interface Props {
   project: EditType.EditFormType;
+  likedProjects: string[];
   onNavigateToProjectDetailEvent: (path: string) => () => void;
 }
 
-const ContantCard = ({ project, onNavigateToProjectDetailEvent }: Props) => {
+const ContantCard = ({
+  project,
+  likedProjects,
+  onNavigateToProjectDetailEvent,
+}: Props) => {
   const {
     id,
     title,
@@ -22,9 +27,6 @@ const ContantCard = ({ project, onNavigateToProjectDetailEvent }: Props) => {
   }: any = project;
   const stacks = [].concat(plannerStack, designerStack, developerStack);
 
-  // 관심 테스트용 데이터
-  const heart = true;
-
   return (
     <ContantCardWrap onClick={onNavigateToProjectDetailEvent(id)}>
       <ContantCardImgContainer src={thumbnail} />
@@ -34,8 +36,12 @@ const ContantCard = ({ project, onNavigateToProjectDetailEvent }: Props) => {
             프로젝트 시작일 | {getDate(startDate)}
           </ContantCardDate>
           <ContentCardBookmark>
-            {!heart && <AiOutlineHeart size="1.5rem" color="#6B7684" />}
-            {heart && <AiFillHeart size="1.5rem" color="#F14181" />}
+            {likedProjects.includes(id) && (
+              <AiFillHeart size="1.5rem" color="#F14181" />
+            )}
+            {!likedProjects.includes(id) && (
+              <AiOutlineHeart size="1.5rem" color="#6B7684" />
+            )}
           </ContentCardBookmark>
         </ContantCardDateContainer>
         <ContantCardTitle>{title}</ContantCardTitle>

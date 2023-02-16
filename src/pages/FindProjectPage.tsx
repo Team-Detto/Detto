@@ -9,6 +9,7 @@ const FindProjectPage = () => {
     projects,
     category,
     toggle,
+    likedProjects,
     handleCategoryClick,
     handleToggleClick,
     handleNavigateToProjectDetail,
@@ -25,6 +26,7 @@ const FindProjectPage = () => {
         />
         <FindProjectList
           projects={projects}
+          likedProjects={likedProjects}
           toggle={toggle}
           category={category}
           onNavigateToProjectDetailEvent={handleNavigateToProjectDetail}

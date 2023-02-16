@@ -30,7 +30,9 @@ const ProjectCalendar = () => {
   // 날짜가 바뀔때마다 데이터를 가져옴
   useEffect(() => {
     firebaseGetProjectDataRequest(setProjectData);
+  }, []);
 
+  useEffect(() => {
     //해당 날의 진행중인 프로젝트 필터링
     setDayList(
       projectData.filter((el: any) =>
@@ -39,7 +41,7 @@ const ProjectCalendar = () => {
           .includes(SelectDate),
       ),
     );
-  }, [projectData]);
+  }, [projectData, value]);
 
   return (
     <ProjectCalendarWrap
