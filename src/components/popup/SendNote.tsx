@@ -17,7 +17,7 @@ export default function SendNote({ data }: { data: Note }) {
   const [note, setNote] = useState<SendNote>({ title: '', content: '' });
 
   const { closeModal } = useGlobalModal();
-  const { sendNote, receiver } = useNote(data.receiverUid);
+  const { sendNote, receiver } = useNote(data.senderUid);
 
   const handleSendButtonClick = async () => {
     setDisabled(true);
