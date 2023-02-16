@@ -2,11 +2,9 @@ import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import Alert from 'components/common/Alert';
 import { useModal } from 'hooks';
-import { useEffect } from 'react';
-import { allowScroll, preventScroll } from 'utils/modal';
 import { useMutation } from '@tanstack/react-query';
 import { updateAppliedProject, updateParticipants } from 'apis/postDetail';
-import { useParams } from 'react-router-dom';
+
 interface props {
   isOpen: boolean;
   applicantData: any;
@@ -51,9 +49,11 @@ const InviteModal = ({
         <ModalWrapper>
           <UserProfileImage src={applicantData[applicantKey]?.profileURL} />
           <UserSkillsContainer>
-            {applicantData[applicantKey]?.skills.map((skill: string) => {
-              return <Skills key={skill}>{skill}</Skills>;
-            })}
+            {applicantData[applicantKey]?.skills
+              .slice(0, 5)
+              .map((skill: string) => {
+                return <Skills key={skill}>{skill}</Skills>;
+              })}
             을/를 경험해 본 팀원이네요!
           </UserSkillsContainer>
 

@@ -37,13 +37,11 @@ const ApplicantListArea = ({ projectData, pid }: any) => {
                   <StackContainer>
                     <StackWrap>
                       {applicants[key]?.skills.slice(0, 3).map((skill: any) => {
-                        console.log('1', skill);
                         return <StackDiv key={skill}>{skill}</StackDiv>;
                       })}
                     </StackWrap>
                     <StackWrap>
                       {applicants[key]?.skills.slice(3, 6).map((skill: any) => {
-                        console.log('2', skill);
                         return <StackDiv key={skill}>{skill}</StackDiv>;
                       })}
                     </StackWrap>
@@ -153,7 +151,6 @@ const StackDiv = styled.div`
   justify-content: center;
   padding: 0px 12px;
   gap: 10px;
-  /* width: 56px; */
   height: 32px;
   font-size: 12px;
   overflow: hidden;
