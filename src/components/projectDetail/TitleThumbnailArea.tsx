@@ -99,6 +99,7 @@ const ProjectTitle = styled.div`
 
 const ModifyDeleteButtonWrap = styled.div`
   display: flex;
+  align-items: center;
   gap: 1.25rem;
 `;
 

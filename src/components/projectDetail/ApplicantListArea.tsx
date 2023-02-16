@@ -52,7 +52,7 @@ const ApplicantListArea = ({ projectData, pid }: any) => {
                       setApplicantKey(key);
                     }}
                   >
-                    팀원으로 초대하기
+                    지원자 정보 보기
                   </InviteButton>
                   <InviteModal
                     isOpen={isOpen}
@@ -87,6 +87,7 @@ const ApplicantListTitle = styled.div`
 const ApplicantListContent = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
   gap: 58px;
   margin-top: 57px;
 `;
