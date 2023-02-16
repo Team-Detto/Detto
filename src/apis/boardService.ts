@@ -1,6 +1,7 @@
 import { firestore } from 'apis/firebaseService';
 import {
   addDoc,
+  arrayUnion,
   collection,
   deleteDoc,
   doc,
@@ -16,12 +17,12 @@ export const firebaseCreateProjectRequest = async (
   formData: WriteType.WriteFormType,
   markdownText: string,
   image: any,
-  uid?: string,
+  uid: string,
 ) => {
   try {
     const thumbnailUrl = await firebaseImageUploadRequest(image);
 
-    await addDoc(collection(firestore, 'post'), {
+    const postDoc = await addDoc(collection(firestore, 'post'), {
       ...formData,
       startDate: new Date(formData.startDate).getTime(),
       endDate: new Date(formData.endDate).getTime(),
@@ -34,6 +35,10 @@ export const firebaseCreateProjectRequest = async (
       isRecruiting: true,
       applicants: {},
       uid,
+    });
+
+    await updateDoc(doc(firestore, 'myprojects', uid), {
+      postedProjects: arrayUnion(postDoc.id),
     });
   } catch (e) {
     console.error(e);
