@@ -3,11 +3,8 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { RiHeartAddLine, RiHeartAddFill } from 'react-icons/ri';
 import React from 'react';
-import {
-  updateLike,
-  updateMyProject,
-  findWithCollectionName,
-} from '../../apis/postDetail'; //여기서 에러 발생 :모듈 또는 해당 형식 선언을 찾을 수 없습니다.
+import { updateLike, updateMyProject } from '../../apis/postDetail'; //여기서 에러 발생 :모듈 또는 해당 형식 선언을 찾을 수 없습니다.
+import { findWithCollectionName } from 'apis/findWithCollectionName';
 
 const Likes = ({ pid, uid, like }: any) => {
   const [countLike, setCountLike] = useState(like);

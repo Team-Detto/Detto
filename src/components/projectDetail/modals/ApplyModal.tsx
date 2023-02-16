@@ -7,7 +7,8 @@ import { useEffect, useState } from 'react';
 import { allowScroll, preventScroll } from 'utils/modal';
 import { positionList } from 'utils/positions';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { findWithCollectionName, updateApplicants } from 'apis/postDetail';
+import { updateApplicants } from 'apis/postDetail';
+import { findWithCollectionName } from 'apis/findWithCollectionName';
 
 interface props {
   isOpen: boolean;

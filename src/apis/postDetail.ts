@@ -16,16 +16,6 @@ export const viewProject = async (pid: any) => {
   return docSnap.data();
 };
 
-// 정보 조회
-export const findWithCollectionName = async (
-  collectionName: string,
-  uid: string,
-) => {
-  const docRef = doc(firestore, collectionName, uid);
-  const docSnap = await getDoc(docRef);
-  return docSnap.data();
-};
-
 //좋아요 수 업데이트
 export const updateLike = async (pid: any, countLike: number) => {
   const docRef = doc(firestore, 'post', pid);
