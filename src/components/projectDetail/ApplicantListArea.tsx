@@ -33,11 +33,21 @@ const ApplicantListArea = ({ projectData, pid }: any) => {
                   <ProfileImage src={applicants[key]?.profileURL} />
                   <NicknameDiv>{applicants[key]?.displayName}</NicknameDiv>
                   <PositionDiv>{applicants[key]?.position}</PositionDiv>
-                  <StackWrap>
-                    {applicants[key]?.skills.map((skill: any) => {
-                      return <StackDiv key={skill}>{skill}</StackDiv>;
-                    })}
-                  </StackWrap>
+
+                  <StackContainer>
+                    <StackWrap>
+                      {applicants[key]?.skills.slice(0, 3).map((skill: any) => {
+                        console.log('1', skill);
+                        return <StackDiv key={skill}>{skill}</StackDiv>;
+                      })}
+                    </StackWrap>
+                    <StackWrap>
+                      {applicants[key]?.skills.slice(3, 6).map((skill: any) => {
+                        console.log('2', skill);
+                        return <StackDiv key={skill}>{skill}</StackDiv>;
+                      })}
+                    </StackWrap>
+                  </StackContainer>
                   <InviteButton
                     onClick={() => {
                       handleModalStateChange();
@@ -118,14 +128,22 @@ const PositionDiv = styled.div`
   color: ${COLORS.gray800};
 `;
 
+const StackContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 248px;
+  height: 76px;
+  gap: 12px;
+`;
+
 const StackWrap = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
+
   gap: 8px;
-  width: 248px;
-  height: 76px;
 `;
 
 const StackDiv = styled.div`
