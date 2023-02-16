@@ -8,12 +8,7 @@ const useFindProject = () => {
 
   const [projects, setProjects] = useState<EditType.EditFormType[]>([]);
   const [category, setCategory] = useState<string>('planner');
-  const [toggle, setToggle] = useState(false);
-
-  const filterProjects = projects.filter((project) => {
-    const { positions }: any = project;
-    return !!positions[category];
-  });
+  const [toggle, setToggle] = useState<boolean>(false);
 
   useEffect(() => {
     firebaseGetProjectDataRequest(setProjects);
@@ -33,7 +28,6 @@ const useFindProject = () => {
 
   return {
     projects,
-    filterProjects,
     category,
     toggle,
     handleCategoryClick,

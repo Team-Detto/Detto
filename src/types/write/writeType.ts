@@ -17,7 +17,6 @@ export namespace WriteType {
     like: number;
     createdAt: number;
     isRecruiting: boolean;
-    isClosed: boolean;
   }
 }
 
@@ -37,7 +36,6 @@ export namespace EditType {
     deadline: number;
     createdAt: number;
     isRecruiting: boolean;
-    isClosed: boolean;
     view: number;
     like: number;
     frontend: number;

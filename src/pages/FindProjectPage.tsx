@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 
 const FindProjectPage = () => {
   const {
-    filterProjects,
+    projects,
     category,
     toggle,
     handleCategoryClick,
@@ -24,8 +24,9 @@ const FindProjectPage = () => {
           onToggleClickEvent={handleToggleClick}
         />
         <FindProjectList
-          projects={filterProjects}
+          projects={projects}
           toggle={toggle}
+          category={category}
           onNavigateToProjectDetailEvent={handleNavigateToProjectDetail}
         />
       </WebContainer>

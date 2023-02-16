@@ -1,6 +1,7 @@
 import { useEdtiBoard } from 'hooks';
 import ConfirmAlert from 'components/common/ConfirmAlert';
 import WebContainer from 'components/common/WebContainer';
+import ValidationToastPopup from 'components/common/ValidationToastPopup';
 import ProjectEditPageHeader from 'components/editpage/ProjectEditPageHeader';
 import ProjectEditPageBody from 'components/editpage/ProjectEditPageBody';
 import ProjectEditPageFooter from 'components/editpage/ProjectEditPageFooter';
@@ -11,12 +12,15 @@ const ProjectEditPage = () => {
     isOpen,
     editRef,
     imageRef,
+    showToast,
+    ToastMessage,
     editFormValue,
     setEditFormValue,
     handleModalStateChange,
     handleFormValueChange,
     handleAddThumbnailImage,
     handleEditProjectButtonClick,
+    handleCheckValidationButtonClick,
   } = useEdtiBoard();
 
   return (
@@ -36,7 +40,7 @@ const ProjectEditPage = () => {
         <ProjectEditPageFooter
           editRef={editRef}
           editFormValue={editFormValue}
-          onModalStateChangeEvent={handleModalStateChange}
+          onModalStateChangeEvent={handleCheckValidationButtonClick}
         />
         <ConfirmAlert
           isOpen={isOpen}
@@ -45,6 +49,7 @@ const ProjectEditPage = () => {
           onClickEvent={handleEditProjectButtonClick}
           onCloseEvent={handleModalStateChange}
         />
+        {showToast && <ValidationToastPopup message={ToastMessage} />}
       </EditPageWrapper>
     </WebContainer>
   );
