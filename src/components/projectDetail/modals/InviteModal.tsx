@@ -5,7 +5,7 @@ import { useModal } from 'hooks';
 import { useEffect } from 'react';
 import { allowScroll, preventScroll } from 'utils/modal';
 import { useMutation } from '@tanstack/react-query';
-import { updateParticipants } from 'apis/postDetail';
+import { updateAppliedProject, updateParticipants } from 'apis/postDetail';
 import { useParams } from 'react-router-dom';
 interface props {
   isOpen: boolean;
@@ -31,6 +31,10 @@ const InviteModal = ({
       applicantData[applicantKey]?.uid, //지원자uid
       true,
     ),
+  );
+
+  const { mutate: invitedProjectMutate } = useMutation(() =>
+    updateAppliedProject(applicantData[applicantKey]?.uid, pid, true),
   );
 
   return (
@@ -70,8 +74,8 @@ const InviteModal = ({
                   onClickEvent();
                   onAlertClickEvent();
                   applicantMutate();
-                  //데이터 추가
-                  //데이터 삭제
+                  invitedProjectMutate();
+                  //applicants 데이터 변경
                 }}
               >
                 네, 초대할게요!
