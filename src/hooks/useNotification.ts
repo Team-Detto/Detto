@@ -1,14 +1,15 @@
 import { firestore } from 'apis/firebaseService';
 import { addDoc, collection } from 'firebase/firestore';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 
-const useNotification = (receiverUid: string) => {
+const useNotification = () => {
   /**
    * @description Notifications 컬렉션에 알림을 저장하는 함수
    * @returns Promise<void>
    */
   const updateNoteCollection = async ({
     title,
+    receiverUid,
   }: {
     title: string;
     receiverUid: string;
@@ -23,14 +24,9 @@ const useNotification = (receiverUid: string) => {
     });
   };
 
-  const queryClient = useQueryClient();
-  const { mutate } = useMutation(updateNoteCollection, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(['notifications', receiverUid]);
-    },
-  });
+  const { mutate: sendNotification } = useMutation(updateNoteCollection, {});
 
-  return { sendNotification: mutate };
+  return sendNotification;
 };
 
 export default useNotification;

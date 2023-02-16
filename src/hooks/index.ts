@@ -1,6 +1,7 @@
 import useAuth from './useAuth';
 import useModal from './useModal';
 import useNote from './useNote';
+import useNotification from './useNotification';
 import usePopup from './usePopup';
 import useGlobalModal from './useGlobalModal';
 import useWrite from './useWrite';
@@ -15,6 +16,7 @@ export {
   useAuth,
   useModal,
   useNote,
+  useNotification,
   usePopup,
   useGlobalModal,
   useWrite,

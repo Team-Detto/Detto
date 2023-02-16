@@ -11,17 +11,26 @@ import {
 import { useState } from 'react';
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
+import { staleTime } from 'utils/staleTime';
+import { useQuery } from '@tanstack/react-query';
+import { getUserInfoData } from 'apis/mypageUsers';
 
 export default function SendNote({ data }: { data: Note }) {
   const [disabled, setDisabled] = useState(false);
   const [note, setNote] = useState<SendNote>({ title: '', content: '' });
 
   const { closeModal } = useGlobalModal();
-  const { sendNote, receiver } = useNote(data.senderUid);
+  const sendNote = useNote();
+
+  const { data: receiver } = useQuery({
+    queryKey: ['user', data.senderUid],
+    queryFn: getUserInfoData,
+    staleTime: staleTime.user,
+  });
 
   const handleSendButtonClick = async () => {
     setDisabled(true);
-    sendNote(note);
+    sendNote({ note: note, receiverUid: data.senderUid });
     closeModal();
   };
 
