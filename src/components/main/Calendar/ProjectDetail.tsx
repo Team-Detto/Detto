@@ -24,7 +24,11 @@ const ProjectDetail = () => {
             </ProjectDetailContainer>
             <ProjectDetailContainer>
               <ProjectDetailTextAreaDiv>필요 스택</ProjectDetailTextAreaDiv>
-              <div>{data.developerStack}</div>
+              <div>
+                {data.developerStack.map((el: any) => {
+                  return el + '   ';
+                })}
+              </div>
             </ProjectDetailContainer>
             <ProjectDetailContainer>
               <ProjectDetailTextAreaDiv>팀원 레벨</ProjectDetailTextAreaDiv>

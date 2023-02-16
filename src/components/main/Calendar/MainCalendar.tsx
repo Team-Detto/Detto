@@ -1,13 +1,15 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
-import { detailListState } from '../../../recoil/atoms';
+import { dayListState, detailListState } from '../../../recoil/atoms';
 import ProjectCalendar from './ProjectCalendar';
 import ProjectDetail from './ProjectDetail';
 import ProjectList from './ProjectList';
 
 const MainCalendar = () => {
   const detailList = useRecoilValue<any>(detailListState);
+
+  const dayList = useRecoilValue<any>(dayListState);
 
   return (
     <MainCalendarWrap>
@@ -17,15 +19,19 @@ const MainCalendar = () => {
       <ProjectListContainer>
         <ProjectList />
       </ProjectListContainer>
-      <ProjectDetailContainer
-        style={
-          detailList.length > 0
-            ? { border: '1px solid #5d50f0' }
-            : { border: 'none' }
-        }
-      >
-        <ProjectDetail />
-      </ProjectDetailContainer>
+      {dayList.length > 0 ? (
+        <ProjectDetailContainer
+          style={
+            detailList.length > 0
+              ? { border: '1px solid #5d50f0' }
+              : { border: 'none' }
+          }
+        >
+          <ProjectDetail />
+        </ProjectDetailContainer>
+      ) : (
+        <ProjectDetailContainer></ProjectDetailContainer>
+      )}
     </MainCalendarWrap>
   );
 };
@@ -63,6 +69,3 @@ const ProjectDetailContainer = styled.div`
 `;
 
 export default MainCalendar;
-
-// 캘린더 오늘 날짜에 클릭 이벤트
-// 수직 슬라이더 한칸씩 이동

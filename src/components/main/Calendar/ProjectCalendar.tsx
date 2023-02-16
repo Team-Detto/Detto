@@ -12,43 +12,41 @@ const ProjectCalendar = () => {
   const [value, onChange] = useState(new Date());
   const setDayList = useSetRecoilState(dayListState);
 
-  // 날짜가 바뀔때마다 데이터를 가져옴
-  useEffect(() => {
-    firebaseGetProjectDataRequest(setProjectData);
-  }, [setProjectData]);
-
   //  선택 한 날짜
   const SelectDate = getDate(value.getTime());
 
   //  시작 부터 마감일까지 날짜를 배열로 만들어서 리턴
   const getDayList = (createAt: any, deadline: any) => {
     const dayList = [];
-    const start = new Date(createAt);
-    const end = new Date(deadline);
+    const start = new Date(getDate(createAt));
+    const end = new Date(getDate(deadline));
     while (start <= end) {
       dayList.push(new Date(start));
       start.setDate(start.getDate() + 1);
     }
     return dayList;
   };
-  //해당 날의 진행중인 프로젝트 필터링
-  setDayList(
-    projectData.filter((el: any) =>
-      getDayList(el.createdAt, el.deadline)
-        .map((el) => getDate(el.getTime()))
-        .includes(SelectDate),
-    ),
-  );
+
+  // 날짜가 바뀔때마다 데이터를 가져옴
+  useEffect(() => {
+    firebaseGetProjectDataRequest(setProjectData);
+
+    //해당 날의 진행중인 프로젝트 필터링
+    setDayList(
+      projectData.filter((el: any) =>
+        getDayList(el.createdAt, el.deadline)
+          .map((el) => getDate(el.getTime()))
+          .includes(SelectDate),
+      ),
+    );
+  }, [projectData]);
 
   return (
-    <>
-      <ProjectCalendarWrap
-        onChange={onChange}
-        value={value}
-        // 달력에 숫자만 보이게 만들기 위한 moment 라이브러리
-        formatDay={(locale, date) => `${date.getDate()}`}
-      />
-    </>
+    <ProjectCalendarWrap
+      onChange={onChange}
+      value={value}
+      formatDay={(locale, date) => `${date.getDate()}`}
+    />
   );
 };
 const ProjectCalendarWrap = styled(Calendar)`

@@ -1,10 +1,15 @@
 import styled from '@emotion/styled';
 import ContantCard from 'components/ContentCard';
 import { useFindProject } from 'hooks';
+import { useState } from 'react';
 
 const MainRecommendation = () => {
   const { projects, handleNavigateToProjectDetail } = useFindProject();
-
+  const tapType = [
+    { type: 'inquiry', name: '조회순' },
+    { type: 'attention', name: '관심순' },
+  ];
+  const [tap, setTap] = useState('조회순');
   return (
     <MainRecommendationWrap>
       <MainRecommendationContainer>
@@ -12,8 +17,18 @@ const MainRecommendation = () => {
           이런 프로젝트는 어때요?
         </MainRecommendationTitle>
         <MainRecommendationButtonContainer>
-          <MainRecommendationButton>조회순</MainRecommendationButton>
-          <MainRecommendationButton>관심순</MainRecommendationButton>
+          {tapType.map((position) => {
+            return (
+              <MainRecommendationButton
+                key={position.type}
+                name={position.name}
+                value={tap}
+                onClick={() => setTap(position.name)}
+              >
+                {position.name}
+              </MainRecommendationButton>
+            );
+          })}
         </MainRecommendationButtonContainer>
         <MainRecommendationCardContainer>
           {projects.map(
@@ -89,7 +104,10 @@ const MainRecommendationButton = styled.button`
   width: 150px;
   height: 48px;
 
-  background: #fafafb;
+  background: ${(props: { name: string; value: string }) =>
+    props.name === props.value ? '#5d50f0' : '#ffffff'};
+  color: ${(props: { name: string; value: string }) =>
+    props.name === props.value ? '#ffffff' : '#4e5968'};
   border-radius: 36px;
 
   font-family: 'Noto Sans KR';
@@ -104,7 +122,7 @@ const MainRecommendationButton = styled.button`
 
     /* violet B 400 */
 
-    background: #6f64f2;
+    background: #5d50f0;
     border-radius: 36px;
     color: #ffffff;
     font-family: 'Noto Sans KR';
