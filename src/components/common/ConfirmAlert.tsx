@@ -113,6 +113,7 @@ export const ConfirmAlertCancelButton = styled.button`
   border-radius: 0.5rem;
   transition: all 300ms ease-in-out;
   color: #505967;
+  font-weight: 600;
 
   &:hover {
     background-color: ${COLORS.gray200};

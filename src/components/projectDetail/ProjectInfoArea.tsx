@@ -23,41 +23,30 @@ const ProjectInfoArea = ({ projectData }: any) => {
       ${positions['designer'] ?? `0`}명`}
         </ProjectInfoValue>
       </ProjectInfoObject>
-      <ProjectInfoObject>
-        <ProjectInfoKey>필요스택</ProjectInfoKey>
-        <ProjectInfoValue>
+      <ProjectStackContainer>
+        <ProjectStackKey>프로젝트 스택</ProjectStackKey>
+
+        <ProjectInfoStackWrap>
           <StackDiv>
-            기획
+            <StackTitle>기획</StackTitle>
             {plannerStack?.map((skill: string) => {
-              return (
-                <ProjectInfoSkillValue key={skill}>
-                  {skill}
-                </ProjectInfoSkillValue>
-              );
+              return <StackValue key={skill}>{skill}</StackValue>;
             }) ?? '없음'}
           </StackDiv>
           <StackDiv>
-            개발
+            <StackTitle>개발</StackTitle>
             {developerStack?.map((skill: string) => {
-              return (
-                <ProjectInfoSkillValue key={skill}>
-                  {skill}
-                </ProjectInfoSkillValue>
-              );
+              return <StackValue key={skill}>{skill}</StackValue>;
             }) ?? '없음'}
           </StackDiv>
           <StackDiv>
-            디자인
+            <StackTitle>디자인</StackTitle>
             {designerStack?.map((skill: string) => {
-              return (
-                <ProjectInfoSkillValue key={skill}>
-                  {skill}
-                </ProjectInfoSkillValue>
-              );
+              return <StackValue key={skill}>{skill}</StackValue>;
             }) ?? '없음'}
           </StackDiv>
-        </ProjectInfoValue>
-      </ProjectInfoObject>
+        </ProjectInfoStackWrap>
+      </ProjectStackContainer>
       <ProjectInfoObject>
         <ProjectInfoKey>예상기간</ProjectInfoKey>
         <ProjectInfoValue>
@@ -73,11 +62,12 @@ export default ProjectInfoArea;
 
 const ProjectInfoWrapper = styled.div`
   width: 63.625rem;
-  height: 12.5rem;
+  min-height: 12.5rem;
   font-size: 1.25rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 10px;
 `;
 
 const ProjectInfoObject = styled.div`
@@ -86,31 +76,50 @@ const ProjectInfoObject = styled.div`
   gap: 2.8125rem;
 `;
 
+const ProjectStackContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 45px;
+`;
+
+const ProjectInfoStackWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+`;
+
 const ProjectInfoKey = styled.div`
-  width: 5.5rem;
+  width: 130px;
 `;
 
 const ProjectInfoValue = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 100%;
-  gap: 42px;
   height: 2.5rem;
+`;
+const ProjectStackKey = styled.div`
+  width: 130px;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `;
 
 const StackDiv = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-
   gap: 0.625rem;
   height: 2.5rem;
-  /* white-space: nowrap;
-  overflow: hidden; //넘친다면 어떻게 처리할지? */
 `;
 
-const ProjectInfoSkillValue = styled.div`
+const StackTitle = styled.div`
+  width: 65px;
+`;
+
+const StackValue = styled.div`
   background-color: ${COLORS.gray100};
   height: 32px;
   padding: 0 0.75rem;

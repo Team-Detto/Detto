@@ -18,37 +18,41 @@ const ApplicantListArea = ({ projectData, pid }: any) => {
       };
     }
   }, [isOpen]);
-  console.log('applicants', applicants);
 
+  let countFlag = 0;
   return (
     <ApplicantListContainer>
       <ApplicantListTitle>지원자 목록</ApplicantListTitle>
       <ApplicantListContent>
-        {applicants && applicants ? (
-          // applicants?.forEach((applicant: any, idx: number) => {
+        {applicants &&
           Object.keys(applicants).map((key) => {
-            // console.log('test', applicants[key]);
-            if (applicants[key]?.recruit === false)
+            if (applicants[key]?.recruit === false) {
+              countFlag += 1;
               return (
                 <ApplicantWrap key={applicants[key]?.uid}>
                   <ProfileImage src={applicants[key]?.profileURL} />
                   <NicknameDiv>{applicants[key]?.displayName}</NicknameDiv>
                   <PositionDiv>{applicants[key]?.position}</PositionDiv>
-                  {/* 개발, 디자인, 기획 스킬 모아서 배열로 만든 후에 map돌리기 */}
-                  <StackWrap>
-                    {applicants[key]?.skills.map((skill: any) => {
-                      return <StackDiv key={skill}>{skill}</StackDiv>;
-                    })}
-                  </StackWrap>
+
+                  <StackContainer>
+                    <StackWrap>
+                      {applicants[key]?.skills.slice(0, 3).map((skill: any) => {
+                        return <StackDiv key={skill}>{skill}</StackDiv>;
+                      })}
+                    </StackWrap>
+                    <StackWrap>
+                      {applicants[key]?.skills.slice(3, 6).map((skill: any) => {
+                        return <StackDiv key={skill}>{skill}</StackDiv>;
+                      })}
+                    </StackWrap>
+                  </StackContainer>
                   <InviteButton
                     onClick={() => {
                       handleModalStateChange();
                       setApplicantKey(key);
-                      // console.log('key', key);
                     }}
                   >
                     팀원으로 초대하기
-                    {/* 이거 누르면 지원한 사람의 uid가 전달돼야함 */}
                   </InviteButton>
                   <InviteModal
                     isOpen={isOpen}
@@ -59,11 +63,12 @@ const ApplicantListArea = ({ projectData, pid }: any) => {
                   />
                 </ApplicantWrap>
               );
-          })
-        ) : (
-          <CannotFoundApplicant>아직 지원자가 없습니다 :/</CannotFoundApplicant>
-        )}
+            }
+          })}
       </ApplicantListContent>
+      {countFlag === 0 && (
+        <CannotFoundApplicant>아직 지원자가 없어요 :/</CannotFoundApplicant>
+      )}
     </ApplicantListContainer>
   );
 };
@@ -121,14 +126,22 @@ const PositionDiv = styled.div`
   color: ${COLORS.gray800};
 `;
 
+const StackContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 248px;
+  height: 76px;
+  gap: 12px;
+`;
+
 const StackWrap = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
+
   gap: 8px;
-  width: 248px;
-  height: 76px;
 `;
 
 const StackDiv = styled.div`
@@ -138,7 +151,6 @@ const StackDiv = styled.div`
   justify-content: center;
   padding: 0px 12px;
   gap: 10px;
-  /* width: 56px; */
   height: 32px;
   font-size: 12px;
   overflow: hidden;

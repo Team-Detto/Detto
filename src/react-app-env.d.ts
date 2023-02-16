@@ -11,7 +11,34 @@ interface User {
   developerStack?: string[];
 }
 
+interface UserInfo {
+  displayName: string;
+  email: string | null;
+  photoURL: string;
+  isJunior: boolean;
+  positions: string[];
+  plannerStack: string[];
+  designerStack: string[];
+  developerStack: string[];
+}
+
 interface Note {
+  id: string;
+  senderUid: string;
+  receiverUid: string;
+  date: number;
+  title: string;
+  content: string;
+  isRead: boolean;
+}
+
+interface SendNote {
+  title: string;
+  content: string;
+}
+
+interface Notification {
+  id?: string;
   content: string;
   date: number;
   displayName: string;

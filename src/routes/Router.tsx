@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from 'components/Header';
 import ModalContainer from 'components/common/modal/ModalContainer';
+import ScrollToTop from 'components/common/scrollToTop';
 
 const MainComponentPage = React.lazy(() => import('pages/MainPage'));
 const MyPageComonentPage = React.lazy(() => import('pages/MyPage'));
@@ -26,6 +27,7 @@ const LoadingPage = React.lazy(() => import('pages/LoadingPage'));
 const Router = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Header />
       <ModalContainer />
       <Suspense fallback={<LoadingPage />}>

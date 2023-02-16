@@ -1,7 +1,12 @@
 import styled from '@emotion/styled';
 import WebContainer from '../components/common/WebContainer';
 import { useParams } from 'react-router-dom';
-import { findWithCollectionName, viewProject } from 'apis/postDetail';
+import {
+  firebaseGetIsApplicantRequest,
+  updateRecruiting,
+  viewProject,
+} from 'apis/postDetail';
+import { findWithCollectionName } from 'apis/findWithCollectionName';
 import TitleThumbnailArea from 'components/projectDetail/TitleThumbnailArea';
 import WriterToShareArea from 'components/projectDetail/WriterToShareArea';
 import ProjectInfoArea from 'components/projectDetail/ProjectInfoArea';
@@ -10,9 +15,10 @@ import ContentArea from 'components/projectDetail/ContentArea';
 import ApplyButtonArea from 'components/projectDetail/ApplyButtonArea';
 import ApplicantListArea from 'components/projectDetail/ApplicantListArea';
 import COLORS from 'assets/styles/colors';
-import { useQuery } from '@tanstack/react-query';
-import { useModal } from 'hooks';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { useAuth, useModal } from 'hooks';
 import ApplyModal from 'components/projectDetail/modals/ApplyModal';
+import ConfirmAlert from 'components/common/ConfirmAlert';
 
 const ProjectDetailPage = () => {
   const params = useParams();
@@ -23,52 +29,100 @@ const ProjectDetailPage = () => {
     queryFn: () => viewProject(params?.id),
   });
 
+  const { uid } = useAuth();
   //글쓴이 조회
   const { data: userData } = useQuery({
-    queryKey: ['user', projectData?.uid],
-    queryFn: () => findWithCollectionName('user', projectData?.uid), //여기서 TypeError: Cannot read property of undefined 에러남 https://github.com/microsoft/vscode/issues/116219
+    queryKey: ['users', projectData?.uid],
+    queryFn: () => findWithCollectionName('users', projectData?.uid), //여기서 TypeError: Cannot read property of undefined 에러남 https://github.com/microsoft/vscode/issues/116219
   });
 
-  const { isOpen, handleModalStateChange } = useModal(false);
+  // 현재 유저가 프로젝트 지원자 인가 조회
+  const { data: isApplicant } = useQuery({
+    queryKey: ['post', projectData?.applicants],
+    queryFn: () => firebaseGetIsApplicantRequest(params?.id, uid),
+  });
+
+  const { mutate: updateRecruitingMutate } = useMutation(() =>
+    updateRecruiting(params?.id as string, false),
+  );
+
+  // 마감하기 버튼 이벤트 핸들러
+  const handleAuthorButtonClick = () => {
+    updateRecruitingMutate(params?.id as any, false as any);
+    handleCloseModalCloseChagne();
+  };
+
+  const {
+    isOpen: isApply,
+    handleModalOpenChagne: handleApplyModalOpenChagne,
+    handleModalCloseChagne: handleApplyModalCloseChagne,
+  } = useModal(false);
+  const {
+    isOpen: isClose,
+    handleModalOpenChagne: handleCloseModalOpenChagne,
+    handleModalCloseChagne: handleCloseModalCloseChagne,
+  } = useModal(false);
 
   //projectData?.uid 가 현재 uid랑 같은지 판별하고 같으면 수정하기 버튼 display, 지원하기 버튼 -> 마감하기 버튼으로 변경, 지원자 목록 보여주기
   //지원하기 버튼 클릭시 지원자 목록에 uid 추가
   //현재 참여중인 인원, 지원한 인원 uid로 모두 user테이블 조회해서 닉네임, 프로필 사진 가져오기???
-
   return (
     <ProjectDetailContainer>
-      {projectData && userData && (
+      {projectData && (
         <WebContainer>
           <ProjectDetailWrapper>
-            <TitleThumbnailArea projectData={projectData} params={params.id} />
+            <TitleThumbnailArea projectData={projectData} pid={params?.id} />
             <WriterToShareArea
               projectData={projectData}
-              pid={params.id}
+              pid={params?.id}
               userData={userData}
             />
             <RecruitmentInfoContainer>
               <ProjectInfoArea projectData={projectData} />
-              <MemberInfoArea />
+              <MemberInfoArea applicantsData={projectData?.applicants} />
             </RecruitmentInfoContainer>
             <ContentArea projectData={projectData} />
           </ProjectDetailWrapper>
           <ApplyButtonArea
+            pid={params?.id}
+            isApplicant={isApplicant}
             projectData={projectData}
-            userData={userData}
-            onOpenButtonClickEvent={handleModalStateChange}
+            onApplyModalStateChangeEvent={handleApplyModalOpenChagne}
+            onCloseModalStateChangeEvent={handleCloseModalOpenChagne}
           />
           <ApplyModal
-            isOpen={isOpen}
+            isOpen={isApply}
             message="프로젝트를 지원해볼까요?"
-            onClickEvent={handleModalStateChange}
+            onClickEvent={handleApplyModalCloseChagne}
+            pid={params.id as string}
+          />
+          <ConfirmAlert
+            isOpen={isClose}
+            message={
+              isApplicant
+                ? '지원을 취소하시겠습니까?'
+                : '지원공고를 마감할까요?'
+            }
+            subMessage={
+              isApplicant
+                ? '정말 취소 하실건지 확인해주세요!'
+                : '팀원이 모두 모집되었는지 한 번 더 확인해주세요!'
+            }
+            onClickEvent={() => {
+              isApplicant
+                ? handleCloseModalCloseChagne()
+                : handleAuthorButtonClick();
+            }}
+            onCloseEvent={handleCloseModalCloseChagne}
           />
           {/* currentUser랑 글쓴이uid랑 같으면 보이게하기 */}
-
-          <ApplicantListArea
-            projectData={projectData}
-            userData={userData}
-            pid={params?.id}
-          />
+          {projectData?.uid === uid && (
+            <ApplicantListArea
+              projectData={projectData}
+              userData={userData}
+              pid={params?.id}
+            />
+          )}
         </WebContainer>
       )}
     </ProjectDetailContainer>

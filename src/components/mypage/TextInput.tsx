@@ -3,21 +3,27 @@ import COLORS from 'assets/styles/colors';
 
 interface TextInputProps {
   value: string;
+  name: string;
+  placeholder?: string;
   onChangeValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
   validationMessage: string;
 }
 
 const TextInput = ({
   value,
+  name,
   onChangeValue,
+  placeholder,
   validationMessage,
 }: TextInputProps) => {
   return (
     <InputBox>
       <InfoTextInput
         type="text"
+        name={name}
         defaultValue={value}
         onChange={onChangeValue}
+        placeholder={placeholder}
         minLength={2}
         maxLength={30}
       />

@@ -5,33 +5,41 @@ import { EditType } from 'types/write/writeType';
 interface Props {
   projects: EditType.EditFormType[];
   toggle: boolean;
+  category: string;
+  likedProjects: string[];
   onNavigateToProjectDetailEvent: (path: string) => () => void;
 }
 
 const FindProjectList = ({
   projects,
   toggle,
+  category,
+  likedProjects,
   onNavigateToProjectDetailEvent,
 }: Props) => {
   return (
     <FindProjectListContainer>
-      {projects.map((project) =>
-        toggle ? (
-          project.isRecruiting && (
+      {projects
+        .filter((project: any) => project.positions[category] !== 0)
+        .map((project) =>
+          toggle ? (
+            project.isRecruiting && (
+              <ContantCard
+                key={project.id}
+                project={project}
+                likedProjects={likedProjects}
+                onNavigateToProjectDetailEvent={onNavigateToProjectDetailEvent}
+              />
+            )
+          ) : (
             <ContantCard
               key={project.id}
               project={project}
+              likedProjects={likedProjects}
               onNavigateToProjectDetailEvent={onNavigateToProjectDetailEvent}
             />
-          )
-        ) : (
-          <ContantCard
-            key={project.id}
-            project={project}
-            onNavigateToProjectDetailEvent={onNavigateToProjectDetailEvent}
-          />
-        ),
-      )}
+          ),
+        )}
     </FindProjectListContainer>
   );
 };

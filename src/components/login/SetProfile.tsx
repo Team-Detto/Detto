@@ -13,6 +13,7 @@ import { getUserInfoData, updateUserInfoData } from 'apis/mypageUsers';
 import { useEffect } from 'react';
 import MyPageProfileImage from 'components/mypage/MyPageProfileImage';
 import TextInput from 'components/mypage/TextInput';
+import { staleTime } from 'utils/staleTime';
 
 // 페이지 3 : 프로필 사진, 닉네임 변경
 const page = 3;
@@ -24,14 +25,15 @@ export default function SetProfile() {
   const { uid } = user;
 
   const { data: userInfoData }: any = useQuery({
-    queryKey: ['userInfo', uid],
+    queryKey: ['users', uid],
     queryFn: getUserInfoData,
+    staleTime: staleTime.user,
   });
 
   const {
     userInfo,
     setUserInfo,
-    handleNicknameChange,
+    handleInputChange,
     validationMessage,
     handleButtonActive,
   } = useUpdateProfile();
@@ -50,6 +52,7 @@ export default function SetProfile() {
   useEffect(() => {
     setUserInfo({
       displayName: userInfoData?.displayName,
+      email: userInfoData?.email,
       photoURL: userInfoData?.photoURL,
       isJunior: userInfoData?.isJunior,
       positions: userInfoData?.positions,
@@ -86,8 +89,9 @@ export default function SetProfile() {
           <NicknameContainer>
             <NicknameLabel htmlFor="nickname">닉네임</NicknameLabel>
             <TextInput
+              name="displayName"
               value={userInfo.displayName}
-              onChangeValue={handleNicknameChange}
+              onChangeValue={handleInputChange}
               validationMessage={validationMessage}
             />
           </NicknameContainer>

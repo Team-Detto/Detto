@@ -7,9 +7,19 @@ const useModal = (initialValue: boolean) => {
     setIsOpen((prev: boolean) => !prev);
   }, [setIsOpen]);
 
+  const handleModalOpenChagne = useCallback(() => {
+    setIsOpen(true);
+  }, [setIsOpen]);
+
+  const handleModalCloseChagne = useCallback(() => {
+    setIsOpen(false);
+  }, [setIsOpen]);
+
   return {
     isOpen,
     handleModalStateChange,
+    handleModalOpenChagne,
+    handleModalCloseChagne,
   };
 };
 

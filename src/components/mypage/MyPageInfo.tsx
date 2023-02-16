@@ -22,10 +22,11 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
   const {
     userInfo,
     setUserInfo,
-    handleNicknameChange,
+    handleInputChange,
     validationMessage,
     activeButton,
     handleButtonActive,
+    contactValidationMessage,
   } = useUpdateProfile();
   const { isOpen, handleModalStateChange } = useModal(false);
   const { profileImg, handleProfileImageChange, handleProfileImageDelete } =
@@ -46,6 +47,7 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
 
     setUserInfo({
       displayName: user?.displayName,
+      email: user?.email,
       photoURL: user?.photoURL,
       isJunior: user?.isJunior,
       positions: user?.positions,
@@ -70,8 +72,9 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
           <InfoItemDiv>
             <InfoTitle htmlFor="nickname">닉네임</InfoTitle>
             <TextInput
+              name="displayName"
               value={userInfo.displayName}
-              onChangeValue={handleNicknameChange}
+              onChangeValue={handleInputChange}
               validationMessage={validationMessage}
             />
           </InfoItemDiv>
@@ -79,9 +82,11 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
             {/* TODO :: 연락처 관련 로직 수정 필요 */}
             <InfoTitle htmlFor="contact">연락처</InfoTitle>
             <TextInput
-              value={''}
-              onChangeValue={handleNicknameChange}
-              validationMessage={''}
+              name="email"
+              value={userInfo.email ?? ''}
+              onChangeValue={handleInputChange}
+              placeholder="연락처로 쓰일 이메일을 입력해주세요."
+              validationMessage={contactValidationMessage}
             />
           </InfoItemDiv>
           <InfoItemDiv>

@@ -1,30 +1,36 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
-import { useState } from 'react';
+import { useAuth } from 'hooks';
 
-const ApplyButtonArea = ({ onOpenButtonClickEvent }: any) => {
-  const [ApplyButtonTitle, setApplyButtonTitle] = useState('간단 지원하기');
-  const handleApplyButtonClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setApplyButtonTitle(
-      ApplyButtonTitle === '간단 지원하기' ? '지원 취소하기' : '간단 지원하기',
-    );
-  };
+const ApplyButtonArea = ({
+  isApplicant,
+  projectData,
+  onApplyModalStateChangeEvent,
+  onCloseModalStateChangeEvent,
+}: any) => {
+  const { uid } = useAuth();
+  const { isRecruiting } = projectData;
+
   return (
     <ButtonWrapper>
-      <ApplyButton
-        onClick={(e) => {
-          // handleApplyButtonClick(e);
-          onOpenButtonClickEvent();
-        }}
-        backgroundColor={
-          ApplyButtonTitle === '간단 지원하기'
-            ? `${COLORS.violetB400}`
-            : '#464646' //색상표에 없는데 사용되고 있음. 문의하기
-        }
-      >
-        {ApplyButtonTitle}
-      </ApplyButton>
+      {projectData.uid === uid ? (
+        <ApplyButton
+          onClick={onCloseModalStateChangeEvent}
+          disabled={!isRecruiting}
+        >
+          {isRecruiting ? '지원공고 마감하기' : '마감 완료'}
+        </ApplyButton>
+      ) : (
+        <ApplyButton
+          onClick={() => {
+            isApplicant
+              ? onCloseModalStateChangeEvent()
+              : onApplyModalStateChangeEvent();
+          }}
+        >
+          {isApplicant ? '지원취소' : '간단 지원하기'}
+        </ApplyButton>
+      )}
     </ButtonWrapper>
   );
 };
@@ -38,11 +44,14 @@ const ButtonWrapper = styled.div`
   margin-top: 3.5rem;
 `;
 
-const ApplyButton = styled.button<{ backgroundColor: string }>`
+const ApplyButton = styled.button`
   width: 32.5625rem;
   height: 5.5rem;
-  background-color: ${(props) => props.backgroundColor};
+  background-color: ${COLORS.violetB400};
   border-radius: 2.25rem;
   font-size: 1.75rem;
   color: ${COLORS.white};
+  :disabled {
+    background-color: ${COLORS.gray200};
+  }
 `;

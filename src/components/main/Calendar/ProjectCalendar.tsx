@@ -25,6 +25,7 @@ const ProjectCalendar = () => {
   useEffect(() => {
     firebaseGetProjectDataRequest(setProjectData);
   }, []);
+
   useEffect(() => {
     setDayList(
       projectData.filter((el: any) =>

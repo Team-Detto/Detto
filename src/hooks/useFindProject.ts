@@ -1,22 +1,23 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { firebaseGetProjectDataRequest } from 'apis/boardService';
+import { firebaseFindMyInterestRequset } from 'apis/userService';
 import { EditType } from 'types/write/writeType';
+import useAuth from './useAuth';
 
 const useFindProject = () => {
   const navigate = useNavigate();
 
-  const [projects, setProjects] = useState<EditType.EditFormType[]>([]);
-  const [category, setCategory] = useState<string>('planner');
-  const [toggle, setToggle] = useState(false);
+  const { uid } = useAuth();
 
-  const filterProjects = projects.filter((project) => {
-    const { positions }: any = project;
-    return !!positions[category];
-  });
+  const [projects, setProjects] = useState<EditType.EditFormType[]>([]);
+  const [likedProjects, setLikedProjects] = useState<string[]>([]);
+  const [category, setCategory] = useState<string>('planner');
+  const [toggle, setToggle] = useState<boolean>(false);
 
   useEffect(() => {
     firebaseGetProjectDataRequest(setProjects);
+    firebaseFindMyInterestRequset(uid, setLikedProjects);
   }, []);
 
   const handleCategoryClick = (e: any) => {
@@ -33,9 +34,9 @@ const useFindProject = () => {
 
   return {
     projects,
-    filterProjects,
     category,
     toggle,
+    likedProjects,
     handleCategoryClick,
     handleToggleClick,
     handleNavigateToProjectDetail,

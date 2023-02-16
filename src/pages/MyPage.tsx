@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import styled from '@emotion/styled';
+import { useAuth } from 'hooks';
+import WebContainer from 'components/common/WebContainer';
 import MyPageInfo from 'components/mypage/MyPageInfo';
 import ProjectList from 'components/common/ProjectList';
 import LeftTab from 'components/mypage/LeftTab';
 import { getUserInfoData } from 'apis/mypageUsers';
 import MemberProfile from 'assets/images/project_member.png';
 import thumbnail from 'assets/images/project_thumbnail.png';
-import WebContainer from 'components/common/WebContainer';
 
 export interface Project {
   id: string;
@@ -29,9 +30,7 @@ interface Member {
 
 const MyPage = () => {
   const [activeTab, setActiveTab] = useState('개인정보');
-  const userLocal = localStorage.getItem('user');
-  const currentUser = JSON.parse(userLocal ?? '');
-  const uid = currentUser.uid;
+  const { uid } = useAuth();
 
   const { data: userInfoData }: any = useQuery({
     queryKey: ['userInfo', uid],

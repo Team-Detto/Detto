@@ -2,41 +2,103 @@ import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import Alert from 'components/common/Alert';
 import PositionButton from 'components/common/ApplyPositionButton';
-import { useModal } from 'hooks';
-import { useEffect, useState } from 'react';
+import { useAuth, useModal } from 'hooks';
+import React, { useEffect, useState } from 'react';
 import { allowScroll, preventScroll } from 'utils/modal';
 import { positionList } from 'utils/positions';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { findWithCollectionName, updateApplicants } from 'apis/postDetail';
+import { updateApplicants, updateAppliedProject } from 'apis/postDetail';
+import { findWithCollectionName } from 'apis/findWithCollectionName';
 
 interface props {
   isOpen: boolean;
   message: string;
   onClickEvent: () => void;
+  pid: string;
 }
 
-const ApplyModal = ({ isOpen, message, onClickEvent }: props) => {
+const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
   const { isOpen: isAlertOpen, handleModalStateChange: onAlertClickEvent } =
     useModal(false);
   const [usage, setUsage] = useState('done');
   const [motive, setMotive] = useState('');
   const [clickValue, setClickValue] = useState(-1);
+  const { uid } = useAuth();
 
   const { data: userData } = useQuery({
-    queryKey: ['userID'], //currentUser.uid로 수정
-    queryFn: () => findWithCollectionName('user', 'userID'), //currentUser.uid로 수정
+    queryKey: ['users', uid],
+    queryFn: () => findWithCollectionName('users', uid),
   });
+  //userData 구조 분해 할당
+
+  const ApplyFunction = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (motive === '' || clickValue === -1) {
+      //지원 실패
+      setUsage('fail');
+      onAlertClickEvent();
+      return;
+    } else {
+      //지원 성공
+      setUsage('done');
+      setMotive(''); //지원동기 초기화
+      setClickValue(-1); //포지션 초기화
+      onClickEvent(); //모달 닫기
+      onAlertClickEvent(); //지원성공 모달 띄우기
+      applicantMutate(userData?.uid); //지원자 데이터 삽입
+      projectMutate(); //지원한 프로젝트 데이터 삽입
+    }
+  };
+
+  //디자인스택, 개발스택, 기획 스택 합쳐서 중복제거
+  //Todo 포지션 선택에 따라 스택 보여주기
+  // const skills = Array.from(
+  //   new Set(
+  //     userData?.designerStack.concat(
+  //       userData?.developerStack,
+  //       userData?.plannerStack,
+  //     ),
+  //   ),
+  // );
+  let skills: string[] = [];
+  switch (clickValue) {
+    case 0: //기획
+      skills = userData?.plannerStack;
+      break;
+    case 1: //디자인
+      skills = userData?.designerStack;
+      break;
+    case 2: //프론트엔드
+      skills = userData?.developerStack;
+      break;
+    case 3: //백엔드
+      skills = userData?.developerStack;
+      break;
+
+    default:
+      skills = [];
+      break;
+  }
 
   const { mutate: applicantMutate } = useMutation(() =>
     updateApplicants(
-      '6zDpuv1af8LzMlQkmceO', //pid로 수정
-      userData?.uid,
+      pid, //pid로 수정
+      uid,
       userData?.displayName,
       userData?.photoURL,
-      userData?.skills,
+      skills,
       positionList[clickValue].name,
       motive,
       false,
+    ),
+  );
+
+  //지원하기 클릭 시 appliedProject에 추가
+  const { mutate: projectMutate } = useMutation(() =>
+    updateAppliedProject(
+      uid, //현재 유저의 uid
+      pid, //현재 프로젝트의 pid
+      false, //초대 여부
     ),
   );
 
@@ -90,34 +152,14 @@ const ApplyModal = ({ isOpen, message, onClickEvent }: props) => {
             아니오
           </MotiveButton>
           <MotiveButton
-            onClick={() => {
-              if (motive === '' || clickValue === -1) {
-                setUsage('fail');
-                onAlertClickEvent();
-                return;
-              } else {
-                setUsage('done');
-                setMotive(''); //지원동기 초기화
-                setClickValue(-1); //포지션 초기화
-                onClickEvent(); //모달 닫기
-                onAlertClickEvent(); //지원성공 모달 띄우기
-
-                applicantMutate(userData?.uid);
-                console.log(
-                  '포지션:',
-                  positionList[clickValue].name,
-                  '지원동기:',
-                  motive,
-                );
-                //버튼 변경 이벤트
-                //데이터 삽입,삭제 이벤트
-              }
+            onClick={(e) => {
+              ApplyFunction(e);
             }}
           >
             지원하기
           </MotiveButton>
         </ApplyButtonContainer>
-        {/* 지원실패 모달 위에 모달 띄워야해서 */}
+        {/* 지원실패 : 모달 위에 모달 띄워야해서 Container 내부에 있어야함 */}
         <Alert
           isOpen={isAlertOpen}
           onClickEvent={onAlertClickEvent}

@@ -5,22 +5,32 @@ import {
   Container,
   ContentTextarea,
   HeaderContainer,
+  NameText,
   ProfileImage,
-  TitleText,
 } from './styles';
 import { useState } from 'react';
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
+import { staleTime } from 'utils/staleTime';
+import { useQuery } from '@tanstack/react-query';
+import { getUserInfoData } from 'apis/mypageUsers';
 
-export default function SendNote({ receiverUid }: { receiverUid: string }) {
+export default function SendNote({ data }: { data: Note }) {
   const [disabled, setDisabled] = useState(false);
+  const [note, setNote] = useState<SendNote>({ title: '', content: '' });
 
   const { closeModal } = useGlobalModal();
-  const { sendNote, receiver, note, setNote } = useNote(receiverUid);
+  const sendNote = useNote();
+
+  const { data: receiver } = useQuery({
+    queryKey: ['user', data.senderUid],
+    queryFn: getUserInfoData,
+    staleTime: staleTime.user,
+  });
 
   const handleSendButtonClick = async () => {
     setDisabled(true);
-    sendNote();
+    sendNote({ note: note, receiverUid: data.senderUid });
     closeModal();
   };
 
@@ -30,7 +40,7 @@ export default function SendNote({ receiverUid }: { receiverUid: string }) {
       <ModalNavigator page={0} close />
       <HeaderContainer>
         <ProfileImage src={receiver.photoURL} />
-        <TitleText>{receiver.displayName}님께 쪽지 보내기</TitleText>
+        <NameText>{receiver.displayName}님께 쪽지 보내기</NameText>
       </HeaderContainer>
       <TitleInput
         type="text"

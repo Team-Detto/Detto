@@ -6,7 +6,7 @@ import {
   arrayUnion,
   arrayRemove,
   setDoc,
-  FieldValue,
+  deleteDoc,
 } from 'firebase/firestore';
 
 // 프로젝트 상세 조회
@@ -16,54 +16,58 @@ export const viewProject = async (pid: any) => {
   return docSnap.data();
 };
 
-// 정보 조회
-export const findWithCollectionName = async (
-  collectionName: string,
-  uid: string,
-) => {
-  const docRef = doc(firestore, collectionName, uid);
-  const docSnap = await getDoc(docRef);
-  return docSnap.data();
-};
-
 //좋아요 수 업데이트
 export const updateLike = async (pid: any, countLike: number) => {
   const docRef = doc(firestore, 'post', pid);
   await updateDoc(docRef, { like: countLike });
 };
 
+export const updateViews = async (pid: any, countViews: number) => {
+  const docRef = doc(firestore, 'post', pid);
+  await updateDoc(docRef, { view: countViews });
+};
+
 // 좋아요한 프로젝트 업데이트
 export const updateMyProject = async (
   uid: string,
   pid: string,
-  isLiked: boolean | undefined,
+  isLiked: boolean,
 ) => {
-  const docRef = doc(firestore, 'myproject', uid);
+  const docRef = doc(firestore, 'myprojects', uid);
   if (isLiked === true) {
     await updateDoc(docRef, { likedProjects: arrayUnion(pid) });
   } else if (isLiked === false) {
     await updateDoc(docRef, { likedProjects: arrayRemove(pid) });
   }
 };
+
+//프로젝트 지원 시 업데이트
+export const updateAppliedProject = async (
+  uid: string,
+  pid: string,
+  recruited: boolean,
+) => {
+  const docRef = doc(firestore, 'myprojects', uid);
+  await setDoc(
+    docRef,
+    {
+      appliedProjects: { [pid]: { recruited: recruited } },
+    },
+    { merge: true },
+  );
+};
+
 export const updateApplicants = async (
   pid: string,
   uid: string,
   displayName: string,
   profileURL: string,
-  skills: string[],
+  skills: any,
   position: string,
   motive: string,
   recruit?: boolean,
 ) => {
-  // const applicants = {
-  //   displayName: displayName,
-  //   profileURL: profileURL,
-  //   skills: skills,
-  //   position: position,
-  //   motive: motive,
-  // };
   const docRef = doc(firestore, 'post', pid);
-  // await setDoc(docRef, { applicants }, { merge: true });
   await setDoc(
     docRef,
     {
@@ -100,4 +104,29 @@ export const updateParticipants = async (
     },
     { merge: true },
   );
+};
+
+//프로젝트 삭제
+export const deleteProject = async (pid: string) => {
+  const docRef = doc(firestore, 'post', pid);
+  await deleteDoc(docRef);
+};
+
+//모집중, 모집마감 업데이트
+export const updateRecruiting = async (pid: string, isRecruiting: any) => {
+  const docRef = doc(firestore, 'post', pid);
+  await updateDoc(docRef, { isRecruiting: isRecruiting });
+  console.log('isRecruit', isRecruiting);
+};
+
+// 지원 여부 확인
+export const firebaseGetIsApplicantRequest = async (pid: any, uid: string) => {
+  const postDocRef = doc(firestore, 'post', pid);
+  const docSnap = await getDoc(postDocRef);
+  const applicants = docSnap.data()?.applicants;
+  if (applicants) {
+    return applicants[uid] ? true : false;
+  } else {
+    return false;
+  }
 };

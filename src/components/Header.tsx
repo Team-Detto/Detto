@@ -6,8 +6,9 @@ import { useAuth, useGlobalModal, useHeader, usePopup } from 'hooks';
 import COLORS from 'assets/styles/colors';
 import { useEffect } from 'react';
 import { useQueries } from '@tanstack/react-query';
-import { getInboxNotes } from 'apis/note';
-import { getNotifications } from 'apis/notification';
+import { getInboxNotes } from 'apis/notes';
+import { getNotifications } from 'apis/notifications';
+import { staleTime } from 'utils/staleTime';
 
 interface headerTypes {
   isMain: boolean;
@@ -31,10 +32,12 @@ const Header = () => {
       {
         queryKey: ['inbox', uid],
         queryFn: getInboxNotes,
+        staleTime: staleTime.inboxNotes,
       },
       {
         queryKey: ['notifications', uid],
         queryFn: getNotifications,
+        staleTime: staleTime.notifications,
       },
     ],
   });
@@ -42,7 +45,7 @@ const Header = () => {
   return (
     <HeaderContainer isMain={isMain} hideGradient={hideGradient}>
       <WebContainer>
-        <PopupContainer />
+        {isLoggedIn && <PopupContainer />}
         <HeaderWrapper>
           <LogoBoxH1>
             <Link to={'/'}> Detto</Link>
@@ -58,13 +61,28 @@ const Header = () => {
               {isLoggedIn && (
                 <NavItemLi onClick={toggleNoteBox}>
                   쪽지
-                  <Count>({notes ? notes.length : 0})</Count>
+                  <Count>
+                    (
+                    {notes
+                      ? notes.filter(({ isRead }: Partial<Note>) => !isRead)
+                          .length
+                      : 0}
+                    )
+                  </Count>
                 </NavItemLi>
               )}
               {isLoggedIn && (
                 <NavItemLi onClick={toggleNotificationBox}>
                   알림
-                  <Count>({notifiactions ? notifiactions.length : 0})</Count>
+                  <Count>
+                    (
+                    {notifiactions
+                      ? notifiactions.filter(
+                          ({ isRead }: Partial<Notification>) => !isRead,
+                        ).length
+                      : 0}
+                    )
+                  </Count>
                 </NavItemLi>
               )}
               {!isLoggedIn && (
