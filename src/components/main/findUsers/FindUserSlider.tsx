@@ -4,131 +4,62 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import VectorPrev from '../../../assets/images/VectorPrev.png';
 import VectorNext from '../../../assets/images/VectorNext.png';
-import { collection, doc, getDoc } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  getDoc,
+  onSnapshot,
+  orderBy,
+  query,
+} from 'firebase/firestore';
 import { firestore } from 'apis/firebaseService';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 const FindUserSlider = () => {
-  const getUserInfoData = async (params: any) => {
-    const [_, uid] = params.queryKey;
+  const [users, setUsers] = useState<any>([]);
 
-    const docRef = doc(firestore, 'users', `${uid}`);
-    const docSnap = await getDoc(docRef);
+  const firebaseGetProjectDataRequest = (setUsers: any) => {
+    const q = query(collection(firestore, 'users'));
 
-    if (docSnap.exists()) {
-      return docSnap.data();
-    }
+    onSnapshot(q, (querySnapshot) => {
+      const data: any = [];
+      querySnapshot.forEach((doc) => {
+        data.push({ ...doc.data(), id: doc.id });
+      });
+      setUsers(data);
+    });
   };
 
-  getUserInfoData('jIpZVJJE8OasfKs0PVCpCsfbryv2');
+  useEffect(() => {
+    firebaseGetProjectDataRequest(setUsers);
+  }, []);
+
+  console.log(users);
 
   const settings = {
-    infinite: true,
+    infinite: false,
     centerPadding: '60px',
     slidesToShow: 5,
+    slidesToScroll: 1,
     swipeToSlide: true,
   };
   return (
     <SlideArea>
       <StyledSlider {...settings}>
-        {/* 이거 하나만 쓰면 됩니다 */}
-        <Card>
-          <CardImage />
-          <CardTextContainer>
-            <CardNickname>닉네임</CardNickname>
-            <CardJob>프론트엔드</CardJob>
-          </CardTextContainer>
-        </Card>
-        {/* 여기까지 */}
-        <Card>
-          <CardImage />
-          <CardTextContainer>
-            <CardNickname>닉네임</CardNickname>
-            <CardJob>프론트엔드</CardJob>
-          </CardTextContainer>
-        </Card>
-        <Card>
-          <CardImage />
-          <CardTextContainer>
-            <CardNickname>닉네임</CardNickname>
-            <CardJob>프론트엔드</CardJob>
-          </CardTextContainer>
-        </Card>
-        <Card>
-          <CardImage />
-          <CardTextContainer>
-            <CardNickname>닉네임</CardNickname>
-            <CardJob>프론트엔드</CardJob>
-          </CardTextContainer>
-        </Card>
-        <Card>
-          <CardImage />
-          <CardTextContainer>
-            <CardNickname>닉네임</CardNickname>
-            <CardJob>프론트엔드</CardJob>
-          </CardTextContainer>
-        </Card>
-        <Card>
-          <CardImage />
-          <CardTextContainer>
-            <CardNickname>닉네임</CardNickname>
-            <CardJob>프론트엔드</CardJob>
-          </CardTextContainer>
-        </Card>
-        <Card>
-          <CardImage />
-          <CardTextContainer>
-            <CardNickname>닉네임</CardNickname>
-            <CardJob>프론트엔드</CardJob>
-          </CardTextContainer>
-        </Card>
-        <Card>
-          <CardImage />
-          <CardTextContainer>
-            <CardNickname>닉네임</CardNickname>
-            <CardJob>프론트엔드</CardJob>
-          </CardTextContainer>
-        </Card>
-        <Card>
-          <CardImage />
-          <CardTextContainer>
-            <CardNickname>닉네임</CardNickname>
-            <CardJob>프론트엔드</CardJob>
-          </CardTextContainer>
-        </Card>
-        <Card>
-          <CardImage />
-          <CardTextContainer>
-            <CardNickname>닉네임</CardNickname>
-            <CardJob>프론트엔드</CardJob>
-          </CardTextContainer>
-        </Card>
-        <Card>
-          <CardImage />
-          <CardTextContainer>
-            <CardNickname>닉네임</CardNickname>
-            <CardJob>프론트엔드</CardJob>
-          </CardTextContainer>
-        </Card>
-        <Card>
-          <CardImage />
-          <CardTextContainer>
-            <CardNickname>닉네임</CardNickname>
-            <CardJob>프론트엔드</CardJob>
-          </CardTextContainer>
-        </Card>
-        <Card>
-          <CardImage />
-          <CardTextContainer>
-            <CardNickname>닉네임</CardNickname>
-            <CardJob>프론트엔드</CardJob>
-          </CardTextContainer>
-        </Card>
-        <Card>
-          <CardImage />
-          <CardTextContainer>
-            <CardNickname>닉네임</CardNickname>
-            <CardJob>프론트엔드</CardJob>
-          </CardTextContainer>
-        </Card>
+        {users.map((user: any) => {
+          console.log(user.positions[0]);
+          return (
+            <Link to={'/'}>
+              <Card key={user}>
+                <CardImage src={user.photoURL} />
+                <CardTextContainer>
+                  <CardNickname>{user.displayName}</CardNickname>
+                  <CardJob>{user.positions[0]}</CardJob>
+                </CardTextContainer>
+              </Card>
+            </Link>
+          );
+        })}
       </StyledSlider>
     </SlideArea>
   );
@@ -139,6 +70,7 @@ const SlideArea = styled.div`
 `;
 const StyledSlider = styled(Slider)`
   display: flex;
+  flex-direction: row;
   margin: 0 134px 0 134px;
   align-items: center;
   .slick-arrow {
@@ -190,12 +122,14 @@ const CardTextContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
   padding: 0px;
-  width: 88px;
+  width: 90%;
   height: 57px;
+  margin: 0 auto;
 `;
 const CardNickname = styled.div`
-  width: 50px;
+  width: 100%;
   height: 25px;
   font-family: 'Noto Sans KR';
   font-style: normal;
@@ -205,7 +139,7 @@ const CardNickname = styled.div`
   text-align: center;
 `;
 const CardJob = styled.div`
-  width: 88px;
+  width: 100%;
   height: 32px;
   font-family: 'Noto Sans KR';
   font-style: normal;
