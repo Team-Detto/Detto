@@ -31,7 +31,7 @@ export default function SetProfile() {
   const {
     userInfo,
     setUserInfo,
-    handleNicknameChange,
+    handleInputChange,
     validationMessage,
     handleButtonActive,
   } = useUpdateProfile();
@@ -87,8 +87,9 @@ export default function SetProfile() {
           <NicknameContainer>
             <NicknameLabel htmlFor="nickname">닉네임</NicknameLabel>
             <TextInput
+              name="displayName"
               value={userInfo.displayName}
-              onChangeValue={handleNicknameChange}
+              onChangeValue={handleInputChange}
               validationMessage={validationMessage}
             />
           </NicknameContainer>
