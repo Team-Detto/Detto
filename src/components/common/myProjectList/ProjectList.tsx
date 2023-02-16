@@ -1,29 +1,27 @@
+import { useQuery } from '@tanstack/react-query';
+import { useFindProject, useProjectList } from 'hooks';
 import styled from '@emotion/styled';
 import ProjectItem from './ProjectItem';
-import { useFindProject, useProjectList } from 'hooks';
-import { useQuery } from '@tanstack/react-query';
-
 import { EditType } from 'types/write/writeType';
 
 export interface PidListProps {
-  likedProjects: string[];
-  appliedProjects: string[];
-  currentProjects: string[];
-  postedProjects: string[];
+  [key: string]: string[];
 }
 
 interface ProjectListProps {
   category: string;
-
   pidList: PidListProps;
 }
 
 const ProjectList = ({ category, pidList }: ProjectListProps) => {
-  // 현재 선택된 탭의 pid list 지정 함수
-  const currentPidList = pidList.likedProjects;
-
-  const { getActiveProjects } = useProjectList();
+  const { getActiveProjects, getFilteredPidList } = useProjectList();
   const { handleNavigateToProjectDetail } = useFindProject();
+
+  const currentPidList =
+    category === 'appliedProjects' || category === 'currentProjects'
+      ? getFilteredPidList(pidList, category)
+      : pidList[category];
+
   const { data: activeProjectsData }: any = useQuery({
     queryKey: ['activeProjects', currentPidList],
     queryFn: getActiveProjects,
@@ -35,6 +33,7 @@ const ProjectList = ({ category, pidList }: ProjectListProps) => {
         activeProjectsData?.map(
           (project: EditType.EditFormType, idx: number) => (
             <ProjectItem
+              category={category}
               key={project.createdAt}
               project={project}
               pid={pidList.likedProjects[idx]}

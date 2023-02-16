@@ -4,17 +4,18 @@ import { EditType } from 'types/write/writeType';
 import defaultThumbnail from 'assets/images/default_img.jpg';
 import ProjectItemMembers from './ProjectItemMembers';
 interface ProjectProps {
+  category: string;
   project: EditType.EditFormType;
   pid: string;
   onNavigateToProjectDetailEvent: (path: string) => () => void;
 }
 
 const ProjectItem = ({
+  category,
   project,
   pid,
   onNavigateToProjectDetailEvent,
 }: ProjectProps) => {
-  console.log('project', project);
   const { plannerStack, designerStack, developerStack, applicants }: any =
     project;
 
@@ -47,7 +48,7 @@ const ProjectItem = ({
           </ProjectStackList>
         </ProjectInfoBox>
         <ProjectInfoBox>
-          <ProjectItemMembers applicants={applicants} />
+          <ProjectItemMembers category={category} applicants={applicants} />
         </ProjectInfoBox>
       </ProjectInfoWrapper>
     </ProjectItemContainer>
