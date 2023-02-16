@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { contactValidation, nicknameValidation } from 'utils/validation';
 
 const useUpdateProfile = () => {
@@ -7,20 +7,6 @@ const useUpdateProfile = () => {
   const [contactValidationMessage, setContactValidationMessage] =
     useState<string>('');
   const [activeButton, setActiveButton] = useState<boolean>(false);
-
-  const handleUserInfoChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      const { name, value } = e.target;
-
-      setUserInfo((prev: UserInfo) => {
-        return {
-          ...prev,
-          [name]: value,
-        };
-      });
-    },
-    [setUserInfo],
-  );
 
   // 텍스트 인풋 변경 핸들러
   const handleInputChange = useCallback(
@@ -63,7 +49,6 @@ const useUpdateProfile = () => {
   return {
     userInfo,
     setUserInfo,
-    handleUserInfoChange,
     validationMessage,
     handleInputChange,
     activeButton,
