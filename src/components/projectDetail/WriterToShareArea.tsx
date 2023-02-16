@@ -1,76 +1,11 @@
 import styled from '@emotion/styled';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import {
-  findWithCollectionName,
-  updateLike,
-  updateMyProject,
-  updateViews,
-} from 'apis/postDetail';
-import { useEffect, useState } from 'react';
-import { RiHeartAddLine, RiHeartAddFill, RiShareBoxLine } from 'react-icons/ri';
+import Views from './Views';
+import Likes from './Likes';
+import Share from './Share';
 
 const WriterToShareArea = ({ projectData, pid, userData }: any) => {
-  const { uid, like, title, content } = projectData;
-  const [countLike, setCountLike] = useState(like);
-  const [countViews, setCountViews] = useState(projectData?.view);
-  const { mutate: likeMutate } = useMutation(() => updateLike(pid, countLike));
-  const { mutate: likedProjectMutate } = useMutation(() =>
-    updateMyProject(uid, pid, isLike),
-  );
-  const { mutate: viewMutation } = useMutation(() =>
-    updateViews(pid, countViews),
-  );
-  const { data: myProjectData } = useQuery({
-    queryKey: ['myprojects', uid],
-    queryFn: () => findWithCollectionName('myprojects', uid),
-  });
+  const { uid, like, title, content, view } = projectData;
 
-  const [isLike, setIsLike] = useState<boolean>(
-    myProjectData?.likedProjects?.includes(pid),
-  ); // 초기값 false로 설정 시 페이지 이동시 다시 false로 초기화됨, 데이터베이스에서 가져온 값은 로드되는 동안 undefined 이므로 useEffect로 한번 더 설정함
-
-  useEffect(() => {
-    setCountViews(countViews + 1);
-  }, []);
-
-  useEffect(() => {
-    viewMutation(pid, countViews);
-  }, [countViews]);
-
-  useEffect(() => {
-    setIsLike(myProjectData?.likedProjects?.includes(pid)); //현재 사용자가 좋아요를 눌렀는지 확인하기 위해
-  }, [myProjectData]);
-
-  //isLike가 변경될 때마다 좋아요 수 및 좋아요한 프로젝트를 db에서 변경해주는 기능
-  //Todo 페이지가 언마운트 될 때 이벤트 주는 방법은?
-  useEffect(() => {
-    likeMutate(pid, countLike); // 좋아요 수 변경
-    likedProjectMutate(pid); // likedProjects에 pid 추가/삭제
-  }, [isLike]);
-
-  //좋아요 기능
-  const handleLike = (event: React.MouseEvent) => {
-    event.preventDefault();
-    if (isLike === true) {
-      setCountLike(countLike - 1);
-      setIsLike(!isLike);
-      // 클릭했을 때 true인 경우
-    } else if (isLike === false) {
-      //클릭했을 때 false인 경우
-      setCountLike(countLike + 1);
-      setIsLike(!isLike);
-    }
-  };
-
-  //공유 기능
-  const handleShare = (event: React.MouseEvent) => {
-    event.preventDefault();
-    navigator.share({
-      title: title,
-      text: content,
-      url: window.location.href,
-    });
-  };
   return (
     <WriterToShareContainer>
       <WriterWrapper>
@@ -79,23 +14,9 @@ const WriterToShareArea = ({ projectData, pid, userData }: any) => {
         <WriterNickname>{userData?.displayName ?? `닉네임`}</WriterNickname>
       </WriterWrapper>
       <IconWrapper>
-        조회 {countViews}
-        <IconButton
-          onClick={(event) => {
-            handleLike(event);
-          }}
-        >
-          {isLike ? <RiHeartAddFill /> : <RiHeartAddLine />}
-          관심 {countLike ?? '없음'}
-        </IconButton>
-        <IconButton
-          onClick={(event) => {
-            handleShare(event);
-          }}
-        >
-          <RiShareBoxLine />
-          공유
-        </IconButton>
+        <Views pid={pid} view={view} />
+        <Likes pid={pid} uid={uid} like={like} />
+        <Share title={title} content={content} />
       </IconWrapper>
     </WriterToShareContainer>
   );
@@ -119,12 +40,6 @@ const IconWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-`;
-
-const IconButton = styled.button`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
 `;
 
 const WriterProfileImg = styled.img`
