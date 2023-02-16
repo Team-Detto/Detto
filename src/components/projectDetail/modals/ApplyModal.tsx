@@ -52,14 +52,33 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
 
   //디자인스택, 개발스택, 기획 스택 합쳐서 중복제거
   //Todo 포지션 선택에 따라 스택 보여주기
-  const skills = Array.from(
-    new Set(
-      userData?.designerStack.concat(
-        userData?.developerStack,
-        userData?.plannerStack,
-      ),
-    ),
-  );
+  // const skills = Array.from(
+  //   new Set(
+  //     userData?.designerStack.concat(
+  //       userData?.developerStack,
+  //       userData?.plannerStack,
+  //     ),
+  //   ),
+  // );
+  let skills: string[] = [];
+  switch (clickValue) {
+    case 0: //기획
+      skills = userData?.plannerStack;
+      break;
+    case 1: //디자인
+      skills = userData?.designerStack;
+      break;
+    case 2: //프론트엔드
+      skills = userData?.developerStack;
+      break;
+    case 3: //백엔드
+      skills = userData?.developerStack;
+      break;
+
+    default:
+      skills = [];
+      break;
+  }
 
   const { mutate: applicantMutate } = useMutation(() =>
     updateApplicants(
