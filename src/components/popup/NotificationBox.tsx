@@ -16,6 +16,7 @@ export default function NotificationBox() {
   const { data: notifications }: any = useQuery({
     queryKey: ['notifications', uid],
     queryFn: getNotifications,
+    enabled: !!uid,
   });
 
   if (!isNotificationOpen) return null;

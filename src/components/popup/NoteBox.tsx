@@ -26,10 +26,12 @@ export default function NoteBox() {
       {
         queryKey: ['inbox', uid],
         queryFn: getInboxNotes,
+        enabled: !!uid,
       },
       {
         queryKey: ['outbox', uid],
         queryFn: getOutboxNotes,
+        enabled: !!uid,
       },
     ],
   });
@@ -56,11 +58,11 @@ export default function NoteBox() {
           <MessageWrapper>
             {selectedBox === 'inbox' &&
               inboxData?.map((data: any) => (
-                <NoteMessage key={data.noteId} type="inbox" data={data} />
+                <NoteMessage key={data.id} type="inbox" data={data} />
               ))}
             {selectedBox === 'outbox' &&
               outboxData?.map((data: any) => (
-                <NoteMessage key={data.noteId} type="outbox" data={data} />
+                <NoteMessage key={data.id} type="outbox" data={data} />
               ))}
           </MessageWrapper>
         </PopupWrapper>
