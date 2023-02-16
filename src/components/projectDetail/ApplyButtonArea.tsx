@@ -9,28 +9,38 @@ const ApplyButtonArea = ({
   onCloseModalStateChangeEvent,
 }: any) => {
   const { uid } = useAuth();
-  const { isRecruiting } = projectData;
-
+  const { isRecruiting, applicants } = projectData;
+  console.log(isApplicant);
   return (
     <ButtonWrapper>
-      {projectData.uid === uid ? (
-        <ApplyButton
-          onClick={onCloseModalStateChangeEvent}
-          disabled={!isRecruiting}
-        >
-          {isRecruiting ? '지원공고 마감하기' : '마감 완료'}
-        </ApplyButton>
-      ) : (
-        <ApplyButton
-          onClick={() => {
-            isApplicant
-              ? onCloseModalStateChangeEvent()
-              : onApplyModalStateChangeEvent();
-          }}
-        >
-          {isApplicant ? '지원취소' : '간단 지원하기'}
-        </ApplyButton>
-      )}
+      {
+        projectData?.uid === uid ? (
+          //작성자 버튼
+          <ApplyButton
+            onClick={onCloseModalStateChangeEvent}
+            disabled={!isRecruiting}
+          >
+            {isRecruiting ? '지원공고 마감하기' : '마감 완료'}
+          </ApplyButton>
+        ) : //작성자가 아닌 사람에 대해 모집중인 글이면
+        isRecruiting ? (
+          applicants?.[uid]?.recruit ? ( //이미 초대된 경우
+            <ApplyButton disabled={true}>이미 초대되었어요!</ApplyButton>
+          ) : (
+            <ApplyButton
+              onClick={() => {
+                isApplicant //지원하고 초대는 안된 상태
+                  ? onCloseModalStateChangeEvent()
+                  : onApplyModalStateChangeEvent();
+              }}
+            >
+              {isApplicant ? '지원 취소' : '간단 지원하기'}
+            </ApplyButton>
+          )
+        ) : (
+          <ApplyButton disabled={true}>모집이 마감되었어요!</ApplyButton>
+        ) // 모집이 마감된경우
+      }
     </ButtonWrapper>
   );
 };

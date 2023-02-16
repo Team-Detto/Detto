@@ -116,7 +116,6 @@ export const deleteProject = async (pid: string) => {
 export const updateRecruiting = async (pid: string, isRecruiting: any) => {
   const docRef = doc(firestore, 'post', pid);
   await updateDoc(docRef, { isRecruiting: isRecruiting });
-  console.log('isRecruit', isRecruiting);
 };
 
 // 지원 여부 확인
@@ -124,7 +123,8 @@ export const firebaseGetIsApplicantRequest = async (pid: any, uid: string) => {
   const postDocRef = doc(firestore, 'post', pid);
   const docSnap = await getDoc(postDocRef);
   const applicants = docSnap.data()?.applicants;
-  if (applicants.recruit === false) {
+
+  if (applicants?.[uid]?.recruit === false) {
     //지원자 중 초대된 사람까지 제외
     return applicants[uid] ? true : false;
   } else {

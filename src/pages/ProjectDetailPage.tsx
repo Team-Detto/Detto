@@ -73,6 +73,7 @@ const ProjectDetailPage = () => {
   //projectData?.uid 가 현재 uid랑 같은지 판별하고 같으면 수정하기 버튼 display, 지원하기 버튼 -> 마감하기 버튼으로 변경, 지원자 목록 보여주기
   //지원하기 버튼 클릭시 지원자 목록에 uid 추가
   //현재 참여중인 인원, 지원한 인원 uid로 모두 user테이블 조회해서 닉네임, 프로필 사진 가져오기???
+
   return (
     <ProjectDetailContainer>
       {projectData && (
@@ -94,15 +95,17 @@ const ProjectDetailPage = () => {
             pid={params?.id}
             isApplicant={isApplicant}
             projectData={projectData}
-            onApplyModalStateChangeEvent={handleApplyModalOpenChange} //지원하기 : 지원취소
+            onApplyModalStateChangeEvent={handleApplyModalOpenChange} //지원하기
             onCloseModalStateChangeEvent={handleCloseModalOpenChange} //마감하기
           />
+          {/* //지원 안했다면 지원하기 모달 */}
           <ApplyModal
             isOpen={isApply}
             message="프로젝트를 지원해볼까요?"
             onClickEvent={handleApplyModalCloseChange}
             pid={params.id as string}
           />
+          {/* //지원 했다면 Alert*/}
           <ConfirmAlert
             isOpen={isClose}
             message={
@@ -122,14 +125,14 @@ const ProjectDetailPage = () => {
             }}
             onCloseEvent={handleCloseModalCloseChange}
           />
-          {/* currentUser랑 글쓴이uid랑 같으면 보이게하기 */}
-          {/* {projectData?.uid === uid && ( */}
-          <ApplicantListArea
-            projectData={projectData}
-            userData={userData}
-            pid={params?.id}
-          />
-          {/* )} */}
+          {/* currentUser랑 글쓴이uid랑 같고 모집중이면 보이게하기 */}
+          {projectData?.uid === uid && projectData?.isRecruiting === true && (
+            <ApplicantListArea
+              projectData={projectData}
+              userData={userData}
+              pid={params?.id}
+            />
+          )}
         </WebContainer>
       )}
     </ProjectDetailContainer>

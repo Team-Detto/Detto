@@ -37,7 +37,7 @@ const InviteModal = ({
     {
       onSuccess: () => {
         setTimeout(() => {
-          // 모달 바로 꺼져서 1초 뒤에 쿼리 재요청
+          // setTimeout 처리 안하면 모달 바로 꺼져서 1초 뒤에 쿼리 재요청
           queryClient.invalidateQueries(['post', pid]);
         }, 1000);
       },
