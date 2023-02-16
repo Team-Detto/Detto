@@ -2,7 +2,6 @@ import { useCallback } from 'react';
 import styled from '@emotion/styled';
 import CheckBoxButton from './CheckboxButton';
 import { positionList } from 'utils/positions';
-import { UserInfo } from 'types/mypage/userInfo';
 
 interface PositionCheckBoxProps {
   positions: string[];

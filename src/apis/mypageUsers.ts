@@ -6,7 +6,6 @@ import {
   ref,
   uploadBytes,
 } from 'firebase/storage';
-import { UserInfo } from 'types/mypage/userInfo';
 
 // 유저 프로필 기본정보 조회
 export const getUserInfoData = async (params: any) => {
@@ -41,10 +40,7 @@ export const uploadProfileImg = async (file: any, uid: string) => {
 export const deleteProfileImg = async (uid: string) => {
   const deleteRef = ref(firestorage, `${uid}.jpg`);
   deleteObject(deleteRef)
-    .then(() => {
-      // TODO :: 삭제 성공 시
-      console.log('delete success');
-    })
+    // TODO :: 삭제 성공 시
     .catch((error) =>
       // TODO :: 삭제 실패 시 에러 페이지 이동
       console.log('delete fail', error),
@@ -61,9 +57,8 @@ export const updateUserInfoData = async (uid: string, userInfo: UserInfo) => {
     await updateDoc(doc(firestore, 'users', `${uid}`), {
       ...userInfo,
     });
-
-    console.log('done!');
   } catch (error) {
+    // TODO:: 에러 페이지 이동
     console.log('update fail', error);
   }
 };
