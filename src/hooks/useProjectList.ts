@@ -5,7 +5,7 @@ import { projectTabNames } from 'utils/positions';
 
 const useProjectList = () => {
   const [activeProjectTab, setActiveProjectTab] =
-    useState<string>('likedProjects');
+    useState<string>('currentProjects');
 
   // 프로젝트 탭 활성화 변경 함수
   const handleProjectTabClick = (e: React.MouseEvent<HTMLLIElement>) => {
