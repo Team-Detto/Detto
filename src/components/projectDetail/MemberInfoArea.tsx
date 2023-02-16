@@ -28,8 +28,12 @@ const MemberInfoArea = ({ applicantsData }: any) => {
           </MemberInfoDiv>
           <MemberInfoDiv>
             <PositionDiv>개발</PositionDiv>
+
             {data.map((key) => {
-              if (applicantsData[key].position === '프론트엔드' || '백엔드')
+              if (
+                applicantsData[key].position === '프론트엔드' ||
+                applicantsData[key].position === '백엔드'
+              )
                 return (
                   <MemberProfileImg
                     key={key}
