@@ -101,16 +101,16 @@ export default InviteModal;
 
 const ModalContainer = styled.div`
   position: fixed;
-  width: 705px;
-  height: 652px;
+  width: 44.0625rem;
+  height: 40.75rem;
   left: 50%;
   top: 50%;
 
   transform: translate(-50%, -50%);
-  padding: 44px 40px 24px;
+  padding: 2.75rem 2.5rem 1.5rem;
   background: #fff;
-  border-radius: 16px;
-  box-shadow: 0px 4px 10px rgba(117, 117, 117, 0.25);
+  border-radius: 1rem;
+  box-shadow: 0rem 0.25rem 0.625rem rgba(117, 117, 117, 0.25);
   z-index: 999;
   display: ${(props: { isOpen: boolean }) => (props.isOpen ? 'block' : 'none')};
 `;
@@ -119,15 +119,15 @@ const ModalWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0px;
+  padding: 0rem;
 
-  width: 625px;
-  height: 492px;
+  width: 39.0625rem;
+  height: 30.75rem;
 `;
 
 const UserProfileImage = styled.img`
-  width: 88px;
-  height: 88px;
+  width: 5.5rem;
+  height: 5.5rem;
   border-radius: 50%;
   background-color: ${COLORS.gray100};
 `;
@@ -137,11 +137,11 @@ const UserSkillsContainer = styled.div`
   flex-direction: row;
   align-items: center;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 1.25rem;
   color: #6b7684;
-  margin-top: 32px;
-  margin-bottom: 11px;
-  gap: 3px;
+  margin-top: 2rem;
+  margin-bottom: 0.6875rem;
+  gap: 0.1875rem;
 `;
 
 const Skills = styled.span`
@@ -149,20 +149,20 @@ const Skills = styled.span`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 0px 12px;
-  gap: 10px;
-  /* width: 56px; */
-  height: 32px;
+  padding: 0rem 0.75rem;
+  gap: 0.625rem;
+  /* width: 3.5rem; */
+  height: 2rem;
   width: fit-content;
-  font-size: 12px;
+  font-size: 0.75rem;
   overflow: hidden;
   background: ${COLORS.gray100};
-  border-radius: 32px;
+  border-radius: 2rem;
 `;
 
 const InviteTitle = styled.div`
   font-weight: 600;
-  font-size: 24px;
+  font-size: 1.5rem;
 
   color: #191f28;
 `;
@@ -171,41 +171,41 @@ const MotiveContainer = styled.div`
   display: flex;
   flex-direction: column;
 
-  width: 625px;
-  height: 237px;
-  margin-top: 20px;
+  width: 39.0625rem;
+  height: 14.8125rem;
+  margin-top: 1.25rem;
 `;
 
 const MotiveTitle = styled.p`
   font-weight: 500;
-  font-size: 20px;
+  font-size: 1.25rem;
 `;
 
 const MotiveContentWrap = styled.div`
-  margin-top: 12px;
+  margin-top: 0.75rem;
 `;
 
 const MotiveText = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding: 10px 28px;
+  padding: 0.625rem 1.75rem;
 
-  width: 625px;
-  height: 197px;
-  border: 1px solid #ced3db;
-  border-radius: 4px;
+  width: 39.0625rem;
+  height: 12.3125rem;
+  border: 0.0625rem solid #ced3db;
+  border-radius: 0.25rem;
 `;
 
 const MotiveButtonContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding: 0px;
-  gap: 20px;
-  margin-top: 32px;
-  width: 625px;
-  height: 60px;
+  padding: 0rem;
+  gap: 1.25rem;
+  margin-top: 2rem;
+  width: 39.0625rem;
+  height: 3.75rem;
 `;
 
 const MotiveButton = styled.button`
@@ -213,12 +213,12 @@ const MotiveButton = styled.button`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 10px;
-  gap: 10px;
+  padding: 0.625rem;
+  gap: 0.625rem;
 
-  width: 302.5px;
-  height: 60px;
-  border-radius: 8px;
+  width: 18.9063rem;
+  height: 3.75rem;
+  border-radius: 0.5rem;
   /* violet B 400 */
 
   background-color: ${(props: { children: string }) =>

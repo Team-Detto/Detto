@@ -153,7 +153,7 @@ export default ProjectDetailPage;
 
 const ProjectDetailContainer = styled.div`
   background-color: #fcfcfc; //색상표에 없는데 배경으로 사용되고 있음 문의하기
-  padding-bottom: 100px;
+  padding-bottom: 6.25rem;
   height: 100%;
 `;
 

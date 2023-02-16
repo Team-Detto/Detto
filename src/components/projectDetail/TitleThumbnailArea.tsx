@@ -108,13 +108,13 @@ const ModifyDeleteButton = styled.button`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 8px 16px;
-  gap: 10px;
+  padding: 0.5rem 1rem;
+  gap: 0.625rem;
   background: ${COLORS.gray100};
   color: ${COLORS.gray400};
-  border-radius: 4px;
-  min-width: 91px;
-  height: 48px;
+  border-radius: 0.25rem;
+  min-width: 5.6875rem;
+  height: 3rem;
 `;
 
 const ProjectThumbnail = styled.img`

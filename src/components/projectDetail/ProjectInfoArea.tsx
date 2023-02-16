@@ -67,7 +67,7 @@ const ProjectInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 10px;
+  gap: 0.625rem;
 `;
 
 const ProjectInfoObject = styled.div`
@@ -80,7 +80,7 @@ const ProjectStackContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  gap: 45px;
+  gap: 2.8125rem;
 `;
 
 const ProjectInfoStackWrap = styled.div`
@@ -90,7 +90,7 @@ const ProjectInfoStackWrap = styled.div`
 `;
 
 const ProjectInfoKey = styled.div`
-  width: 130px;
+  width: 8.125rem;
 `;
 
 const ProjectInfoValue = styled.div`
@@ -100,7 +100,7 @@ const ProjectInfoValue = styled.div`
   height: 2.5rem;
 `;
 const ProjectStackKey = styled.div`
-  width: 130px;
+  width: 8.125rem;
   height: 100%;
   display: flex;
   flex-direction: row;
@@ -116,15 +116,15 @@ const StackDiv = styled.div`
 `;
 
 const StackTitle = styled.div`
-  width: 65px;
+  width: 4.0625rem;
 `;
 
 const StackValue = styled.div`
   background-color: ${COLORS.gray100};
-  height: 32px;
+  height: 2rem;
   padding: 0 0.75rem;
   border-radius: 2rem;
-  font-size: 12px;
+  font-size: 0.75rem;
   display: flex;
   flex-direction: row;
   align-items: center;

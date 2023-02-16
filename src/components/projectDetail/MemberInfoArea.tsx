@@ -124,13 +124,13 @@ const MemberProfileImg = styled.img`
 
 const HoverText = styled.div`
   position: relative;
-  right: 50px;
-  top: 30px;
+  right: 3.125rem;
+  top: 1.875rem;
   width: 6rem;
   height: 2rem;
-  border-radius: 10px;
+  border-radius: 0.625rem;
   background-color: ${COLORS.white};
-  box-shadow: 0.5px 0.5px 10px 1px ${COLORS.violetA300};
+  box-shadow: 0.0313rem 0.0313rem 0.625rem 0.0625rem ${COLORS.violetA300};
   color: ${COLORS.black};
 
   align-items: center;
