@@ -18,7 +18,10 @@ const MemberInfoArea = ({ applicantsData }: any) => {
             {data.map((key) => {
               if (applicantsData[key].position === '기획')
                 return (
-                  <MemberProfileImg src={applicantsData[key].profileURL} />
+                  <MemberProfileImg
+                    key={key}
+                    src={applicantsData[key].profileURL}
+                  />
                 );
             })}
           </MemberInfoDiv>
@@ -27,7 +30,10 @@ const MemberInfoArea = ({ applicantsData }: any) => {
             {data.map((key) => {
               if (applicantsData[key].position === '프론트엔드' || '백엔드')
                 return (
-                  <MemberProfileImg src={applicantsData[key].profileURL} />
+                  <MemberProfileImg
+                    key={key}
+                    src={applicantsData[key].profileURL}
+                  />
                 );
             })}
           </MemberInfoDiv>
@@ -36,7 +42,10 @@ const MemberInfoArea = ({ applicantsData }: any) => {
             {data.map((key) => {
               if (applicantsData[key].position === '디자인')
                 return (
-                  <MemberProfileImg src={applicantsData[key].profileURL} />
+                  <MemberProfileImg
+                    key={key}
+                    src={applicantsData[key].profileURL}
+                  />
                 );
             })}
           </MemberInfoDiv>
