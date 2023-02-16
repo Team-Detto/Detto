@@ -77,7 +77,7 @@ const ContantCardImgContainer = styled.img`
   width: 380px;
   height: 214px;
   background: #ced3db;
-  background-size: cover;
+  object-fit: cover;
   border-radius: 6px 6px 0px 0px;
 `;
 const ContantCardContentsContainer = styled.div`

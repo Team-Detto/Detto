@@ -1,52 +1,36 @@
 import styled from '@emotion/styled';
-import { useMutation } from '@tanstack/react-query';
-import { updateRecruiting } from 'apis/postDetail';
 import COLORS from 'assets/styles/colors';
 import { useAuth } from 'hooks';
-import { useState } from 'react';
 
-const ApplyButtonArea = ({ projectData, pid, onOpenButtonClickEvent }: any) => {
+const ApplyButtonArea = ({
+  isApplicant,
+  projectData,
+  onApplyModalStateChangeEvent,
+  onCloseModalStateChangeEvent,
+}: any) => {
   const { uid } = useAuth();
-  const [ButtonTitle, setButtonTitle] = useState('');
-  const [isRecruiting, setIsRecruiting] = useState<any>(
-    projectData?.isRecruiting,
-  );
+  const { isRecruiting } = projectData;
 
-  const { mutate: updateRecruitingMutate } = useMutation(() =>
-    updateRecruiting(pid, isRecruiting),
-  );
-
-  const handleAuthorButtonClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setIsRecruiting(!isRecruiting);
-  };
-
-  const handleApplyButtonClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-
-    //TODO: myprojects에서 지원한 프로젝트인지 확인 후 지원하기/지원취소하기 버튼 변경
-    setButtonTitle(
-      ButtonTitle === '간단 지원하기' ? '지원 취소하기' : '간단 지원하기',
-    );
-  };
   return (
     <ButtonWrapper>
-      <ApplyButton
-        onClick={(e) => {
-          onOpenButtonClickEvent();
-          if (uid === projectData.uid) {
-            handleAuthorButtonClick(e);
-            updateRecruitingMutate(pid, isRecruiting);
-          } else handleApplyButtonClick(e);
-        }}
-        backgroundColor={
-          ButtonTitle === '간단 지원하기' || '지원공고 마감하기'
-            ? `${COLORS.violetB400}`
-            : '#464646' //색상표에 없는데 사용되고 있음. 문의하기
-        }
-      >
-        {uid === projectData.uid ? '지원공고 마감하기' : '간단 지원하기'}
-      </ApplyButton>
+      {projectData.uid === uid ? (
+        <ApplyButton
+          onClick={onCloseModalStateChangeEvent}
+          disabled={!isRecruiting}
+        >
+          {isRecruiting ? '지원공고 마감하기' : '마감 완료'}
+        </ApplyButton>
+      ) : (
+        <ApplyButton
+          onClick={() => {
+            isApplicant
+              ? onCloseModalStateChangeEvent()
+              : onApplyModalStateChangeEvent();
+          }}
+        >
+          {isApplicant ? '지원취소' : '간단 지원하기'}
+        </ApplyButton>
+      )}
     </ButtonWrapper>
   );
 };
@@ -60,11 +44,14 @@ const ButtonWrapper = styled.div`
   margin-top: 3.5rem;
 `;
 
-const ApplyButton = styled.button<{ backgroundColor: string }>`
+const ApplyButton = styled.button`
   width: 32.5625rem;
   height: 5.5rem;
-  background-color: ${(props) => props.backgroundColor};
+  background-color: ${COLORS.violetB400};
   border-radius: 2.25rem;
   font-size: 1.75rem;
   color: ${COLORS.white};
+  :disabled {
+    background-color: ${COLORS.gray200};
+  }
 `;
