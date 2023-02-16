@@ -10,8 +10,6 @@ interface NoteMessageProps {
 const [INBOX, OUTBOX] = ['inbox', 'outbox'];
 
 export default function NoteMessage({ type, data }: NoteMessageProps) {
-  const { title, date, isRead, displayName } = data;
-
   const { openModalWithData } = useGlobalModal();
 
   const handleTitleClick = () => {
@@ -21,11 +19,11 @@ export default function NoteMessage({ type, data }: NoteMessageProps) {
 
   return (
     <MessageContainer>
-      <MessageTitleDiv isRead={isRead} onClick={handleTitleClick}>
-        {title}
+      <MessageTitleDiv isRead={data.isRead} onClick={handleTitleClick}>
+        {data.title}
       </MessageTitleDiv>
       <MessageDateDiv>
-        {displayName} | {getDateAndTime(date)}
+        {data.senderDisplayName} | {getDateAndTime(data.date)}
       </MessageDateDiv>
     </MessageContainer>
   );

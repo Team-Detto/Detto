@@ -23,15 +23,17 @@ interface UserInfo {
 }
 
 interface Note {
-  id?: string;
-  content: string;
+  id: string;
+  senderUid: string;
+  senderDisplayName: string;
+  senderPhotoURL: string;
+  receiverUid: string;
+  receiverDisplayName: string;
+  receiverPhotoURL: string;
   date: number;
-  displayName: string;
-  isRead: boolean;
-  noteId: string;
-  photoURL: string;
   title: string;
-  uid: string;
+  content: string;
+  isRead: boolean;
 }
 
 interface Notification {

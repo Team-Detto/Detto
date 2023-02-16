@@ -23,9 +23,10 @@ export default function ReadInboxNote({ data }: { data: Note }) {
     <Container>
       <ModalNavigator page={0} close />
       <HeaderContainer>
-        <ProfileImage src={data.photoURL} />
+        <ProfileImage src={data.senderPhotoURL} />
         <TitleText>{data.title}</TitleText>
         <DateText>{getDateAndTime(data.date)}</DateText>
+        {/* <DateText>{data.senderDisplayName}</DateText> */}
       </HeaderContainer>
       <ContentText>{data.content}</ContentText>
       <CustomButton label="답장하기" onClick={handleReplyButtonClick} />
