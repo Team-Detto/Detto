@@ -6,7 +6,6 @@ import {
   ref,
   uploadBytes,
 } from 'firebase/storage';
-import { UserInfo } from 'types/mypage/userInfo';
 
 // 유저 프로필 기본정보 조회
 export const getUserInfoData = async (params: any) => {

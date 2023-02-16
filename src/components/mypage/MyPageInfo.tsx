@@ -46,6 +46,7 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
 
     setUserInfo({
       displayName: user?.displayName,
+      email: user?.email,
       photoURL: user?.photoURL,
       isJunior: user?.isJunior,
       positions: user?.positions,

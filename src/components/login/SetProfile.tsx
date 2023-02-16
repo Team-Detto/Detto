@@ -50,6 +50,7 @@ export default function SetProfile() {
   useEffect(() => {
     setUserInfo({
       displayName: userInfoData?.displayName,
+      email: userInfoData?.email,
       photoURL: userInfoData?.photoURL,
       isJunior: userInfoData?.isJunior,
       positions: userInfoData?.positions,

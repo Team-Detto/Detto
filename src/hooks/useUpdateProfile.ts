@@ -1,5 +1,4 @@
 import { ChangeEvent, useCallback, useState } from 'react';
-import { UserInfo } from 'types/mypage/userInfo';
 import { nicknameValidation } from 'utils/validation';
 
 const useUpdateProfile = () => {
@@ -66,6 +65,7 @@ export default useUpdateProfile;
 
 const initialUserInfo = {
   displayName: '',
+  email: '',
   photoURL: '',
   isJunior: false,
   positions: [],

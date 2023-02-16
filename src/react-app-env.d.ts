@@ -11,6 +11,17 @@ interface User {
   developerStack?: string[];
 }
 
+interface UserInfo {
+  displayName: string;
+  email: string | null;
+  photoURL: string;
+  isJunior: boolean;
+  positions: string[];
+  plannerStack: string[];
+  designerStack: string[];
+  developerStack: string[];
+}
+
 interface Note {
   content: string;
   date: number;

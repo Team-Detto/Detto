@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { ButtonsWrapper } from './PositionCheckBox';
 import COLORS from 'assets/styles/colors';
-import { UserInfo } from 'types/mypage/userInfo';
 import SkillButton from 'components/common/SkillButton';
 
 interface SkillListProps {
