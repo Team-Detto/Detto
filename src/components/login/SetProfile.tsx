@@ -13,6 +13,7 @@ import { getUserInfoData, updateUserInfoData } from 'apis/mypageUsers';
 import { useEffect } from 'react';
 import MyPageProfileImage from 'components/mypage/MyPageProfileImage';
 import TextInput from 'components/mypage/TextInput';
+import { staleTime } from 'utils/staleTime';
 
 // 페이지 3 : 프로필 사진, 닉네임 변경
 const page = 3;
@@ -24,8 +25,9 @@ export default function SetProfile() {
   const { uid } = user;
 
   const { data: userInfoData }: any = useQuery({
-    queryKey: ['userInfo', uid],
+    queryKey: ['users', uid],
     queryFn: getUserInfoData,
+    staleTime: staleTime.user,
   });
 
   const {

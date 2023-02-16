@@ -23,6 +23,22 @@ interface UserInfo {
 }
 
 interface Note {
+  id: string;
+  senderUid: string;
+  receiverUid: string;
+  date: number;
+  title: string;
+  content: string;
+  isRead: boolean;
+}
+
+interface SendNote {
+  title: string;
+  content: string;
+}
+
+interface Notification {
+  id?: string;
   content: string;
   date: number;
   displayName: string;

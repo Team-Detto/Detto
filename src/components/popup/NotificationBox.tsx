@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
-import { getNotifications } from 'apis/notification';
+import { getNotifications } from 'apis/notifications';
 import COLORS from 'assets/styles/colors';
-import { usePopup } from 'hooks';
+import { useAuth, usePopup } from 'hooks';
 import { getDate } from 'utils/date';
+import { staleTime } from 'utils/staleTime';
 import NotificationMessage from './NotificationMessage';
 import { PopupWrapper } from './styles';
 
@@ -12,9 +13,12 @@ export default function NotificationBox() {
     popup: { isNotificationOpen },
   } = usePopup();
 
+  const { uid } = useAuth();
   const { data: notifications }: any = useQuery({
-    queryKey: ['notifications'],
+    queryKey: ['notifications', uid],
     queryFn: getNotifications,
+    enabled: !!uid,
+    staleTime: staleTime.notifications,
   });
 
   if (!isNotificationOpen) return null;
@@ -31,13 +35,8 @@ export default function NotificationBox() {
         </MessageCountSpan>
       </TitleWrapper>
       <MessageWrapper>
-        {notifications?.map(({ id, title, date, isRead }: any) => (
-          <NotificationMessage
-            key={id}
-            title={title}
-            date={getDate(date)}
-            isRead={isRead}
-          />
+        {notifications?.map((data: any) => (
+          <NotificationMessage key={data.id} data={data} />
         ))}
       </MessageWrapper>
     </PopupWrapper>
