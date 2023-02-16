@@ -4,15 +4,28 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import VectorPrev from '../../../assets/images/VectorPrev.png';
 import VectorNext from '../../../assets/images/VectorNext.png';
-
+import { collection, doc, getDoc } from 'firebase/firestore';
+import { firestore } from 'apis/firebaseService';
 const FindUserSlider = () => {
+  const getUserInfoData = async (params: any) => {
+    const [_, uid] = params.queryKey;
+
+    const docRef = doc(firestore, 'users', `${uid}`);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      return docSnap.data();
+    }
+  };
+
+  getUserInfoData('jIpZVJJE8OasfKs0PVCpCsfbryv2');
+
   const settings = {
     infinite: true,
     centerPadding: '60px',
     slidesToShow: 5,
     swipeToSlide: true,
   };
-
   return (
     <SlideArea>
       <StyledSlider {...settings}>
@@ -120,8 +133,6 @@ const FindUserSlider = () => {
     </SlideArea>
   );
 };
-
-export default FindUserSlider;
 const SlideArea = styled.div`
   width: 1180px;
   height: 201px;
@@ -142,20 +153,16 @@ const StyledSlider = styled(Slider)`
   .slick-prev:before {
     width: 10px;
     height: 10px;
-
     content: url(${VectorPrev});
     color: #000;
   }
-
   .slick-next {
     right: -134px;
     cursor: pointer;
   }
-
   .slick-next:before {
     width: 10px;
     height: 10px;
-
     content: url(${VectorNext});
     color: #000;
   }
@@ -168,7 +175,6 @@ const Card = styled.div`
   margin: 0 auto;
   padding: 0px;
   gap: 16px;
-
   width: 128px;
   height: 201px;
 `;
@@ -185,14 +191,12 @@ const CardTextContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding: 0px;
-
   width: 88px;
   height: 57px;
 `;
 const CardNickname = styled.div`
   width: 50px;
   height: 25px;
-
   font-family: 'Noto Sans KR';
   font-style: normal;
   font-weight: 700;
@@ -200,11 +204,9 @@ const CardNickname = styled.div`
   line-height: 140%;
   text-align: center;
 `;
-
 const CardJob = styled.div`
   width: 88px;
   height: 32px;
-
   font-family: 'Noto Sans KR';
   font-style: normal;
   font-weight: 500;
@@ -212,3 +214,4 @@ const CardJob = styled.div`
   line-height: 32px;
   text-align: center;
 `;
+export default FindUserSlider;

@@ -37,6 +37,7 @@ const MyPage = () => {
     queryKey: ['userInfo', uid],
     queryFn: getUserInfoData,
   });
+  console.log(userInfoData);
 
   // 임시 목데이터
   const projects = [

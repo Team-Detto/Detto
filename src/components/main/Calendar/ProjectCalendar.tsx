@@ -11,11 +11,7 @@ const ProjectCalendar = () => {
   const [projectData, setProjectData] = useState<any>([]);
   const [value, onChange] = useState(new Date());
   const setDayList = useSetRecoilState(dayListState);
-
-  //  선택 한 날짜
   const SelectDate = getDate(value.getTime());
-
-  //  시작 부터 마감일까지 날짜를 배열로 만들어서 리턴
   const getDayList = (createAt: any, deadline: any) => {
     const dayList = [];
     const start = new Date(getDate(createAt));
@@ -26,12 +22,10 @@ const ProjectCalendar = () => {
     }
     return dayList;
   };
-
-  // 날짜가 바뀔때마다 데이터를 가져옴
   useEffect(() => {
     firebaseGetProjectDataRequest(setProjectData);
-
-    //해당 날의 진행중인 프로젝트 필터링
+  }, []);
+  useEffect(() => {
     setDayList(
       projectData.filter((el: any) =>
         getDayList(el.createdAt, el.deadline)
@@ -39,8 +33,7 @@ const ProjectCalendar = () => {
           .includes(SelectDate),
       ),
     );
-  }, [projectData]);
-
+  }, [projectData, value]);
   return (
     <ProjectCalendarWrap
       onChange={onChange}

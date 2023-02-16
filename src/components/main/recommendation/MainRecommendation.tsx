@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import ContantCard from 'components/ContentCard';
 import { useFindProject } from 'hooks';
@@ -43,7 +44,9 @@ const MainRecommendation = () => {
           )}
         </MainRecommendationCardContainer>
       </MainRecommendationContainer>
-      <MainRecommendationCardButton>전체 보기</MainRecommendationCardButton>
+      <Link to={'/findproject'}>
+        <MainRecommendationCardButton>전체 보기</MainRecommendationCardButton>
+      </Link>
     </MainRecommendationWrap>
   );
 };
@@ -53,10 +56,8 @@ const MainRecommendationWrap = styled.div`
   align-items: center;
   padding: 0px;
   gap: 75px;
-
   width: 1180px;
   height: 755px;
-
   margin: 192.5px auto 190px auto;
 `;
 const MainRecommendationContainer = styled.div`
@@ -65,20 +66,17 @@ const MainRecommendationContainer = styled.div`
   align-items: center;
   padding: 0px;
   gap: 45px;
-
   width: 1180px;
   height: 632px;
 `;
 const MainRecommendationTitle = styled.div`
   width: 326px;
   height: 44px;
-
   font-family: 'Noto Sans KR';
   font-style: normal;
   font-weight: 700;
   font-size: 32px;
   line-height: 44px;
-
   color: #4e5968;
 `;
 const MainRecommendationButtonContainer = styled.div`
@@ -87,29 +85,24 @@ const MainRecommendationButtonContainer = styled.div`
   align-items: flex-start;
   padding: 0px;
   gap: 19px;
-
   width: 301px;
   height: 48px;
 `;
 const MainRecommendationButton = styled.button`
   box-sizing: border-box;
-
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   padding: 8px 48px;
   gap: 10px;
-
   width: 150px;
   height: 48px;
-
   background: ${(props: { name: string; value: string }) =>
     props.name === props.value ? '#5d50f0' : '#ffffff'};
   color: ${(props: { name: string; value: string }) =>
     props.name === props.value ? '#ffffff' : '#4e5968'};
   border-radius: 36px;
-
   font-family: 'Noto Sans KR';
   font-style: normal;
   font-weight: 400;
@@ -119,9 +112,6 @@ const MainRecommendationButton = styled.button`
   &:hover {
     width: 150px;
     height: 48px;
-
-    /* violet B 400 */
-
     background: #5d50f0;
     border-radius: 36px;
     color: #ffffff;
@@ -138,7 +128,6 @@ const MainRecommendationCardContainer = styled.div`
   align-items: flex-start;
   padding: 0px;
   gap: 20px;
-
   width: 1180px;
   height: 450px;
 `;
@@ -150,10 +139,8 @@ const MainRecommendationCardButton = styled.button`
   align-items: center;
   padding: 8px 60px;
   gap: 10px;
-
   width: 187px;
   height: 48px;
-
   border: 1px solid #e1e5eb;
   border-radius: 24px;
   color: #8b95a1;
