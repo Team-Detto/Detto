@@ -35,13 +35,8 @@ export default function NotificationBox() {
         </MessageCountSpan>
       </TitleWrapper>
       <MessageWrapper>
-        {notifications?.map(({ id, title, date, isRead }: any) => (
-          <NotificationMessage
-            key={id}
-            title={title}
-            date={getDate(date)}
-            isRead={isRead}
-          />
+        {notifications?.map((data: any) => (
+          <NotificationMessage key={data.id} data={data} />
         ))}
       </MessageWrapper>
     </PopupWrapper>
