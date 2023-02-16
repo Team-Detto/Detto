@@ -6,7 +6,7 @@ import { useAuth, useModal } from 'hooks';
 import React, { useEffect, useState } from 'react';
 import { allowScroll, preventScroll } from 'utils/modal';
 import { positionList } from 'utils/positions';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { updateApplicants, updateAppliedProject } from 'apis/postDetail';
 import { findWithCollectionName } from 'apis/findWithCollectionName';
 
@@ -24,6 +24,7 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
   const [motive, setMotive] = useState('');
   const [clickValue, setClickValue] = useState(-1);
   const { uid } = useAuth();
+  const queryClient = useQueryClient();
 
   const { data: userData } = useQuery({
     queryKey: ['users', uid],
@@ -50,16 +51,6 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
     }
   };
 
-  //디자인스택, 개발스택, 기획 스택 합쳐서 중복제거
-  //Todo 포지션 선택에 따라 스택 보여주기
-  // const skills = Array.from(
-  //   new Set(
-  //     userData?.designerStack.concat(
-  //       userData?.developerStack,
-  //       userData?.plannerStack,
-  //     ),
-  //   ),
-  // );
   let skills: string[] = [];
   switch (clickValue) {
     case 0: //기획
@@ -94,12 +85,18 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
   );
 
   //지원하기 클릭 시 appliedProject에 추가
-  const { mutate: projectMutate } = useMutation(() =>
-    updateAppliedProject(
-      uid, //현재 유저의 uid
-      pid, //현재 프로젝트의 pid
-      false, //초대 여부
-    ),
+  const { mutate: projectMutate } = useMutation(
+    () =>
+      updateAppliedProject(
+        uid, //현재 유저의 uid
+        pid, //현재 프로젝트의 pid
+        false, //초대 여부
+      ),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['post', pid]);
+      },
+    },
   );
 
   useEffect(() => {
@@ -151,6 +148,7 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
           >
             아니오
           </MotiveButton>
+
           <MotiveButton
             onClick={(e) => {
               ApplyFunction(e);
@@ -186,36 +184,36 @@ export default ApplyModal;
 
 const ModalContainer = styled.div`
   position: fixed;
-  width: 657px;
-  height: 523px;
+  width: 41.0625rem;
+  height: 32.6875rem;
   left: 50%;
   top: 50%;
   text-align: center;
   transform: translate(-50%, -50%);
-  padding: 20px 16px;
+  padding: 1.25rem 1rem;
   background: #fff;
-  border-radius: 16px;
-  box-shadow: 0px 4px 10px rgba(117, 117, 117, 0.25);
+  border-radius: 1rem;
+  box-shadow: 0rem 0.25rem 0.625rem rgba(117, 117, 117, 0.25);
   z-index: 999;
   display: ${(props: { isOpen: boolean }) => (props.isOpen ? 'block' : 'none')};
 `;
 
 const ModalTitle = styled.p`
-  height: 44px;
+  height: 2.75rem;
   font-weight: 700;
-  font-size: 28px;
-  line-height: 44px;
+  font-size: 1.75rem;
+  line-height: 2.75rem;
 `;
 
 const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0px;
-  margin-top: 20px;
+  padding: 0rem;
+  margin-top: 1.25rem;
 
-  width: 625px;
-  height: 337px;
+  width: 39.0625rem;
+  height: 21.0625rem;
 `;
 
 const PositionContainer = styled.div`
@@ -237,13 +235,13 @@ const PositionTitle = styled.p`
   font-weight: 600;
   font-size: 1.25rem;
   line-height: 1.5rem;
-  gap: 8px;
+  gap: 0.5rem;
 `;
 
 const PositionNotification = styled.span`
   font-weight: 500;
-  font-size: 16px;
-  line-height: 28px;
+  font-size: 1rem;
+  line-height: 1.75rem;
   display: flex;
   align-items: center;
   letter-spacing: -0.02em;
@@ -254,29 +252,29 @@ const PositionContentWrap = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding: 0px;
-  gap: 12px;
-  margin-top: 12px;
+  padding: 0rem;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
   width: 100%;
-  height: 40px;
+  height: 2.5rem;
 `;
 
 const MotiveContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0px;
-  gap: 12px;
+  padding: 0rem;
+  gap: 0.75rem;
 
-  width: 625px;
-  height: 237px;
-  margin-top: 20px;
+  width: 39.0625rem;
+  height: 14.8125rem;
+  margin-top: 1.25rem;
 `;
 
 const MotiveTitle = styled.p`
   font-weight: 500;
-  font-size: 20px;
-  line-height: 28px;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
 `;
 
 const MotiveContentWrap = styled.div``;
@@ -285,25 +283,25 @@ const MotiveTextArea = styled.textarea`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding: 10px 28px;
-  gap: 10px;
+  padding: 0.625rem 1.75rem;
+  gap: 0.625rem;
 
-  width: 625px;
-  height: 197px;
-  border: 1px solid #ced3db;
-  border-radius: 4px;
+  width: 39.0625rem;
+  height: 12.3125rem;
+  border: 0.0625rem solid #ced3db;
+  border-radius: 0.25rem;
 `;
 
 const ApplyButtonContainer = styled.div`
   width: 100%;
-  margin-top: 20px;
+  margin-top: 1.25rem;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding: 0px;
-  gap: 20px;
-  width: 625px;
-  height: 60px;
+  padding: 0rem;
+  gap: 1.25rem;
+  width: 39.0625rem;
+  height: 3.75rem;
 `;
 
 const AlertButton = styled.button`
@@ -311,13 +309,13 @@ const AlertButton = styled.button`
   flex-direction: row;
   text-align: center;
   justify-content: center;
-  padding: 21px 95px;
-  gap: 10px;
+  padding: 1.3125rem 5.9375rem;
+  gap: 0.625rem;
 
-  width: 625px;
-  height: 62px;
+  width: 39.0625rem;
+  height: 3.875rem;
   background: #fafafb;
-  border-radius: 16px;
+  border-radius: 1rem;
 `;
 
 const MotiveButton = styled.button`
@@ -325,12 +323,12 @@ const MotiveButton = styled.button`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 10px;
-  gap: 10px;
+  padding: 0.625rem;
+  gap: 0.625rem;
 
-  width: 302.5px;
-  height: 60px;
-  border-radius: 8px;
+  width: 18.9063rem;
+  height: 3.75rem;
+  border-radius: 0.5rem;
   /* violet B 400 */
 
   background-color: ${(props: { children: string }) =>

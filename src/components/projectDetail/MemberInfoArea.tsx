@@ -19,10 +19,13 @@ const MemberInfoArea = ({ applicantsData }: any) => {
             {data?.map((key) => {
               if (applicantsData[key].position === '기획')
                 return (
-                  <MemberProfileImg
-                    key={key}
-                    src={applicantsData[key].profileURL}
-                  />
+                  <>
+                    <MemberProfileImg
+                      key={key}
+                      src={applicantsData[key].profileURL}
+                    ></MemberProfileImg>
+                    <HoverText>{applicantsData[key].displayName}</HoverText>
+                  </>
                 );
             })}
           </MemberInfoDiv>
@@ -35,10 +38,13 @@ const MemberInfoArea = ({ applicantsData }: any) => {
                 applicantsData[key].position === '백엔드'
               )
                 return (
-                  <MemberProfileImg
-                    key={key}
-                    src={applicantsData[key].profileURL}
-                  />
+                  <>
+                    <MemberProfileImg
+                      key={key}
+                      src={applicantsData[key].profileURL}
+                    />
+                    <HoverText>{applicantsData[key].displayName}</HoverText>
+                  </>
                 );
             })}
           </MemberInfoDiv>
@@ -47,10 +53,13 @@ const MemberInfoArea = ({ applicantsData }: any) => {
             {data.map((key) => {
               if (applicantsData[key].position === '디자인')
                 return (
-                  <MemberProfileImg
-                    key={key}
-                    src={applicantsData[key].profileURL}
-                  />
+                  <>
+                    <MemberProfileImg
+                      key={key}
+                      src={applicantsData[key].profileURL}
+                    />
+                    <HoverText>{applicantsData[key].displayName}</HoverText>
+                  </>
                 );
             })}
           </MemberInfoDiv>
@@ -106,4 +115,28 @@ const MemberProfileImg = styled.img`
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
+  :hover + div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+`;
+
+const HoverText = styled.div`
+  position: relative;
+  right: 3.125rem;
+  top: 1.875rem;
+  width: 6rem;
+  height: 2rem;
+  border-radius: 0.625rem;
+  background-color: ${COLORS.white};
+  box-shadow: 0.0313rem 0.0313rem 0.625rem 0.0625rem ${COLORS.violetA300};
+  color: ${COLORS.black};
+
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 500;
+
+  display: none;
 `;

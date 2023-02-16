@@ -57,8 +57,8 @@ const Likes = ({ pid, like }: any) => {
       ) : (
         <AiOutlineHeart size="1.5rem" color="#6B7684" />
       )}
-      관심 {countLike ?? '없음'}
-    </IconButton>
+      관심 {countLike ?? ' 0'}
+    </IconButton> // 로그아웃인 경우 관심 버튼 클릭 시 likedProjects에 데이터가 없어서 로직 에러 발생: 예외처리 필요
   );
 };
 

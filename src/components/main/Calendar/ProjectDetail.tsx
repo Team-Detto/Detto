@@ -55,12 +55,12 @@ const ProjectDetail = () => {
 const ProjectDetailWrap = styled.div`
   width: 18.75rem;
   height: 12.125rem;
-  margin: 20px auto 0 auto;
+  margin: 1.25rem auto 0 auto;
 `;
 const ProjectDetailContainer = styled.div`
   display: flex;
   direction: row;
-  margin: 15px 0;
+  margin: 0.9375rem 0;
 `;
 const ProjectDetailTitleAreaDiv = styled.div`
   color: #464646;
@@ -80,7 +80,7 @@ const ProjectDetailButton = styled.button`
   width: 18.75rem;
   height: 3rem;
   border-radius: 0.5rem;
-  margin-top: 80px;
+  margin-top: 2.5rem;
   color: #fff;
 `;
 export default ProjectDetail;

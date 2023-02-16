@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import WebContainer from '../components/common/WebContainer';
 import { useParams } from 'react-router-dom';
 import {
+  deleteApplicant,
   firebaseGetIsApplicantRequest,
   updateRecruiting,
   viewProject,
@@ -15,13 +16,14 @@ import ContentArea from 'components/projectDetail/ContentArea';
 import ApplyButtonArea from 'components/projectDetail/ApplyButtonArea';
 import ApplicantListArea from 'components/projectDetail/ApplicantListArea';
 import COLORS from 'assets/styles/colors';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useAuth, useModal } from 'hooks';
 import ApplyModal from 'components/projectDetail/modals/ApplyModal';
 import ConfirmAlert from 'components/common/ConfirmAlert';
 
 const ProjectDetailPage = () => {
   const params = useParams();
+  const queryClient = useQueryClient();
 
   //프로젝트 데이터 조회
   const { data: projectData } = useQuery({
@@ -42,30 +44,46 @@ const ProjectDetailPage = () => {
     queryFn: () => firebaseGetIsApplicantRequest(params?.id, uid),
   });
 
-  const { mutate: updateRecruitingMutate } = useMutation(() =>
-    updateRecruiting(params?.id as string, false),
+  const { mutate: updateRecruitingMutate } = useMutation(
+    () => updateRecruiting(params?.id as string, false),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['post', params?.id]); //마감하기 버튼 성공시 렌더링
+      },
+    },
+  );
+
+  const { mutate: deleteApplicantMutate } = useMutation(
+    () => deleteApplicant(params?.id as string, uid),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['post', params?.id]); //마감하기 버튼 성공시 렌더링
+      },
+    },
   );
 
   // 마감하기 버튼 이벤트 핸들러
   const handleAuthorButtonClick = () => {
     updateRecruitingMutate(params?.id as any, false as any);
-    handleCloseModalCloseChagne();
+    handleCloseModalCloseChange();
   };
 
   const {
     isOpen: isApply,
-    handleModalOpenChagne: handleApplyModalOpenChagne,
-    handleModalCloseChagne: handleApplyModalCloseChagne,
+    handleModalOpenChange: handleApplyModalOpenChange,
+    handleModalCloseChange: handleApplyModalCloseChange,
   } = useModal(false);
+
   const {
     isOpen: isClose,
-    handleModalOpenChagne: handleCloseModalOpenChagne,
-    handleModalCloseChagne: handleCloseModalCloseChagne,
+    handleModalOpenChange: handleCloseModalOpenChange,
+    handleModalCloseChange: handleCloseModalCloseChange,
   } = useModal(false);
 
   //projectData?.uid 가 현재 uid랑 같은지 판별하고 같으면 수정하기 버튼 display, 지원하기 버튼 -> 마감하기 버튼으로 변경, 지원자 목록 보여주기
   //지원하기 버튼 클릭시 지원자 목록에 uid 추가
   //현재 참여중인 인원, 지원한 인원 uid로 모두 user테이블 조회해서 닉네임, 프로필 사진 가져오기???
+
   return (
     <ProjectDetailContainer>
       {projectData && (
@@ -87,15 +105,17 @@ const ProjectDetailPage = () => {
             pid={params?.id}
             isApplicant={isApplicant}
             projectData={projectData}
-            onApplyModalStateChangeEvent={handleApplyModalOpenChagne}
-            onCloseModalStateChangeEvent={handleCloseModalOpenChagne}
+            onApplyModalStateChangeEvent={handleApplyModalOpenChange} //지원하기
+            onCloseModalStateChangeEvent={handleCloseModalOpenChange} //마감하기
           />
+          {/* //지원 안했다면 지원하기 모달 */}
           <ApplyModal
             isOpen={isApply}
             message="프로젝트를 지원해볼까요?"
-            onClickEvent={handleApplyModalCloseChagne}
+            onClickEvent={handleApplyModalCloseChange}
             pid={params.id as string}
           />
+          {/* //지원 했다면 Alert*/}
           <ConfirmAlert
             isOpen={isClose}
             message={
@@ -110,13 +130,13 @@ const ProjectDetailPage = () => {
             }
             onClickEvent={() => {
               isApplicant
-                ? handleCloseModalCloseChagne()
+                ? (handleCloseModalCloseChange(), deleteApplicantMutate())
                 : handleAuthorButtonClick();
             }}
-            onCloseEvent={handleCloseModalCloseChagne}
+            onCloseEvent={handleCloseModalCloseChange}
           />
-          {/* currentUser랑 글쓴이uid랑 같으면 보이게하기 */}
-          {projectData?.uid === uid && (
+          {/* currentUser랑 글쓴이uid랑 같고 모집중이면 지원자 목록 보이게하기 */}
+          {projectData?.uid === uid && projectData?.isRecruiting === true && (
             <ApplicantListArea
               projectData={projectData}
               userData={userData}
@@ -133,7 +153,7 @@ export default ProjectDetailPage;
 
 const ProjectDetailContainer = styled.div`
   background-color: #fcfcfc; //색상표에 없는데 배경으로 사용되고 있음 문의하기
-  padding-bottom: 100px;
+  padding-bottom: 6.25rem;
   height: 100%;
 `;
 
