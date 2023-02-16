@@ -8,9 +8,7 @@ import ProjectList from './ProjectList';
 
 const MainCalendar = () => {
   const detailList = useRecoilValue<any>(detailListState);
-
   const dayList = useRecoilValue<any>(dayListState);
-
   return (
     <MainCalendarWrap>
       <CalendarContainer>
@@ -56,7 +54,6 @@ const ProjectListContainer = styled.div`
   align-items: center;
   padding: 14px 0px;
   gap: 24px;
-
   height: 411px;
   margin-left: 5rem;
   margin-right: 5rem;
@@ -64,7 +61,6 @@ const ProjectListContainer = styled.div`
 const ProjectDetailContainer = styled.div`
   width: 21.75rem;
   height: 22.4375rem;
-  /* border: 1px solid #5d50f0; */
   border-radius: 0.75rem;
 `;
 

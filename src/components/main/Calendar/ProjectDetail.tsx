@@ -1,10 +1,11 @@
+import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { useRecoilValue } from 'recoil';
 import { detailListState } from '../../../recoil/atoms';
 import { getDate } from 'utils/date';
+
 const ProjectDetail = () => {
   const detailList = useRecoilValue<any>(detailListState);
-
   return (
     <ProjectDetailWrap>
       {detailList?.map((data: any) => {
@@ -40,12 +41,10 @@ const ProjectDetail = () => {
                 {getDate(data.startDate)} ~ {getDate(data.endDate)}
               </div>
             </ProjectDetailContainer>
-            <ProjectDetailContainer>
-              <ProjectDetailTextAreaDiv>근무지</ProjectDetailTextAreaDiv>
-              <div>대한 민국</div>
-            </ProjectDetailContainer>
 
-            <ProjectDetailButton>지원하러 가기</ProjectDetailButton>
+            <Link to={`/project/${data.id}`}>
+              <ProjectDetailButton>지원하러 가기</ProjectDetailButton>
+            </Link>
           </div>
         );
       })}
@@ -76,7 +75,6 @@ const ProjectDetailTextAreaDiv = styled.div`
 const ProjectDetailSproutTextDiv = styled.div`
   color: #72b819;
 `;
-
 const ProjectDetailButton = styled.button`
   background: #6b43dd;
   width: 18.75rem;
