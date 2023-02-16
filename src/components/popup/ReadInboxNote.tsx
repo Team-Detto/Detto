@@ -4,6 +4,7 @@ import { modalTypes } from 'components/common/modal/modal';
 import ModalNavigator from 'components/common/modal/ModalNavigator';
 import { useGlobalModal } from 'hooks';
 import { getDateAndTime } from 'utils/date';
+import { staleTime } from 'utils/staleTime';
 import CustomButton from './CustomButton';
 import {
   Container,
@@ -22,6 +23,7 @@ export default function ReadInboxNote({ data }: { data: Note }) {
   const { data: sender } = useQuery({
     queryKey: ['users', data.senderUid],
     queryFn: getUserInfoData,
+    staleTime: staleTime.user,
   });
 
   const handleReplyButtonClick = () => {

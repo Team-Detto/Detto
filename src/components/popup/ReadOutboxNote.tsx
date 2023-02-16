@@ -3,6 +3,7 @@ import { getUserInfoData } from 'apis/mypageUsers';
 import ModalNavigator from 'components/common/modal/ModalNavigator';
 import { useGlobalModal } from 'hooks';
 import { getDateAndTime } from 'utils/date';
+import { staleTime } from 'utils/staleTime';
 import CustomButton from './CustomButton';
 import {
   Container,
@@ -21,6 +22,7 @@ export default function ReadOutboxNote({ data }: { data: Note }) {
   const { data: receiver } = useQuery({
     queryKey: ['users', data.receiverUid],
     queryFn: getUserInfoData,
+    staleTime: staleTime.user,
   });
 
   if (!receiver) return null;

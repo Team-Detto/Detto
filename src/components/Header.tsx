@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { useQueries } from '@tanstack/react-query';
 import { getInboxNotes } from 'apis/notes';
 import { getNotifications } from 'apis/notifications';
+import { staleTime } from 'utils/staleTime';
 
 interface headerTypes {
   isMain: boolean;
@@ -31,10 +32,12 @@ const Header = () => {
       {
         queryKey: ['inbox', uid],
         queryFn: getInboxNotes,
+        staleTime: staleTime.inboxNotes,
       },
       {
         queryKey: ['notifications', uid],
         queryFn: getNotifications,
+        staleTime: staleTime.notifications,
       },
     ],
   });

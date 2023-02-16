@@ -4,6 +4,7 @@ import { getInboxNotes, getOutboxNotes } from 'apis/notes';
 import COLORS from 'assets/styles/colors';
 import { useAuth, usePopup } from 'hooks';
 import React, { useState } from 'react';
+import { staleTime } from 'utils/staleTime';
 import NoteMessage from './NoteMessage';
 import { PopupWrapper } from './styles';
 
@@ -27,11 +28,13 @@ export default function NoteBox() {
         queryKey: ['inbox', uid],
         queryFn: getInboxNotes,
         enabled: !!uid,
+        staleTime: staleTime.inboxNotes,
       },
       {
         queryKey: ['outbox', uid],
         queryFn: getOutboxNotes,
         enabled: !!uid,
+        staleTime: staleTime.outboxNotes,
       },
     ],
   });

@@ -3,12 +3,14 @@ import { addDoc, collection, getDoc, doc } from 'firebase/firestore';
 import { getUserInfoData } from 'apis/mypageUsers';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useAuth } from 'hooks';
+import { staleTime } from 'utils/staleTime';
 
 const useNote = (receiverUid: string) => {
   const sender = useAuth();
   const { data: receiver } = useQuery({
     queryKey: ['users', receiverUid],
     queryFn: getUserInfoData,
+    staleTime: staleTime.user,
   });
 
   /**

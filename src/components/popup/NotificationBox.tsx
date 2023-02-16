@@ -4,6 +4,7 @@ import { getNotifications } from 'apis/notifications';
 import COLORS from 'assets/styles/colors';
 import { useAuth, usePopup } from 'hooks';
 import { getDate } from 'utils/date';
+import { staleTime } from 'utils/staleTime';
 import NotificationMessage from './NotificationMessage';
 import { PopupWrapper } from './styles';
 
@@ -17,6 +18,7 @@ export default function NotificationBox() {
     queryKey: ['notifications', uid],
     queryFn: getNotifications,
     enabled: !!uid,
+    staleTime: staleTime.notifications,
   });
 
   if (!isNotificationOpen) return null;

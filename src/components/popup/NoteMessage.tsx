@@ -4,6 +4,7 @@ import { getUserInfoData } from 'apis/mypageUsers';
 import { doc, updateDoc } from 'firebase/firestore';
 import { useAuth, useGlobalModal } from 'hooks';
 import { getDateAndTime } from 'utils/date';
+import { staleTime } from 'utils/staleTime';
 import { MessageContainer, MessageDateDiv, MessageTitleDiv } from './styles';
 
 interface NoteMessageProps {
@@ -21,6 +22,7 @@ export default function NoteMessage({ type, data }: NoteMessageProps) {
   const { data: sender } = useQuery({
     queryKey: ['users', data.senderUid],
     queryFn: getUserInfoData,
+    staleTime: staleTime.user,
   });
 
   // 메시지 읽음 처리
