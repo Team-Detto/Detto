@@ -1,17 +1,33 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
-import defaultProfile from 'assets/images/default_profile.jpg';
-import { Project } from 'pages/MyPage';
-
+import { EditType } from 'types/write/writeType';
+import defaultThumbnail from 'assets/images/default_img.jpg';
+import ProjectItemMembers from './ProjectItemMembers';
 interface ProjectProps {
-  project: Project;
+  category: string;
+  project: EditType.EditFormType;
+  pid: string;
+  onNavigateToProjectDetailEvent: (path: string) => () => void;
 }
 
-const ProjectItem = ({ project }: ProjectProps) => {
+const ProjectItem = ({
+  category,
+  project,
+  pid,
+  onNavigateToProjectDetailEvent,
+}: ProjectProps) => {
+  const { plannerStack, designerStack, developerStack, applicants }: any =
+    project;
+
+  const stacks = [].concat(plannerStack, designerStack, developerStack);
+
   return (
-    <ProjectItemContainer>
+    <ProjectItemContainer onClick={onNavigateToProjectDetailEvent(pid)}>
       <ProjectThumbnailWrapper>
-        <ProjectThumbnailImg src={project.thumbnail} alt="썸네일이미지" />
+        <ProjectThumbnailImg
+          src={project.thumbnail ?? defaultThumbnail}
+          alt="썸네일이미지"
+        />
       </ProjectThumbnailWrapper>
       <ProjectInfoWrapper>
         <ProjectInfoBox>
@@ -21,33 +37,18 @@ const ProjectItem = ({ project }: ProjectProps) => {
         <ProjectInfoBox>
           <ProjectInfoLabel>팀원스택</ProjectInfoLabel>
           <ProjectStackList>
-            {project.skills.map((skill) => (
-              <ProjectStackItem key={skill}>{skill}</ProjectStackItem>
-            ))}
+            {stacks
+              .filter((stack, pos) => stacks.indexOf(stack) === pos)
+              .map((stack, index) => {
+                if (index < 8)
+                  return (
+                    <ProjectStackItem key={stack}>{stack}</ProjectStackItem>
+                  );
+              })}
           </ProjectStackList>
         </ProjectInfoBox>
         <ProjectInfoBox>
-          <ProjectInfoLabel>함께하고 있는 팀원</ProjectInfoLabel>
-          <ProjectMemberPositionBox>
-            {project.participants.map((participant) => (
-              <ProjectMemberPositionList key={participant.type}>
-                <ProjectMemberPositionLabel>
-                  {participant.type} {/* 포지션 라벨 ex.기획, 개발, 디자인*/}
-                </ProjectMemberPositionLabel>
-
-                <ProjectMemberList>
-                  {participant.members.map((m) => (
-                    <ProjectMemberItem key={m.uid}>
-                      <ProjectMemberProfileImg
-                        src={m.profile ?? defaultProfile}
-                        alt="멤버닉네임"
-                      />
-                    </ProjectMemberItem>
-                  ))}
-                </ProjectMemberList>
-              </ProjectMemberPositionList>
-            ))}
-          </ProjectMemberPositionBox>
+          <ProjectItemMembers category={category} applicants={applicants} />
         </ProjectInfoBox>
       </ProjectInfoWrapper>
     </ProjectItemContainer>
@@ -58,17 +59,17 @@ export default ProjectItem;
 
 const ProjectItemContainer = styled.div`
   width: 100%;
-  height: 13.75rem;
+  height: 20.625rem;
   display: flex;
-  align-items: center;
+
   background-color: ${COLORS.white};
   padding: 1.25rem 1rem;
   margin-bottom: 1.4rem;
 `;
 
 const ProjectThumbnailWrapper = styled.div`
-  width: 11.25rem;
-  height: 11.25rem;
+  width: 7.375rem;
+  height: 7.375rem;
   margin-right: 2.25rem;
 `;
 
@@ -104,6 +105,7 @@ const ProjectInfoLabel = styled.span`
 const ProjectInfoTitle = styled.h3`
   font-size: 1rem;
   color: ${COLORS.black};
+  font-weight: 500;
 `;
 
 const ProjectStackList = styled.ul`
@@ -130,20 +132,23 @@ const ProjectStackItem = styled.li`
 
 const ProjectMemberPositionBox = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   flex-wrap: wrap;
-  margin-top: 0.625rem;
 `;
 
 const ProjectMemberPositionList = styled.div`
   display: flex;
   align-items: center;
   margin-right: 1.75rem;
+  margin-top: 0.625rem;
 `;
 
 const ProjectMemberPositionLabel = styled.span`
   display: flex;
+  justify-content: center;
   align-items: center;
+  width: 4.375rem;
   height: 2rem;
   padding: 0 0.75rem;
   margin-right: 1.25rem;

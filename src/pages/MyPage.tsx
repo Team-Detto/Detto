@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import styled from '@emotion/styled';
-import { useAuth } from 'hooks';
+import { useAuth, useProjectList } from 'hooks';
 import WebContainer from 'components/common/WebContainer';
 import MyPageInfo from 'components/mypage/MyPageInfo';
-import ProjectList from 'components/common/ProjectList';
+import ProjectList from 'components/common/myProjectList/ProjectList';
 import LeftTab from 'components/mypage/LeftTab';
-import { getUserInfoData } from 'apis/mypageUsers';
-import MemberProfile from 'assets/images/project_member.png';
-import thumbnail from 'assets/images/project_thumbnail.png';
+import { getUserInfoData, getUserProjectList } from 'apis/mypageUsers';
+
+import ProjectsTab from 'components/mypage/ProjectsTab';
 
 export interface Project {
   id: string;
@@ -31,102 +31,20 @@ interface Member {
 const MyPage = () => {
   const [activeTab, setActiveTab] = useState('개인정보');
   const { uid } = useAuth();
+  const { activeProjectTab, handleProjectTabClick } = useProjectList();
 
+  // 유저 정보 받아오는 쿼리
   const { data: userInfoData }: any = useQuery({
     queryKey: ['userInfo', uid],
     queryFn: getUserInfoData,
   });
   console.log(userInfoData);
 
-  // 임시 목데이터
-  const projects = [
-    {
-      id: '1sdq',
-      title: '프로젝트 이름입니다.',
-      thumbnail: thumbnail,
-      skills: ['React', 'Node.js', 'Figma'],
-      participants: [
-        {
-          type: '기획',
-          members: [
-            {
-              uid: '1',
-              profile: MemberProfile,
-              skill: 'Figma',
-            },
-          ],
-        },
-        {
-          type: '개발',
-          members: [
-            {
-              uid: '2',
-              profile: MemberProfile,
-              skill: 'React',
-            },
-            {
-              uid: '3',
-              profile: MemberProfile,
-              skill: 'Node.js',
-            },
-          ],
-        },
-        {
-          type: '디자인',
-          members: [
-            {
-              uid: '2',
-              profile: MemberProfile,
-              skill: 'Figma',
-            },
-          ],
-        },
-      ],
-    },
-    {
-      id: '123s2',
-      title: '프로젝트 이름입니다.',
-      thumbnail: thumbnail,
-      skills: ['React', 'Node.js', 'Figma'],
-      participants: [
-        {
-          type: '기획',
-          members: [
-            {
-              uid: '1',
-              profile: MemberProfile,
-              skill: 'Figma',
-            },
-          ],
-        },
-        {
-          type: '개발',
-          members: [
-            {
-              uid: '2',
-              profile: MemberProfile,
-              skill: 'React',
-            },
-            {
-              uid: '3',
-              profile: MemberProfile,
-              skill: 'Node.js',
-            },
-          ],
-        },
-        {
-          type: '디자인',
-          members: [
-            {
-              uid: '2',
-              profile: MemberProfile,
-              skill: 'Figma',
-            },
-          ],
-        },
-      ],
-    },
-  ];
+  // 유저 프로젝트 리스트 받아오는 쿼리
+  const { data: userProjectListsData }: any = useQuery({
+    queryKey: ['userProjectLists', uid],
+    queryFn: getUserProjectList,
+  });
 
   return (
     <MyPageContainer>
@@ -134,24 +52,17 @@ const MyPage = () => {
       <WebContainer>
         <MypageContentsWrapper>
           {activeTab === '개인정보' && (
-            <MyPageInfo user={userInfoData} uid={uid ?? ''} />
+            <MyPageInfo user={userInfoData} uid={uid} />
           )}
           {activeTab === '프로젝트' && (
             <ProjectListWrapper>
-              <ProjectList
-                sectionTitle="모집중인 프로젝트"
-                nickname="detto"
-                projects={projects}
+              <ProjectsTab
+                category={activeProjectTab}
+                onTabClick={handleProjectTabClick}
               />
               <ProjectList
-                sectionTitle="지원한 프로젝트"
-                nickname="detto"
-                projects={projects}
-              />
-              <ProjectList
-                sectionTitle="관심있는 프로젝트"
-                nickname="detto"
-                projects={projects}
+                category={activeProjectTab}
+                pidList={userProjectListsData}
               />
             </ProjectListWrapper>
           )}

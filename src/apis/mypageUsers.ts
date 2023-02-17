@@ -62,3 +62,15 @@ export const updateUserInfoData = async (uid: string, userInfo: UserInfo) => {
     console.log('update fail', error);
   }
 };
+
+// 유저의 프로젝트 리스트 조회
+export const getUserProjectList = async (params: any) => {
+  const [_, uid] = params.queryKey;
+
+  const docRef = doc(firestore, 'myprojects', `${uid}`);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    return docSnap.data();
+  }
+};

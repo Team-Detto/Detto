@@ -1,99 +1,11 @@
 import styled from '@emotion/styled';
 import WebContainer from 'components/common/WebContainer';
-import ProjectList from 'components/common/ProjectList';
+import ProjectList from 'components/common/myProjectList/ProjectList';
 import MemberProfile from 'assets/images/project_member.png';
 import thumbnail from 'assets/images/project_thumbnail.png';
 import COLORS from 'assets/styles/colors';
 
 const PublicProfilePage = () => {
-  const projects = [
-    {
-      id: '1',
-      title: '프로젝트 이름입니다.',
-      thumbnail: thumbnail,
-      skills: ['React', 'Node.js', 'Figma'],
-      participants: [
-        {
-          type: '기획',
-          members: [
-            {
-              uid: '1',
-              profile: MemberProfile,
-              skill: 'Figma',
-            },
-          ],
-        },
-        {
-          type: '개발',
-          members: [
-            {
-              uid: '2',
-              profile: MemberProfile,
-              skill: 'React',
-            },
-            {
-              uid: '3',
-              profile: MemberProfile,
-              skill: 'Node.js',
-            },
-          ],
-        },
-        {
-          type: '디자인',
-          members: [
-            {
-              uid: '2',
-              profile: MemberProfile,
-              skill: 'Figma',
-            },
-          ],
-        },
-      ],
-    },
-    {
-      id: '2',
-      title: '프로젝트 이름입니다.',
-      thumbnail: thumbnail,
-      skills: ['React', 'Node.js', 'Figma'],
-      participants: [
-        {
-          type: '기획',
-          members: [
-            {
-              uid: '1',
-              profile: MemberProfile,
-              skill: 'Figma',
-            },
-          ],
-        },
-        {
-          type: '개발',
-          members: [
-            {
-              uid: '2',
-              profile: MemberProfile,
-              skill: 'React',
-            },
-            {
-              uid: '3',
-              profile: MemberProfile,
-              skill: 'Node.js',
-            },
-          ],
-        },
-        {
-          type: '디자인',
-          members: [
-            {
-              uid: '2',
-              profile: MemberProfile,
-              skill: 'Figma',
-            },
-          ],
-        },
-      ],
-    },
-  ];
   return (
     <PublicProfileContainer>
       <WebContainer>
@@ -121,16 +33,8 @@ const PublicProfilePage = () => {
             </ProfileInfoBox>
           </ProfileBox>
           <UserProjectWrapper>
-            <ProjectList
-              sectionTitle="현재 진행하고 있는 프로젝트"
-              nickname="detto"
-              projects={projects}
-            />
-            <ProjectList
-              sectionTitle="현재 모집하고 있는 프로젝트"
-              nickname="detto"
-              projects={projects}
-            />
+            {/* <ProjectList projects={projects} />
+            <ProjectList projects={projects} /> */}
           </UserProjectWrapper>
         </PublicProfileWrapper>
       </WebContainer>
