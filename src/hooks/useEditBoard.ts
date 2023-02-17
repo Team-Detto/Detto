@@ -3,6 +3,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { firebaseEditProjectRequest } from 'apis/boardService';
 import { useModal, useToastPopup } from 'hooks';
+import Resizer from 'react-image-file-resizer';
 import { EditType } from 'types/write/writeType';
 import {
   contentValidation,
@@ -27,12 +28,12 @@ const useEdtiBoard = () => {
   const { showToast, ToastMessage, handleToastPopup } = useToastPopup();
 
   const { mutate: editProjectRequest } = useMutation(
-    () =>
+    (resizedFile: any) =>
       firebaseEditProjectRequest(
         params.id as string,
         editFormValue,
         editRef.current.getInstance().getMarkdown(),
-        imageRef.current.files[0],
+        resizedFile,
       ),
     {
       onSuccess: () => {
@@ -76,7 +77,7 @@ const useEdtiBoard = () => {
       return;
     }
     if (!isContentValid) {
-      handleToastPopup('내용 길이는 1자 이상 2000자 이하로 작성해주세요.');
+      handleToastPopup('내용 길이는 1글자 이상 적어주세요.');
       return;
     }
     handleModalStateChange();
@@ -88,7 +89,11 @@ const useEdtiBoard = () => {
     if (!params.id) {
       return;
     }
-    editProjectRequest();
+
+    const file = imageRef.current.files[0];
+    const resizedFile = await resizeFile(file);
+
+    editProjectRequest(resizedFile);
   };
 
   const handleAddThumbnailImage = useCallback(() => {
@@ -144,5 +149,21 @@ const useEdtiBoard = () => {
 
 const TIME_ZONE = 3240 * 10000;
 const TodayDate = new Date(+new Date() + TIME_ZONE).toISOString().split('T')[0];
+
+const resizeFile = (file: File) =>
+  new Promise((resolve) => {
+    Resizer.imageFileResizer(
+      file,
+      1900,
+      1200,
+      'JPEG',
+      60,
+      0,
+      (uri) => {
+        resolve(uri);
+      },
+      'blob',
+    );
+  });
 
 export default useEdtiBoard;
