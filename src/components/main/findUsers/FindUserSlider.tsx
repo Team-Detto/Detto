@@ -32,7 +32,7 @@ const FindUserSlider = () => {
   return (
     <StyledSlider {...settings}>
       {users.map((user: any) => (
-        <Link to={`/profile/${user.uid}`}>
+        <Link to={`/profile/${user.uid}`} key={user.uid}>
           <Card key={user}>
             <CardImage src={user.photoURL} />
             <CardNickname>
