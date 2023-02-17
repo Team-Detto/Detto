@@ -5,9 +5,12 @@ import {
   collection,
   deleteDoc,
   doc,
+  getDocs,
+  limit,
   onSnapshot,
   orderBy,
   query,
+  startAfter,
   updateDoc,
 } from 'firebase/firestore';
 import { firebaseImageUploadRequest } from './imageService';
@@ -55,6 +58,45 @@ export const firebaseGetProjectDataRequest = (setProjectData: any) => {
       data.push({ ...doc.data(), id: doc.id });
     });
     setProjectData(data);
+  });
+};
+
+export const firebaseInfinityScrollProjectDataRequest = async (
+  setProjectData: any,
+  lastVisible: any,
+  setLastVisable: any,
+) => {
+  let q;
+  if (lastVisible === -1) {
+    return;
+  } else if (lastVisible) {
+    q = query(
+      collection(firestore, 'post'),
+      orderBy('createdAt', 'desc'),
+      limit(9),
+      startAfter(lastVisible),
+    );
+  } else {
+    q = query(
+      collection(firestore, 'post'),
+      orderBy('createdAt', 'desc'),
+      limit(9),
+    );
+  }
+
+  await getDocs(q).then((querySnapshot) => {
+    setProjectData((prev: any) => {
+      const arr = [...prev];
+      querySnapshot.forEach((doc) => {
+        arr.push({ ...doc.data(), id: doc.id });
+      });
+      return arr;
+    });
+    if (querySnapshot.docs.length === 0) {
+      setLastVisable(-1);
+    } else {
+      setLastVisable(querySnapshot.docs[querySnapshot.docs.length - 1]);
+    }
   });
 };
 
