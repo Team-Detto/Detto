@@ -2,16 +2,11 @@ import { useState } from 'react';
 import styled from '@emotion/styled';
 import FindUserSlider from './FindUserSlider';
 import COLORS from 'assets/styles/colors';
-
-const buttonType = [
-  { type: 'planner', name: '기획' },
-  { type: 'designer', name: '디자인' },
-  { type: 'frontend', name: '프론트' },
-  { type: 'backend', name: '백엔드' },
-];
+import { positionList } from 'utils/positions';
 
 const MainFindUsers = () => {
-  const [tap, setTap] = useState(buttonType[0].type);
+  const [tap, setTap] = useState(positionList[0].type);
+
   return (
     <MainFindUsersWrap>
       <MainFindUsersContainer>
@@ -19,23 +14,21 @@ const MainFindUsers = () => {
           이런 팀원 분들이 기다리고 있어요!
         </MainFindUsersTitleDiv>
         <MainFindUsersButtonContainer>
-          {buttonType.map((position) => {
-            return (
-              <MainFindUsersButton
-                key={position.type}
-                name={position.type}
-                value={tap}
-                onClick={() => setTap(position.type)}
-                active={position.type === tap}
-              >
-                {position.name}
-              </MainFindUsersButton>
-            );
-          })}
+          {positionList.map((position) => (
+            <MainFindUsersButton
+              key={position.type}
+              name={position.type}
+              value={tap}
+              onClick={() => setTap(position.type)}
+              active={position.type === tap}
+            >
+              {position.name}
+            </MainFindUsersButton>
+          ))}
         </MainFindUsersButtonContainer>
       </MainFindUsersContainer>
       <SlideArea>
-        <FindUserSlider />
+        <FindUserSlider tap={tap} />
       </SlideArea>
     </MainFindUsersWrap>
   );

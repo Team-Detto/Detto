@@ -21,7 +21,7 @@ const settings = {
   autoplaySpeed: 4000,
 };
 
-const FindUserSlider = () => {
+const FindUserSlider = ({ tap }: { tap: string }) => {
   const { data: users } = useQuery({
     queryKey: ['users'],
     queryFn: firebaseAllUsersRequest,
@@ -29,18 +29,25 @@ const FindUserSlider = () => {
   });
 
   if (!users) return null;
+
+  // 랜덤으로 섞기
+  const randomUsers = users.sort(() => Math.random() - 0.5);
+
   return (
     <StyledSlider {...settings}>
-      {users.map((user: any) => (
-        <Link to={`/profile/${user.uid}`} key={user.uid}>
-          <Card key={user}>
-            <CardImage src={user.photoURL} />
-            <CardNickname>
-              {user.isJunior && <JuniorImage src={Junior} />} {user.displayName}
-            </CardNickname>
-          </Card>
-        </Link>
-      ))}
+      {randomUsers
+        .filter((user) => user.positions.includes(tap))
+        .map((user: any) => (
+          <Link to={`/profile/${user.uid}`} key={user.uid}>
+            <Card key={user}>
+              <CardImage src={user.photoURL} />
+              <CardNickname>
+                {user.isJunior && <JuniorImage src={Junior} />}{' '}
+                {user.displayName}
+              </CardNickname>
+            </Card>
+          </Link>
+        ))}
     </StyledSlider>
   );
 };
