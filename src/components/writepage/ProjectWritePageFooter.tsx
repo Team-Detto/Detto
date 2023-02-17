@@ -16,7 +16,9 @@ const ProjectWritePageFooter = ({ editRef, onOpenButtonClickEvent }: props) => {
         <TextEdiotr editRef={editRef} />
       </ProjectWritePageFooterEditBox>
       <ProjectWritePageFooterCompleatedButton onClick={onOpenButtonClickEvent}>
-        작성 완료
+        <ProjectWritePageFooterCompleatedText>
+          작성 완료
+        </ProjectWritePageFooterCompleatedText>
       </ProjectWritePageFooterCompleatedButton>
     </ProjectWritePageFooterContainer>
   );
@@ -43,6 +45,12 @@ const ProjectWritePageFooterCompleatedButton = styled.button`
   color: #ffffff;
   border-radius: 2.25rem;
   margin-top: 4rem;
+`;
+const ProjectWritePageFooterCompleatedText = styled.p`
+  font-weight: 700;
+  font-size: 1.75rem;
+  line-height: 2rem;
+  color: #ffffff;
 `;
 
 export default ProjectWritePageFooter;
