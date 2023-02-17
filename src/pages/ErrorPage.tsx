@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
+import LoadingImg from 'assets/images/logo_error.png';
 
 const ErrorPage = () => {
   return (
     <Container>
-      <ErrorImg src={require('assets/images/logo_error.png')} />
+      <Image src={LoadingImg} />
     </Container>
   );
 };
@@ -20,7 +21,7 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const ErrorImg = styled.img`
+const Image = styled.img`
   width: 35.2931rem;
   height: 18.6563rem;
 `;
