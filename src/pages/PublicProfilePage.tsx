@@ -7,8 +7,9 @@ import ProjectsTab from 'components/mypage/ProjectsTab';
 import ProjectList from 'components/common/myProjectList/ProjectList';
 import { getUserInfoData } from 'apis/mypageUsers';
 import { concatSkills } from 'utils/skills';
-import { positionList } from 'utils/positions';
 import COLORS from 'assets/styles/colors';
+import UserPositions from 'components/publicProfile/UserPositions';
+import UserStacks from 'components/publicProfile/UserStacks';
 
 const PublicProfilePage = () => {
   const { id } = useParams();
@@ -39,20 +40,10 @@ const PublicProfilePage = () => {
               <NicknameAndMessageContainer>
                 <UserInformationDiv>
                   <UserNicknameDiv>{userInfoData?.displayName}</UserNicknameDiv>
-                  <UserPositionDiv>
-                    {userInfoData?.positions.map((position: string) => {
-                      const positionIndex = positionList.findIndex(
-                        (pos) => pos.type === position,
-                      );
-                      return (
-                        <PositionItem>
-                          {positionList[positionIndex].name}
-                        </PositionItem>
-                      );
-                    })}
-
-                    {userInfoData?.isJunior ? '🌱' : ''}
-                  </UserPositionDiv>
+                  <UserPositions
+                    positions={userInfoData?.positions}
+                    isJunior={userInfoData?.isJunior}
+                  />
                 </UserInformationDiv>
                 <MessageSendButton>쪽지보내기</MessageSendButton>
               </NicknameAndMessageContainer>
@@ -62,16 +53,7 @@ const PublicProfilePage = () => {
               </UserInfoObject>
               <UserInfoObject>
                 <UserInfoKey>기술스택</UserInfoKey>
-                {stacks
-                  .filter((stack, pos) => stacks.indexOf(stack) === pos)
-                  .map((stack, index) => {
-                    if (index < 8)
-                      return (
-                        <UserSkillStackDiv key={stack}>
-                          {stack}
-                        </UserSkillStackDiv>
-                      );
-                  })}
+                <UserStacks stacks={stacks} />
               </UserInfoObject>
             </ProfileInfoBox>
           </ProfileBox>
@@ -152,11 +134,6 @@ const UserNicknameDiv = styled.div`
   width: 6.25rem;
 `;
 
-const UserPositionDiv = styled.div`
-  color: ${COLORS.gray750};
-  font-weight: 500;
-`;
-
 const MessageSendButton = styled.button`
   width: 9.8125rem;
   height: 3.5rem;
@@ -204,9 +181,4 @@ const UserProjectWrapper = styled.div`
   margin-top: 7.875rem;
   font-size: 1.25rem;
   font-weight: 500;
-`;
-
-const PositionItem = styled.span`
-  display: inline-block;
-  margin-right: 0.5rem;
 `;

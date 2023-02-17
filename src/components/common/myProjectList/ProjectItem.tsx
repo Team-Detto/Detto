@@ -4,6 +4,7 @@ import { EditType } from 'types/write/writeType';
 import defaultThumbnail from 'assets/images/default_img.jpg';
 import ProjectItemMembers from './ProjectItemMembers';
 import { concatSkills } from 'utils/skills';
+import UserStacks from 'components/publicProfile/UserStacks';
 interface ProjectProps {
   category: string;
   project: EditType.EditFormType;
@@ -37,16 +38,7 @@ const ProjectItem = ({
         </ProjectInfoBox>
         <ProjectInfoBox>
           <ProjectInfoLabel>팀원스택</ProjectInfoLabel>
-          <ProjectStackList>
-            {stacks
-              .filter((stack, pos) => stacks.indexOf(stack) === pos)
-              .map((stack, index) => {
-                if (index < 8)
-                  return (
-                    <ProjectStackItem key={stack}>{stack}</ProjectStackItem>
-                  );
-              })}
-          </ProjectStackList>
+          <UserStacks stacks={stacks} />
         </ProjectInfoBox>
         <ProjectInfoBox>
           <ProjectItemMembers category={category} applicants={applicants} />
@@ -108,67 +100,3 @@ const ProjectInfoTitle = styled.h3`
   color: ${COLORS.black};
   font-weight: 500;
 `;
-
-const ProjectStackList = styled.ul`
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-`;
-
-const ProjectStackItem = styled.li`
-  display: flex;
-  align-items: center;
-
-  height: 2rem;
-  padding: 0 0.75rem;
-  background-color: ${COLORS.gray100};
-  border-radius: 2rem;
-
-  font-size: 0.75rem;
-  color: ${COLORS.black};
-
-  cursor: default;
-`;
-
-const ProjectMemberPositionBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  flex-wrap: wrap;
-`;
-
-const ProjectMemberPositionList = styled.div`
-  display: flex;
-  align-items: center;
-  margin-right: 1.75rem;
-  margin-top: 0.625rem;
-`;
-
-const ProjectMemberPositionLabel = styled.span`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 4.375rem;
-  height: 2rem;
-  padding: 0 0.75rem;
-  margin-right: 1.25rem;
-  font-size: 1rem;
-  background-color: ${COLORS.gray850};
-  color: ${COLORS.white};
-  border-radius: 2rem;
-`;
-
-const ProjectMemberList = styled.ul`
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-`;
-
-const ProjectMemberItem = styled.li`
-  width: 3.25rem;
-  height: 3.25rem;
-  border-radius: 50%;
-`;
-
-const ProjectMemberProfileImg = styled(ProjectThumbnailImg)``;
