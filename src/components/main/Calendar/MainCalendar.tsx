@@ -19,9 +19,7 @@ const MainCalendar = () => {
         <ProjectList />
       </ProjectListContainer>
       {dayList.length > 0 ? (
-        <ProjectDetailContainer
-          style={selectedProject && { border: '1px solid #5d50f0' }}
-        >
+        <ProjectDetailContainer visible={!!selectedProject}>
           <ProjectDetail />
         </ProjectDetailContainer>
       ) : (
@@ -59,10 +57,12 @@ const ProjectListContainer = styled.div`
   margin-left: 5rem;
   margin-right: 5rem;
 `;
-const ProjectDetailContainer = styled.div`
+const ProjectDetailContainer = styled.div<{ visible?: boolean }>`
   width: 21.75rem;
   height: 22.4375rem;
   border-radius: 0.75rem;
+  border: ${({ visible }) => visible && '1px solid #5d50f0'};
+  box-shadow: ${({ visible }) => visible && '0px 0px 6px rgba(0, 0, 0, 0.25)'};
 `;
 
 export default MainCalendar;
