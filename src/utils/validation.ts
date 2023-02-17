@@ -5,7 +5,7 @@ export const titleValidation = (title: string) => {
 
 export const contentValidation = (content: string) => {
   if (content.length === 0) return false;
-  return content.length <= 2000 ? true : false;
+  return true;
 };
 
 export const positionValidation = (position: object) => {
