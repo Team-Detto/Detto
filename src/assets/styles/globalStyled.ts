@@ -259,6 +259,7 @@ const reset = css`
   html,
   body {
     height: 100%;
+    overflow-y: overlay;
   }
 `;
 
