@@ -9,6 +9,7 @@ import ProjectList from './ProjectList';
 const MainCalendar = () => {
   const detailList = useRecoilValue<any>(detailListState);
   const dayList = useRecoilValue<any>(dayListState);
+
   return (
     <MainCalendarWrap>
       <CalendarContainer>
@@ -19,11 +20,7 @@ const MainCalendar = () => {
       </ProjectListContainer>
       {dayList.length > 0 ? (
         <ProjectDetailContainer
-          style={
-            detailList.length > 0
-              ? { border: '1px solid #5d50f0' }
-              : { border: 'none' }
-          }
+          style={detailList && { border: '1px solid #5d50f0' }}
         >
           <ProjectDetail />
         </ProjectDetailContainer>

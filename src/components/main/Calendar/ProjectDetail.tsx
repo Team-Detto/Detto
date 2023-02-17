@@ -6,48 +6,38 @@ import { getDate } from 'utils/date';
 
 const ProjectDetail = () => {
   const detailList = useRecoilValue<any>(detailListState);
+
+  if (!detailList) return null;
   return (
     <ProjectDetailWrap>
-      {detailList?.map((data: any) => {
-        return (
-          <div key={data}>
-            <ProjectDetailContainer>
-              <ProjectDetailSproutTextDiv>
-                🌱 새싹 레벨
-              </ProjectDetailSproutTextDiv>
-              <ProjectDetailTitleAreaDiv>
-                팀원을 구해요!
-              </ProjectDetailTitleAreaDiv>
-            </ProjectDetailContainer>
-            <ProjectDetailContainer>
-              <ProjectDetailTextAreaDiv>프로젝트 이름</ProjectDetailTextAreaDiv>
-              <div>{data.title}</div>
-            </ProjectDetailContainer>
-            <ProjectDetailContainer>
-              <ProjectDetailTextAreaDiv>필요 스택</ProjectDetailTextAreaDiv>
-              <div>
-                {data.developerStack.map((el: any) => {
-                  return el + '   ';
-                })}
-              </div>
-            </ProjectDetailContainer>
-            <ProjectDetailContainer>
-              <ProjectDetailTextAreaDiv>팀원 레벨</ProjectDetailTextAreaDiv>
-              <div>새싹</div>
-            </ProjectDetailContainer>
-            <ProjectDetailContainer>
-              <ProjectDetailTextAreaDiv>기간</ProjectDetailTextAreaDiv>
-              <div>
-                {getDate(data.startDate)} ~ {getDate(data.endDate)}
-              </div>
-            </ProjectDetailContainer>
-
-            <Link to={`/project/${data.id}`}>
-              <ProjectDetailButton>지원하러 가기</ProjectDetailButton>
-            </Link>
+      <div key={detailList}>
+        <ProjectDetailContainer>
+          <ProjectDetailSproutTextDiv>🌱 새싹 레벨</ProjectDetailSproutTextDiv>
+          <ProjectDetailTitleAreaDiv>팀원을 구해요!</ProjectDetailTitleAreaDiv>
+        </ProjectDetailContainer>
+        <ProjectDetailContainer>
+          <ProjectDetailTextAreaDiv>프로젝트 이름</ProjectDetailTextAreaDiv>
+          <div>{detailList.title}</div>
+        </ProjectDetailContainer>
+        <ProjectDetailContainer>
+          <ProjectDetailTextAreaDiv>필요 스택</ProjectDetailTextAreaDiv>
+          <div>{detailList.developerStack + '   '}</div>
+        </ProjectDetailContainer>
+        <ProjectDetailContainer>
+          <ProjectDetailTextAreaDiv>팀원 레벨</ProjectDetailTextAreaDiv>
+          <div>새싹</div>
+        </ProjectDetailContainer>
+        <ProjectDetailContainer>
+          <ProjectDetailTextAreaDiv>기간</ProjectDetailTextAreaDiv>
+          <div>
+            {getDate(detailList.startDate)} ~ {getDate(detailList.endDate)}
           </div>
-        );
-      })}
+        </ProjectDetailContainer>
+
+        <Link to={`/project/${detailList.id}`}>
+          <ProjectDetailButton>지원하러 가기</ProjectDetailButton>
+        </Link>
+      </div>
     </ProjectDetailWrap>
   );
 };

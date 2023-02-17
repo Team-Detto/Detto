@@ -1,47 +1,51 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import Slider from 'react-slick';
 import styled from '@emotion/styled';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import VectorUp from 'assets/images/VectorUp.png';
 import VectorDown from 'assets/images/VectorDown.png';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { dayListState, detailListState } from '../../../recoil/atoms';
 import { getDate } from 'utils/date';
+import COLORS from 'assets/styles/colors';
+
+const settings = {
+  initialSlide: 0,
+  centerPadding: '40px',
+  slidesToShow: 3,
+  slidesToScroll: 3,
+  swipeToSlide: true,
+  vertical: true,
+  draggable: true,
+  verticalSwiping: true,
+};
 
 const ProjectList = () => {
   const dayList = useRecoilValue<any>(dayListState);
-  const setDetailList = useSetRecoilState(detailListState);
-  const detailList = (id: string) => {
-    const List = dayList.filter((el: any) => el.id === id);
-    return setDetailList(List);
-  };
-  const settings = {
-    initialSlide: 0,
-    centerPadding: '40px',
-    slidesToShow: 3,
-    slidesToScroll: 3,
-    swipeToSlide: true,
-    vertical: true,
-    draggable: true,
-  };
+  const [detailList, setDetailList] = useRecoilState(detailListState);
+
+  useEffect(() => {
+    // 슬라이더의 첫번째 프로젝트를 초기값으로 설정
+    setDetailList(dayList[0]);
+  }, [dayList]);
+
   return (
     <ProjectListSlider {...settings} infinite={dayList.length >= 3}>
       {dayList?.map((data: any) => {
-        const Developer = data.positions.frontend + data.positions.backend;
-        const Designer = data.positions.designer;
-        const Planner = data.positions.planner;
+        const cntDevelopers = data.positions.frontend + data.positions.backend;
+        const cntDesingers = data.positions.designer;
+        const cntPlanners = data.positions.planner;
         return (
           <ProjectListCardContainer
             key={data}
-            onClick={() => {
-              detailList(data.id);
-            }}
+            onClick={() => setDetailList(data)}
+            active={data.id === detailList?.id}
           >
             <ProjectListCardTextBox>
               <ProjectListCardFindUser>
-                기획 {Planner}명 | 디자이너 {Designer}명 | 개발 {Developer}명
-                찾고 있어요!
+                기획 {cntPlanners}명 | 디자이너 {cntDesingers}명 | 개발{' '}
+                {cntDevelopers}명 찾고 있어요!
               </ProjectListCardFindUser>
               <ProjectListCardProjectName>
                 {data.title}
@@ -60,7 +64,7 @@ const ProjectList = () => {
 const ProjectListSlider = styled(Slider)`
   .slick-list {
     width: 300px;
-    height: 286px !important;
+    height: 287px !important;
   }
   .slick-arrow {
     display: flex;
@@ -101,22 +105,22 @@ const ProjectListSlider = styled(Slider)`
     content: '';
   }
 `;
-const ProjectListCardContainer = styled.div`
+const ProjectListCardContainer = styled.div<{ active?: boolean }>`
   padding: 12px 16px;
   gap: 8px;
   width: 300px;
   height: 85px;
   margin-bottom: 0.8rem;
-  background: #ffffff;
-  border: 1px solid #f2f4f6;
+  background: ${COLORS.white};
+  border: 1px solid;
+  border-color: ${({ active }) => (active ? COLORS.violetB500 : '#e5e5e5')};
   box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.04);
   border-radius: 8px;
+  cursor: pointer;
   &:hover {
-    border: 1px solid #5d50f0;
+    border: 1px solid ${COLORS.violetB500};
   }
-  &:focus {
-    border: 1px solid #5d50f0;
-  }
+  transition: all 100ms ease-in-out;
 `;
 const ProjectListCardTextBox = styled.div`
   display: flex;
