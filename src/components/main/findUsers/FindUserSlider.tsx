@@ -31,7 +31,7 @@ const FindUserSlider = () => {
     <SlideArea>
       <StyledSlider {...settings}>
         {users.map((user: any) => (
-          <Link to={'/'}>
+          <Link to={`/profile/${user.uid}`}>
             <Card key={user}>
               <CardImage src={user.photoURL} />
               <CardNickname>
