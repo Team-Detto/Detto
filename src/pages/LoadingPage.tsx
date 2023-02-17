@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
+import LoadingImg from 'assets/images/logo_loading.gif';
 
 const LoadingPage = () => {
   return (
     <Container>
-      <LoadingImg src={require('assets/images/logo_loading.png')} />
+      <Image src={LoadingImg} />
     </Container>
   );
 };
@@ -20,7 +21,7 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const LoadingImg = styled.img`
+const Image = styled.img`
   width: 20.4375rem;
   height: 12.9375rem;
 `;
