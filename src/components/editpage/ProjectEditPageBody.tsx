@@ -2,6 +2,7 @@ import { ChangeEvent } from 'react';
 import { EditType } from 'types/write/writeType';
 import EidtPagePosition from './EditPagePosition';
 import EditPageStack from './EditPageStack';
+import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
 
 interface Props {
@@ -113,9 +114,9 @@ const BodyEstimatedPeriodBox = styled.div`
 const BodyDateInput = styled.input`
   width: 9.5625rem;
   height: 2.75rem;
-  border: 1px solid #ced3db;
+  border: 1px solid ${COLORS.gray300};
   border-radius: 4px;
-  background: #ffffff;
+  background: ${COLORS.white};
   margin-left: 1.5rem;
   padding-left: 1rem;
 `;
@@ -131,14 +132,14 @@ const BodyThumbnailBox = styled.div`
   margin-top: 2rem;
   display: flex;
   flex-direction: row;
-  padding-right: 7rem;
+  padding-right: 0.5rem;
 `;
 const BodyThumbnailImage = styled.input`
   padding: 10px 20px;
-  width: 808px;
+  width: 62.625rem;
   height: 44px;
-  background: #ffffff;
-  border: 1px solid #ced3db;
+  background: ${COLORS.white};
+  border: 1px solid ${COLORS.gray300};
   border-radius: 4px;
   ::file-selector-button {
     display: none;
@@ -148,8 +149,8 @@ const BodyThumbnailButton = styled.button`
   padding: 0.625rem 1.75rem;
   width: 226px;
   height: 43px;
-  background: #ced3db;
-  color: #ffffff;
+  background: ${COLORS.violetB500};
+  color: ${COLORS.white};
   border-radius: 8px;
   margin-left: 2rem;
 `;
