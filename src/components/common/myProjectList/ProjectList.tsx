@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { useFindProject, useProjectList } from 'hooks';
 import ProjectItem from './ProjectItem';
 import { EditType } from 'types/write/writeType';
+import COLORS from 'assets/styles/colors';
 
 export interface PidListProps {
   [key: string]: string[];
@@ -30,6 +31,9 @@ const ProjectList = ({ category, pidList }: ProjectListProps) => {
 
   return (
     <ProjectListContainer>
+      {activeProjectsData?.length < 1 && (
+        <NodataMessage>프로젝트가 없어요 :/</NodataMessage>
+      )}
       {activeProjectsData &&
         activeProjectsData?.map(
           (project: EditType.EditFormType, idx: number) => (
@@ -51,4 +55,13 @@ export default ProjectList;
 const ProjectListContainer = styled.section`
   margin-bottom: 4.875rem;
   cursor: pointer;
+`;
+
+const NodataMessage = styled.p`
+  display: flex;
+  justify-content: center;
+  padding: 8rem 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: ${COLORS.gray200};
 `;
