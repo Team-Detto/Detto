@@ -2,8 +2,8 @@ import Slider from 'react-slick';
 import styled from '@emotion/styled';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import VectorPrev from '../../../assets/images/VectorPrev.png';
-import VectorNext from '../../../assets/images/VectorNext.png';
+import VectorPrev from 'assets/images/VectorPrev.png';
+import VectorNext from 'assets/images/VectorNext.png';
 import Junior from 'assets/images/junior.png';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
@@ -64,29 +64,36 @@ const StyledSlider = styled(Slider)`
   }
   .slick-prev {
     left: -134px;
+    width: 24px;
+    height: 24px;
     cursor: pointer;
-    content: 'prev';
   }
   .slick-prev:before {
-    width: 10px;
-    height: 10px;
-    content: url(${VectorPrev});
-    color: #000;
+    width: 24px;
+    height: 24px;
+    background-image: url(${VectorPrev});
+    background-size: 24px 24px;
+    display: inline-block;
+    content: '';
   }
   .slick-next {
     right: -134px;
+    width: 24px;
+    height: 24px;
     cursor: pointer;
   }
   .slick-next:before {
-    width: 10px;
-    height: 10px;
-    content: url(${VectorNext});
-    color: #000;
+    width: 24px;
+    height: 24px;
+    background-image: url(${VectorNext});
+    background-size: 24px 24px;
+    display: inline-block;
+    content: '';
   }
 `;
 
 const Card = styled.div`
-  display: flex !important;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
