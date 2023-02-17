@@ -4,21 +4,22 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Logo1 from 'assets/images/logo_main1.png';
 import Logo2 from 'assets/images/logo_main2.gif';
+import COLORS from 'assets/styles/colors';
+
+const settings = {
+  arrows: false,
+  dots: true,
+  infinite: true,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  autoplay: true,
+  autoplaySpeed: 4000,
+};
 
 const MainBanner = () => {
-  const settings = {
-    arrows: false,
-    dots: true,
-    infinite: true,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 4000,
-  };
-
   return (
-    <BannerWrap>
-      <BannerSlider {...settings}>
+    <SliderWrapper {...settings}>
+      <SlideWrapper>
         <BannerContainer>
           <BannerTextBox>
             <BannerTitle>
@@ -32,6 +33,8 @@ const MainBanner = () => {
           </BannerTextBox>
           <BannerFirstImg src={Logo1} />
         </BannerContainer>
+      </SlideWrapper>
+      <SlideWrapper>
         <BannerContainer>
           <BannerTextBox>
             <BannerTitle>
@@ -45,18 +48,16 @@ const MainBanner = () => {
           </BannerTextBox>
           <BannerSecondImg src={Logo2} />
         </BannerContainer>
-      </BannerSlider>
-    </BannerWrap>
+      </SlideWrapper>
+    </SliderWrapper>
   );
 };
 
 export default MainBanner;
-const BannerWrap = styled.div`
-  width: 1440px;
+const SliderWrapper = styled(Slider)`
+  background-color: ${COLORS.gray50};
+  width: 100%;
   height: 704px;
-  margin: 0 auto;
-`;
-const BannerSlider = styled(Slider)`
   .slick-dots {
     button {
       width: 12px;
@@ -74,20 +75,20 @@ const BannerSlider = styled(Slider)`
     }
   }
 `;
-const BannerContainer = styled.div`
-  width: 100%;
+const SlideWrapper = styled.div`
   height: 704px;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
 `;
+const BannerContainer = styled.div`
+  width: 1440px;
+  height: 704px;
+  margin: 0 auto;
+  position: relative;
+`;
 const BannerTextBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-
   position: absolute;
   width: 356px;
   height: 205px;
@@ -97,8 +98,7 @@ const BannerTextBox = styled.div`
 const BannerTitle = styled.div`
   width: 356px;
   height: 116px;
-  font-family: 'Noto Sans KR';
-  font-style: normal;
+
   font-weight: 700;
   font-size: 36px;
   line-height: 160%;
@@ -110,8 +110,7 @@ const BannerTitle = styled.div`
 const BannerSubTitle = styled.div`
   width: 327px;
   height: 64px;
-  font-family: 'Noto Sans KR';
-  font-style: normal;
+
   font-weight: 350;
   font-size: 20px;
   line-height: 160%;
