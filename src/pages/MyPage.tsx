@@ -38,7 +38,6 @@ const MyPage = () => {
     queryKey: ['userInfo', uid],
     queryFn: getUserInfoData,
   });
-  console.log(userInfoData);
 
   // 유저 프로젝트 리스트 받아오는 쿼리
   const { data: userProjectListsData }: any = useQuery({

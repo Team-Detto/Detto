@@ -1,5 +1,10 @@
+import { deleteUser } from 'firebase/auth';
+import { useHeader, useModal } from 'hooks';
 import styled from '@emotion/styled';
+import ConfirmAlert from 'components/common/ConfirmAlert';
+import { authService, firestore } from 'apis/firebaseService';
 import COLORS from 'assets/styles/colors';
+import { deleteDoc, doc } from 'firebase/firestore';
 
 interface LeftTabProps {
   activeTab: string;
@@ -7,10 +12,27 @@ interface LeftTabProps {
 }
 
 const LeftTab = ({ activeTab, setActiveTab }: LeftTabProps) => {
+  const { isOpen, handleModalStateChange } = useModal(false);
+  const { handleLogoutClick } = useHeader();
+
   // 탭 활성화하는 함수
   const handleTabClick = (e: React.MouseEvent<HTMLLIElement>) => {
     const { innerText } = e.currentTarget;
     setActiveTab(innerText);
+  };
+
+  // 회원 탈퇴 함수
+  const handleWithdrawalClick = async () => {
+    const currentUser = authService.currentUser;
+
+    if (!currentUser) {
+      return;
+    }
+
+    await deleteDoc(doc(firestore, 'users', currentUser.uid));
+    deleteUser(currentUser).catch((err) => console.error(err));
+    handleModalStateChange();
+    handleLogoutClick();
   };
 
   return (
@@ -29,7 +51,14 @@ const LeftTab = ({ activeTab, setActiveTab }: LeftTabProps) => {
           프로젝트
         </LeftTabItem>
       </LeftTabList>
-      <WithdrawalBox>탈퇴하기</WithdrawalBox>
+      <WithdrawalBox onClick={handleModalStateChange}>탈퇴하기</WithdrawalBox>
+      <ConfirmAlert
+        isOpen={isOpen}
+        message={'탈퇴 할까요?'}
+        subMessage={'탈퇴는 되돌릴 수 없습니다. 신중히 선택해주세요! 🥺'}
+        onClickEvent={handleWithdrawalClick}
+        onCloseEvent={handleModalStateChange}
+      />
     </LeftTabWrapper>
   );
 };

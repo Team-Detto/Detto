@@ -51,6 +51,8 @@ const useHeader = () => {
       localUser.constructor === Object
     ) {
       setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
     }
   }, [localUser]);
 
