@@ -1,9 +1,11 @@
 import styled from '@emotion/styled';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { firestore } from 'apis/firebaseService';
 import { getNotifications } from 'apis/notifications';
 import COLORS from 'assets/styles/colors';
+import { doc, updateDoc } from 'firebase/firestore';
 import { useAuth, usePopup } from 'hooks';
-import { getDate } from 'utils/date';
+import { useEffect } from 'react';
 import { staleTime } from 'utils/staleTime';
 import NotificationMessage from './NotificationMessage';
 import { PopupWrapper } from './styles';
@@ -20,6 +22,30 @@ export default function NotificationBox() {
     enabled: !!uid,
     staleTime: staleTime.notifications,
   });
+
+  // 알림 모두 읽음 처리
+  const updateReadStatus = async () => {
+    notifications.forEach(async (data: any) => {
+      if (!data.isRead) {
+        await updateDoc(doc(firestore, 'notifications', data.id), {
+          isRead: true,
+        });
+      }
+    });
+  };
+
+  const queryClient = useQueryClient();
+  const { mutate: mutateReadStatus } = useMutation(updateReadStatus, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['notifications', uid]);
+    },
+  });
+
+  useEffect(() => {
+    // 알림창이 열려있을 때만 읽음 처리
+    if (!isNotificationOpen) return;
+    mutateReadStatus();
+  }, [isNotificationOpen]);
 
   if (!isNotificationOpen) return null;
   return (
