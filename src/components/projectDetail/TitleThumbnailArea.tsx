@@ -122,4 +122,5 @@ const ProjectThumbnail = styled.img`
   height: 36.5rem;
   margin-top: 1rem;
   background-color: #dadada; //영역 표시용 임시 색상
+  object-fit: cover;
 `;
