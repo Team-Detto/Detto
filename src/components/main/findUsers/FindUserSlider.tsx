@@ -15,8 +15,10 @@ const settings = {
   infinite: false,
   centerPadding: '60px',
   slidesToShow: 5,
-  slidesToScroll: 1,
+  slidesToScroll: 5,
   swipeToSlide: true,
+  autoplay: true,
+  autoplaySpeed: 4000,
 };
 
 const FindUserSlider = () => {
@@ -28,38 +30,26 @@ const FindUserSlider = () => {
 
   if (!users) return null;
   return (
-    <SlideArea>
-      <StyledSlider {...settings}>
-        {users.map((user: any) => (
-          <Link to={`/profile/${user.uid}`}>
-            <Card key={user}>
-              <CardImage src={user.photoURL} />
-              <CardNickname>
-                {user.isJunior && <JuniorImage src={Junior} />}{' '}
-                {user.displayName}
-              </CardNickname>
-            </Card>
-          </Link>
-        ))}
-      </StyledSlider>
-    </SlideArea>
+    <StyledSlider {...settings}>
+      {users.map((user: any) => (
+        <Link to={`/profile/${user.uid}`}>
+          <Card key={user}>
+            <CardImage src={user.photoURL} />
+            <CardNickname>
+              {user.isJunior && <JuniorImage src={Junior} />} {user.displayName}
+            </CardNickname>
+          </Card>
+        </Link>
+      ))}
+    </StyledSlider>
   );
 };
 
 export default FindUserSlider;
 
-const SlideArea = styled.div`
-  width: 1180px;
-  height: 201px;
-`;
-
 const StyledSlider = styled(Slider)`
-  display: flex;
-  flex-direction: row;
-  margin: 0 134px 0 134px;
-  align-items: center;
+  margin: 0 134px;
   .slick-arrow {
-    display: flex;
     z-index: 10;
   }
   .slick-prev {
@@ -97,10 +87,7 @@ const Card = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 0 auto;
-  padding: 0px;
   gap: 16px;
-  width: 9rem;
 `;
 
 const CardImage = styled.img`
@@ -113,7 +100,7 @@ const CardNickname = styled.div`
   align-items: center;
   justify-content: center;
 
-  width: 100%;
+  position: relative;
   height: 25px;
 
   font-weight: 700;
@@ -124,7 +111,8 @@ const CardNickname = styled.div`
   color: ${COLORS.gray800};
 `;
 const JuniorImage = styled.img`
+  position: absolute;
+  left: -20px;
   width: 16px;
   height: 16px;
-  margin-right: 4px;
 `;

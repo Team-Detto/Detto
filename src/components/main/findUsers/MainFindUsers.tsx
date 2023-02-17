@@ -97,10 +97,7 @@ const MainFindUsersButton = styled.button<{ active: boolean }>`
   }
 `;
 const SlideArea = styled.div`
-  padding: 0px;
-  gap: 134px;
   width: 1180px;
-  height: 201px;
 `;
 
 export default MainFindUsers;
