@@ -15,6 +15,7 @@ const ProjectEditPageHeader = ({
       <HeaderInput
         placeholder="제목입니다."
         name="title"
+        maxLength={40}
         value={editFormValue?.title || ''}
         onChange={onFormValueChangeEvent}
       />
