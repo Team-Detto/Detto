@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styled from '@emotion/styled';
 import FindUserSlider from './FindUserSlider';
+import COLORS from 'assets/styles/colors';
+
+const buttonType = [
+  { type: 'planner', name: '기획' },
+  { type: 'designer', name: '디자인' },
+  { type: 'frontend', name: '프론트' },
+  { type: 'backend', name: '백엔드' },
+];
+
 const MainFindUsers = () => {
-  const buttonType = [
-    { type: 'planner', name: '기획' },
-    { type: 'designer', name: '디자인' },
-    { type: 'frontend', name: '프론트' },
-    { type: 'backend', name: '백엔드' },
-  ];
-  const [tap, setTap] = useState('기획');
+  const [tap, setTap] = useState(buttonType[0].type);
   return (
     <MainFindUsersWrap>
       <MainFindUsersContainer>
@@ -20,9 +23,10 @@ const MainFindUsers = () => {
             return (
               <MainFindUsersButton
                 key={position.type}
-                name={position.name}
+                name={position.type}
                 value={tap}
-                onClick={() => setTap(position.name)}
+                onClick={() => setTap(position.type)}
+                active={position.type === tap}
               >
                 {position.name}
               </MainFindUsersButton>
@@ -76,7 +80,7 @@ const MainFindUsersButtonContainer = styled.div`
   width: 625px;
   height: 48px;
 `;
-const MainFindUsersButton = styled.button`
+const MainFindUsersButton = styled.button<{ active: boolean }>`
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
@@ -86,27 +90,19 @@ const MainFindUsersButton = styled.button`
   gap: 10px;
   width: 150px;
   height: 48px;
-  background: ${(props: { name: string; value: string }) =>
-    props.name === props.value ? '#5d50f0' : '#ffffff'};
-  color: ${(props: { name: string; value: string }) =>
-    props.name === props.value ? '#ffffff' : '#4e5968'};
-  border-radius: 36px;
-  font-family: 'Noto Sans KR';
-  font-style: normal;
-  font-weight: 400;
+
+  font-weight: ${(props) => (props.active ? '700' : '400')};
   font-size: 16px;
   line-height: 32px;
+
+  color: ${(props) => (props.active ? COLORS.white : COLORS.black)};
+  background-color: ${(props) =>
+    props.active ? COLORS.violetB400 : COLORS.gray50};
+  border-radius: 36px;
+
   &:hover {
-    width: 150px;
-    height: 48px;
-    background: #6f64f2;
-    border-radius: 36px;
-    color: #ffffff;
-    font-family: 'Noto Sans KR';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 32px;
+    background-color: ${(props) =>
+      props.active ? COLORS.violetB400 : COLORS.gray100};
   }
 `;
 const SlideArea = styled.div`

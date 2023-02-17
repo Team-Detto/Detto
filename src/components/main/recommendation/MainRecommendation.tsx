@@ -111,6 +111,11 @@ const MainRecommendationButton = styled.button<{ active: boolean }>`
   background-color: ${(props) =>
     props.active ? COLORS.violetB400 : COLORS.gray50};
   border-radius: 36px;
+
+  &:hover {
+    background-color: ${(props) =>
+      props.active ? COLORS.violetB400 : COLORS.gray100};
+  }
 `;
 const MainRecommendationCardContainer = styled.div`
   display: flex;
@@ -122,22 +127,24 @@ const MainRecommendationCardContainer = styled.div`
   height: 450px;
 `;
 const MainRecommendationCardButton = styled.button`
-  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   padding: 8px 60px;
   gap: 10px;
-  width: 187px;
-  height: 48px;
-  border: 1px solid #e1e5eb;
-  border-radius: 24px;
-  color: #8b95a1;
 
-  font-weight: 400;
-  font-size: 16px;
+  border: 1px solid ${COLORS.gray200};
+  border-radius: 24px;
+
+  font-size: 18px;
   line-height: 32px;
+
+  color: ${COLORS.gray700};
+
+  &:hover {
+    background-color: ${COLORS.gray50};
+  }
 `;
 
 export default MainRecommendation;
