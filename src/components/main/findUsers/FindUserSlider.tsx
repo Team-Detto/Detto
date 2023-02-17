@@ -30,13 +30,18 @@ const FindUserSlider = ({ tap }: { tap: string }) => {
 
   if (!users) return null;
 
-  // 랜덤으로 섞기
-  const randomUsers = users.sort(() => Math.random() - 0.5);
+  // 포지션 필터링
+  const filteredUsers = users.filter((user) => user.positions.includes(tap));
+
+  if (filteredUsers.length === 0) {
+    return <NoDataMessage>팀원을 찾을 수 없어요 :/</NoDataMessage>;
+  }
 
   return (
     <StyledSlider {...settings}>
-      {randomUsers
-        .filter((user) => user.positions.includes(tap))
+      {filteredUsers
+        // 랜덤으로 섞기
+        .sort(() => Math.random() - 0.5)
         .map((user: any) => (
           <Link to={`/profile/${user.uid}`} key={user.uid}>
             <Card key={user}>
@@ -53,6 +58,17 @@ const FindUserSlider = ({ tap }: { tap: string }) => {
 };
 
 export default FindUserSlider;
+
+const NoDataMessage = styled.div`
+  height: 169px;
+  font-size: 2rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  color: ${COLORS.gray500};
+`;
 
 const StyledSlider = styled(Slider)`
   margin: 0 134px;
