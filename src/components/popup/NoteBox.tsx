@@ -39,38 +39,36 @@ export default function NoteBox() {
     ],
   });
 
+  if (!isNoteOpen) return null;
   return (
-    <>
-      {isNoteOpen && (
-        <PopupWrapper popup="message">
-          <BoxContainer>
-            {boxList.map(({ id, label }) => (
-              <React.Fragment key={id}>
-                <MenuToggleInput
-                  type="radio"
-                  name="message"
-                  id={id}
-                  value={selectedBox}
-                  onChange={() => setSelectedBox(id)}
-                  defaultChecked={id === 'inbox'}
-                />
-                <MenuLabel htmlFor={id}>{label}</MenuLabel>
-              </React.Fragment>
-            ))}
-          </BoxContainer>
-          <MessageWrapper>
-            {selectedBox === 'inbox' &&
-              inboxData?.map((data: any) => (
-                <NoteMessage key={data.id} type="inbox" data={data} />
-              ))}
-            {selectedBox === 'outbox' &&
-              outboxData?.map((data: any) => (
-                <NoteMessage key={data.id} type="outbox" data={data} />
-              ))}
-          </MessageWrapper>
-        </PopupWrapper>
-      )}
-    </>
+    // 팝업창 이외의 영역 클릭 시 팝업창 닫기. 팝업창 클릭 시 이벤트 propagation 막기
+    <PopupWrapper popup="message" onClick={(e) => e.stopPropagation()}>
+      <BoxContainer>
+        {boxList.map(({ id, label }) => (
+          <React.Fragment key={id}>
+            <MenuToggleInput
+              type="radio"
+              name="message"
+              id={id}
+              value={selectedBox}
+              onChange={() => setSelectedBox(id)}
+              defaultChecked={id === 'inbox'}
+            />
+            <MenuLabel htmlFor={id}>{label}</MenuLabel>
+          </React.Fragment>
+        ))}
+      </BoxContainer>
+      <MessageWrapper>
+        {selectedBox === 'inbox' &&
+          inboxData?.map((data: any) => (
+            <NoteMessage key={data.id} type="inbox" data={data} />
+          ))}
+        {selectedBox === 'outbox' &&
+          outboxData?.map((data: any) => (
+            <NoteMessage key={data.id} type="outbox" data={data} />
+          ))}
+      </MessageWrapper>
+    </PopupWrapper>
   );
 }
 

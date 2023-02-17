@@ -23,7 +23,8 @@ export default function NotificationBox() {
 
   if (!isNotificationOpen) return null;
   return (
-    <PopupWrapper popup="notification">
+    // 팝업창 이외의 영역 클릭 시 팝업창 닫기. 팝업창 클릭 시 이벤트 propagation 막기
+    <PopupWrapper popup="notification" onClick={(e) => e.stopPropagation()}>
       <TitleWrapper>
         읽지 않은 알림
         <MessageCountSpan>
