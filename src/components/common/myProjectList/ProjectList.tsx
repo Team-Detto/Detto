@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { useFindProject, useProjectList } from 'hooks';
 import styled from '@emotion/styled';
+import { useFindProject, useProjectList } from 'hooks';
 import ProjectItem from './ProjectItem';
 import { EditType } from 'types/write/writeType';
 
@@ -17,6 +17,7 @@ const ProjectList = ({ category, pidList }: ProjectListProps) => {
   const { getActiveProjects, getFilteredPidList } = useProjectList();
   const { handleNavigateToProjectDetail } = useFindProject();
 
+  // 현재 활성화된 탭의 프로젝트 아이디(pid) 리스트
   const currentPidList =
     category === 'appliedProjects' || category === 'currentProjects'
       ? getFilteredPidList(pidList, category)
@@ -36,7 +37,7 @@ const ProjectList = ({ category, pidList }: ProjectListProps) => {
               category={category}
               key={project.createdAt}
               project={project}
-              pid={pidList.likedProjects[idx]}
+              pid={currentPidList[idx]}
               onNavigateToProjectDetailEvent={handleNavigateToProjectDetail}
             />
           ),
