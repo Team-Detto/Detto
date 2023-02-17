@@ -59,6 +59,15 @@ const SliderWrapper = styled(Slider)`
   width: 100%;
   height: 704px;
   .slick-dots {
+    position: absolute;
+    bottom: 34px;
+
+    li {
+      margin: 0;
+      width: 12px;
+      height: 12px;
+      margin: 0 12px;
+    }
     button {
       width: 12px;
       height: 12px;
@@ -71,6 +80,8 @@ const SliderWrapper = styled(Slider)`
     .slick-active {
       button {
         background: #5d50f0;
+        width: 12px;
+        height: 12px;
       }
     }
   }
