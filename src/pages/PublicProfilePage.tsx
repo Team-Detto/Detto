@@ -75,10 +75,12 @@ const PublicProfilePage = () => {
               category={activeProjectTab}
               onTabClick={handleProjectTabClick}
             />
-            {/* <ProjectList
-              category={activeProjectTab}
-              pidList={userProjectListsData}
-            /> */}
+            {userProjectListsData && (
+              <ProjectList
+                category={activeProjectTab}
+                pidList={userProjectListsData}
+              />
+            )}
           </UserProjectWrapper>
         </PublicProfileWrapper>
       </WebContainer>
