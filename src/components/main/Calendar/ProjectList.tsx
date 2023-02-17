@@ -17,67 +17,63 @@ const ProjectList = () => {
     return setDetailList(List);
   };
   const settings = {
-    infinite: false,
     initialSlide: 0,
     centerPadding: '40px',
     slidesToShow: 3,
-    slidesToScroll: 1,
+    slidesToScroll: 3,
     swipeToSlide: true,
     vertical: true,
     draggable: true,
   };
   return (
-    <ProjectListWrap>
-      <ProjectListSlider {...settings}>
-        {dayList?.map((data: any) => {
-          const Developer = data.positions.frontend + data.positions.backend;
-          const Designer = data.positions.designer;
-          const Planner = data.positions.planner;
-          return (
-            <ProjectListCardContainer
-              key={data}
-              onClick={() => {
-                detailList(data.id);
-              }}
-            >
-              <ProjectListCardTextBox>
-                <ProjectListCardFindUser>
-                  기획 {Planner}명 | 디자이너 {Designer}명 | 개발 {Developer}명
-                  찾고 있어요!
-                </ProjectListCardFindUser>
-                <ProjectListCardProjectName>
-                  {data.title}
-                </ProjectListCardProjectName>
-              </ProjectListCardTextBox>
-              <ProjectListCardDate>
-                프로젝트 모집 마감일 {getDate(data.deadline)}
-              </ProjectListCardDate>
-            </ProjectListCardContainer>
-          );
-        })}
-      </ProjectListSlider>
-    </ProjectListWrap>
+    <ProjectListSlider {...settings} infinite={dayList.length >= 3}>
+      {dayList?.map((data: any) => {
+        const Developer = data.positions.frontend + data.positions.backend;
+        const Designer = data.positions.designer;
+        const Planner = data.positions.planner;
+        return (
+          <ProjectListCardContainer
+            key={data}
+            onClick={() => {
+              detailList(data.id);
+            }}
+          >
+            <ProjectListCardTextBox>
+              <ProjectListCardFindUser>
+                기획 {Planner}명 | 디자이너 {Designer}명 | 개발 {Developer}명
+                찾고 있어요!
+              </ProjectListCardFindUser>
+              <ProjectListCardProjectName>
+                {data.title}
+              </ProjectListCardProjectName>
+            </ProjectListCardTextBox>
+            <ProjectListCardDate>
+              프로젝트 모집 마감일 {getDate(data.deadline)}
+            </ProjectListCardDate>
+          </ProjectListCardContainer>
+        );
+      })}
+    </ProjectListSlider>
   );
 };
-const ProjectListWrap = styled.div`
-  width: 300px;
-  height: 287px;
-`;
+
 const ProjectListSlider = styled(Slider)`
   .slick-list {
     width: 300px;
-    height: 287px !important;
+    height: 286px !important;
   }
   .slick-arrow {
     display: flex;
     z-index: 10;
   }
   .slick-prev {
-    left: 47%;
-    top: -38px;
     width: 26px;
     height: 26px;
     cursor: pointer;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, -50px);
   }
   .slick-prev:before {
     width: 26px;
@@ -88,11 +84,13 @@ const ProjectListSlider = styled(Slider)`
     content: '';
   }
   .slick-next {
-    left: 47%;
-    top: 326px;
     width: 26px;
     height: 26px;
     cursor: pointer;
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translate(-50%, 24px);
   }
   .slick-next:before {
     width: 26px;
@@ -104,10 +102,6 @@ const ProjectListSlider = styled(Slider)`
   }
 `;
 const ProjectListCardContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   padding: 12px 16px;
   gap: 8px;
   width: 300px;

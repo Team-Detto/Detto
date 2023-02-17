@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
-import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { dayListState, detailListState } from '../../../recoil/atoms';
 import ProjectCalendar from './ProjectCalendar';
@@ -29,7 +28,7 @@ const MainCalendar = () => {
           <ProjectDetail />
         </ProjectDetailContainer>
       ) : (
-        <ProjectDetailContainer></ProjectDetailContainer>
+        <ProjectDetailContainer />
       )}
     </MainCalendarWrap>
   );
