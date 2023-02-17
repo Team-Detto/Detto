@@ -1,9 +1,10 @@
-import React from 'react';
 import Slider from 'react-slick';
 import styled from '@emotion/styled';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import detoLogo from 'assets/images/detoLogo.png';
+import Logo1 from 'assets/images/logo_main1.png';
+import Logo2 from 'assets/images/logo_main2.gif';
+
 const MainBanner = () => {
   const settings = {
     arrows: false,
@@ -16,33 +17,38 @@ const MainBanner = () => {
   return (
     <BannerWrap>
       <BannerSlider {...settings}>
-        <BannerFirstContainer>
-          <BannerFirstTextBox>
-            <BannerFirstTitle>
+        <BannerContainer>
+          <BannerTextBox>
+            <BannerTitle>
               동료와 만나는 커뮤니티 <br />
               사이드 프로젝트는 디토
-            </BannerFirstTitle>
-            <BannerFirstSubTitle>
+            </BannerTitle>
+            <BannerSubTitle>
               마음이 맞는 동료를 구하고 계신다면 <br />
               디토에서 프로젝트 메이트를 만나보세요
-            </BannerFirstSubTitle>
-          </BannerFirstTextBox>
-          <BannerImg src={detoLogo} />
-        </BannerFirstContainer>
-        <BannerSecondContainer>2</BannerSecondContainer>
+            </BannerSubTitle>
+          </BannerTextBox>
+          <BannerFirstImg src={Logo1} />
+        </BannerContainer>
+        <BannerContainer>
+          <BannerTextBox>
+            <BannerTitle>
+              동료와 만나는 커뮤니티 <br />
+              사이드 프로젝트는 디토
+            </BannerTitle>
+            <BannerSubTitle>
+              마음이 맞는 동료를 구하고 계신다면 <br />
+              디토에서 프로젝트 메이트를 만나보세요
+            </BannerSubTitle>
+          </BannerTextBox>
+          <BannerSecondImg src={Logo2} />
+        </BannerContainer>
       </BannerSlider>
     </BannerWrap>
   );
 };
 
 export default MainBanner;
-const BannerImg = styled.img`
-  position: absolute;
-  width: 846px;
-  height: 295px;
-  left: 474px;
-  top: 243px;
-`;
 const BannerWrap = styled.div`
   width: 1440px;
   height: 704px;
@@ -66,8 +72,7 @@ const BannerSlider = styled(Slider)`
     }
   }
 `;
-
-const BannerFirstContainer = styled.div`
+const BannerContainer = styled.div`
   width: 100%;
   height: 704px;
   display: flex;
@@ -75,18 +80,19 @@ const BannerFirstContainer = styled.div`
   align-items: center;
   position: relative;
 `;
-const BannerFirstTextBox = styled.div`
+const BannerTextBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+
   position: absolute;
   width: 356px;
   height: 205px;
   left: 146px;
   top: 305px;
 `;
-const BannerFirstTitle = styled.div`
+const BannerTitle = styled.div`
   width: 356px;
   height: 116px;
   font-family: 'Noto Sans KR';
@@ -99,7 +105,7 @@ const BannerFirstTitle = styled.div`
   color: #333d4b;
   margin-bottom: 25px;
 `;
-const BannerFirstSubTitle = styled.div`
+const BannerSubTitle = styled.div`
   width: 327px;
   height: 64px;
   font-family: 'Noto Sans KR';
@@ -109,4 +115,17 @@ const BannerFirstSubTitle = styled.div`
   line-height: 160%;
   color: #333d4b;
 `;
-const BannerSecondContainer = styled.div``;
+const BannerFirstImg = styled.img`
+  position: absolute;
+  width: 751px;
+  height: 802px;
+  left: 591px;
+  top: 0px;
+`;
+const BannerSecondImg = styled.img`
+  position: absolute;
+  width: 846px;
+  height: 295px;
+  left: 474px;
+  top: 243px;
+`;
