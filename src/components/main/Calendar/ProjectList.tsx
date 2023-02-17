@@ -75,25 +75,32 @@ const ProjectListSlider = styled(Slider)`
   .slick-prev {
     left: 47%;
     top: -38px;
+    width: 26px;
+    height: 26px;
     cursor: pointer;
-    content: 'prev';
   }
   .slick-prev:before {
-    width: 24px;
-    height: 24px;
-    content: url(${VectorUp});
+    width: 26px;
+    height: 26px;
+    background-image: url(${VectorUp});
+    background-size: 26px 26px;
+    display: inline-block;
+    content: '';
   }
   .slick-next {
     left: 47%;
-    top: 324px;
+    top: 326px;
+    width: 26px;
+    height: 26px;
     cursor: pointer;
-    content: 'next';
   }
   .slick-next:before {
-    width: 24px;
-    height: 24px;
-    content: url(${VectorDown});
-    color: #000;
+    width: 26px;
+    height: 26px;
+    background-image: url(${VectorDown});
+    background-size: 26px 26px;
+    display: inline-block;
+    content: '';
   }
 `;
 const ProjectListCardContainer = styled.div`
