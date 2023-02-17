@@ -4,8 +4,7 @@ import { useState } from 'react';
 import { projectTabNames } from 'utils/positions';
 
 const useProjectList = () => {
-  const [activeProjectTab, setActiveProjectTab] =
-    useState<string>('currentProjects');
+  const [activeProjectTab, setActiveProjectTab] = useState<string>('');
 
   // 프로젝트 탭 활성화 변경 함수
   const handleProjectTabClick = (e: React.MouseEvent<HTMLLIElement>) => {
@@ -48,6 +47,7 @@ const useProjectList = () => {
 
   return {
     activeProjectTab,
+    setActiveProjectTab,
     handleProjectTabClick,
     getActiveProjects,
     getFilteredPidList,

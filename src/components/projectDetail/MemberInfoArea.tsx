@@ -1,7 +1,9 @@
+import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 
 const MemberInfoArea = ({ applicantsData }: any) => {
+  const navigate = useNavigate();
   if (applicantsData === undefined) applicantsData = {};
 
   const data = Object?.keys(applicantsData).filter((key) => {
@@ -15,13 +17,15 @@ const MemberInfoArea = ({ applicantsData }: any) => {
         <MemberInfoBox>
           <MemberInfoDiv>
             <PositionDiv>기획</PositionDiv>
-            {/*  Todo: 클릭시 공개프로필로 연결 */}
             {data?.map((key) => {
               if (applicantsData[key].position === '기획')
                 return (
                   <>
                     <MemberProfileImg
                       key={key}
+                      onClick={() =>
+                        navigate(`/profile/${applicantsData[key].uid}`)
+                      }
                       src={applicantsData[key].profileURL}
                     ></MemberProfileImg>
                     <HoverText>{applicantsData[key].displayName}</HoverText>
@@ -41,8 +45,11 @@ const MemberInfoArea = ({ applicantsData }: any) => {
                   <>
                     <MemberProfileImg
                       key={key}
+                      onClick={() =>
+                        navigate(`/profile/${applicantsData[key].uid}`)
+                      }
                       src={applicantsData[key].profileURL}
-                    />
+                    ></MemberProfileImg>
                     <HoverText>{applicantsData[key].displayName}</HoverText>
                   </>
                 );
@@ -56,8 +63,11 @@ const MemberInfoArea = ({ applicantsData }: any) => {
                   <>
                     <MemberProfileImg
                       key={key}
+                      onClick={() =>
+                        navigate(`/profile/${applicantsData[key].uid}`)
+                      }
                       src={applicantsData[key].profileURL}
-                    />
+                    ></MemberProfileImg>
                     <HoverText>{applicantsData[key].displayName}</HoverText>
                   </>
                 );
@@ -115,6 +125,7 @@ const MemberProfileImg = styled.img`
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
+  cursor: pointer;
   :hover + div {
     display: flex;
     justify-content: center;

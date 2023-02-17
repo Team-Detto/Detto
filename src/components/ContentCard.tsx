@@ -2,6 +2,7 @@ import { getDate } from 'utils/date';
 import { EditType } from 'types/write/writeType';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import styled from '@emotion/styled';
+import { concatSkills } from 'utils/skills';
 
 interface Props {
   project: EditType.EditFormType;
@@ -25,7 +26,7 @@ const ContantCard = ({
     developerStack,
     thumbnail,
   }: any = project;
-  const stacks = [].concat(plannerStack, designerStack, developerStack);
+  const stacks = concatSkills(plannerStack, designerStack, developerStack);
 
   return (
     <ContantCardWrap onClick={onNavigateToProjectDetailEvent(id)}>

@@ -3,32 +3,50 @@ import COLORS from 'assets/styles/colors';
 import { projectTabNames } from 'utils/positions';
 
 interface ProjectsTabProps {
+  type?: string;
   category: string;
   onTabClick: (e: React.MouseEvent<HTMLLIElement>) => void;
 }
 
-const ProjectsTab = ({ category, onTabClick }: ProjectsTabProps) => {
+const ProjectsTab = ({ type, category, onTabClick }: ProjectsTabProps) => {
   return (
-    <ProjectsTabContainer>
-      {projectTabNames.map((tabName) => (
-        <ProjectsTabButton
-          key={tabName.id}
-          name={tabName.id}
-          category={category}
-          onClick={onTabClick}
-        >
-          {tabName.value}
-        </ProjectsTabButton>
-      ))}
+    <ProjectsTabContainer type={type}>
+      {type &&
+        projectTabNames.map((tabname, index) => {
+          if (index === 1 || index === 2) {
+            return (
+              <ProjectsTabButton
+                key={tabname.id}
+                name={tabname.id}
+                category={category}
+                onClick={onTabClick}
+              >
+                {tabname.value}
+              </ProjectsTabButton>
+            );
+          }
+        })}
+
+      {!type &&
+        projectTabNames.map((tabName) => (
+          <ProjectsTabButton
+            key={tabName.id}
+            name={tabName.id}
+            category={category}
+            onClick={onTabClick}
+          >
+            {tabName.value}
+          </ProjectsTabButton>
+        ))}
     </ProjectsTabContainer>
   );
 };
 
 export default ProjectsTab;
 
-const ProjectsTabContainer = styled.div`
+const ProjectsTabContainer = styled.div<{ type?: string }>`
   display: flex;
-  width: 34rem;
+  width: ${({ type }) => (type === 'public' ? '17rem' : '34rem')};
   height: 2rem;
   align-items: center;
   gap: 1rem;
