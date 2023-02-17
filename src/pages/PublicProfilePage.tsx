@@ -1,40 +1,86 @@
+import { useParams } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 import styled from '@emotion/styled';
+import { useProjectList } from 'hooks';
 import WebContainer from 'components/common/WebContainer';
+import ProjectsTab from 'components/mypage/ProjectsTab';
 import ProjectList from 'components/common/myProjectList/ProjectList';
-import MemberProfile from 'assets/images/project_member.png';
-import thumbnail from 'assets/images/project_thumbnail.png';
+import { getUserInfoData } from 'apis/mypageUsers';
+import { concatSkills } from 'utils/skills';
+import { positionList } from 'utils/positions';
 import COLORS from 'assets/styles/colors';
 
 const PublicProfilePage = () => {
+  const { id } = useParams();
+  const { activeProjectTab, handleProjectTabClick } = useProjectList();
+  const { data: userInfoData }: any = useQuery({
+    queryKey: ['users', id],
+    queryFn: getUserInfoData,
+  });
+
+  const stacks = concatSkills(
+    userInfoData?.plannerStack,
+    userInfoData?.designerStack,
+    userInfoData?.developerStack,
+  );
+
   return (
     <PublicProfileContainer>
       <WebContainer>
         <PublicProfileWrapper>
           <ProfileBox>
-            <ProfileImg />
+            <ProfileImgBox>
+              <ProfileImg
+                src={userInfoData?.photoURL}
+                alt={userInfoData?.displayName}
+              />
+            </ProfileImgBox>
             <ProfileInfoBox>
               <NicknameAndMessageContainer>
                 <UserInformationDiv>
-                  <UserNicknameDiv>닉네임</UserNicknameDiv>
-                  <UserPositionDiv>디자이너 🌱</UserPositionDiv>
+                  <UserNicknameDiv>{userInfoData?.displayName}</UserNicknameDiv>
+                  <UserPositionDiv>
+                    {userInfoData?.positions.map((position: string) => {
+                      const positionIndex = positionList.findIndex(
+                        (pos) => pos.type === position,
+                      );
+                      return (
+                        <PositionItem>
+                          {positionList[positionIndex].name}
+                        </PositionItem>
+                      );
+                    })}
+
+                    {userInfoData?.isJunior ? '🌱' : ''}
+                  </UserPositionDiv>
                 </UserInformationDiv>
                 <MessageSendButton>쪽지보내기</MessageSendButton>
               </NicknameAndMessageContainer>
               <UserInfoObject>
                 <UserInfoKey>연락처</UserInfoKey>
-                <UserInfoValue>test@test.com</UserInfoValue>
+                <UserInfoValue>{userInfoData?.email}</UserInfoValue>
               </UserInfoObject>
               <UserInfoObject>
                 <UserInfoKey>기술스택</UserInfoKey>
-                <UserSkillStackDiv>React</UserSkillStackDiv>
-                <UserSkillStackDiv>React</UserSkillStackDiv>
-                <UserSkillStackDiv>React</UserSkillStackDiv>
+                {stacks
+                  .filter((stack, pos) => stacks.indexOf(stack) === pos)
+                  .map((stack, index) => {
+                    if (index < 8)
+                      return (
+                        <UserSkillStackDiv key={stack}>
+                          {stack}
+                        </UserSkillStackDiv>
+                      );
+                  })}
               </UserInfoObject>
             </ProfileInfoBox>
           </ProfileBox>
           <UserProjectWrapper>
-            {/* <ProjectList projects={projects} />
-            <ProjectList projects={projects} /> */}
+            <ProjectsTab
+              category={activeProjectTab}
+              onTabClick={handleProjectTabClick}
+            />
+            <ProjectList />
           </UserProjectWrapper>
         </PublicProfileWrapper>
       </WebContainer>
@@ -65,11 +111,18 @@ const ProfileBox = styled.div`
   gap: 2.4375rem;
 `;
 
-const ProfileImg = styled.div`
+const ProfileImgBox = styled.div`
   width: 14.25rem;
   height: 14.25rem;
-  background-color: #919191; //영역표시용 임시 색상
   border-radius: 50%;
+  overflow: hidden;
+`;
+
+const ProfileImg = styled.img`
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
 `;
 
 const ProfileInfoBox = styled.div`
@@ -133,14 +186,27 @@ const UserInfoValue = styled.div`
 `;
 
 const UserSkillStackDiv = styled.div`
-  background-color: ${COLORS.gray100};
-  font-size: 0.75rem;
-  border-radius: 0.625rem;
+  display: flex;
+  align-items: center;
+
+  height: 2rem;
   padding: 0 0.75rem;
+  background-color: ${COLORS.gray100};
+  border-radius: 2rem;
+
+  font-size: 0.75rem;
+  color: ${COLORS.black};
+
+  cursor: default;
 `;
 
 const UserProjectWrapper = styled.div`
   margin-top: 7.875rem;
   font-size: 1.25rem;
   font-weight: 500;
+`;
+
+const PositionItem = styled.span`
+  display: inline-block;
+  margin-right: 0.5rem;
 `;
