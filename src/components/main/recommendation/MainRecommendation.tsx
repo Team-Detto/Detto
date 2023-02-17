@@ -62,7 +62,7 @@ const MainRecommendationWrap = styled.div`
   gap: 75px;
   width: 1180px;
   height: 755px;
-  margin: 192.5px auto 190px auto;
+  margin: 108px auto 190px auto;
 `;
 const MainRecommendationContainer = styled.div`
   display: flex;

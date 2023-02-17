@@ -4,10 +4,12 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import VectorPrev from '../../../assets/images/VectorPrev.png';
 import VectorNext from '../../../assets/images/VectorNext.png';
+import Junior from 'assets/images/junior.png';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { staleTime } from 'utils/staleTime';
 import { firebaseAllUsersRequest } from 'apis/userService';
+import COLORS from 'assets/styles/colors';
 
 const settings = {
   infinite: false,
@@ -32,10 +34,10 @@ const FindUserSlider = () => {
           <Link to={'/'}>
             <Card key={user}>
               <CardImage src={user.photoURL} />
-              <CardTextContainer>
-                <CardNickname>{user.displayName}</CardNickname>
-                <CardJob>{user.positions[0]}</CardJob>
-              </CardTextContainer>
+              <CardNickname>
+                {user.isJunior && <JuniorImage src={Junior} />}{' '}
+                {user.displayName}
+              </CardNickname>
             </Card>
           </Link>
         ))}
@@ -91,45 +93,31 @@ const Card = styled.div`
   margin: 0 auto;
   padding: 0px;
   gap: 16px;
-  width: 128px;
-  height: 201px;
+  width: 9rem;
 `;
 
 const CardImage = styled.img`
-  background: url('https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1638101071/noticon/gpr07ptl1x6evhew7li7.png');
-  background-size: cover;
   width: 128px;
   height: 128px;
-  border-radius: 50%;
-`;
-const CardTextContainer = styled.div`
-  display: flex !important;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 0px;
-  width: 90%;
-  height: 57px;
-  margin: 0 auto;
+  border-radius: 100%;
 `;
 const CardNickname = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   width: 100%;
   height: 25px;
-  font-family: 'Noto Sans KR';
-  font-style: normal;
+
   font-weight: 700;
   font-size: 18px;
   line-height: 140%;
   text-align: center;
+
+  color: ${COLORS.gray800};
 `;
-const CardJob = styled.div`
-  width: 100%;
-  height: 32px;
-  font-family: 'Noto Sans KR';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 32px;
-  text-align: center;
+const JuniorImage = styled.img`
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
 `;

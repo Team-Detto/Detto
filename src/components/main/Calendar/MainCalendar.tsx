@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import COLORS from 'assets/styles/colors';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { dayListState, detailListState } from '../../../recoil/atoms';
@@ -36,8 +37,7 @@ const MainCalendar = () => {
 const MainCalendarWrap = styled.div`
   width: 73.25rem;
   height: 26rem;
-  margin-top: 80px;
-  margin: 80px auto 0 auto;
+  margin: 100px auto 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,6 +46,11 @@ const CalendarContainer = styled.div`
   width: 22.75rem;
   height: 26rem;
   position: relative;
+
+  background: ${COLORS.white};
+  border: 1px solid ${COLORS.gray100};
+  box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.04);
+  border-radius: 12px;
 `;
 const ProjectListContainer = styled.div`
   display: flex;

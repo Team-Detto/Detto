@@ -47,8 +47,8 @@ const MainFindUsersWrap = styled.div`
   padding: 0px;
   gap: 104px;
   width: 1180px;
-  height: 442px;
-  margin: 0px auto 289px auto;
+  margin: 0px auto;
+  padding-bottom: 453px;
 `;
 const MainFindUsersContainer = styled.div`
   display: flex;
@@ -62,8 +62,6 @@ const MainFindUsersContainer = styled.div`
 const MainFindUsersTitleDiv = styled.div`
   width: 470px;
   height: 44px;
-  font-family: 'Noto Sans KR';
-  font-style: normal;
   font-weight: 700;
   font-size: 2rem;
   line-height: 44px;
@@ -81,13 +79,6 @@ const MainFindUsersButtonContainer = styled.div`
   height: 48px;
 `;
 const MainFindUsersButton = styled.button<{ active: boolean }>`
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 8px 48px;
-  gap: 10px;
   width: 150px;
   height: 48px;
 
