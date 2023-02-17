@@ -14,6 +14,10 @@ const useNotification = () => {
     title: string;
     receiverUid: string;
   }) => {
+    if (title.length === 0 || title.length > 25) {
+      console.log('알림 title은 1자 이상 25자 이하로 입력해주세요.');
+    }
+
     const date = Date.now();
 
     await addDoc(collection(firestore, 'notifications'), {

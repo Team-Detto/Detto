@@ -2,18 +2,19 @@ import styled from '@emotion/styled';
 
 interface Props {
   message: string;
+  top?: number;
 }
 
-const ValidationToastPopup = ({ message }: Props) => {
+const ValidationToastPopup = ({ message, top }: Props) => {
   return (
-    <ValidationToastAlertContainer>
+    <ValidationToastAlertContainer top={top}>
       <ValidationToastAlertIcon>❌</ValidationToastAlertIcon>
       <ValidationToastAlertText>{message}</ValidationToastAlertText>
     </ValidationToastAlertContainer>
   );
 };
 
-const ValidationToastAlertContainer = styled.div`
+const ValidationToastAlertContainer = styled.div<Partial<Props>>`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -25,7 +26,7 @@ const ValidationToastAlertContainer = styled.div`
 
   position: fixed;
 
-  top: 15%;
+  top: ${(props) => (props.top ? `${props.top}rem` : '15%')};
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 100;

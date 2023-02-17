@@ -4,6 +4,7 @@ import {
   useAuth,
   useGlobalModal,
   useProfileImage,
+  useToastPopup,
   useUpdateProfile,
 } from 'hooks';
 import ModalNavigator from '../common/modal/ModalNavigator';
@@ -14,11 +15,13 @@ import { useEffect } from 'react';
 import MyPageProfileImage from 'components/mypage/MyPageProfileImage';
 import TextInput from 'components/mypage/TextInput';
 import { staleTime } from 'utils/staleTime';
+import ValidationToastPopup from 'components/common/ValidationToastPopup';
 
 // 페이지 3 : 프로필 사진, 닉네임 변경
 const page = 3;
 
 export default function SetProfile() {
+  const { showToast, ToastMessage, handleToastPopup } = useToastPopup();
   const { openModal } = useGlobalModal();
 
   const user = useAuth();
@@ -44,7 +47,18 @@ export default function SetProfile() {
     updateUserInfoData(uid, userInfo),
   );
 
+  // 닉네임  유효성 검사
+  const checkValidation = () => {
+    const nameLenght = userInfo.displayName.length;
+    if (nameLenght < 2 || nameLenght > 20) {
+      handleToastPopup('닉네임은 2자 이상 20자 이하로 입력해주세요.');
+      return false;
+    }
+    return true;
+  };
+
   const handleConfirmButtonClick = () => {
+    if (!checkValidation()) return;
     updateUserInfoMutate();
     openModal('login', page + 1);
   };
@@ -71,6 +85,7 @@ export default function SetProfile() {
 
   return (
     <Container>
+      {showToast && <ValidationToastPopup message={ToastMessage} top={2} />}
       <ModalNavigator page={page} back />
       <BodyContainer>
         <TextContainer>
