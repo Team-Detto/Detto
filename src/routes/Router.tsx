@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from 'components/Header';
 import ModalContainer from 'components/common/modal/ModalContainer';
 import ScrollToTop from 'components/common/scrollToTop';
+import ScrollToTopButton from 'components/ScrollToTopButton';
 
 const MainComponentPage = React.lazy(() => import('pages/MainPage'));
 const MyPageComonentPage = React.lazy(() => import('pages/MyPage'));
@@ -28,6 +29,7 @@ const Router = () => {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <ScrollToTopButton />
       <Header />
       <ModalContainer />
       <Suspense fallback={<LoadingPage />}>
