@@ -6,7 +6,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import VectorUp from 'assets/images/VectorUp.png';
 import VectorDown from 'assets/images/VectorDown.png';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { dayListState, detailListState } from '../../../recoil/atoms';
+import { dayListState, selectedProjectState } from '../../../recoil/atoms';
 import { getDate } from 'utils/date';
 import COLORS from 'assets/styles/colors';
 
@@ -23,11 +23,12 @@ const settings = {
 
 const ProjectList = () => {
   const dayList = useRecoilValue<any>(dayListState);
-  const [detailList, setDetailList] = useRecoilState(detailListState);
+  const [selectedProject, setSelectedProject] =
+    useRecoilState(selectedProjectState);
 
   useEffect(() => {
     // 슬라이더의 첫번째 프로젝트를 초기값으로 설정
-    setDetailList(dayList[0]);
+    setSelectedProject(dayList[0]);
   }, [dayList]);
 
   return (
@@ -39,8 +40,8 @@ const ProjectList = () => {
         return (
           <ProjectListCardContainer
             key={data}
-            onClick={() => setDetailList(data)}
-            active={data.id === detailList?.id}
+            onClick={() => setSelectedProject(data)}
+            active={data.id === selectedProject?.id}
           >
             <ProjectListCardTextBox>
               <ProjectListCardFindUser>

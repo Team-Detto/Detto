@@ -1,27 +1,27 @@
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { useRecoilValue } from 'recoil';
-import { detailListState } from '../../../recoil/atoms';
+import { selectedProjectState } from '../../../recoil/atoms';
 import { getDate } from 'utils/date';
 
 const ProjectDetail = () => {
-  const detailList = useRecoilValue<any>(detailListState);
+  const selectedProject = useRecoilValue<any>(selectedProjectState);
 
-  if (!detailList) return null;
+  if (!selectedProject) return null;
   return (
     <ProjectDetailWrap>
-      <div key={detailList}>
+      <div key={selectedProject}>
         <ProjectDetailContainer>
           <ProjectDetailSproutTextDiv>🌱 새싹 레벨</ProjectDetailSproutTextDiv>
           <ProjectDetailTitleAreaDiv>팀원을 구해요!</ProjectDetailTitleAreaDiv>
         </ProjectDetailContainer>
         <ProjectDetailContainer>
           <ProjectDetailTextAreaDiv>프로젝트 이름</ProjectDetailTextAreaDiv>
-          <div>{detailList.title}</div>
+          <div>{selectedProject.title}</div>
         </ProjectDetailContainer>
         <ProjectDetailContainer>
           <ProjectDetailTextAreaDiv>필요 스택</ProjectDetailTextAreaDiv>
-          <div>{detailList.developerStack + '   '}</div>
+          <div>{selectedProject.developerStack + '   '}</div>
         </ProjectDetailContainer>
         <ProjectDetailContainer>
           <ProjectDetailTextAreaDiv>팀원 레벨</ProjectDetailTextAreaDiv>
@@ -30,11 +30,12 @@ const ProjectDetail = () => {
         <ProjectDetailContainer>
           <ProjectDetailTextAreaDiv>기간</ProjectDetailTextAreaDiv>
           <div>
-            {getDate(detailList.startDate)} ~ {getDate(detailList.endDate)}
+            {getDate(selectedProject.startDate)} ~{' '}
+            {getDate(selectedProject.endDate)}
           </div>
         </ProjectDetailContainer>
 
-        <Link to={`/project/${detailList.id}`}>
+        <Link to={`/project/${selectedProject.id}`}>
           <ProjectDetailButton>지원하러 가기</ProjectDetailButton>
         </Link>
       </div>

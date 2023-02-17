@@ -42,7 +42,7 @@ export const dayListState = atom<[]>({
   default: [],
 });
 
-export const detailListState = atom<any>({
-  key: 'detailListState',
+export const selectedProjectState = atom<any>({
+  key: 'selectedProjectState',
   default: {},
 });
