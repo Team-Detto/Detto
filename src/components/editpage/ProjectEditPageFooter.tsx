@@ -20,7 +20,7 @@ const ProjectEditPageFooter = ({
         <TextEdiotr editRef={editRef} value={editFormValue.content} />
       </FooterEditBox>
       <FooterCompleatedButton onClick={onModalStateChangeEvent}>
-        수정 완료
+        <FooterCompleatedText>수정 완료</FooterCompleatedText>
       </FooterCompleatedButton>
     </FooterContainer>
   );
@@ -47,6 +47,12 @@ const FooterCompleatedButton = styled.button`
   color: #ffffff;
   border-radius: 2.25rem;
   margin-top: 4rem;
+`;
+const FooterCompleatedText = styled.p`
+  font-weight: 700;
+  font-size: 1.75rem;
+  line-height: 2rem;
+  color: #ffffff;
 `;
 
 export default ProjectEditPageFooter;
