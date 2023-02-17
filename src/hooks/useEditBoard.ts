@@ -1,5 +1,6 @@
 import { useCallback, useState, ChangeEvent, useRef } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { firebaseEditProjectRequest } from 'apis/boardService';
 import { useModal, useToastPopup } from 'hooks';
 import { EditType } from 'types/write/writeType';
@@ -15,6 +16,7 @@ const useEdtiBoard = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
   const params = useParams();
+  const queryClient = useQueryClient();
 
   const editRef = useRef<any>(null);
   const imageRef = useRef<any>(null);
@@ -23,6 +25,24 @@ const useEdtiBoard = () => {
 
   const { isOpen, handleModalStateChange } = useModal(false);
   const { showToast, ToastMessage, handleToastPopup } = useToastPopup();
+
+  const { mutate: editProjectRequest } = useMutation(
+    () =>
+      firebaseEditProjectRequest(
+        params.id as string,
+        editFormValue,
+        editRef.current.getInstance().getMarkdown(),
+        imageRef.current.files[0],
+      ),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['post', params.id]);
+        navigate(`/project/${params.id}`, {
+          replace: true,
+        });
+      },
+    },
+  );
 
   const handleCheckValidationButtonClick = useCallback(() => {
     const markdownText = editRef.current.getInstance().getMarkdown();
@@ -65,26 +85,15 @@ const useEdtiBoard = () => {
   }, [editFormValue]);
 
   const handleEditProjectButtonClick = async () => {
-    const markdownText = editRef.current.getInstance().getMarkdown();
-
     if (!params.id) {
       return;
     }
-
-    await firebaseEditProjectRequest(
-      params.id,
-      editFormValue,
-      markdownText,
-      imageRef.current.files[0],
-    );
-    navigate('/', {
-      replace: true,
-    });
+    editProjectRequest();
   };
 
-  const handleAddThumbnailImage = () => {
+  const handleAddThumbnailImage = useCallback(() => {
     imageRef.current.click();
-  };
+  }, [imageRef]);
 
   const handleFormValueChange = useCallback(
     (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

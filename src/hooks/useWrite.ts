@@ -79,9 +79,9 @@ const useWrite = () => {
     });
   };
 
-  const handleAddThumbnailImage = () => {
+  const handleAddThumbnailImage = useCallback(() => {
     imageRef.current.click();
-  };
+  }, [imageRef]);
 
   const handleFormValueChange = useCallback(
     (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
