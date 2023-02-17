@@ -43,6 +43,8 @@ export const firebaseCreateProjectRequest = async (
     await updateDoc(doc(firestore, 'myprojects', uid), {
       postedProjects: arrayUnion(postDoc.id),
     });
+
+    return postDoc.id;
   } catch (e) {
     console.error(e);
   }

@@ -2,6 +2,7 @@ import { useState, useRef, useCallback, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth, useModal, useToastPopup } from 'hooks';
 import { firebaseCreateProjectRequest } from 'apis/boardService';
+import Resizer from 'react-image-file-resizer';
 import { WriteType } from 'types/write/writeType';
 import {
   titleValidation,
@@ -57,7 +58,7 @@ const useWrite = () => {
       return;
     }
     if (!isContentValid) {
-      handleToastPopup('내용 길이는 1자 이상 2000자 이하로 작성해주세요.');
+      handleToastPopup('내용 길이는 1글자 이상 적어주세요.');
       return;
     }
     handleModalStateChange();
@@ -68,13 +69,16 @@ const useWrite = () => {
   const handleCreateProjectButtonClick = async () => {
     const markdownText = editRef.current.getInstance().getMarkdown();
 
-    await firebaseCreateProjectRequest(
+    const file = imageRef.current.files[0];
+    const resizedImage = await resizeFile(file);
+
+    const docId = await firebaseCreateProjectRequest(
       writeFormValue,
       markdownText,
-      imageRef.current.files[0],
+      resizedImage,
       uid,
     );
-    navigate('/', {
+    navigate(`/project/${docId}`, {
       replace: true,
     });
   };
@@ -148,5 +152,21 @@ const initialWriteFormValue = {
 
 const TIME_ZONE = 3240 * 10000;
 const TodayDate = new Date(+new Date() + TIME_ZONE).toISOString().split('T')[0];
+
+const resizeFile = (file: File) =>
+  new Promise((resolve) => {
+    Resizer.imageFileResizer(
+      file,
+      1900,
+      1200,
+      'JPEG',
+      60,
+      0,
+      (uri) => {
+        resolve(uri);
+      },
+      'blob',
+    );
+  });
 
 export default useWrite;
