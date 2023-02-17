@@ -35,5 +35,20 @@ const UserPositionDiv = styled.div`
 
 const PositionItem = styled.span`
   display: inline-block;
-  margin-right: 0.5rem;
+  margin-right: 1rem;
+  position: relative;
+
+  &::after {
+    content: '';
+    width: 1px;
+    height: 0.75rem;
+    background-color: ${COLORS.gray500};
+    position: absolute;
+    right: -0.5rem;
+    top: 0.625rem;
+  }
+
+  &:last-child::after {
+    display: none;
+  }
 `;

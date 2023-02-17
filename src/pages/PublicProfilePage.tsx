@@ -149,7 +149,7 @@ const UserInformationDiv = styled.div`
 const UserNicknameDiv = styled.div`
   font-size: 1.5rem;
   font-weight: 500;
-  width: 6.25rem;
+  max-width: 10rem;
 `;
 
 const MessageSendButton = styled.button`

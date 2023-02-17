@@ -92,7 +92,6 @@ const ProjectInfoLabel = styled.span`
   font-size: 1rem;
   color: #464646;
   margin-right: 1rem;
-  cursor: default;
 `;
 
 const ProjectInfoTitle = styled.h3`

@@ -152,9 +152,10 @@ const ProjectDetailPage = () => {
 export default ProjectDetailPage;
 
 const ProjectDetailContainer = styled.div`
+  min-height: 100vh;
+  max-height: 100vh;
   background-color: #fcfcfc; //색상표에 없는데 배경으로 사용되고 있음 문의하기
   padding-bottom: 6.25rem;
-  height: 100%;
 `;
 
 const ProjectDetailWrapper = styled.div`
