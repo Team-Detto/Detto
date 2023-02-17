@@ -3,6 +3,7 @@ import COLORS from 'assets/styles/colors';
 import { EditType } from 'types/write/writeType';
 import defaultThumbnail from 'assets/images/default_img.jpg';
 import ProjectItemMembers from './ProjectItemMembers';
+import { concatSkills } from 'utils/skills';
 interface ProjectProps {
   category: string;
   project: EditType.EditFormType;
@@ -19,7 +20,7 @@ const ProjectItem = ({
   const { plannerStack, designerStack, developerStack, applicants }: any =
     project;
 
-  const stacks = [].concat(plannerStack, designerStack, developerStack);
+  const stacks = concatSkills(plannerStack, designerStack, developerStack);
 
   return (
     <ProjectItemContainer onClick={onNavigateToProjectDetailEvent(pid)}>
