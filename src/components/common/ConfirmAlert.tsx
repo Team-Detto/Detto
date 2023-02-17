@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-import { allowScroll, preventScroll } from 'utils/modal';
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 
@@ -18,15 +16,6 @@ const ConfirmAlert = ({
   onClickEvent,
   onCloseEvent,
 }: props) => {
-  useEffect(() => {
-    if (isOpen) {
-      const prevScrollY = preventScroll();
-      return () => {
-        allowScroll(prevScrollY);
-      };
-    }
-  }, [isOpen]);
-
   return (
     <ConfirmAlertBackDrop isOpen={isOpen}>
       <ConfirmAlertContainer isOpen={isOpen}>

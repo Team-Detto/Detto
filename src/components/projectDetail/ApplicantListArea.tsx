@@ -1,23 +1,13 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import { useModal } from 'hooks';
-import { useEffect, useState } from 'react';
-import { allowScroll, preventScroll } from 'utils/modal';
+import { useState } from 'react';
 import InviteModal from './modals/InviteModal';
 
 const ApplicantListArea = ({ projectData, pid }: any) => {
   const { applicants } = projectData;
   const [applicantKey, setApplicantKey] = useState('');
   const { isOpen, handleModalStateChange } = useModal(false);
-
-  useEffect(() => {
-    if (isOpen) {
-      const prevScrollY = preventScroll();
-      return () => {
-        allowScroll(prevScrollY);
-      };
-    }
-  }, [isOpen]);
 
   let countFlag = 0;
   return (

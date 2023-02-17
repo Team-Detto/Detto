@@ -1,6 +1,4 @@
 import styled from '@emotion/styled';
-import { useEffect } from 'react';
-import { allowScroll, preventScroll } from 'utils/modal';
 
 interface props {
   isOpen: boolean;
@@ -19,17 +17,6 @@ const Alert = ({
   usage,
   page,
 }: props) => {
-  useEffect(() => {
-    if (page !== 'apply') {
-      if (isOpen) {
-        const prevScrollY = preventScroll();
-        return () => {
-          allowScroll(prevScrollY);
-        };
-      }
-    }
-  }, [isOpen]);
-
   return (
     <AlertBackDrop isOpen={isOpen}>
       <AlertContainer isOpen={isOpen}>

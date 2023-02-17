@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import styled from '@emotion/styled';
 import {
   ConfirmAlertBackDrop,
@@ -11,7 +11,6 @@ import {
 } from 'components/common/ConfirmAlert';
 import defaultProfile from 'assets/images/default_profile.jpg';
 import COLORS from 'assets/styles/colors';
-import { allowScroll, preventScroll } from 'utils/modal';
 
 interface ProfileImageModalProps {
   isOpen: boolean;
@@ -44,15 +43,6 @@ const ProfileImageModal = ({
     onDeleteEvent();
     handleModalStateChange();
   };
-
-  useEffect(() => {
-    if (isOpen) {
-      const prevScrollY = preventScroll();
-      return () => {
-        allowScroll(prevScrollY);
-      };
-    }
-  }, [isOpen]);
 
   return (
     <ModalBackDrop isOpen={isOpen}>

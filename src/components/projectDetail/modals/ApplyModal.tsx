@@ -3,8 +3,7 @@ import COLORS from 'assets/styles/colors';
 import Alert from 'components/common/Alert';
 import PositionButton from 'components/common/ApplyPositionButton';
 import { useAuth, useModal } from 'hooks';
-import React, { useEffect, useState } from 'react';
-import { allowScroll, preventScroll } from 'utils/modal';
+import React, { useState } from 'react';
 import { positionList } from 'utils/positions';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { updateApplicants, updateAppliedProject } from 'apis/postDetail';
@@ -98,15 +97,6 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
       },
     },
   );
-
-  useEffect(() => {
-    if (isOpen) {
-      const prevScrollY = preventScroll();
-      return () => {
-        allowScroll(prevScrollY);
-      };
-    }
-  }, [isOpen]);
 
   return (
     <>
