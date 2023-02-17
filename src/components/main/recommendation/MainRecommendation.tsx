@@ -4,17 +4,35 @@ import ContantCard from 'components/ContentCard';
 import { useFindProject } from 'hooks';
 import { useState } from 'react';
 import COLORS from 'assets/styles/colors';
+import { useQuery } from '@tanstack/react-query';
+import { staleTime } from 'utils/staleTime';
+import {
+  firebaseMostLikedProjectsRequest,
+  firebaseMostViewedProjectsRequest,
+} from 'apis/getPost';
 
 const tapType = [
-  { type: 'inquiry', name: '조회순' },
-  { type: 'attention', name: '관심순' },
+  { type: 'orderByViews', name: '조회순' },
+  { type: 'orderByLikes', name: '관심순' },
 ];
 
 const MainRecommendation = () => {
-  const { projects, likedProjects, handleNavigateToProjectDetail } =
-    useFindProject();
-
   const [tap, setTap] = useState(tapType[0].type);
+  const { handleNavigateToProjectDetail, likedProjects } = useFindProject();
+
+  const { data: mostViewedProjects }: any = useQuery({
+    queryKey: ['posts', 'mostViewed'],
+    queryFn: firebaseMostViewedProjectsRequest,
+    staleTime: staleTime.mostViewedPosts,
+  });
+
+  const { data: mostLikedProjects }: any = useQuery({
+    queryKey: ['posts', 'mostLiked'],
+    queryFn: firebaseMostLikedProjectsRequest,
+    staleTime: staleTime.mostLikedPosts,
+  });
+
+  if (!mostViewedProjects || !mostLikedProjects) return null;
   return (
     <MainRecommendationWrap>
       <MainRecommendationContainer>
@@ -35,17 +53,24 @@ const MainRecommendation = () => {
           ))}
         </MainRecommendationButtonContainer>
         <MainRecommendationCardContainer>
-          {projects.map(
-            (project, index) =>
-              index < 3 && (
-                <ContantCard
-                  key={project.id}
-                  project={project}
-                  likedProjects={likedProjects}
-                  onNavigateToProjectDetailEvent={handleNavigateToProjectDetail}
-                />
-              ),
-          )}
+          {tap === 'orderByViews' &&
+            mostViewedProjects.map((project: any) => (
+              <ContantCard
+                key={project.id}
+                project={project}
+                likedProjects={likedProjects}
+                onNavigateToProjectDetailEvent={handleNavigateToProjectDetail}
+              />
+            ))}
+          {tap === 'orderByLikes' &&
+            mostLikedProjects.map((project: any) => (
+              <ContantCard
+                key={project.id}
+                project={project}
+                likedProjects={likedProjects}
+                onNavigateToProjectDetailEvent={handleNavigateToProjectDetail}
+              />
+            ))}
         </MainRecommendationCardContainer>
       </MainRecommendationContainer>
       <Link to={'/findproject'}>
