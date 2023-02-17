@@ -12,7 +12,6 @@ import { firebaseAllUsersRequest } from 'apis/userService';
 import COLORS from 'assets/styles/colors';
 
 const settings = {
-  infinite: false,
   centerPadding: '60px',
   slidesToShow: 5,
   slidesToScroll: 5,
@@ -33,12 +32,13 @@ const FindUserSlider = ({ tap }: { tap: string }) => {
   // 포지션 필터링
   const filteredUsers = users.filter((user) => user.positions.includes(tap));
 
+  console.log(filteredUsers);
   if (filteredUsers.length === 0) {
     return <NoDataMessage>팀원을 찾을 수 없어요 :/</NoDataMessage>;
   }
 
   return (
-    <StyledSlider {...settings}>
+    <StyledSlider {...settings} infinite={filteredUsers.length >= 5}>
       {filteredUsers
         // 랜덤으로 섞기
         .sort(() => Math.random() - 0.5)
