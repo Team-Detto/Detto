@@ -70,6 +70,9 @@ const ProjectWritePageBody = ({
           사진 추가하기
         </WritePageBodyThumbnailButton>
       </WritePageBodyThumbnailBox>
+      <WritePageBodyThumbnailWarningText>
+        권장 이미지 사이즈는 1200x600 입니다.
+      </WritePageBodyThumbnailWarningText>
     </WritePageBodyContainer>
   );
 };
@@ -145,6 +148,16 @@ const WritePageBodyThumbnailButton = styled.button`
   color: #ffffff;
   border-radius: 8px;
   margin-left: 2rem;
+`;
+const WritePageBodyThumbnailWarningText = styled.p`
+  padding-left: 7rem;
+  margin-top: 0.5rem;
+  width: 20rem;
+  height: 1.0625rem;
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 140%;
+  color: ${COLORS.gray600};
 `;
 
 export default ProjectWritePageBody;
