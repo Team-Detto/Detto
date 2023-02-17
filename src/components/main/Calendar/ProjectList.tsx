@@ -79,6 +79,9 @@ const ProjectListSlider = styled(Slider)`
     left: 50%;
     top: 0;
     transform: translate(-50%, -50px);
+    &:hover {
+      opacity: 0.8;
+    }
   }
   .slick-prev:before {
     width: 26px;
@@ -87,6 +90,7 @@ const ProjectListSlider = styled(Slider)`
     background-size: 26px 26px;
     display: inline-block;
     content: '';
+    opacity: 1;
   }
   .slick-next {
     width: 26px;
@@ -96,6 +100,9 @@ const ProjectListSlider = styled(Slider)`
     left: 50%;
     top: 100%;
     transform: translate(-50%, 24px);
+    &:hover {
+      opacity: 0.8;
+    }
   }
   .slick-next:before {
     width: 26px;
@@ -104,6 +111,7 @@ const ProjectListSlider = styled(Slider)`
     background-size: 26px 26px;
     display: inline-block;
     content: '';
+    opacity: 1;
   }
 `;
 const ProjectListCardContainer = styled.div<{ active?: boolean }>`

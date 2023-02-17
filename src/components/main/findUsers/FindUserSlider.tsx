@@ -32,7 +32,6 @@ const FindUserSlider = ({ tap }: { tap: string }) => {
   // 포지션 필터링
   const filteredUsers = users.filter((user) => user.positions.includes(tap));
 
-  console.log(filteredUsers);
   if (filteredUsers.length === 0) {
     return <NoDataMessage>팀원을 찾을 수 없어요 :/</NoDataMessage>;
   }
@@ -80,6 +79,9 @@ const StyledSlider = styled(Slider)`
     width: 24px;
     height: 24px;
     cursor: pointer;
+    &:hover {
+      opacity: 0.8;
+    }
   }
   .slick-prev:before {
     width: 24px;
@@ -88,12 +90,16 @@ const StyledSlider = styled(Slider)`
     background-size: 24px 24px;
     display: inline-block;
     content: '';
+    opacity: 1;
   }
   .slick-next {
     right: -134px;
     width: 24px;
     height: 24px;
     cursor: pointer;
+    &:hover {
+      opacity: 0.8;
+    }
   }
   .slick-next:before {
     width: 24px;
@@ -102,6 +108,7 @@ const StyledSlider = styled(Slider)`
     background-size: 24px 24px;
     display: inline-block;
     content: '';
+    opacity: 1;
   }
 `;
 
