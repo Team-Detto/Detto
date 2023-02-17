@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { firebaseGetProjectDataRequest } from 'apis/boardService';
+import { useBottomScrollListener } from 'react-bottom-scroll-listener';
+import { firebaseInfinityScrollProjectDataRequest } from 'apis/boardService';
 import { firebaseFindMyInterestRequset } from 'apis/userService';
 import { EditType } from 'types/write/writeType';
 import useAuth from './useAuth';
@@ -12,13 +13,32 @@ const useFindProject = () => {
 
   const [projects, setProjects] = useState<EditType.EditFormType[]>([]);
   const [likedProjects, setLikedProjects] = useState<string[]>([]);
+  const [lastVisible, setLastVisible] = useState<any>(undefined);
   const [category, setCategory] = useState<string>('planner');
   const [toggle, setToggle] = useState<boolean>(false);
 
   useEffect(() => {
-    firebaseGetProjectDataRequest(setProjects);
+    firebaseInfinityScrollProjectDataRequest(
+      setProjects,
+      lastVisible,
+      setLastVisible,
+    );
     firebaseFindMyInterestRequset(uid, setLikedProjects);
+
+    window.onbeforeunload = () => {
+      window.scrollTo(0, 0);
+    };
   }, []);
+
+  useBottomScrollListener(
+    useCallback(() => {
+      firebaseInfinityScrollProjectDataRequest(
+        setProjects,
+        lastVisible,
+        setLastVisible,
+      );
+    }, [lastVisible]),
+  );
 
   const handleCategoryClick = (e: any) => {
     setCategory(e.target.name);
