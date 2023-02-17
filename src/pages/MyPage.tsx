@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import styled from '@emotion/styled';
 import { useAuth, useProjectList } from 'hooks';
@@ -31,19 +31,24 @@ interface Member {
 const MyPage = () => {
   const [activeTab, setActiveTab] = useState('개인정보');
   const { uid } = useAuth();
-  const { activeProjectTab, handleProjectTabClick } = useProjectList();
+  const { activeProjectTab, handleProjectTabClick, setActiveProjectTab } =
+    useProjectList();
 
   // 유저 정보 받아오는 쿼리
   const { data: userInfoData }: any = useQuery({
-    queryKey: ['userInfo', uid],
+    queryKey: ['users', uid],
     queryFn: getUserInfoData,
   });
 
   // 유저 프로젝트 리스트 받아오는 쿼리
   const { data: userProjectListsData }: any = useQuery({
-    queryKey: ['userProjectLists', uid],
+    queryKey: ['myprojects', uid],
     queryFn: getUserProjectList,
   });
+
+  useEffect(() => {
+    setActiveProjectTab('appliedProjects');
+  }, []);
 
   return (
     <MyPageContainer>

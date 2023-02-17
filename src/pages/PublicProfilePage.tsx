@@ -5,18 +5,26 @@ import { useProjectList } from 'hooks';
 import WebContainer from 'components/common/WebContainer';
 import ProjectsTab from 'components/mypage/ProjectsTab';
 import ProjectList from 'components/common/myProjectList/ProjectList';
-import { getUserInfoData } from 'apis/mypageUsers';
+import { getUserInfoData, getUserProjectList } from 'apis/mypageUsers';
 import { concatSkills } from 'utils/skills';
 import COLORS from 'assets/styles/colors';
 import UserPositions from 'components/publicProfile/UserPositions';
 import UserStacks from 'components/publicProfile/UserStacks';
+import { useEffect } from 'react';
 
 const PublicProfilePage = () => {
   const { id } = useParams();
-  const { activeProjectTab, handleProjectTabClick } = useProjectList();
+  const { activeProjectTab, handleProjectTabClick, setActiveProjectTab } =
+    useProjectList();
+
   const { data: userInfoData }: any = useQuery({
     queryKey: ['users', id],
     queryFn: getUserInfoData,
+  });
+
+  const { data: userProjectListsData }: any = useQuery({
+    queryKey: ['myprojects', id],
+    queryFn: getUserProjectList,
   });
 
   const stacks = concatSkills(
@@ -24,6 +32,10 @@ const PublicProfilePage = () => {
     userInfoData?.designerStack,
     userInfoData?.developerStack,
   );
+
+  useEffect(() => {
+    setActiveProjectTab('currentProjects');
+  }, []);
 
   return (
     <PublicProfileContainer>
@@ -59,10 +71,14 @@ const PublicProfilePage = () => {
           </ProfileBox>
           <UserProjectWrapper>
             <ProjectsTab
+              type={'public'}
               category={activeProjectTab}
               onTabClick={handleProjectTabClick}
             />
-            <ProjectList />
+            {/* <ProjectList
+              category={activeProjectTab}
+              pidList={userProjectListsData}
+            /> */}
           </UserProjectWrapper>
         </PublicProfileWrapper>
       </WebContainer>
