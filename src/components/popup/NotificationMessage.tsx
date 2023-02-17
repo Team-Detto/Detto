@@ -32,7 +32,7 @@ export default function NotificationMessage({ data }: any) {
 
   return (
     <MessageContainer>
-      <MessageTitleDiv isRead={data.isRead} onClick={handleTitleClick}>
+      <MessageTitleDiv isRead={data.isRead} disabled>
         {data.title}
       </MessageTitleDiv>
       <MessageDateDiv>{getDateAndTime(data.date)}</MessageDateDiv>
