@@ -9,11 +9,11 @@ import LoadingPage from './LoadingPage';
 export default function Root() {
   return (
     <>
-      <ScrollToTop />
-      <ScrollToTopButton />
       <Header />
-      <ModalContainer />
       <Suspense fallback={<LoadingPage />}>
+        <ScrollToTop />
+        <ScrollToTopButton />
+        <ModalContainer />
         <Outlet />
       </Suspense>
     </>
