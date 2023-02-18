@@ -47,4 +47,8 @@ interface Notification {
   photoURL: string;
   title: string;
   uid: string;
+  link?: {
+    post?: string;
+    user?: string;
+  };
 }
