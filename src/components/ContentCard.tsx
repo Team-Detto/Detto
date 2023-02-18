@@ -54,7 +54,7 @@ const ContantCard = ({
           {stacks
             .filter((stack, pos) => stacks.indexOf(stack) === pos)
             .map((stack, index) => {
-              if (index < 4)
+              if (index < 8)
                 return (
                   <ContantCardStackButton key={stack}>
                     {stack}
@@ -68,7 +68,7 @@ const ContantCard = ({
 };
 const ContantCardWrap = styled.div`
   width: 380px;
-  height: 450px;
+  height: 475px;
   background: #ffffff;
   box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.04);
   border-radius: 6px;
@@ -139,11 +139,11 @@ const ContentCardSubText = styled.p`
 const ContantCardStackContainer = styled.div`
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   align-items: flex-start;
   padding: 0px;
-  gap: 10px;
+  gap: 5px;
   text-align: center;
-  overflow: hidden;
   width: 100%;
   height: 32px;
 `;
