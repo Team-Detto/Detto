@@ -2,6 +2,7 @@ import { useState, useRef, useCallback, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth, useModal, useToastPopup } from 'hooks';
 import { firebaseCreateProjectRequest } from 'apis/boardService';
+import Resizer from 'react-image-file-resizer';
 import { WriteType } from 'types/write/writeType';
 import {
   titleValidation,
@@ -26,55 +27,66 @@ const useWrite = () => {
   const { showToast, ToastMessage, handleToastPopup } = useToastPopup();
 
   const handleCheckValidationButtonClick = useCallback(() => {
+    const { title, positions, startDate, endDate, deadline } = writeFormValue;
     const markdownText = editRef.current.getInstance().getMarkdown();
+    const validations = [
+      {
+        isValid: titleValidation(title),
+        message: '타이틀 길이는 1자 이상 40자 이하로 작성해주세요.',
+      },
+      {
+        isValid: positionValidation(positions),
+        message: '포지션을 최소 1개 이상 선택해주세요.',
+      },
+      {
+        isValid: periodValidation(startDate, endDate),
+        message: '시작 날짜가 종료 날짜보다 늦을 수 없습니다.',
+      },
+      {
+        isValid: deadlineValidation(deadline, TodayDate),
+        message: '마감 날짜는 오늘 이후로 설정해주세요.',
+      },
+      {
+        isValid: contentValidation(markdownText),
+        message: '내용 길이는 1글자 이상 적어주세요.',
+      },
+    ];
 
-    const isTitleValid = titleValidation(writeFormValue.title);
-    const isContentValid = contentValidation(markdownText);
-    const isPositionValid = positionValidation(writeFormValue.positions);
-    const isPeriodValid = periodValidation(
-      writeFormValue.startDate,
-      writeFormValue.endDate,
-    );
-    const isDeadlineValid = deadlineValidation(
-      writeFormValue.deadline,
-      TodayDate,
-    );
-
-    if (!isTitleValid) {
-      handleToastPopup('타이틀 길이는 1자 이상 40자 이하로 작성해주세요.');
-      return;
-    }
-    if (!isPositionValid) {
-      handleToastPopup('포지션을 최소 1개 이상 선택해주세요.');
-      return;
-    }
-    if (!isPeriodValid) {
-      handleToastPopup('시작 날짜가 종료 날짜보다 늦을 수 없습니다.');
-      return;
-    }
-    if (!isDeadlineValid) {
-      handleToastPopup('마감 날짜는 오늘 이후로 설정해주세요.');
-      return;
-    }
-    if (!isContentValid) {
-      handleToastPopup('내용 길이는 1자 이상 2000자 이하로 작성해주세요.');
+    const invalidValidation = validations.find(({ isValid }) => !isValid);
+    if (invalidValidation) {
+      handleToastPopup(invalidValidation.message);
       return;
     }
     handleModalStateChange();
-
-    return;
   }, [writeFormValue]);
 
   const handleCreateProjectButtonClick = async () => {
     const markdownText = editRef.current.getInstance().getMarkdown();
 
-    await firebaseCreateProjectRequest(
+    const file = imageRef.current.files[0];
+
+    if (!file) {
+      const docId = await firebaseCreateProjectRequest(
+        writeFormValue,
+        markdownText,
+        imageRef.current.files[0],
+        uid,
+      );
+      navigate(`/project/${docId}`, {
+        replace: true,
+      });
+      return;
+    }
+
+    const resizedImage = await resizeFile(file);
+
+    const docId = await firebaseCreateProjectRequest(
       writeFormValue,
       markdownText,
-      imageRef.current.files[0],
+      resizedImage,
       uid,
     );
-    navigate('/', {
+    navigate(`/project/${docId}`, {
       replace: true,
     });
   };
@@ -148,5 +160,21 @@ const initialWriteFormValue = {
 
 const TIME_ZONE = 3240 * 10000;
 const TodayDate = new Date(+new Date() + TIME_ZONE).toISOString().split('T')[0];
+
+const resizeFile = (file: File) =>
+  new Promise((resolve) => {
+    Resizer.imageFileResizer(
+      file,
+      1900,
+      1200,
+      'JPEG',
+      60,
+      0,
+      (uri) => {
+        resolve(uri);
+      },
+      'blob',
+    );
+  });
 
 export default useWrite;
