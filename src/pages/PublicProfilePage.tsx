@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import styled from '@emotion/styled';
 import { useAuth, useGlobalModal, useProjectList } from 'hooks';
 import WebContainer from 'components/common/WebContainer';
-import ProjectsTab from 'components/mypage/ProjectsTab';
+import ProjectsTab from 'components/common/myProjectList/ProjectsTab';
 import ProjectList from 'components/common/myProjectList/ProjectList';
 import UserPositions from 'components/publicProfile/UserPositions';
 import UserStacks from 'components/publicProfile/UserStacks';
