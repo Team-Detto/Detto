@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { useMutation } from '@tanstack/react-query';
 import { useModal, useUpdateProfile, useProfileImage } from 'hooks';
 import styled from '@emotion/styled';
@@ -30,7 +30,9 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
   const { isOpen, handleModalStateChange } = useModal(false);
   const { profileImg, handleProfileImageChange, handleProfileImageDelete } =
     useProfileImage(uid, userInfo.photoURL);
-  const activeInfoBtn = useRecoilValue<boolean>(mypageInfoButtonActiveState);
+  const [activeInfoBtn, setActiveInfoBtn] = useRecoilState<boolean>(
+    mypageInfoButtonActiveState,
+  );
 
   const { mutate: updateUserInfoMutate } = useMutation(() =>
     updateUserInfoData(uid, userInfo),
@@ -44,6 +46,8 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
 
   useEffect(() => {
     if (!user) return;
+
+    setActiveInfoBtn(false);
 
     setUserInfo({
       displayName: user?.displayName,
