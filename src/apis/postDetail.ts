@@ -33,6 +33,7 @@ export const updateMyProject = async (
   pid: string,
   isLiked: boolean,
 ) => {
+  if (!uid) return;
   const docRef = doc(firestore, 'myprojects', uid);
   if (isLiked === true) {
     await updateDoc(docRef, { likedProjects: arrayUnion(pid) });

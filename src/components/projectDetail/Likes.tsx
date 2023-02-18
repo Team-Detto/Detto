@@ -48,6 +48,7 @@ const Likes = ({ pid, like }: any) => {
   return (
     <IconButton
       onClick={(event) => {
+        if (!uid) return;
         handleLike(event);
       }}
     >
