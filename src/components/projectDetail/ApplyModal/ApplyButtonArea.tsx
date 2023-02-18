@@ -37,8 +37,8 @@ const ApplyButtonArea = ({
       handleToastPopup('지원동기를 입력해주세요.');
       return false;
     }
-    if (motive.length > 500) {
-      handleToastPopup('지원동기는 500자 이하로 입력해주세요.');
+    if (motive.length < 10 || motive.length > 500) {
+      handleToastPopup('지원동기는 10자 이상 500자 이하로 입력해주세요.');
       return false;
     }
     return true;
@@ -68,7 +68,6 @@ const ApplyButtonArea = ({
       >
         아니오
       </MotiveButton>
-
       <MotiveButton
         onClick={(e) => {
           handleApplyButtonClick(e);
