@@ -1,9 +1,10 @@
 import React, { Suspense } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Header from 'components/Header';
 import ModalContainer from 'components/common/modal/ModalContainer';
 import ScrollToTop from 'components/common/scrollToTop';
 import ScrollToTopButton from 'components/ScrollToTopButton';
+import { useIsLogin } from 'hooks';
 
 const MainComponentPage = React.lazy(() => import('pages/MainPage'));
 const MyPageComonentPage = React.lazy(() => import('pages/MyPage'));
@@ -35,16 +36,37 @@ const Router = () => {
       <Suspense fallback={<LoadingPage />}>
         <Routes>
           <Route path="/" element={<MainComponentPage />} />
-          <Route path="/mypage" element={<MyPageComonentPage />} />
+          <Route
+            path="/mypage"
+            element={
+              useIsLogin() ? (
+                <MyPageComonentPage />
+              ) : (
+                <Navigate to="/" replace />
+              )
+            }
+          />
           <Route path="/findproject" element={<FindProjectComponentPage />} />
           <Route path="/project/:id" element={<ProjectDetailComponentPage />} />
           <Route
             path="/project/write"
-            element={<ProjectWriteComponentPage />}
+            element={
+              useIsLogin() ? (
+                <ProjectWriteComponentPage />
+              ) : (
+                <Navigate to="/" replace />
+              )
+            }
           />
           <Route
             path="/project/write/:id"
-            element={<ProjectEditComponentPage />}
+            element={
+              useIsLogin() ? (
+                <ProjectEditComponentPage />
+              ) : (
+                <Navigate to="/" replace />
+              )
+            }
           />
           <Route path="/profile/:id" element={<PublicProfileComponentPage />} />
           <Route path="*" element={<ErrorPage />} />
