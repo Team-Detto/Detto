@@ -54,9 +54,22 @@ const Header = () => {
           </LogoBoxH1>
           <Nav>
             <NavListUl>
-              <NavItemLi>
-                <NavItemLink to={'/project/write'}>새 글 쓰기</NavItemLink>
+              <NavItemLi onClick={() => !isLoggedIn && openModal('login', 0)}>
+                {isLoggedIn ? (
+                  <NavItemLink to={'/project/write'}>새 글 쓰기</NavItemLink>
+                ) : (
+                  '새 글 쓰기'
+                )}
               </NavItemLi>
+              {/* {isLoggedIn ? (
+                <NavItemLi>
+                  <NavItemLink to={'/project/write'}>새 글 쓰기</NavItemLink>
+                </NavItemLi>
+              ) : (
+                <NavItemLi onClick={() => openModal('login', 0)}>
+                  새 글 쓰기
+                </NavItemLi>
+              )} */}
               <NavItemLi>
                 <NavItemLink to={'/findproject'}>팀원찾기</NavItemLink>
               </NavItemLi>
