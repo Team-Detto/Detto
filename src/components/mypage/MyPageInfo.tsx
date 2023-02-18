@@ -32,7 +32,6 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
 
   // 유효성 검사
   const checkInfoValidation = () => {
-    console.log('userInfo.displayName', userInfo?.displayName);
     const nickname = userInfo.displayName;
     if (nickname.length < 2 || nickname.length > 7) {
       handleToastPopup('닉네임은 2자 이상 7자 이하로 입력해주세요.');
@@ -156,14 +155,14 @@ const InfoEditConfirmBtn = styled.button<{ isActive: boolean }>`
   background-color: ${({ isActive }) =>
     isActive ? COLORS.violetB500 : COLORS.gray100};
   color: ${({ isActive }) => (isActive ? COLORS.white : COLORS.gray750)};
-  transition: all 300ms ease-in-out;
+  transition: all 100ms ease-in-out;
 
   &:disabled {
     pointer-events: none;
   }
 
   &:not(:disabled):hover {
-    background-color: ${COLORS.violetB300};
+    background-color: ${COLORS.violetB400};
     color: ${COLORS.white};
   }
 `;

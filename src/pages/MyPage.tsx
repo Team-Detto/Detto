@@ -6,7 +6,7 @@ import WebContainer from 'components/common/WebContainer';
 import MyPageInfo from 'components/mypage/MyPageInfo';
 import ProjectList from 'components/common/myProjectList/ProjectList';
 import LeftTab from 'components/mypage/LeftTab';
-import ProjectsTab from 'components/mypage/ProjectsTab';
+import ProjectsTab from 'components/common/myProjectList/ProjectsTab';
 import { getUserInfoData, getUserProjectList } from 'apis/mypageUsers';
 import { staleTime } from 'utils/staleTime';
 

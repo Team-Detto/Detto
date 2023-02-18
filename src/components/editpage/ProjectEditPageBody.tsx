@@ -156,6 +156,11 @@ const BodyThumbnailButton = styled.button`
   color: ${COLORS.white};
   border-radius: 8px;
   margin-left: 2rem;
+  transition: background-color 100ms ease-in-out;
+
+  &:hover {
+    background-color: ${COLORS.violetB400};
+  }
 `;
 const BodyThumbnailWarningText = styled.p`
   padding-left: 7rem;

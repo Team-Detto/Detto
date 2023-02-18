@@ -139,7 +139,7 @@ const MainRecommendationButton = styled.button<{ active: boolean }>`
 
   &:hover {
     background-color: ${(props) =>
-      props.active ? COLORS.violetB400 : COLORS.gray100};
+      props.active ? COLORS.violetB300 : COLORS.gray100};
   }
 `;
 const MainRecommendationCardContainer = styled.div`

@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { useRecoilValue } from 'recoil';
 import { selectedProjectState } from '../../../recoil/atoms';
 import { getDate } from 'utils/date';
+import COLORS from 'assets/styles/colors';
 
 const ProjectDetail = () => {
   const selectedProject = useRecoilValue<any>(selectedProjectState);
@@ -67,11 +68,16 @@ const ProjectDetailSproutTextDiv = styled.div`
   color: #72b819;
 `;
 const ProjectDetailButton = styled.button`
-  background: #6b43dd;
+  background-color: ${COLORS.violetB400};
   width: 18.75rem;
   height: 3rem;
   border-radius: 0.5rem;
   margin-top: 2.5rem;
-  color: #fff;
+  color: ${COLORS.white};
+  transition: background-color 100ms ease-in-out;
+
+  &:hover {
+    background-color: ${COLORS.violetB300};
+  }
 `;
 export default ProjectDetail;

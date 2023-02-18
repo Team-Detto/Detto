@@ -61,7 +61,14 @@ const ApplyButton = styled.button`
   border-radius: 2.25rem;
   font-size: 1.75rem;
   color: ${COLORS.white};
-  :disabled {
+  font-weight: 700;
+  transition: all 100ms ease-in-out;
+
+  &:hover {
+    background-color: ${COLORS.violetB300};
+  }
+
+  &:disabled {
     background-color: ${COLORS.gray200};
   }
 `;

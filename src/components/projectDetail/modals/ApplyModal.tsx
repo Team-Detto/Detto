@@ -331,8 +331,16 @@ const MotiveButton = styled.button`
   border-radius: 0.5rem;
   /* violet B 400 */
 
+  font-weight: 600;
   background-color: ${(props: { children: string }) =>
     props.children === '아니오' ? `${COLORS.gray100}` : `${COLORS.violetB400}`};
   color: ${(props: { children: string }) =>
     props.children === '아니오' ? `${COLORS.black}` : `${COLORS.white}`};
+
+  &:hover {
+    background-color: ${(props: { children: string }) =>
+      props.children === '아니오'
+        ? `${COLORS.gray200}`
+        : `${COLORS.violetB300}`};
+  }
 `;
