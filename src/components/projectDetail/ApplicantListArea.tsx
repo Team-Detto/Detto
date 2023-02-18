@@ -2,7 +2,7 @@ import { useModal } from 'hooks';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { allowScroll, preventScroll } from 'utils/modal';
-import InviteModal from './modals/InviteModal';
+import InviteModal from './InviteModals/InviteModal';
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 

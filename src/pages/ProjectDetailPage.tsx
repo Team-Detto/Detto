@@ -18,7 +18,7 @@ import ApplicantListArea from 'components/projectDetail/ApplicantListArea';
 import COLORS from 'assets/styles/colors';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useAuth, useModal } from 'hooks';
-import ApplyModal from 'components/projectDetail/modals/ApplyModal';
+import ApplyModal from 'components/projectDetail/ApplyModal/ApplyModal';
 import ConfirmAlert from 'components/common/ConfirmAlert';
 
 const ProjectDetailPage = () => {
