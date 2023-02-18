@@ -28,7 +28,6 @@ const Likes = ({ pid, like }: any) => {
   }, [myProjectData]);
 
   //isLike가 변경될 때마다 좋아요 수 및 좋아요한 프로젝트를 db에서 변경해주는 기능
-  //Todo 페이지가 언마운트 될 때 이벤트 주는 방법은?
   useEffect(() => {
     likeMutate(pid, countLike); // 좋아요 수 변경
     likedProjectMutate(pid); // likedProjects에 pid 추가/삭제

@@ -9,7 +9,6 @@ const WriterToShareArea = ({ projectData, pid, userData }: any) => {
   return (
     <WriterToShareContainer>
       <WriterWrapper>
-        {/* 게시글 작성자 프로필 이미지/ Todo: 클릭시 공개프로필로 연결? */}
         <WriterProfileImg src={userData?.photoURL} />
         <WriterNickname>{userData?.displayName ?? `닉네임`}</WriterNickname>
       </WriterWrapper>
