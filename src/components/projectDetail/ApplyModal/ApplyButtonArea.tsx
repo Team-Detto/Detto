@@ -1,5 +1,8 @@
 import styled from '@emotion/styled';
+import { useQuery } from '@tanstack/react-query';
+import { findWithCollectionName } from 'apis/findWithCollectionName';
 import COLORS from 'assets/styles/colors';
+import { useNotification } from 'hooks';
 import { useCallback } from 'react';
 
 interface props {
@@ -13,6 +16,7 @@ interface props {
   applicantMutate: any;
   projectMutate: any;
   handleToastPopup: (message: string) => void;
+  pid: string;
 }
 
 const ApplyButtonArea = ({
@@ -26,7 +30,28 @@ const ApplyButtonArea = ({
   userData,
   projectMutate,
   handleToastPopup,
+  pid,
 }: props) => {
+  const sendNotification = useNotification();
+
+  const { data: projectData } = useQuery({
+    queryKey: ['post', pid],
+    queryFn: () => findWithCollectionName('post', pid),
+  });
+
+  // 글쓴이에게 지원 알림 보내기
+  const sendApplyNotificationToWriter = () => {
+    if (!userData || !projectData) return;
+    sendNotification({
+      title: `${userData.displayName}님이 프로젝트에 지원하였습니다.`,
+      receiverUid: projectData.uid,
+      link: {
+        type: 'project',
+        id: pid,
+      },
+    });
+  };
+
   // 지원하기 유효성 검사
   const checkNoteValidation = useCallback(() => {
     if (clickValue === -1) {
@@ -59,6 +84,7 @@ const ApplyButtonArea = ({
     onAlertClickEvent(); //지원성공 모달 띄우기
     applicantMutate(userData?.uid); //지원자 데이터 삽입
     projectMutate(); //지원한 프로젝트 데이터 삽입
+    sendApplyNotificationToWriter(); //글쓴이에게 지원 알림 보내기
   };
 
   return (
