@@ -11,7 +11,7 @@ import {
   FacebookAuthProvider,
 } from 'firebase/auth';
 import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
-
+import { useLocation, useNavigate } from 'react-router-dom';
 // Firebase의 사용자 컬렉션을 초기화하는 함수
 const initializeUserCollections = (user: User) => {
   const date = Date.now();
@@ -62,6 +62,9 @@ const useSocialLogin = () => {
   const facebookProvider = new FacebookAuthProvider();
   const googleProvider = new GoogleAuthProvider();
 
+  const location = useLocation();
+  const navigate = useNavigate();
+
   // provider를 인자로 받아 로그인을 처리하는 함수
   const signInWithPopupWithProvider = async (
     provider: GithubAuthProvider | GoogleAuthProvider,
@@ -73,6 +76,7 @@ const useSocialLogin = () => {
       const additionalUserInfo = getAdditionalUserInfo(result);
 
       console.log('login sucess: ', user);
+      navigate(location.pathname);
       if (additionalUserInfo?.isNewUser) {
         // 신규 유저일 경우, 유저 컬렉션에 데이터를 추가 후 다음 페이지로 이동
         await initializeUserCollections(user);

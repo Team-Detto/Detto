@@ -8,20 +8,12 @@ interface props {
   onClickEvent: () => void;
   mainMsg: string;
   subMsg: string;
-  usage?: string;
   page?: string;
 }
 
-const Alert = ({
-  isOpen,
-  onClickEvent,
-  mainMsg,
-  subMsg,
-  usage,
-  page,
-}: props) => {
+const Alert = ({ isOpen, onClickEvent, mainMsg, subMsg, page }: props) => {
   useEffect(() => {
-    if (page !== 'apply') {
+    if (page !== ('sendNote' || 'apply')) {
       if (isOpen) {
         const prevScrollY = preventScroll();
         return () => {
@@ -35,9 +27,7 @@ const Alert = ({
     <AlertBackDrop isOpen={isOpen}>
       <AlertContainer isOpen={isOpen}>
         <AlertMessageContainer>
-          <AlertMessageEmotion>
-            {usage === 'done' ? '🎉' : '😭'}
-          </AlertMessageEmotion>
+          <AlertMessageEmotion>'🎉'</AlertMessageEmotion>
           <AlertMessageMainMessage>{mainMsg}!</AlertMessageMainMessage>
           <AlertMessageSubMessage>{subMsg}</AlertMessageSubMessage>
         </AlertMessageContainer>

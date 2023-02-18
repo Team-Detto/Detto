@@ -10,7 +10,6 @@ const ApplyButtonArea = ({
 }: any) => {
   const { uid } = useAuth();
   const { isRecruiting, applicants } = projectData;
-  console.log(isApplicant);
   return (
     <ButtonWrapper>
       {
