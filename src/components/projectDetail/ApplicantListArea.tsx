@@ -33,12 +33,17 @@ const ApplicantListArea = ({ projectData, pid }: any) => {
               return (
                 <>
                   <ApplicantWrap key={applicants[key]?.uid}>
-                    <ProfileImage
-                      src={applicants[key]?.profileURL}
-                      onClick={() =>
-                        navigate(`/profile/${applicants[key].uid}`)
-                      }
-                    />
+                    <ProfileImageDiv>
+                      <ProfileImage
+                        src={applicants[key]?.profileURL}
+                        onClick={() =>
+                          navigate(`/profile/${applicants[key].uid}`)
+                        }
+                      />
+
+                      <HoverText>클릭 시 공개 프로필로 이동</HoverText>
+                    </ProfileImageDiv>
+
                     <NicknameDiv>{applicants[key]?.displayName}</NicknameDiv>
                     <PositionDiv>{applicants[key]?.position}</PositionDiv>
                     <StackContainer>
@@ -73,7 +78,6 @@ const ApplicantListArea = ({ projectData, pid }: any) => {
                       applicantKey={applicantKey}
                     />
                   </ApplicantWrap>
-                  <HoverText>클릭 시 공개 프로필로 이동</HoverText>
                 </>
               );
             }
@@ -115,18 +119,37 @@ const ApplicantWrap = styled.div`
   border-radius: 0.625rem;
   padding: 0 1.25rem;
   margin-bottom: 0.625rem;
+`;
+
+const ProfileImageDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 8rem;
+`;
+
+const ProfileImage = styled.img`
+  position: absolute;
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  cursor: pointer;
   :hover + div {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
   }
 `;
 
-const ProfileImage = styled.img`
-  width: 8rem;
-  height: 8rem;
-  border-radius: 50%;
-  cursor: pointer;
+const HoverText = styled.div`
+  position: relative;
+  left: 130px;
+  background-color: transparent;
+  color: ${COLORS.gray300};
+  display: none;
 `;
 
 const NicknameDiv = styled.div`
@@ -199,20 +222,4 @@ const CannotFoundApplicant = styled.div`
   justify-content: center;
   width: 100%;
   color: ${COLORS.gray500};
-`;
-
-const HoverText = styled.div`
-  position: relative;
-  right: 130px;
-  top: -100px;
-  border-radius: 0.625rem;
-  background-color: transparent;
-  color: ${COLORS.gray300};
-
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  font-weight: 500;
-
-  display: none;
 `;
