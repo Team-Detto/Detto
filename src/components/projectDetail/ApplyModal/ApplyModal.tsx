@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import Alert from 'components/common/Alert';
-import { useAuth, useModal } from 'hooks';
+import { useAuth, useModal, useToastPopup } from 'hooks';
 import { useEffect, useState } from 'react';
 import { allowScroll, preventScroll } from 'utils/modal';
 import { positionList } from 'utils/positions';
@@ -10,6 +10,7 @@ import { findWithCollectionName } from 'apis/findWithCollectionName';
 import ApplyButtonArea from './ApplyButtonArea';
 import ApplyMotiveArea from './ApplyMotiveArea';
 import ApplyPositionArea from './ApplyPositonArea';
+import ValidationToastPopup from 'components/common/ValidationToastPopup';
 
 interface props {
   isOpen: boolean;
@@ -23,11 +24,9 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
     useModal(false);
 
   const { uid } = useAuth();
-  const [usage, setUsage] = useState('done');
   const [motive, setMotive] = useState('');
   const [clickValue, setClickValue] = useState(-1);
-
-  const queryClient = useQueryClient();
+  const { showToast, ToastMessage, handleToastPopup } = useToastPopup();
 
   //지원자 데이터 가져오기
   const { data: userData } = useQuery({
@@ -69,6 +68,7 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
     ),
   );
 
+  const queryClient = useQueryClient();
   //지원하기 클릭 시 appliedProject 필드에 pid 추가
   const { mutate: projectMutate } = useMutation(
     () =>
@@ -96,14 +96,18 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
   return (
     <>
       <ModalContainer isOpen={isOpen}>
+        {showToast && <ValidationToastPopup message={ToastMessage} top={2} />}
         <ModalTitle>{message}</ModalTitle>
         <ContentContainer>
+          {/* 포지션 버튼 */}
           <ApplyPositionArea
             clickValue={clickValue}
             setClickValue={setClickValue}
           />
+          {/* 지원동기 */}
           <ApplyMotiveArea motive={motive} setMotive={setMotive} />
         </ContentContainer>
+        {/* 아니오, 지원하기 버튼 */}
         <ApplyButtonArea
           userData={userData}
           motive={motive}
@@ -111,28 +115,18 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
           clickValue={clickValue}
           setClickValue={setClickValue}
           onClickEvent={onClickEvent}
-          setUsage={setUsage}
           onAlertClickEvent={onAlertClickEvent}
           applicantMutate={applicantMutate}
           projectMutate={projectMutate}
-        />
-        {/* 지원실패 : 모달 위에 모달 띄워야해서 Container 내부에 있어야함 */}
-        <Alert
-          isOpen={isAlertOpen}
-          onClickEvent={onAlertClickEvent}
-          mainMsg="지원에 실패했어요!!"
-          subMsg="입력을 확인해주세요!"
-          usage={usage}
-          page="apply"
+          handleToastPopup={handleToastPopup}
         />
       </ModalContainer>
-      {/* 지원성공 */}
+      {/* 지원성공Alert*/}
       <Alert
         isOpen={isAlertOpen}
         onClickEvent={onAlertClickEvent}
         mainMsg="지원이 완료되었어요!"
         subMsg="알림으로 결과를 알려드릴게요!"
-        usage={usage}
         page="apply"
       />
     </>
@@ -144,7 +138,7 @@ export default ApplyModal;
 const ModalContainer = styled.div`
   position: fixed;
   width: 41.0625rem;
-  height: 32.6875rem;
+  height: 550px;
   left: 50%;
   top: 50%;
   text-align: center;
@@ -161,7 +155,7 @@ const ModalTitle = styled.p`
   height: 2.75rem;
   font-weight: 700;
   font-size: 1.75rem;
-  line-height: 2.75rem;
+  margin-top: 2rem;
 `;
 
 const ContentContainer = styled.div`

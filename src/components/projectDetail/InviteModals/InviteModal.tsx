@@ -51,7 +51,6 @@ const InviteModal = ({
         onClickEvent={onAlertClickEvent}
         mainMsg="팀원을 초대했어요!"
         subMsg="현재 참여한 인원에서 확인할 수 있어요!"
-        usage="done"
         page="apply"
       />
       <ModalContainer isOpen={isOpen}>

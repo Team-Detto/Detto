@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
+import { useCallback } from 'react';
 
 interface props {
   userData: any;
@@ -8,10 +9,10 @@ interface props {
   clickValue: number;
   setClickValue: (clickValue: number) => void;
   onClickEvent: () => void;
-  setUsage: (usage: string) => void;
   onAlertClickEvent: () => void;
   applicantMutate: any;
   projectMutate: any;
+  handleToastPopup: (message: string) => void;
 }
 
 const ApplyButtonArea = ({
@@ -20,46 +21,57 @@ const ApplyButtonArea = ({
   clickValue,
   setClickValue,
   onClickEvent,
-  setUsage,
   onAlertClickEvent,
   applicantMutate,
   userData,
   projectMutate,
+  handleToastPopup,
 }: props) => {
-  const resetApplyModal = () => {
+  // 지원하기 유효성 검사
+  const checkNoteValidation = useCallback(() => {
+    if (clickValue === -1) {
+      handleToastPopup('포지션을 선택해주세요.');
+      return false;
+    }
+    if (motive === '') {
+      handleToastPopup('지원동기를 입력해주세요.');
+      return false;
+    }
+    if (motive.length > 500) {
+      handleToastPopup('지원동기는 500자 이하로 입력해주세요.');
+      return false;
+    }
+    return true;
+  }, [motive, clickValue]);
+
+  const handleResetButtonClick = () => {
     setMotive(''); //지원동기 초기화
     setClickValue(-1); //포지션 초기화
     onClickEvent(); //모달 닫기
   };
 
-  const ApplyFunction = (e: React.MouseEvent) => {
+  const handleApplyButtonClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (motive === '' || clickValue === -1) {
-      //지원 실패
-      setUsage('fail');
-      onAlertClickEvent();
-      return;
-    } else {
-      //지원 성공
-      setUsage('done');
-      resetApplyModal();
-      onAlertClickEvent(); //지원성공 모달 띄우기
-      applicantMutate(userData?.uid); //지원자 데이터 삽입
-      projectMutate(); //지원한 프로젝트 데이터 삽입
-    }
+    if (!checkNoteValidation()) return;
+
+    //지원 성공
+    handleResetButtonClick();
+    onAlertClickEvent(); //지원성공 모달 띄우기
+    applicantMutate(userData?.uid); //지원자 데이터 삽입
+    projectMutate(); //지원한 프로젝트 데이터 삽입
   };
 
   return (
     <ApplyButtonContainer>
       <MotiveButton //지원 취소
-        onClick={resetApplyModal}
+        onClick={handleResetButtonClick}
       >
         아니오
       </MotiveButton>
 
       <MotiveButton
         onClick={(e) => {
-          ApplyFunction(e);
+          handleApplyButtonClick(e);
         }}
       >
         지원하기

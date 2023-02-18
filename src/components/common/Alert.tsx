@@ -8,7 +8,7 @@ interface props {
   onClickEvent: () => void;
   mainMsg: string;
   subMsg: string;
-  usage?: string;
+
   page?: string;
 }
 
@@ -17,7 +17,7 @@ const Alert = ({
   onClickEvent,
   mainMsg,
   subMsg,
-  usage,
+
   page,
 }: props) => {
   useEffect(() => {
@@ -35,9 +35,7 @@ const Alert = ({
     <AlertBackDrop isOpen={isOpen}>
       <AlertContainer isOpen={isOpen}>
         <AlertMessageContainer>
-          <AlertMessageEmotion>
-            {usage === 'done' ? '🎉' : '😭'}
-          </AlertMessageEmotion>
+          <AlertMessageEmotion>'🎉'</AlertMessageEmotion>
           <AlertMessageMainMessage>{mainMsg}!</AlertMessageMainMessage>
           <AlertMessageSubMessage>{subMsg}</AlertMessageSubMessage>
         </AlertMessageContainer>
