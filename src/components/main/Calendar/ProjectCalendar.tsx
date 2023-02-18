@@ -6,7 +6,7 @@ import { firebaseGetProjectDataRequest } from 'apis/boardService';
 import { getDate } from 'utils/date';
 import { useSetRecoilState } from 'recoil';
 import { dayListState } from '../../../recoil/atoms';
-
+import COLORS from '../../../assets/styles/colors';
 const ProjectCalendar = () => {
   const [projectData, setProjectData] = useState<any>([]);
   const [value, onChange] = useState(new Date());
@@ -91,7 +91,7 @@ const ProjectCalendarWrap = styled(Calendar)`
     margin: 0 auto;
   }
   .react-calendar__month-view__days__day--neighboringMonth {
-    color: #a5afb9 !important;
+    color: ${COLORS.gray500} !important;
     cursor: pointer;
   }
   abbr {
@@ -102,22 +102,22 @@ const ProjectCalendarWrap = styled(Calendar)`
     font-weight: 700;
     font-size: 16px;
     line-height: 32px;
-    color: #6b7684;
+    color: ${COLORS.gray750};
   }
   [aria-label='토요일'] {
     font-family: 'Noto Sans KR';
     font-weight: 700;
     font-size: 16px;
     line-height: 32px;
-    color: #6b7684;
+    color: ${COLORS.gray750};
   }
   .react-calendar__tile--active {
-    background: #6f64f2;
-    color: #fff !important;
+    background: ${COLORS.violetB400};
+    color: ${COLORS.white} !important;
     border-radius: 3px;
   }
   .react-calendar__month-view__days__day--weekend {
-    color: #b3a2e3;
+    color: ${COLORS.violetA100};
   }
 `;
 export default ProjectCalendar;
