@@ -38,7 +38,7 @@ interface SendNote {
 }
 
 interface Notification {
-  id?: string;
+  id: string;
   content: string;
   date: number;
   displayName: string;
