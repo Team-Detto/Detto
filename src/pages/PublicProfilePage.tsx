@@ -117,7 +117,8 @@ export default PublicProfilePage;
 
 const PublicProfileContainer = styled.div`
   background-color: ${COLORS.gray50};
-  height: 82.5rem;
+  height: 100%;
+  padding-bottom: 10rem;
 `;
 
 const PublicProfileWrapper = styled.div`
