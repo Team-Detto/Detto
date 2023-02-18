@@ -20,7 +20,7 @@ const MemberInfoArea = ({ applicantsData }: any) => {
             {data?.map((key) => {
               if (applicantsData[key].position === '기획')
                 return (
-                  <>
+                  <div key={key}>
                     <MemberProfileImg
                       key={key}
                       onClick={() =>
@@ -29,7 +29,7 @@ const MemberInfoArea = ({ applicantsData }: any) => {
                       src={applicantsData[key].profileURL}
                     ></MemberProfileImg>
                     <HoverText>{applicantsData[key].displayName}</HoverText>
-                  </>
+                  </div>
                 );
             })}
           </MemberInfoDiv>
@@ -42,16 +42,15 @@ const MemberInfoArea = ({ applicantsData }: any) => {
                 applicantsData[key].position === '백엔드'
               )
                 return (
-                  <>
+                  <div key={key}>
                     <MemberProfileImg
-                      key={key}
                       onClick={() =>
                         navigate(`/profile/${applicantsData[key].uid}`)
                       }
                       src={applicantsData[key].profileURL}
                     ></MemberProfileImg>
                     <HoverText>{applicantsData[key].displayName}</HoverText>
-                  </>
+                  </div>
                 );
             })}
           </MemberInfoDiv>
@@ -60,7 +59,7 @@ const MemberInfoArea = ({ applicantsData }: any) => {
             {data.map((key) => {
               if (applicantsData[key].position === '디자인')
                 return (
-                  <>
+                  <div key={key}>
                     <MemberProfileImg
                       key={key}
                       onClick={() =>
@@ -69,7 +68,7 @@ const MemberInfoArea = ({ applicantsData }: any) => {
                       src={applicantsData[key].profileURL}
                     ></MemberProfileImg>
                     <HoverText>{applicantsData[key].displayName}</HoverText>
-                  </>
+                  </div>
                 );
             })}
           </MemberInfoDiv>
