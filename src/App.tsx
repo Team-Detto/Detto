@@ -1,7 +1,8 @@
 import { Global } from '@emotion/react';
 import { authService } from 'apis/firebaseService';
 import reset from 'assets/styles/globalStyled';
-import Router from 'routes/Router';
+import { RouterProvider } from 'react-router-dom';
+import router from 'routes/Router';
 
 function App() {
   authService.onAuthStateChanged((user) => {
@@ -21,7 +22,7 @@ function App() {
   return (
     <>
       <Global styles={reset} />
-      <Router />
+      <RouterProvider router={router} />
     </>
   );
 }
