@@ -9,6 +9,7 @@ import LeftTab from 'components/mypage/LeftTab';
 import { getUserInfoData, getUserProjectList } from 'apis/mypageUsers';
 
 import ProjectsTab from 'components/mypage/ProjectsTab';
+import { staleTime } from 'utils/staleTime';
 
 export interface Project {
   id: string;
@@ -38,12 +39,14 @@ const MyPage = () => {
   const { data: userInfoData }: any = useQuery({
     queryKey: ['users', uid],
     queryFn: getUserInfoData,
+    staleTime: staleTime.users,
   });
 
   // 유저 프로젝트 리스트 받아오는 쿼리
   const { data: userProjectListsData }: any = useQuery({
-    queryKey: ['myprojects', uid],
+    queryKey: ['myProjects', uid],
     queryFn: getUserProjectList,
+    staleTime: staleTime.myProjects,
   });
 
   useEffect(() => {
