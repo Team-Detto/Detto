@@ -6,6 +6,7 @@ import { contactValidation, nicknameValidation } from 'utils/validation';
 const useUpdateProfile = () => {
   const setUserInfo = useSetRecoilState<UserInfo>(userInfoState);
   const setActiveInfoBtn = useSetRecoilState(mypageInfoButtonActiveState);
+
   const [validationMessage, setValidationMessage] = useState<string>('');
   const [contactValidationMessage, setContactValidationMessage] =
     useState<string>('');
@@ -20,31 +21,21 @@ const useUpdateProfile = () => {
           ? nicknameValidation(value)
           : contactValidation(value);
 
-      console.log('isValidate', isValidate);
-
-      if (name === 'displayName' && !isValidate) {
-        if (value.length < 2) {
-          setValidationMessage('닉네임은 2자 이상이어야 합니다.');
-          return;
+      if (!isValidate) {
+        if (name === 'displayName') {
+          value.length < 2
+            ? setValidationMessage('닉네임은 2자 이상이어야 합니다.')
+            : setValidationMessage('닉네임은 7자 이하여야 합니다.');
         } else {
-          setValidationMessage('닉네임은 7자 이하여야 합니다.');
-          return;
+          value === ''
+            ? setContactValidationMessage('이메일을 입력해주세요.')
+            : setContactValidationMessage('이메일을 올바르게 입력해주세요.');
         }
+      } else {
+        setValidationMessage('');
+        setContactValidationMessage('');
+        setActiveInfoBtn(true);
       }
-
-      if (name === 'email' && !isValidate) {
-        if (value === '') {
-          setContactValidationMessage('이메일을 입력해주세요.');
-          return;
-        } else {
-          setContactValidationMessage('이메일을 올바르게 입력해주세요.');
-          return;
-        }
-      }
-
-      setValidationMessage('');
-      setContactValidationMessage('');
-      setActiveInfoBtn(true);
 
       setUserInfo((prevState) => {
         return { ...prevState, [name]: value };

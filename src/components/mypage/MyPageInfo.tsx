@@ -1,15 +1,17 @@
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { useMutation } from '@tanstack/react-query';
-import { useModal } from 'hooks';
+import { useModal, useToastPopup } from 'hooks';
 import styled from '@emotion/styled';
 import { mypageInfoButtonActiveState, userInfoState } from '../../recoil/atoms';
 import UserInfoTop from './UserInfoTop';
 import SkillList from './SkillList';
 import ConfirmAlert from 'components/common/ConfirmAlert';
-import { designs, develops, products } from 'utils/skills';
-import COLORS from 'assets/styles/colors';
+import ValidationToastPopup from 'components/common/ValidationToastPopup';
 import { updateUserInfoData } from 'apis/mypageUsers';
+import { designs, develops, products } from 'utils/skills';
+import { contactValidation } from 'utils/validation';
+import COLORS from 'assets/styles/colors';
 
 interface MypageInfoProps {
   user: User;
@@ -22,9 +24,39 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
     mypageInfoButtonActiveState,
   );
   const { isOpen, handleModalStateChange } = useModal(false);
+  const { showToast, ToastMessage, handleToastPopup } = useToastPopup();
+
   const { mutate: updateUserInfoMutate } = useMutation(() =>
     updateUserInfoData(uid, userInfo),
   );
+
+  // 유효성 검사
+  const checkInfoValidation = () => {
+    console.log('userInfo.displayName', userInfo?.displayName);
+    const nickname = userInfo.displayName;
+    if (nickname.length < 2 || nickname.length > 7) {
+      handleToastPopup('닉네임은 2자 이상 7자 이하로 입력해주세요.');
+      return false;
+    }
+
+    if (userInfo.email && !contactValidation(userInfo.email)) {
+      handleToastPopup('연락처를 올바르게 입력해주세요.');
+      return false;
+    }
+
+    if (userInfo.positions.length === 0) {
+      handleToastPopup('포지션을 선택해주세요.');
+      return false;
+    }
+    return true;
+  };
+
+  // 수정 버튼 클릭 시 유효성 검사 확인 후 모달창 오픈
+  const handleUserInfoConfirm = () => {
+    if (!checkInfoValidation()) return;
+
+    handleModalStateChange();
+  };
 
   // DB로 수정 정보 업데이트
   const handleUserInfoUpdate = () => {
@@ -51,6 +83,7 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
 
   return (
     <MyPageTopContainer>
+      {showToast && <ValidationToastPopup message={ToastMessage} top={4} />}
       <UserInfoTop /> {/* 유저 개인 정보  */}
       <MyPageSkillsWrapper>
         <MyPageSkillsTitle>기술스택</MyPageSkillsTitle>
@@ -75,7 +108,8 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
       <InfoEditConfirmWrapper>
         <InfoEditConfirmBtn
           isActive={activeInfoBtn}
-          onClick={handleModalStateChange}
+          onClick={handleUserInfoConfirm}
+          disabled={!activeInfoBtn}
         >
           개인정보 수정 완료
         </InfoEditConfirmBtn>
@@ -124,7 +158,11 @@ const InfoEditConfirmBtn = styled.button<{ isActive: boolean }>`
   color: ${({ isActive }) => (isActive ? COLORS.white : COLORS.gray750)};
   transition: all 300ms ease-in-out;
 
-  &:hover {
+  &:disabled {
+    pointer-events: none;
+  }
+
+  &:not(:disabled):hover {
     background-color: ${COLORS.violetB300};
     color: ${COLORS.white};
   }
