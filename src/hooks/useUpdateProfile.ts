@@ -1,12 +1,14 @@
 import { useCallback, useState } from 'react';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { mypageInfoButtonActiveState, userInfoState } from '../recoil/atoms';
 import { contactValidation, nicknameValidation } from 'utils/validation';
 
 const useUpdateProfile = () => {
-  const [userInfo, setUserInfo] = useState<UserInfo>(initialUserInfo);
+  const [userInfo, setUserInfo] = useRecoilState<UserInfo>(userInfoState);
+  const setActiveInfoBtn = useSetRecoilState(mypageInfoButtonActiveState);
   const [validationMessage, setValidationMessage] = useState<string>('');
   const [contactValidationMessage, setContactValidationMessage] =
     useState<string>('');
-  const [activeButton, setActiveButton] = useState<boolean>(false);
 
   // 텍스트 인풋 변경 핸들러
   const handleInputChange = useCallback(
@@ -30,9 +32,9 @@ const useUpdateProfile = () => {
       } else {
         setValidationMessage('');
         setContactValidationMessage('');
+        setActiveInfoBtn(true);
       }
 
-      handleButtonActive();
       setUserInfo((prevState) => {
         return { ...prevState, [name]: value };
       });
@@ -40,32 +42,14 @@ const useUpdateProfile = () => {
     [],
   );
 
-  const handleButtonActive = useCallback(() => {
-    if (!activeButton) {
-      setActiveButton(true);
-    }
-  }, []);
-
   return {
     userInfo,
     setUserInfo,
     validationMessage,
     handleInputChange,
-    activeButton,
-    handleButtonActive,
+
     contactValidationMessage,
   };
 };
 
 export default useUpdateProfile;
-
-const initialUserInfo = {
-  displayName: '',
-  email: '',
-  photoURL: '',
-  isJunior: false,
-  positions: [],
-  plannerStack: [],
-  designerStack: [],
-  developerStack: [],
-};

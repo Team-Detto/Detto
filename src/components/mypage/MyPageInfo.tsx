@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
+import { useRecoilValue } from 'recoil';
 import { useMutation } from '@tanstack/react-query';
-import { useModal, useUpdateProfile } from 'hooks';
+import { useModal, useUpdateProfile, useProfileImage } from 'hooks';
 import styled from '@emotion/styled';
-import useProfileImage from 'hooks/useProfileImage';
+import { mypageInfoButtonActiveState } from '../../recoil/atoms';
 import MyPageProfileImage from './MyPageProfileImage';
 import PositionCheckBox from './PositionCheckBox';
 import SkillList from './SkillList';
@@ -24,13 +25,12 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
     setUserInfo,
     handleInputChange,
     validationMessage,
-    activeButton,
-    handleButtonActive,
     contactValidationMessage,
   } = useUpdateProfile();
   const { isOpen, handleModalStateChange } = useModal(false);
   const { profileImg, handleProfileImageChange, handleProfileImageDelete } =
     useProfileImage(uid, userInfo.photoURL);
+  const activeInfoBtn = useRecoilValue<boolean>(mypageInfoButtonActiveState);
 
   const { mutate: updateUserInfoMutate } = useMutation(() =>
     updateUserInfoData(uid, userInfo),
@@ -64,7 +64,6 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
           profileImg={profileImg}
           onChange={handleProfileImageChange}
           onDelete={handleProfileImageDelete}
-          handleButtonActive={handleButtonActive}
           setUserInfo={setUserInfo}
           uid={uid}
         />
@@ -91,16 +90,11 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
           </InfoItemDiv>
           <InfoItemDiv>
             <InfoTitle>경력</InfoTitle>
-            <Careers
-              isJunior={userInfo.isJunior}
-              setUserInfo={setUserInfo}
-              handleButtonActive={handleButtonActive}
-            />
+            <Careers isJunior={userInfo.isJunior} setUserInfo={setUserInfo} />
           </InfoItemDiv>
           <InfoItemDiv>
             <InfoTitle>포지션</InfoTitle>
             <PositionCheckBox
-              handleButtonActive={handleButtonActive}
               positions={userInfo.positions}
               setUserInfo={setUserInfo}
             />
@@ -133,7 +127,7 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
 
       <InfoEditConfirmWrapper>
         <InfoEditConfirmBtn
-          isActive={activeButton}
+          isActive={activeInfoBtn}
           onClick={handleModalStateChange}
         >
           개인정보 수정 완료

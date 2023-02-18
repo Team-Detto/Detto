@@ -33,13 +33,8 @@ export default function SetProfile() {
     staleTime: staleTime.user,
   });
 
-  const {
-    userInfo,
-    setUserInfo,
-    handleInputChange,
-    validationMessage,
-    handleButtonActive,
-  } = useUpdateProfile();
+  const { userInfo, setUserInfo, handleInputChange, validationMessage } =
+    useUpdateProfile();
   const { profileImg, handleProfileImageChange, handleProfileImageDelete } =
     useProfileImage(uid, userInfoData?.photoURL);
 
@@ -97,7 +92,6 @@ export default function SetProfile() {
             profileImg={profileImg}
             onChange={handleProfileImageChange}
             onDelete={handleProfileImageDelete}
-            handleButtonActive={handleButtonActive}
             setUserInfo={setUserInfo}
             uid={uid}
           />
