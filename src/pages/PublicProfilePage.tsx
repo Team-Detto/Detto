@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import styled from '@emotion/styled';
-import { useProjectList } from 'hooks';
+import { useAuth, useGlobalModal, useProjectList } from 'hooks';
 import WebContainer from 'components/common/WebContainer';
 import ProjectsTab from 'components/mypage/ProjectsTab';
 import ProjectList from 'components/common/myProjectList/ProjectList';
@@ -12,11 +12,14 @@ import { getUserInfoData, getUserProjectList } from 'apis/mypageUsers';
 import COLORS from 'assets/styles/colors';
 import { concatSkills } from 'utils/skills';
 import { staleTime } from 'utils/staleTime';
+import { modalTypes } from 'components/common/modal/modal';
 
 const PublicProfilePage = () => {
-  const { id } = useParams();
+  const { id } = useParams(); //받는사람 id
+  const { uid } = useAuth(); //보내는 사람 id
   const { activeProjectTab, handleProjectTabClick, setActiveProjectTab } =
     useProjectList();
+  const { openModalWithData } = useGlobalModal();
 
   const { data: userInfoData }: any = useQuery({
     queryKey: ['users', id],
@@ -29,6 +32,19 @@ const PublicProfilePage = () => {
     queryFn: getUserProjectList,
     staleTime: staleTime.myProjects,
   });
+
+  const handleSendNoteButtonClick = () => {
+    openModalWithData(modalTypes.sendNote, {
+      id: id as string,
+      senderUid: uid,
+      receiverUid: id as string,
+      date: 0,
+      title: '',
+      content: '',
+      isRead: false,
+    });
+    console.log('test');
+  };
 
   const stacks = concatSkills(
     userInfoData?.plannerStack,
@@ -60,7 +76,9 @@ const PublicProfilePage = () => {
                     isJunior={userInfoData?.isJunior}
                   />
                 </UserInformationDiv>
-                <MessageSendButton>쪽지보내기</MessageSendButton>
+                <MessageSendButton onClick={handleSendNoteButtonClick}>
+                  쪽지보내기
+                </MessageSendButton>
               </NicknameAndMessageContainer>
               <UserInfoObject>
                 <UserInfoKey>연락처</UserInfoKey>

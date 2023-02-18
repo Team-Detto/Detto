@@ -24,7 +24,7 @@ export default function SendNote({ data }: { data: Note }) {
   const sendNote = useNote();
 
   const { data: receiver } = useQuery({
-    queryKey: ['user', data.senderUid],
+    queryKey: ['user', data.receiverUid],
     queryFn: getUserInfoData,
     staleTime: staleTime.user,
   });
@@ -51,7 +51,7 @@ export default function SendNote({ data }: { data: Note }) {
   const handleSendButtonClick = async () => {
     if (!checkNoteValidation()) return;
     setDisabled(true);
-    sendNote({ note: note, receiverUid: data.senderUid });
+    sendNote({ note: note, receiverUid: data.receiverUid });
     closeModal();
   };
 
