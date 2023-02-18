@@ -23,4 +23,9 @@ const Button = styled.button`
   color: #ffffff;
   background-color: ${COLORS.violetB400};
   border-radius: 1rem;
+  transition: background-color 100ms ease-in-out;
+
+  &:hover {
+    background-color: ${COLORS.violetB300};
+  }
 `;

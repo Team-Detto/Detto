@@ -1,5 +1,5 @@
 import ModalNavigator from 'components/common/modal/ModalNavigator';
-import { useGlobalModal, useNote, useToastPopup } from 'hooks';
+import { useGlobalModal, useModal, useNote, useToastPopup } from 'hooks';
 import CustomButton from './CustomButton';
 import {
   Container,
@@ -15,21 +15,23 @@ import { staleTime } from 'utils/staleTime';
 import { useQuery } from '@tanstack/react-query';
 import { getUserInfoData } from 'apis/mypageUsers';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
+import Alert from 'components/common/Alert';
 
 export default function SendNote({ data }: { data: Note }) {
   const [disabled, setDisabled] = useState(false);
   const [note, setNote] = useState<SendNote>({ title: '', content: '' });
-
   const { closeModal } = useGlobalModal();
   const sendNote = useNote();
 
   const { data: receiver } = useQuery({
-    queryKey: ['user', data.senderUid],
+    queryKey: ['user', data?.receiverUid],
     queryFn: getUserInfoData,
     staleTime: staleTime.user,
   });
 
   const { showToast, ToastMessage, handleToastPopup } = useToastPopup();
+  const { isOpen: isAlertOpen, handleModalStateChange: onAlertClickEvent } =
+    useModal(false);
 
   // 쪽지 유효성 검사
   const checkNoteValidation = useCallback(() => {
@@ -48,54 +50,69 @@ export default function SendNote({ data }: { data: Note }) {
     return true;
   }, [note]);
 
-  const handleSendButtonClick = async () => {
+  const handleSendButtonClick = () => {
     if (!checkNoteValidation()) return;
+    sendNote({ note: note, receiverUid: data.receiverUid });
     setDisabled(true);
-    sendNote({ note: note, receiverUid: data.senderUid });
+    onAlertClickEvent(); //alert창 띄우기
+  };
+
+  const handleAlertButtonClick = () => {
+    onAlertClickEvent();
     closeModal();
   };
 
   if (!receiver) return null;
+
   return (
-    <Container>
-      {showToast && <ValidationToastPopup message={ToastMessage} top={2} />}
-      <ModalNavigator page={0} close />
-      <HeaderContainer>
-        <ProfileImage src={receiver.photoURL} />
-        <NameText>{receiver.displayName}님께 쪽지 보내기</NameText>
-      </HeaderContainer>
-      <TitleInput
-        type="text"
-        placeholder="제목을 입력해주세요."
-        autoFocus
-        maxLength={30}
-        value={note.title}
-        onChange={(e) => setNote({ ...note, title: e.target.value })}
+    <>
+      <Container>
+        {showToast && <ValidationToastPopup message={ToastMessage} top={2} />}
+        <ModalNavigator page={0} close />
+        <HeaderContainer>
+          <ProfileImage src={receiver.photoURL} />
+          <NameText>{receiver.displayName}님께 쪽지 보내기</NameText>
+        </HeaderContainer>
+        <TitleInput
+          type="text"
+          placeholder="제목을 입력해주세요."
+          autoFocus
+          maxLength={30}
+          value={note.title}
+          onChange={(e) => setNote({ ...note, title: e.target.value })}
+        />
+        <ContentTextarea
+          placeholder="내용을 입력해주세요."
+          value={note.content}
+          maxLength={500}
+          onChange={(e) => setNote({ ...note, content: e.target.value })}
+        />
+        <CustomButton
+          label="쪽지를 보낼게요"
+          onClick={() => {
+            handleSendButtonClick();
+            setDisabled(true);
+          }}
+        />
+      </Container>
+
+      <Alert
+        isOpen={isAlertOpen}
+        onClickEvent={handleAlertButtonClick}
+        mainMsg="메세지를 보냈어요!"
+        subMsg="보낸 쪽지함에서 확인해보세요."
+        usage="done"
       />
-      <ContentTextarea
-        placeholder="내용을 입력해주세요."
-        value={note.content}
-        maxLength={500}
-        onChange={(e) => setNote({ ...note, content: e.target.value })}
-      />
-      <CustomButton
-        label="쪽지를 보낼게요"
-        onClick={handleSendButtonClick}
-        disabled={disabled}
-      />
-    </Container>
+    </>
   );
 }
 
 const TitleInput = styled.input`
   width: 100%;
   padding: 10px 28px;
-
   font-weight: 400;
   font-size: 18px;
-
   border: 1px solid ${COLORS.gray300};
   border-radius: 4px;
-
   resize: none;
 `;

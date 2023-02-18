@@ -6,28 +6,9 @@ import WebContainer from 'components/common/WebContainer';
 import MyPageInfo from 'components/mypage/MyPageInfo';
 import ProjectList from 'components/common/myProjectList/ProjectList';
 import LeftTab from 'components/mypage/LeftTab';
+import ProjectsTab from 'components/common/myProjectList/ProjectsTab';
 import { getUserInfoData, getUserProjectList } from 'apis/mypageUsers';
-
-import ProjectsTab from 'components/mypage/ProjectsTab';
 import { staleTime } from 'utils/staleTime';
-
-export interface Project {
-  id: string;
-  title: string;
-  thumbnail: string;
-  skills: string[];
-  participants: Participants[];
-}
-export interface Participants {
-  type: string;
-  members: Member[];
-}
-
-interface Member {
-  uid: string;
-  profile: string;
-  skill: string;
-}
 
 const MyPage = () => {
   const [activeTab, setActiveTab] = useState('개인정보');

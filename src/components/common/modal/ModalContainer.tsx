@@ -22,6 +22,7 @@ export default function ModalContainer() {
         {type === modalTypes.inbox && <NoteModal />}
         {type === modalTypes.outbox && <NoteModal />}
         {type === modalTypes.reply && <NoteModal />}
+        {type === modalTypes.sendNote && <NoteModal />}
       </Container>
     </BackDrop>
   );

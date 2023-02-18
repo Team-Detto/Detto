@@ -153,9 +153,10 @@ export default ProjectDetailPage;
 
 const ProjectDetailContainer = styled.div`
   min-height: 100vh;
-  max-height: 100vh;
+  max-height: 100%;
   background-color: #fcfcfc; //색상표에 없는데 배경으로 사용되고 있음 문의하기
-  padding-bottom: 6.25rem;
+  padding-bottom: 10rem;
+  /* margin-bottom: 20rem; */
 `;
 
 const ProjectDetailWrapper = styled.div`
