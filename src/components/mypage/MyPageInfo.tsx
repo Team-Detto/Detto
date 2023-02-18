@@ -32,7 +32,6 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
 
   // 유효성 검사
   const checkInfoValidation = () => {
-    console.log('userInfo.displayName', userInfo?.displayName);
     const nickname = userInfo.displayName;
     if (nickname.length < 2 || nickname.length > 7) {
       handleToastPopup('닉네임은 2자 이상 7자 이하로 입력해주세요.');

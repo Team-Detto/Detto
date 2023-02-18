@@ -54,7 +54,7 @@ const LeftTab = ({ activeTab, setActiveTab }: LeftTabProps) => {
       <WithdrawalBox onClick={handleModalStateChange}>탈퇴하기</WithdrawalBox>
       <ConfirmAlert
         isOpen={isOpen}
-        message={'탈퇴 할까요?'}
+        message={'탈퇴할까요?'}
         subMessage={'탈퇴는 되돌릴 수 없습니다. 신중히 선택해주세요! 🥺'}
         onClickEvent={handleWithdrawalClick}
         onCloseEvent={handleModalStateChange}
