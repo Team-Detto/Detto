@@ -15,7 +15,7 @@ const Careers = ({
   handleButtonActive,
 }: CareersProps) => {
   const handleCheckedRadioChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
+    (e: React.MouseEvent<HTMLInputElement>) => {
       const { id } = e.currentTarget;
 
       setUserInfo((prevState) => {
@@ -33,16 +33,16 @@ const Careers = ({
   return (
     <CareerRadioBox>
       <CareerRadioInput
-        juniorFlag={isJunior ? true : false}
+        activeFlag={isJunior ? true : false}
         id={career[0].id}
         value={career[0].value}
-        onChange={handleCheckedRadioChange}
+        onClick={handleCheckedRadioChange}
       />
       <CareerRadioInput
-        juniorFlag={isJunior ? false : true}
+        activeFlag={isJunior ? false : true}
         id={career[1].id}
         value={career[1].value}
-        onChange={handleCheckedRadioChange}
+        onClick={handleCheckedRadioChange}
       />
     </CareerRadioBox>
   );
