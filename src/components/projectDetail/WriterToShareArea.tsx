@@ -1,16 +1,20 @@
+import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import Views from './Views';
 import Likes from './Likes';
 import Share from './Share';
 
 const WriterToShareArea = ({ projectData, pid, userData }: any) => {
-  const { uid, like, title, content, view } = projectData;
+  const { uid, like, title, content, view, applicants } = projectData;
+  const navigate = useNavigate();
 
   return (
     <WriterToShareContainer>
       <WriterWrapper>
-        {/* 게시글 작성자 프로필 이미지/ Todo: 클릭시 공개프로필로 연결? */}
-        <WriterProfileImg src={userData?.photoURL} />
+        <WriterProfileImg
+          src={userData?.photoURL}
+          onClick={() => navigate(`/profile/${uid}`)} //작성자 공개 프로필 페이지로 이동
+        />
         <WriterNickname>{userData?.displayName ?? `닉네임`}</WriterNickname>
       </WriterWrapper>
       <IconWrapper>
@@ -46,6 +50,7 @@ const WriterProfileImg = styled.img`
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
+  cursor: pointer;
 `;
 
 const WriterNickname = styled.p`

@@ -41,7 +41,7 @@ const ProjectList = ({ category, pidList }: ProjectListProps) => {
           (project: EditType.EditFormType, idx: number) => (
             <ProjectItem
               category={category}
-              key={project.createdAt}
+              key={project?.createdAt}
               project={project}
               pid={currentPidList[idx]}
               onNavigateToProjectDetailEvent={handleNavigateToProjectDetail}

@@ -1,12 +1,14 @@
-import styled from '@emotion/styled';
-import COLORS from 'assets/styles/colors';
 import { useModal } from 'hooks';
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { allowScroll, preventScroll } from 'utils/modal';
 import InviteModal from './modals/InviteModal';
+import styled from '@emotion/styled';
+import COLORS from 'assets/styles/colors';
 
 const ApplicantListArea = ({ projectData, pid }: any) => {
   const { applicants } = projectData;
+  const navigate = useNavigate();
   const [applicantKey, setApplicantKey] = useState('');
   const { isOpen, handleModalStateChange } = useModal(false);
 
@@ -29,39 +31,50 @@ const ApplicantListArea = ({ projectData, pid }: any) => {
             if (applicants[key]?.recruit === false) {
               countFlag += 1;
               return (
-                <ApplicantWrap key={applicants[key]?.uid}>
-                  <ProfileImage src={applicants[key]?.profileURL} />
-                  <NicknameDiv>{applicants[key]?.displayName}</NicknameDiv>
-                  <PositionDiv>{applicants[key]?.position}</PositionDiv>
-
-                  <StackContainer>
-                    <StackWrap>
-                      {applicants[key]?.skills.slice(0, 3).map((skill: any) => {
-                        return <StackDiv key={skill}>{skill}</StackDiv>;
-                      })}
-                    </StackWrap>
-                    <StackWrap>
-                      {applicants[key]?.skills.slice(3, 6).map((skill: any) => {
-                        return <StackDiv key={skill}>{skill}</StackDiv>;
-                      })}
-                    </StackWrap>
-                  </StackContainer>
-                  <InviteButton
-                    onClick={() => {
-                      handleModalStateChange();
-                      setApplicantKey(key);
-                    }}
-                  >
-                    지원자 정보 보기
-                  </InviteButton>
-                  <InviteModal
-                    isOpen={isOpen}
-                    applicantData={applicants}
-                    onClickEvent={handleModalStateChange}
-                    pid={pid}
-                    applicantKey={applicantKey}
-                  />
-                </ApplicantWrap>
+                <>
+                  <ApplicantWrap key={applicants[key]?.uid}>
+                    <ProfileImage
+                      src={applicants[key]?.profileURL}
+                      onClick={() =>
+                        navigate(`/profile/${applicants[key].uid}`)
+                      }
+                    />
+                    <NicknameDiv>{applicants[key]?.displayName}</NicknameDiv>
+                    <PositionDiv>{applicants[key]?.position}</PositionDiv>
+                    <StackContainer>
+                      <StackWrap>
+                        {applicants[key]?.skills
+                          .slice(0, 3)
+                          .map((skill: any) => {
+                            return <StackDiv key={skill}>{skill}</StackDiv>;
+                          })}
+                      </StackWrap>
+                      <StackWrap>
+                        {applicants[key]?.skills
+                          .slice(3, 6)
+                          .map((skill: any) => {
+                            return <StackDiv key={skill}>{skill}</StackDiv>;
+                          })}
+                      </StackWrap>
+                    </StackContainer>
+                    <InviteButton
+                      onClick={() => {
+                        handleModalStateChange();
+                        setApplicantKey(key);
+                      }}
+                    >
+                      지원자 정보 보기
+                    </InviteButton>
+                    <InviteModal
+                      isOpen={isOpen}
+                      applicantData={applicants}
+                      onClickEvent={handleModalStateChange}
+                      pid={pid}
+                      applicantKey={applicantKey}
+                    />
+                  </ApplicantWrap>
+                  <HoverText>클릭 시 공개 프로필로 이동</HoverText>
+                </>
               );
             }
           })}
@@ -102,12 +115,18 @@ const ApplicantWrap = styled.div`
   border-radius: 0.625rem;
   padding: 0 1.25rem;
   margin-bottom: 0.625rem;
+  :hover + div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const ProfileImage = styled.img`
   width: 8rem;
   height: 8rem;
   border-radius: 50%;
+  cursor: pointer;
 `;
 
 const NicknameDiv = styled.div`
@@ -180,4 +199,20 @@ const CannotFoundApplicant = styled.div`
   justify-content: center;
   width: 100%;
   color: ${COLORS.gray500};
+`;
+
+const HoverText = styled.div`
+  position: relative;
+  right: 130px;
+  top: -100px;
+  border-radius: 0.625rem;
+  background-color: transparent;
+  color: ${COLORS.gray300};
+
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 500;
+
+  display: none;
 `;

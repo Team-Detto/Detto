@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import styled from '@emotion/styled';
-import { useProjectList } from 'hooks';
+import { useAuth, useGlobalModal, useProjectList } from 'hooks';
 import WebContainer from 'components/common/WebContainer';
 import ProjectsTab from 'components/mypage/ProjectsTab';
 import ProjectList from 'components/common/myProjectList/ProjectList';
@@ -12,11 +12,14 @@ import { getUserInfoData, getUserProjectList } from 'apis/mypageUsers';
 import COLORS from 'assets/styles/colors';
 import { concatSkills } from 'utils/skills';
 import { staleTime } from 'utils/staleTime';
+import { modalTypes } from 'components/common/modal/modal';
 
 const PublicProfilePage = () => {
-  const { id } = useParams();
+  const { id } = useParams(); //받는사람 id
+  const { uid } = useAuth(); //보내는 사람 id (현재 로그인한 유저)
   const { activeProjectTab, handleProjectTabClick, setActiveProjectTab } =
     useProjectList();
+  const { openModalWithData } = useGlobalModal();
 
   const { data: userInfoData }: any = useQuery({
     queryKey: ['users', id],
@@ -29,6 +32,18 @@ const PublicProfilePage = () => {
     queryFn: getUserProjectList,
     staleTime: staleTime.myProjects,
   });
+
+  const handleSendNoteButtonClick = () => {
+    openModalWithData(modalTypes.sendNote, {
+      id: 'id', //addDoc이라 id 필요없음
+      senderUid: uid,
+      receiverUid: id as string,
+      date: 0,
+      title: '',
+      content: '',
+      isRead: false,
+    });
+  };
 
   const stacks = concatSkills(
     userInfoData?.plannerStack,
@@ -59,8 +74,15 @@ const PublicProfilePage = () => {
                     positions={userInfoData?.positions}
                     isJunior={userInfoData?.isJunior}
                   />
+                  {userInfoData?.uid === uid && (
+                    <IfMyProfileDiv>내 프로필</IfMyProfileDiv>
+                  )}
                 </UserInformationDiv>
-                <MessageSendButton>쪽지보내기</MessageSendButton>
+                {userInfoData?.uid !== uid && (
+                  <MessageSendButton onClick={handleSendNoteButtonClick}>
+                    쪽지보내기
+                  </MessageSendButton>
+                )}
               </NicknameAndMessageContainer>
               <UserInfoObject>
                 <UserInfoKey>연락처</UserInfoKey>
@@ -153,6 +175,20 @@ const UserNicknameDiv = styled.div`
   font-size: 1.5rem;
   font-weight: 500;
   max-width: 10rem;
+`;
+
+const IfMyProfileDiv = styled.div`
+  width: 5.625rem;
+  height: 1.875rem;
+
+  background-color: ${COLORS.violetB400};
+  color: ${COLORS.white};
+  font-size: 0.875rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.625rem;
 `;
 
 const MessageSendButton = styled.button`
