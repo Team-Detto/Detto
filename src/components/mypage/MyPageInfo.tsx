@@ -1,14 +1,11 @@
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { useMutation } from '@tanstack/react-query';
-import { useModal, useUpdateProfile, useProfileImage } from 'hooks';
+import { useModal } from 'hooks';
 import styled from '@emotion/styled';
 import { mypageInfoButtonActiveState, userInfoState } from '../../recoil/atoms';
-import MyPageProfileImage from './MyPageProfileImage';
-import PositionCheckBox from './PositionCheckBox';
+import UserInfoTop from './UserInfoTop';
 import SkillList from './SkillList';
-import TextInput from './TextInput';
-import Careers from './Careers';
 import ConfirmAlert from 'components/common/ConfirmAlert';
 import { designs, develops, products } from 'utils/skills';
 import COLORS from 'assets/styles/colors';
@@ -20,16 +17,11 @@ interface MypageInfoProps {
 }
 
 const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
-  const { handleInputChange, validationMessage, contactValidationMessage } =
-    useUpdateProfile();
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [activeInfoBtn, setActiveInfoBtn] = useRecoilState<boolean>(
     mypageInfoButtonActiveState,
   );
   const { isOpen, handleModalStateChange } = useModal(false);
-  const { profileImg, handleProfileImageChange, handleProfileImageDelete } =
-    useProfileImage(uid, userInfo.photoURL);
-
   const { mutate: updateUserInfoMutate } = useMutation(() =>
     updateUserInfoData(uid, userInfo),
   );
@@ -59,44 +51,7 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
 
   return (
     <MyPageTopContainer>
-      <MypageInfoTopContainer>
-        <MyPageProfileImage
-          profileImg={profileImg}
-          onChange={handleProfileImageChange}
-          onDelete={handleProfileImageDelete}
-          uid={uid}
-        />
-        <InfoWrapper>
-          <InfoItemDiv>
-            <InfoTitle htmlFor="nickname">닉네임</InfoTitle>
-            <TextInput
-              name="displayName"
-              value={userInfo.displayName}
-              onChangeValue={handleInputChange}
-              validationMessage={validationMessage}
-            />
-          </InfoItemDiv>
-          <InfoItemDiv>
-            <InfoTitle htmlFor="contact">연락처</InfoTitle>
-            <TextInput
-              name="email"
-              value={userInfo.email ?? ''}
-              onChangeValue={handleInputChange}
-              placeholder="연락처로 쓰일 이메일을 입력해주세요."
-              validationMessage={contactValidationMessage}
-              isEmail={true}
-            />
-          </InfoItemDiv>
-          <InfoItemDiv>
-            <InfoTitle>경력</InfoTitle>
-            <Careers isJunior={userInfo.isJunior} />
-          </InfoItemDiv>
-          <InfoItemDiv>
-            <InfoTitle>포지션</InfoTitle>
-            <PositionCheckBox positions={userInfo.positions} />
-          </InfoItemDiv>
-        </InfoWrapper>
-      </MypageInfoTopContainer>
+      <UserInfoTop /> {/* 유저 개인 정보  */}
       <MyPageSkillsWrapper>
         <MyPageSkillsTitle>기술스택</MyPageSkillsTitle>
         <MypageSkillBox>
@@ -117,7 +72,6 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
           />
         </MypageSkillBox>
       </MyPageSkillsWrapper>
-
       <InfoEditConfirmWrapper>
         <InfoEditConfirmBtn
           isActive={activeInfoBtn}
@@ -140,30 +94,6 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
 export default MyPageInfo;
 
 const MyPageTopContainer = styled.div``;
-
-const MypageInfoTopContainer = styled.div`
-  padding-top: 3.125rem;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-`;
-
-const InfoWrapper = styled.div``;
-
-const InfoItemDiv = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 1.625rem;
-`;
-
-const InfoTitle = styled.label`
-  display: block;
-  width: 4rem;
-  font-size: 1.25rem;
-  color: #383838;
-  text-align: right;
-  margin-right: 3rem;
-`;
 
 const MyPageSkillsWrapper = styled.div`
   margin-top: 3.125rem;
