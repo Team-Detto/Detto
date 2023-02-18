@@ -55,39 +55,44 @@ export default function SetPositions() {
     <Container>
       {showToast && <ValidationToastPopup message={ToastMessage} top={2} />}
       <ModalNavigator page={page} back />
-      <TextContainer>
-        <TitleText>어떤 포지션인지 알려주세요</TitleText>
-        <SubText>(중복 선택 가능해요)</SubText>
-      </TextContainer>
-      <Buttons>
-        {positionList.map(({ type, name }) => (
-          <React.Fragment key={type}>
-            <Input
-              type="checkbox"
-              name="position"
-              id={type}
-              onChange={(e) =>
-                handleCheckPositions(e.currentTarget.checked, type)
-              }
-            />
-            <Label htmlFor={type}>{name}</Label>
-          </React.Fragment>
-        ))}
-      </Buttons>
-      <Buttons>
-        {careerList.map(({ id, value }) => (
-          <React.Fragment key={id}>
-            <Input
-              type="radio"
-              name="career"
-              value={id}
-              id={id}
-              onChange={(e) => setCareer(e.currentTarget.value)}
-            />
-            <Label htmlFor={id}>{value}</Label>
-          </React.Fragment>
-        ))}
-      </Buttons>
+      <BodyContainer>
+        <TextContainer>
+          <TitleText>어떤 포지션인지 알려주세요</TitleText>
+          <SubText>(중복 선택 가능해요)</SubText>
+        </TextContainer>
+        <Buttons>
+          {positionList.map(({ type, name }) => (
+            <React.Fragment key={type}>
+              <Input
+                type="checkbox"
+                name="position"
+                id={type}
+                onChange={(e) =>
+                  handleCheckPositions(e.currentTarget.checked, type)
+                }
+              />
+              <Label htmlFor={type}>{name}</Label>
+            </React.Fragment>
+          ))}
+        </Buttons>
+        <TextContainer>
+          <TitleText>경력을 선택해주세요</TitleText>
+        </TextContainer>
+        <Buttons>
+          {careerList.map(({ id, value }) => (
+            <React.Fragment key={id}>
+              <Input
+                type="radio"
+                name="career"
+                value={id}
+                id={id}
+                onChange={(e) => setCareer(e.currentTarget.value)}
+              />
+              <Label htmlFor={id}>{value}</Label>
+            </React.Fragment>
+          ))}
+        </Buttons>
+      </BodyContainer>
       <ConfirmButton onClick={handleConfirmButtonClick} />
     </Container>
   );
@@ -96,17 +101,30 @@ export default function SetPositions() {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: flex-start;
 
-  height: 100%;
   width: 100%;
+  height: 100%;
 
-  padding: 2.5rem;
+  padding: 2.5rem 2.5rem 3rem;
+  gap: 2.5rem;
+`;
+
+const BodyContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 1.875rem;
 `;
 
 const TextContainer = styled.div`
-  /* margin-top: 2.5rem; */
-  /* margin-bottom: 2.5rem; */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 0.25rem;
 `;
 
 const TitleText = styled.h3`
@@ -127,7 +145,7 @@ const SubText = styled.h2`
 
 const Buttons = styled.div`
   display: flex;
-  gap: 19px;
+  gap: 1.1875rem;
 
   /* margin-bottom: 3.75rem; */
 `;
@@ -137,8 +155,8 @@ const Label = styled.label`
   align-items: center;
   justify-content: center;
 
-  width: 9.125rem;
-  height: 5.1875rem;
+  width: 8.125rem;
+  height: 3.25rem;
 
   font-size: 1.125rem;
   font-weight: 400;

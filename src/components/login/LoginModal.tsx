@@ -40,8 +40,8 @@ const modals = [
   },
   {
     // 페이지 1 : 포지션 선택
-    width: '44.0625rem',
-    height: '28.875rem',
+    width: '44.25rem',
+    height: '36.375rem',
     component: <SetPositions />,
   },
   {
