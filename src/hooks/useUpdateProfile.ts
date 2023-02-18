@@ -1,10 +1,10 @@
 import { useCallback, useState } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { mypageInfoButtonActiveState, userInfoState } from '../recoil/atoms';
 import { contactValidation, nicknameValidation } from 'utils/validation';
 
 const useUpdateProfile = () => {
-  const [userInfo, setUserInfo] = useRecoilState<UserInfo>(userInfoState);
+  const setUserInfo = useSetRecoilState<UserInfo>(userInfoState);
   const setActiveInfoBtn = useSetRecoilState(mypageInfoButtonActiveState);
   const [validationMessage, setValidationMessage] = useState<string>('');
   const [contactValidationMessage, setContactValidationMessage] =
@@ -43,11 +43,8 @@ const useUpdateProfile = () => {
   );
 
   return {
-    userInfo,
-    setUserInfo,
     validationMessage,
     handleInputChange,
-
     contactValidationMessage,
   };
 };

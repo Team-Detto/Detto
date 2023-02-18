@@ -9,6 +9,8 @@ import {
 } from 'hooks';
 import ModalNavigator from '../common/modal/ModalNavigator';
 import ConfirmButton from './ConfirmButton';
+import { useRecoilState } from 'recoil';
+import { userInfoState } from '../../recoil/atoms';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { getUserInfoData, updateUserInfoData } from 'apis/mypageUsers';
 import { useEffect } from 'react';
@@ -21,6 +23,7 @@ import ValidationToastPopup from 'components/common/ValidationToastPopup';
 const page = 3;
 
 export default function SetProfile() {
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const { showToast, ToastMessage, handleToastPopup } = useToastPopup();
   const { openModal } = useGlobalModal();
 
@@ -33,8 +36,7 @@ export default function SetProfile() {
     staleTime: staleTime.user,
   });
 
-  const { userInfo, setUserInfo, handleInputChange, validationMessage } =
-    useUpdateProfile();
+  const { handleInputChange, validationMessage } = useUpdateProfile();
   const { profileImg, handleProfileImageChange, handleProfileImageDelete } =
     useProfileImage(uid, userInfoData?.photoURL);
 
@@ -92,7 +94,6 @@ export default function SetProfile() {
             profileImg={profileImg}
             onChange={handleProfileImageChange}
             onDelete={handleProfileImageDelete}
-            setUserInfo={setUserInfo}
             uid={uid}
           />
           <NicknameContainer>

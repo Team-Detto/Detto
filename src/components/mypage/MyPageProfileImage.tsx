@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
+import { userInfoState } from '../../recoil/atoms';
+import { useSetRecoilState } from 'recoil';
+import { useModal } from 'hooks';
 import styled from '@emotion/styled';
 import { RiPencilFill } from 'react-icons/ri';
-import { useModal } from 'hooks';
 import ProfileImageModal, {
   ModalProfileImageBox,
   ProfileImage,
@@ -15,8 +17,6 @@ interface MyPageProfileImageProps {
   profileImg: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onDelete: () => void;
-  setUserInfo: React.Dispatch<React.SetStateAction<UserInfo>>;
-
   uid: string;
 }
 
@@ -24,8 +24,8 @@ const MyPageProfileImage = ({
   profileImg,
   onChange,
   onDelete,
-  setUserInfo,
 }: MyPageProfileImageProps) => {
+  const setUserInfo = useSetRecoilState(userInfoState);
   const {
     isOpen: isProfileModalOpen,
     handleModalStateChange: profileModalStateChange,

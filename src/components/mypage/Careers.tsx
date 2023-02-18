@@ -1,17 +1,17 @@
-import styled from '@emotion/styled';
 import { useCallback } from 'react';
 import { useSetRecoilState } from 'recoil';
-import { mypageInfoButtonActiveState } from '../../recoil/atoms';
+import { mypageInfoButtonActiveState, userInfoState } from '../../recoil/atoms';
+import styled from '@emotion/styled';
 import { career } from 'utils/positions';
 import CareerRadioInput from './CareerRadioInput';
 
 interface CareersProps {
   isJunior: boolean;
-  setUserInfo: React.Dispatch<React.SetStateAction<UserInfo>>;
 }
 
-const Careers = ({ isJunior, setUserInfo }: CareersProps) => {
+const Careers = ({ isJunior }: CareersProps) => {
   const setActiveInfoBtn = useSetRecoilState(mypageInfoButtonActiveState);
+  const setUserInfo = useSetRecoilState(userInfoState);
 
   const handleCheckedRadioChange = useCallback(
     (e: React.MouseEvent<HTMLInputElement>) => {

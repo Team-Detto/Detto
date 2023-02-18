@@ -3,7 +3,7 @@ import { useRecoilState } from 'recoil';
 import { useMutation } from '@tanstack/react-query';
 import { useModal, useUpdateProfile, useProfileImage } from 'hooks';
 import styled from '@emotion/styled';
-import { mypageInfoButtonActiveState } from '../../recoil/atoms';
+import { mypageInfoButtonActiveState, userInfoState } from '../../recoil/atoms';
 import MyPageProfileImage from './MyPageProfileImage';
 import PositionCheckBox from './PositionCheckBox';
 import SkillList from './SkillList';
@@ -20,19 +20,15 @@ interface MypageInfoProps {
 }
 
 const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
-  const {
-    userInfo,
-    setUserInfo,
-    handleInputChange,
-    validationMessage,
-    contactValidationMessage,
-  } = useUpdateProfile();
-  const { isOpen, handleModalStateChange } = useModal(false);
-  const { profileImg, handleProfileImageChange, handleProfileImageDelete } =
-    useProfileImage(uid, userInfo.photoURL);
+  const { handleInputChange, validationMessage, contactValidationMessage } =
+    useUpdateProfile();
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [activeInfoBtn, setActiveInfoBtn] = useRecoilState<boolean>(
     mypageInfoButtonActiveState,
   );
+  const { isOpen, handleModalStateChange } = useModal(false);
+  const { profileImg, handleProfileImageChange, handleProfileImageDelete } =
+    useProfileImage(uid, userInfo.photoURL);
 
   const { mutate: updateUserInfoMutate } = useMutation(() =>
     updateUserInfoData(uid, userInfo),
@@ -68,7 +64,6 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
           profileImg={profileImg}
           onChange={handleProfileImageChange}
           onDelete={handleProfileImageDelete}
-          setUserInfo={setUserInfo}
           uid={uid}
         />
         <InfoWrapper>
@@ -82,7 +77,6 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
             />
           </InfoItemDiv>
           <InfoItemDiv>
-            {/* TODO :: 연락처 관련 로직 수정 필요 */}
             <InfoTitle htmlFor="contact">연락처</InfoTitle>
             <TextInput
               name="email"
@@ -94,14 +88,11 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
           </InfoItemDiv>
           <InfoItemDiv>
             <InfoTitle>경력</InfoTitle>
-            <Careers isJunior={userInfo.isJunior} setUserInfo={setUserInfo} />
+            <Careers isJunior={userInfo.isJunior} />
           </InfoItemDiv>
           <InfoItemDiv>
             <InfoTitle>포지션</InfoTitle>
-            <PositionCheckBox
-              positions={userInfo.positions}
-              setUserInfo={setUserInfo}
-            />
+            <PositionCheckBox positions={userInfo.positions} />
           </InfoItemDiv>
         </InfoWrapper>
       </MypageInfoTopContainer>
@@ -112,19 +103,16 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
             category="기획"
             skills={products}
             checkedSkills={userInfo.plannerStack}
-            setUserInfo={setUserInfo}
           />
           <SkillList
             category="디자인"
             skills={designs}
             checkedSkills={userInfo.designerStack}
-            setUserInfo={setUserInfo}
           />
           <SkillList
             category="개발"
             skills={develops}
             checkedSkills={userInfo.developerStack}
-            setUserInfo={setUserInfo}
           />
         </MypageSkillBox>
       </MyPageSkillsWrapper>
