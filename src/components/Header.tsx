@@ -33,11 +33,13 @@ const Header = () => {
         queryKey: ['inbox', uid],
         queryFn: getInboxNotes,
         staleTime: staleTime.inboxNotes,
+        enabled: !!uid,
       },
       {
         queryKey: ['notifications', uid],
         queryFn: getNotifications,
         staleTime: staleTime.notifications,
+        enabled: !!uid,
       },
     ],
   });
