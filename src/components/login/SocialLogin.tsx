@@ -17,19 +17,21 @@ export default function SocialLogin() {
       {/* 로그인 팝업창이 열려있을 때 모달창 상호작용을 방지하기 위한 오버레이 */}
       <Overlay overlay={overlay} />
       <ModalNavigator page={0} close />
-      <KeyImg src={KEY_IMG} alt="login" />
-      <Title>로그인을 해주세요</Title>
-      <LoginButtons>
-        <LoginButton onClick={handleGithubLogin}>
-          <LogoImg src={GITHUB_IMG} alt="github" />
-        </LoginButton>
-        <LoginButton onClick={handleFacebookLogin}>
-          <LogoImg src={FACEBOOK_IMG} alt="facebook" />
-        </LoginButton>
-        <LoginButton onClick={handleGoogleLogin}>
-          <LogoImg src={GOOGLE_IMG} alt="google" />
-        </LoginButton>
-      </LoginButtons>
+      <BodyContainer>
+        <KeyImg src={KEY_IMG} alt="login" />
+        <Title>로그인을 해주세요</Title>
+        <LoginButtons>
+          <LoginButton onClick={handleGithubLogin}>
+            <LogoImg src={GITHUB_IMG} alt="github" />
+          </LoginButton>
+          <LoginButton onClick={handleFacebookLogin}>
+            <LogoImg src={FACEBOOK_IMG} alt="facebook" />
+          </LoginButton>
+          <LoginButton onClick={handleGoogleLogin}>
+            <LogoImg src={GOOGLE_IMG} alt="google" />
+          </LoginButton>
+        </LoginButtons>
+      </BodyContainer>
     </Container>
   );
 }
@@ -37,12 +39,13 @@ export default function SocialLogin() {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
 
   width: 100%;
   height: 100%;
 
-  padding: 3.75rem 6.25rem;
+  padding: 2.5rem 2.5rem 8.3125rem 2.5rem;
 `;
 
 const Overlay = styled.div<{ overlay: boolean }>`
@@ -57,6 +60,11 @@ const Overlay = styled.div<{ overlay: boolean }>`
 
   z-index: 1000;
   background-color: rgba(255, 255, 255, 0.3);
+`;
+
+const BodyContainer = styled.div`
+  width: 27.75rem;
+  height: 17.875rem;
 `;
 
 const KeyImg = styled.img`
