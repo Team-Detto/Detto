@@ -260,6 +260,10 @@ const reset = css`
   body {
     height: 100%;
   }
+
+  body {
+    overflow: overlay;
+  }
 `;
 
 export default reset;
