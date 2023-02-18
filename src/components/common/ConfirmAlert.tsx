@@ -111,7 +111,7 @@ export const ConfirmAlertCancelButton = styled.button`
   height: 3.75rem;
   background: #f2f4f6;
   border-radius: 0.5rem;
-  transition: all 300ms ease-in-out;
+  transition: all 100ms ease-in-out;
   color: #505967;
   font-weight: 600;
 
@@ -120,7 +120,7 @@ export const ConfirmAlertCancelButton = styled.button`
   }
 `;
 const ConfirmAlertInviteButton = styled(ConfirmAlertCancelButton)`
-  background: #6f64f2;
+  background: ${COLORS.violetB400};
   color: ${COLORS.white};
 
   &:hover {

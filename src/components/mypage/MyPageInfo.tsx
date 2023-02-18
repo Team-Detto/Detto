@@ -156,14 +156,14 @@ const InfoEditConfirmBtn = styled.button<{ isActive: boolean }>`
   background-color: ${({ isActive }) =>
     isActive ? COLORS.violetB500 : COLORS.gray100};
   color: ${({ isActive }) => (isActive ? COLORS.white : COLORS.gray750)};
-  transition: all 300ms ease-in-out;
+  transition: all 100ms ease-in-out;
 
   &:disabled {
     pointer-events: none;
   }
 
   &:not(:disabled):hover {
-    background-color: ${COLORS.violetB300};
+    background-color: ${COLORS.violetB400};
     color: ${COLORS.white};
   }
 `;

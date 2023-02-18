@@ -75,4 +75,9 @@ const ConfirmButton = styled.button`
 
   background: ${COLORS.violetB400};
   border-radius: 1rem;
+  transition: all 100ms ease-in-out;
+
+  &:hover {
+    background: ${COLORS.violetB300};
+  }
 `;

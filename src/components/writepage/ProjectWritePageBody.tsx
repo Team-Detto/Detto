@@ -148,6 +148,11 @@ const WritePageBodyThumbnailButton = styled.button`
   color: #ffffff;
   border-radius: 8px;
   margin-left: 2rem;
+  transition: background-color 100ms ease-in-out;
+
+  &:hover {
+    background-color: ${COLORS.violetB400};
+  }
 `;
 const WritePageBodyThumbnailWarningText = styled.p`
   padding-left: 7rem;

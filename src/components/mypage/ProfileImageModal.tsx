@@ -141,6 +141,6 @@ const ModalButton = styled(ConfirmAlertCancelButton)<{ isConfirm?: boolean }>`
 
   &:hover {
     background-color: ${({ isConfirm }) =>
-      isConfirm ? COLORS.violetB300 : COLORS.gray200};
+      isConfirm ? COLORS.violetB400 : COLORS.gray200};
   }
 `;

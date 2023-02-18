@@ -2,6 +2,7 @@ import { MutableRefObject } from 'react';
 import TextEdiotr from 'components/TextEditor';
 import { WriteType } from 'types/write/writeType';
 import styled from '@emotion/styled';
+import COLORS from 'assets/styles/colors';
 
 interface props {
   editRef: MutableRefObject<any>;
@@ -41,10 +42,16 @@ const ProjectWritePageFooterEditBox = styled.div`
 const ProjectWritePageFooterCompleatedButton = styled.button`
   width: 29.375rem;
   height: 5.5rem;
-  background: #6f64f2;
+  background-color: ${COLORS.violetB400};
   color: #ffffff;
   border-radius: 2.25rem;
   margin-top: 4rem;
+
+  transition: background-color 100ms ease-in-out;
+
+  &:hover {
+    background-color: ${COLORS.violetB300};
+  }
 `;
 const ProjectWritePageFooterCompleatedText = styled.p`
   font-weight: 700;

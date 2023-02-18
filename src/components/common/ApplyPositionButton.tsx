@@ -37,8 +37,8 @@ const PositionButton = styled.button`
     props.isActive === true ? '#5D50F0' : '#f2f4f6'};
   color: ${(props: { isActive: boolean }) =>
     props.isActive === true ? '#ffffff' : '#000000'};
+  transition: transform 100ms ease-in-out;
   &:hover {
-    transform: scale(1.1);
-    transition: transform 0.5s;
+    transform: scale(1.05);
   }
 `;

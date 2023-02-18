@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import COLORS from 'assets/styles/colors';
 import { useEffect } from 'react';
 import { allowScroll, preventScroll } from 'utils/modal';
 
@@ -114,9 +115,15 @@ const AlertButtonContainer = styled.div`
 const AlertButton = styled.button`
   width: 27.75rem;
   height: 3.875rem;
-  background: #6f64f2;
+  background: ${COLORS.violetB400};
   color: #ffffff;
   border-radius: 16px;
+  font-weight: 600;
+  transition: all 100ms ease-in-out;
+
+  &:hover {
+    background-color: ${COLORS.violetB300};
+  }
 `;
 
 export default Alert;
