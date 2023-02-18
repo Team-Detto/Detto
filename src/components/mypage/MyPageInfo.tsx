@@ -209,5 +209,6 @@ const InfoEditConfirmBtn = styled.button<{ isActive: boolean }>`
 
   &:hover {
     background-color: ${COLORS.violetB300};
+    color: ${COLORS.white};
   }
 `;
