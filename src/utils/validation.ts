@@ -31,8 +31,8 @@ export const deadlineValidation = (deadline: string, TodayDate: string) => {
 };
 
 export const nicknameValidation = (nickname: string) => {
-  if (nickname === '') return false;
-  if (nickname.length >= 20) return false;
+  if (nickname.length < 2) return false;
+  if (nickname.length > 7) return false;
   return true;
 };
 

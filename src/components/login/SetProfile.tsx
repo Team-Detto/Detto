@@ -47,8 +47,8 @@ export default function SetProfile() {
   // 닉네임  유효성 검사
   const checkValidation = () => {
     const nameLenght = userInfo.displayName.length;
-    if (nameLenght < 2 || nameLenght > 20) {
-      handleToastPopup('닉네임은 2자 이상 20자 이하로 입력해주세요.');
+    if (nameLenght < 2 || nameLenght > 7) {
+      handleToastPopup('닉네임은 2자 이상 7자 이하로 입력해주세요.');
       return false;
     }
     return true;

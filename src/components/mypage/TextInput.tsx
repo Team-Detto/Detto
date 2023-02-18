@@ -25,7 +25,7 @@ const TextInput = ({
         onChange={onChangeValue}
         placeholder={placeholder}
         minLength={2}
-        maxLength={30}
+        maxLength={7}
       />
       <ValidationMessage>{validationMessage}</ValidationMessage>
     </InputBox>
