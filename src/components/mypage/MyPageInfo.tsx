@@ -84,6 +84,7 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
               onChangeValue={handleInputChange}
               placeholder="연락처로 쓰일 이메일을 입력해주세요."
               validationMessage={contactValidationMessage}
+              isEmail={true}
             />
           </InfoItemDiv>
           <InfoItemDiv>
