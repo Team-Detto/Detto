@@ -47,5 +47,5 @@ interface Notification {
   photoURL: string;
   title: string;
   uid: string;
-  link?: { type: 'project' | 'profile'; id?: string };
+  link?: { type: 'project' | 'profile'; id: string };
 }
