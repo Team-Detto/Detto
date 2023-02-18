@@ -35,7 +35,7 @@ const PublicProfilePage = () => {
 
   const handleSendNoteButtonClick = () => {
     openModalWithData(modalTypes.sendNote, {
-      id: id as string,
+      id: 'id', //addDoc이라 id 필요없음
       senderUid: uid,
       receiverUid: id as string,
       date: 0,
@@ -43,7 +43,6 @@ const PublicProfilePage = () => {
       content: '',
       isRead: false,
     });
-    console.log('test');
   };
 
   const stacks = concatSkills(
