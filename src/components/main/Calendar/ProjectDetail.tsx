@@ -3,29 +3,38 @@ import styled from '@emotion/styled';
 import { useRecoilValue } from 'recoil';
 import { selectedProjectState } from '../../../recoil/atoms';
 import { getDate } from 'utils/date';
+import COLORS from '../../../assets/styles/colors';
 
 const ProjectDetail = () => {
   const selectedProject = useRecoilValue<any>(selectedProjectState);
 
   if (!selectedProject) return null;
+  const positions = [
+    { value: 'frontend', name: '프론트엔드' },
+    { value: 'backend', name: '백엔드' },
+    { value: 'designer', name: '디자이너' },
+    { value: 'planner', name: '기획자' },
+  ];
+
+  const positionsKeys = Object.keys(selectedProject.positions);
+
+  const positionsNames = positionsKeys.map((key) => {
+    const position = positions.find((position) => position.value === key);
+    return position?.name + ',';
+  });
+
   return (
     <ProjectDetailWrap>
       <div key={selectedProject}>
         <ProjectDetailContainer>
-          <ProjectDetailSproutTextDiv>🌱 새싹 레벨</ProjectDetailSproutTextDiv>
-          <ProjectDetailTitleAreaDiv>팀원을 구해요!</ProjectDetailTitleAreaDiv>
+          <ProjectDetailSproutTextDiv>
+            🌱 함께할 팀원
+            <ProjectDetailSproutTextP>을 구해요!</ProjectDetailSproutTextP>
+          </ProjectDetailSproutTextDiv>
         </ProjectDetailContainer>
         <ProjectDetailContainer>
           <ProjectDetailTextAreaDiv>프로젝트 이름</ProjectDetailTextAreaDiv>
           <div>{selectedProject.title}</div>
-        </ProjectDetailContainer>
-        <ProjectDetailContainer>
-          <ProjectDetailTextAreaDiv>필요 스택</ProjectDetailTextAreaDiv>
-          <div>{selectedProject.developerStack + '   '}</div>
-        </ProjectDetailContainer>
-        <ProjectDetailContainer>
-          <ProjectDetailTextAreaDiv>팀원 레벨</ProjectDetailTextAreaDiv>
-          <div>새싹</div>
         </ProjectDetailContainer>
         <ProjectDetailContainer>
           <ProjectDetailTextAreaDiv>기간</ProjectDetailTextAreaDiv>
@@ -33,6 +42,30 @@ const ProjectDetail = () => {
             {getDate(selectedProject.startDate)} ~{' '}
             {getDate(selectedProject.endDate)}
           </div>
+        </ProjectDetailContainer>
+        <ProjectDetailContainer>
+          <ProjectDetailTextAreaDiv>포지션</ProjectDetailTextAreaDiv>
+          <div>{positionsNames.sort().join('').slice(0, -1)}</div>
+        </ProjectDetailContainer>
+        <ProjectDetailContainer>
+          <ProjectDetailTextAreaDiv>모집 마감일</ProjectDetailTextAreaDiv>
+          <div>{getDate(selectedProject.deadline)}</div>
+        </ProjectDetailContainer>
+        <ProjectDetailContainer>
+          <ProjectDetailinquiryAttentionBox>
+            <ProjectDetailinquiryAttentionTextBox>
+              조회수
+              <ProjectDetailinquiryAttentionTextP>
+                {selectedProject?.view}
+              </ProjectDetailinquiryAttentionTextP>
+            </ProjectDetailinquiryAttentionTextBox>
+            <ProjectDetailinquiryAttentionTextBox>
+              관심
+              <ProjectDetailinquiryAttentionTextP>
+                {selectedProject?.like}
+              </ProjectDetailinquiryAttentionTextP>
+            </ProjectDetailinquiryAttentionTextBox>
+          </ProjectDetailinquiryAttentionBox>
         </ProjectDetailContainer>
 
         <Link to={`/project/${selectedProject.id}`}>
@@ -46,25 +79,43 @@ const ProjectDetail = () => {
 const ProjectDetailWrap = styled.div`
   width: 18.75rem;
   height: 12.125rem;
-  margin: 1.25rem auto 0 auto;
+  margin: 1rem auto 0 auto;
 `;
 const ProjectDetailContainer = styled.div`
   display: flex;
   direction: row;
-  margin: 0.9375rem 0;
+  margin-bottom: 1rem;
 `;
-const ProjectDetailTitleAreaDiv = styled.div`
+const ProjectDetailSproutTextP = styled.p`
   color: #464646;
-  font-size: 0.875rem;
-  margin-left: 0.5rem;
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 150%;
 `;
 const ProjectDetailTextAreaDiv = styled.div`
   color: #464646;
   font-size: 1rem;
   margin-right: 1rem;
+
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
 `;
 const ProjectDetailSproutTextDiv = styled.div`
+  display: flex;
+  flex-direction: row;
   color: #72b819;
+  width: 300px;
+  height: 21px;
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 150%;
 `;
 const ProjectDetailButton = styled.button`
   background: #6b43dd;
@@ -74,4 +125,31 @@ const ProjectDetailButton = styled.button`
   margin-top: 2.5rem;
   color: #fff;
 `;
+const ProjectDetailinquiryAttentionBox = styled.div`
+  width: 35%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+const ProjectDetailinquiryAttentionTextBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 140%;
+  color: #98a2ae;
+`;
+const ProjectDetailinquiryAttentionTextP = styled.p`
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 140%;
+  color: #98a2ae;
+  margin-left: 2px;
+`;
+
 export default ProjectDetail;
