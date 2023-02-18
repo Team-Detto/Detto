@@ -16,7 +16,7 @@ import { modalTypes } from 'components/common/modal/modal';
 
 const PublicProfilePage = () => {
   const { id } = useParams(); //받는사람 id
-  const { uid } = useAuth(); //보내는 사람 id
+  const { uid } = useAuth(); //보내는 사람 id (현재 로그인한 유저)
   const { activeProjectTab, handleProjectTabClick, setActiveProjectTab } =
     useProjectList();
   const { openModalWithData } = useGlobalModal();
@@ -74,10 +74,15 @@ const PublicProfilePage = () => {
                     positions={userInfoData?.positions}
                     isJunior={userInfoData?.isJunior}
                   />
+                  {userInfoData?.uid === uid && (
+                    <IfMyProfileDiv>내 프로필</IfMyProfileDiv>
+                  )}
                 </UserInformationDiv>
-                <MessageSendButton onClick={handleSendNoteButtonClick}>
-                  쪽지보내기
-                </MessageSendButton>
+                {userInfoData?.uid !== uid && (
+                  <MessageSendButton onClick={handleSendNoteButtonClick}>
+                    쪽지보내기
+                  </MessageSendButton>
+                )}
               </NicknameAndMessageContainer>
               <UserInfoObject>
                 <UserInfoKey>연락처</UserInfoKey>
@@ -170,6 +175,20 @@ const UserNicknameDiv = styled.div`
   font-size: 1.5rem;
   font-weight: 500;
   max-width: 10rem;
+`;
+
+const IfMyProfileDiv = styled.div`
+  width: 5.625rem;
+  height: 1.875rem;
+
+  background-color: ${COLORS.violetB400};
+  color: ${COLORS.white};
+  font-size: 0.875rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.625rem;
 `;
 
 const MessageSendButton = styled.button`
