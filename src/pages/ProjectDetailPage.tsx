@@ -17,13 +17,15 @@ import ApplyButtonArea from 'components/projectDetail/ApplyButtonArea';
 import ApplicantListArea from 'components/projectDetail/ApplicantListArea';
 import COLORS from 'assets/styles/colors';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useAuth, useModal } from 'hooks';
+import { useAuth, useModal, useNotification } from 'hooks';
 import ApplyModal from 'components/projectDetail/ApplyModal/ApplyModal';
 import ConfirmAlert from 'components/common/ConfirmAlert';
 
 const ProjectDetailPage = () => {
   const params = useParams();
   const pid = params?.id;
+
+  const sendNotification = useNotification();
 
   //프로젝트 데이터 조회
   const { data: projectData } = useQuery({
@@ -65,8 +67,26 @@ const ProjectDetailPage = () => {
     },
   );
 
+  // 지원자에게 마감 알림 보내기
+  const sendDeadlineNotificationToApplicants = () => {
+    // applicants map을 array로 변경
+    const applicantsUidArray = Object.keys(projectData?.applicants);
+
+    applicantsUidArray.forEach((applicant: any) => {
+      sendNotification({
+        title: '지원하신 프로젝트의 모집이 마감되었습니다.',
+        receiverUid: applicant,
+        link: {
+          type: 'project',
+          id: params.id!,
+        },
+      });
+    });
+  };
+
   // 마감하기 버튼 이벤트 핸들러
   const handleAuthorButtonClick = () => {
+    sendDeadlineNotificationToApplicants();
     updateRecruitingMutate(pid as any, false as any);
     handleCloseModalCloseChange();
   };
