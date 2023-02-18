@@ -84,7 +84,7 @@ const ProjectDetailWrap = styled.div`
 const ProjectDetailContainer = styled.div`
   display: flex;
   direction: row;
-  margin-bottom: 1rem;
+  margin-bottom: 1.1rem;
 `;
 const ProjectDetailSproutTextP = styled.p`
   color: #464646;
