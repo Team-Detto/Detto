@@ -8,20 +8,12 @@ interface props {
   onClickEvent: () => void;
   mainMsg: string;
   subMsg: string;
-
   page?: string;
 }
 
-const Alert = ({
-  isOpen,
-  onClickEvent,
-  mainMsg,
-  subMsg,
-
-  page,
-}: props) => {
+const Alert = ({ isOpen, onClickEvent, mainMsg, subMsg, page }: props) => {
   useEffect(() => {
-    if (page !== 'apply') {
+    if (page !== ('sendNote' || 'apply')) {
       if (isOpen) {
         const prevScrollY = preventScroll();
         return () => {

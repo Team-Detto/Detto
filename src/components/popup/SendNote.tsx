@@ -99,8 +99,9 @@ export default function SendNote({ data }: { data: Note }) {
       <Alert
         isOpen={isAlertOpen}
         onClickEvent={handleAlertButtonClick}
-        mainMsg="메세지를 보냈어요!"
+        mainMsg="쪽지를 보냈어요!"
         subMsg="보낸 쪽지함에서 확인해보세요."
+        page="sendNote"
       />
     </>
   );
