@@ -4,6 +4,7 @@ import { useFindProject, useProjectList } from 'hooks';
 import ProjectItem from './ProjectItem';
 import { EditType } from 'types/write/writeType';
 import COLORS from 'assets/styles/colors';
+import { staleTime } from 'utils/staleTime';
 
 export interface PidListProps {
   [key: string]: string[];
@@ -25,8 +26,9 @@ const ProjectList = ({ category, pidList }: ProjectListProps) => {
       : pidList[category];
 
   const { data: activeProjectsData }: any = useQuery({
-    queryKey: ['activeProjects', currentPidList],
+    queryKey: ['myProjects', currentPidList],
     queryFn: getActiveProjects,
+    staleTime: staleTime.myProjects,
   });
 
   return (

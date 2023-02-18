@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import styled from '@emotion/styled';
@@ -5,12 +6,12 @@ import { useProjectList } from 'hooks';
 import WebContainer from 'components/common/WebContainer';
 import ProjectsTab from 'components/mypage/ProjectsTab';
 import ProjectList from 'components/common/myProjectList/ProjectList';
-import { getUserInfoData, getUserProjectList } from 'apis/mypageUsers';
-import { concatSkills } from 'utils/skills';
-import COLORS from 'assets/styles/colors';
 import UserPositions from 'components/publicProfile/UserPositions';
 import UserStacks from 'components/publicProfile/UserStacks';
-import { useEffect } from 'react';
+import { getUserInfoData, getUserProjectList } from 'apis/mypageUsers';
+import COLORS from 'assets/styles/colors';
+import { concatSkills } from 'utils/skills';
+import { staleTime } from 'utils/staleTime';
 
 const PublicProfilePage = () => {
   const { id } = useParams();
@@ -20,11 +21,13 @@ const PublicProfilePage = () => {
   const { data: userInfoData }: any = useQuery({
     queryKey: ['users', id],
     queryFn: getUserInfoData,
+    staleTime: staleTime.users,
   });
 
   const { data: userProjectListsData }: any = useQuery({
-    queryKey: ['myprojects', id],
+    queryKey: ['myProjects', id],
     queryFn: getUserProjectList,
+    staleTime: staleTime.myProjects,
   });
 
   const stacks = concatSkills(
