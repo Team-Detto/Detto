@@ -49,4 +49,5 @@ const MotiveTextArea = styled.textarea`
   height: 12.3125rem;
   border: 0.0625rem solid #ced3db;
   border-radius: 0.25rem;
+  resize: none;
 `;

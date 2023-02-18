@@ -23,12 +23,13 @@ import ConfirmAlert from 'components/common/ConfirmAlert';
 
 const ProjectDetailPage = () => {
   const params = useParams();
+  const pid = params?.id;
   const queryClient = useQueryClient();
 
   //프로젝트 데이터 조회
   const { data: projectData } = useQuery({
-    queryKey: ['post', params?.id],
-    queryFn: () => viewProject(params?.id),
+    queryKey: ['post', pid],
+    queryFn: () => viewProject(pid),
   });
 
   const { uid } = useAuth();
@@ -41,30 +42,30 @@ const ProjectDetailPage = () => {
   // 현재 유저가 프로젝트 지원자 인가 조회
   const { data: isApplicant } = useQuery({
     queryKey: ['post', projectData?.applicants],
-    queryFn: () => firebaseGetIsApplicantRequest(params?.id, uid),
+    queryFn: () => firebaseGetIsApplicantRequest(pid, uid),
   });
 
   const { mutate: updateRecruitingMutate } = useMutation(
-    () => updateRecruiting(params?.id as string, false),
+    () => updateRecruiting(pid as string, false),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(['post', params?.id]); //마감하기 버튼 성공시 렌더링
+        queryClient.invalidateQueries(['post', pid]); //마감하기 버튼 성공시 렌더링
       },
     },
   );
 
   const { mutate: deleteApplicantMutate } = useMutation(
-    () => deleteApplicant(params?.id as string, uid),
+    () => deleteApplicant(pid as string, uid),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(['post', params?.id]); //마감하기 버튼 성공시 렌더링
+        queryClient.invalidateQueries(['post', pid]); //마감하기 버튼 성공시 렌더링
       },
     },
   );
 
   // 마감하기 버튼 이벤트 핸들러
   const handleAuthorButtonClick = () => {
-    updateRecruitingMutate(params?.id as any, false as any);
+    updateRecruitingMutate(pid as any, false as any);
     handleCloseModalCloseChange();
   };
 
@@ -89,10 +90,10 @@ const ProjectDetailPage = () => {
       {projectData && (
         <WebContainer>
           <ProjectDetailWrapper>
-            <TitleThumbnailArea projectData={projectData} pid={params?.id} />
+            <TitleThumbnailArea projectData={projectData} pid={pid} />
             <WriterToShareArea
               projectData={projectData}
-              pid={params?.id}
+              pid={pid}
               userData={userData}
             />
             <RecruitmentInfoContainer>
@@ -102,7 +103,7 @@ const ProjectDetailPage = () => {
             <ContentArea projectData={projectData} />
           </ProjectDetailWrapper>
           <ApplyButtonArea
-            pid={params?.id}
+            pid={pid}
             isApplicant={isApplicant}
             projectData={projectData}
             onApplyModalStateChangeEvent={handleApplyModalOpenChange} //지원하기
@@ -140,7 +141,7 @@ const ProjectDetailPage = () => {
             <ApplicantListArea
               projectData={projectData}
               userData={userData}
-              pid={params?.id}
+              pid={pid}
             />
           )}
         </WebContainer>
