@@ -1,18 +1,17 @@
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { useMutation } from '@tanstack/react-query';
-import { useModal, useUpdateProfile, useProfileImage } from 'hooks';
+import { useModal, useToastPopup } from 'hooks';
 import styled from '@emotion/styled';
 import { mypageInfoButtonActiveState, userInfoState } from '../../recoil/atoms';
-import MyPageProfileImage from './MyPageProfileImage';
-import PositionCheckBox from './PositionCheckBox';
+import UserInfoTop from './UserInfoTop';
 import SkillList from './SkillList';
-import TextInput from './TextInput';
-import Careers from './Careers';
 import ConfirmAlert from 'components/common/ConfirmAlert';
-import { designs, develops, products } from 'utils/skills';
-import COLORS from 'assets/styles/colors';
+import ValidationToastPopup from 'components/common/ValidationToastPopup';
 import { updateUserInfoData } from 'apis/mypageUsers';
+import { designs, develops, products } from 'utils/skills';
+import { contactValidation } from 'utils/validation';
+import COLORS from 'assets/styles/colors';
 
 interface MypageInfoProps {
   user: User;
@@ -20,19 +19,44 @@ interface MypageInfoProps {
 }
 
 const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
-  const { handleInputChange, validationMessage, contactValidationMessage } =
-    useUpdateProfile();
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [activeInfoBtn, setActiveInfoBtn] = useRecoilState<boolean>(
     mypageInfoButtonActiveState,
   );
   const { isOpen, handleModalStateChange } = useModal(false);
-  const { profileImg, handleProfileImageChange, handleProfileImageDelete } =
-    useProfileImage(uid, userInfo.photoURL);
+  const { showToast, ToastMessage, handleToastPopup } = useToastPopup();
 
   const { mutate: updateUserInfoMutate } = useMutation(() =>
     updateUserInfoData(uid, userInfo),
   );
+
+  // 유효성 검사
+  const checkInfoValidation = () => {
+    console.log('userInfo.displayName', userInfo?.displayName);
+    const nickname = userInfo.displayName;
+    if (nickname.length < 2 || nickname.length > 7) {
+      handleToastPopup('닉네임은 2자 이상 7자 이하로 입력해주세요.');
+      return false;
+    }
+
+    if (userInfo.email && !contactValidation(userInfo.email)) {
+      handleToastPopup('연락처를 올바르게 입력해주세요.');
+      return false;
+    }
+
+    if (userInfo.positions.length === 0) {
+      handleToastPopup('포지션을 선택해주세요.');
+      return false;
+    }
+    return true;
+  };
+
+  // 수정 버튼 클릭 시 유효성 검사 확인 후 모달창 오픈
+  const handleUserInfoConfirm = () => {
+    if (!checkInfoValidation()) return;
+
+    handleModalStateChange();
+  };
 
   // DB로 수정 정보 업데이트
   const handleUserInfoUpdate = () => {
@@ -59,44 +83,8 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
 
   return (
     <MyPageTopContainer>
-      <MypageInfoTopContainer>
-        <MyPageProfileImage
-          profileImg={profileImg}
-          onChange={handleProfileImageChange}
-          onDelete={handleProfileImageDelete}
-          uid={uid}
-        />
-        <InfoWrapper>
-          <InfoItemDiv>
-            <InfoTitle htmlFor="nickname">닉네임</InfoTitle>
-            <TextInput
-              name="displayName"
-              value={userInfo.displayName}
-              onChangeValue={handleInputChange}
-              validationMessage={validationMessage}
-            />
-          </InfoItemDiv>
-          <InfoItemDiv>
-            <InfoTitle htmlFor="contact">연락처</InfoTitle>
-            <TextInput
-              name="email"
-              value={userInfo.email ?? ''}
-              onChangeValue={handleInputChange}
-              placeholder="연락처로 쓰일 이메일을 입력해주세요."
-              validationMessage={contactValidationMessage}
-              isEmail={true}
-            />
-          </InfoItemDiv>
-          <InfoItemDiv>
-            <InfoTitle>경력</InfoTitle>
-            <Careers isJunior={userInfo.isJunior} />
-          </InfoItemDiv>
-          <InfoItemDiv>
-            <InfoTitle>포지션</InfoTitle>
-            <PositionCheckBox positions={userInfo.positions} />
-          </InfoItemDiv>
-        </InfoWrapper>
-      </MypageInfoTopContainer>
+      {showToast && <ValidationToastPopup message={ToastMessage} top={4} />}
+      <UserInfoTop /> {/* 유저 개인 정보  */}
       <MyPageSkillsWrapper>
         <MyPageSkillsTitle>기술스택</MyPageSkillsTitle>
         <MypageSkillBox>
@@ -117,11 +105,11 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
           />
         </MypageSkillBox>
       </MyPageSkillsWrapper>
-
       <InfoEditConfirmWrapper>
         <InfoEditConfirmBtn
           isActive={activeInfoBtn}
-          onClick={handleModalStateChange}
+          onClick={handleUserInfoConfirm}
+          disabled={!activeInfoBtn}
         >
           개인정보 수정 완료
         </InfoEditConfirmBtn>
@@ -140,30 +128,6 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
 export default MyPageInfo;
 
 const MyPageTopContainer = styled.div``;
-
-const MypageInfoTopContainer = styled.div`
-  padding-top: 3.125rem;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-`;
-
-const InfoWrapper = styled.div``;
-
-const InfoItemDiv = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 1.625rem;
-`;
-
-const InfoTitle = styled.label`
-  display: block;
-  width: 4rem;
-  font-size: 1.25rem;
-  color: #383838;
-  text-align: right;
-  margin-right: 3rem;
-`;
 
 const MyPageSkillsWrapper = styled.div`
   margin-top: 3.125rem;
@@ -194,7 +158,11 @@ const InfoEditConfirmBtn = styled.button<{ isActive: boolean }>`
   color: ${({ isActive }) => (isActive ? COLORS.white : COLORS.gray750)};
   transition: all 300ms ease-in-out;
 
-  &:hover {
+  &:disabled {
+    pointer-events: none;
+  }
+
+  &:not(:disabled):hover {
     background-color: ${COLORS.violetB300};
     color: ${COLORS.white};
   }
