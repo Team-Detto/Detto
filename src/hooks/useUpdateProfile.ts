@@ -1,38 +1,51 @@
 import { useCallback, useState } from 'react';
+import { useSetRecoilState } from 'recoil';
+import { mypageInfoButtonActiveState, userInfoState } from '../recoil/atoms';
 import { contactValidation, nicknameValidation } from 'utils/validation';
 
 const useUpdateProfile = () => {
-  const [userInfo, setUserInfo] = useState<UserInfo>(initialUserInfo);
+  const setUserInfo = useSetRecoilState<UserInfo>(userInfoState);
+  const setActiveInfoBtn = useSetRecoilState(mypageInfoButtonActiveState);
   const [validationMessage, setValidationMessage] = useState<string>('');
   const [contactValidationMessage, setContactValidationMessage] =
     useState<string>('');
-  const [activeButton, setActiveButton] = useState<boolean>(false);
 
   // 텍스트 인풋 변경 핸들러
   const handleInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.currentTarget;
+
       const isValidate =
-        name === 'nickname'
+        name === 'displayName'
           ? nicknameValidation(value)
           : contactValidation(value);
 
-      if (!isValidate) {
-        if (e.currentTarget.value === '') {
-          name === 'nickname'
-            ? setValidationMessage('닉네임은 2자 이상이어야 합니다.')
-            : setContactValidationMessage('이메일을 입력해주세요.');
+      console.log('isValidate', isValidate);
+
+      if (name === 'displayName' && !isValidate) {
+        if (value.length < 2) {
+          setValidationMessage('닉네임은 2자 이상이어야 합니다.');
+          return;
         } else {
-          name === 'nickname'
-            ? setValidationMessage('닉네임은 20자 이하여야 합니다.')
-            : setContactValidationMessage('이메일을 올바르게 입력해주세요.');
+          setValidationMessage('닉네임은 7자 이하여야 합니다.');
+          return;
         }
-      } else {
-        setValidationMessage('');
-        setContactValidationMessage('');
       }
 
-      handleButtonActive();
+      if (name === 'email' && !isValidate) {
+        if (value === '') {
+          setContactValidationMessage('이메일을 입력해주세요.');
+          return;
+        } else {
+          setContactValidationMessage('이메일을 올바르게 입력해주세요.');
+          return;
+        }
+      }
+
+      setValidationMessage('');
+      setContactValidationMessage('');
+      setActiveInfoBtn(true);
+
       setUserInfo((prevState) => {
         return { ...prevState, [name]: value };
       });
@@ -40,32 +53,11 @@ const useUpdateProfile = () => {
     [],
   );
 
-  const handleButtonActive = useCallback(() => {
-    if (!activeButton) {
-      setActiveButton(true);
-    }
-  }, []);
-
   return {
-    userInfo,
-    setUserInfo,
     validationMessage,
     handleInputChange,
-    activeButton,
-    handleButtonActive,
     contactValidationMessage,
   };
 };
 
 export default useUpdateProfile;
-
-const initialUserInfo = {
-  displayName: '',
-  email: '',
-  photoURL: '',
-  isJunior: false,
-  positions: [],
-  plannerStack: [],
-  designerStack: [],
-  developerStack: [],
-};

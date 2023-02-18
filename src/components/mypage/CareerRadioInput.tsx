@@ -2,28 +2,28 @@ import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 
 interface CareerRadioInputProps {
-  juniorFlag: boolean;
+  activeFlag: boolean;
   id: string;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onClick: (e: React.MouseEvent<HTMLInputElement>) => void;
 }
 
 const CareerRadioInput = ({
-  juniorFlag,
+  activeFlag,
   id,
   value,
-  onChange,
+  onClick,
 }: CareerRadioInputProps) => {
   return (
     <>
-      {juniorFlag ? (
+      {activeFlag ? (
         <InfoRadioBoxInput
           type="radio"
           id={id}
           name="isJunior"
           defaultValue={value}
           defaultChecked
-          onChange={onChange}
+          onClick={onClick}
         />
       ) : (
         <InfoRadioBoxInput
@@ -31,7 +31,7 @@ const CareerRadioInput = ({
           id={id}
           defaultValue={value}
           name="isJunior"
-          onChange={onChange}
+          onClick={onClick}
         />
       )}
 

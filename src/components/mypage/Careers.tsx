@@ -1,21 +1,20 @@
-import styled from '@emotion/styled';
 import { useCallback } from 'react';
+import { useSetRecoilState } from 'recoil';
+import { mypageInfoButtonActiveState, userInfoState } from '../../recoil/atoms';
+import styled from '@emotion/styled';
 import { career } from 'utils/positions';
 import CareerRadioInput from './CareerRadioInput';
 
 interface CareersProps {
   isJunior: boolean;
-  setUserInfo: React.Dispatch<React.SetStateAction<UserInfo>>;
-  handleButtonActive: () => void;
 }
 
-const Careers = ({
-  isJunior,
-  setUserInfo,
-  handleButtonActive,
-}: CareersProps) => {
+const Careers = ({ isJunior }: CareersProps) => {
+  const setActiveInfoBtn = useSetRecoilState(mypageInfoButtonActiveState);
+  const setUserInfo = useSetRecoilState(userInfoState);
+
   const handleCheckedRadioChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
+    (e: React.MouseEvent<HTMLInputElement>) => {
       const { id } = e.currentTarget;
 
       setUserInfo((prevState) => {
@@ -25,7 +24,7 @@ const Careers = ({
         };
       });
 
-      handleButtonActive();
+      setActiveInfoBtn(true);
     },
     [],
   );
@@ -33,16 +32,16 @@ const Careers = ({
   return (
     <CareerRadioBox>
       <CareerRadioInput
-        juniorFlag={isJunior ? true : false}
+        activeFlag={isJunior ? true : false}
         id={career[0].id}
         value={career[0].value}
-        onChange={handleCheckedRadioChange}
+        onClick={handleCheckedRadioChange}
       />
       <CareerRadioInput
-        juniorFlag={isJunior ? false : true}
+        activeFlag={isJunior ? false : true}
         id={career[1].id}
         value={career[1].value}
-        onChange={handleCheckedRadioChange}
+        onClick={handleCheckedRadioChange}
       />
     </CareerRadioBox>
   );

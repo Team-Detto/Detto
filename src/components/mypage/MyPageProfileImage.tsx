@@ -1,21 +1,22 @@
 import { useEffect } from 'react';
+import { userInfoState } from '../../recoil/atoms';
+import { useSetRecoilState } from 'recoil';
+import { useModal } from 'hooks';
 import styled from '@emotion/styled';
 import { RiPencilFill } from 'react-icons/ri';
-import { useModal } from 'hooks';
 import ProfileImageModal, {
   ModalProfileImageBox,
   ProfileImage,
 } from './ProfileImageModal';
 import defaultProfile from 'assets/images/default_profile.jpg';
 import COLORS from 'assets/styles/colors';
+
 // TODO :: 디폴트 이미지 디자인 나올 경우 파일 경로 수정 필요
 
 interface MyPageProfileImageProps {
   profileImg: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onDelete: () => void;
-  setUserInfo: React.Dispatch<React.SetStateAction<UserInfo>>;
-  handleButtonActive: () => void;
   uid: string;
 }
 
@@ -23,9 +24,8 @@ const MyPageProfileImage = ({
   profileImg,
   onChange,
   onDelete,
-  setUserInfo,
-  handleButtonActive,
 }: MyPageProfileImageProps) => {
+  const setUserInfo = useSetRecoilState(userInfoState);
   const {
     isOpen: isProfileModalOpen,
     handleModalStateChange: profileModalStateChange,
@@ -62,7 +62,6 @@ const MyPageProfileImage = ({
         onChangeEvent={onChange}
         onDeleteEvent={onDelete}
         handleModalStateChange={profileModalStateChange}
-        handleButtonActive={handleButtonActive}
       />
     </ProfileImageWrapper>
   );

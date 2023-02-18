@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 import { useMutation } from '@tanstack/react-query';
-import { useModal, useUpdateProfile } from 'hooks';
+import { useModal, useUpdateProfile, useProfileImage } from 'hooks';
 import styled from '@emotion/styled';
-import useProfileImage from 'hooks/useProfileImage';
+import { mypageInfoButtonActiveState, userInfoState } from '../../recoil/atoms';
 import MyPageProfileImage from './MyPageProfileImage';
 import PositionCheckBox from './PositionCheckBox';
 import SkillList from './SkillList';
@@ -19,15 +20,12 @@ interface MypageInfoProps {
 }
 
 const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
-  const {
-    userInfo,
-    setUserInfo,
-    handleInputChange,
-    validationMessage,
-    activeButton,
-    handleButtonActive,
-    contactValidationMessage,
-  } = useUpdateProfile();
+  const { handleInputChange, validationMessage, contactValidationMessage } =
+    useUpdateProfile();
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+  const [activeInfoBtn, setActiveInfoBtn] = useRecoilState<boolean>(
+    mypageInfoButtonActiveState,
+  );
   const { isOpen, handleModalStateChange } = useModal(false);
   const { profileImg, handleProfileImageChange, handleProfileImageDelete } =
     useProfileImage(uid, userInfo.photoURL);
@@ -44,6 +42,8 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
 
   useEffect(() => {
     if (!user) return;
+
+    setActiveInfoBtn(false);
 
     setUserInfo({
       displayName: user?.displayName,
@@ -64,8 +64,6 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
           profileImg={profileImg}
           onChange={handleProfileImageChange}
           onDelete={handleProfileImageDelete}
-          handleButtonActive={handleButtonActive}
-          setUserInfo={setUserInfo}
           uid={uid}
         />
         <InfoWrapper>
@@ -79,7 +77,6 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
             />
           </InfoItemDiv>
           <InfoItemDiv>
-            {/* TODO :: 연락처 관련 로직 수정 필요 */}
             <InfoTitle htmlFor="contact">연락처</InfoTitle>
             <TextInput
               name="email"
@@ -87,23 +84,16 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
               onChangeValue={handleInputChange}
               placeholder="연락처로 쓰일 이메일을 입력해주세요."
               validationMessage={contactValidationMessage}
+              isEmail={true}
             />
           </InfoItemDiv>
           <InfoItemDiv>
             <InfoTitle>경력</InfoTitle>
-            <Careers
-              isJunior={userInfo.isJunior}
-              setUserInfo={setUserInfo}
-              handleButtonActive={handleButtonActive}
-            />
+            <Careers isJunior={userInfo.isJunior} />
           </InfoItemDiv>
           <InfoItemDiv>
             <InfoTitle>포지션</InfoTitle>
-            <PositionCheckBox
-              handleButtonActive={handleButtonActive}
-              positions={userInfo.positions}
-              setUserInfo={setUserInfo}
-            />
+            <PositionCheckBox positions={userInfo.positions} />
           </InfoItemDiv>
         </InfoWrapper>
       </MypageInfoTopContainer>
@@ -114,26 +104,23 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
             category="기획"
             skills={products}
             checkedSkills={userInfo.plannerStack}
-            setUserInfo={setUserInfo}
           />
           <SkillList
             category="디자인"
             skills={designs}
             checkedSkills={userInfo.designerStack}
-            setUserInfo={setUserInfo}
           />
           <SkillList
             category="개발"
             skills={develops}
             checkedSkills={userInfo.developerStack}
-            setUserInfo={setUserInfo}
           />
         </MypageSkillBox>
       </MyPageSkillsWrapper>
 
       <InfoEditConfirmWrapper>
         <InfoEditConfirmBtn
-          isActive={activeButton}
+          isActive={activeInfoBtn}
           onClick={handleModalStateChange}
         >
           개인정보 수정 완료
@@ -209,5 +196,6 @@ const InfoEditConfirmBtn = styled.button<{ isActive: boolean }>`
 
   &:hover {
     background-color: ${COLORS.violetB300};
+    color: ${COLORS.white};
   }
 `;

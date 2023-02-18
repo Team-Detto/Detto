@@ -7,6 +7,7 @@ interface TextInputProps {
   placeholder?: string;
   onChangeValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
   validationMessage: string;
+  isEmail?: boolean;
 }
 
 const TextInput = ({
@@ -15,18 +16,31 @@ const TextInput = ({
   onChangeValue,
   placeholder,
   validationMessage,
+  isEmail,
 }: TextInputProps) => {
   return (
     <InputBox>
-      <InfoTextInput
-        type="text"
-        name={name}
-        defaultValue={value}
-        onChange={onChangeValue}
-        placeholder={placeholder}
-        minLength={2}
-        maxLength={30}
-      />
+      {!isEmail ? (
+        <InfoTextInput
+          type="text"
+          name={name}
+          defaultValue={value}
+          onChange={onChangeValue}
+          placeholder={placeholder}
+          minLength={2}
+          maxLength={7}
+        />
+      ) : (
+        <InfoTextInput
+          type="email"
+          name={name}
+          defaultValue={value}
+          onChange={onChangeValue}
+          placeholder={placeholder}
+          minLength={2}
+          maxLength={30}
+        />
+      )}
       <ValidationMessage>{validationMessage}</ValidationMessage>
     </InputBox>
   );

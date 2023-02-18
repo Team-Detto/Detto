@@ -1,22 +1,21 @@
 import { useCallback } from 'react';
+import { useSetRecoilState } from 'recoil';
+import { mypageInfoButtonActiveState, userInfoState } from '../../recoil/atoms';
 import styled from '@emotion/styled';
 import CheckBoxButton from './CheckboxButton';
 import { positionList } from 'utils/positions';
 
 interface PositionCheckBoxProps {
   positions: string[];
-  setUserInfo: React.Dispatch<React.SetStateAction<UserInfo>>;
-  handleButtonActive: () => void;
 }
 
-const PositionCheckBox = ({
-  positions,
-  setUserInfo,
-  handleButtonActive,
-}: PositionCheckBoxProps) => {
+const PositionCheckBox = ({ positions }: PositionCheckBoxProps) => {
+  const setUserInfo = useSetRecoilState(userInfoState);
+  const setActiveInfoBtn = useSetRecoilState(mypageInfoButtonActiveState);
+
   const handleCheckedPositionsChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      handleButtonActive();
+      setActiveInfoBtn(true);
       const { value, checked } = e.target;
 
       if (checked) {

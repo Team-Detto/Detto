@@ -2,20 +2,17 @@ import styled from '@emotion/styled';
 import { ButtonsWrapper } from './PositionCheckBox';
 import COLORS from 'assets/styles/colors';
 import SkillButton from 'components/common/SkillButton';
+import { useSetRecoilState } from 'recoil';
+import { userInfoState } from '../../recoil/atoms';
 
 interface SkillListProps {
   category: string;
   skills: string[];
   checkedSkills: string[];
-  setUserInfo: React.Dispatch<React.SetStateAction<UserInfo>>;
 }
 
-const SkillList = ({
-  category,
-  skills,
-  checkedSkills,
-  setUserInfo,
-}: SkillListProps) => {
+const SkillList = ({ category, skills, checkedSkills }: SkillListProps) => {
+  const setUserInfo = useSetRecoilState(userInfoState);
   let stackName = '';
 
   switch (category) {

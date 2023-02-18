@@ -12,6 +12,8 @@ import {
 import defaultProfile from 'assets/images/default_profile.jpg';
 import COLORS from 'assets/styles/colors';
 import { allowScroll, preventScroll } from 'utils/modal';
+import { useSetRecoilState } from 'recoil';
+import { mypageInfoButtonActiveState } from '../../recoil/atoms';
 
 interface ProfileImageModalProps {
   isOpen: boolean;
@@ -19,7 +21,6 @@ interface ProfileImageModalProps {
   onChangeEvent: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onDeleteEvent: () => void;
   handleModalStateChange: () => void;
-  handleButtonActive: () => void;
 }
 
 const ProfileImageModal = ({
@@ -28,15 +29,15 @@ const ProfileImageModal = ({
   onDeleteEvent,
   onChangeEvent,
   handleModalStateChange,
-  handleButtonActive,
 }: ProfileImageModalProps) => {
+  const setActiveInfoBtn = useSetRecoilState(mypageInfoButtonActiveState);
   const imgRef = useRef<HTMLInputElement | null>(null);
 
   // 프로필 수정 시
   const handleProfileEditClick = () => {
     imgRef.current?.click();
     handleModalStateChange();
-    handleButtonActive();
+    setActiveInfoBtn(true);
   };
 
   // 프로필 삭제 시

@@ -9,6 +9,8 @@ import {
 } from 'hooks';
 import ModalNavigator from '../common/modal/ModalNavigator';
 import ConfirmButton from './ConfirmButton';
+import { useRecoilState } from 'recoil';
+import { userInfoState } from '../../recoil/atoms';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { getUserInfoData, updateUserInfoData } from 'apis/mypageUsers';
 import { useEffect } from 'react';
@@ -21,6 +23,7 @@ import ValidationToastPopup from 'components/common/ValidationToastPopup';
 const page = 3;
 
 export default function SetProfile() {
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const { showToast, ToastMessage, handleToastPopup } = useToastPopup();
   const { openModal } = useGlobalModal();
 
@@ -33,13 +36,7 @@ export default function SetProfile() {
     staleTime: staleTime.user,
   });
 
-  const {
-    userInfo,
-    setUserInfo,
-    handleInputChange,
-    validationMessage,
-    handleButtonActive,
-  } = useUpdateProfile();
+  const { handleInputChange, validationMessage } = useUpdateProfile();
   const { profileImg, handleProfileImageChange, handleProfileImageDelete } =
     useProfileImage(uid, userInfoData?.photoURL);
 
@@ -50,8 +47,8 @@ export default function SetProfile() {
   // 닉네임  유효성 검사
   const checkValidation = () => {
     const nameLenght = userInfo.displayName.length;
-    if (nameLenght < 2 || nameLenght > 20) {
-      handleToastPopup('닉네임은 2자 이상 20자 이하로 입력해주세요.');
+    if (nameLenght < 2 || nameLenght > 7) {
+      handleToastPopup('닉네임은 2자 이상 7자 이하로 입력해주세요.');
       return false;
     }
     return true;
@@ -97,8 +94,6 @@ export default function SetProfile() {
             profileImg={profileImg}
             onChange={handleProfileImageChange}
             onDelete={handleProfileImageDelete}
-            handleButtonActive={handleButtonActive}
-            setUserInfo={setUserInfo}
             uid={uid}
           />
           <NicknameContainer>

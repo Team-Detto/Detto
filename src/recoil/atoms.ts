@@ -46,3 +46,22 @@ export const selectedProjectState = atom<any>({
   key: 'selectedProjectState',
   default: {},
 });
+
+export const userInfoState = atom<UserInfo>({
+  key: 'userInfoState',
+  default: {
+    displayName: '',
+    email: '',
+    photoURL: '',
+    isJunior: false,
+    positions: [],
+    plannerStack: [],
+    designerStack: [],
+    developerStack: [],
+  },
+});
+
+export const mypageInfoButtonActiveState = atom<boolean>({
+  key: 'mypageInfoButtonActiveState',
+  default: false,
+});

@@ -1,4 +1,6 @@
 import { memo, useState, useEffect, useCallback } from 'react';
+import { useSetRecoilState } from 'recoil';
+import { mypageInfoButtonActiveState } from '../../recoil/atoms';
 import styled from '@emotion/styled';
 
 interface props {
@@ -11,8 +13,10 @@ interface props {
 
 const SkillButton = ({ name, value, isChecked, setValue, type }: props) => {
   const [isActive, setIsActive] = useState(false);
+  const setActiveInfoButton = useSetRecoilState(mypageInfoButtonActiveState);
 
   const handleActiveButton = useCallback(() => {
+    setActiveInfoButton(true);
     setIsActive((prev: boolean) => !prev);
     if (!value) return;
     if (!type) return;
