@@ -24,7 +24,6 @@ import ConfirmAlert from 'components/common/ConfirmAlert';
 const ProjectDetailPage = () => {
   const params = useParams();
   const pid = params?.id;
-  const queryClient = useQueryClient();
 
   //프로젝트 데이터 조회
   const { data: projectData } = useQuery({
@@ -32,11 +31,13 @@ const ProjectDetailPage = () => {
     queryFn: () => viewProject(pid),
   });
 
-  const { uid } = useAuth();
+  const { uid } = useAuth(); // 현재 사용자
+  const writer = projectData?.uid; //글쓴이
+
   //글쓴이 조회
   const { data: userData } = useQuery({
-    queryKey: ['users', projectData?.uid],
-    queryFn: () => findWithCollectionName('users', projectData?.uid), //여기서 TypeError: Cannot read property of undefined 에러남 https://github.com/microsoft/vscode/issues/116219
+    queryKey: ['users', writer],
+    queryFn: () => findWithCollectionName('users', writer), //여기서 TypeError: Cannot read property of undefined 에러남 https://github.com/microsoft/vscode/issues/116219
   });
 
   // 현재 유저가 프로젝트 지원자 인가 조회
@@ -45,6 +46,7 @@ const ProjectDetailPage = () => {
     queryFn: () => firebaseGetIsApplicantRequest(pid, uid),
   });
 
+  const queryClient = useQueryClient();
   const { mutate: updateRecruitingMutate } = useMutation(
     () => updateRecruiting(pid as string, false),
     {
