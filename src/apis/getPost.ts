@@ -1,4 +1,12 @@
-import { getDoc, doc } from 'firebase/firestore';
+import {
+  getDoc,
+  doc,
+  query,
+  collection,
+  orderBy,
+  getDocs,
+  limit,
+} from 'firebase/firestore';
 import { firestore } from 'apis/firebaseService';
 
 // 프로젝트 상세 조회
@@ -13,4 +21,22 @@ export const findUser = async (uid: string) => {
   const docRef = doc(firestore, 'user', uid);
   const docSnap = await getDoc(docRef);
   return docSnap.data();
+};
+
+// 프로젝트 조회순으로 3개 조회
+export const firebaseMostViewedProjectsRequest = async () => {
+  const docRef = collection(firestore, `post`);
+  const q = query(docRef, orderBy('view', 'desc'), limit(3));
+  const querySnapshot = await getDocs(q);
+  const docs = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+  return docs;
+};
+
+// 프로젝트 관심순으로 3개 조회
+export const firebaseMostLikedProjectsRequest = async () => {
+  const docRef = collection(firestore, `post`);
+  const q = query(docRef, orderBy('like', 'desc'), limit(3));
+  const querySnapshot = await getDocs(q);
+  const docs = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+  return docs;
 };

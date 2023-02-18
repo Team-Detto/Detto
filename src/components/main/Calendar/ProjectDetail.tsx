@@ -1,53 +1,44 @@
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { useRecoilValue } from 'recoil';
-import { detailListState } from '../../../recoil/atoms';
+import { selectedProjectState } from '../../../recoil/atoms';
 import { getDate } from 'utils/date';
 
 const ProjectDetail = () => {
-  const detailList = useRecoilValue<any>(detailListState);
+  const selectedProject = useRecoilValue<any>(selectedProjectState);
+
+  if (!selectedProject) return null;
   return (
     <ProjectDetailWrap>
-      {detailList?.map((data: any) => {
-        return (
-          <div key={data}>
-            <ProjectDetailContainer>
-              <ProjectDetailSproutTextDiv>
-                🌱 새싹 레벨
-              </ProjectDetailSproutTextDiv>
-              <ProjectDetailTitleAreaDiv>
-                팀원을 구해요!
-              </ProjectDetailTitleAreaDiv>
-            </ProjectDetailContainer>
-            <ProjectDetailContainer>
-              <ProjectDetailTextAreaDiv>프로젝트 이름</ProjectDetailTextAreaDiv>
-              <div>{data.title}</div>
-            </ProjectDetailContainer>
-            <ProjectDetailContainer>
-              <ProjectDetailTextAreaDiv>필요 스택</ProjectDetailTextAreaDiv>
-              <div>
-                {data.developerStack.map((el: any) => {
-                  return el + '   ';
-                })}
-              </div>
-            </ProjectDetailContainer>
-            <ProjectDetailContainer>
-              <ProjectDetailTextAreaDiv>팀원 레벨</ProjectDetailTextAreaDiv>
-              <div>새싹</div>
-            </ProjectDetailContainer>
-            <ProjectDetailContainer>
-              <ProjectDetailTextAreaDiv>기간</ProjectDetailTextAreaDiv>
-              <div>
-                {getDate(data.startDate)} ~ {getDate(data.endDate)}
-              </div>
-            </ProjectDetailContainer>
-
-            <Link to={`/project/${data.id}`}>
-              <ProjectDetailButton>지원하러 가기</ProjectDetailButton>
-            </Link>
+      <div key={selectedProject}>
+        <ProjectDetailContainer>
+          <ProjectDetailSproutTextDiv>🌱 새싹 레벨</ProjectDetailSproutTextDiv>
+          <ProjectDetailTitleAreaDiv>팀원을 구해요!</ProjectDetailTitleAreaDiv>
+        </ProjectDetailContainer>
+        <ProjectDetailContainer>
+          <ProjectDetailTextAreaDiv>프로젝트 이름</ProjectDetailTextAreaDiv>
+          <div>{selectedProject.title}</div>
+        </ProjectDetailContainer>
+        <ProjectDetailContainer>
+          <ProjectDetailTextAreaDiv>필요 스택</ProjectDetailTextAreaDiv>
+          <div>{selectedProject.developerStack + '   '}</div>
+        </ProjectDetailContainer>
+        <ProjectDetailContainer>
+          <ProjectDetailTextAreaDiv>팀원 레벨</ProjectDetailTextAreaDiv>
+          <div>새싹</div>
+        </ProjectDetailContainer>
+        <ProjectDetailContainer>
+          <ProjectDetailTextAreaDiv>기간</ProjectDetailTextAreaDiv>
+          <div>
+            {getDate(selectedProject.startDate)} ~{' '}
+            {getDate(selectedProject.endDate)}
           </div>
-        );
-      })}
+        </ProjectDetailContainer>
+
+        <Link to={`/project/${selectedProject.id}`}>
+          <ProjectDetailButton>지원하러 가기</ProjectDetailButton>
+        </Link>
+      </div>
     </ProjectDetailWrap>
   );
 };

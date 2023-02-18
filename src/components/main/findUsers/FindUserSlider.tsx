@@ -2,150 +2,147 @@ import Slider from 'react-slick';
 import styled from '@emotion/styled';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import VectorPrev from '../../../assets/images/VectorPrev.png';
-import VectorNext from '../../../assets/images/VectorNext.png';
-import {
-  collection,
-  doc,
-  getDoc,
-  onSnapshot,
-  orderBy,
-  query,
-} from 'firebase/firestore';
-import { firestore } from 'apis/firebaseService';
-import { useEffect, useState } from 'react';
+import VectorPrev from 'assets/images/VectorPrev.png';
+import VectorNext from 'assets/images/VectorNext.png';
+import Junior from 'assets/images/junior.png';
 import { Link } from 'react-router-dom';
-const FindUserSlider = () => {
-  const [users, setUsers] = useState<any>([]);
+import { useQuery } from '@tanstack/react-query';
+import { staleTime } from 'utils/staleTime';
+import { firebaseAllUsersRequest } from 'apis/userService';
+import COLORS from 'assets/styles/colors';
 
-  const firebaseGetProjectDataRequest = (setUsers: any) => {
-    const q = query(collection(firestore, 'users'));
+const settings = {
+  centerPadding: '60px',
+  slidesToShow: 5,
+  slidesToScroll: 5,
+  swipeToSlide: true,
+  autoplay: true,
+  autoplaySpeed: 4000,
+};
 
-    onSnapshot(q, (querySnapshot) => {
-      const data: any = [];
-      querySnapshot.forEach((doc) => {
-        data.push({ ...doc.data(), id: doc.id });
-      });
-      setUsers(data);
-    });
-  };
+const FindUserSlider = ({ tap }: { tap: string }) => {
+  const { data: users } = useQuery({
+    queryKey: ['users'],
+    queryFn: firebaseAllUsersRequest,
+    staleTime: staleTime.users,
+  });
 
-  useEffect(() => {
-    firebaseGetProjectDataRequest(setUsers);
-  }, []);
+  if (!users) return null;
 
-  console.log(users);
+  // 포지션 필터링
+  const filteredUsers = users.filter((user) => user.positions.includes(tap));
 
-  const settings = {
-    infinite: false,
-    centerPadding: '60px',
-    slidesToShow: 5,
-    slidesToScroll: 1,
-    swipeToSlide: true,
-  };
+  if (filteredUsers.length === 0) {
+    return <NoDataMessage>팀원을 찾을 수 없어요 :/</NoDataMessage>;
+  }
+
   return (
-    <SlideArea>
-      <StyledSlider {...settings}>
-        {users.map((user: any) => {
-          console.log(user.positions[0]);
-          return (
-            <Link to={'/'}>
-              <Card key={user}>
-                <CardImage src={user.photoURL} />
-                <CardTextContainer>
-                  <CardNickname>{user.displayName}</CardNickname>
-                  <CardJob>{user.positions[0]}</CardJob>
-                </CardTextContainer>
-              </Card>
-            </Link>
-          );
-        })}
-      </StyledSlider>
-    </SlideArea>
+    <StyledSlider {...settings} infinite={filteredUsers.length >= 5}>
+      {filteredUsers
+        // 랜덤으로 섞기
+        .sort(() => Math.random() - 0.5)
+        .map((user: any) => (
+          <Link to={`/profile/${user.uid}`} key={user.uid}>
+            <Card key={user}>
+              <CardImage src={user.photoURL} />
+              <CardNickname>
+                {user.isJunior && <JuniorImage src={Junior} />}{' '}
+                {user.displayName}
+              </CardNickname>
+            </Card>
+          </Link>
+        ))}
+    </StyledSlider>
   );
 };
-const SlideArea = styled.div`
-  width: 1180px;
-  height: 201px;
-`;
-const StyledSlider = styled(Slider)`
+
+export default FindUserSlider;
+
+const NoDataMessage = styled.div`
+  height: 169px;
+  font-size: 2rem;
+  font-weight: 700;
   display: flex;
-  flex-direction: row;
-  margin: 0 134px 0 134px;
   align-items: center;
+  justify-content: center;
+  width: 100%;
+  color: ${COLORS.gray500};
+`;
+
+const StyledSlider = styled(Slider)`
+  margin: 0 134px;
   .slick-arrow {
-    display: flex;
     z-index: 10;
   }
   .slick-prev {
     left: -134px;
+    width: 24px;
+    height: 24px;
     cursor: pointer;
-    content: 'prev';
+    &:hover {
+      opacity: 0.8;
+    }
   }
   .slick-prev:before {
-    width: 10px;
-    height: 10px;
-    content: url(${VectorPrev});
-    color: #000;
+    width: 24px;
+    height: 24px;
+    background-image: url(${VectorPrev});
+    background-size: 24px 24px;
+    display: inline-block;
+    content: '';
+    opacity: 1;
   }
   .slick-next {
     right: -134px;
+    width: 24px;
+    height: 24px;
     cursor: pointer;
+    &:hover {
+      opacity: 0.8;
+    }
   }
   .slick-next:before {
-    width: 10px;
-    height: 10px;
-    content: url(${VectorNext});
-    color: #000;
+    width: 24px;
+    height: 24px;
+    background-image: url(${VectorNext});
+    background-size: 24px 24px;
+    display: inline-block;
+    content: '';
+    opacity: 1;
   }
 `;
+
 const Card = styled.div`
-  display: flex !important;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 0 auto;
-  padding: 0px;
   gap: 16px;
-  width: 128px;
-  height: 201px;
 `;
+
 const CardImage = styled.img`
-  background: url('https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1638101071/noticon/gpr07ptl1x6evhew7li7.png');
-  background-size: cover;
   width: 128px;
   height: 128px;
-  border-radius: 50%;
-`;
-const CardTextContainer = styled.div`
-  display: flex !important;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 0px;
-  width: 90%;
-  height: 57px;
-  margin: 0 auto;
+  border-radius: 100%;
 `;
 const CardNickname = styled.div`
-  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
   height: 25px;
-  font-family: 'Noto Sans KR';
-  font-style: normal;
+
   font-weight: 700;
   font-size: 18px;
   line-height: 140%;
   text-align: center;
+
+  color: ${COLORS.gray800};
 `;
-const CardJob = styled.div`
-  width: 100%;
-  height: 32px;
-  font-family: 'Noto Sans KR';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 32px;
-  text-align: center;
+const JuniorImage = styled.img`
+  position: absolute;
+  left: -20px;
+  width: 16px;
+  height: 16px;
 `;
-export default FindUserSlider;
