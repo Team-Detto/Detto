@@ -94,6 +94,8 @@ export const ProfileImage = styled.img`
   border-radius: 100%;
 
   margin-right: 0.625rem;
+
+  cursor: pointer;
 `;
 
 export const NameText = styled.h2`
