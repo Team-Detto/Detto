@@ -23,7 +23,9 @@ const useFindProject = () => {
       lastVisible,
       setLastVisible,
     );
-    firebaseFindMyInterestRequset(uid, setLikedProjects);
+    if (uid) {
+      firebaseFindMyInterestRequset(uid, setLikedProjects);
+    }
 
     window.onbeforeunload = () => {
       window.scrollTo(0, 0);

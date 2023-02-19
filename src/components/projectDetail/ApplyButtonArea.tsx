@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
-import { useAuth } from 'hooks';
+import { useAuth, useGlobalModal } from 'hooks';
 
 const ApplyButtonArea = ({
   isApplicant,
@@ -9,6 +9,7 @@ const ApplyButtonArea = ({
   onCloseModalStateChangeEvent,
 }: any) => {
   const { uid } = useAuth();
+  const { openModal } = useGlobalModal();
   const { isRecruiting, applicants } = projectData;
   return (
     <ButtonWrapper>
@@ -28,6 +29,10 @@ const ApplyButtonArea = ({
           ) : (
             <ApplyButton
               onClick={() => {
+                if (!uid) {
+                  openModal('login', 0);
+                  return;
+                }
                 isApplicant //지원하고 초대는 안된 상태
                   ? onCloseModalStateChangeEvent()
                   : onApplyModalStateChangeEvent();

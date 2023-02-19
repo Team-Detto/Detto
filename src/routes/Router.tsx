@@ -1,9 +1,12 @@
-import React, { Suspense } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Header from 'components/Header';
-import ModalContainer from 'components/common/modal/ModalContainer';
-import ScrollToTop from 'components/common/scrollToTop';
-import ScrollToTopButton from 'components/ScrollToTopButton';
+import React from 'react';
+import {
+  Route,
+  Navigate,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from 'react-router-dom';
+import { useIsLogin } from 'hooks';
+import Root from 'pages/Root';
 
 const MainComponentPage = React.lazy(() => import('pages/MainPage'));
 const MyPageComonentPage = React.lazy(() => import('pages/MyPage'));
@@ -23,35 +26,43 @@ const PublicProfileComponentPage = React.lazy(
   () => import('pages/PublicProfilePage'),
 );
 const ErrorPage = React.lazy(() => import('pages/ErrorPage'));
-const LoadingPage = React.lazy(() => import('pages/LoadingPage'));
 
-const Router = () => {
-  return (
-    <BrowserRouter>
-      <ScrollToTop />
-      <ScrollToTopButton />
-      <Header />
-      <ModalContainer />
-      <Suspense fallback={<LoadingPage />}>
-        <Routes>
-          <Route path="/" element={<MainComponentPage />} />
-          <Route path="/mypage" element={<MyPageComonentPage />} />
-          <Route path="/findproject" element={<FindProjectComponentPage />} />
-          <Route path="/project/:id" element={<ProjectDetailComponentPage />} />
-          <Route
-            path="/project/write"
-            element={<ProjectWriteComponentPage />}
-          />
-          <Route
-            path="/project/write/:id"
-            element={<ProjectEditComponentPage />}
-          />
-          <Route path="/profile/:id" element={<PublicProfileComponentPage />} />
-          <Route path="*" element={<ErrorPage />} />
-        </Routes>
-      </Suspense>
-    </BrowserRouter>
-  );
-};
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route element={<Root />}>
+      <Route path="*" element={<ErrorPage />} />
+      <Route path="/" element={<MainComponentPage />} />
+      <Route
+        path="/mypage"
+        element={
+          useIsLogin() ? <MyPageComonentPage /> : <Navigate to="/" replace />
+        }
+      />
+      <Route path="/findproject" element={<FindProjectComponentPage />} />
+      <Route path="/project/:id" element={<ProjectDetailComponentPage />} />
+      <Route
+        path="/project/write"
+        element={
+          useIsLogin() ? (
+            <ProjectWriteComponentPage />
+          ) : (
+            <Navigate to="/" replace />
+          )
+        }
+      />
+      <Route
+        path="/project/write/:id"
+        element={
+          useIsLogin() ? (
+            <ProjectEditComponentPage />
+          ) : (
+            <Navigate to="/" replace />
+          )
+        }
+      />
+      <Route path="/profile/:id" element={<PublicProfileComponentPage />} />
+    </Route>,
+  ),
+);
 
-export default Router;
+export default router;

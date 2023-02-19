@@ -19,7 +19,7 @@ const PublicProfilePage = () => {
   const { uid } = useAuth(); //보내는 사람 id (현재 로그인한 유저)
   const { activeProjectTab, handleProjectTabClick, setActiveProjectTab } =
     useProjectList();
-  const { openModalWithData } = useGlobalModal();
+  const { openModalWithData, openModal } = useGlobalModal();
 
   const { data: userInfoData }: any = useQuery({
     queryKey: ['users', id],
@@ -79,7 +79,15 @@ const PublicProfilePage = () => {
                   )}
                 </UserInformationDiv>
                 {userInfoData?.uid !== uid && (
-                  <MessageSendButton onClick={handleSendNoteButtonClick}>
+                  <MessageSendButton
+                    onClick={() => {
+                      if (!uid) {
+                        openModal('login', 0);
+                        return;
+                      }
+                      handleSendNoteButtonClick();
+                    }}
+                  >
                     쪽지보내기
                   </MessageSendButton>
                 )}
