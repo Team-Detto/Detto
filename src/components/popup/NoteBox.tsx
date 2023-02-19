@@ -9,8 +9,8 @@ import NoteMessage from './NoteMessage';
 import { PopupWrapper } from './styles';
 
 const boxList = [
-  { id: 'inbox', label: '받은 쪽지함' },
-  { id: 'outbox', label: '보낸 쪽지함' },
+  { id: 'inbox', label: '받은 쪽지' },
+  { id: 'outbox', label: '보낸 쪽지' },
 ];
 
 export default function NoteBox() {
@@ -83,8 +83,7 @@ const BoxContainer = styled.div`
   flex-direction: row;
   align-items: flex-start;
 
-  border-bottom: 1px solid ${COLORS.gray200};
-  color: ${COLORS.gray850};
+  color: ${COLORS.white};
 `;
 
 const MenuLabel = styled.label`
@@ -99,15 +98,13 @@ const MenuLabel = styled.label`
   padding: 0;
   margin: 0;
 
-  background-color: ${COLORS.gray200};
+  background-color: ${COLORS.violetB400};
 
   cursor: pointer;
 `;
 
 const MenuToggleInput = styled.input`
   display: none;
-
-  color: ${COLORS.gray850};
 
   &:checked + label {
     color: ${COLORS.violetB500};
@@ -119,7 +116,7 @@ const MessageWrapper = styled.div`
   flex: 1;
 
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: overlay;
   width: 100%;
   &::-webkit-scrollbar {
     display: none;

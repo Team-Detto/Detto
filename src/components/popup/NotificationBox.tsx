@@ -57,12 +57,12 @@ const TitleWrapper = styled.div`
   padding: 0.75rem;
   gap: 0.125rem;
 
-  background-color: ${COLORS.gray200};
-  color: ${COLORS.gray850};
+  background-color: ${COLORS.violetB400};
+  color: ${COLORS.white};
 `;
 
 const MessageCountSpan = styled.span`
-  color: ${COLORS.violetB500};
+  color: ${COLORS.violetB100};
 `;
 
 const MessageWrapper = styled.div`
