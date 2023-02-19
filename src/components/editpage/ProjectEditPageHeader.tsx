@@ -1,5 +1,5 @@
-import { EditType } from 'types/write/writeType';
 import styled from '@emotion/styled';
+import COLORS from 'assets/styles/colors';
 
 interface Props {
   editFormValue: any;
@@ -33,9 +33,9 @@ const HeaderContainer = styled.div`
 const HeaderInput = styled.input`
   width: 73.75rem;
   height: 2.8125rem;
-  border: 1px solid #ced3db;
+  border: 1px solid ${COLORS.gray300};
   border-radius: 4px;
-  background: #ffffff;
+  background: ${COLORS.white};
   padding-left: 1rem;
 `;
 
