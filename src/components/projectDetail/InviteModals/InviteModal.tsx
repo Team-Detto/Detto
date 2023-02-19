@@ -141,7 +141,7 @@ const ModalContainer = styled.div`
 
   transform: translate(-50%, -50%);
   padding: 2.75rem 2.5rem 1.5rem;
-  background: #fff;
+  background: ${COLORS.white};
   border-radius: 1rem;
   box-shadow: 0rem 0.25rem 0.625rem rgba(117, 117, 117, 0.25);
   z-index: 999;
@@ -193,7 +193,7 @@ const UserSkillsContainer = styled.div`
   align-items: center;
   font-weight: 600;
   font-size: 1.25rem;
-  color: #6b7684;
+  color: ${COLORS.gray750};
   margin-top: 2rem;
   margin-bottom: 0.6875rem;
   gap: 0.1875rem;
@@ -219,7 +219,7 @@ const InviteTitle = styled.div`
   font-weight: 600;
   font-size: 1.5rem;
 
-  color: #191f28;
+  color: ${COLORS.gray900};
 `;
 
 const MotiveContainer = styled.div`
@@ -248,7 +248,7 @@ const MotiveText = styled.div`
 
   width: 39.0625rem;
   height: 12.3125rem;
-  border: 0.0625rem solid #ced3db;
+  border: 0.0625rem solid ${COLORS.gray300};
   border-radius: 0.25rem;
 `;
 
