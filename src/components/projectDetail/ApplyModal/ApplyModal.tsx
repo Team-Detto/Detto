@@ -119,6 +119,7 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
           applicantMutate={applicantMutate}
           projectMutate={projectMutate}
           handleToastPopup={handleToastPopup}
+          pid={pid}
         />
       </ModalContainer>
       {/* 지원성공Alert*/}

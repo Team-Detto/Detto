@@ -38,7 +38,7 @@ interface SendNote {
 }
 
 interface Notification {
-  id?: string;
+  id: string;
   content: string;
   date: number;
   displayName: string;
@@ -47,4 +47,5 @@ interface Notification {
   photoURL: string;
   title: string;
   uid: string;
+  link?: { type: 'project' | 'profile'; id: string };
 }

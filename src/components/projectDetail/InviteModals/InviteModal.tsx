@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import Alert from 'components/common/Alert';
-import { useAuth, useGlobalModal, useModal } from 'hooks';
+import { useAuth, useGlobalModal, useModal, useNotification } from 'hooks';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateAppliedProject, updateParticipants } from 'apis/postDetail';
 import { modalTypes } from 'components/common/modal/modal';
@@ -21,10 +21,11 @@ const InviteModal = ({
   pid,
   applicantKey,
 }: props) => {
-  const { uid } = useAuth(); //보내는 사람 id (현재 로그인한 유저)
+  const user = useAuth(); //보내는 사람 id (현재 로그인한 유저)
   const { openModalWithData } = useGlobalModal();
   const { isOpen: isAlertOpen, handleModalStateChange: onAlertClickEvent } =
     useModal(false);
+  const sendNotification = useNotification();
 
   const { mutate: applicantMutate } = useMutation(() =>
     updateParticipants(
@@ -46,10 +47,22 @@ const InviteModal = ({
     },
   );
 
+  const sendInviteNotification = () => {
+    // 초대 알림 보내기
+    sendNotification({
+      title: `${user.displayName}님의 프로젝트에 초대되었습니다. 🎉`,
+      receiverUid: applicantData[applicantKey]?.uid,
+      link: {
+        type: 'project',
+        id: pid,
+      },
+    });
+  };
+
   const handleSendNoteButtonClick = () => {
     openModalWithData(modalTypes.sendNote, {
       id: 'id', //addDoc이라 id 필요없음
-      senderUid: uid,
+      senderUid: user.uid,
       receiverUid: applicantKey,
       date: 0,
       title: '',
@@ -103,6 +116,7 @@ const InviteModal = ({
                   onAlertClickEvent();
                   applicantMutate();
                   invitedProjectMutate();
+                  sendInviteNotification();
                   //applicants 데이터 변경
                 }}
               >
