@@ -23,6 +23,7 @@ const useEdtiBoard = () => {
   const imageRef = useRef<any>(null);
 
   const [editFormValue, setEditFormValue] = useState(state);
+  const [editThumbnail, setEditThumbnail] = useState(null);
 
   const { isOpen, handleModalStateChange } = useModal(false);
   const { showToast, ToastMessage, handleToastPopup } = useToastPopup();
@@ -83,12 +84,11 @@ const useEdtiBoard = () => {
     if (!params.id) {
       return;
     }
-    const file = imageRef.current.files[0];
-    if (!file) {
+    if (!editThumbnail) {
       editProjectRequest(imageRef.current.files[0]);
       return;
     }
-    const resizedFile = await resizeFile(file);
+    const resizedFile = await resizeFile(editThumbnail);
     editProjectRequest(resizedFile);
   };
 
@@ -135,6 +135,7 @@ const useEdtiBoard = () => {
     ToastMessage,
     editFormValue,
     setEditFormValue,
+    setEditThumbnail,
     handleModalStateChange,
     handleFormValueChange,
     handleAddThumbnailImage,

@@ -16,6 +16,7 @@ const ProjectEditPage = () => {
     ToastMessage,
     editFormValue,
     setEditFormValue,
+    setEditThumbnail,
     handleModalStateChange,
     handleFormValueChange,
     handleAddThumbnailImage,
@@ -34,6 +35,7 @@ const ProjectEditPage = () => {
           imageRef={imageRef}
           editFormValue={editFormValue}
           setEditFormValue={setEditFormValue}
+          setEditThumbnail={setEditThumbnail}
           onFormValueChangeEvent={handleFormValueChange}
           onAddThumbnailImageEvent={handleAddThumbnailImage}
         />
