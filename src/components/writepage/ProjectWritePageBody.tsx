@@ -20,6 +20,15 @@ const ProjectWritePageBody = ({
   onFormValueChagneEvent,
   onAddThumbnailImageEvent,
 }: Props) => {
+  const handleAddThumbnailImageChange = () => {
+    setWriteFormValue({
+      ...writeFormValue,
+      thumbnail: imageRef.current?.files?.length
+        ? imageRef.current.files[0]
+        : '',
+    });
+  };
+
   return (
     <WritePageBodyContainer>
       <WritePageBodyPositionBox>
@@ -63,10 +72,14 @@ const ProjectWritePageBody = ({
         <WritePageBodyText>썸네일 추가</WritePageBodyText>
         <WritePageBodyThumbnailImage
           type="file"
-          accept="image/*"
+          accept="image/jpg, image/png, image/jpeg"
           ref={imageRef}
+          onChange={handleAddThumbnailImageChange}
         />
-        <WritePageBodyThumbnailButton onClick={onAddThumbnailImageEvent}>
+        <WritePageBodyThumbnailButton
+          onClick={onAddThumbnailImageEvent}
+          writeFormValue={writeFormValue}
+        >
           사진 추가하기
         </WritePageBodyThumbnailButton>
       </WritePageBodyThumbnailBox>
@@ -144,7 +157,8 @@ const WritePageBodyThumbnailButton = styled.button`
   padding: 0.625rem 1.75rem;
   width: 226px;
   height: 43px;
-  background: ${COLORS.violetB500};
+  background: ${(props: { writeFormValue: WriteType.WriteFormType }) =>
+    props.writeFormValue.thumbnail ? COLORS.gray300 : COLORS.violetB400};
   color: #ffffff;
   border-radius: 8px;
   margin-left: 2rem;
