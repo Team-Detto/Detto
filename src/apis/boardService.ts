@@ -29,7 +29,7 @@ export const firebaseCreateProjectRequest = async (
       ...formData,
       startDate: new Date(formData.startDate).getTime(),
       endDate: new Date(formData.endDate).getTime(),
-      deadline: new Date(formData.deadline).setHours(11, 59),
+      deadline: new Date(formData.deadline).setHours(23, 59),
       content: markdownText,
       thumbnail: thumbnailUrl,
       view: 0,
@@ -110,14 +110,13 @@ export const firebaseEditProjectRequest = async (
 ) => {
   try {
     const thumbnailUrl = await firebaseImageUploadRequest(image);
-    console.log('updateDoc');
     await updateDoc(doc(firestore, 'post', id), {
       ...editFormData,
       content: markdownText,
       thumbnail: thumbnailUrl === null ? editFormData.thumbnail : thumbnailUrl,
       startDate: new Date(editFormData.startDate).getTime(),
       endDate: new Date(editFormData.endDate).getTime(),
-      deadline: new Date(editFormData.deadline).setHours(11, 59),
+      deadline: new Date(editFormData.deadline).setHours(23, 59),
     });
   } catch (e) {
     console.error(e);
