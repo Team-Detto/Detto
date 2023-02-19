@@ -67,6 +67,9 @@ const ProjectWritePageBody = ({
           value={writeFormValue.deadline}
           onChange={onFormValueChangeEvent}
         />
+        <WritePageBodyDeadlineText>
+          입력하신 날짜 11시 59분에 자동 마감됩니다.
+        </WritePageBodyDeadlineText>
       </WritePageBodyDeadlineBox>
       <WritePageBodyThumbnailBox>
         <WritePageBodyText>썸네일 추가</WritePageBodyText>
@@ -133,7 +136,19 @@ const WritePageBodyDeadlineBox = styled.div`
   margin-top: 2rem;
   padding-right: 25rem;
   display: flex;
+  align-items: center;
   flex-direction: row;
+`;
+const WritePageBodyDeadlineText = styled.p`
+  padding-left: 1rem;
+  width: 20rem;
+  height: 1.0625rem;
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 140%;
+  color: ${COLORS.gray600};
+  display: flex;
+  align-items: center;
 `;
 const WritePageBodyThumbnailBox = styled.div`
   width: 100%;

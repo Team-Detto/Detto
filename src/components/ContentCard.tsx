@@ -4,6 +4,9 @@ import { concatSkills } from 'utils/skills';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
+import { useEffect } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { updateRecruiting } from 'apis/postDetail';
 
 interface Props {
   project: EditType.EditFormType;
@@ -27,8 +30,35 @@ const ContentCard = ({
     developerStack,
     thumbnail,
     isRecruiting,
+    deadline,
   }: any = project;
+  const idList: any[] = [];
   const stacks = concatSkills(plannerStack, designerStack, developerStack);
+  const queryClient = useQueryClient();
+  const today = new Date().getTime();
+
+  const { mutate: updateRecruitingMutate } = useMutation(
+    () => updateRecruiting(id as string, false),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries();
+      },
+    },
+  );
+
+  useEffect(() => {
+    if (today > deadline) {
+      idList.push(id);
+      updateRecruitingMutate(id, false as any);
+    }
+  }, []);
+
+  useEffect(() => {
+    idList.map((id) => {
+      updateRecruitingMutate(id, false as any);
+    });
+  }, [idList]);
+
   return (
     <ContentCardWrap onClick={onNavigateToProjectDetailEvent(id)}>
       <ContentCardImgContainer src={thumbnail} />

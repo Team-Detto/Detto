@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
-import ContantCard from 'components/ContentCard';
+import ContentCard from 'components/ContentCard';
 import { useFindProject } from 'hooks';
 import { useState } from 'react';
 import COLORS from 'assets/styles/colors';
@@ -10,7 +10,6 @@ import {
   firebaseMostLikedProjectsRequest,
   firebaseMostViewedProjectsRequest,
 } from 'apis/getPost';
-import { getDate } from 'utils/date';
 
 const tapType = [
   { type: 'orderByViews', name: '조회순' },
@@ -56,7 +55,7 @@ const MainRecommendation = () => {
         <MainRecommendationCardContainer>
           {tap === 'orderByViews' &&
             mostViewedProjects.map((project: any) => (
-              <ContantCard
+              <ContentCard
                 key={project.id}
                 project={project}
                 likedProjects={likedProjects}
@@ -65,7 +64,7 @@ const MainRecommendation = () => {
             ))}
           {tap === 'orderByLikes' &&
             mostLikedProjects.map((project: any) => (
-              <ContantCard
+              <ContentCard
                 key={project.id}
                 project={project}
                 likedProjects={likedProjects}

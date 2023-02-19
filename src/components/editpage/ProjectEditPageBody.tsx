@@ -76,6 +76,9 @@ const ProjectEditPageBody = ({
           value={new Date(+new Date(deadline)).toISOString().split('T')[0]}
           onChange={onFormValueChangeEvent}
         />
+        <BodyDeadlineText>
+          입력하신 날짜 11시 59분에 자동 마감됩니다.
+        </BodyDeadlineText>
       </BodyDeadlineBox>
       <BodyThumbnailBox>
         <BodyText>썸네일 추가</BodyText>
@@ -142,6 +145,7 @@ const BodyDeadlineBox = styled.div`
   margin-top: 2rem;
   padding-right: 25rem;
   display: flex;
+  align-items: center;
   flex-direction: row;
 `;
 const BodyThumbnailBox = styled.div`
@@ -186,6 +190,17 @@ const BodyThumbnailWarningText = styled.p`
   font-size: 0.75rem;
   line-height: 140%;
   color: ${COLORS.gray600};
+`;
+const BodyDeadlineText = styled.p`
+  padding-left: 1rem;
+  width: 20rem;
+  height: 1.0625rem;
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 140%;
+  color: ${COLORS.gray600};
+  display: flex;
+  align-items: center;
 `;
 
 export default ProjectEditPageBody;

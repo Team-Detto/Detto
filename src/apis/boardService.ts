@@ -29,7 +29,7 @@ export const firebaseCreateProjectRequest = async (
       ...formData,
       startDate: new Date(formData.startDate).getTime(),
       endDate: new Date(formData.endDate).getTime(),
-      deadline: new Date(formData.deadline).getTime(),
+      deadline: new Date(formData.deadline).setHours(11, 59),
       content: markdownText,
       thumbnail: thumbnailUrl,
       view: 0,
@@ -66,7 +66,7 @@ export const firebaseGetProjectDataRequest = (setProjectData: any) => {
 export const firebaseInfinityScrollProjectDataRequest = async (
   setProjectData: any,
   lastVisible: any,
-  setLastVisable: any,
+  setLastVisible: any,
 ) => {
   let q;
   if (lastVisible === -1) {
@@ -95,9 +95,9 @@ export const firebaseInfinityScrollProjectDataRequest = async (
       return arr;
     });
     if (querySnapshot.docs.length === 0) {
-      setLastVisable(-1);
+      setLastVisible(-1);
     } else {
-      setLastVisable(querySnapshot.docs[querySnapshot.docs.length - 1]);
+      setLastVisible(querySnapshot.docs[querySnapshot.docs.length - 1]);
     }
   });
 };
@@ -110,14 +110,14 @@ export const firebaseEditProjectRequest = async (
 ) => {
   try {
     const thumbnailUrl = await firebaseImageUploadRequest(image);
-
+    console.log('updateDoc');
     await updateDoc(doc(firestore, 'post', id), {
       ...editFormData,
       content: markdownText,
       thumbnail: thumbnailUrl === null ? editFormData.thumbnail : thumbnailUrl,
       startDate: new Date(editFormData.startDate).getTime(),
       endDate: new Date(editFormData.endDate).getTime(),
-      deadline: new Date(editFormData.deadline).getTime(),
+      deadline: new Date(editFormData.deadline).setHours(11, 59),
     });
   } catch (e) {
     console.error(e);
