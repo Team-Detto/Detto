@@ -87,6 +87,7 @@ const SliderWrapper = styled(Slider)`
   }
 `;
 const SlideWrapper = styled.div`
+  width: 100%;
   height: 704px;
   display: flex;
   justify-content: center;
