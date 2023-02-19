@@ -5,10 +5,11 @@ import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import React from 'react';
 import { updateLike, updateMyProject } from '../../apis/postDetail'; //여기서 에러 발생 :모듈 또는 해당 형식 선언을 찾을 수 없습니다.
 import { findWithCollectionName } from 'apis/findWithCollectionName';
-import { useAuth } from 'hooks';
+import { useAuth, useGlobalModal } from 'hooks';
 
 const Likes = ({ pid, like }: any) => {
   const { uid } = useAuth();
+  const { openModal } = useGlobalModal();
   const [countLike, setCountLike] = useState(like);
   const { mutate: likeMutate } = useMutation(() => updateLike(pid, countLike));
   const { mutate: likedProjectMutate } = useMutation(() =>
@@ -48,7 +49,10 @@ const Likes = ({ pid, like }: any) => {
   return (
     <IconButton
       onClick={(event) => {
-        if (!uid) return;
+        if (!uid) {
+          openModal('login', 0);
+          return;
+        }
         handleLike(event);
       }}
     >
