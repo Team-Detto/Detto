@@ -1,9 +1,9 @@
 import { getDate } from 'utils/date';
 import { EditType } from 'types/write/writeType';
-import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
-import styled from '@emotion/styled';
 import { concatSkills } from 'utils/skills';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import COLORS from 'assets/styles/colors';
+import styled from '@emotion/styled';
 
 interface Props {
   project: EditType.EditFormType;
@@ -11,7 +11,7 @@ interface Props {
   onNavigateToProjectDetailEvent: (path: string) => () => void;
 }
 
-const ContantCard = ({
+const ContentCard = ({
   project,
   likedProjects,
   onNavigateToProjectDetailEvent,
@@ -30,17 +30,17 @@ const ContantCard = ({
   }: any = project;
   const stacks = concatSkills(plannerStack, designerStack, developerStack);
   return (
-    <ContantCardWrap onClick={onNavigateToProjectDetailEvent(id)}>
-      <ContantCardImgContainer src={thumbnail} />
-      <ContantCardContentsContainer>
-        <ContantCardDateContainer>
+    <ContentCardWrap onClick={onNavigateToProjectDetailEvent(id)}>
+      <ContentCardImgContainer src={thumbnail} />
+      <ContentCardContentsContainer>
+        <ContentCardDateContainer>
           <RecruitingIcon>
             {isRecruiting ? '모집중' : '모집마감'}
           </RecruitingIcon>
 
-          <ContantCardDate>
+          <ContentCardDate>
             프로젝트 시작일 | <span> {getDate(startDate)}</span>
-          </ContantCardDate>
+          </ContentCardDate>
           <ContentCardBookmark>
             {likedProjects.includes(id) && (
               <AiFillHeart size="1.5rem" color={`${COLORS.pink}`} />
@@ -49,87 +49,87 @@ const ContantCard = ({
               <AiOutlineHeart size="1.5rem" color={`${COLORS.gray750}`} />
             )}
           </ContentCardBookmark>
-        </ContantCardDateContainer>
-        <ContantCardTitle>{title}</ContantCardTitle>
+        </ContentCardDateContainer>
+        <ContentCardTitle>{title}</ContentCardTitle>
         <ContentCardSubTextBox>
           <ContentCardSubText>조회수 {view}</ContentCardSubText>
           <ContentCardSubText>관심 {like}</ContentCardSubText>
         </ContentCardSubTextBox>
-        <ContantCardStackContainer>
+        <ContentCardStackContainer>
           {stacks
             .filter((stack, pos) => stacks.indexOf(stack) === pos)
             .map((stack, index) => {
               if (index < 8)
                 return (
-                  <ContantCardStackButton key={stack}>
+                  <ContentCardStackButton key={stack}>
                     {stack}
-                  </ContantCardStackButton>
+                  </ContentCardStackButton>
                 );
             })}
-        </ContantCardStackContainer>
-      </ContantCardContentsContainer>
-    </ContantCardWrap>
+        </ContentCardStackContainer>
+      </ContentCardContentsContainer>
+    </ContentCardWrap>
   );
 };
-const ContantCardWrap = styled.div`
-  width: 380px;
-  height: 475px;
+const ContentCardWrap = styled.div`
+  width: 23.75rem;
+  height: 29.6875rem;
   background: ${COLORS.white};
-  box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.04);
-  border-radius: 6px;
+  box-shadow: 0rem 0rem 0.375rem 0.125rem rgba(0, 0, 0, 0.04);
+  border-radius: 0.375rem;
   cursor: pointer;
 `;
-const ContantCardImgContainer = styled.img`
-  width: 380px;
-  height: 214px;
+const ContentCardImgContainer = styled.img`
+  width: 23.75rem;
+  height: 13.375rem;
   background: ${COLORS.gray300};
   object-fit: cover;
-  border-radius: 6px 6px 0px 0px;
+  border-radius: 0.375rem 0.375rem 0rem 0rem;
 `;
-const ContantCardContentsContainer = styled.div`
+const ContentCardContentsContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 352px;
-  height: 176px;
-  margin: 22px 14px 38px 14px;
+  width: 22rem;
+  height: 11rem;
+  margin: 1.375rem 0.875rem 2.375rem 0.875rem;
 `;
 const RecruitingIcon = styled.div`
-  width: 60px;
-  height: 28px;
+  width: 3.75rem;
+  height: 1.75rem;
   font-style: normal;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 0.875rem;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  border-radius: 40px;
-  padding: 0px 8px;
+  border-radius: 2.5rem;
+  padding: 0rem 0.5rem;
   background-color: ${(props: { children: string }) =>
     props.children === '모집중' ? `${COLORS.violetB400}` : `${COLORS.gray100}`};
   color: ${(props: { children: string }) =>
     props.children === '모집중' ? `${COLORS.white}` : `${COLORS.gray400}`};
-  font-size: 10px;
+  font-size: 0.625rem;
 `;
 
-const ContantCardDateContainer = styled.div`
+const ContentCardDateContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  padding: 0px;
-  gap: 5px;
-  width: 352px;
+  padding: 0rem;
+  gap: 0.3125rem;
+  width: 22rem;
 `;
-const ContantCardDate = styled.div`
-  width: 310px;
-  height: 32px;
+const ContentCardDate = styled.div`
+  width: 19.375rem;
+  height: 2rem;
   font-family: 'Noto Sans KR';
   font-style: normal;
   font-weight: 400;
-  font-size: 16px;
-  line-height: 32px;
+  font-size: 1rem;
+  line-height: 2rem;
   display: flex;
   align-items: center;
   color: ${COLORS.gray750};
@@ -139,13 +139,13 @@ const ContantCardDate = styled.div`
   }
 `;
 const ContentCardBookmark = styled.button``;
-const ContantCardTitle = styled.div`
-  width: 350px;
-  height: 50px;
+const ContentCardTitle = styled.div`
+  width: 21.875rem;
+  height: 3.125rem;
   font-family: 'Noto Sans KR';
   font-style: normal;
   font-weight: 400;
-  font-size: 18px;
+  font-size: 1.125rem;
   line-height: 140%;
   display: flex;
   align-items: center;
@@ -165,32 +165,32 @@ const ContentCardSubText = styled.p`
   line-height: 140%;
   color: ${COLORS.gray600};
 `;
-const ContantCardStackContainer = styled.div`
+const ContentCardStackContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: flex-start;
-  padding: 0px;
-  gap: 5px;
+  padding: 0rem;
+  gap: 0.3125rem;
   text-align: center;
   width: 100%;
-  height: 32px;
+  height: 2rem;
 `;
-const ContantCardStackButton = styled.div`
+const ContentCardStackButton = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding: 0px 12px;
-  gap: 10px;
-  height: 32px;
+  padding: 0rem 0.75rem;
+  gap: 0.625rem;
+  height: 2rem;
   background: ${COLORS.gray100};
-  border-radius: 32px;
+  border-radius: 2rem;
   font-family: 'Noto Sans KR';
   font-style: normal;
   font-weight: 400;
-  font-size: 12px;
-  line-height: 32px;
+  font-size: 0.75rem;
+  line-height: 2rem;
   color: ${COLORS.black};
 `;
 
-export default ContantCard;
+export default ContentCard;
