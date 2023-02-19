@@ -10,6 +10,7 @@ import {
   firebaseMostLikedProjectsRequest,
   firebaseMostViewedProjectsRequest,
 } from 'apis/getPost';
+import { getDate } from 'utils/date';
 
 const tapType = [
   { type: 'orderByViews', name: '조회순' },
@@ -31,8 +32,8 @@ const MainRecommendation = () => {
     queryFn: firebaseMostLikedProjectsRequest,
     staleTime: staleTime.mostLikedPosts,
   });
-
   if (!mostViewedProjects || !mostLikedProjects) return null;
+
   return (
     <MainRecommendationWrap>
       <MainRecommendationContainer>
