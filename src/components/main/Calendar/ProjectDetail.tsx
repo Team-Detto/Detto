@@ -19,15 +19,10 @@ const ProjectDetail = () => {
   const positionsKeys = Object.keys(selectedProject.positions);
   const positionsvalues = Object.values(selectedProject.positions);
 
-  // const positionsNames = positionsKeys.map((key) => {
-  //   const position = positions.find((position) => position.value === key);
-  //   return position?.name + ',';
-  // });
-  // positionsKeys랑 positionsvalues값을 이용하여서 positionsvalues값이 0이 아닌것들만 배열로 만든다
   const positionsValues = positionsKeys.filter((key, index) => {
     return positionsvalues[index] !== 0;
   });
-  // positionsValues값을 이용하여서 positions의 value값이랑 같은것을 name으로 배열로 만든다
+
   const positionsNames = positionsValues.map((value) => {
     const position = positions.find((position) => position.value === value);
     return position?.name + ',';
@@ -131,10 +126,11 @@ const ProjectDetailButton = styled.button`
   width: 18.75rem;
   height: 3rem;
   border-radius: 0.5rem;
-  margin-top: 2.5rem;
   color: ${COLORS.white};
   transition: background-color 100ms ease-in-out;
-
+  position: absolute;
+  right: 39px;
+  bottom: 1960px;
   &:hover {
     background-color: ${COLORS.violetB300};
   }
