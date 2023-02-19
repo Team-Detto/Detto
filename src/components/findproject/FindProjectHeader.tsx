@@ -1,5 +1,6 @@
 import { positionList } from 'utils/positions';
 import styled from '@emotion/styled';
+import COLORS from 'assets/styles/colors';
 
 interface Props {
   toggle: boolean;
@@ -33,7 +34,7 @@ const FindProjectHeader = ({
       <FindProjectHeaderRightBox>
         <FindProjectToggleBox>
           <FindProjectToggleButton onClick={onToggleClickEvent} toggle={toggle}>
-            <FindProjectToggleCricle toggle={toggle} />
+            <FindProjectToggleCircle toggle={toggle} />
           </FindProjectToggleButton>
           <FindProjectToggleText toggle={toggle}>모집 중</FindProjectToggleText>
           <FindProjectToggleSubText> 글만 보기</FindProjectToggleSubText>
@@ -48,7 +49,7 @@ const FindProjectHeaderContainer = styled.div`
   display: flex;
   flex-direction: row;
   margin-top: 13rem;
-  border-bottom: 1px solid #b0b8c1;
+  border-bottom: 1px solid ${COLORS.gray400};
 `;
 const FindProjectHeaderLeftBox = styled.div`
   width: 40%;
@@ -64,9 +65,11 @@ const FindProjectCategoryButton = styled.button`
   height: 2rem;
   padding-bottom: 2.5rem;
   border-bottom: ${(props: { name: string; category: string }) =>
-    props.name === props.category ? '2px solid #5d50f0' : 'none'};
+    props.name === props.category ? `2px solid ${COLORS.violetB500}` : 'none'};
   color: ${(props: { name: string; category: string }) =>
-    props.name === props.category ? '#5d50f0' : '#b0b8c1'};
+    props.name === props.category
+      ? `${COLORS.violetB500}`
+      : `${COLORS.gray400}`};
 `;
 const FindProjectHeaderRightBox = styled.div`
   width: 60%;
@@ -83,15 +86,15 @@ const FindProjectToggleButton = styled.button`
   border: none;
   cursor: pointer;
   background-color: ${(props: { toggle: boolean }) =>
-    props.toggle ? '#5d50f0' : '#6B7684'};
+    props.toggle ? `${COLORS.violetB500}` : `${COLORS.gray750}`};
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: all 0.5s ease-in-out;
 `;
-const FindProjectToggleCricle = styled.div`
-  background-color: #ffffff;
+const FindProjectToggleCircle = styled.div`
+  background-color: ${COLORS.white};
   width: 1.3125rem;
   height: 1.3125rem;
   border-radius: 3.125rem;
@@ -106,7 +109,7 @@ const FindProjectToggleText = styled.p`
   font-weight: 700;
   font-size: 1.125rem;
   color: ${(props: { toggle: boolean }) =>
-    props.toggle ? '#5d50f0' : '#4E5968'};
+    props.toggle ? `${COLORS.violetB500}` : `${COLORS.gray800}`};
   transition: all 0.3s ease-in-out;
 `;
 const FindProjectToggleSubText = styled.p`
