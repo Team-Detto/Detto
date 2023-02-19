@@ -39,6 +39,4 @@ const ContentWrapper = styled.div`
   background-color: ${COLORS.white};
   padding: 2.5rem;
   font-size: 1.25rem;
-  //스크롤바
-  overflow-y: scroll;
 `;
