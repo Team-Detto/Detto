@@ -28,7 +28,7 @@ const WritePagePosition = ({
           name: 'planner',
         }}
         value={planner}
-        onChageEvent={onFormValueChangeEvent}
+        onChangeEvent={onFormValueChangeEvent}
       />
       <LabelInput
         label="디자인"
@@ -41,7 +41,7 @@ const WritePagePosition = ({
           name: 'designer',
         }}
         value={designer}
-        onChageEvent={onFormValueChangeEvent}
+        onChangeEvent={onFormValueChangeEvent}
       />
       <LabelInput
         label="프론트"
@@ -54,7 +54,7 @@ const WritePagePosition = ({
           name: 'frontend',
         }}
         value={frontend}
-        onChageEvent={onFormValueChangeEvent}
+        onChangeEvent={onFormValueChangeEvent}
       />
       <LabelInput
         label="백엔드"
@@ -67,7 +67,7 @@ const WritePagePosition = ({
           name: 'backend',
         }}
         value={backend}
-        onChageEvent={onFormValueChangeEvent}
+        onChangeEvent={onFormValueChangeEvent}
       />
     </WritePagePositionContainer>
   );

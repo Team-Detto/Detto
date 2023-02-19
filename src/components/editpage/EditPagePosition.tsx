@@ -21,7 +21,7 @@ const EidtPagePosition = ({ positions, onFormValueChangeEvent }: Props) => {
           name: 'planner',
         }}
         value={positions.planner || 0}
-        onChageEvent={onFormValueChangeEvent}
+        onChangeEvent={onFormValueChangeEvent}
       />
       <LabelInput
         label="디자인"
@@ -34,7 +34,7 @@ const EidtPagePosition = ({ positions, onFormValueChangeEvent }: Props) => {
           name: 'designer',
         }}
         value={positions.designer ? positions.designer : 0}
-        onChageEvent={onFormValueChangeEvent}
+        onChangeEvent={onFormValueChangeEvent}
       />
       <LabelInput
         label="프론트"
@@ -47,7 +47,7 @@ const EidtPagePosition = ({ positions, onFormValueChangeEvent }: Props) => {
           name: 'frontend',
         }}
         value={positions.frontend || 0}
-        onChageEvent={onFormValueChangeEvent}
+        onChangeEvent={onFormValueChangeEvent}
       />
       <LabelInput
         label="백엔드"
@@ -60,7 +60,7 @@ const EidtPagePosition = ({ positions, onFormValueChangeEvent }: Props) => {
           name: 'backend',
         }}
         value={positions.backend || 0}
-        onChageEvent={onFormValueChangeEvent}
+        onChangeEvent={onFormValueChangeEvent}
       />
     </PositionContainer>
   );

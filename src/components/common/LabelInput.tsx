@@ -11,16 +11,17 @@ interface props {
     name: string;
   };
   value: number | string | readonly string[] | undefined;
-  onChageEvent: (e: React.ChangeEvent<HTMLInputElement>) => void; // eslint-disable-line no-unused-vars
+  onChangeEvent: (e: React.ChangeEvent<HTMLInputElement>) => void; // eslint-disable-line no-unused-vars
   label: string;
   text?: string;
 }
 
-const LabelInput = ({ input, label, text, value, onChageEvent }: props) => {
+const LabelInput = ({ input, label, text, value, onChangeEvent }: props) => {
+  if (value === 0) value = '';
   return (
     <LabelInputContainer>
       <Label htmlFor={input.id}>{label}</Label>
-      <Input {...input} value={value} onChange={onChageEvent} />
+      <Input {...input} value={value} onChange={onChangeEvent} />
       <Text>{text}</Text>
     </LabelInputContainer>
   );
