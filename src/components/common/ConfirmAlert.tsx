@@ -67,7 +67,7 @@ export const ConfirmAlertContainer = styled.div`
   top: 50%;
   transform: translate(-50%, -50%);
   padding: 15px;
-  background: #fff;
+  background: ${COLORS.white};
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.25);
   border-radius: 12px;
   z-index: 999;
@@ -88,7 +88,7 @@ export const ConfirmAlertInviteTitle = styled.p`
   text-align: start;
   white-space: pre-line;
   line-height: 140%;
-  color: #191f28;
+  color: ${COLORS.gray900};
 `;
 export const ConfirmAlertSubTitle = styled.p`
   width: 100%;
@@ -96,7 +96,7 @@ export const ConfirmAlertSubTitle = styled.p`
   font-weight: 600;
   font-size: 1.25rem;
   line-height: 1.5rem;
-  color: #6b7684;
+  color: ${COLORS.gray750};
 `;
 export const ConfirmAlertButtonContainer = styled.div`
   width: 100%;
@@ -109,10 +109,10 @@ export const ConfirmAlertButtonContainer = styled.div`
 export const ConfirmAlertCancelButton = styled.button`
   width: 15.9375rem;
   height: 3.75rem;
-  background: #f2f4f6;
+  background: ${COLORS.gray100};
   border-radius: 0.5rem;
   transition: all 100ms ease-in-out;
-  color: #505967;
+  color: #505967; //색상표에 없음
   font-weight: 600;
 
   &:hover {
