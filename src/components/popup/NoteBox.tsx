@@ -3,7 +3,7 @@ import { useQueries } from '@tanstack/react-query';
 import { getInboxNotes, getOutboxNotes } from 'apis/notes';
 import COLORS from 'assets/styles/colors';
 import { useAuth, usePopup } from 'hooks';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { staleTime } from 'utils/staleTime';
 import NoteMessage from './NoteMessage';
 import { PopupWrapper } from './styles';
@@ -16,6 +16,7 @@ const boxList = [
 export default function NoteBox() {
   // 받은 쪽지함, 보낸 쪽지함 선택 상태
   const [selectedBox, setSelectedBox] = useState('inbox');
+  const [unreadCount, setUnreadCount] = useState<number>(0);
 
   const {
     popup: { isNoteOpen },
@@ -39,6 +40,12 @@ export default function NoteBox() {
     ],
   });
 
+  useEffect(() => {
+    if (inboxData) {
+      setUnreadCount(inboxData.filter((data: any) => !data.isRead).length);
+    }
+  }, [inboxData]);
+
   if (!isNoteOpen) return null;
   return (
     // 팝업창 이외의 영역 클릭 시 팝업창 닫기. 팝업창 클릭 시 이벤트 propagation 막기
@@ -54,7 +61,15 @@ export default function NoteBox() {
               onChange={() => setSelectedBox(id)}
               defaultChecked={id === 'inbox'}
             />
-            <MenuLabel htmlFor={id}>{label}</MenuLabel>
+            {id === 'inbox' ? (
+              // 받은 쪽지함에는 읽지 않은 쪽지 수 표시
+              <MenuLabel htmlFor={id}>
+                {label}
+                {unreadCount > 0 && ` (${unreadCount})`}
+              </MenuLabel>
+            ) : (
+              <MenuLabel htmlFor={id}>{label}</MenuLabel>
+            )}
           </React.Fragment>
         ))}
       </BoxContainer>

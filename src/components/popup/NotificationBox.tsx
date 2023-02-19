@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getNotifications } from 'apis/notifications';
 import COLORS from 'assets/styles/colors';
 import { useAuth, usePopup } from 'hooks';
+import { useEffect, useState } from 'react';
 import { staleTime } from 'utils/staleTime';
 import NotificationMessage from './NotificationMessage';
 import { PopupWrapper } from './styles';
@@ -11,6 +12,7 @@ export default function NotificationBox() {
   const {
     popup: { isNotificationOpen },
   } = usePopup();
+  const [unreadCount, setUnreadCount] = useState<number>(0);
 
   const { uid } = useAuth();
   const { data: notifications }: any = useQuery({
@@ -20,6 +22,12 @@ export default function NotificationBox() {
     staleTime: staleTime.notifications,
   });
 
+  useEffect(() => {
+    if (notifications) {
+      setUnreadCount(notifications.filter((data: any) => !data.isRead).length);
+    }
+  }, [notifications]);
+
   if (!isNotificationOpen) return null;
   return (
     // 팝업창 이외의 영역 클릭 시 팝업창 닫기. 팝업창 클릭 시 이벤트 propagation 막기
@@ -27,11 +35,7 @@ export default function NotificationBox() {
       <TitleWrapper>
         읽지 않은 알림
         <MessageCountSpan>
-          (
-          {notifications
-            ? notifications.filter(({ isRead }: any) => !isRead).length
-            : 0}
-          )
+          {unreadCount > 0 && `(${unreadCount})`}
         </MessageCountSpan>
       </TitleWrapper>
       <MessageWrapper>
