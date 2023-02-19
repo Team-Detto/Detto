@@ -61,15 +61,14 @@ const useWrite = () => {
   }, [writeFormValue]);
 
   const handleCreateProjectButtonClick = async () => {
+    const { thumbnail } = writeFormValue;
     const markdownText = editRef.current.getInstance().getMarkdown();
 
-    const file = imageRef.current.files[0];
-
-    if (!file) {
+    if (!thumbnail) {
       const docId = await firebaseCreateProjectRequest(
         writeFormValue,
         markdownText,
-        imageRef.current.files[0],
+        null,
         uid,
       );
       navigate(`/project/${docId}`, {
@@ -78,7 +77,7 @@ const useWrite = () => {
       return;
     }
 
-    const resizedImage = await resizeFile(file);
+    const resizedImage = await resizeFile(thumbnail);
 
     const docId = await firebaseCreateProjectRequest(
       writeFormValue,
@@ -150,6 +149,7 @@ const initialWriteFormValue = {
     frontend: 0,
     backend: 0,
   },
+  thumbnail: null,
   plannerStack: [],
   developerStack: [],
   designerStack: [],
