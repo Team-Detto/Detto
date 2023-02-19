@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import COLORS from 'assets/styles/colors';
 
 interface props {
   input: {
@@ -33,11 +34,11 @@ const LabelInputContainer = styled.div`
 const Input = styled.input`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
-  border: 1px solid #ced3db;
+  border: 1px solid ${COLORS.gray300};
   border-radius: 4px;
   text-align: end;
   padding-right: 0.5rem;
-  background: #ffffff;
+  background: ${COLORS.white};
   ::-webkit-outer-spin-button,
   ::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -49,7 +50,7 @@ const Label = styled.label`
   font-weight: 500;
   font-size: 20px;
   line-height: 1.75rem;
-  color: #383838;
+  color: #383838; //색상표에 없음
   margin-right: 1rem;
 `;
 const Text = styled.p`
@@ -58,7 +59,7 @@ const Text = styled.p`
   font-weight: 500;
   font-size: 20px;
   line-height: 1.75rem;
-  color: #8b95a1;
+  color: ${COLORS.gray700};
   margin-left: 0.5rem;
 `;
 
