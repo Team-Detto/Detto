@@ -57,20 +57,24 @@ export default MainBanner;
 const SliderWrapper = styled(Slider)`
   background-color: ${COLORS.gray50};
   width: 100%;
-  height: 704px;
+  height: 44rem;
+  .slick-slide {
+    width: 100%;
+    height: 44rem;
+  }
   .slick-dots {
     position: absolute;
-    bottom: 34px;
+    bottom: 2.125rem;
 
     li {
       margin: 0;
-      width: 12px;
-      height: 12px;
-      margin: 0 12px;
+      width: 0.75rem;
+      height: 0.75rem;
+      margin: 0 0.75rem;
     }
     button {
-      width: 12px;
-      height: 12px;
+      width: 0.75rem;
+      height: 0.75rem;
       border-radius: 50%;
       background: ${COLORS.gray300};
       &::before {
@@ -80,65 +84,62 @@ const SliderWrapper = styled(Slider)`
     .slick-active {
       button {
         background: ${COLORS.violetB500};
-        width: 12px;
-        height: 12px;
+        width: 0.75rem;
+        height: 0.75rem;
       }
     }
   }
 `;
 const SlideWrapper = styled.div`
   width: 100%;
-  height: 704px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+  height: 44rem;
+  overflow: hidden;
 `;
 const BannerContainer = styled.div`
-  width: 1440px;
-  height: 704px;
+  width: 90rem;
+  height: 100%;
   margin: 0 auto;
   position: relative;
 `;
 const BannerTextBox = styled.div`
   position: absolute;
-  width: 356px;
-  height: 205px;
-  left: 146px;
-  top: 305px;
+  width: 22.25rem;
+  height: 12.8125rem;
+  left: 9.125rem;
+  top: 19.0625rem;
 `;
 const BannerTitle = styled.div`
-  width: 356px;
-  height: 116px;
+  width: 22.25rem;
+  height: 7.25rem;
 
   font-weight: 700;
-  font-size: 36px;
+  font-size: 2.25rem;
   line-height: 160%;
   display: flex;
   align-items: center;
   color: ${COLORS.gray850};
-  margin-bottom: 25px;
+  margin-bottom: 1.5625rem;
 `;
 const BannerSubTitle = styled.div`
-  width: 327px;
-  height: 64px;
+  width: 20.4375rem;
+  height: 4rem;
 
   font-weight: 350;
-  font-size: 20px;
+  font-size: 1.25rem;
   line-height: 160%;
   color: ${COLORS.gray850};
 `;
 const BannerFirstImg = styled.img`
   position: absolute;
-  width: 751px;
-  height: 802px;
-  left: 591px;
-  top: 0px;
+  width: 46.9375rem;
+  height: 50.125rem;
+  left: 36.9375rem;
+  top: 0;
 `;
 const BannerSecondImg = styled.img`
   position: absolute;
-  width: 846px;
-  height: 295px;
-  left: 474px;
-  top: 243px;
+  width: 52.875rem;
+  height: 18.4375rem;
+  left: 29.625rem;
+  top: 15.1875rem;
 `;
