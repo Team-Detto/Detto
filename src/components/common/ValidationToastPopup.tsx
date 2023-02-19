@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import COLORS from 'assets/styles/colors';
 
 interface Props {
   message: string;
@@ -37,7 +38,7 @@ const ValidationToastAlertContainer = styled.div<Partial<Props>>`
     rgba(255, 255, 255, 0) 100%
   );
 
-  background-color: #6f64f2;
+  background-color: ${COLORS.violetB400};
 
   filter: drop-shadow(0rem 0rem 0.625rem rgba(0, 0, 0, 0.25));
   backdrop-filter: blur(0.4375rem);
@@ -71,7 +72,7 @@ const ValidationToastAlertText = styled.p`
   align-items: center;
   justify-content: center;
 
-  color: #ffffff;
+  color: ${COLORS.white};
 `;
 
 export default ValidationToastPopup;
