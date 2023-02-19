@@ -21,13 +21,13 @@ const MainRecommendation = () => {
   const { handleNavigateToProjectDetail, likedProjects } = useFindProject();
 
   const { data: mostViewedProjects }: any = useQuery({
-    queryKey: ['posts', 'mostViewed'],
+    queryKey: ['post', 'mostViewed'],
     queryFn: firebaseMostViewedProjectsRequest,
     staleTime: staleTime.mostViewedPosts,
   });
 
   const { data: mostLikedProjects }: any = useQuery({
-    queryKey: ['posts', 'mostLiked'],
+    queryKey: ['post', 'mostLiked'],
     queryFn: firebaseMostLikedProjectsRequest,
     staleTime: staleTime.mostLikedPosts,
   });

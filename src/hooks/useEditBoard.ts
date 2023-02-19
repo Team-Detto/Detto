@@ -13,7 +13,7 @@ import {
   titleValidation,
 } from 'utils/validation';
 
-const useEdtiBoard = () => {
+const useEditBoard = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
   const params = useParams();
@@ -163,4 +163,4 @@ const resizeFile = (file: File) =>
     );
   });
 
-export default useEdtiBoard;
+export default useEditBoard;
