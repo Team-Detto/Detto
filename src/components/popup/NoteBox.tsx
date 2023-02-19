@@ -75,12 +75,20 @@ export default function NoteBox() {
       </BoxContainer>
       <MessageWrapper>
         {selectedBox === 'inbox' &&
-          inboxData?.map((data: any) => (
-            <NoteMessage key={data.id} type="inbox" data={data} />
+          (inboxData?.length === 0 ? (
+            <NoDataText>🔔 아직 받은 쪽지가 없어요</NoDataText>
+          ) : (
+            inboxData?.map((data: any) => (
+              <NoteMessage key={data.id} type="inbox" data={data} />
+            ))
           ))}
         {selectedBox === 'outbox' &&
-          outboxData?.map((data: any) => (
-            <NoteMessage key={data.id} type="outbox" data={data} />
+          (outboxData?.length === 0 ? (
+            <NoDataText>🔔 아직 보낸 쪽지가 없어요</NoDataText>
+          ) : (
+            outboxData?.map((data: any) => (
+              <NoteMessage key={data.id} type="outbox" data={data} />
+            ))
           ))}
       </MessageWrapper>
     </PopupWrapper>
@@ -136,4 +144,19 @@ const MessageWrapper = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
+`;
+
+const NoDataText = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 140%;
+
+  color: ${COLORS.gray850};
 `;

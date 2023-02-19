@@ -39,9 +39,13 @@ export default function NotificationBox() {
         </MessageCountSpan>
       </TitleWrapper>
       <MessageWrapper>
-        {notifications?.map((data: any) => (
-          <NotificationMessage key={data.id} data={data} />
-        ))}
+        {notifications?.length === 0 ? (
+          <NoDataText>🔔 아직 받은 알림이 없어요</NoDataText>
+        ) : (
+          notifications?.map((data: any) => (
+            <NotificationMessage key={data.id} data={data} />
+          ))
+        )}
       </MessageWrapper>
     </PopupWrapper>
   );
@@ -78,4 +82,19 @@ const MessageWrapper = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
+`;
+
+const NoDataText = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 140%;
+
+  color: ${COLORS.gray850};
 `;
