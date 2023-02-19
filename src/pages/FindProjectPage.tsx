@@ -39,6 +39,7 @@ const FindProjectPage = () => {
 const FindProjectPageWrapper = styled.div`
   width: 100%;
   height: 100%;
+  padding-bottom: 10rem;
 `;
 
 export default FindProjectPage;
