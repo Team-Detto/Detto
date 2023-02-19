@@ -37,52 +37,52 @@ const MainFindUsersWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0px;
-  gap: 104px;
-  width: 1180px;
-  margin: 0px auto;
-  padding-bottom: 453px;
+  padding: 0rem;
+  gap: 6.5rem;
+  width: 73.75rem;
+  margin: 0rem auto;
+  padding-bottom: 15rem;
 `;
 const MainFindUsersContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0px;
-  gap: 45px;
-  width: 625px;
-  height: 137px;
+  padding: 0rem;
+  gap: 2.8125rem;
+  width: 39.0625rem;
+  height: 8.5625rem;
 `;
 const MainFindUsersTitleDiv = styled.div`
-  width: 470px;
-  height: 44px;
+  width: 29.375rem;
+  height: 2.75rem;
   font-weight: 700;
   font-size: 2rem;
-  line-height: 44px;
+  line-height: 2.75rem;
   display: flex;
   align-items: center;
-  color: #4e5968;
+  color: ${COLORS.gray800};
 `;
 const MainFindUsersButtonContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding: 0px;
-  gap: 19px;
-  width: 625px;
-  height: 48px;
+  padding: 0rem;
+  gap: 1.1875rem;
+  width: 39.0625rem;
+  height: 3rem;
 `;
 const MainFindUsersButton = styled.button<{ active: boolean }>`
-  width: 150px;
-  height: 48px;
+  width: 9.375rem;
+  height: 3rem;
 
   font-weight: ${(props) => (props.active ? '700' : '400')};
-  font-size: 16px;
-  line-height: 32px;
+  font-size: 1rem;
+  line-height: 2rem;
 
   color: ${(props) => (props.active ? COLORS.white : COLORS.black)};
   background-color: ${(props) =>
     props.active ? COLORS.violetB400 : COLORS.gray50};
-  border-radius: 36px;
+  border-radius: 2.25rem;
 
   &:hover {
     background-color: ${(props) =>
@@ -90,7 +90,7 @@ const MainFindUsersButton = styled.button<{ active: boolean }>`
   }
 `;
 const SlideArea = styled.div`
-  width: 1180px;
+  width: 73.75rem;
 `;
 
 export default MainFindUsers;

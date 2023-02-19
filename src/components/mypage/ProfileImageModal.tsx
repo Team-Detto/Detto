@@ -136,7 +136,8 @@ const FileInput = styled.input`
 `;
 
 const ModalButton = styled(ConfirmAlertCancelButton)<{ isConfirm?: boolean }>`
-  background-color: ${({ isConfirm }) => (isConfirm ? '#6B43DD' : '#f2f4f6')};
+  background-color: ${({ isConfirm }) =>
+    isConfirm ? '#6B43DD' : COLORS.gray100};
   color: ${({ isConfirm }) => (isConfirm ? COLORS.white : '#505967')};
 
   &:hover {

@@ -3,26 +3,33 @@ import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import ConfirmAlert from 'components/common/ConfirmAlert';
 import { useMutation } from '@tanstack/react-query';
-import { deleteProject } from 'apis/postDetail';
+import { deleteProject, updateRecruiting } from 'apis/postDetail';
 import { useAuth, useModal } from 'hooks';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
-const TitleThumbnailArea = (props: any) => {
+const TitleThumbnailArea = ({ projectData, pid }: any) => {
+  const { thumbnail, title, isRecruiting, deadline } = projectData;
+  const today = new Date().getTime();
   const navigate = useNavigate();
-  const { projectData, pid } = props;
-  const { thumbnail, title, isRecruiting } = projectData;
+
   const { isOpen, handleModalStateChange } = useModal(false);
   //글 삭제하기 useMutation
   const { mutate: deleteProjectMutate } = useMutation(() => deleteProject(pid));
+
   const { uid } = useAuth();
   const handleDeleteProject = () => {
-    //삭제하기 버튼 클릭시
-    //1. 프로젝트 삭제
-    deleteProjectMutate(pid);
-    //2. 프로젝트에 참여중인 멤버들의 참여중인 프로젝트 목록에서 삭제
-    //3. 프로젝트에 지원한 멤버들의 지원한 프로젝트 목록에서 삭제
-    // => 모든 user데이터 조회???
+    deleteProjectMutate(pid); //post 컬렉션에서 프로젝트 삭제
   };
+
+  const { mutate: updateRecruitingMutate } = useMutation(() =>
+    updateRecruiting(pid as string, false),
+  );
+  useEffect(() => {
+    if (today > deadline) {
+      updateRecruitingMutate(pid, false as any);
+    }
+  }, []);
 
   return (
     <>

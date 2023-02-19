@@ -61,7 +61,7 @@ const ProjectDetailContainer = styled.div<{ visible?: boolean }>`
   width: 21.75rem;
   height: 22.4375rem;
   border-radius: 0.75rem;
-  border: ${({ visible }) => visible && '1px solid #5d50f0'};
+  border: ${({ visible }) => visible && `1px solid ${COLORS.violetB500}`};
   box-shadow: ${({ visible }) => visible && '0px 0px 6px rgba(0, 0, 0, 0.25)'};
 `;
 

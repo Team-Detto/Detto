@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import COLORS from 'assets/styles/colors';
 
 const ApplyMotiveArea = (props: any) => {
   const { motive, setMotive } = props;
@@ -47,7 +48,7 @@ const MotiveTextArea = styled.textarea`
 
   width: 39.0625rem;
   height: 12.3125rem;
-  border: 0.0625rem solid #ced3db;
+  border: 0.0625rem solid ${COLORS.gray300};
   border-radius: 0.25rem;
   resize: none;
 `;

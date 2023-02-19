@@ -1,18 +1,34 @@
 import styled from '@emotion/styled';
 import ScollToTopImage from 'assets/images/scroll_to_top.png';
+import { useEffect, useState } from 'react';
 
 const ScrollToTopButton = () => {
+  const [showButton, setShowButton] = useState<boolean>(false);
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const toggleShowButton = () => {
+    const { scrollY } = window;
+    scrollY > 200 ? setShowButton(true) : setShowButton(false);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', toggleShowButton);
+
+    return () => {
+      window.removeEventListener('scroll', toggleShowButton);
+    };
+  }, []);
+
   return (
-    <Button
-      onClick={() => {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth',
-        });
-      }}
-    >
-      <img src={ScollToTopImage} alt="Scroll to top" />
-    </Button>
+    <>
+      {showButton && (
+        <Button onClick={scrollToTop}>
+          <img src={ScollToTopImage} alt="Scroll to top" />
+        </Button>
+      )}
+    </>
   );
 };
 

@@ -4,12 +4,12 @@ import LabelInput from 'components/common/LabelInput';
 import styled from '@emotion/styled';
 interface Props {
   writeFormValue: WriteType.WriteFormType;
-  onFormValueChagneEvent: (e: React.ChangeEvent<HTMLInputElement>) => void; // eslint-disable-line no-unused-vars
+  onFormValueChangeEvent: (e: React.ChangeEvent<HTMLInputElement>) => void; // eslint-disable-line no-unused-vars
 }
 
 const WritePagePosition = ({
   writeFormValue,
-  onFormValueChagneEvent,
+  onFormValueChangeEvent,
 }: Props) => {
   const {
     positions: { planner, designer, frontend, backend },
@@ -28,7 +28,7 @@ const WritePagePosition = ({
           name: 'planner',
         }}
         value={planner}
-        onChageEvent={onFormValueChagneEvent}
+        onChangeEvent={onFormValueChangeEvent}
       />
       <LabelInput
         label="디자인"
@@ -41,7 +41,7 @@ const WritePagePosition = ({
           name: 'designer',
         }}
         value={designer}
-        onChageEvent={onFormValueChagneEvent}
+        onChangeEvent={onFormValueChangeEvent}
       />
       <LabelInput
         label="프론트"
@@ -54,7 +54,7 @@ const WritePagePosition = ({
           name: 'frontend',
         }}
         value={frontend}
-        onChageEvent={onFormValueChagneEvent}
+        onChangeEvent={onFormValueChangeEvent}
       />
       <LabelInput
         label="백엔드"
@@ -67,7 +67,7 @@ const WritePagePosition = ({
           name: 'backend',
         }}
         value={backend}
-        onChageEvent={onFormValueChagneEvent}
+        onChangeEvent={onFormValueChangeEvent}
       />
     </WritePagePositionContainer>
   );

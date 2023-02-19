@@ -1,4 +1,4 @@
-import ContantCard from 'components/ContentCard';
+import ContentCard from 'components/ContentCard';
 import styled from '@emotion/styled';
 import { EditType } from 'types/write/writeType';
 
@@ -24,7 +24,7 @@ const FindProjectList = ({
         .map((project) =>
           toggle ? (
             project.isRecruiting && (
-              <ContantCard
+              <ContentCard
                 key={project.id}
                 project={project}
                 likedProjects={likedProjects}
@@ -32,7 +32,7 @@ const FindProjectList = ({
               />
             )
           ) : (
-            <ContantCard
+            <ContentCard
               key={project.id}
               project={project}
               likedProjects={likedProjects}

@@ -55,7 +55,7 @@ const InputBox = styled.div`
 const InfoTextInput = styled.input`
   width: 22rem;
   padding: 0.625rem 1.25rem;
-  border: 1px solid #ced3db;
+  border: 1px solid ${COLORS.gray300};
   border-radius: 4px;
   color: ${COLORS.gray800};
   font-size: 1.125rem;

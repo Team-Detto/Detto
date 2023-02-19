@@ -30,7 +30,7 @@ const Button = styled.button`
   align-items: center;
   justify-content: center;
 
-  color: #ffffff;
+  color: ${COLORS.white};
   background-color: ${COLORS.violetB400};
   border-radius: 1rem;
 

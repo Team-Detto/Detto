@@ -34,7 +34,7 @@ const ProjectWritePage = () => {
           imageRef={imageRef}
           writeFormValue={writeFormValue}
           setWriteFormValue={setWriteFormValue}
-          onFormValueChagneEvent={handleFormValueChange}
+          onFormValueChangeEvent={handleFormValueChange}
           onAddThumbnailImageEvent={handleAddThumbnailImage}
         />
         <ProjectWritePageFooter

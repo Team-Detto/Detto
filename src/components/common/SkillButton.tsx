@@ -2,6 +2,7 @@ import { memo, useState, useEffect, useCallback } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { mypageInfoButtonActiveState } from '../../recoil/atoms';
 import styled from '@emotion/styled';
+import COLORS from 'assets/styles/colors';
 
 interface props {
   name: string;
@@ -55,9 +56,9 @@ const SkillButton = ({ name, value, isChecked, setValue, type }: props) => {
 const SkillButtonContainer = styled.div``;
 const SkillBtn = styled.button`
   background-color: ${(props: { isActive: boolean }) =>
-    props.isActive === true ? '#5D50F0' : '#f2f4f6'};
+    props.isActive === true ? `${COLORS.violetB500}` : `${COLORS.gray100}`};
   color: ${(props: { isActive: boolean }) =>
-    props.isActive === true ? '#ffffff' : '#000000'};
+    props.isActive === true ? `${COLORS.white}` : `${COLORS.black}`};
 
   font-weight: 400;
   font-size: 12px;

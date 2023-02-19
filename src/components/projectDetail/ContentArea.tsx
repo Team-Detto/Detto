@@ -33,11 +33,10 @@ const ContentTitle = styled.div`
 
 const ContentWrapper = styled.div`
   width: 73.75rem;
+  min-height: 532px;
   height: 100%;
   margin-top: 1.6875rem;
   background-color: ${COLORS.white};
   padding: 2.5rem;
   font-size: 1.25rem;
-  //스크롤바
-  overflow-y: scroll;
 `;

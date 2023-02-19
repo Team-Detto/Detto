@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import COLORS from 'assets/styles/colors';
 import { positionList } from 'utils/positions';
 
 const ApplyPositionButton = (props: any) => {
@@ -34,9 +35,9 @@ const PositionButton = styled.button`
   border-radius: 16px;
 
   background-color: ${(props: { isActive: boolean }) =>
-    props.isActive === true ? '#5D50F0' : '#f2f4f6'};
+    props.isActive === true ? `${COLORS.violetB500}` : `${COLORS.gray100}`};
   color: ${(props: { isActive: boolean }) =>
-    props.isActive === true ? '#ffffff' : '#000000'};
+    props.isActive === true ? `${COLORS.white}` : `${COLORS.black}`};
   transition: transform 100ms ease-in-out;
   &:hover {
     transform: scale(1.05);

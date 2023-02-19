@@ -11,6 +11,7 @@ import ApplyButtonArea from './ApplyButtonArea';
 import ApplyMotiveArea from './ApplyMotiveArea';
 import ApplyPositionArea from './ApplyPositonArea';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
+import COLORS from 'assets/styles/colors';
 
 interface props {
   isOpen: boolean;
@@ -145,7 +146,7 @@ const ModalContainer = styled.div`
   text-align: center;
   transform: translate(-50%, -50%);
   padding: 1.25rem 1rem;
-  background: #fff;
+  background: ${COLORS.white};
   border-radius: 1rem;
   box-shadow: 0rem 0.25rem 0.625rem rgba(117, 117, 117, 0.25);
   z-index: 999;

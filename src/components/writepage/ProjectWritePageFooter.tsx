@@ -36,14 +36,14 @@ const ProjectWritePageFooterContainer = styled.div`
 const ProjectWritePageFooterEditBox = styled.div`
   width: 73.75rem;
   height: 68.1875rem;
-  border: 0.0625rem solid #ced3db;
+  border: 0.0625rem solid ${COLORS.gray300};
   z-index: 0;
 `;
 const ProjectWritePageFooterCompleatedButton = styled.button`
   width: 29.375rem;
   height: 5.5rem;
   background-color: ${COLORS.violetB400};
-  color: #ffffff;
+  color: ${COLORS.white};
   border-radius: 2.25rem;
   margin-top: 4rem;
 
@@ -57,7 +57,7 @@ const ProjectWritePageFooterCompleatedText = styled.p`
   font-weight: 700;
   font-size: 1.75rem;
   line-height: 2rem;
-  color: #ffffff;
+  color: ${COLORS.white};
 `;
 
 export default ProjectWritePageFooter;

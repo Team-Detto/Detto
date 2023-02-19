@@ -72,14 +72,14 @@ const SliderWrapper = styled(Slider)`
       width: 12px;
       height: 12px;
       border-radius: 50%;
-      background: #ced3db;
+      background: ${COLORS.gray300};
       &::before {
         display: none;
       }
     }
     .slick-active {
       button {
-        background: #5d50f0;
+        background: ${COLORS.violetB500};
         width: 12px;
         height: 12px;
       }
@@ -116,7 +116,7 @@ const BannerTitle = styled.div`
   line-height: 160%;
   display: flex;
   align-items: center;
-  color: #333d4b;
+  color: ${COLORS.gray850};
   margin-bottom: 25px;
 `;
 const BannerSubTitle = styled.div`
@@ -126,7 +126,7 @@ const BannerSubTitle = styled.div`
   font-weight: 350;
   font-size: 20px;
   line-height: 160%;
-  color: #333d4b;
+  color: ${COLORS.gray850};
 `;
 const BannerFirstImg = styled.img`
   position: absolute;

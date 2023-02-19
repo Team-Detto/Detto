@@ -9,7 +9,7 @@ interface Props {
   imageRef: RefObject<HTMLInputElement>;
   writeFormValue: WriteType.WriteFormType;
   setWriteFormValue: (value: WriteType.WriteFormType) => void;
-  onFormValueChagneEvent: (e: React.ChangeEvent<HTMLInputElement>) => void; // eslint-disable-line no-unused-vars
+  onFormValueChangeEvent: (e: React.ChangeEvent<HTMLInputElement>) => void; // eslint-disable-line no-unused-vars
   onAddThumbnailImageEvent: () => void;
 }
 
@@ -17,7 +17,7 @@ const ProjectWritePageBody = ({
   imageRef,
   writeFormValue,
   setWriteFormValue,
-  onFormValueChagneEvent,
+  onFormValueChangeEvent,
   onAddThumbnailImageEvent,
 }: Props) => {
   const handleAddThumbnailImageChange = () => {
@@ -35,7 +35,7 @@ const ProjectWritePageBody = ({
         <WritePageBodyText>필요 포지션</WritePageBodyText>
         <WritePagePosition
           writeFormValue={writeFormValue}
-          onFormValueChagneEvent={onFormValueChagneEvent}
+          onFormValueChangeEvent={onFormValueChangeEvent}
         />
       </WritePageBodyPositionBox>
       <WritePageBodyStackBox>
@@ -44,29 +44,32 @@ const ProjectWritePageBody = ({
           setWriteFormValue={setWriteFormValue}
         />
       </WritePageBodyStackBox>
-      <WirtePageBodyEstimatedPeriodBox>
+      <WritePageBodyEstimatedPeriodBox>
         <WritePageBodyText>예상 기간</WritePageBodyText>
         <WritePageBodyDateInput
           type="date"
           name="startDate"
           value={writeFormValue.startDate}
-          onChange={onFormValueChagneEvent}
+          onChange={onFormValueChangeEvent}
         />
         <WritePageBodyDateInput
           type="date"
           name="endDate"
           value={writeFormValue.endDate}
-          onChange={onFormValueChagneEvent}
+          onChange={onFormValueChangeEvent}
         />
-      </WirtePageBodyEstimatedPeriodBox>
+      </WritePageBodyEstimatedPeriodBox>
       <WritePageBodyDeadlineBox>
         <WritePageBodyText>모집 마감일</WritePageBodyText>
         <WritePageBodyDateInput
           type="date"
           name="deadline"
           value={writeFormValue.deadline}
-          onChange={onFormValueChagneEvent}
+          onChange={onFormValueChangeEvent}
         />
+        <WritePageBodyDeadlineText>
+          입력하신 날짜 11시 59분에 자동 마감됩니다.
+        </WritePageBodyDeadlineText>
       </WritePageBodyDeadlineBox>
       <WritePageBodyThumbnailBox>
         <WritePageBodyText>썸네일 추가</WritePageBodyText>
@@ -112,7 +115,7 @@ const WritePageBodyStackBox = styled.div`
   width: 100%;
   margin-top: 2rem;
 `;
-const WirtePageBodyEstimatedPeriodBox = styled.div`
+const WritePageBodyEstimatedPeriodBox = styled.div`
   width: 100%;
   margin-top: 2rem;
   padding-right: 25rem;
@@ -133,7 +136,19 @@ const WritePageBodyDeadlineBox = styled.div`
   margin-top: 2rem;
   padding-right: 25rem;
   display: flex;
+  align-items: center;
   flex-direction: row;
+`;
+const WritePageBodyDeadlineText = styled.p`
+  padding-left: 1rem;
+  width: 20rem;
+  height: 1.0625rem;
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 140%;
+  color: ${COLORS.gray600};
+  display: flex;
+  align-items: center;
 `;
 const WritePageBodyThumbnailBox = styled.div`
   width: 100%;
@@ -159,7 +174,7 @@ const WritePageBodyThumbnailButton = styled.button`
   height: 43px;
   background: ${(props: { writeFormValue: WriteType.WriteFormType }) =>
     props.writeFormValue.thumbnail ? COLORS.gray300 : COLORS.violetB400};
-  color: #ffffff;
+  color: ${COLORS.white};
   border-radius: 8px;
   margin-left: 2rem;
   transition: background-color 100ms ease-in-out;

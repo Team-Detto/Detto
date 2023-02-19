@@ -136,7 +136,7 @@ const HeaderContainer = styled.header<headerTypes>`
       ? 'linear-gradient(180deg, rgba(242, 242, 242, 0.47) 0%, rgba(217, 217, 217, 0) 107.87%)'
       : 'none'};
   background-color: ${({ isMain, hideGradient }) =>
-    isMain && hideGradient ? 'transparent' : '#fff'};
+    isMain && hideGradient ? 'transparent' : `${COLORS.white}`};
 `;
 
 const HeaderWrapper = styled.div`
@@ -150,7 +150,7 @@ const HeaderWrapper = styled.div`
 const LogoBoxH1 = styled.h1`
   font-size: 2.5rem;
   font-weight: 800;
-  color: #5d50f0;
+  color: ${COLORS.violetB500};
   margin-top: -0.5rem;
   margin-left: 1.438rem;
   cursor: pointer;
@@ -170,7 +170,7 @@ const NavItemLi = styled.li`
   cursor: pointer;
   font-size: 1rem;
   font-weight: 700;
-  color: #4e5968;
+  color: ${COLORS.gray800};
   transition: all 300ms ease-in-out;
 
   &:last-child {

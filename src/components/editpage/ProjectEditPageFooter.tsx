@@ -1,7 +1,8 @@
 import { MutableRefObject } from 'react';
-import TextEdiotr from 'components/TextEditor';
+import TextEditor from 'components/TextEditor';
 import { EditType } from 'types/write/writeType';
 import styled from '@emotion/styled';
+import COLORS from 'assets/styles/colors';
 
 interface Props {
   editRef: MutableRefObject<any>;
@@ -17,11 +18,11 @@ const ProjectEditPageFooter = ({
   return (
     <FooterContainer>
       <FooterEditBox>
-        <TextEdiotr editRef={editRef} value={editFormValue.content} />
+        <TextEditor editRef={editRef} value={editFormValue.content} />
       </FooterEditBox>
-      <FooterCompleatedButton onClick={onModalStateChangeEvent}>
-        <FooterCompleatedText>수정 완료</FooterCompleatedText>
-      </FooterCompleatedButton>
+      <FooterCompletedButton onClick={onModalStateChangeEvent}>
+        <FooterCompletedText>수정 완료</FooterCompletedText>
+      </FooterCompletedButton>
     </FooterContainer>
   );
 };
@@ -37,22 +38,22 @@ const FooterContainer = styled.div`
 const FooterEditBox = styled.div`
   width: 73.75rem;
   height: 68.1875rem;
-  border: 0.0625rem solid #ced3db;
+  border: 0.0625rem solid ${COLORS.gray300};
   z-index: 0;
 `;
-const FooterCompleatedButton = styled.button`
+const FooterCompletedButton = styled.button`
   width: 29.375rem;
   height: 5.5rem;
-  background: #6f64f2;
-  color: #ffffff;
+  background: ${COLORS.violetB400};
+  color: ${COLORS.white};
   border-radius: 2.25rem;
   margin-top: 4rem;
 `;
-const FooterCompleatedText = styled.p`
+const FooterCompletedText = styled.p`
   font-weight: 700;
   font-size: 1.75rem;
   line-height: 2rem;
-  color: #ffffff;
+  color: ${COLORS.white};
 `;
 
 export default ProjectEditPageFooter;
