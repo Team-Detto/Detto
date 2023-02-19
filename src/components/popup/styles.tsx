@@ -18,6 +18,8 @@ export const PopupWrapper = styled.div<{ popup: string }>`
   border-radius: 8px;
   border: 1px solid ${COLORS.gray200};
 
+  filter: drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.2));
+
   overflow: hidden;
 `;
 
