@@ -51,7 +51,7 @@ const useEdtiBoard = () => {
     const validations = [
       {
         isValid: titleValidation(title),
-        message: '타이틀 길이는 1자 이상 40자 이하로 작성해주세요.',
+        message: '타이틀 길이는 5자 이상 40자 이하로 작성해주세요.',
       },
       {
         isValid: positionValidation(positions),
@@ -67,7 +67,7 @@ const useEdtiBoard = () => {
       },
       {
         isValid: contentValidation(markdownText),
-        message: '내용 길이는 1글자 이상 적어주세요.',
+        message: '내용 길이는 10자 이상 적어주세요.',
       },
     ];
 
