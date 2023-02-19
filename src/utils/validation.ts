@@ -1,10 +1,11 @@
 export const titleValidation = (title: string) => {
-  if (title.length === 0) return false;
-  return title.length <= 40 ? true : false;
+  if (title.length < 5) return false;
+  if (title.length > 40) return false;
+  return true;
 };
 
 export const contentValidation = (content: string) => {
-  if (content.length === 0) return false;
+  if (content.length < 10) return false;
   return true;
 };
 
