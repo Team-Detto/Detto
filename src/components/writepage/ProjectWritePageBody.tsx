@@ -9,7 +9,7 @@ interface Props {
   imageRef: RefObject<HTMLInputElement>;
   writeFormValue: WriteType.WriteFormType;
   setWriteFormValue: (value: WriteType.WriteFormType) => void;
-  onFormValueChagneEvent: (e: React.ChangeEvent<HTMLInputElement>) => void; // eslint-disable-line no-unused-vars
+  onFormValueChangeEvent: (e: React.ChangeEvent<HTMLInputElement>) => void; // eslint-disable-line no-unused-vars
   onAddThumbnailImageEvent: () => void;
 }
 
@@ -17,7 +17,7 @@ const ProjectWritePageBody = ({
   imageRef,
   writeFormValue,
   setWriteFormValue,
-  onFormValueChagneEvent,
+  onFormValueChangeEvent,
   onAddThumbnailImageEvent,
 }: Props) => {
   const handleAddThumbnailImageChange = () => {
@@ -35,7 +35,7 @@ const ProjectWritePageBody = ({
         <WritePageBodyText>필요 포지션</WritePageBodyText>
         <WritePagePosition
           writeFormValue={writeFormValue}
-          onFormValueChagneEvent={onFormValueChagneEvent}
+          onFormValueChangeEvent={onFormValueChangeEvent}
         />
       </WritePageBodyPositionBox>
       <WritePageBodyStackBox>
@@ -44,28 +44,28 @@ const ProjectWritePageBody = ({
           setWriteFormValue={setWriteFormValue}
         />
       </WritePageBodyStackBox>
-      <WirtePageBodyEstimatedPeriodBox>
+      <WritePageBodyEstimatedPeriodBox>
         <WritePageBodyText>예상 기간</WritePageBodyText>
         <WritePageBodyDateInput
           type="date"
           name="startDate"
           value={writeFormValue.startDate}
-          onChange={onFormValueChagneEvent}
+          onChange={onFormValueChangeEvent}
         />
         <WritePageBodyDateInput
           type="date"
           name="endDate"
           value={writeFormValue.endDate}
-          onChange={onFormValueChagneEvent}
+          onChange={onFormValueChangeEvent}
         />
-      </WirtePageBodyEstimatedPeriodBox>
+      </WritePageBodyEstimatedPeriodBox>
       <WritePageBodyDeadlineBox>
         <WritePageBodyText>모집 마감일</WritePageBodyText>
         <WritePageBodyDateInput
           type="date"
           name="deadline"
           value={writeFormValue.deadline}
-          onChange={onFormValueChagneEvent}
+          onChange={onFormValueChangeEvent}
         />
       </WritePageBodyDeadlineBox>
       <WritePageBodyThumbnailBox>
@@ -112,7 +112,7 @@ const WritePageBodyStackBox = styled.div`
   width: 100%;
   margin-top: 2rem;
 `;
-const WirtePageBodyEstimatedPeriodBox = styled.div`
+const WritePageBodyEstimatedPeriodBox = styled.div`
   width: 100%;
   margin-top: 2rem;
   padding-right: 25rem;
