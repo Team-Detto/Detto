@@ -7,16 +7,17 @@ import styled from '@emotion/styled';
 
 interface Props {
   imageRef: any;
-  editFormValue: any;
+  editFormValue: EditType.EditFormType;
   setEditFormValue: (value: EditType.EditFormType) => void;
+  setEditThumbnail: (value: any) => void;
   onFormValueChangeEvent: (e: ChangeEvent<HTMLInputElement>) => void;
   onAddThumbnailImageEvent: () => void;
 }
-
 const ProjectEditPageBody = ({
   imageRef,
   editFormValue,
   setEditFormValue,
+  setEditThumbnail,
   onFormValueChangeEvent,
   onAddThumbnailImageEvent,
 }: Props) => {
@@ -29,6 +30,11 @@ const ProjectEditPageBody = ({
     endDate,
     deadline,
   } = editFormValue;
+  const handleAddThumbnailImageChange = () => {
+    setEditThumbnail(
+      imageRef.current?.files?.length ? imageRef.current.files[0] : '',
+    );
+  };
 
   return (
     <BodyContainer>
@@ -73,8 +79,16 @@ const ProjectEditPageBody = ({
       </BodyDeadlineBox>
       <BodyThumbnailBox>
         <BodyText>썸네일 추가</BodyText>
-        <BodyThumbnailImage type="file" accept="image/*" ref={imageRef} />
-        <BodyThumbnailButton onClick={onAddThumbnailImageEvent}>
+        <BodyThumbnailImage
+          type="file"
+          accept="image/jpg, image/png, image/jpeg"
+          ref={imageRef}
+          onChange={handleAddThumbnailImageChange}
+        />
+        <BodyThumbnailButton
+          onClick={onAddThumbnailImageEvent}
+          imageRef={imageRef}
+        >
           사진 추가하기
         </BodyThumbnailButton>
       </BodyThumbnailBox>
@@ -152,7 +166,8 @@ const BodyThumbnailButton = styled.button`
   padding: 0.625rem 1.75rem;
   width: 226px;
   height: 43px;
-  background: ${COLORS.violetB500};
+  background: ${(props: { imageRef: any }) =>
+    props.imageRef.current?.files?.length ? COLORS.gray300 : COLORS.violetB400};
   color: ${COLORS.white};
   border-radius: 8px;
   margin-left: 2rem;
