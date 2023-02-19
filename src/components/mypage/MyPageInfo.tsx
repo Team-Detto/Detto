@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useModal, useToastPopup } from 'hooks';
 import styled from '@emotion/styled';
 import { mypageInfoButtonActiveState, userInfoState } from '../../recoil/atoms';
@@ -26,8 +26,14 @@ const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
   const { isOpen, handleModalStateChange } = useModal(false);
   const { showToast, ToastMessage, handleToastPopup } = useToastPopup();
 
-  const { mutate: updateUserInfoMutate } = useMutation(() =>
-    updateUserInfoData(uid, userInfo),
+  const queryClient = useQueryClient();
+  const { mutate: updateUserInfoMutate } = useMutation(
+    () => updateUserInfoData(uid, userInfo),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['users', uid]);
+      },
+    },
   );
 
   // 유효성 검사
