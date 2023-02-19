@@ -7,6 +7,7 @@ export namespace WriteType {
     plannerStack: string[];
     developerStack: string[];
     designerStack: string[];
+    thumbnail: any;
     startDate: string;
     endDate: string;
     deadline: string;
