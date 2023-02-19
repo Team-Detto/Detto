@@ -159,7 +159,7 @@ const WritePageBodyThumbnailButton = styled.button`
   height: 43px;
   background: ${(props: { writeFormValue: WriteType.WriteFormType }) =>
     props.writeFormValue.thumbnail ? COLORS.gray300 : COLORS.violetB400};
-  color: #ffffff;
+  color: ${COLORS.white};
   border-radius: 8px;
   margin-left: 2rem;
   transition: background-color 100ms ease-in-out;

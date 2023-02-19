@@ -67,7 +67,7 @@ const InfoRadioBoxLabel = styled.label`
   height: 2.25rem;
   cursor: pointer;
   border-radius: 2rem;
-  background-color: #f2f4f6;
+  background-color: ${COLORS.gray100};
   font-size: 0.75rem;
   color: #383838;
   transition: transform 300ms ease-in-out;

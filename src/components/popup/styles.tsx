@@ -31,9 +31,9 @@ export const MessageContainer = styled.div`
 
   height: 3.5625rem;
 
-  background: #ffffff;
+  background: ${COLORS.white};
 
-  border-bottom: 1px solid #e1e5eb;
+  border-bottom: 1px solid ${COLORS.gray200};
 `;
 
 export const MessageTitleDiv = styled.div<{

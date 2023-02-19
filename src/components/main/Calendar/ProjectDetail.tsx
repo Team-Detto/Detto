@@ -154,7 +154,7 @@ const ProjectDetailinquiryAttentionTextBox = styled.div`
   font-weight: 400;
   font-size: 12px;
   line-height: 140%;
-  color: #98a2ae;
+  color: ${COLORS.gray600};
 `;
 const ProjectDetailinquiryAttentionTextP = styled.p`
   font-family: 'Noto Sans KR';
@@ -162,7 +162,7 @@ const ProjectDetailinquiryAttentionTextP = styled.p`
   font-weight: 700;
   font-size: 12px;
   line-height: 140%;
-  color: #98a2ae;
+  color: ${COLORS.gray600};
   margin-left: 2px;
 `;
 

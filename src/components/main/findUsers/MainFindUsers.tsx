@@ -60,7 +60,7 @@ const MainFindUsersTitleDiv = styled.div`
   line-height: 44px;
   display: flex;
   align-items: center;
-  color: #4e5968;
+  color: ${COLORS.gray800};
 `;
 const MainFindUsersButtonContainer = styled.div`
   display: flex;
