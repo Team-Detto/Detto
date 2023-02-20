@@ -47,7 +47,6 @@ export default ProjectsTab;
 const ProjectsTabContainer = styled.div<{ type?: string }>`
   display: flex;
   width: ${({ type }) => (type === 'public' ? '17rem' : '34rem')};
-  height: 2rem;
   align-items: center;
   gap: 1rem;
   border-bottom: 1px solid ${COLORS.gray100};
@@ -55,7 +54,10 @@ const ProjectsTabContainer = styled.div<{ type?: string }>`
   margin: 0 auto 3.5rem;
 `;
 
-const ProjectsTabButton = styled.span<{ name: string; category: string }>`
+const ProjectsTabButton = styled.span<{
+  name: string;
+  category: string;
+}>`
   display: block;
   max-width: 8rem;
   height: 100%;
