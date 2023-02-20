@@ -1,7 +1,6 @@
 import { memo, useState, useEffect, useCallback } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { mypageInfoButtonActiveState } from '../../recoil/atoms';
-import { useIsMobile } from 'hooks';
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 
@@ -16,7 +15,6 @@ interface props {
 const SkillButton = ({ name, value, isChecked, setValue, type }: props) => {
   const [isActive, setIsActive] = useState(false);
   const setActiveInfoButton = useSetRecoilState(mypageInfoButtonActiveState);
-  const isMobile = useIsMobile();
 
   const handleActiveButton = useCallback(() => {
     setActiveInfoButton(true);
@@ -48,12 +46,7 @@ const SkillButton = ({ name, value, isChecked, setValue, type }: props) => {
 
   return (
     <SkillButtonContainer>
-      <SkillBtn
-        type="button"
-        isActive={isActive}
-        isMobile={isMobile}
-        onClick={handleActiveButton}
-      >
+      <SkillBtn type="button" isActive={isActive} onClick={handleActiveButton}>
         {name}
       </SkillBtn>
     </SkillButtonContainer>
@@ -61,20 +54,23 @@ const SkillButton = ({ name, value, isChecked, setValue, type }: props) => {
 };
 
 const SkillButtonContainer = styled.div``;
-const SkillBtn = styled.button<{ isActive: boolean; isMobile: boolean }>`
+const SkillBtn = styled.button`
   background-color: ${(props: { isActive: boolean }) =>
     props.isActive === true ? `${COLORS.violetB500}` : `${COLORS.gray100}`};
   color: ${(props: { isActive: boolean }) =>
     props.isActive === true ? `${COLORS.white}` : `${COLORS.black}`};
+
   font-weight: 400;
-  font-size: ${({ isMobile }) => (isMobile ? '0.625rem' : '0.75rem')};
+  font-size: 12px;
   line-height: 32px;
-  height: ${({ isMobile }) => (isMobile ? '1.625rem' : '2rem')};
+
+  height: 2rem;
+
   display: flex;
   align-items: center;
+
   border-radius: 32px;
-  padding: ${({ isMobile }) =>
-    isMobile ? '0rem 0.5rem' : '0.3125rem 0.9375rem'};
+  padding: 5px 15px;
   transition: transform 0.5s;
   &:hover {
     transform: scale(1.05);

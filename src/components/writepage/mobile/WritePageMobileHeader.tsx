@@ -11,7 +11,7 @@ const WritePageMobileHeader = () => {
 
 const WritePageMobileHeaderContainer = styled.div`
   width: 100%;
-  margin-top: 3rem;
+  margin-top: 9rem;
   display: flex;
   justify-content: center;
 `;
