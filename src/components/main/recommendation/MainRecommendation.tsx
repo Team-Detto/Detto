@@ -53,22 +53,30 @@ const MainRecommendation = () => {
         </MainRecommendationButtonContainer>
         <MainRecommendationCardContainer>
           {tap === 'orderByViews' &&
-            mostViewedProjects?.map((project: any) => (
-              <ContentCard
-                key={project.id}
-                project={project}
-                likedProjects={likedProjects}
-                onNavigateToProjectDetailEvent={handleNavigateToProjectDetail}
-              />
+            (mostViewedProjects?.length !== 0 ? (
+              mostViewedProjects?.map((project: any) => (
+                <ContentCard
+                  key={project.id}
+                  project={project}
+                  likedProjects={likedProjects}
+                  onNavigateToProjectDetailEvent={handleNavigateToProjectDetail}
+                />
+              ))
+            ) : (
+              <NoDataMessage>프로젝트를 찾을 수 없어요 :/</NoDataMessage>
             ))}
           {tap === 'orderByLikes' &&
-            mostLikedProjects?.map((project: any) => (
-              <ContentCard
-                key={project.id}
-                project={project}
-                likedProjects={likedProjects}
-                onNavigateToProjectDetailEvent={handleNavigateToProjectDetail}
-              />
+            (mostLikedProjects?.length !== 0 ? (
+              mostLikedProjects?.map((project: any) => (
+                <ContentCard
+                  key={project.id}
+                  project={project}
+                  likedProjects={likedProjects}
+                  onNavigateToProjectDetailEvent={handleNavigateToProjectDetail}
+                />
+              ))
+            ) : (
+              <NoDataMessage>프로젝트를 찾을 수 없어요 :/</NoDataMessage>
             ))}
         </MainRecommendationCardContainer>
       </MainRecommendationContainer>
@@ -169,6 +177,16 @@ const MainRecommendationCardButton = styled.button`
   &:hover {
     background-color: ${COLORS.gray50};
   }
+`;
+const NoDataMessage = styled.div`
+  height: 100%;
+  font-size: 2rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  color: ${COLORS.gray500};
 `;
 
 export default MainRecommendation;
