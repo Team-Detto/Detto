@@ -39,7 +39,6 @@ export const MessageContainer = styled.div`
 
 export const MessageTitleDiv = styled.div<{
   isRead: boolean;
-  disabled?: boolean;
 }>`
   font-family: 'Noto Sans KR';
   font-style: normal;
@@ -52,7 +51,7 @@ export const MessageTitleDiv = styled.div<{
 
   color: ${COLORS.gray850};
 
-  cursor: ${(props) => (props.disabled ? 'default' : 'pointer')};
+  cursor: pointer;
 `;
 
 export const MessageDateDiv = styled.div`
