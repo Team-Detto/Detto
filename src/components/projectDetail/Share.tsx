@@ -1,22 +1,9 @@
 import styled from '@emotion/styled';
 import { RiShareBoxLine } from 'react-icons/ri';
 
-const Share = ({ title, content }: any) => {
-  //공유 기능
-  const handleShare = (event: React.MouseEvent) => {
-    event.preventDefault();
-    navigator.share({
-      title: title,
-      text: content,
-      url: window.location.href,
-    });
-  };
+const Share = ({ onShareButtonClickEvent }: any) => {
   return (
-    <IconButton
-      onClick={(event) => {
-        handleShare(event);
-      }}
-    >
+    <IconButton onClick={(e) => onShareButtonClickEvent(e)}>
       <RiShareBoxLine />
       공유
     </IconButton>

@@ -53,6 +53,7 @@ const FindProjectHeaderContainer = styled.div`
 `;
 const FindProjectHeaderLeftBox = styled.div`
   width: 40%;
+  height: 2.5rem;
 `;
 const FindProjectCategoryBox = styled.div`
   width: 100%;
@@ -70,6 +71,7 @@ const FindProjectCategoryButton = styled.button`
     props.name === props.category
       ? `${COLORS.violetB500}`
       : `${COLORS.gray400}`};
+  transition: all 0.3s ease-in-out;
 `;
 const FindProjectHeaderRightBox = styled.div`
   width: 60%;
@@ -81,17 +83,16 @@ const FindProjectToggleBox = styled.div`
 `;
 const FindProjectToggleButton = styled.button`
   width: 3.125rem;
-  height: 1.75rem;
   border-radius: 1.875rem;
   border: none;
   cursor: pointer;
   background-color: ${(props: { toggle: boolean }) =>
-    props.toggle ? `${COLORS.violetB500}` : `${COLORS.gray750}`};
+    props.toggle ? `${COLORS.gray750}` : `${COLORS.violetB500}`};
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: all 0.5s ease-in-out;
+  transition: all 300ms ease-in-out;
 `;
 const FindProjectToggleCircle = styled.div`
   background-color: ${COLORS.white};
@@ -102,14 +103,14 @@ const FindProjectToggleCircle = styled.div`
   left: 5%;
   transition: all 0.3s ease-in-out;
   ${(props: { toggle: boolean }) =>
-    props.toggle ? 'transform: translateX(100%)' : 'transform: translateX(0)'};
+    props.toggle ? 'transform: translateX(0)' : 'transform: translateX(100%)'};
 `;
 const FindProjectToggleText = styled.p`
   margin: 0rem 0.5rem 0rem 0.5rem;
   font-weight: 700;
   font-size: 1.125rem;
   color: ${(props: { toggle: boolean }) =>
-    props.toggle ? `${COLORS.violetB500}` : `${COLORS.gray800}`};
+    props.toggle ? `${COLORS.gray800}` : `${COLORS.violetB500}`};
   transition: all 0.3s ease-in-out;
 `;
 const FindProjectToggleSubText = styled.p`

@@ -22,7 +22,7 @@ const FindProjectList = ({
       {projects
         .filter((project: any) => project.positions[category] !== 0)
         .map((project) =>
-          toggle ? (
+          !toggle ? (
             project.isRecruiting && (
               <ContentCard
                 key={project.id}
