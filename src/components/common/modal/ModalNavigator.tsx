@@ -10,11 +10,7 @@ type ModalNavigatorProps = {
   close?: boolean;
 };
 
-export default function ModalNavigator({
-  page,
-  back,
-  close,
-}: ModalNavigatorProps) {
+export default function ModalNavigator({ back, close }: ModalNavigatorProps) {
   const { modal, openModal, closeModal } = useGlobalModal();
 
   return (
