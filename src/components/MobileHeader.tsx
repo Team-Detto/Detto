@@ -19,7 +19,7 @@ const MobileHeader = () => {
     closeDropdownMenu,
   } = useHeader();
   const { openModal } = useGlobalModal();
-  const { closePopup, toggleNoteBox, toggleNotificationBox } = usePopup();
+  const { closePopup } = usePopup();
 
   // 페이지 이동 시 팝업 / 드롭다운 메뉴 닫기
   useEffect(() => {
@@ -42,10 +42,18 @@ const MobileHeader = () => {
           {isMain && isLoggedIn ? (
             <>
               <MobileMenuItem>
-                <MobileNoteIcon />
+                {/* 쪽지 */}
+                <CountBox>
+                  <MobileNoteIcon />
+                  <MobileCount>12</MobileCount>
+                </CountBox>
               </MobileMenuItem>
               <MobileMenuItem>
-                <MobileNotificationIcon />
+                {/* 알림 */}
+                <CountBox>
+                  <MobileNotificationIcon />
+                  <MobileCount>1</MobileCount>
+                </CountBox>
               </MobileMenuItem>
             </>
           ) : (
@@ -53,6 +61,7 @@ const MobileHeader = () => {
           )}
           <MobileMenuItem onClick={handleDropdownClick}>
             <MobileMenuIcon />
+            {/* 메뉴 */}
           </MobileMenuItem>
         </MobileMenuList>
       </MobileHeaderWrapper>
@@ -63,16 +72,18 @@ const MobileHeader = () => {
           <DropdownList>
             {!isLoggedIn && (
               <DropdownItem onClick={() => openModal('login', 0)}>
-                {' '}
                 로그인
               </DropdownItem>
             )}
+
             {isLoggedIn && (
               <DropdownItem onClick={handleLogoutClick}>로그아웃</DropdownItem>
             )}
+
             <DropdownItem>
               <Link to={'/findproject'}>팀원찾기</Link>
             </DropdownItem>
+
             <DropdownItem onClick={() => !isLoggedIn && openModal('login', 0)}>
               {isLoggedIn ? (
                 <Link to={'/project/write'}>새 글 쓰기</Link>
@@ -80,9 +91,10 @@ const MobileHeader = () => {
                 '새 글 쓰기'
               )}
             </DropdownItem>
+
             {isLoggedIn && (
               <DropdownItem>
-                <Link to={'/mypage'}>마이페이지</Link>{' '}
+                <Link to={'/mypage'}>마이페이지</Link>
               </DropdownItem>
             )}
           </DropdownList>
@@ -175,4 +187,31 @@ const DropdownItem = styled.li`
   text-align: center;
   font-weight: 500;
   color: ${COLORS.gray850};
+
+  &:hover {
+    color: ${COLORS.violetB500};
+  }
+`;
+
+const CountBox = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+`;
+
+const MobileCount = styled.span`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -0.5rem;
+  right: -0.75rem;
+  width: 1.375rem;
+  height: 1.125rem;
+  background-color: ${COLORS.violetB500};
+  border-radius: 4px;
+
+  font-size: 0.75rem;
+  color: ${COLORS.white};
+  font-weight: 900;
 `;

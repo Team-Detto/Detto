@@ -53,6 +53,7 @@ const Header = () => {
     ],
   });
 
+  // 모바일일 경우 모바일 헤더 노출
   if (isMobile) {
     return <MobileHeader />;
   }
