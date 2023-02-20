@@ -38,6 +38,16 @@ const useHeader = () => {
     setShowDropdown((prev) => !prev);
   };
 
+  // 모바일에서 이전 페이지 돌아가기
+  const handleGoBackClick = () => {
+    navigate(-1);
+  };
+
+  // 드롭다운 메뉴 닫기
+  const closeDropdownMenu = () => {
+    setShowDropdown(false);
+  };
+
   // 메인 페이지일 경우 스크롤에 따른 배경 그라이언트 함수 이벤트 적용
   useEffect(() => {
     if (isMain) {
@@ -69,6 +79,8 @@ const useHeader = () => {
     hideGradient,
     handleLogoutClick,
     handleDropdownClick,
+    handleGoBackClick,
+    closeDropdownMenu,
   };
 };
 

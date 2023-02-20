@@ -3,9 +3,10 @@ import styled from '@emotion/styled';
 import { GrMail } from 'react-icons/gr';
 import { FiChevronLeft } from 'react-icons/fi';
 import { IoNotifications, IoMenu } from 'react-icons/io5';
-import { useGlobalModal, useHeader } from 'hooks';
+import { useGlobalModal, useHeader, usePopup } from 'hooks';
 import { LogoBoxH1 } from './Header';
 import COLORS from 'assets/styles/colors';
+import { useEffect } from 'react';
 
 const MobileHeader = () => {
   const {
@@ -14,14 +15,23 @@ const MobileHeader = () => {
     showDropwdown,
     handleDropdownClick,
     handleLogoutClick,
+    handleGoBackClick,
+    closeDropdownMenu,
   } = useHeader();
   const { openModal } = useGlobalModal();
+  const { closePopup, toggleNoteBox, toggleNotificationBox } = usePopup();
+
+  // 페이지 이동 시 팝업 / 드롭다운 메뉴 닫기
+  useEffect(() => {
+    closePopup();
+    closeDropdownMenu();
+  }, [location.pathname]);
 
   return (
     <MobileHeaderContainer>
       <MobileHeaderWrapper>
         {!isMain && (
-          <MobileMenuItem>
+          <MobileMenuItem onClick={handleGoBackClick}>
             <MobileChevronLeftIcon />
           </MobileMenuItem>
         )}
