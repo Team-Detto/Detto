@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { GrMail } from 'react-icons/gr';
@@ -5,10 +6,16 @@ import { FiChevronLeft } from 'react-icons/fi';
 import { IoNotifications, IoMenu } from 'react-icons/io5';
 import { useGlobalModal, useHeader, usePopup } from 'hooks';
 import { LogoBoxH1 } from './Header';
+import PopupContainer from './popup/PopupContainer';
 import COLORS from 'assets/styles/colors';
-import { useEffect } from 'react';
 
-const MobileHeader = () => {
+interface MobileHeaderProps {
+  notes: any;
+  notifications: any;
+}
+
+const MobileHeader = ({ notes, notifications }: MobileHeaderProps) => {
+  const { closePopup, toggleNoteBox, toggleNotificationBox } = usePopup();
   const {
     isMain,
     isLoggedIn,
@@ -19,7 +26,6 @@ const MobileHeader = () => {
     closeDropdownMenu,
   } = useHeader();
   const { openModal } = useGlobalModal();
-  const { closePopup } = usePopup();
 
   // 페이지 이동 시 팝업 / 드롭다운 메뉴 닫기
   useEffect(() => {
@@ -30,6 +36,7 @@ const MobileHeader = () => {
   return (
     <MobileHeaderContainer>
       <MobileHeaderWrapper>
+        {isLoggedIn && <PopupContainer />}
         {!isMain && (
           <MobileMenuItem onClick={handleGoBackClick}>
             <MobileChevronLeftIcon />
@@ -41,18 +48,29 @@ const MobileHeader = () => {
         <MobileMenuList>
           {isMain && isLoggedIn ? (
             <>
-              <MobileMenuItem>
-                {/* 쪽지 */}
+              <MobileMenuItem onClick={toggleNoteBox}>
                 <CountBox>
                   <MobileNoteIcon />
-                  <MobileCount>12</MobileCount>
+                  {/* TODO:: 쪽지 0개일 경우 카운트 안 보이도록 처리 필요 */}
+                  <MobileCount>
+                    {
+                      notes?.filter(({ isRead }: Partial<Note>) => !isRead)
+                        .length
+                    }
+                  </MobileCount>
                 </CountBox>
               </MobileMenuItem>
-              <MobileMenuItem>
-                {/* 알림 */}
+              <MobileMenuItem onClick={toggleNotificationBox}>
                 <CountBox>
                   <MobileNotificationIcon />
-                  <MobileCount>1</MobileCount>
+                  {/* TODO:: 알림 0개일 경우 카운트 안 보이도록 처리 필요 */}
+                  <MobileCount>
+                    {
+                      notifications?.filter(
+                        ({ isRead }: Partial<Notification>) => !isRead,
+                      ).length
+                    }
+                  </MobileCount>
                 </CountBox>
               </MobileMenuItem>
             </>
@@ -61,12 +79,10 @@ const MobileHeader = () => {
           )}
           <MobileMenuItem onClick={handleDropdownClick}>
             <MobileMenuIcon />
-            {/* 메뉴 */}
           </MobileMenuItem>
         </MobileMenuList>
       </MobileHeaderWrapper>
 
-      {/* 드롭다운 메뉴 */}
       {showDropwdown && (
         <DropdownBox>
           <DropdownList>
@@ -75,15 +91,12 @@ const MobileHeader = () => {
                 로그인
               </DropdownItem>
             )}
-
             {isLoggedIn && (
               <DropdownItem onClick={handleLogoutClick}>로그아웃</DropdownItem>
             )}
-
             <DropdownItem>
               <Link to={'/findproject'}>팀원찾기</Link>
             </DropdownItem>
-
             <DropdownItem onClick={() => !isLoggedIn && openModal('login', 0)}>
               {isLoggedIn ? (
                 <Link to={'/project/write'}>새 글 쓰기</Link>
@@ -91,7 +104,6 @@ const MobileHeader = () => {
                 '새 글 쓰기'
               )}
             </DropdownItem>
-
             {isLoggedIn && (
               <DropdownItem>
                 <Link to={'/mypage'}>마이페이지</Link>
