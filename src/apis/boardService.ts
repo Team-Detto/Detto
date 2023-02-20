@@ -82,7 +82,7 @@ export const firebaseInfinityScrollProjectDataRequest = async (
     q = query(
       collection(firestore, 'post'),
       orderBy('createdAt', 'desc'),
-      limit(9),
+      limit(15),
     );
   }
 
