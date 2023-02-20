@@ -23,7 +23,7 @@ export const firebaseCreateProjectRequest = async (
   uid: string,
 ) => {
   try {
-    const thumbnailUrl = await firebaseImageUploadRequest(image);
+    const thumbnailUrl = image ? await firebaseImageUploadRequest(image) : null;
 
     const postDoc = await addDoc(collection(firestore, 'post'), {
       ...formData,
