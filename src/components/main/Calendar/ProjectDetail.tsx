@@ -24,112 +24,111 @@ const ProjectDetail = () => {
     }
   }
 
+  // TODO: 추천하는 프로젝트인지 확인 (user의 position과 일치하는지)
+
   return (
     <ProjectDetailWrap>
-      <div key={selectedProject}>
-        <ProjectDetailContainer>
-          <ProjectDetailSproutTextDiv>
+      <ProjectDetailContainer>
+        <ProjectDetailSproutText>
+          <ProjectDetailSproutTextSpan>
             🌱 함께할 팀원
-            <ProjectDetailSproutTextP>을 구해요!</ProjectDetailSproutTextP>
-          </ProjectDetailSproutTextDiv>
-        </ProjectDetailContainer>
-        <ProjectDetailContainer>
-          <ProjectDetailTextAreaDiv>프로젝트 이름</ProjectDetailTextAreaDiv>
-          <div>{selectedProject.title}</div>
-        </ProjectDetailContainer>
-        <ProjectDetailContainer>
-          <ProjectDetailTextAreaDiv>기간</ProjectDetailTextAreaDiv>
-          <div>
-            {getDate(selectedProject.startDate)} ~{' '}
-            {getDate(selectedProject.endDate)}
-          </div>
-        </ProjectDetailContainer>
-        <ProjectDetailContainer>
-          <ProjectDetailTextAreaDiv>포지션</ProjectDetailTextAreaDiv>
-          <div>{positionsNames.join(', ')}</div>
-        </ProjectDetailContainer>
-        <ProjectDetailContainer>
-          <ProjectDetailTextAreaDiv>모집 마감일</ProjectDetailTextAreaDiv>
-          <div>{getDate(selectedProject.deadline)}</div>
-        </ProjectDetailContainer>
-        <ProjectDetailContainer>
-          <ProjectDetailinquiryAttentionBox>
-            <ProjectDetailinquiryAttentionTextBox>
-              조회수
-              <ProjectDetailinquiryAttentionTextP>
-                {selectedProject?.view}
-              </ProjectDetailinquiryAttentionTextP>
-            </ProjectDetailinquiryAttentionTextBox>
-            <ProjectDetailinquiryAttentionTextBox>
-              관심
-              <ProjectDetailinquiryAttentionTextP>
-                {selectedProject?.like}
-              </ProjectDetailinquiryAttentionTextP>
-            </ProjectDetailinquiryAttentionTextBox>
-          </ProjectDetailinquiryAttentionBox>
-        </ProjectDetailContainer>
+          </ProjectDetailSproutTextSpan>
+          을 구해요!
+        </ProjectDetailSproutText>
+        <ProjectDetailRow>
+          <ProjectDetailLabel>프로젝트 이름</ProjectDetailLabel>
+          {selectedProject.title}
+        </ProjectDetailRow>
+        <ProjectDetailRow>
+          <ProjectDetailLabel>기간</ProjectDetailLabel>
+          {getDate(selectedProject.startDate)} ~{' '}
+          {getDate(selectedProject.endDate)}
+        </ProjectDetailRow>
+        <ProjectDetailRow>
+          <ProjectDetailLabel>포지션</ProjectDetailLabel>
+          {positionsNames.join(', ')}
+        </ProjectDetailRow>
+        <ProjectDetailRow>
+          <ProjectDetailLabel>모집 마감일</ProjectDetailLabel>
+          {getDate(selectedProject.deadline)}
+        </ProjectDetailRow>
+        <ProjectDetailinquiryAttentionBox>
+          <ProjectDetailinquiryAttentionTextBox>
+            조회수
+            <ProjectDetailinquiryAttentionTextP>
+              {selectedProject?.view}
+            </ProjectDetailinquiryAttentionTextP>
+          </ProjectDetailinquiryAttentionTextBox>
+          <ProjectDetailinquiryAttentionTextBox>
+            관심
+            <ProjectDetailinquiryAttentionTextP>
+              {selectedProject?.like}
+            </ProjectDetailinquiryAttentionTextP>
+          </ProjectDetailinquiryAttentionTextBox>
+        </ProjectDetailinquiryAttentionBox>
+      </ProjectDetailContainer>
 
-        <Link to={`/project/${selectedProject.id}`}>
-          <ProjectDetailButton>지원하러 가기</ProjectDetailButton>
-        </Link>
-      </div>
+      <Link to={`/project/${selectedProject.id}`}>
+        <ProjectDetailButton>지원하러 가기</ProjectDetailButton>
+      </Link>
     </ProjectDetailWrap>
   );
 };
 
 const ProjectDetailWrap = styled.div`
-  width: 18.75rem;
-  height: 12.125rem;
-  margin: 1rem auto 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: cneter;
+  padding: 16px 24px;
+
+  width: 100%;
+  height: 100%;
 `;
 const ProjectDetailContainer = styled.div`
   display: flex;
-  direction: row;
-  margin-bottom: 1.1rem;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 16px;
 `;
-const ProjectDetailSproutTextP = styled.p`
-  color: #464646;
-  font-family: 'Noto Sans KR';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 150%;
-`;
-const ProjectDetailTextAreaDiv = styled.div`
-  color: #464646;
-  font-size: 1rem;
-  margin-right: 1rem;
-
-  font-family: 'Noto Sans KR';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 150%;
-`;
-const ProjectDetailSproutTextDiv = styled.div`
+const ProjectDetailRow = styled.div`
   display: flex;
   flex-direction: row;
-  color: #72b819;
-  width: 300px;
+
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: -0.25px;
+`;
+const ProjectDetailLabel = styled.div`
+  color: #464646;
+  font-weight: 400;
+  margin-right: 1rem;
+`;
+const ProjectDetailSproutText = styled.div`
+  display: flex;
+  flex-direction: row;
+  color: #464646;
   height: 21px;
-  font-family: 'Noto Sans KR';
-  font-style: normal;
-  font-weight: 700;
+
+  font-weight: 400;
   font-size: 14px;
   line-height: 150%;
 `;
+const ProjectDetailSproutTextSpan = styled.p`
+  color: #72b819;
+  font-weight: 700;
+`;
 const ProjectDetailButton = styled.button`
-  background-color: ${COLORS.violetB400};
-  width: 18.75rem;
+  background-color: ${COLORS.violetA500};
+  width: 100%;
   height: 3rem;
   border-radius: 0.5rem;
   color: ${COLORS.white};
   transition: background-color 100ms ease-in-out;
-  position: absolute;
-  right: 39px;
-  bottom: 1960px;
   &:hover {
-    background-color: ${COLORS.violetB300};
+    background-color: ${COLORS.violetA400};
   }
 `;
 const ProjectDetailinquiryAttentionBox = styled.div`
@@ -142,16 +141,13 @@ const ProjectDetailinquiryAttentionBox = styled.div`
 const ProjectDetailinquiryAttentionTextBox = styled.div`
   display: flex;
   flex-direction: row;
-  font-family: 'Noto Sans KR';
-  font-style: normal;
+
   font-weight: 400;
   font-size: 12px;
   line-height: 140%;
   color: ${COLORS.gray600};
 `;
 const ProjectDetailinquiryAttentionTextP = styled.p`
-  font-family: 'Noto Sans KR';
-  font-style: normal;
   font-weight: 700;
   font-size: 12px;
   line-height: 140%;
