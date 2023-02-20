@@ -26,31 +26,24 @@ export default function NotificationMessage({ data }: { data: Notification }) {
     },
   });
 
-  const handleTitleClick = (link: Pick<Notification, 'link'>['link']) => {
+  const handleTitleClick = () => {
     // 읽지 않은 알림 클릭 시 읽음 처리
     if (!data.isRead) {
       mutateReadStatus();
     }
     // 알림 클릭 시 해당 페이지로 이동
-    if (!link) return;
-    if (link.type === 'project') {
-      return navigate(`/project/${link.id}`);
+    if (!data.link) return;
+    if (data.link.type === 'project') {
+      return navigate(`/project/${data.link.id}`);
     }
-    if (link.type === 'profile') {
-      return navigate(`/profile/${link.id}`);
+    if (data.link.type === 'profile') {
+      return navigate(`/profile/${data.link.id}`);
     }
   };
 
   return (
     <MessageContainer>
-      <MessageTitleDiv
-        isRead={data.isRead}
-        disabled={!data.link}
-        onClick={() => {
-          if (!data.link) return;
-          handleTitleClick(data.link);
-        }}
-      >
+      <MessageTitleDiv isRead={data.isRead} onClick={handleTitleClick}>
         {data.title}
       </MessageTitleDiv>
       <MessageDateDiv>{getDateAndTime(data.date)}</MessageDateDiv>
