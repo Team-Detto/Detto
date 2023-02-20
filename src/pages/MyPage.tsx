@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import styled from '@emotion/styled';
-import { useAuth, useProjectList } from 'hooks';
+import { useAuth, useIsMobile, useProjectList } from 'hooks';
+import MobileMyPage from 'components/mypage/mobile/MobileMyPage';
 import WebContainer from 'components/common/WebContainer';
 import MyPageInfo from 'components/mypage/MyPageInfo';
 import ProjectList from 'components/common/myProjectList/ProjectList';
@@ -12,6 +13,7 @@ import { staleTime } from 'utils/staleTime';
 
 const MyPage = () => {
   const [activeTab, setActiveTab] = useState('개인정보');
+  const isMobile = useIsMobile();
   const { uid } = useAuth();
   const { activeProjectTab, handleProjectTabClick, setActiveProjectTab } =
     useProjectList();
@@ -33,6 +35,8 @@ const MyPage = () => {
   useEffect(() => {
     setActiveProjectTab('appliedProjects');
   }, []);
+
+  if (isMobile) return <MobileMyPage />;
 
   return (
     <MyPageContainer>
