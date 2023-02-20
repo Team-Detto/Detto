@@ -14,8 +14,17 @@ const WritePageMobilePosition = () => {
         <WritePageMobileBodyText>필요 포지션</WritePageMobileBodyText>
       </WritePageMobileBodyLeftBox>
       <WritePageMobileBodyRightBox>
-        <WritePageMobileBodySelect />
-        <WritePageMobileBodyInput id="positions" type="number" />
+        <WritePageMobileBodySelect>
+          <option value="planner">기획자</option>
+          <option value="designer">디자이너</option>
+          <option value="front-end">프론트엔드</option>
+          <option value="back-end">백엔드</option>
+        </WritePageMobileBodySelect>
+        <WritePageMobileBodyInput
+          id="positions"
+          type="number"
+          placeholder="0"
+        />
         <WritePageMobileBodyInputLabel htmlFor="positions">
           명
         </WritePageMobileBodyInputLabel>
@@ -41,6 +50,13 @@ const WritePageMobileBodyInput = styled.input`
   width: 5.5625rem;
   height: 2.75rem;
   border: 0.0625rem solid ${COLORS.gray100};
+  text-align: end;
+  padding-right: 0.5rem;
+  ::-webkit-outer-spin-button,
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 `;
 const WritePageMobileBodyInputLabel = styled.label`
   width: 0.6875rem;
