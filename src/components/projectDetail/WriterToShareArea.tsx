@@ -26,7 +26,7 @@ const WriterToShareArea = ({
   onShareButtonClickEvent,
   onCopyLinkButtonClickEvent,
 }: any) => {
-  const { uid, like, title, content, view, isRecruiting } = projectData;
+  const { uid, like, title, content, view } = projectData;
   const navigate = useNavigate();
 
   return (
@@ -46,23 +46,23 @@ const WriterToShareArea = ({
           content={content}
           onShareButtonClickEvent={onShareButtonClickEvent}
         />
+        {share && (
+          <ShareContainer>
+            <FacebookShareButton url={window.location.href} title={title}>
+              <FacebookIcon size={32} round />
+            </FacebookShareButton>
+            <LineShareButton url={window.location.href} title={title}>
+              <LineIcon size={32} round />
+            </LineShareButton>
+            <TwitterShareButton url={window.location.href} title={title}>
+              <TwitterIcon size={32} round />
+            </TwitterShareButton>
+            <ShareLinkButton onClick={onCopyLinkButtonClickEvent}>
+              <BiLink size={20} />
+            </ShareLinkButton>
+          </ShareContainer>
+        )}
       </IconWrapper>
-      {share && (
-        <ShareContainer isRecruiting={isRecruiting}>
-          <FacebookShareButton url={window.location.href} title={title}>
-            <FacebookIcon size={32} round />
-          </FacebookShareButton>
-          <LineShareButton url={window.location.href} title={title}>
-            <LineIcon size={32} round />
-          </LineShareButton>
-          <TwitterShareButton url={window.location.href} title={title}>
-            <TwitterIcon size={32} round />
-          </TwitterShareButton>
-          <ShareLinkButton onClick={onCopyLinkButtonClickEvent}>
-            <BiLink size={20} />
-          </ShareLinkButton>
-        </ShareContainer>
-      )}
       {showToast && (
         <ValidationToastPopup message={ToastMessage} isCopy={isCopyLink} />
       )}
@@ -88,6 +88,7 @@ const IconWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
 `;
 
 const WriterProfileImg = styled.img`
@@ -104,7 +105,7 @@ const WriterNickname = styled.p`
   margin-left: 0.5rem;
 `;
 
-const ShareContainer = styled.div<{ isRecruiting: boolean }>`
+const ShareContainer = styled.div`
   position: absolute;
   display: flex;
   flex-direction: row;
@@ -112,8 +113,10 @@ const ShareContainer = styled.div<{ isRecruiting: boolean }>`
   align-items: center;
   width: 13rem;
   height: 3rem;
-  top: ${({ isRecruiting }) => (isRecruiting ? '35.1%' : '39.2%')};
-  left: 89%;
+
+  top: 3rem;
+  right: -5rem;
+
   background-color: ${COLORS.white};
   box-shadow: 0 0 10px ${COLORS.gray300};
   z-index: 10;

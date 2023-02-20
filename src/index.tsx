@@ -10,7 +10,15 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      cacheTime: 1000 * 60 * 60 * 24, // 24시간
+      staleTime: 1000 * 5, // 5초
+    },
+  },
+});
 
 root.render(
   <HelmetProvider>

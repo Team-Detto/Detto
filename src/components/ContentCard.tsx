@@ -7,6 +7,7 @@ import styled from '@emotion/styled';
 import { useEffect } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateRecruiting } from 'apis/postDetail';
+import defaultThumbnail from 'assets/images/default_img.jpg';
 
 interface Props {
   project: EditType.EditFormType;
@@ -32,42 +33,34 @@ const ContentCard = ({
     isRecruiting,
     deadline,
   }: any = project;
-  const idList: any[] = [];
   const stacks = concatSkills(plannerStack, designerStack, developerStack);
   const queryClient = useQueryClient();
-  const today = new Date().getTime();
 
   const { mutate: updateRecruitingMutate } = useMutation(
     () => updateRecruiting(id as string, false),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries();
+        queryClient.invalidateQueries(['post', id]);
+        // TODO: post 전체 쿼리를 invalidate 할것인지 고민해보기
       },
     },
   );
 
   useEffect(() => {
+    const today = Date.now();
     if (today > deadline) {
-      idList.push(id);
       updateRecruitingMutate(id, false as any);
     }
   }, []);
 
-  useEffect(() => {
-    idList.map((id) => {
-      updateRecruitingMutate(id, false as any);
-    });
-  }, [idList]);
-
   return (
     <ContentCardWrap onClick={onNavigateToProjectDetailEvent(id)}>
-      <ContentCardImgContainer src={thumbnail} />
+      <ContentCardImgContainer src={thumbnail || defaultThumbnail} />
       <ContentCardContentsContainer>
         <ContentCardDateContainer>
           <RecruitingIcon>
             {isRecruiting ? '모집중' : '모집마감'}
           </RecruitingIcon>
-
           <ContentCardDate>
             프로젝트 시작일 | <span> {getDate(startDate)}</span>
           </ContentCardDate>
@@ -155,8 +148,6 @@ const ContentCardDateContainer = styled.div`
 const ContentCardDate = styled.div`
   width: 19.375rem;
   height: 2rem;
-  font-family: 'Noto Sans KR';
-  font-style: normal;
   font-weight: 400;
   font-size: 1rem;
   line-height: 2rem;
@@ -172,8 +163,6 @@ const ContentCardBookmark = styled.button``;
 const ContentCardTitle = styled.div`
   width: 21.875rem;
   height: 3.125rem;
-  font-family: 'Noto Sans KR';
-  font-style: normal;
   font-weight: 400;
   font-size: 1.125rem;
   line-height: 140%;
@@ -215,8 +204,6 @@ const ContentCardStackButton = styled.div`
   height: 2rem;
   background: ${COLORS.gray100};
   border-radius: 2rem;
-  font-family: 'Noto Sans KR';
-  font-style: normal;
   font-weight: 400;
   font-size: 0.75rem;
   line-height: 2rem;
