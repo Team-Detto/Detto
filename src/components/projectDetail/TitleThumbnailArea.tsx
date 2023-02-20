@@ -7,6 +7,7 @@ import { deleteProject, updateRecruiting } from 'apis/postDetail';
 import { useAuth, useModal } from 'hooks';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import defaultThumbnail from 'assets/images/default_img.jpg';
 
 const TitleThumbnailArea = ({ projectData, pid }: any) => {
   const { thumbnail, title, isRecruiting, deadline } = projectData;
@@ -64,7 +65,7 @@ const TitleThumbnailArea = ({ projectData, pid }: any) => {
           </ModifyDeleteButtonWrap>
         )}
       </TitleToModifyButtonWrap>
-      <ProjectThumbnail src={thumbnail} />
+      <ProjectThumbnail src={thumbnail || defaultThumbnail} />
     </>
   );
 };

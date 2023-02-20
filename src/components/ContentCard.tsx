@@ -7,6 +7,7 @@ import styled from '@emotion/styled';
 import { useEffect } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateRecruiting } from 'apis/postDetail';
+import defaultThumbnail from 'assets/images/default_img.jpg';
 
 interface Props {
   project: EditType.EditFormType;
@@ -54,7 +55,7 @@ const ContentCard = ({
 
   return (
     <ContentCardWrap onClick={onNavigateToProjectDetailEvent(id)}>
-      <ContentCardImgContainer src={thumbnail} />
+      <ContentCardImgContainer src={thumbnail || defaultThumbnail} />
       <ContentCardContentsContainer>
         <ContentCardDateContainer>
           <RecruitingIcon>
