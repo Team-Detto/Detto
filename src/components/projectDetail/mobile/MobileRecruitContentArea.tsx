@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 
-const MobileRecruitContent = ({ content }: any) => {
+const MobileRecruitContentArea = ({ content }: any) => {
   return (
     <MobileRecruitContentContainer>
       <MobileRecruitContentTitle>모집안내</MobileRecruitContentTitle>
@@ -10,7 +10,7 @@ const MobileRecruitContent = ({ content }: any) => {
   );
 };
 
-export default MobileRecruitContent;
+export default MobileRecruitContentArea;
 
 const MobileRecruitContentContainer = styled.div`
   width: 100%;
