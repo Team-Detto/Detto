@@ -31,8 +31,8 @@ const ViewsToShare = ({ pid, projectData }: any) => {
   }, [myProjectData]);
 
   useEffect(() => {
-    likeMutate(pid, countLike); // 좋아요 수 변경
-    likedProjectMutate(pid); // likedProjects에 pid 추가/삭제
+    likeMutate; // 좋아요 수 변경
+    likedProjectMutate; // likedProjects에 pid 추가/삭제
   }, [isLike]);
 
   //좋아요 기능

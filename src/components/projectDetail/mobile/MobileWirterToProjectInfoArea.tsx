@@ -107,7 +107,7 @@ const WriterNickname = styled.div`
 const ProjectInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0 20px 8px 20px;
+  margin: 0 15px 18px 15px;
   /* width: 100%; */
   height: 100%;
   gap: 8px;
