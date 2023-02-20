@@ -36,7 +36,7 @@ const Header = () => {
   }, [location.pathname]);
 
   const { uid } = useAuth();
-  const [{ data: notes }, { data: notifiactions }] = useQueries({
+  const [{ data: notes }, { data: notifications }] = useQueries({
     queries: [
       {
         queryKey: ['inbox', uid],
@@ -55,7 +55,7 @@ const Header = () => {
 
   // 모바일일 경우 모바일 헤더 노출
   if (isMobile) {
-    return <MobileHeader />;
+    return <MobileHeader notes={notes} notifications={notifications} />;
   }
 
   return (
@@ -96,8 +96,8 @@ const Header = () => {
                   알림
                   <Count>
                     (
-                    {notifiactions
-                      ? notifiactions.filter(
+                    {notifications
+                      ? notifications.filter(
                           ({ isRead }: Partial<Notification>) => !isRead,
                         ).length
                       : 0}
