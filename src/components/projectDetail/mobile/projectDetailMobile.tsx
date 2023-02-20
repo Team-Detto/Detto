@@ -6,8 +6,11 @@ import MemberInfoArea from './MobileMemberInfoArea';
 import RecruitContentArea from './MobileRecruitContentArea';
 import ApplicantsList from './MobileApplicantsList';
 import ApplyButtonArea from './MobileApplyButtonArea';
+import { useAuth } from 'hooks';
 
 const ProjectDetailMobile = ({ pid, projectData, userData }: any) => {
+  const { uid } = useAuth();
+
   return (
     <MobileContainer>
       <TitleThumbnailArea pid={pid} projectData={projectData} />
@@ -15,8 +18,12 @@ const ProjectDetailMobile = ({ pid, projectData, userData }: any) => {
       <WriterToProjectInfoArea projectData={projectData} userData={userData} />
       <MemberInfoArea applicantsData={projectData?.applicants} />
       <RecruitContentArea content={projectData?.content} />
-      <ApplyButtonArea projectData={projectData} />
-      <ApplicantsList applicants={projectData?.applicants} />
+      {projectData?.uid !== uid && (
+        <ApplyButtonArea projectData={projectData} />
+      )}
+      {projectData?.uid === uid && (
+        <ApplicantsList applicants={projectData?.applicants} />
+      )}
     </MobileContainer>
   );
 };
@@ -26,6 +33,6 @@ export default ProjectDetailMobile;
 const MobileContainer = styled.div`
   width: 100%;
   height: 100%;
-  padding: 7rem 0 10rem 0;
+  padding: 7rem 0 5rem 0;
   background-color: #fcfcfc;
 `;
