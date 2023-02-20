@@ -29,6 +29,7 @@ const ProjectList = ({ category, pidList }: ProjectListProps) => {
     queryKey: ['myProjects', currentPidList],
     queryFn: getActiveProjects,
     staleTime: staleTime.myProjects,
+    enabled: !!currentPidList,
   });
 
   return (
