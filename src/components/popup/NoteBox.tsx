@@ -3,19 +3,20 @@ import { useQueries } from '@tanstack/react-query';
 import { getInboxNotes, getOutboxNotes } from 'apis/notes';
 import COLORS from 'assets/styles/colors';
 import { useAuth, usePopup } from 'hooks';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { staleTime } from 'utils/staleTime';
 import NoteMessage from './NoteMessage';
 import { PopupWrapper } from './styles';
 
 const boxList = [
-  { id: 'inbox', label: '받은 쪽지함' },
-  { id: 'outbox', label: '보낸 쪽지함' },
+  { id: 'inbox', label: '받은 쪽지' },
+  { id: 'outbox', label: '보낸 쪽지' },
 ];
 
 export default function NoteBox() {
   // 받은 쪽지함, 보낸 쪽지함 선택 상태
   const [selectedBox, setSelectedBox] = useState('inbox');
+  const [unreadCount, setUnreadCount] = useState<number>(0);
 
   const {
     popup: { isNoteOpen },
@@ -39,6 +40,12 @@ export default function NoteBox() {
     ],
   });
 
+  useEffect(() => {
+    if (inboxData) {
+      setUnreadCount(inboxData.filter((data: any) => !data.isRead).length);
+    }
+  }, [inboxData]);
+
   if (!isNoteOpen) return null;
   return (
     // 팝업창 이외의 영역 클릭 시 팝업창 닫기. 팝업창 클릭 시 이벤트 propagation 막기
@@ -54,18 +61,34 @@ export default function NoteBox() {
               onChange={() => setSelectedBox(id)}
               defaultChecked={id === 'inbox'}
             />
-            <MenuLabel htmlFor={id}>{label}</MenuLabel>
+            {id === 'inbox' ? (
+              // 받은 쪽지함에는 읽지 않은 쪽지 수 표시
+              <MenuLabel htmlFor={id}>
+                {label}
+                {unreadCount > 0 && ` (${unreadCount})`}
+              </MenuLabel>
+            ) : (
+              <MenuLabel htmlFor={id}>{label}</MenuLabel>
+            )}
           </React.Fragment>
         ))}
       </BoxContainer>
       <MessageWrapper>
         {selectedBox === 'inbox' &&
-          inboxData?.map((data: any) => (
-            <NoteMessage key={data.id} type="inbox" data={data} />
+          (inboxData?.length === 0 ? (
+            <NoDataText>🔔 아직 받은 쪽지가 없어요</NoDataText>
+          ) : (
+            inboxData?.map((data: any) => (
+              <NoteMessage key={data.id} type="inbox" data={data} />
+            ))
           ))}
         {selectedBox === 'outbox' &&
-          outboxData?.map((data: any) => (
-            <NoteMessage key={data.id} type="outbox" data={data} />
+          (outboxData?.length === 0 ? (
+            <NoDataText>🔔 아직 보낸 쪽지가 없어요</NoDataText>
+          ) : (
+            outboxData?.map((data: any) => (
+              <NoteMessage key={data.id} type="outbox" data={data} />
+            ))
           ))}
       </MessageWrapper>
     </PopupWrapper>
@@ -83,8 +106,7 @@ const BoxContainer = styled.div`
   flex-direction: row;
   align-items: flex-start;
 
-  border-bottom: 1px solid ${COLORS.gray200};
-  color: ${COLORS.gray850};
+  color: ${COLORS.white};
 `;
 
 const MenuLabel = styled.label`
@@ -99,15 +121,13 @@ const MenuLabel = styled.label`
   padding: 0;
   margin: 0;
 
-  background-color: ${COLORS.gray200};
+  background-color: ${COLORS.violetB400};
 
   cursor: pointer;
 `;
 
 const MenuToggleInput = styled.input`
   display: none;
-
-  color: ${COLORS.gray850};
 
   &:checked + label {
     color: ${COLORS.violetB500};
@@ -119,9 +139,24 @@ const MessageWrapper = styled.div`
   flex: 1;
 
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: overlay;
   width: 100%;
   &::-webkit-scrollbar {
     display: none;
   }
+`;
+
+const NoDataText = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 140%;
+
+  color: ${COLORS.gray850};
 `;

@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getNotifications } from 'apis/notifications';
 import COLORS from 'assets/styles/colors';
 import { useAuth, usePopup } from 'hooks';
+import { useEffect, useState } from 'react';
 import { staleTime } from 'utils/staleTime';
 import NotificationMessage from './NotificationMessage';
 import { PopupWrapper } from './styles';
@@ -11,6 +12,7 @@ export default function NotificationBox() {
   const {
     popup: { isNotificationOpen },
   } = usePopup();
+  const [unreadCount, setUnreadCount] = useState<number>(0);
 
   const { uid } = useAuth();
   const { data: notifications }: any = useQuery({
@@ -20,6 +22,12 @@ export default function NotificationBox() {
     staleTime: staleTime.notifications,
   });
 
+  useEffect(() => {
+    if (notifications) {
+      setUnreadCount(notifications.filter((data: any) => !data.isRead).length);
+    }
+  }, [notifications]);
+
   if (!isNotificationOpen) return null;
   return (
     // 팝업창 이외의 영역 클릭 시 팝업창 닫기. 팝업창 클릭 시 이벤트 propagation 막기
@@ -27,17 +35,17 @@ export default function NotificationBox() {
       <TitleWrapper>
         읽지 않은 알림
         <MessageCountSpan>
-          (
-          {notifications
-            ? notifications.filter(({ isRead }: any) => !isRead).length
-            : 0}
-          )
+          {unreadCount > 0 && `(${unreadCount})`}
         </MessageCountSpan>
       </TitleWrapper>
       <MessageWrapper>
-        {notifications?.map((data: any) => (
-          <NotificationMessage key={data.id} data={data} />
-        ))}
+        {notifications?.length === 0 ? (
+          <NoDataText>🔔 아직 받은 알림이 없어요</NoDataText>
+        ) : (
+          notifications?.map((data: any) => (
+            <NotificationMessage key={data.id} data={data} />
+          ))
+        )}
       </MessageWrapper>
     </PopupWrapper>
   );
@@ -57,12 +65,12 @@ const TitleWrapper = styled.div`
   padding: 0.75rem;
   gap: 0.125rem;
 
-  background-color: ${COLORS.gray200};
-  color: ${COLORS.gray850};
+  background-color: ${COLORS.violetB400};
+  color: ${COLORS.white};
 `;
 
 const MessageCountSpan = styled.span`
-  color: ${COLORS.violetB500};
+  color: ${COLORS.violetB100};
 `;
 
 const MessageWrapper = styled.div`
@@ -74,4 +82,19 @@ const MessageWrapper = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
+`;
+
+const NoDataText = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 140%;
+
+  color: ${COLORS.gray850};
 `;
