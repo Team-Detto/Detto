@@ -4,6 +4,7 @@ import useFindProject from './useFindProject';
 import useGlobalModal from './useGlobalModal';
 import useHeader from './useHeader';
 import useIsLogin from './useIsLogin';
+import useIsMobile from './useIsMobile';
 import useModal from './useModal';
 import useNote from './useNote';
 import useNotification from './useNotification';
@@ -21,6 +22,7 @@ export {
   useGlobalModal,
   useHeader,
   useIsLogin,
+  useIsMobile,
   useModal,
   useNote,
   useNotification,
