@@ -161,7 +161,6 @@ const ProjectDetailPage = () => {
             <ContentArea projectData={projectData} />
           </ProjectDetailWrapper>
           <ApplyButtonArea
-            pid={pid}
             isApplicant={isApplicant}
             projectData={projectData}
             onApplyModalStateChangeEvent={handleApplyModalOpenChange} //지원하기
