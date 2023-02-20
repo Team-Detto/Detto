@@ -5,13 +5,19 @@ import MainRecommendation from 'components/main/recommendation/MainRecommendatio
 import MainFindUsers from 'components/main/findUsers/MainFindUsers';
 import useIsMobile from 'hooks/useIsMobile';
 import MobileMainBanner from 'components/main/banner/MobileMainBanner';
+import styled from '@emotion/styled';
+import MobileMainRecommendation from 'components/main/recommendation/MobileMainRecommendation';
 const MainPage = () => {
   const Mobile = useIsMobile();
   return (
     <>
       {Mobile ? <MobileMainBanner /> : <MainBanner />}
       {/* <MainBanner /> */}
-      {Mobile ? null : (
+      {Mobile ? (
+        <MobileContainer>
+          <MobileMainRecommendation />
+        </MobileContainer>
+      ) : (
         <WebContainer>
           <MainCalendar />
           <MainRecommendation />
@@ -26,5 +32,8 @@ const MainPage = () => {
     </>
   );
 };
-
+const MobileContainer = styled.div`
+  width: 100%;
+  position: relative;
+`;
 export default MainPage;
