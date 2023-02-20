@@ -25,15 +25,11 @@ const MobileContentCard = ({
     view,
     like,
     startDate,
-    plannerStack,
-    designerStack,
-    developerStack,
     thumbnail,
     isRecruiting,
     deadline,
   }: any = project;
   const idList: any[] = [];
-  const stacks = concatSkills(plannerStack, designerStack, developerStack);
   const queryClient = useQueryClient();
   const today = new Date().getTime();
 
@@ -99,6 +95,7 @@ const MobileContentCardWrap = styled.div`
 
   width: 100%;
   height: 6.625rem;
+  margin-bottom: 0.9375rem;
 `;
 const ContentCardImgContainer = styled.div`
   width: 5.125rem;
@@ -128,7 +125,6 @@ const RecruitingIcon = styled.div`
     props.children === '모집중' ? `${COLORS.violetB400}` : `${COLORS.gray100}`};
   color: ${(props: { children: string }) =>
     props.children === '모집중' ? `${COLORS.white}` : `${COLORS.gray400}`};
-  font-size: 0.3125rem;
 
   margin-right: 0.4rem;
 `;

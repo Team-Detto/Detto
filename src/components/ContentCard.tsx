@@ -122,7 +122,6 @@ const RecruitingIcon = styled.div`
   height: 1.75rem;
   font-style: normal;
   font-weight: 500;
-  font-size: 0.875rem;
   display: flex;
   align-items: center;
   justify-content: center;

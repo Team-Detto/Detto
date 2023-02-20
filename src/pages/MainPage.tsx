@@ -24,11 +24,6 @@ const MainPage = () => {
           <MainFindUsers />
         </WebContainer>
       )}
-      {/* <WebContainer>
-        <MainCalendar />
-        <MainRecommendation />
-        <MainFindUsers />
-      </WebContainer> */}
     </>
   );
 };

@@ -34,15 +34,15 @@ const MobileMainRecommendation = () => {
   if (!mostViewedProjects || !mostLikedProjects) return null;
 
   return (
-    <div>
-      <div>
+    <MobileMainRecommendationWrap>
+      <MobileMainRecommendationContainer>
         <MobileMainRecommendationTitle>
           이런 프로젝트는 어때요?
         </MobileMainRecommendationTitle>
         <MobileMainRecommendationButtonContainer>
           {tapType.map((position) => (
             <MobileMainRecommendationButton
-              //   active={position.type === tap}
+              active={position.type === tap}
               key={position.type}
               name={position.type}
               value={tap}
@@ -72,21 +72,32 @@ const MobileMainRecommendation = () => {
               />
             ))}
         </MobileMainRecommendationCardContainer>
-      </div>
-      <Link to={'/findproject'}></Link>
-    </div>
+      </MobileMainRecommendationContainer>
+      <Link to={'/findproject'}>
+        <MobileMainRecommendationCardButton>
+          더 보기
+        </MobileMainRecommendationCardButton>
+      </Link>
+    </MobileMainRecommendationWrap>
   );
 };
 
-const MobileMainRecommendationWrap = styled.div``;
-const MobileMainRecommendationContainer = styled.div``;
-// tilte tap area
+const MobileMainRecommendationWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 27.0625rem;
+`;
+const MobileMainRecommendationContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`;
 const MobileMainRecommendationTitle = styled.div`
   width: 100%;
   height: 1.625rem;
-
-  margin-top: 2.3125rem;
-  margin-left: 1.25rem;
+  margin-left: 1.3125rem;
 
   font-family: 'Pretendard';
   font-style: normal;
@@ -107,25 +118,26 @@ const MobileMainRecommendationButtonContainer = styled.div`
   height: 3rem;
   border-bottom: 1px solid #f2f4f6;
 `;
-const MobileMainRecommendationButton = styled.button`
-  box-sizing: border-box;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0.75rem 0.375rem;
-
+const MobileMainRecommendationButton = styled.button<{ active: boolean }>`
   width: 3.1875rem;
   height: 3rem;
-
-  /* border-bottom: 2px solid #5d50f0; */
-
   font-family: 'Pretendard';
   font-style: normal;
   font-weight: 500;
-  font-size: 0.875rem;
+  font-size: 15px;
+  line-height: 24px;
+  color: ${(props) => (props.active ? COLORS.violetB300 : `#909599`)};
+  border-bottom: ${(props) =>
+    props.active ? `1px solid ${COLORS.violetB300}` : `none`};
 `;
-// content card area
-const MobileMainRecommendationCardContainer = styled.div``;
+const MobileMainRecommendationCardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.625rem;
+`;
+const MobileMainRecommendationCardButton = styled.button`
+  width: 24.375rem;
+  height: 1.8125rem;
+`;
 
 export default MobileMainRecommendation;
