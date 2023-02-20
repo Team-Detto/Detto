@@ -15,11 +15,7 @@ const WritePageMobileThumbnail = () => {
         <WritePageMobileBodyText>썸네일 추가</WritePageMobileBodyText>
       </WritePageMobileBodyLeftBox>
       <WritePageMobileBodyRightBox>
-        <WritePageMobileThumbnailInput
-          id="thumbnail"
-          type="file"
-          placeholder="사진은 {}Mb 이하로 1장만 추가 가능해요       "
-        />
+        <WritePageMobileThumbnailInput id="thumbnail" type="file" />
         <WritePageMobileThumbnailButton htmlFor="thumbnail">
           <WritePageMobileThumbnailText>
             <MdOutlinePhotoCamera />
@@ -39,19 +35,18 @@ const WritePageMobileThumbnailContainer = styled.div`
 const WritePageMobileThumbnailInput = styled.input`
   width: 14.5rem;
   height: 2.75rem;
-  padding: 0.625rem 1.25rem;
   background-color: ${COLORS.white};
   border: 1px solid ${COLORS.gray100};
   border-radius: 0.25rem;
+  padding-top: 0.6rem;
 
   font-size: 0.75rem;
   font-weight: 400;
   line-height: 140%;
   color: ${COLORS.gray200};
 
-  ::before {
-    content: attr(placeholder);
-  }
+  padding-left: 1rem;
+
   ::file-selector-button {
     display: none;
   }

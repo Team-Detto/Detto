@@ -14,7 +14,7 @@ const WritePageMobileDeadline = () => {
         <WritePageMobileBodyText>모집 마감일</WritePageMobileBodyText>
       </WritePageMobileBodyLeftBox>
       <WritePageMobileBodyRightBox>
-        <WritePageMobileDeadlineInput type="date" placeholder="YYYY.MM.DD" />
+        <WritePageMobileDeadlineInput type="date" />
       </WritePageMobileBodyRightBox>
     </WritePageMobileDeadlineContainer>
   );
@@ -29,7 +29,6 @@ const WritePageMobileDeadlineContainer = styled.div`
 const WritePageMobileDeadlineInput = styled.input`
   width: 7.0625rem;
   height: 2.75rem;
-  padding: 0.625rem 1.25rem;
   background-color: ${COLORS.white};
   border: 0.0625rem solid ${COLORS.gray100};
   border-radius: 0.25rem;
@@ -39,9 +38,8 @@ const WritePageMobileDeadlineInput = styled.input`
   line-height: 140%;
   color: ${COLORS.gray200};
 
-  ::before {
-    content: attr(placeholder);
-  }
+  text-align: center;
+  padding-right: 0.5rem;
 `;
 
 export default WritePageMobileDeadline;
