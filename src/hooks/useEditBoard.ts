@@ -96,6 +96,12 @@ const useEditBoard = () => {
     imageRef.current.click();
   }, [imageRef]);
 
+  const handleAddThumbnailImageChange = () => {
+    setEditThumbnail(
+      imageRef.current?.files?.length ? imageRef.current.files[0] : '',
+    );
+  };
+
   const handleFormValueChange = useCallback(
     (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { name, value } = e.target;
@@ -135,11 +141,11 @@ const useEditBoard = () => {
     ToastMessage,
     editFormValue,
     setEditFormValue,
-    setEditThumbnail,
-    handleModalStateChange,
     handleFormValueChange,
+    handleModalStateChange,
     handleAddThumbnailImage,
     handleEditProjectButtonClick,
+    handleAddThumbnailImageChange,
     handleCheckValidationButtonClick,
   };
 };

@@ -9,17 +9,17 @@ interface Props {
   imageRef: any;
   editFormValue: EditType.EditFormType;
   setEditFormValue: (value: EditType.EditFormType) => void;
-  setEditThumbnail: (value: any) => void;
   onFormValueChangeEvent: (e: ChangeEvent<HTMLInputElement>) => void;
   onAddThumbnailImageEvent: () => void;
+  onAddThumbnailImageChangeEvent: () => void;
 }
 const ProjectEditPageBody = ({
   imageRef,
   editFormValue,
   setEditFormValue,
-  setEditThumbnail,
   onFormValueChangeEvent,
   onAddThumbnailImageEvent,
+  onAddThumbnailImageChangeEvent,
 }: Props) => {
   const {
     positions,
@@ -30,11 +30,6 @@ const ProjectEditPageBody = ({
     endDate,
     deadline,
   } = editFormValue;
-  const handleAddThumbnailImageChange = () => {
-    setEditThumbnail(
-      imageRef.current?.files?.length ? imageRef.current.files[0] : '',
-    );
-  };
 
   return (
     <BodyContainer>
@@ -86,7 +81,7 @@ const ProjectEditPageBody = ({
           type="file"
           accept="image/jpg, image/png, image/jpeg"
           ref={imageRef}
-          onChange={handleAddThumbnailImageChange}
+          onChange={onAddThumbnailImageChangeEvent}
         />
         <BodyThumbnailButton
           onClick={onAddThumbnailImageEvent}
