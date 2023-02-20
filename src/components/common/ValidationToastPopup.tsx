@@ -4,12 +4,15 @@ import COLORS from 'assets/styles/colors';
 interface Props {
   message: string;
   top?: number;
+  isCopy?: boolean;
 }
 
-const ValidationToastPopup = ({ message, top }: Props) => {
+const ValidationToastPopup = ({ message, top, isCopy }: Props) => {
   return (
     <ValidationToastAlertContainer top={top}>
-      <ValidationToastAlertIcon>❌</ValidationToastAlertIcon>
+      <ValidationToastAlertIcon>{`${
+        isCopy ? '🔗' : '❌'
+      }`}</ValidationToastAlertIcon>
       <ValidationToastAlertText>{message}</ValidationToastAlertText>
     </ValidationToastAlertContainer>
   );
