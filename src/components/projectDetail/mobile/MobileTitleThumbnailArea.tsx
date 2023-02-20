@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 
 const MobileTitleThumbnailArea = ({ projectData }: any) => {
-  console.log(projectData?.isRecruiting);
   return (
     <>
       <TitleThumbnailAreaContainer>
