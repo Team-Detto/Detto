@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
+import MobileMemberInfoArea from './MobileMemberInfoArea';
 import MobileTitleThumbnailArea from './MobileTitleThumbnailArea';
-import ViewsToShare from './ViewsToShareArea';
-import WriterToProjectInfoArea from './WirterToProjectInfoArea';
+import ViewsToShare from './MobileViewsToShareArea';
+import WriterToProjectInfoArea from './MobileWirterToProjectInfoArea';
 
 const ProjectDetailMobile = ({ pid, projectData, userData }: any) => {
   return (
@@ -9,6 +10,7 @@ const ProjectDetailMobile = ({ pid, projectData, userData }: any) => {
       <MobileTitleThumbnailArea pid={pid} projectData={projectData} />
       <ViewsToShare projectData={projectData} />
       <WriterToProjectInfoArea projectData={projectData} userData={userData} />
+      <MobileMemberInfoArea applicantsData={projectData?.applicants} />
     </MobileContainer>
   );
 };
