@@ -31,7 +31,6 @@ const MainRecommendation = () => {
     queryFn: firebaseMostLikedProjectsRequest,
     staleTime: staleTime.mostLikedPosts,
   });
-  if (!mostViewedProjects || !mostLikedProjects) return null;
 
   return (
     <MainRecommendationWrap>
@@ -54,7 +53,7 @@ const MainRecommendation = () => {
         </MainRecommendationButtonContainer>
         <MainRecommendationCardContainer>
           {tap === 'orderByViews' &&
-            mostViewedProjects.map((project: any) => (
+            mostViewedProjects?.map((project: any) => (
               <ContentCard
                 key={project.id}
                 project={project}
@@ -63,7 +62,7 @@ const MainRecommendation = () => {
               />
             ))}
           {tap === 'orderByLikes' &&
-            mostLikedProjects.map((project: any) => (
+            mostLikedProjects?.map((project: any) => (
               <ContentCard
                 key={project.id}
                 project={project}
