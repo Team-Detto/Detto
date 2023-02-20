@@ -9,7 +9,7 @@ import { useIsLogin } from 'hooks';
 import Root from 'pages/Root';
 
 const MainComponentPage = React.lazy(() => import('pages/MainPage'));
-const MyPageComonentPage = React.lazy(() => import('pages/MyPage'));
+const MyPageComponentPage = React.lazy(() => import('pages/MyPage'));
 const FindProjectComponentPage = React.lazy(
   () => import('pages/FindProjectPage'),
 );
@@ -35,7 +35,7 @@ const router = createBrowserRouter(
       <Route
         path="/mypage"
         element={
-          useIsLogin() ? <MyPageComonentPage /> : <Navigate to="/" replace />
+          useIsLogin() ? <MyPageComponentPage /> : <Navigate to="/" replace />
         }
       />
       <Route path="/findproject" element={<FindProjectComponentPage />} />

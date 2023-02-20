@@ -20,16 +20,18 @@ const MemberInfoArea = ({ applicantsData }: any) => {
             {data?.map((key) => {
               if (applicantsData[key].position === '기획')
                 return (
-                  <div key={key}>
-                    <MemberProfileImg
-                      key={key}
-                      onClick={() =>
-                        navigate(`/profile/${applicantsData[key].uid}`)
-                      }
-                      src={applicantsData[key].profileURL}
-                    ></MemberProfileImg>
-                    <HoverText>{applicantsData[key].displayName}</HoverText>
-                  </div>
+                  <>
+                    <div key={key}>
+                      <MemberProfileImg
+                        key={key}
+                        onClick={() =>
+                          navigate(`/profile/${applicantsData[key].uid}`)
+                        }
+                        src={applicantsData[key].profileURL}
+                      ></MemberProfileImg>
+                    </div>
+                    {/* <HoverText>{applicantsData[key].displayName}</HoverText> */}
+                  </>
                 );
             })}
           </MemberInfoDiv>
@@ -42,15 +44,17 @@ const MemberInfoArea = ({ applicantsData }: any) => {
                 applicantsData[key].position === '백엔드'
               )
                 return (
-                  <div key={key}>
-                    <MemberProfileImg
-                      onClick={() =>
-                        navigate(`/profile/${applicantsData[key].uid}`)
-                      }
-                      src={applicantsData[key].profileURL}
-                    ></MemberProfileImg>
-                    <HoverText>{applicantsData[key].displayName}</HoverText>
-                  </div>
+                  <>
+                    <div key={key}>
+                      <MemberProfileImg
+                        onClick={() =>
+                          navigate(`/profile/${applicantsData[key].uid}`)
+                        }
+                        src={applicantsData[key].profileURL}
+                      ></MemberProfileImg>
+                    </div>
+                    {/* <HoverText>{applicantsData[key].displayName}</HoverText> */}
+                  </>
                 );
             })}
           </MemberInfoDiv>
@@ -59,16 +63,18 @@ const MemberInfoArea = ({ applicantsData }: any) => {
             {data.map((key) => {
               if (applicantsData[key].position === '디자인')
                 return (
-                  <div key={key}>
-                    <MemberProfileImg
-                      key={key}
-                      onClick={() =>
-                        navigate(`/profile/${applicantsData[key].uid}`)
-                      }
-                      src={applicantsData[key].profileURL}
-                    ></MemberProfileImg>
-                    <HoverText>{applicantsData[key].displayName}</HoverText>
-                  </div>
+                  <>
+                    <MemberBox key={key}>
+                      <MemberProfileImg
+                        key={key}
+                        onClick={() =>
+                          navigate(`/profile/${applicantsData[key].uid}`)
+                        }
+                        src={applicantsData[key].profileURL}
+                      ></MemberProfileImg>
+                    </MemberBox>
+                    {/* <HoverText>{applicantsData[key].displayName}</HoverText> */}
+                  </>
                 );
             })}
           </MemberInfoDiv>
@@ -106,6 +112,16 @@ const MemberInfoDiv = styled.div`
   display: flex;
   align-items: center;
   gap: 1.25rem;
+  :hover > div + div {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+`;
+
+const MemberBox = styled.div`
+  position: absolute;
 `;
 
 const PositionDiv = styled.div`
@@ -124,29 +140,25 @@ const MemberProfileImg = styled.img`
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
+  /* position: absolute; */
   cursor: pointer;
-  :hover + div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
 `;
 
-const HoverText = styled.div`
-  position: relative;
-  right: 3.125rem;
-  top: 1.875rem;
-  width: 6rem;
-  height: 2rem;
-  border-radius: 0.625rem;
-  background-color: ${COLORS.white};
-  box-shadow: 0.0313rem 0.0313rem 0.625rem 0.0625rem ${COLORS.violetA300};
-  color: ${COLORS.black};
+// const HoverText = styled.div`
+//   position: relative;
+//   right: 3.125rem;
+//   top: 1.875rem;
+//   width: 6rem;
+//   height: 2rem;
+//   border-radius: 0.625rem;
+//   background-color: ${COLORS.white};
+//   box-shadow: 0.0313rem 0.0313rem 0.625rem 0.0625rem ${COLORS.violetA300};
+//   color: ${COLORS.black};
 
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  font-weight: 500;
+//   align-items: center;
+//   justify-content: center;
+//   font-size: 1rem;
+//   font-weight: 500;
 
-  display: none;
-`;
+//   display: none;
+// `;

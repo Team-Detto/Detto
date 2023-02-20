@@ -60,6 +60,8 @@ const ProjectDetailPage = () => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries(['post', pid]); //마감하기 버튼 성공시 렌더링
+        queryClient.invalidateQueries(['post', 'mostViewed']);
+        queryClient.invalidateQueries(['post', 'mostLiked']);
       },
     },
   );
@@ -68,7 +70,7 @@ const ProjectDetailPage = () => {
     () => deleteApplicant(pid as string, uid),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(['post', pid]); //마감하기 버튼 성공시 렌더링
+        queryClient.invalidateQueries(['post', pid]); //지원취소 버튼 성공시 렌더링
       },
     },
   );

@@ -103,8 +103,6 @@ const useWrite = () => {
     });
   };
 
-  console.log(writeFormValue);
-
   const handleFormValueChange = useCallback(
     (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { name, value } = e.target;

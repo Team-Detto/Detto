@@ -27,7 +27,7 @@ const Alert = ({ isOpen, onClickEvent, mainMsg, subMsg, page }: props) => {
     <AlertBackDrop isOpen={isOpen}>
       <AlertContainer isOpen={isOpen}>
         <AlertMessageContainer>
-          <AlertMessageEmotion>'🎉'</AlertMessageEmotion>
+          <AlertMessageEmotion>🎉</AlertMessageEmotion>
           <AlertMessageMainMessage>{mainMsg}!</AlertMessageMainMessage>
           <AlertMessageSubMessage>{subMsg}</AlertMessageSubMessage>
         </AlertMessageContainer>
