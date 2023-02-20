@@ -27,13 +27,10 @@ export const findUser = async (uid: string) => {
 
 // 프로젝트 조회순으로 3개 조회
 export const firebaseMostViewedProjectsRequest = async () => {
-  const today = new Date().getMilliseconds();
   const docRef = collection(firestore, `post`);
   const q = query(
     docRef,
     where('isRecruiting', '==', true),
-    where('deadline', '>=', today),
-    orderBy('deadline', 'desc'),
     orderBy('view', 'desc'),
     limit(3),
   );
@@ -44,13 +41,10 @@ export const firebaseMostViewedProjectsRequest = async () => {
 
 // 프로젝트 관심순으로 3개 조회
 export const firebaseMostLikedProjectsRequest = async () => {
-  const today = new Date().getMilliseconds();
   const docRef = collection(firestore, `post`);
   const q = query(
     docRef,
     where('isRecruiting', '==', true),
-    where('deadline', '>=', today),
-    orderBy('deadline', 'desc'),
     orderBy('like', 'desc'),
     limit(3),
   );
