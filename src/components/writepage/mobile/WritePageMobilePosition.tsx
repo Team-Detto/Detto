@@ -1,4 +1,9 @@
 import {} from 'react';
+import {
+  WritePageMobileBodyLeftBox,
+  WritePageMobileBodyRightBox,
+  WritePageMobileBodyText,
+} from './WritePageMobileBody';
 import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
 
@@ -24,27 +29,6 @@ const WritePageMobilePositionContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
-`;
-const WritePageMobileBodyLeftBox = styled.div`
-  width: 22%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-const WritePageMobileBodyRightBox = styled.div`
-  width: 75%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 1rem;
-`;
-const WritePageMobileBodyText = styled.p`
-  width: 3.625rem;
-  height: 1.0625rem;
-  font-weight: 400;
-  font-size: 0.75rem;
-  line-height: 140%;
-  color: ${COLORS.gray800};
 `;
 const WritePageMobileBodySelect = styled.select`
   width: 7.125rem;
