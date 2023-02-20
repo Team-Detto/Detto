@@ -8,7 +8,13 @@ import { LogoBoxH1 } from './Header';
 import COLORS from 'assets/styles/colors';
 
 const MobileHeader = () => {
-  const { isMain, isLoggedIn, handleLogoutClick } = useHeader();
+  const {
+    isMain,
+    isLoggedIn,
+    showDropwdown,
+    handleDropdownClick,
+    handleLogoutClick,
+  } = useHeader();
   const { openModal } = useGlobalModal();
 
   return (
@@ -35,42 +41,43 @@ const MobileHeader = () => {
           ) : (
             ''
           )}
-          <MobileMenuItem>
+          <MobileMenuItem onClick={handleDropdownClick}>
             <MobileMenuIcon />
           </MobileMenuItem>
         </MobileMenuList>
       </MobileHeaderWrapper>
 
       {/* 드롭다운 메뉴 */}
-
-      <DropdownBox>
-        <DropdownList>
-          {!isLoggedIn && (
-            <DropdownItem onClick={() => openModal('login', 0)}>
-              {' '}
-              로그인
-            </DropdownItem>
-          )}
-          {isLoggedIn && (
-            <DropdownItem onClick={handleLogoutClick}>로그아웃</DropdownItem>
-          )}
-          <DropdownItem>
-            <Link to={'/findproject'}>팀원찾기</Link>
-          </DropdownItem>
-          <DropdownItem onClick={() => !isLoggedIn && openModal('login', 0)}>
-            {isLoggedIn ? (
-              <Link to={'/project/write'}>새 글 쓰기</Link>
-            ) : (
-              '새 글 쓰기'
+      {showDropwdown && (
+        <DropdownBox>
+          <DropdownList>
+            {!isLoggedIn && (
+              <DropdownItem onClick={() => openModal('login', 0)}>
+                {' '}
+                로그인
+              </DropdownItem>
             )}
-          </DropdownItem>
-          {isLoggedIn && (
+            {isLoggedIn && (
+              <DropdownItem onClick={handleLogoutClick}>로그아웃</DropdownItem>
+            )}
             <DropdownItem>
-              <Link to={'/mypage'}>마이페이지</Link>{' '}
+              <Link to={'/findproject'}>팀원찾기</Link>
             </DropdownItem>
-          )}
-        </DropdownList>
-      </DropdownBox>
+            <DropdownItem onClick={() => !isLoggedIn && openModal('login', 0)}>
+              {isLoggedIn ? (
+                <Link to={'/project/write'}>새 글 쓰기</Link>
+              ) : (
+                '새 글 쓰기'
+              )}
+            </DropdownItem>
+            {isLoggedIn && (
+              <DropdownItem>
+                <Link to={'/mypage'}>마이페이지</Link>{' '}
+              </DropdownItem>
+            )}
+          </DropdownList>
+        </DropdownBox>
+      )}
     </MobileHeaderContainer>
   );
 };

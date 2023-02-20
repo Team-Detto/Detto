@@ -10,6 +10,7 @@ const MAIN_SCROLL_Y = 480;
 const useHeader = () => {
   const [hideGradient, setHideGradient] = useState<boolean>(true);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [showDropwdown, setShowDropdown] = useState<boolean>(false);
   const localUser = useAuth();
 
   const navigate = useNavigate();
@@ -30,6 +31,11 @@ const useHeader = () => {
       navigate('/', { replace: true });
       setIsLoggedIn(false);
     });
+  };
+
+  // 모바일에서 드롭다운 메뉴 표시 여부
+  const handleDropdownClick = () => {
+    setShowDropdown((prev) => !prev);
   };
 
   // 메인 페이지일 경우 스크롤에 따른 배경 그라이언트 함수 이벤트 적용
@@ -59,8 +65,10 @@ const useHeader = () => {
   return {
     isMain,
     isLoggedIn,
+    showDropwdown,
     hideGradient,
     handleLogoutClick,
+    handleDropdownClick,
   };
 };
 
