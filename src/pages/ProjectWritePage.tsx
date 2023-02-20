@@ -9,6 +9,7 @@ import ProjectWritePageHeader from 'components/writepage/ProjectWritePageHeader'
 import WritePageMobileHeader from 'components/writepage/mobile/WritePageMobileHeader';
 import WritePageMobileBody from 'components/writepage/mobile/WritePageMobileBody';
 import styled from '@emotion/styled';
+import WritePageMobileFooter from 'components/writepage/mobile/WritePageMobileFooter';
 
 const ProjectWritePage = () => {
   const {
@@ -34,6 +35,7 @@ const ProjectWritePage = () => {
         <WritePageMobileContainer>
           <WritePageMobileHeader />
           <WritePageMobileBody />
+          <WritePageMobileFooter />
         </WritePageMobileContainer>
       </MobileContainer>
     );
@@ -76,7 +78,7 @@ const ProjectWritePageWrapper = styled.div`
   height: 133.5625rem;
 `;
 const WritePageMobileContainer = styled.div`
-  width: 100%;
+  height: 63.5rem;
 `;
 
 export default ProjectWritePage;
