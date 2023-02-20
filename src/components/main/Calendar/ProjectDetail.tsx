@@ -5,28 +5,25 @@ import { selectedProjectState } from '../../../recoil/atoms';
 import { getDate } from 'utils/date';
 import COLORS from 'assets/styles/colors';
 
+const positions: any = {
+  frontend: '프론트엔드',
+  backend: '백엔드',
+  designer: '디자인',
+  planner: '기획',
+};
+
 const ProjectDetail = () => {
   const selectedProject = useRecoilValue<any>(selectedProjectState);
-
   if (!selectedProject) return null;
-  const positions = [
-    { value: 'frontend', name: '프론트엔드' },
-    { value: 'backend', name: '백엔드' },
-    { value: 'designer', name: '디자이너' },
-    { value: 'planner', name: '기획자' },
-  ];
 
-  const positionsKeys = Object.keys(selectedProject.positions);
-  const positionsvalues = Object.values(selectedProject.positions);
+  // 포지션 이름 배열
+  const positionsNames = [];
+  for (const [key, value] of Object.entries(selectedProject.positions)) {
+    if (value !== 0) {
+      positionsNames.push(positions[key]);
+    }
+  }
 
-  const positionsValues = positionsKeys.filter((key, index) => {
-    return positionsvalues[index] !== 0;
-  });
-
-  const positionsNames = positionsValues.map((value) => {
-    const position = positions.find((position) => position.value === value);
-    return position?.name + ',';
-  });
   return (
     <ProjectDetailWrap>
       <div key={selectedProject}>
@@ -49,7 +46,7 @@ const ProjectDetail = () => {
         </ProjectDetailContainer>
         <ProjectDetailContainer>
           <ProjectDetailTextAreaDiv>포지션</ProjectDetailTextAreaDiv>
-          <div>{positionsNames.sort().join('').slice(0, -1)}</div>
+          <div>{positionsNames.join(', ')}</div>
         </ProjectDetailContainer>
         <ProjectDetailContainer>
           <ProjectDetailTextAreaDiv>모집 마감일</ProjectDetailTextAreaDiv>
