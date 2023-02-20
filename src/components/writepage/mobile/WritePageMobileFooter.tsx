@@ -1,17 +1,20 @@
-import { useRef } from 'react';
+import { MutableRefObject } from 'react';
 import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
 import TextEdiotr from 'components/TextEditor';
 
-const WritePageMobileFooter = () => {
-  const editRef = useRef(); // Props 임시코드
+interface Props {
+  editRef: MutableRefObject<any>;
+  onOpenButtonClickEvent: () => void;
+}
 
+const WritePageMobileFooter = ({ editRef, onOpenButtonClickEvent }: Props) => {
   return (
     <WritePageMobileFooterContainer>
       <WritePageMobileFooterEditBox>
         <TextEdiotr editRef={editRef} />
       </WritePageMobileFooterEditBox>
-      <WritePageMobileFooterCompleatedButton>
+      <WritePageMobileFooterCompleatedButton onClick={onOpenButtonClickEvent}>
         <WritePageMobileFooterCompleatedText>
           작성 완료
         </WritePageMobileFooterCompleatedText>
