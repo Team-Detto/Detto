@@ -2,7 +2,13 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
 import WebContainer from './common/WebContainer';
 import PopupContainer from './popup/PopupContainer';
-import { useAuth, useGlobalModal, useHeader, usePopup } from 'hooks';
+import {
+  useAuth,
+  useGlobalModal,
+  useHeader,
+  useIsMobile,
+  usePopup,
+} from 'hooks';
 import COLORS from 'assets/styles/colors';
 import { useEffect } from 'react';
 import { useQueries } from '@tanstack/react-query';
@@ -10,12 +16,15 @@ import { getInboxNotes } from 'apis/notes';
 import { getNotifications } from 'apis/notifications';
 import { staleTime } from 'utils/staleTime';
 
+import MobileHeader from './MobileHeader';
+
 interface headerTypes {
   isMain: boolean;
   hideGradient: boolean;
 }
 
 const Header = () => {
+  const isMobile = useIsMobile();
   const { closePopup, toggleNoteBox, toggleNotificationBox } = usePopup();
   const { openModal } = useGlobalModal();
   const { isMain, isLoggedIn, hideGradient, handleLogoutClick } = useHeader();
@@ -44,6 +53,10 @@ const Header = () => {
     ],
   });
 
+  if (isMobile) {
+    return <MobileHeader />;
+  }
+
   return (
     <HeaderContainer isMain={isMain} hideGradient={hideGradient}>
       <WebContainer>
@@ -61,15 +74,6 @@ const Header = () => {
                   '새 글 쓰기'
                 )}
               </NavItemLi>
-              {/* {isLoggedIn ? (
-                <NavItemLi>
-                  <NavItemLink to={'/project/write'}>새 글 쓰기</NavItemLink>
-                </NavItemLi>
-              ) : (
-                <NavItemLi onClick={() => openModal('login', 0)}>
-                  새 글 쓰기
-                </NavItemLi>
-              )} */}
               <NavItemLi>
                 <NavItemLink to={'/findproject'}>팀원찾기</NavItemLink>
               </NavItemLi>
@@ -147,12 +151,12 @@ const HeaderWrapper = styled.div`
   align-items: center;
 `;
 
-const LogoBoxH1 = styled.h1`
-  font-size: 2.5rem;
+export const LogoBoxH1 = styled.h1<{ isMobile?: boolean }>`
+  font-size: ${({ isMobile }) => (isMobile ? '1.625rem' : '2.5rem')};
   font-weight: 800;
   color: ${COLORS.violetB500};
-  margin-top: -0.5rem;
-  margin-left: 1.438rem;
+  margin-top: ${({ isMobile }) => (isMobile ? '-0.2rem' : '-0.5rem')};
+  margin-left: ${({ isMobile }) => (isMobile ? '0' : '1.438rem')};
   cursor: pointer;
 `;
 
