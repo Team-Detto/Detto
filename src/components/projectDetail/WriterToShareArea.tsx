@@ -1,10 +1,31 @@
 import { useNavigate } from 'react-router-dom';
-import styled from '@emotion/styled';
 import Views from './Views';
 import Likes from './Likes';
 import Share from './Share';
+import ValidationToastPopup from 'components/common/ValidationToastPopup';
+import { BiLink } from 'react-icons/bi';
+import {
+  FacebookShareButton,
+  FacebookIcon,
+  LineShareButton,
+  LineIcon,
+  TwitterShareButton,
+  TwitterIcon,
+} from 'react-share';
+import COLORS from 'assets/styles/colors';
+import styled from '@emotion/styled';
 
-const WriterToShareArea = ({ projectData, pid, userData }: any) => {
+const WriterToShareArea = ({
+  pid,
+  share,
+  userData,
+  showToast,
+  isCopyLink,
+  projectData,
+  ToastMessage,
+  onShareButtonClickEvent,
+  onCopyLinkButtonClickEvent,
+}: any) => {
   const { uid, like, title, content, view, applicants } = projectData;
   const navigate = useNavigate();
 
@@ -20,8 +41,31 @@ const WriterToShareArea = ({ projectData, pid, userData }: any) => {
       <IconWrapper>
         <Views pid={pid} view={view} />
         <Likes pid={pid} like={like} />
-        <Share title={title} content={content} />
+        <Share
+          title={title}
+          content={content}
+          onShareButtonClickEvent={onShareButtonClickEvent}
+        />
       </IconWrapper>
+      {share && (
+        <ShareContainer>
+          <FacebookShareButton url={window.location.href} title={title}>
+            <FacebookIcon size={32} round />
+          </FacebookShareButton>
+          <LineShareButton url={window.location.href} title={title}>
+            <LineIcon size={32} round />
+          </LineShareButton>
+          <TwitterShareButton url={window.location.href} title={title}>
+            <TwitterIcon size={32} round />
+          </TwitterShareButton>
+          <ShareLinkButton onClick={onCopyLinkButtonClickEvent}>
+            <BiLink size={20} />
+          </ShareLinkButton>
+        </ShareContainer>
+      )}
+      {showToast && (
+        <ValidationToastPopup message={ToastMessage} isCopy={isCopyLink} />
+      )}
     </WriterToShareContainer>
   );
 };
@@ -58,4 +102,50 @@ const WriterNickname = styled.p`
   display: flex;
   align-items: center;
   margin-left: 0.5rem;
+`;
+
+const ShareContainer = styled.div`
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 13rem;
+  height: 3rem;
+  top: 41%;
+  left: 89%;
+  background-color: ${COLORS.white};
+  box-shadow: 0 0 10px ${COLORS.gray300};
+  z-index: 10;
+  border-radius: 15px;
+
+  ::after {
+    bottom: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: '';
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(244, 244, 244, 0);
+    border-bottom-color: ${COLORS.white};
+    border-width: 10px;
+    margin-left: -10px;
+  }
+`;
+const ShareLinkButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background-color: ${COLORS.gray300};
+  margin-bottom: 0.2rem;
+  cursor: pointer;
+
+  svg {
+    color: ${COLORS.white};
+  }
 `;
