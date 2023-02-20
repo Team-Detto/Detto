@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import COLORS from './colors';
 
 const reset = css`
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap%27');
@@ -9,6 +10,7 @@ const reset = css`
     border-width: 0;
     border-style: solid;
     border-color: theme('borderColor.DEFAULT', 'currentColor');
+    font-family: 'Noto Sans KR' !important;
   }
   ::before,
   ::after {
@@ -19,11 +21,12 @@ const reset = css`
     -webkit-text-size-adjust: 100%;
     -moz-tab-size: 4;
     tab-size: 4;
-    font-family: theme('Noto Sans KR', sans-serif);
   }
   body {
     margin: 0;
     line-height: inherit;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   hr {
     height: 0;
@@ -197,6 +200,69 @@ const reset = css`
   }
   [hidden] {
     display: none;
+  }
+
+  /* Input Focus 색상 */
+  input[type='text'],
+  input[type='password'],
+  input[type='email'],
+  input[type='number'],
+  input[type='tel'],
+  input[type='url'],
+  input[type='search'],
+  input[type='date'],
+  input[type='month'],
+  input[type='week'],
+  input[type='time'],
+  input[type='datetime'],
+  input[type='datetime-local'],
+  input[type='color'],
+  textarea,
+  select {
+    &:focus {
+      outline: none;
+      border: 2px solid ${COLORS.violetB400};
+      transition: 100ms ease-in-out;
+    }
+  }
+
+  /* Input Placeholder 색상 */
+  input[type='text'],
+  input[type='password'],
+  input[type='email'],
+  input[type='number'],
+  input[type='tel'],
+  input[type='url'],
+  input[type='search'],
+  input[type='date'],
+  input[type='month'],
+  input[type='week'],
+  input[type='time'],
+  input[type='datetime'],
+  input[type='datetime-local'],
+  input[type='color'],
+  textarea,
+  select {
+    &::placeholder {
+      color: ${COLORS.gray300};
+    }
+  }
+
+  /* 이미지 드래그 잔상방지 추가 */
+  img {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+  }
+
+  html,
+  body {
+    height: 100%;
+  }
+
+  body {
+    overflow: overlay;
   }
 `;
 
