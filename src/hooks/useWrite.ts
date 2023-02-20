@@ -94,6 +94,17 @@ const useWrite = () => {
     imageRef.current.click();
   }, [imageRef]);
 
+  const handleAddThumbnailImageChange = () => {
+    setWriteFormValue({
+      ...writeFormValue,
+      thumbnail: imageRef.current?.files?.length
+        ? imageRef.current.files[0]
+        : '',
+    });
+  };
+
+  console.log(writeFormValue);
+
   const handleFormValueChange = useCallback(
     (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { name, value } = e.target;
@@ -133,9 +144,10 @@ const useWrite = () => {
     ToastMessage,
     writeFormValue,
     setWriteFormValue,
-    handleModalStateChange,
     handleFormValueChange,
+    handleModalStateChange,
     handleAddThumbnailImage,
+    handleAddThumbnailImageChange,
     handleCreateProjectButtonClick,
     handleCheckValidationButtonClick,
   };

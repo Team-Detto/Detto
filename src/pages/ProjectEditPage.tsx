@@ -16,11 +16,11 @@ const ProjectEditPage = () => {
     ToastMessage,
     editFormValue,
     setEditFormValue,
-    setEditThumbnail,
-    handleModalStateChange,
     handleFormValueChange,
+    handleModalStateChange,
     handleAddThumbnailImage,
     handleEditProjectButtonClick,
+    handleAddThumbnailImageChange,
     handleCheckValidationButtonClick,
   } = useEdtiBoard();
 
@@ -35,9 +35,9 @@ const ProjectEditPage = () => {
           imageRef={imageRef}
           editFormValue={editFormValue}
           setEditFormValue={setEditFormValue}
-          setEditThumbnail={setEditThumbnail}
           onFormValueChangeEvent={handleFormValueChange}
           onAddThumbnailImageEvent={handleAddThumbnailImage}
+          onAddThumbnailImageChangeEvent={handleAddThumbnailImageChange}
         />
         <ProjectEditPageFooter
           editRef={editRef}

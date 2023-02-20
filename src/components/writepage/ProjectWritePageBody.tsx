@@ -11,6 +11,7 @@ interface Props {
   setWriteFormValue: (value: WriteType.WriteFormType) => void;
   onFormValueChangeEvent: (e: React.ChangeEvent<HTMLInputElement>) => void; // eslint-disable-line no-unused-vars
   onAddThumbnailImageEvent: () => void;
+  onAddThumbnailImageChangeEvent: () => void;
 }
 
 const ProjectWritePageBody = ({
@@ -19,16 +20,8 @@ const ProjectWritePageBody = ({
   setWriteFormValue,
   onFormValueChangeEvent,
   onAddThumbnailImageEvent,
+  onAddThumbnailImageChangeEvent,
 }: Props) => {
-  const handleAddThumbnailImageChange = () => {
-    setWriteFormValue({
-      ...writeFormValue,
-      thumbnail: imageRef.current?.files?.length
-        ? imageRef.current.files[0]
-        : '',
-    });
-  };
-
   return (
     <WritePageBodyContainer>
       <WritePageBodyPositionBox>
@@ -77,7 +70,7 @@ const ProjectWritePageBody = ({
           type="file"
           accept="image/jpg, image/png, image/jpeg"
           ref={imageRef}
-          onChange={handleAddThumbnailImageChange}
+          onChange={onAddThumbnailImageChangeEvent}
         />
         <WritePageBodyThumbnailButton
           onClick={onAddThumbnailImageEvent}
