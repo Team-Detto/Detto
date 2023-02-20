@@ -26,7 +26,7 @@ const WriterToShareArea = ({
   onShareButtonClickEvent,
   onCopyLinkButtonClickEvent,
 }: any) => {
-  const { uid, like, title, content, view, applicants } = projectData;
+  const { uid, like, title, content, view, isRecruiting } = projectData;
   const navigate = useNavigate();
 
   return (
@@ -48,7 +48,7 @@ const WriterToShareArea = ({
         />
       </IconWrapper>
       {share && (
-        <ShareContainer>
+        <ShareContainer isRecruiting={isRecruiting}>
           <FacebookShareButton url={window.location.href} title={title}>
             <FacebookIcon size={32} round />
           </FacebookShareButton>
@@ -104,7 +104,7 @@ const WriterNickname = styled.p`
   margin-left: 0.5rem;
 `;
 
-const ShareContainer = styled.div`
+const ShareContainer = styled.div<{ isRecruiting: boolean }>`
   position: absolute;
   display: flex;
   flex-direction: row;
@@ -112,7 +112,7 @@ const ShareContainer = styled.div`
   align-items: center;
   width: 13rem;
   height: 3rem;
-  top: 41%;
+  top: ${({ isRecruiting }) => (isRecruiting ? '35.1%' : '39.2%')};
   left: 89%;
   background-color: ${COLORS.white};
   box-shadow: 0 0 10px ${COLORS.gray300};
