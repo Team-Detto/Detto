@@ -3,12 +3,13 @@ import styled from '@emotion/styled';
 import { GrMail } from 'react-icons/gr';
 import { FiChevronLeft } from 'react-icons/fi';
 import { IoNotifications, IoMenu } from 'react-icons/io5';
-import { useHeader } from 'hooks';
+import { useGlobalModal, useHeader } from 'hooks';
 import { LogoBoxH1 } from './Header';
 import COLORS from 'assets/styles/colors';
 
 const MobileHeader = () => {
   const { isMain, isLoggedIn, handleLogoutClick } = useHeader();
+  const { openModal } = useGlobalModal();
 
   return (
     <MobileHeaderContainer>
@@ -41,13 +42,33 @@ const MobileHeader = () => {
       </MobileHeaderWrapper>
 
       {/* 드롭다운 메뉴 */}
+
       <DropdownBox>
         <DropdownList>
-          <DropdownItem>로그인</DropdownItem>
-          <DropdownItem>로그아웃</DropdownItem>
-          <DropdownItem>팀원찾기</DropdownItem>
-          <DropdownItem>새 글쓰기</DropdownItem>
-          <DropdownItem>마이페이지</DropdownItem>
+          {!isLoggedIn && (
+            <DropdownItem onClick={() => openModal('login', 0)}>
+              {' '}
+              로그인
+            </DropdownItem>
+          )}
+          {isLoggedIn && (
+            <DropdownItem onClick={handleLogoutClick}>로그아웃</DropdownItem>
+          )}
+          <DropdownItem>
+            <Link to={'/findproject'}>팀원찾기</Link>
+          </DropdownItem>
+          <DropdownItem onClick={() => !isLoggedIn && openModal('login', 0)}>
+            {isLoggedIn ? (
+              <Link to={'/project/write'}>새 글 쓰기</Link>
+            ) : (
+              '새 글 쓰기'
+            )}
+          </DropdownItem>
+          {isLoggedIn && (
+            <DropdownItem>
+              <Link to={'/mypage'}>마이페이지</Link>{' '}
+            </DropdownItem>
+          )}
         </DropdownList>
       </DropdownBox>
     </MobileHeaderContainer>
