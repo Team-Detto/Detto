@@ -1,20 +1,29 @@
 import styled from '@emotion/styled';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, QueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
-import React from 'react';
 import { updateLike, updateMyProject } from '../../apis/postDetail'; //여기서 에러 발생 :모듈 또는 해당 형식 선언을 찾을 수 없습니다.
 import { findWithCollectionName } from 'apis/findWithCollectionName';
 import { useAuth, useGlobalModal } from 'hooks';
 import COLORS from 'assets/styles/colors';
 
-const Likes = ({ pid, like }: any) => {
+const Likes = ({ pid, like, version = 'web' }: any) => {
   const { uid } = useAuth();
   const { openModal } = useGlobalModal();
   const [countLike, setCountLike] = useState(like);
-  const { mutate: likeMutate } = useMutation(() => updateLike(pid, countLike));
-  const { mutate: likedProjectMutate } = useMutation(() =>
-    updateMyProject(uid, pid, isLike),
+  const queryClient = new QueryClient();
+  const { mutate: likeMutate } = useMutation(() => updateLike(pid, countLike), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['post', pid]);
+    },
+  });
+  const { mutate: likedProjectMutate } = useMutation(
+    () => updateMyProject(uid, pid, isLike),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['myprojects', uid]);
+      },
+    },
   );
   const { data: myProjectData } = useQuery({
     queryKey: ['myprojects', uid],
@@ -24,9 +33,9 @@ const Likes = ({ pid, like }: any) => {
   const [isLike, setIsLike] = useState<boolean>(
     myProjectData?.likedProjects?.includes(pid),
   ); // 초기값 false로 설정 시 페이지 이동시 다시 false로 초기화됨, 데이터베이스에서 가져온 값은 로드되는 동안 undefined 이므로 useEffect로 한번 더 설정함
-
   useEffect(() => {
     setIsLike(myProjectData?.likedProjects?.includes(pid)); //현재 사용자가 좋아요를 눌렀는지 확인하기 위해
+    console.log(myProjectData);
   }, [myProjectData]);
 
   //isLike가 변경될 때마다 좋아요 수 및 좋아요한 프로젝트를 db에서 변경해주는 기능
@@ -58,9 +67,9 @@ const Likes = ({ pid, like }: any) => {
       }}
     >
       {isLike ? (
-        <AiFillHeart size="1.5rem" color={`${COLORS.pink}`} />
+        <FillHeart version={version} />
       ) : (
-        <AiOutlineHeart size="1.5rem" color={`${COLORS.gray750}`} />
+        <LineHeart version={version} />
       )}
       관심 {countLike ?? ' 0'}
     </IconButton> // 로그아웃인 경우 관심 버튼 클릭 시 likedProjects에 데이터가 없어서 로직 에러 발생: 예외처리 필요
@@ -73,4 +82,15 @@ const IconButton = styled.button`
   display: flex;
   align-items: center;
   gap: 0.5rem;
+`;
+
+const FillHeart = styled(AiFillHeart)<{ version: string }>`
+  font-size: ${(props) => (props.version === 'mobile' ? '1rem' : '1.5rem')};
+  color: ${COLORS.pink};
+`;
+
+const LineHeart = styled(AiOutlineHeart)`
+  font-size: ${(props: { version: string }) =>
+    props.version === 'mobile' ? '1rem' : '1.5rem'};
+  color: ${COLORS.gray750};
 `;
