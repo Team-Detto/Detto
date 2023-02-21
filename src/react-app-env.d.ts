@@ -49,3 +49,7 @@ interface Notification {
   uid: string;
   link?: { type: 'project' | 'profile'; id: string };
 }
+
+interface MypageInfoProps {
+  user: User;
+}

@@ -6,7 +6,7 @@ import { authService, firestore } from 'apis/firebaseService';
 import COLORS from 'assets/styles/colors';
 import { deleteDoc, doc } from 'firebase/firestore';
 
-interface LeftTabProps {
+export interface LeftTabProps {
   activeTab: string;
   setActiveTab: React.Dispatch<React.SetStateAction<string>>;
 }

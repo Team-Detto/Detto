@@ -1,60 +1,23 @@
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useModal, useToastPopup } from 'hooks';
+import { useModal, useUpdateProfile } from 'hooks';
 import styled from '@emotion/styled';
 import { mypageInfoButtonActiveState, userInfoState } from '../../recoil/atoms';
 import UserInfoTop from './UserInfoTop';
 import SkillList from './SkillList';
 import ConfirmAlert from 'components/common/ConfirmAlert';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
-import { updateUserInfoData } from 'apis/mypageUsers';
 import { designs, develops, products } from 'utils/skills';
-import { contactValidation } from 'utils/validation';
 import COLORS from 'assets/styles/colors';
 
-interface MypageInfoProps {
-  user: User;
-  uid: string;
-}
-
-const MyPageInfo = ({ user, uid }: MypageInfoProps) => {
+const MyPageInfo = ({ user }: MypageInfoProps) => {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [activeInfoBtn, setActiveInfoBtn] = useRecoilState<boolean>(
     mypageInfoButtonActiveState,
   );
   const { isOpen, handleModalStateChange } = useModal(false);
-  const { showToast, ToastMessage, handleToastPopup } = useToastPopup();
-
-  const queryClient = useQueryClient();
-  const { mutate: updateUserInfoMutate } = useMutation(
-    () => updateUserInfoData(uid, userInfo),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(['users', uid]);
-      },
-    },
-  );
-
-  // 유효성 검사
-  const checkInfoValidation = () => {
-    const nickname = userInfo.displayName;
-    if (nickname.length < 2 || nickname.length > 7) {
-      handleToastPopup('닉네임은 2자 이상 7자 이하로 입력해주세요.');
-      return false;
-    }
-
-    if (userInfo.email && !contactValidation(userInfo.email)) {
-      handleToastPopup('연락처를 올바르게 입력해주세요.');
-      return false;
-    }
-
-    if (userInfo.positions.length === 0) {
-      handleToastPopup('포지션을 선택해주세요.');
-      return false;
-    }
-    return true;
-  };
+  const { updateUserInfoMutate, showToast, ToastMessage, checkInfoValidation } =
+    useUpdateProfile();
 
   // 수정 버튼 클릭 시 유효성 검사 확인 후 모달창 오픈
   const handleUserInfoConfirm = () => {
@@ -153,7 +116,7 @@ const InfoEditConfirmWrapper = styled.div`
   margin-bottom: 4.875rem;
 `;
 
-const InfoEditConfirmBtn = styled.button<{ isActive: boolean }>`
+export const InfoEditConfirmBtn = styled.button<{ isActive: boolean }>`
   margin-top: 2rem;
   width: 14.375rem;
   height: 3rem;

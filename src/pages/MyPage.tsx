@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import styled from '@emotion/styled';
-import { useAuth, useProjectList } from 'hooks';
+import { useAuth, useIsMobile, useProjectList } from 'hooks';
+import MobileMyPage from 'components/mypage/mobile/MobileMyPage';
 import WebContainer from 'components/common/WebContainer';
 import MyPageInfo from 'components/mypage/MyPageInfo';
 import ProjectList from 'components/common/myProjectList/ProjectList';
@@ -12,6 +13,7 @@ import { staleTime } from 'utils/staleTime';
 
 const MyPage = () => {
   const [activeTab, setActiveTab] = useState('개인정보');
+  const isMobile = useIsMobile();
   const { uid } = useAuth();
   const { activeProjectTab, handleProjectTabClick, setActiveProjectTab } =
     useProjectList();
@@ -34,14 +36,15 @@ const MyPage = () => {
     setActiveProjectTab('appliedProjects');
   }, []);
 
+  if (isMobile)
+    return <MobileMyPage user={userInfoData} pidList={userProjectListsData} />;
+
   return (
     <MyPageContainer>
       <LeftTab activeTab={activeTab} setActiveTab={setActiveTab} />
       <WebContainer>
         <MypageContentsWrapper>
-          {activeTab === '개인정보' && (
-            <MyPageInfo user={userInfoData} uid={uid} />
-          )}
+          {activeTab === '개인정보' && <MyPageInfo user={userInfoData} />}
           {activeTab === '프로젝트' && (
             <ProjectListWrapper>
               <ProjectsTab
@@ -74,4 +77,4 @@ const MypageContentsWrapper = styled.main`
   padding: 10rem 2.5rem 0 2.375rem;
 `;
 
-const ProjectListWrapper = styled.div``;
+export const ProjectListWrapper = styled.div``;

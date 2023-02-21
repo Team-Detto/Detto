@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import { projectTabNames } from 'utils/positions';
 
-interface ProjectsTabProps {
+export interface ProjectsTabProps {
   type?: string;
   category: string;
   onTabClick: (e: React.MouseEvent<HTMLLIElement>) => void;
@@ -11,6 +11,7 @@ interface ProjectsTabProps {
 const ProjectsTab = ({ type, category, onTabClick }: ProjectsTabProps) => {
   return (
     <ProjectsTabContainer type={type}>
+      {/* 공개프로필 탭 */}
       {type &&
         projectTabNames.map((tabname, index) => {
           if (index === 1 || index === 2) {
@@ -27,6 +28,7 @@ const ProjectsTab = ({ type, category, onTabClick }: ProjectsTabProps) => {
           }
         })}
 
+      {/* 마이페이지 탭 */}
       {!type &&
         projectTabNames.map((tabName) => (
           <ProjectsTabButton
@@ -47,7 +49,6 @@ export default ProjectsTab;
 const ProjectsTabContainer = styled.div<{ type?: string }>`
   display: flex;
   width: ${({ type }) => (type === 'public' ? '17rem' : '34rem')};
-  height: 2rem;
   align-items: center;
   gap: 1rem;
   border-bottom: 1px solid ${COLORS.gray100};
@@ -55,7 +56,10 @@ const ProjectsTabContainer = styled.div<{ type?: string }>`
   margin: 0 auto 3.5rem;
 `;
 
-const ProjectsTabButton = styled.span<{ name: string; category: string }>`
+const ProjectsTabButton = styled.span<{
+  name: string;
+  category: string;
+}>`
   display: block;
   max-width: 8rem;
   height: 100%;
