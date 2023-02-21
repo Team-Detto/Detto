@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import { projectTabNames } from 'utils/positions';
 
-interface ProjectsTabProps {
+export interface ProjectsTabProps {
   type?: string;
   category: string;
   onTabClick: (e: React.MouseEvent<HTMLLIElement>) => void;
@@ -11,6 +11,7 @@ interface ProjectsTabProps {
 const ProjectsTab = ({ type, category, onTabClick }: ProjectsTabProps) => {
   return (
     <ProjectsTabContainer type={type}>
+      {/* 공개프로필 탭 */}
       {type &&
         projectTabNames.map((tabname, index) => {
           if (index === 1 || index === 2) {
@@ -27,6 +28,7 @@ const ProjectsTab = ({ type, category, onTabClick }: ProjectsTabProps) => {
           }
         })}
 
+      {/* 마이페이지 탭 */}
       {!type &&
         projectTabNames.map((tabName) => (
           <ProjectsTabButton

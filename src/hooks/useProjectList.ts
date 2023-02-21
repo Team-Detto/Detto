@@ -2,8 +2,10 @@ import { findWithCollectionName } from 'apis/findWithCollectionName';
 import { PidListProps } from 'components/common/myProjectList/ProjectList';
 import { useState } from 'react';
 import { projectTabNames } from 'utils/positions';
+import useIsMobile from './useIsMobile';
 
 const useProjectList = () => {
+  const isMobile = useIsMobile();
   const [activeProjectTab, setActiveProjectTab] = useState<string>('');
 
   // 프로젝트 탭 활성화 변경 함수
@@ -11,7 +13,8 @@ const useProjectList = () => {
     const { innerText } = e.currentTarget;
 
     const tabValueIndex = projectTabNames.findIndex(
-      (tabName) => tabName.value === innerText,
+      (tabName) =>
+        (isMobile ? tabName.value.split(' ')[0] : tabName.value) === innerText,
     );
 
     setActiveProjectTab(projectTabNames[tabValueIndex].id);
