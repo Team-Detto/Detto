@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 
-const MobileApplyButtonArea = ({ projectData }: any) => {
+const MobileApplyButtonArea = ({ handleModalOpenChange }: any) => {
   return (
     <ApplyButtonArea>
-      <ApplyButton>간단 지원하기</ApplyButton>
+      <ApplyButton onClick={handleModalOpenChange}>간단 지원하기</ApplyButton>
     </ApplyButtonArea>
   );
 };

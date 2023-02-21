@@ -48,7 +48,8 @@ const IsRecruitingDiv = styled.div`
 const TitleDiv = styled.div``;
 
 const ProjectThumbnail = styled.img`
-  width: 350px;
+  min-width: 350px;
+  width: 90%;
   height: 174px;
   margin: 14px 20px;
   object-fit: cover;

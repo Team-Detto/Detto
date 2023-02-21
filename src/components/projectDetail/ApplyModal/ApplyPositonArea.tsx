@@ -3,15 +3,21 @@ import COLORS from 'assets/styles/colors';
 import PositionButton from 'components/common/ApplyPositionButton';
 
 const ApplyPositionArea = (props: any) => {
-  const { clickValue, setClickValue } = props;
+  const { clickValue, setClickValue, version = 'web' } = props;
   return (
     <PositionContainer>
-      <PositionTitle>
+      <PositionTitle version={version}>
         포지션
-        <PositionNotification>(중복 선택이 불가능 해요)</PositionNotification>
+        <PositionNotification version={version}>
+          (중복 선택이 불가능 해요)
+        </PositionNotification>
       </PositionTitle>
-      <PositionContentWrap>
-        <PositionButton clickValue={clickValue} setClickValue={setClickValue} />
+      <PositionContentWrap version={version}>
+        <PositionButton
+          clickValue={clickValue}
+          setClickValue={setClickValue}
+          version={version}
+        />
       </PositionContentWrap>
     </PositionContainer>
   );
@@ -35,14 +41,16 @@ const PositionTitle = styled.p`
   text-align: start;
   height: 1.5rem;
   font-weight: 600;
-  font-size: 1.25rem;
+  font-size: ${(props: { version: string }) =>
+    props.version === 'mobile' ? '0.875rem' : '1.25rem'};
   line-height: 1.5rem;
   gap: 0.5rem;
 `;
 
 const PositionNotification = styled.span`
   font-weight: 500;
-  font-size: 1rem;
+  font-size: ${(props: { version: string }) =>
+    props.version === 'mobile' ? '0.875rem' : '1rem'};
   line-height: 1.75rem;
   display: flex;
   align-items: center;
@@ -55,7 +63,8 @@ const PositionContentWrap = styled.div`
   flex-direction: row;
   align-items: flex-start;
   padding: 0rem;
-  gap: 0.75rem;
+  gap: ${(props: { version: string }) =>
+    props.version === 'mobile' ? '6px' : '19px'};
   margin-top: 0.75rem;
   width: 100%;
   height: 2.5rem;

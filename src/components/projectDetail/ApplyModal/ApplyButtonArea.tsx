@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { findWithCollectionName } from 'apis/findWithCollectionName';
 import COLORS from 'assets/styles/colors';
-import { useNotification } from 'hooks';
+import { useIsMobile, useNotification } from 'hooks';
 import { useCallback } from 'react';
 
 interface props {
@@ -87,6 +87,26 @@ const ApplyButtonArea = ({
     sendApplyNotificationToWriter(); //글쓴이에게 지원 알림 보내기
   };
 
+  const isMobile = useIsMobile();
+  if (isMobile) {
+    return (
+      <MobileApplyButtonContainer>
+        <MobileMotiveButton //지원 취소
+          onClick={handleResetButtonClick}
+        >
+          아니오
+        </MobileMotiveButton>
+        <MobileMotiveButton
+          onClick={(e) => {
+            handleApplyButtonClick(e);
+          }}
+        >
+          지원하기
+        </MobileMotiveButton>
+      </MobileApplyButtonContainer>
+    );
+  }
+
   return (
     <ApplyButtonContainer>
       <MotiveButton //지원 취소
@@ -129,6 +149,37 @@ const MotiveButton = styled.button`
 
   width: 18.9063rem;
   height: 3.75rem;
+  border-radius: 0.5rem;
+  /* violet B 400 */
+
+  background-color: ${(props: { children: string }) =>
+    props.children === '아니오' ? `${COLORS.gray100}` : `${COLORS.violetB400}`};
+  color: ${(props: { children: string }) =>
+    props.children === '아니오' ? `${COLORS.black}` : `${COLORS.white}`};
+`;
+
+const MobileApplyButtonContainer = styled.div`
+  width: 100%;
+  margin-top: 14px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0rem;
+  gap: 1rem;
+  width: 100%;
+  height: 52px;
+`;
+
+const MobileMotiveButton = styled.button`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 0.625rem;
+  gap: 0.625rem;
+
+  width: 18.9063rem;
+  height: 52px;
   border-radius: 0.5rem;
   /* violet B 400 */
 

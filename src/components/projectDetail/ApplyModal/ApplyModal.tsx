@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import Alert from 'components/common/Alert';
-import { useAuth, useModal, useToastPopup } from 'hooks';
+import { useAuth, useIsMobile, useModal, useToastPopup } from 'hooks';
 import { useEffect, useState } from 'react';
 import { allowScroll, preventScroll } from 'utils/modal';
 import { positionList } from 'utils/positions';
@@ -94,12 +94,57 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
     }
   }, [isOpen]);
 
+  const isMobile = useIsMobile();
+  if (isMobile && isOpen) {
+    console.log(' test');
+    return (
+      <>
+        <BackDrop>
+          <MobileModalContainer isOpen={isOpen}>
+            {showToast && (
+              <ValidationToastPopup message={ToastMessage} top={-2} />
+            )}
+            <MobileModalTitle>{message}</MobileModalTitle>
+            <MobileContentContainer>
+              {/* 포지션 버튼 */}
+              <ApplyPositionArea
+                clickValue={clickValue}
+                setClickValue={setClickValue}
+                version="mobile"
+              />
+              {/* 지원동기 */}
+              <ApplyMotiveArea
+                motive={motive}
+                setMotive={setMotive}
+                version="mobile"
+              />
+            </MobileContentContainer>
+            {/* 아니오, 지원하기 버튼 */}
+            <ApplyButtonArea
+              userData={userData}
+              motive={motive}
+              setMotive={setMotive}
+              clickValue={clickValue}
+              setClickValue={setClickValue}
+              onClickEvent={onClickEvent}
+              onAlertClickEvent={onAlertClickEvent}
+              applicantMutate={applicantMutate}
+              projectMutate={projectMutate}
+              handleToastPopup={handleToastPopup}
+              pid={pid}
+            />
+          </MobileModalContainer>
+        </BackDrop>
+      </>
+    );
+  }
+
   return (
     <>
-      <ModalContainer isOpen={isOpen}>
+      <WebModalContainer isOpen={isOpen}>
         {showToast && <ValidationToastPopup message={ToastMessage} top={2} />}
-        <ModalTitle>{message}</ModalTitle>
-        <ContentContainer>
+        <WebModalTitle>{message}</WebModalTitle>
+        <WebContentContainer>
           {/* 포지션 버튼 */}
           <ApplyPositionArea
             clickValue={clickValue}
@@ -107,7 +152,7 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
           />
           {/* 지원동기 */}
           <ApplyMotiveArea motive={motive} setMotive={setMotive} />
-        </ContentContainer>
+        </WebContentContainer>
         {/* 아니오, 지원하기 버튼 */}
         <ApplyButtonArea
           userData={userData}
@@ -122,7 +167,7 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
           handleToastPopup={handleToastPopup}
           pid={pid}
         />
-      </ModalContainer>
+      </WebModalContainer>
       {/* 지원성공Alert*/}
       <Alert
         isOpen={isAlertOpen}
@@ -137,7 +182,7 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
 
 export default ApplyModal;
 
-const ModalContainer = styled.div`
+const WebModalContainer = styled.div`
   position: fixed;
   width: 41.0625rem;
   height: 550px;
@@ -153,14 +198,14 @@ const ModalContainer = styled.div`
   display: ${(props: { isOpen: boolean }) => (props.isOpen ? 'block' : 'none')};
 `;
 
-const ModalTitle = styled.p`
+const WebModalTitle = styled.p`
   height: 2.75rem;
   font-weight: 700;
   font-size: 1.75rem;
   margin-top: 2rem;
 `;
 
-const ContentContainer = styled.div`
+const WebContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -169,4 +214,49 @@ const ContentContainer = styled.div`
 
   width: 39.0625rem;
   height: 21.0625rem;
+`;
+
+const BackDrop = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(191, 191, 191, 0.5);
+`;
+
+const MobileModalContainer = styled.div`
+  position: fixed;
+  width: 320px;
+  height: 419px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 16px;
+  text-align: center;
+  padding: 1.25rem 1rem;
+  background: ${COLORS.white};
+  border-radius: 1rem;
+  box-shadow: 0rem 0.25rem 0.625rem rgba(117, 117, 117, 0.25);
+  z-index: 999;
+  z-index: 999;
+  display: ${(props: { isOpen: boolean }) => (props.isOpen ? 'block' : 'none')};
+`;
+
+const MobileModalTitle = styled.p`
+  height: 26px;
+  font-weight: 700;
+  font-size: 18px;
+  margin-top: 0rem;
+`;
+
+const MobileContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0rem;
+  margin-top: 18px;
+
+  width: 100%;
 `;
