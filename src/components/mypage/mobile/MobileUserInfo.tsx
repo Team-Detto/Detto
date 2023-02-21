@@ -18,8 +18,9 @@ import { InfoEditConfirmBtn } from '../MyPageInfo';
 import MyPageProfileImage from '../MyPageProfileImage';
 import PositionCheckBox from '../PositionCheckBox';
 import TextInput from '../TextInput';
-import ConfirmAlert from 'components/common/ConfirmAlert';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
+import MobileConfirmAlert from 'components/common/mobile/MobileConfirmAlert';
+import MobileSkillStackList from './MobileSkillStackList';
 
 const MobileUserInfo = ({ user }: MypageInfoProps) => {
   const { uid } = useAuth();
@@ -115,7 +116,11 @@ const MobileUserInfo = ({ user }: MypageInfoProps) => {
       </MobileInfoBox>
       <MobileInfoBox>
         <MobileInfoTitle>기술 스택</MobileInfoTitle>
-        {/* TODO:: 기술스택 추가 예정 */}
+        <MobileSkillStackList
+          designerStack={userInfo?.designerStack}
+          plannerStack={userInfo?.plannerStack}
+          developerStack={userInfo?.developerStack}
+        />
       </MobileInfoBox>
       <MobileInfoBox>
         <MobileInfoEditBtn
@@ -126,7 +131,7 @@ const MobileUserInfo = ({ user }: MypageInfoProps) => {
           개인정보 수정 완료
         </MobileInfoEditBtn>
       </MobileInfoBox>
-      <ConfirmAlert
+      <MobileConfirmAlert
         isOpen={isOpen}
         message="개인정보를 수정할까요?"
         subMessage="수정한 정보는 곧바로 반영됩니다!"
@@ -144,6 +149,7 @@ const MobileUserInfoContainer = styled.div`
   min-height: 29.6875rem;
   margin: 1.625rem 0.9375rem;
   background: ${COLORS.white};
+  padding-bottom: 5rem;
 `;
 
 const MobileInfoBox = styled.div`

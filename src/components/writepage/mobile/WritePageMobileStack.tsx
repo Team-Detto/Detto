@@ -194,18 +194,18 @@ const WritePageMobileStackBox = styled.div`
   justify-content: center;
   gap: 1rem;
 `;
-const WritePageMobileStakCategoryBox = styled.div`
+export const WritePageMobileStakCategoryBox = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
 `;
-const WritePageMobileStackNameBox = styled.div`
+export const WritePageMobileStackNameBox = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
 `;
-const WritePageMobileStackName = styled.p`
+export const WritePageMobileStackName = styled.p`
   width: 2.5rem;
   height: 1.75rem;
   font-weight: 500;
@@ -214,7 +214,7 @@ const WritePageMobileStackName = styled.p`
   letter-spacing: -0.02em;
   color: ${COLORS.gray800};
 `;
-const WritePageMobileSelectInput = styled.select`
+export const WritePageMobileSelectInput = styled.select`
   width: 5.625rem;
   height: 1.875rem;
   background-color: ${COLORS.gray50};
@@ -227,13 +227,13 @@ const WritePageMobileSelectInput = styled.select`
   line-height: 140%;
   color: ${COLORS.gray850};
 `;
-const WritePageMobileStackSkillBox = styled.div`
+export const WritePageMobileStackSkillBox = styled.div`
   width: 18.3rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.5rem;
 `;
-const WritePageMobileBodyAddButton = styled.button`
+export const WritePageMobileBodyAddButton = styled.button`
   width: 1.3rem;
   height: 1.3rem;
   background-color: ${COLORS.violetB400};
