@@ -1,6 +1,6 @@
 import ContentCard from 'components/ContentCard';
-import styled from '@emotion/styled';
 import { EditType } from 'types/write/writeType';
+import styled from '@emotion/styled';
 
 interface Props {
   projects: EditType.EditFormType[];
