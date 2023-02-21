@@ -2,11 +2,11 @@ import styled from '@emotion/styled';
 import MobileUserInfo from './MobileUserInfo';
 import TobTab from './TobTab';
 
-const MobileMyPage = () => {
+const MobileMyPage = ({ user }: MypageInfoProps) => {
   return (
     <MobileMyPageContainer>
       <TobTab />
-      <MobileUserInfo />
+      <MobileUserInfo user={user} />
     </MobileMyPageContainer>
   );
 };

@@ -36,16 +36,14 @@ const MyPage = () => {
     setActiveProjectTab('appliedProjects');
   }, []);
 
-  if (isMobile) return <MobileMyPage />;
+  if (isMobile) return <MobileMyPage user={userInfoData} />;
 
   return (
     <MyPageContainer>
       <LeftTab activeTab={activeTab} setActiveTab={setActiveTab} />
       <WebContainer>
         <MypageContentsWrapper>
-          {activeTab === '개인정보' && (
-            <MyPageInfo user={userInfoData} uid={uid} />
-          )}
+          {activeTab === '개인정보' && <MyPageInfo user={userInfoData} />}
           {activeTab === '프로젝트' && (
             <ProjectListWrapper>
               <ProjectsTab
