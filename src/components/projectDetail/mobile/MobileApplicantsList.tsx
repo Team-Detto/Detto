@@ -12,7 +12,9 @@ const MobileApplicantsList = ({ applicants }: any) => {
           Object.keys(applicants).map((key: any) => {
             // if (applicants[key]?.recruit === false) countFlag++;
 
-            return <MobileApplicantCard applicant={applicants[key]} />;
+            return (
+              <MobileApplicantCard key={key} applicant={applicants[key]} />
+            );
           })}
       </ApplicantsListContainer>
     </ApplicantsListWrapper>

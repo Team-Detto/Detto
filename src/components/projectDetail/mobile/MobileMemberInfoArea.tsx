@@ -18,7 +18,6 @@ const MobileMemberInfoArea = ({ applicantsData }: any) => {
           <MemberInfoObject>
             <MemberInfoKey>기획</MemberInfoKey>
             {data?.map((key) => {
-              console.log(applicantsData[key]);
               if (applicantsData[key].position === '기획')
                 return (
                   <>
@@ -62,7 +61,6 @@ const MobileMemberInfoArea = ({ applicantsData }: any) => {
           <MemberInfoObject>
             <MemberInfoKey>디자인</MemberInfoKey>
             {data?.map((key) => {
-              console.log(applicantsData[key]);
               if (applicantsData[key].position === '디자인')
                 return (
                   <>

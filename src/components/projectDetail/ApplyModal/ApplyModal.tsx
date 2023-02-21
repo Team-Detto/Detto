@@ -96,7 +96,6 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
 
   const isMobile = useIsMobile();
   if (isMobile && isOpen) {
-    console.log(' test');
     return (
       <>
         <BackDrop>

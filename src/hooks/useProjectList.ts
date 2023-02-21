@@ -10,7 +10,10 @@ const useProjectList = () => {
 
   // 프로젝트 탭 활성화 변경 함수
   const handleProjectTabClick = (e: React.MouseEvent<HTMLLIElement>) => {
-    const { innerText } = e.currentTarget;
+    let { innerText } = e.currentTarget;
+    if (innerText === '모집중') {
+      innerText = '작성한';
+    }
 
     const tabValueIndex = projectTabNames.findIndex(
       (tabName) =>

@@ -1,18 +1,19 @@
+import styled from '@emotion/styled';
+import COLORS from 'assets/styles/colors';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import styled from '@emotion/styled';
-import { useAuth, useGlobalModal, useProjectList } from 'hooks';
+import { useAuth, useGlobalModal, useIsMobile, useProjectList } from 'hooks';
 import WebContainer from 'components/common/WebContainer';
 import ProjectsTab from 'components/common/myProjectList/ProjectsTab';
 import ProjectList from 'components/common/myProjectList/ProjectList';
 import UserPositions from 'components/publicProfile/UserPositions';
 import UserStacks from 'components/publicProfile/UserStacks';
 import { getUserInfoData, getUserProjectList } from 'apis/mypageUsers';
-import COLORS from 'assets/styles/colors';
 import { concatSkills } from 'utils/skills';
 import { staleTime } from 'utils/staleTime';
 import { modalTypes } from 'components/common/modal/modal';
+import MobilePublicProfilePage from 'components/publicProfile/mobile/MobilePublicProfilePage';
 
 const PublicProfilePage = () => {
   const { id } = useParams(); //받는사람 id
@@ -54,6 +55,21 @@ const PublicProfilePage = () => {
   useEffect(() => {
     setActiveProjectTab('currentProjects');
   }, []);
+
+  const isMobile = useIsMobile();
+
+  if (isMobile && userInfoData) {
+    return (
+      <MobilePublicProfilePage
+        userInfoData={userInfoData}
+        activeProjectTab={activeProjectTab}
+        handleProjectTabClick={handleProjectTabClick}
+        pidList={userProjectListsData}
+      >
+        test
+      </MobilePublicProfilePage>
+    );
+  }
 
   return (
     <PublicProfileContainer>
