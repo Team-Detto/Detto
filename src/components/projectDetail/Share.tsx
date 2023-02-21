@@ -14,7 +14,7 @@ import { useState } from 'react';
 import { useIsMobile, useToastPopup } from 'hooks';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
 
-const Share = ({ title, version = 'web' }: any) => {
+const Share = ({ title }: any) => {
   const [share, setShare] = useState(false);
   const [isCopyLink, setIsCopyLink] = useState(false);
   const { showToast, ToastMessage, handleToastPopup } = useToastPopup();
@@ -31,13 +31,13 @@ const Share = ({ title, version = 'web' }: any) => {
   const isMobile = useIsMobile();
   if (isMobile) {
     return (
-      <IconButton onClick={(e) => handleShareButtonClick(e)}>
-        <ShareBox>
-          <RiShareBoxLine />
-          공유
-        </ShareBox>
-        {share && (
-          <>
+      <>
+        <IconContainer onClick={(e) => handleShareButtonClick(e)}>
+          <ShareBox>
+            <RiShareBoxLine />
+            공유
+          </ShareBox>
+          {share && (
             <MobileShareContainer>
               <FacebookShareButton url={window.location.href} title={title}>
                 <FacebookIcon size={28} round />
@@ -52,20 +52,17 @@ const Share = ({ title, version = 'web' }: any) => {
                 <BiLink size={18} />
               </ShareLinkButton>
             </MobileShareContainer>
-            {showToast && (
-              <ValidationToastPopup
-                message={ToastMessage}
-                isCopy={isCopyLink}
-              />
-            )}
-          </>
+          )}
+        </IconContainer>
+        {showToast && (
+          <ValidationToastPopup message={ToastMessage} isCopy={isCopyLink} />
         )}
-      </IconButton>
+      </>
     );
   } else {
     return (
       <>
-        <IconButton onClick={(e) => handleShareButtonClick(e)}>
+        <IconContainer onClick={(e) => handleShareButtonClick(e)}>
           <ShareBox>
             <RiShareBoxLine />
             공유
@@ -86,7 +83,7 @@ const Share = ({ title, version = 'web' }: any) => {
               </ShareLinkButton>
             </ShareContainer>
           )}
-        </IconButton>
+        </IconContainer>
         {showToast && (
           <ValidationToastPopup message={ToastMessage} isCopy={isCopyLink} />
         )}
@@ -97,7 +94,7 @@ const Share = ({ title, version = 'web' }: any) => {
 
 export default Share;
 
-const IconButton = styled.button`
+const IconContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;

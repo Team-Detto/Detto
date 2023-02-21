@@ -35,7 +35,6 @@ const Likes = ({ pid, like, version = 'web' }: any) => {
   ); // 초기값 false로 설정 시 페이지 이동시 다시 false로 초기화됨, 데이터베이스에서 가져온 값은 로드되는 동안 undefined 이므로 useEffect로 한번 더 설정함
   useEffect(() => {
     setIsLike(myProjectData?.likedProjects?.includes(pid)); //현재 사용자가 좋아요를 눌렀는지 확인하기 위해
-    console.log(myProjectData);
   }, [myProjectData]);
 
   //isLike가 변경될 때마다 좋아요 수 및 좋아요한 프로젝트를 db에서 변경해주는 기능
