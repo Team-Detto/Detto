@@ -20,6 +20,7 @@ import PositionCheckBox from '../PositionCheckBox';
 import TextInput from '../TextInput';
 import ConfirmAlert from 'components/common/ConfirmAlert';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
+import MobileSkillStackList from './MobileSkillStackList';
 
 const MobileUserInfo = ({ user }: MypageInfoProps) => {
   const { uid } = useAuth();
@@ -115,7 +116,11 @@ const MobileUserInfo = ({ user }: MypageInfoProps) => {
       </MobileInfoBox>
       <MobileInfoBox>
         <MobileInfoTitle>기술 스택</MobileInfoTitle>
-        {/* TODO:: 기술스택 추가 예정 */}
+        <MobileSkillStackList
+          designerStack={userInfo?.designerStack}
+          plannerStack={userInfo?.plannerStack}
+          developerStack={userInfo?.developerStack}
+        />
       </MobileInfoBox>
       <MobileInfoBox>
         <MobileInfoEditBtn
@@ -144,6 +149,7 @@ const MobileUserInfoContainer = styled.div`
   min-height: 29.6875rem;
   margin: 1.625rem 0.9375rem;
   background: ${COLORS.white};
+  padding-bottom: 5rem;
 `;
 
 const MobileInfoBox = styled.div`
