@@ -66,10 +66,10 @@ const MobileContentCard = ({
           <ContentCardImg src={defaultThumbnail} />
         )}
         <ContentCardBookmark>
-          {likedProjects.includes(id) && (
+          {likedProjects.includes(id ?? pid) && (
             <AiFillHeart size="1.5rem" color={`${COLORS.pink}`} />
           )}
-          {!likedProjects.includes(id) && (
+          {!likedProjects.includes(id ?? pid) && (
             <AiOutlineHeart size="1.5rem" color={`${COLORS.gray750}`} />
           )}
         </ContentCardBookmark>
