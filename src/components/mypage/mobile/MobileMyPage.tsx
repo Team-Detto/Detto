@@ -5,8 +5,15 @@ import MobileUserInfo from './MobileUserInfo';
 import { ProjectListWrapper } from 'pages/MyPage';
 import MobileProjectListTab from 'components/common/myProjectList/mobile/MobileProjectListTab';
 import { useProjectList } from 'hooks';
+import MobileProjectList from './MobileProjectList';
+import { PidListProps } from 'components/common/myProjectList/ProjectList';
 
-const MobileMyPage = ({ user }: MypageInfoProps) => {
+interface MobileMypageInfoProps {
+  user: User;
+  pidList: PidListProps;
+}
+
+const MobileMyPage = ({ user, pidList }: MobileMypageInfoProps) => {
   const [activeTab, setActiveTab] = useState('개인정보');
   const { activeProjectTab, handleProjectTabClick, setActiveProjectTab } =
     useProjectList();
@@ -25,7 +32,8 @@ const MobileMyPage = ({ user }: MypageInfoProps) => {
             category={activeProjectTab}
             onTabClick={handleProjectTabClick}
           />
-          {/* TODO:: 활성화된 프로젝트 리스트 추가 필요 */}
+          {/* TODO:: 활성화된 프로젝트 리스트 아이템 추가 작업 필요 */}
+          <MobileProjectList category={activeProjectTab} pidList={pidList} />
         </ProjectListWrapper>
       )}
     </MobileMyPageContainer>

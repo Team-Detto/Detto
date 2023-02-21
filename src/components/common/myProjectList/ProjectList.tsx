@@ -10,7 +10,7 @@ export interface PidListProps {
   [key: string]: string[];
 }
 
-interface ProjectListProps {
+export interface ProjectListProps {
   category: string;
   pidList: PidListProps;
 }

@@ -36,7 +36,8 @@ const MyPage = () => {
     setActiveProjectTab('appliedProjects');
   }, []);
 
-  if (isMobile) return <MobileMyPage user={userInfoData} />;
+  if (isMobile)
+    return <MobileMyPage user={userInfoData} pidList={userProjectListsData} />;
 
   return (
     <MyPageContainer>
