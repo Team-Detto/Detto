@@ -32,7 +32,6 @@ const MobileMyPage = ({ user, pidList }: MobileMypageInfoProps) => {
             category={activeProjectTab}
             onTabClick={handleProjectTabClick}
           />
-          {/* TODO:: 활성화된 프로젝트 리스트 아이템 추가 작업 필요 */}
           <MobileProjectList category={activeProjectTab} pidList={pidList} />
         </ProjectListWrapper>
       )}

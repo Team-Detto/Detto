@@ -1,12 +1,13 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { ProjectListProps } from 'components/common/myProjectList/ProjectList';
+import MobileContentCard from 'components/MobileContentCard';
 import { useFindProject, useProjectList } from 'hooks';
 import { staleTime } from 'utils/staleTime';
 
 const MobileProjectList = ({ category, pidList }: ProjectListProps) => {
   const { getActiveProjects, getFilteredPidList } = useProjectList();
-  const { handleNavigateToProjectDetail } = useFindProject();
+  const { likedProjects, handleNavigateToProjectDetail } = useFindProject();
 
   // 현재 활성화된 탭의 프로젝트 아이디(pid) 리스트
   const currentPidList =
@@ -21,11 +22,18 @@ const MobileProjectList = ({ category, pidList }: ProjectListProps) => {
     enabled: !!currentPidList,
   });
 
-  // console.log('activeProjectsData', activeProjectsData);
-
   return (
     <MobileProjectListContainer>
-      {/* TODO :: ContentCard 모바일 컴포넌트로 렌더링 필요 */}
+      {activeProjectsData &&
+        activeProjectsData?.map((project: any, idx: number) => (
+          <MobileContentCard
+            key={currentPidList[idx]}
+            project={project}
+            likedProjects={likedProjects}
+            pid={currentPidList[idx]}
+            onNavigateToProjectDetailEvent={handleNavigateToProjectDetail}
+          />
+        ))}
     </MobileProjectListContainer>
   );
 };

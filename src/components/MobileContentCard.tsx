@@ -11,6 +11,7 @@ import { updateRecruiting } from 'apis/postDetail';
 interface Props {
   project: EditType.EditFormType;
   likedProjects: string[];
+  pid?: string;
   onNavigateToProjectDetailEvent: (path: any) => () => void;
 }
 
@@ -18,6 +19,7 @@ const MobileContentCard = ({
   project,
   likedProjects,
   onNavigateToProjectDetailEvent,
+  pid,
 }: Props) => {
   const {
     id,
@@ -56,7 +58,7 @@ const MobileContentCard = ({
   }, [idList]);
 
   return (
-    <MobileContentCardWrap onClick={onNavigateToProjectDetailEvent(id)}>
+    <MobileContentCardWrap onClick={onNavigateToProjectDetailEvent(id ?? pid)}>
       <ContentCardImgContainer>
         <ContentCardImg src={thumbnail} />
         <ContentCardBookmark>
@@ -110,7 +112,7 @@ const ContentCardImg = styled.img`
 `;
 const ContentCardContentsContainer = styled.div``;
 const RecruitingIcon = styled.div`
-  width: 2.8rem;
+  min-width: 2.8rem;
   height: 0.875rem;
   font-style: normal;
   font-weight: 400;
