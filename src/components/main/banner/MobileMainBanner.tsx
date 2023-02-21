@@ -66,7 +66,7 @@ const MobileSliderWrapper = styled(Slider)`
   }
   .slick-dots {
     position: absolute;
-    bottom: 2.125rem;
+    bottom: 0.5rem;
 
     li {
       margin: 0;
@@ -75,8 +75,8 @@ const MobileSliderWrapper = styled(Slider)`
       margin: 0 0.8125rem;
     }
     button {
-      width: 0.75rem;
-      height: 0.75rem;
+      width: 0.4375rem;
+      height: 0.4375rem;
       border-radius: 50%;
       background: ${COLORS.gray300};
       &::before {
@@ -86,8 +86,8 @@ const MobileSliderWrapper = styled(Slider)`
     .slick-active {
       button {
         background: ${COLORS.violetB500};
-        width: 0.75rem;
-        height: 0.75rem;
+        width: 0.4375rem;
+        height: 0.4375rem;
       }
     }
   }
@@ -109,6 +109,12 @@ const MobileBannerTextBox = styled.div`
   height: 15.3125rem;
   left: 2.5rem;
   top: 4.4375rem;
+  @media screen and (max-width: 370px) {
+    width: 131px;
+    height: 73px;
+    left: 2rem;
+    top: 4.4375rem;
+  }
 `;
 const MobileBannerTitle = styled.div`
   width: 7.4375rem;
@@ -121,25 +127,68 @@ const MobileBannerTitle = styled.div`
   align-items: center;
   color: ${COLORS.gray850};
   margin-bottom: 0.5625rem;
+  @media screen and (max-width: 370px) {
+    width: 119px;
+    height: 38px;
+
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 160%;
+
+    display: flex;
+    align-items: center;
+
+    color: #333d4b;
+  }
 `;
 const MobileBannerSubTitle = styled.div`
-  width: 9.1875rem;
+  width: 10.5875rem;
   height: 1.625rem;
 
   font-weight: 350;
   font-size: 0.5rem;
+  zoom: 0.8;
   line-height: 160%;
   color: ${COLORS.gray850};
+  @media screen and (max-width: 370px) {
+    width: 164px;
+    height: 26px;
+
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 350;
+    font-size: 2px;
+    line-height: 160%;
+
+    display: flex;
+    align-items: center;
+
+    color: #333d4b;
+  }
 `;
 const MobileBannerFirstImg = styled.img`
   position: absolute;
   width: 16.5625rem;
-  left: 10.6875rem;
+  height: 282px;
+  left: 13.5625rem;
   top: -15px;
+  @media screen and (max-width: 370px) {
+    width: 10.9375rem;
+    height: 11.625rem;
+    left: 11.5625rem;
+    top: 1.475rem;
+  }
 `;
 const MobileBannerSecondImg = styled.img`
   position: absolute;
-  width: 70%;
-  left: 9.125rem;
-  top: 40px;
+  width: 20.5625rem;
+  left: 10.125rem;
+  top: 50px;
+  @media screen and (max-width: 370px) {
+    width: 220px;
+    left: 9.0625rem;
+    top: 60px;
+  }
 `;
