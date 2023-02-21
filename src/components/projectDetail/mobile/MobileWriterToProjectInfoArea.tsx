@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import { getDate } from 'utils/date';
-import UserStacks from 'components/publicProfile/UserStacks';
 
 const WriterToProjectInfoArea = ({ projectData, userData }: any) => {
   const {
