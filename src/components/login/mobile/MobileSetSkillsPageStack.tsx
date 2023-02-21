@@ -45,6 +45,7 @@ export default function MobileSetSkillsPageStack({ skills, setSkills }: any) {
         {selectedPosition === '기획' &&
           products.map((skill: string) => (
             <SkillButton
+              key={skill}
               type="button"
               name="plannerStack"
               onClick={(e) =>
@@ -58,6 +59,7 @@ export default function MobileSetSkillsPageStack({ skills, setSkills }: any) {
         {selectedPosition === '디자인' &&
           designs.map((skill: string) => (
             <SkillButton
+              key={skill}
               type="button"
               name="designerStack"
               onClick={(e) =>
@@ -71,6 +73,7 @@ export default function MobileSetSkillsPageStack({ skills, setSkills }: any) {
         {selectedPosition === '개발' &&
           develops.map((skill: string) => (
             <SkillButton
+              key={skill}
               type="button"
               name="developerStack"
               onClick={(e) =>

@@ -18,6 +18,7 @@ import MyPageProfileImage from 'components/mypage/MyPageProfileImage';
 import TextInput from 'components/mypage/TextInput';
 import { staleTime } from 'utils/staleTime';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
+import { InfoEditConfirmBtn } from 'components/mypage/MyPageInfo';
 
 // 페이지 3 : 프로필 사진, 닉네임 변경
 const page = 3;
@@ -90,20 +91,21 @@ export default function MobileSetProfile() {
           <TitleText>팀원들에게 소개할 프로필을 입력해주세요</TitleText>
         </div>
         <ProfileContainer>
-          {/* <MyPageProfileImage
+          <MyPageProfileImage
             profileImg={profileImg}
             onChange={handleProfileImageChange}
             onDelete={handleProfileImageDelete}
             uid={uid}
+            page="join"
           />
-          <NicknameContainer>
-            <TextInput
-              name="displayName"
-              value={userInfo.displayName}
-              onChangeValue={handleInputChange}
-              validationMessage={validationMessage}
-            />
-          </NicknameContainer> */}
+          <TextInput
+            name="displayName"
+            value={userInfo.displayName}
+            onChangeValue={handleInputChange}
+            validationMessage={validationMessage}
+            isMobile={true}
+            page="join"
+          />
         </ProfileContainer>
       </BodyContainer>
       <MobileConfirmButton onClick={handleConfirmButtonClick} />
@@ -127,7 +129,6 @@ const BodyContainer = styled.div`
 
   display: flex;
   flex-direction: column;
-  gap: 17px;
 `;
 
 const SubText = styled.h3`
@@ -155,16 +156,7 @@ const TitleText = styled.h2`
 `;
 
 const ProfileContainer = styled.div`
-  height: 11.3125rem;
-
-  background-color: ${COLORS.gray200};
   display: flex;
   flex-direction: column;
-  align-items: center;
-`;
-
-const NicknameContainer = styled.div`
-  display: flex;
-  flex-direction: row;
   align-items: center;
 `;

@@ -18,12 +18,14 @@ interface MyPageProfileImageProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onDelete: () => void;
   uid: string;
+  page?: string;
 }
 
 const MyPageProfileImage = ({
   profileImg,
   onChange,
   onDelete,
+  page,
 }: MyPageProfileImageProps) => {
   const setUserInfo = useSetRecoilState(userInfoState);
   const {
@@ -44,7 +46,7 @@ const MyPageProfileImage = ({
 
   return (
     <ProfileImageWrapper isMobile={isMobile}>
-      <ProfileImageBox isMobile={isMobile}>
+      <ProfileImageBox isMobile={isMobile} type="join">
         <ProfileImage
           src={
             profileImg === '' || profileImg === undefined
@@ -54,10 +56,7 @@ const MyPageProfileImage = ({
           alt="프로필이미지"
         />
       </ProfileImageBox>
-      <ProfileImgEditButton
-        isMobile={isMobile}
-        onClick={profileModalStateChange}
-      >
+      <ProfileImgEditButton onClick={profileModalStateChange}>
         <EditIcon />
       </ProfileImgEditButton>
 
@@ -68,6 +67,7 @@ const MyPageProfileImage = ({
         onDeleteEvent={onDelete}
         onCloseEvent={profileModalCloseChange}
         handleModalStateChange={profileModalStateChange}
+        page={page}
       />
     </ProfileImageWrapper>
   );
@@ -84,17 +84,20 @@ const ProfileImageWrapper = styled.div<{ isMobile: boolean }>`
   position: relative;
 `;
 
-const ProfileImageBox = styled(ModalProfileImageBox)<{ isMobile: boolean }>`
-  margin-bottom: 2.25rem;
+const ProfileImageBox = styled(ModalProfileImageBox)<{
+  isMobile: boolean;
+  type?: string;
+}>`
+  margin-bottom: ${({ type }) => (type === 'join' ? '0' : '1.5rem')};
 `;
 
-const ProfileImgEditButton = styled.div<{ isMobile: boolean }>`
+const ProfileImgEditButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
-  right: ${({ isMobile }) => (isMobile ? '0.2rem' : '.1875rem')};
-  bottom: ${({ isMobile }) => (isMobile ? '2.1rem' : '1.875rem')};
+  right: -0.1875rem;
+  bottom: 0.125rem;
   z-index: 1;
 
   width: 2.5rem;

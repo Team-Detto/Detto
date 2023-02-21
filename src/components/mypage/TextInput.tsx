@@ -9,6 +9,7 @@ interface TextInputProps {
   validationMessage: string;
   isEmail?: boolean;
   isMobile?: boolean;
+  page?: string;
 }
 
 const TextInput = ({
@@ -19,6 +20,7 @@ const TextInput = ({
   validationMessage,
   isEmail,
   isMobile,
+  page,
 }: TextInputProps) => {
   return (
     <InputBox isMobile={isMobile}>
@@ -32,6 +34,7 @@ const TextInput = ({
           minLength={2}
           maxLength={7}
           isMobile={isMobile}
+          page={page}
         />
       ) : (
         <InfoTextInput
@@ -53,6 +56,7 @@ const TextInput = ({
 export default TextInput;
 
 const InputBox = styled.div<{ isMobile?: boolean }>`
+  width: 100%;
   height: 2.875rem;
 
   &:last-of-type {
@@ -60,8 +64,9 @@ const InputBox = styled.div<{ isMobile?: boolean }>`
   }
 `;
 
-const InfoTextInput = styled.input<{ isMobile?: boolean }>`
-  width: ${({ isMobile }) => (isMobile ? '18.875rem' : '22rem')};
+const InfoTextInput = styled.input<{ isMobile?: boolean; page?: string }>`
+  width: ${({ isMobile, page }) =>
+    isMobile ? (page === 'join' ? '100%' : '18.875rem') : '22rem'};
   padding: 0.625rem 1.25rem;
   border: 1px solid ${COLORS.gray300};
   border-radius: 4px;
