@@ -5,16 +5,17 @@ import { useGlobalModal } from 'hooks';
 import { useNavigate } from 'react-router-dom';
 import { getDateAndTime } from 'utils/date';
 import { staleTime } from 'utils/staleTime';
-import CustomButton from '../CustomButton';
+import MobileCustomButton from './MobileCustomButton';
 import {
-  Container,
-  ContentText,
-  DateText,
-  HeaderContainer,
-  NameText,
-  ProfileImage,
-  TitleText,
-} from '../styles';
+  MobileContainer,
+  MobileContentText,
+  MobileDateText,
+  MobileHeaderContainer,
+  MobileNameText,
+  MobileProfileContainer,
+  MobileProfileImage,
+  MobileTitleText,
+} from './styles';
 
 export default function MobileReadOutboxNote({ data }: { data: Note }) {
   const { closeModal } = useGlobalModal();
@@ -33,19 +34,21 @@ export default function MobileReadOutboxNote({ data }: { data: Note }) {
 
   if (!receiver) return null;
   return (
-    <Container>
+    <MobileContainer>
       <ModalNavigator page={0} close />
-      <HeaderContainer>
-        <ProfileImage
-          src={receiver.photoURL}
-          onClick={handleProfileImageClick}
-        />
-        <NameText>{receiver.displayName}님께 보낸 쪽지</NameText>
-        <DateText>{getDateAndTime(data.date)}</DateText>
-      </HeaderContainer>
-      <TitleText>{data.title}</TitleText>
-      <ContentText>{data.content}</ContentText>
-      <CustomButton label="확인" onClick={closeModal} />
-    </Container>
+      <MobileHeaderContainer>
+        <MobileProfileContainer>
+          <MobileProfileImage
+            src={receiver.photoURL}
+            onClick={handleProfileImageClick}
+          />
+          <MobileNameText>{receiver.displayName}님께 보낸 쪽지</MobileNameText>
+        </MobileProfileContainer>
+        <MobileDateText>{getDateAndTime(data.date)}</MobileDateText>
+      </MobileHeaderContainer>
+      <MobileTitleText>{data.title}</MobileTitleText>
+      <MobileContentText>{data.content}</MobileContentText>
+      <MobileCustomButton label="확인" onClick={closeModal} />
+    </MobileContainer>
   );
 }
