@@ -1,14 +1,21 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import Alert from 'components/common/Alert';
-import { useAuth, useGlobalModal, useModal, useNotification } from 'hooks';
+import {
+  useAuth,
+  useGlobalModal,
+  useIsMobile,
+  useModal,
+  useNotification,
+} from 'hooks';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateAppliedProject, updateParticipants } from 'apis/postDetail';
 import { modalTypes } from 'components/common/modal/modal';
+import MobileInviteModal from '../mobile/MobileInviteModal/MobileInviteModa';
 
 interface props {
   isOpen: boolean;
-  applicantData: any;
+  applicant: any;
   onClickEvent: () => void;
   pid: string;
   applicantKey: string;
@@ -16,7 +23,7 @@ interface props {
 
 const InviteModal = ({
   isOpen,
-  applicantData,
+  applicant,
   onClickEvent,
   pid,
   applicantKey,
@@ -36,7 +43,7 @@ const InviteModal = ({
   );
   const queryClient = useQueryClient();
   const { mutate: invitedProjectMutate } = useMutation(
-    () => updateAppliedProject(applicantData[applicantKey]?.uid, pid, true),
+    () => updateAppliedProject(applicant?.uid, pid, true),
     {
       onSuccess: () => {
         setTimeout(() => {
@@ -51,7 +58,7 @@ const InviteModal = ({
     // 초대 알림 보내기
     sendNotification({
       title: `${user.displayName}님의 프로젝트에 초대되었습니다. 🎉`,
-      receiverUid: applicantData[applicantKey]?.uid,
+      receiverUid: applicant?.uid,
       link: {
         type: 'project',
         id: pid,
@@ -72,6 +79,28 @@ const InviteModal = ({
     onClickEvent();
   };
 
+  const inviteFunction = () => {
+    onClickEvent();
+    onAlertClickEvent();
+    applicantMutate();
+    invitedProjectMutate(); //applicants 데이터 변경
+    sendInviteNotification();
+  };
+
+  const isMobile = useIsMobile();
+  if (isMobile) {
+    return (
+      <MobileInviteModal
+        isOpen={isOpen}
+        applicant={applicant}
+        isAlertOpen={isAlertOpen}
+        onClickEvent={onClickEvent}
+        inviteFunction={inviteFunction}
+        onAlertClickEvent={onAlertClickEvent}
+      />
+    );
+  }
+
   return (
     <>
       <Alert
@@ -84,40 +113,31 @@ const InviteModal = ({
       <ModalContainer isOpen={isOpen}>
         <ModalWrapper>
           <ProfileToMessageContainer>
-            <UserProfileImage src={applicantData[applicantKey]?.profileURL} />
+            <UserProfileImage src={applicant?.profileURL} />
             <MessageSendButton onClick={handleSendNoteButtonClick}>
               쪽지보내기
             </MessageSendButton>
           </ProfileToMessageContainer>
           <UserSkillsContainer>
-            {applicantData[applicantKey]?.skills
-              .slice(0, 5)
-              .map((skill: string) => {
-                return <Skills key={skill}>{skill}</Skills>;
-              })}
+            {applicant?.skills.slice(0, 5).map((skill: string) => {
+              return <Skills key={skill}>{skill}</Skills>;
+            })}
             을/를 경험해 본 팀원이네요!
           </UserSkillsContainer>
 
-          <InviteTitle>
-            {applicantData[applicantKey]?.displayName} 님을
-          </InviteTitle>
+          <InviteTitle>{applicant?.displayName} 님을</InviteTitle>
           <InviteTitle>팀원으로 초대할까요?</InviteTitle>
 
           <MotiveContainer>
             <MotiveTitle>지원 동기</MotiveTitle>
             <MotiveContentWrap>
-              <MotiveText>{applicantData[applicantKey]?.motive}</MotiveText>
+              <MotiveText>{applicant?.motive}</MotiveText>
             </MotiveContentWrap>
             <MotiveButtonContainer>
               <MotiveButton onClick={onClickEvent}>아니오</MotiveButton>
               <MotiveButton
                 onClick={() => {
-                  onClickEvent();
-                  onAlertClickEvent();
-                  applicantMutate();
-                  invitedProjectMutate();
-                  sendInviteNotification();
-                  //applicants 데이터 변경
+                  inviteFunction();
                 }}
               >
                 네, 초대할게요!
