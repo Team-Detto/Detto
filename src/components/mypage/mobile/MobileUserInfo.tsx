@@ -145,15 +145,15 @@ const MobileUserInfo = ({ user }: MypageInfoProps) => {
 export default MobileUserInfo;
 
 const MobileUserInfoContainer = styled.div`
-  width: 22.5rem;
+  width: 100%;
   min-height: 29.6875rem;
-  margin: 1.625rem 0.9375rem;
+  margin: 1.625rem 0;
   background: ${COLORS.white};
   padding-bottom: 5rem;
 `;
 
 const MobileInfoBox = styled.div`
-  width: 18.5rem;
+  width: 18.625rem;
   margin: 0 auto;
   &:nth-of-type(2),
   &:nth-of-type(3) {
