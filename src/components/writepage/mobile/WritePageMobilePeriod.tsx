@@ -7,16 +7,36 @@ import {
 import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
 
-const WritePageMobilePeriod = () => {
+interface Props {
+  startDate: string;
+  endDate: string;
+  onFormValueChangeEvent: (e: any) => void;
+}
+
+const WritePageMobilePeriod = ({
+  startDate,
+  endDate,
+  onFormValueChangeEvent,
+}: Props) => {
   return (
     <WritePageMobilePeriodContainer>
       <WritePageMobileBodyLeftBox>
         <WritePageMobileBodyText>예상 기간</WritePageMobileBodyText>
       </WritePageMobileBodyLeftBox>
       <WritePageMobileBodyRightBox>
-        <WritePageMobileDateInput type="date" />
+        <WritePageMobileDateInput
+          type="date"
+          name="startDate"
+          value={startDate}
+          onChange={onFormValueChangeEvent}
+        />
         −
-        <WritePageMobileDateInput type="date" />
+        <WritePageMobileDateInput
+          type="date"
+          name="endDate"
+          value={endDate}
+          onChange={onFormValueChangeEvent}
+        />
       </WritePageMobileBodyRightBox>
     </WritePageMobilePeriodContainer>
   );
