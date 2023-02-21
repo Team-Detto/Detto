@@ -8,15 +8,34 @@ import {
 import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
 
-const WritePageMobileThumbnail = () => {
+interface Props {
+  imageRef: React.RefObject<HTMLInputElement>;
+  thumbnail: string;
+  onAddThumbnailImageChangeEvent: () => void;
+}
+
+const WritePageMobileThumbnail = ({
+  imageRef,
+  thumbnail,
+  onAddThumbnailImageChangeEvent,
+}: Props) => {
   return (
     <WritePageMobileThumbnailContainer>
       <WritePageMobileBodyLeftBox>
         <WritePageMobileBodyText>썸네일 추가</WritePageMobileBodyText>
       </WritePageMobileBodyLeftBox>
       <WritePageMobileBodyRightBox>
-        <WritePageMobileThumbnailInput id="thumbnail" type="file" />
-        <WritePageMobileThumbnailButton htmlFor="thumbnail">
+        <WritePageMobileThumbnailInput
+          type="file"
+          id="thumbnail"
+          accept="image/jpg, image/png, image/jpeg"
+          ref={imageRef}
+          onChange={onAddThumbnailImageChangeEvent}
+        />
+        <WritePageMobileThumbnailButton
+          htmlFor="thumbnail"
+          thumbnail={thumbnail}
+        >
           <WritePageMobileThumbnailText>
             <MdOutlinePhotoCamera />
           </WritePageMobileThumbnailText>
@@ -51,7 +70,7 @@ const WritePageMobileThumbnailInput = styled.input`
     display: none;
   }
 `;
-const WritePageMobileThumbnailButton = styled.label`
+const WritePageMobileThumbnailButton = styled.label<{ thumbnail: string }>`
   cursor: pointer;
   padding: 0.625rem;
   gap: 0.625rem;
@@ -60,7 +79,8 @@ const WritePageMobileThumbnailButton = styled.label`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${COLORS.violetB500};
+  background-color: ${({ thumbnail }) =>
+    thumbnail ? COLORS.gray300 : COLORS.violetB500};
   border-radius: 0.25rem;
   margin-right: 0.8rem;
 `;
