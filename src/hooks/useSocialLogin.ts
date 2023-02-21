@@ -33,15 +33,6 @@ const initializeUserCollections = (user: User) => {
       postedProjects: [],
       currentProjects: [],
     }),
-    addDoc(collection(firestore, 'notes'), {
-      senderUid: 'dyczcn8e6Ce1c7xq67EJHAfVsUK2',
-      receiverUid: user.uid,
-      date,
-      title: 'Detto에 오신 것을 환영합니다 🎉',
-      content:
-        '프로젝트를 등록해 팀원을 모집하거나, 관심 있는 프로젝트에 지원해보세요!',
-      isRead: false,
-    }),
     addDoc(collection(firestore, 'notifications'), {
       uid: user.uid,
       date,
