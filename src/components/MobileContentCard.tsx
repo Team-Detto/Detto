@@ -7,7 +7,7 @@ import styled from '@emotion/styled';
 import { useEffect } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateRecruiting } from 'apis/postDetail';
-
+import defaultThumbnail from 'assets/images/default_img.jpg';
 interface Props {
   project: EditType.EditFormType;
   likedProjects: string[];
@@ -39,7 +39,7 @@ const MobileContentCard = ({
     () => updateRecruiting(id as string, false),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries();
+        queryClient.invalidateQueries(['post', id]);
       },
     },
   );
@@ -55,12 +55,16 @@ const MobileContentCard = ({
     idList.map((id) => {
       updateRecruitingMutate(id, false as any);
     });
-  }, [idList]);
+  }, []);
 
   return (
     <MobileContentCardWrap onClick={onNavigateToProjectDetailEvent(id ?? pid)}>
       <ContentCardImgContainer>
-        <ContentCardImg src={thumbnail} />
+        {!thumbnail ? (
+          <ContentCardImg src={thumbnail} />
+        ) : (
+          <ContentCardImg src={defaultThumbnail} />
+        )}
         <ContentCardBookmark>
           {likedProjects.includes(id) && (
             <AiFillHeart size="1.5rem" color={`${COLORS.pink}`} />
@@ -106,8 +110,8 @@ const ContentCardImgContainer = styled.div`
   position: relative;
 `;
 const ContentCardImg = styled.img`
-  width: 5.125rem;
-  height: 5.125rem;
+  width: 4.5rem;
+  height: 4.5rem;
   border-radius: 0.5rem;
 `;
 const ContentCardContentsContainer = styled.div``;
