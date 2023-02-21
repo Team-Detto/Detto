@@ -1,4 +1,5 @@
-import {} from 'react';
+import { ChangeEvent } from 'react';
+import { WriteType } from 'types/write/writeType';
 import WritePageMobilePosition from './WritePageMobilePosition';
 import WritePageMobileStack from './WritePageMobileStack';
 import COLORS from 'assets/styles/colors';
@@ -7,14 +8,54 @@ import WritePageMobilePeriod from './WritePageMobilePeriod';
 import WritePageMobileDeadline from './WritePageMobileDeadline';
 import WritePageMobileThumbnail from './WritePageMobileThumbnail';
 
-const WritePageMobileBody = () => {
+interface Props {
+  imageRef: React.RefObject<HTMLInputElement>;
+  writeFormValue: WriteType.WriteFormType;
+  setWriteFormValue: (value: WriteType.WriteFormType) => void;
+  onFormValueChangeEvent: (e: ChangeEvent<HTMLInputElement>) => void;
+  onAddThumbnailImageChangeEvent: () => void;
+}
+
+const WritePageMobileBody = ({
+  imageRef,
+  writeFormValue,
+  setWriteFormValue,
+  onFormValueChangeEvent,
+  onAddThumbnailImageChangeEvent,
+}: Props) => {
+  const {
+    positions,
+    plannerStack,
+    designerStack,
+    developerStack,
+    startDate,
+    endDate,
+    deadline,
+    thumbnail,
+  } = writeFormValue;
   return (
     <WritePageMobileBodyContainer>
-      <WritePageMobilePosition />
-      <WritePageMobileStack />
-      <WritePageMobilePeriod />
-      <WritePageMobileDeadline />
-      <WritePageMobileThumbnail />
+      <WritePageMobilePosition positions={positions} />
+      <WritePageMobileStack
+        plannerStack={plannerStack}
+        designerStack={designerStack}
+        developerStack={developerStack}
+        setWriteFormValue={setWriteFormValue}
+      />
+      <WritePageMobilePeriod
+        startDate={startDate}
+        endDate={endDate}
+        onFormValueChangeEvent={onFormValueChangeEvent}
+      />
+      <WritePageMobileDeadline
+        deadline={deadline}
+        onFormValueChangeEvent={onFormValueChangeEvent}
+      />
+      <WritePageMobileThumbnail
+        imageRef={imageRef}
+        thumbnail={thumbnail}
+        onAddThumbnailImageChangeEvent={onAddThumbnailImageChangeEvent}
+      />
     </WritePageMobileBodyContainer>
   );
 };
@@ -29,8 +70,7 @@ const WritePageMobileBodyContainer = styled.div`
 export const WritePageMobileBodyLeftBox = styled.div`
   width: 22%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  margin: 0.7rem 0rem 0rem 0.7rem;
 `;
 export const WritePageMobileBodyRightBox = styled.div`
   width: 75%;
