@@ -20,18 +20,13 @@ const MobileMemberInfoArea = ({ applicantsData }: any) => {
             {data?.map((key) => {
               if (applicantsData[key].position === '기획')
                 return (
-                  <>
-                    <div key={key}>
-                      <MemberProfileImg
-                        key={key}
-                        onClick={() =>
-                          navigate(`/profile/${applicantsData[key].uid}`)
-                        }
-                        src={applicantsData[key].profileURL}
-                      ></MemberProfileImg>
-                    </div>
-                    {/* <HoverText>{applicantsData[key].displayName}</HoverText> */}
-                  </>
+                  <MemberProfileImg
+                    key={key}
+                    onClick={() =>
+                      navigate(`/profile/${applicantsData[key].uid}`)
+                    }
+                    src={applicantsData[key].profileURL}
+                  ></MemberProfileImg>
                 );
             })}
           </MemberInfoObject>
@@ -43,18 +38,13 @@ const MobileMemberInfoArea = ({ applicantsData }: any) => {
                 applicantsData[key].position === '백엔드'
               )
                 return (
-                  <>
-                    <div key={key}>
-                      <MemberProfileImg
-                        key={key}
-                        onClick={() =>
-                          navigate(`/profile/${applicantsData[key].uid}`)
-                        }
-                        src={applicantsData[key].profileURL}
-                      ></MemberProfileImg>
-                    </div>
-                    {/* <HoverText>{applicantsData[key].displayName}</HoverText> */}
-                  </>
+                  <MemberProfileImg
+                    key={key}
+                    onClick={() =>
+                      navigate(`/profile/${applicantsData[key].uid}`)
+                    }
+                    src={applicantsData[key].profileURL}
+                  ></MemberProfileImg>
                 );
             })}
           </MemberInfoObject>
@@ -63,18 +53,13 @@ const MobileMemberInfoArea = ({ applicantsData }: any) => {
             {data?.map((key) => {
               if (applicantsData[key].position === '디자인')
                 return (
-                  <>
-                    <div key={key}>
-                      <MemberProfileImg
-                        key={key}
-                        onClick={() =>
-                          navigate(`/profile/${applicantsData[key].uid}`)
-                        }
-                        src={applicantsData[key].profileURL}
-                      ></MemberProfileImg>
-                    </div>
-                    {/* <HoverText>{applicantsData[key].displayName}</HoverText> */}
-                  </>
+                  <MemberProfileImg
+                    key={key}
+                    onClick={() =>
+                      navigate(`/profile/${applicantsData[key].uid}`)
+                    }
+                    src={applicantsData[key].profileURL}
+                  ></MemberProfileImg>
                 );
             })}
           </MemberInfoObject>
@@ -127,8 +112,8 @@ const MemberInfoKey = styled.div`
   color: ${COLORS.white};
 `;
 const MemberProfileImg = styled.img`
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   object-fit: cover;
 `;
