@@ -1,7 +1,14 @@
+import { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
-import { useAuth, useIsMobile, useProfileImage, useUpdateProfile } from 'hooks';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import {
+  useAuth,
+  useIsMobile,
+  useModal,
+  useProfileImage,
+  useUpdateProfile,
+} from 'hooks';
 import {
   mypageInfoButtonActiveState,
   userInfoState,
@@ -11,21 +18,63 @@ import { InfoEditConfirmBtn } from '../MyPageInfo';
 import MyPageProfileImage from '../MyPageProfileImage';
 import PositionCheckBox from '../PositionCheckBox';
 import TextInput from '../TextInput';
+import ConfirmAlert from 'components/common/ConfirmAlert';
+import ValidationToastPopup from 'components/common/ValidationToastPopup';
 
-const MobileUserInfo = () => {
+const MobileUserInfo = ({ user }: MypageInfoProps) => {
   const { uid } = useAuth();
   const isMobile = useIsMobile();
-  const userInfo = useRecoilValue(userInfoState);
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [activeInfoBtn, setActiveInfoBtn] = useRecoilState<boolean>(
     mypageInfoButtonActiveState,
   );
+
+  const { isOpen, handleModalStateChange } = useModal(false);
   const { profileImg, handleProfileImageChange, handleProfileImageDelete } =
     useProfileImage(uid, userInfo.photoURL);
-  const { handleInputChange, validationMessage, contactValidationMessage } =
-    useUpdateProfile();
+  const {
+    handleInputChange,
+    validationMessage,
+    contactValidationMessage,
+    checkInfoValidation,
+    updateUserInfoMutate,
+    showToast,
+    ToastMessage,
+  } = useUpdateProfile();
+
+  // 수정 버튼 클릭 시 유효성 검사 확인 후 모달창 오픈
+  const handleUserInfoConfirm = () => {
+    if (!checkInfoValidation()) return;
+
+    handleModalStateChange();
+  };
+
+  // DB로 수정 정보 업데이트
+  const handleUserInfoUpdate = () => {
+    updateUserInfoMutate();
+    handleModalStateChange();
+  };
+
+  useEffect(() => {
+    if (!user) return;
+
+    setActiveInfoBtn(false);
+
+    setUserInfo({
+      displayName: user?.displayName,
+      email: user?.email,
+      photoURL: user?.photoURL,
+      isJunior: user?.isJunior,
+      positions: user?.positions,
+      plannerStack: user?.plannerStack || [''],
+      designerStack: user?.designerStack || [''],
+      developerStack: user?.developerStack || [''],
+    });
+  }, [user]);
 
   return (
     <MobileUserInfoContainer>
+      {showToast && <ValidationToastPopup message={ToastMessage} top={4} />}
       <MyPageProfileImage
         profileImg={profileImg}
         onChange={handleProfileImageChange}
@@ -71,12 +120,19 @@ const MobileUserInfo = () => {
       <MobileInfoBox>
         <MobileInfoEditBtn
           isActive={activeInfoBtn}
-          //   onClick={handleUserInfoConfirm}
+          onClick={handleUserInfoConfirm}
           disabled={!activeInfoBtn}
         >
           개인정보 수정 완료
         </MobileInfoEditBtn>
       </MobileInfoBox>
+      <ConfirmAlert
+        isOpen={isOpen}
+        message="개인정보를 수정할까요?"
+        subMessage="수정한 정보는 곧바로 반영됩니다!"
+        onClickEvent={handleUserInfoUpdate}
+        onCloseEvent={handleModalStateChange}
+      />
     </MobileUserInfoContainer>
   );
 };
