@@ -1,12 +1,28 @@
-import React from 'react';
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
+import { LeftTabProps } from '../LeftTab';
 
-const TobTab = () => {
+const TobTab = ({ activeTab, setActiveTab }: LeftTabProps) => {
+  // 탭 활성화하는 함수
+  const handleTabClick = (e: React.MouseEvent<HTMLLIElement>) => {
+    const { innerText } = e.currentTarget;
+    setActiveTab(innerText);
+  };
+
   return (
     <TabContainer>
-      <TabButton isActive={true}>개인정보</TabButton>
-      <TabButton isActive={false}>프로젝트</TabButton>
+      <TabButton
+        isActive={activeTab === '개인정보' ? true : false}
+        onClick={handleTabClick}
+      >
+        개인정보
+      </TabButton>
+      <TabButton
+        isActive={activeTab === '프로젝트' ? true : false}
+        onClick={handleTabClick}
+      >
+        프로젝트
+      </TabButton>
     </TabContainer>
   );
 };
