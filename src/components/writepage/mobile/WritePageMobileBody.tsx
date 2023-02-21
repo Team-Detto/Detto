@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, RefObject } from 'react';
 import { WriteType } from 'types/write/writeType';
 import WritePageMobilePosition from './WritePageMobilePosition';
 import WritePageMobileStack from './WritePageMobileStack';
@@ -9,7 +9,7 @@ import WritePageMobileDeadline from './WritePageMobileDeadline';
 import WritePageMobileThumbnail from './WritePageMobileThumbnail';
 
 interface Props {
-  imageRef: React.RefObject<HTMLInputElement>;
+  imageRef: RefObject<HTMLInputElement>;
   writeFormValue: WriteType.WriteFormType;
   setWriteFormValue: (value: WriteType.WriteFormType) => void;
   onFormValueChangeEvent: (e: ChangeEvent<HTMLInputElement>) => void;

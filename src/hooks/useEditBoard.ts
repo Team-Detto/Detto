@@ -139,6 +139,7 @@ const useEditBoard = () => {
     imageRef,
     showToast,
     ToastMessage,
+    editThumbnail,
     editFormValue,
     setEditFormValue,
     handleFormValueChange,

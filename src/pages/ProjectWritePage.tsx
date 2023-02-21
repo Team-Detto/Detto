@@ -98,7 +98,7 @@ const ProjectWritePageWrapper = styled.div`
   height: 133.5625rem;
 `;
 const WritePageMobileContainer = styled.div`
-  height: 63.5rem;
+  height: 70.125rem;
 `;
 
 export default ProjectWritePage;

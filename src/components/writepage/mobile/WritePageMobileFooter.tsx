@@ -1,7 +1,7 @@
 import { MutableRefObject } from 'react';
+import TextEdiotr from 'components/TextEditor';
 import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
-import TextEdiotr from 'components/TextEditor';
 
 interface Props {
   editRef: MutableRefObject<any>;
