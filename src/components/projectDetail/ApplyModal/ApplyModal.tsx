@@ -228,6 +228,7 @@ const WebContentContainer = styled.div`
   height: 21.0625rem;
 `;
 
+//모바일
 const BackDrop = styled.div`
   position: fixed;
   top: 0;

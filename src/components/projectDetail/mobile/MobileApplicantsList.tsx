@@ -1,18 +1,30 @@
 import styled from '@emotion/styled';
+import COLORS from 'assets/styles/colors';
 import MobileApplicantCard from './MobileApplicantCard';
 
-const MobileApplicantsList = ({ applicants }: any) => {
+const MobileApplicantsList = ({ pid, applicants }: any) => {
+  let count = 0;
   return (
     <ApplicantsListWrapper>
       <ApplicantsListTitle>지원자 목록</ApplicantsListTitle>
       <ApplicantsListContainer>
         {applicants &&
           Object.keys(applicants).map((key: any) => {
-            return (
-              <MobileApplicantCard key={key} applicant={applicants[key]} />
-            );
+            if (applicants[key]?.recruit === false) {
+              count += 1;
+              return (
+                <MobileApplicantCard
+                  key={key}
+                  pid={pid}
+                  applicant={applicants[key]}
+                />
+              );
+            }
           })}
       </ApplicantsListContainer>
+      {count === 0 && (
+        <CannotFoundApplicant>아직 지원자가 없어요 :/</CannotFoundApplicant>
+      )}
     </ApplicantsListWrapper>
   );
 };
@@ -38,4 +50,15 @@ const ApplicantsListContainer = styled.div`
   flex-direction: column;
   margin-top: 6px;
   gap: 12px;
+`;
+
+const CannotFoundApplicant = styled.div`
+  font-size: 1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 8rem;
+  color: ${COLORS.gray500};
 `;

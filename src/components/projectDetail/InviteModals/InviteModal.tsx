@@ -11,7 +11,7 @@ import {
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateAppliedProject, updateParticipants } from 'apis/postDetail';
 import { modalTypes } from 'components/common/modal/modal';
-import MobileInviteModal from '../mobile/MobileInviteModal/MobileInviteModa';
+import MobileInviteModal from '../mobile/MobileInviteModal/MobileInviteModal';
 
 interface props {
   isOpen: boolean;
@@ -82,8 +82,6 @@ const InviteModal = ({
   const inviteFunction = () => {
     onClickEvent();
     onAlertClickEvent();
-    applicantMutate();
-    invitedProjectMutate(); //applicants 데이터 변경
     sendInviteNotification();
   };
 
@@ -91,12 +89,14 @@ const InviteModal = ({
   if (isMobile) {
     return (
       <MobileInviteModal
+        pid={pid}
         isOpen={isOpen}
         applicant={applicant}
         isAlertOpen={isAlertOpen}
         onClickEvent={onClickEvent}
         inviteFunction={inviteFunction}
         onAlertClickEvent={onAlertClickEvent}
+        invitedProjectMutate={invitedProjectMutate} //applicants 데이터 변경
       />
     );
   }
@@ -138,6 +138,8 @@ const InviteModal = ({
               <MotiveButton
                 onClick={() => {
                   inviteFunction();
+                  invitedProjectMutate();
+                  applicantMutate();
                 }}
               >
                 네, 초대할게요!

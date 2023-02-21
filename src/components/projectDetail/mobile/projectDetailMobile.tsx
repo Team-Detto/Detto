@@ -50,7 +50,7 @@ const ProjectDetailMobile = ({
       )}
       {projectData?.uid === uid && (
         <>
-          <ApplicantsList applicants={projectData?.applicants} />
+          <ApplicantsList pid={pid} applicants={projectData?.applicants} />
           <EndRecruitButton
             onClick={handleCloseModalOpenChange}
             isRecruiting={projectData?.isRecruiting}

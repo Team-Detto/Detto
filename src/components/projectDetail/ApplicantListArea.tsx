@@ -17,8 +17,8 @@ const ApplicantListArea = ({ projectData, pid }: any) => {
                 return (
                   <ApplicantCard
                     key={key}
-                    applicant={applicants[key]}
                     pid={pid}
+                    applicant={applicants[key]}
                   />
                 );
               }
