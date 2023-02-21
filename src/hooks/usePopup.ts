@@ -14,6 +14,7 @@ const usePopup = () => {
     setPopup({
       isNoteOpen: !popup.isNoteOpen,
       isNotificationOpen: false,
+      isDropdownOpen: false,
     });
   };
 
@@ -22,6 +23,16 @@ const usePopup = () => {
     setPopup({
       isNoteOpen: false,
       isNotificationOpen: !popup.isNotificationOpen,
+      isDropdownOpen: false,
+    });
+  };
+
+  // 모바일 드랍다운 토글 (쪽지함이 열려있으면 닫기)
+  const toggleDropdownMenu = () => {
+    setPopup({
+      isNoteOpen: false,
+      isNotificationOpen: false,
+      isDropdownOpen: !popup.isDropdownOpen,
     });
   };
 
@@ -30,6 +41,7 @@ const usePopup = () => {
     setPopup({
       isNoteOpen: false,
       isNotificationOpen: false,
+      isDropdownOpen: false,
     });
   };
 
@@ -65,6 +77,7 @@ const usePopup = () => {
     closePopup,
     toggleNoteBox,
     toggleNotificationBox,
+    toggleDropdownMenu,
     notes,
     notifications,
     unreadNoteCount,

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { GrMail } from 'react-icons/gr';
@@ -8,12 +8,14 @@ import { useGlobalModal, useHeader, usePopup } from 'hooks';
 import { LogoBoxH1 } from './Header';
 import PopupContainer from './popup/PopupContainer';
 import COLORS from 'assets/styles/colors';
+import MobileDropdownMenu from './popup/mobile/MobileDropdownMenu';
 
 const MobileHeader = () => {
   const {
     closePopup,
     toggleNoteBox,
     toggleNotificationBox,
+    toggleDropdownMenu,
     unreadNoteCount,
     unreadNotificationCount,
   } = usePopup();
@@ -27,6 +29,14 @@ const MobileHeader = () => {
     closeDropdownMenu,
   } = useHeader();
   const { openModal } = useGlobalModal();
+
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const handleDropdownClose = (e: React.MouseEvent<HTMLInputElement>) => {
+    if (dropdownRef.current === e.target) {
+      handleDropdownClick();
+    }
+  };
 
   // 페이지 이동 시 팝업 / 드롭다운 메뉴 닫기
   useEffect(() => {
@@ -75,13 +85,14 @@ const MobileHeader = () => {
           ) : (
             ''
           )}
-          <MobileMenuItem onClick={handleDropdownClick}>
+          <MobileMenuItem onClick={toggleDropdownMenu}>
             <MobileMenuIcon />
           </MobileMenuItem>
         </MobileMenuList>
       </MobileHeaderWrapper>
+      <MobileDropdownMenu />
 
-      {showDropwdown && (
+      {/* {showDropwdown && (
         <DropdownBox>
           <DropdownList>
             {!isLoggedIn && (
@@ -109,7 +120,7 @@ const MobileHeader = () => {
             )}
           </DropdownList>
         </DropdownBox>
-      )}
+      )} */}
     </MobileHeaderContainer>
   );
 };
