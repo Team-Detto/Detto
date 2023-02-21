@@ -9,6 +9,7 @@ interface props {
     width: string;
     height: string;
     name: string;
+    placeholder?: string;
   };
   value: number | string | readonly string[] | undefined;
   onChangeEvent: (e: React.ChangeEvent<HTMLInputElement>) => void; // eslint-disable-line no-unused-vars

@@ -1,4 +1,4 @@
-import ContentCard from 'components/ContentCard';
+import MobileContentCard from 'components/MobileContentCard';
 import { EditType } from 'types/write/writeType';
 import styled from '@emotion/styled';
 
@@ -10,7 +10,7 @@ interface Props {
   onNavigateToProjectDetailEvent: (path: string) => () => void;
 }
 
-const FindProjectList = ({
+const FindProjectMobileList = ({
   projects,
   toggle,
   category,
@@ -18,13 +18,13 @@ const FindProjectList = ({
   onNavigateToProjectDetailEvent,
 }: Props) => {
   return (
-    <FindProjectListContainer>
+    <FindProjectMobileListContainer>
       {projects
         .filter((project: any) => project.positions[category] !== 0)
         .map((project) =>
           !toggle ? (
             project.isRecruiting && (
-              <ContentCard
+              <MobileContentCard
                 key={project.id}
                 project={project}
                 likedProjects={likedProjects}
@@ -32,7 +32,7 @@ const FindProjectList = ({
               />
             )
           ) : (
-            <ContentCard
+            <MobileContentCard
               key={project.id}
               project={project}
               likedProjects={likedProjects}
@@ -40,17 +40,10 @@ const FindProjectList = ({
             />
           ),
         )}
-    </FindProjectListContainer>
+    </FindProjectMobileListContainer>
   );
 };
 
-const FindProjectListContainer = styled.div`
-  width: 100%;
-  margin-top: 3rem;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 1rem;
-  justify-items: center;
-`;
+const FindProjectMobileListContainer = styled.div``;
 
-export default FindProjectList;
+export default FindProjectMobileList;
