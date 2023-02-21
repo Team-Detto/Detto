@@ -39,7 +39,7 @@ const MobileInviteModal = ({
         <ModalContainer>
           <StackDiv>
             {applicant.skills.slice(0, 4).map((skill: any) => (
-              <Stacks>{skill}</Stacks>
+              <Stacks key={skill}>{skill}</Stacks>
             ))}
             <ApplicantStacks>을/를 해봤어요!</ApplicantStacks>
           </StackDiv>

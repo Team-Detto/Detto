@@ -11,7 +11,7 @@ import {
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateAppliedProject, updateParticipants } from 'apis/postDetail';
 import { modalTypes } from 'components/common/modal/modal';
-import MobileInviteModal from '../mobile/MobileInviteModal/MobileInviteModal';
+import MobileInviteModal from '../mobile/MobileModal/MobileInviteModal';
 
 interface props {
   isOpen: boolean;

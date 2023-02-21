@@ -65,7 +65,7 @@ export default MobilePublicProfilePage;
 const MobileContainer = styled.div`
   width: 100%;
   height: 100%;
-  padding: 7.5rem 0 5rem 0;
+  padding: 3rem 0 5rem 0;
 `;
 
 const PublicProfileContainer = styled.div``;

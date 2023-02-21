@@ -18,11 +18,13 @@ export const viewProject = async (pid: any) => {
 
 //좋아요 수 업데이트
 export const updateLike = async (pid: any, countLike: number) => {
+  if (pid === undefined) return;
   const docRef = doc(firestore, 'post', pid);
   await updateDoc(docRef, { like: countLike });
 };
 
 export const updateViews = async (pid: any, countViews: number) => {
+  if (pid === undefined) return;
   const docRef = doc(firestore, 'post', pid);
   await updateDoc(docRef, { view: countViews });
 };

@@ -29,7 +29,10 @@ const WriterToProjectInfoArea = ({ projectData, userData }: any) => {
             </ProjectInfoValue>
           </ProjectInfoObject>
           <ProjectInfoObject>
-            <ProjectInfoKey>프로젝트 스택</ProjectInfoKey>
+            <Div>
+              <ProjectInfoKey>프로젝트</ProjectInfoKey>
+              <ProjectInfoKey>스택</ProjectInfoKey>
+            </Div>
             <ProjectInfoStackWrap>
               <StackDiv>
                 <StackTitle>기획</StackTitle>
@@ -71,8 +74,6 @@ export default WriterToProjectInfoArea;
 const WriterToProjectInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
-
-  /* width: 100%; */
   height: 271px;
   background-color: ${COLORS.white};
   gap: 13px;
@@ -82,7 +83,6 @@ const WriterToProjectInfoContainer = styled.div`
 const WriterWrapper = styled.div`
   display: flex;
   margin: 8px 20px 0 20px;
-  /* width: 100%; */
   height: 32px;
   align-items: center;
 `;
@@ -107,7 +107,6 @@ const ProjectInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 15px 18px 15px;
-  /* width: 100%; */
   height: 100%;
   gap: 8px;
 `;
@@ -126,11 +125,9 @@ const ProjectInfoKey = styled.div`
   height: 28px;
   font-size: 12px;
   line-height: 28px;
-
   display: flex;
   align-items: center;
   letter-spacing: -0.02em;
-
   color: #383838;
 `;
 
@@ -140,8 +137,6 @@ const ProjectInfoValue = styled.div`
   font-weight: 500;
   font-size: 13px;
   line-height: 28px;
-  /* identical to box height, or 215% */
-
   display: flex;
   align-items: center;
   letter-spacing: -0.02em;
@@ -165,7 +160,6 @@ const StackDiv = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  /* gap: 0.625rem; */
   width: 100%;
   height: 100%;
 `;
@@ -186,7 +180,7 @@ const Bumper = styled.div`
   flex-direction: row;
   align-items: center;
   gap: 0.625rem;
-  margin-left: 0.625rem;
+  margin-left: 0.4rem;
 `;
 
 const StackValue = styled.div`
@@ -199,15 +193,7 @@ const StackValue = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  /* white-space: nowrap; */
-  /* overflow: scroll; */
+  overflow: scroll;
 `;
 
-const Div = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0.625rem;
-  width: 100%;
-  height: 2.5rem;
-`;
+const Div = styled.div``;

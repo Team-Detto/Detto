@@ -36,7 +36,7 @@ const ProjectDetailMobile = ({
   return (
     <MobileContainer>
       <TitleThumbnailArea pid={pid} projectData={projectData} />
-      <ViewsToShareArea projectData={projectData} />
+      <ViewsToShareArea pid={pid} projectData={projectData} />
       <WriterToProjectInfoArea projectData={projectData} userData={userData} />
       <MemberInfoArea applicantsData={projectData?.applicants} />
       <RecruitContentArea content={projectData?.content} />
@@ -90,6 +90,6 @@ export default ProjectDetailMobile;
 const MobileContainer = styled.div`
   width: 100%;
   height: 100%;
-  padding: 7rem 0 5rem 0;
+  padding: 3rem 0 5rem 0;
   background-color: #fcfcfc;
 `;
