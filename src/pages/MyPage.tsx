@@ -10,6 +10,7 @@ import LeftTab from 'components/mypage/LeftTab';
 import ProjectsTab from 'components/common/myProjectList/ProjectsTab';
 import { getUserInfoData, getUserProjectList } from 'apis/mypageUsers';
 import { staleTime } from 'utils/staleTime';
+import LoadingPage from './LoadingPage';
 
 const MyPage = () => {
   const [activeTab, setActiveTab] = useState('개인정보');
@@ -19,7 +20,7 @@ const MyPage = () => {
     useProjectList();
 
   // 유저 정보 받아오는 쿼리
-  const { data: userInfoData }: any = useQuery({
+  const { status, data: userInfoData }: any = useQuery({
     queryKey: ['users', uid],
     queryFn: getUserInfoData,
     staleTime: staleTime.users,
@@ -39,7 +40,9 @@ const MyPage = () => {
   if (isMobile)
     return <MobileMyPage user={userInfoData} pidList={userProjectListsData} />;
 
-  return (
+  return status === 'loading' ? (
+    <LoadingPage />
+  ) : (
     <MyPageContainer>
       <LeftTab activeTab={activeTab} setActiveTab={setActiveTab} />
       <WebContainer>
