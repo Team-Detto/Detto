@@ -34,8 +34,17 @@ const ProjectWritePage = () => {
     return (
       <MobileContainer>
         <WritePageMobileContainer>
-          <WritePageMobileHeader />
-          <WritePageMobileBody />
+          <WritePageMobileHeader
+            writeFormValue={writeFormValue}
+            onFormValueChangeEvent={handleFormValueChange}
+          />
+          <WritePageMobileBody
+            imageRef={imageRef}
+            writeFormValue={writeFormValue}
+            setWriteFormValue={setWriteFormValue}
+            onFormValueChangeEvent={handleFormValueChange}
+            onAddThumbnailImageChangeEvent={handleAddThumbnailImageChange}
+          />
           <WritePageMobileFooter
             editRef={editRef}
             onOpenButtonClickEvent={handleCheckValidationButtonClick}
@@ -45,9 +54,10 @@ const ProjectWritePage = () => {
           isOpen={isOpen}
           message="게시물을 업로드할까요?"
           subMessage="작성한 게시물은 마이페이지에서 볼 수 있습니다."
-          onClickEvent={handleCreateProjectButtonClick}
           onCloseEvent={handleModalStateChange}
+          onClickEvent={handleCreateProjectButtonClick}
         />
+        {showToast && <ValidationToastPopup message={ToastMessage} />}
       </MobileContainer>
     );
   }
@@ -69,7 +79,6 @@ const ProjectWritePage = () => {
         />
         <ProjectWritePageFooter
           editRef={editRef}
-          writeFormValue={writeFormValue}
           onOpenButtonClickEvent={handleCheckValidationButtonClick}
         />
         <ConfirmAlert
