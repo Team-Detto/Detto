@@ -87,9 +87,9 @@ const MobileMainRecommendationWrap = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 27.0625rem;
   padding: 0rem;
   margin-top: 2.3125rem;
+  margin-bottom: 1.875rem;
 `;
 const MobileMainRecommendationContainer = styled.div`
   width: 100%;
@@ -139,9 +139,6 @@ const MobileMainRecommendationCardContainer = styled.div`
 `;
 const MobileMainRecommendationCardButton = styled.button`
   width: 100%;
-  height: 1.8125rem;
-  font-family: 'Noto Sans KR';
-  font-style: normal;
   font-weight: 900;
   font-size: 10px;
   line-height: 140%;
