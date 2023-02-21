@@ -62,7 +62,7 @@ const WritePageMobileThumbnailInput = styled.input`
   font-size: 0.75rem;
   font-weight: 400;
   line-height: 140%;
-  color: ${COLORS.gray200};
+  color: ${COLORS.black};
 
   padding-left: 1rem;
 

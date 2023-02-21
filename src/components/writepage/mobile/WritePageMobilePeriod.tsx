@@ -58,7 +58,7 @@ const WritePageMobileDateInput = styled.input`
   font-size: 0.75rem;
   font-weight: 400;
   line-height: 140%;
-  color: ${COLORS.gray200};
+  color: ${COLORS.black};
 
   text-align: center;
   padding-right: 0.5rem;
