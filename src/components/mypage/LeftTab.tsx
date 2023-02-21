@@ -29,9 +29,10 @@ const LeftTab = ({ activeTab, setActiveTab }: LeftTabProps) => {
       return;
     }
 
-    await deleteDoc(doc(firestore, 'users', currentUser.uid));
-    deleteUser(currentUser).catch((err) => console.error(err));
-    handleModalStateChange();
+    // 회원 탈퇴 시 db에서 삭제되는 부분 임시 주석처리
+    // await deleteDoc(doc(firestore, 'users', currentUser.uid));
+    // deleteUser(currentUser).catch((err) => console.error(err));
+    // handleModalStateChange();
     handleLogoutClick();
   };
 
