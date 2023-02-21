@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
+import COLORS from 'assets/styles/colors';
 import { ProjectListProps } from 'components/common/myProjectList/ProjectList';
 import MobileContentCard from 'components/MobileContentCard';
 import { useFindProject, useProjectList } from 'hooks';
@@ -24,6 +25,9 @@ const MobileProjectList = ({ category, pidList }: ProjectListProps) => {
 
   return (
     <MobileProjectListContainer>
+      {activeProjectsData?.length < 1 && (
+        <NodataMessage>프로젝트가 없어요 :/</NodataMessage>
+      )}
       {activeProjectsData &&
         activeProjectsData?.map((project: any, idx: number) => (
           <MobileContentCard
@@ -41,3 +45,12 @@ const MobileProjectList = ({ category, pidList }: ProjectListProps) => {
 export default MobileProjectList;
 
 const MobileProjectListContainer = styled.div``;
+
+const NodataMessage = styled.p`
+  display: flex;
+  justify-content: center;
+  padding: 4rem 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: ${COLORS.gray300};
+`;
