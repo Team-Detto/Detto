@@ -123,6 +123,7 @@ const MobileUserInfo = ({ user }: MypageInfoProps) => {
         />
       </MobileInfoBox>
       <MobileInfoBox>
+        {/* TODO:: pc 버전 마이페이지처럼 유효성 검사 적용 예정, Alert창 변경 예정 */}
         <MobileInfoEditBtn
           isActive={activeInfoBtn}
           onClick={handleUserInfoConfirm}
