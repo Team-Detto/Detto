@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
-import FindUserSlider from './FindUserSlider';
+import MobileFindUserSlider from './MobileFindUserSlider';
 import COLORS from 'assets/styles/colors';
 import { positionList } from 'utils/positions';
 
@@ -25,7 +25,9 @@ const MobileMainFindUsers = () => {
           ))}
         </MainFindUsersButtonContainer>
       </MainFindUsersContainer>
-      <SlideArea>{/* <FindUserSlider tap={tap} /> */}</SlideArea>
+      <SlideArea>
+        <MobileFindUserSlider tap={tap} />
+      </SlideArea>
     </MainFindUsersWrap>
   );
 };
@@ -51,14 +53,13 @@ const MainFindUsersTitleDiv = styled.div`
 `;
 const MainFindUsersButtonContainer = styled.div`
   box-sizing: border-box;
-
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding: 0 1.25rem;
+  padding: 0px 20px;
   gap: 1rem;
 
-  width: 24.375rem;
+  width: 100%;
   height: 3rem;
 
   margin-top: 0.625rem;
@@ -74,8 +75,9 @@ const MainFindUsersButton = styled.button<{ active: boolean }>`
   align-items: center;
   padding: 0;
 
-  width: 100%;
-  height: 48px;
+  /* width: 100%; */
+  width: 3.5rem;
+  height: 3rem;
   font-family: 'Pretendard';
   font-style: normal;
   font-weight: 500;
@@ -86,6 +88,9 @@ const MainFindUsersButton = styled.button<{ active: boolean }>`
   border-bottom: ${(props) =>
     props.active ? `1px solid ${COLORS.violetB300}` : `none`};
 `;
-const SlideArea = styled.div``;
+const SlideArea = styled.div`
+  margin: 0 auto;
+  width: 324px;
+`;
 
 export default MobileMainFindUsers;
