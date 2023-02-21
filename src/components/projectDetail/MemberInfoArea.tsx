@@ -132,6 +132,7 @@ const MemberProfileImg = styled.img`
   height: 4rem;
   border-radius: 50%;
   /* position: absolute; */
+  object-fit: cover;
   cursor: pointer;
 `;
 

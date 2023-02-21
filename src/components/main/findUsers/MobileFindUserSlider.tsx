@@ -120,6 +120,7 @@ const CardImage = styled.img`
   width: 64px;
   height: 64px;
   border-radius: 100%;
+  object-fit: cover;
 `;
 const CardNickname = styled.div`
   display: flex;
