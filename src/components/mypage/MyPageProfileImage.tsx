@@ -45,8 +45,8 @@ const MyPageProfileImage = ({
   }, [profileImg]);
 
   return (
-    <ProfileImageWrapper isMobile={isMobile}>
-      <ProfileImageBox isMobile={isMobile} type="join">
+    <ProfileImageWrapper isMobile={isMobile} page={page}>
+      <ProfileImageBox isMobile={isMobile} page={page}>
         <ProfileImage
           src={
             profileImg === '' || profileImg === undefined
@@ -56,7 +56,7 @@ const MyPageProfileImage = ({
           alt="프로필이미지"
         />
       </ProfileImageBox>
-      <ProfileImgEditButton onClick={profileModalStateChange}>
+      <ProfileImgEditButton onClick={profileModalStateChange} page={page}>
         <EditIcon />
       </ProfileImgEditButton>
 
@@ -75,29 +75,31 @@ const MyPageProfileImage = ({
 
 export default MyPageProfileImage;
 
-const ProfileImageWrapper = styled.div<{ isMobile: boolean }>`
+const ProfileImageWrapper = styled.div<{ isMobile: boolean; page?: string }>`
   width: ${({ isMobile }) => (isMobile ? '7.75rem' : '9rem')};
   display: flex;
   margin-right: ${({ isMobile }) => (isMobile ? '0' : '4.625rem')};
   margin: ${({ isMobile }) => (isMobile ? '.875rem auto 0' : '')};
 
   position: relative;
+  margin-bottom: ${({ isMobile, page }) =>
+    isMobile ? (page === 'join' ? '0' : '1.5rem') : '0'};
 `;
 
 const ProfileImageBox = styled(ModalProfileImageBox)<{
   isMobile: boolean;
-  type?: string;
+  page?: string;
 }>`
-  margin-bottom: ${({ type }) => (type === 'join' ? '0' : '1.5rem')};
+  margin-bottom: ${({ page }) => (page === 'join' ? '0' : '1.5rem')};
 `;
 
-const ProfileImgEditButton = styled.div`
+const ProfileImgEditButton = styled.div<{ page?: string }>`
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
-  right: -0.1875rem;
-  bottom: 0.125rem;
+  right: 0;
+  bottom: ${({ page }) => (page === 'join' ? '-0.4656rem' : '1.5rem')};
   z-index: 1;
 
   width: 2.5rem;

@@ -168,6 +168,7 @@ const NicknameLabel = styled.label`
   font-weight: 500;
   font-size: 1.25rem;
   line-height: 1.75rem;
+  min-width: 3.4375rem;
 
   display: flex;
   align-items: center;
