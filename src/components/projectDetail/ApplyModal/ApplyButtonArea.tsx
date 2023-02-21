@@ -81,6 +81,7 @@ const ApplyButtonArea = ({
 
     //지원 성공
     handleResetButtonClick();
+    onClickEvent();
     onAlertClickEvent(); //지원성공 모달 띄우기
     applicantMutate(userData?.uid); //지원자 데이터 삽입
     projectMutate(); //지원한 프로젝트 데이터 삽입

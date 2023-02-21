@@ -12,6 +12,7 @@ import ApplyMotiveArea from './ApplyMotiveArea';
 import ApplyPositionArea from './ApplyPositonArea';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
 import COLORS from 'assets/styles/colors';
+import MobileAlert from 'components/common/mobile/MobileAlert';
 
 interface props {
   isOpen: boolean;
@@ -23,6 +24,11 @@ interface props {
 const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
   const { isOpen: isAlertOpen, handleModalStateChange: onAlertClickEvent } =
     useModal(false);
+
+  const {
+    isOpen: isMobileAlertOpen,
+    handleModalStateChange: onMobileAlertClickEvent,
+  } = useModal(false);
 
   const { uid } = useAuth();
   const [motive, setMotive] = useState('');
@@ -95,11 +101,11 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
   }, [isOpen]);
 
   const isMobile = useIsMobile();
-  if (isMobile && isOpen) {
+  if (isMobile) {
     return (
       <>
-        <BackDrop>
-          <MobileModalContainer isOpen={isOpen}>
+        <BackDrop isOpen={isOpen}>
+          <MobileModalContainer>
             {showToast && (
               <ValidationToastPopup message={ToastMessage} top={-2} />
             )}
@@ -126,7 +132,7 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
               clickValue={clickValue}
               setClickValue={setClickValue}
               onClickEvent={onClickEvent}
-              onAlertClickEvent={onAlertClickEvent}
+              onAlertClickEvent={onMobileAlertClickEvent}
               applicantMutate={applicantMutate}
               projectMutate={projectMutate}
               handleToastPopup={handleToastPopup}
@@ -134,6 +140,13 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
             />
           </MobileModalContainer>
         </BackDrop>
+        <MobileAlert
+          isOpen={isMobileAlertOpen}
+          onClickEvent={onMobileAlertClickEvent}
+          mainMsg="지원이 완료되었어요!"
+          subMsg="알림으로 결과를 알려드릴게요!"
+          page="apply"
+        />
       </>
     );
   }
@@ -223,6 +236,7 @@ const BackDrop = styled.div`
   right: 0;
   z-index: 100;
   background: rgba(191, 191, 191, 0.5);
+  display: ${(props: { isOpen: boolean }) => (props.isOpen ? 'block' : 'none')};
 `;
 
 const MobileModalContainer = styled.div`
@@ -240,7 +254,6 @@ const MobileModalContainer = styled.div`
   box-shadow: 0rem 0.25rem 0.625rem rgba(117, 117, 117, 0.25);
   z-index: 999;
   z-index: 999;
-  display: ${(props: { isOpen: boolean }) => (props.isOpen ? 'block' : 'none')};
 `;
 
 const MobileModalTitle = styled.p`

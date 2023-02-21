@@ -133,6 +133,9 @@ const ProjectDetailPage = () => {
         pid={pid}
         projectData={projectData}
         userData={userData}
+        isApplicant={isApplicant}
+        deleteApplicantMutate={deleteApplicantMutate}
+        handleAuthorButtonClick={() => handleAuthorButtonClick()}
       />
     );
   }
@@ -164,7 +167,7 @@ const ProjectDetailPage = () => {
             isApplicant={isApplicant}
             projectData={projectData}
             onApplyModalStateChangeEvent={handleApplyModalOpenChange} //지원하기
-            onCloseModalStateChangeEvent={handleCloseModalOpenChange} //마감하기
+            onCloseModalStateChangeEvent={handleCloseModalOpenChange} //지원취소, 마감하기
           />
           {/* //지원 안했다면 지원하기 모달 */}
           <ApplyModal
