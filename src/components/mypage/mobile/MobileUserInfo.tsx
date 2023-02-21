@@ -18,8 +18,8 @@ import { InfoEditConfirmBtn } from '../MyPageInfo';
 import MyPageProfileImage from '../MyPageProfileImage';
 import PositionCheckBox from '../PositionCheckBox';
 import TextInput from '../TextInput';
-import ConfirmAlert from 'components/common/ConfirmAlert';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
+import MobileConfirmAlert from 'components/common/mobile/MobileConfirmAlert';
 import MobileSkillStackList from './MobileSkillStackList';
 
 const MobileUserInfo = ({ user }: MypageInfoProps) => {
@@ -131,7 +131,7 @@ const MobileUserInfo = ({ user }: MypageInfoProps) => {
           개인정보 수정 완료
         </MobileInfoEditBtn>
       </MobileInfoBox>
-      <ConfirmAlert
+      <MobileConfirmAlert
         isOpen={isOpen}
         message="개인정보를 수정할까요?"
         subMessage="수정한 정보는 곧바로 반영됩니다!"
