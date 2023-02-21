@@ -110,8 +110,8 @@ const MobileBannerTextBox = styled.div`
   left: 2.5rem;
   top: 4.4375rem;
   @media screen and (max-width: 370px) {
-    width: 131px;
-    height: 73px;
+    width: 8.1875rem;
+    height: 4.5625rem;
     left: 2rem;
     top: 4.4375rem;
   }
@@ -134,7 +134,7 @@ const MobileBannerTitle = styled.div`
     font-family: 'Noto Sans KR';
     font-style: normal;
     font-weight: 700;
-    font-size: 12px;
+    font-size: 0.75rem;
     line-height: 160%;
 
     display: flex;
@@ -153,8 +153,8 @@ const MobileBannerSubTitle = styled.div`
   line-height: 160%;
   color: ${COLORS.gray850};
   @media screen and (max-width: 370px) {
-    width: 164px;
-    height: 26px;
+    width: 10.25rem;
+    height: 1.625rem;
 
     font-family: 'Noto Sans KR';
     font-style: normal;
@@ -171,7 +171,7 @@ const MobileBannerSubTitle = styled.div`
 const MobileBannerFirstImg = styled.img`
   position: absolute;
   width: 16.5625rem;
-  height: 282px;
+  height: 17.625rem;
   left: 13.5625rem;
   top: -15px;
   @media screen and (max-width: 370px) {
@@ -185,10 +185,10 @@ const MobileBannerSecondImg = styled.img`
   position: absolute;
   width: 20.5625rem;
   left: 10.125rem;
-  top: 50px;
+  top: 3.125rem;
   @media screen and (max-width: 370px) {
-    width: 220px;
+    width: 13.75rem;
     left: 9.0625rem;
-    top: 60px;
+    top: 3.75rem;
   }
 `;
