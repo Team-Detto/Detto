@@ -5,10 +5,10 @@ import styled from '@emotion/styled';
 import { mypageInfoButtonActiveState, userInfoState } from '../../recoil/atoms';
 import UserInfoTop from './UserInfoTop';
 import SkillList from './SkillList';
-import ConfirmAlert from 'components/common/ConfirmAlert';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
 import { designs, develops, products } from 'utils/skills';
 import COLORS from 'assets/styles/colors';
+import Alert from 'components/common/Alert';
 
 const MyPageInfo = ({ user }: MypageInfoProps) => {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
@@ -19,17 +19,13 @@ const MyPageInfo = ({ user }: MypageInfoProps) => {
   const { updateUserInfoMutate, showToast, ToastMessage, checkInfoValidation } =
     useUpdateProfile();
 
-  // 수정 버튼 클릭 시 유효성 검사 확인 후 모달창 오픈
+  // 수정 버튼 클릭 시 유효성 검사 확인 후 변경사항 반영, 모달창 오픈
   const handleUserInfoConfirm = () => {
     if (!checkInfoValidation()) return;
 
     handleModalStateChange();
-  };
-
-  // DB로 수정 정보 업데이트
-  const handleUserInfoUpdate = () => {
+    // DB로 수정 정보 업데이트
     updateUserInfoMutate();
-    handleModalStateChange();
   };
 
   useEffect(() => {
@@ -82,12 +78,11 @@ const MyPageInfo = ({ user }: MypageInfoProps) => {
           개인정보 수정 완료
         </InfoEditConfirmBtn>
       </InfoEditConfirmWrapper>
-      <ConfirmAlert
+      <Alert
         isOpen={isOpen}
-        message="개인정보를 수정할까요?"
-        subMessage="수정한 정보는 곧바로 반영됩니다!"
-        onClickEvent={handleUserInfoUpdate}
-        onCloseEvent={handleModalStateChange}
+        mainMsg="수정이 완료되었어요!"
+        subMsg="수정한 정보가 곧바로 반영되었습니다!"
+        onClickEvent={handleModalStateChange}
       />
     </MyPageTopContainer>
   );
