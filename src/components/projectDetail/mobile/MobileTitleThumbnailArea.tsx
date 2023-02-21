@@ -30,7 +30,7 @@ const TitleThumbnailAreaContainer = styled.div`
   gap: 12px;
 `;
 
-const IsRecruitingDiv = styled.div`
+const IsRecruitingDiv = styled.div<{ children: string }>`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -40,7 +40,8 @@ const IsRecruitingDiv = styled.div`
   width: 60px;
   height: 28px;
   font-size: 14px;
-  background: ${COLORS.violetB400};
+  background: ${({ children }) =>
+    children === '모집중' ? COLORS.violetB400 : COLORS.gray200};
   border-radius: 8px;
   color: ${COLORS.white};
 `;
@@ -48,7 +49,7 @@ const IsRecruitingDiv = styled.div`
 const TitleDiv = styled.div``;
 
 const ProjectThumbnail = styled.img`
-  min-width: 350px;
+  min-width: 200px;
   width: 90%;
   height: 174px;
   margin: 14px 20px;

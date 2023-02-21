@@ -1,8 +1,13 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import UserStacks from 'components/publicProfile/UserStacks';
+import InviteModal from '../InviteModals/InviteModal';
+import { useModal } from 'hooks';
+import { useState } from 'react';
 
-const MobileApplicantCard = ({ applicant }: any) => {
+const MobileApplicantCard = ({ key, pid, applicant }: any) => {
+  const { isOpen, handleModalStateChange } = useModal(false);
+  const [applicantKey, setApplicantKey] = useState('');
   return (
     <ApplicantCard>
       <ProfileImg src={applicant.profileURL} />
@@ -13,7 +18,21 @@ const MobileApplicantCard = ({ applicant }: any) => {
           <UserStacks stacks={applicant.skills} version="mobile"></UserStacks>
         </Stacks>
       </UserInfoDiv>
-      <InviteButton>팀원으로 초대하기</InviteButton>
+      <InviteButton
+        onClick={() => {
+          handleModalStateChange();
+          setApplicantKey(key);
+        }}
+      >
+        팀원으로 초대하기
+      </InviteButton>
+      <InviteModal
+        pid={pid}
+        isOpen={isOpen}
+        applicant={applicant}
+        applicantKey={applicantKey}
+        onClickEvent={handleModalStateChange}
+      />
     </ApplicantCard>
   );
 };

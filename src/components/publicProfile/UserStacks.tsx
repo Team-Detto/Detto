@@ -10,16 +10,17 @@ const UserStacks = ({ stacks, version = 'desktop' }: UserStacksProps) => {
   if (version === 'mobile') {
     return (
       <MobileStackList>
-        {stacks
-          .filter((stack, pos) => stacks.indexOf(stack) === pos)
-          .map((stack, index) => {
-            if (index < 8)
-              return (
-                <MobileStackItem key={`${stacks}${index}`}>
-                  {stack}
-                </MobileStackItem>
-              );
-          })}
+        {stacks &&
+          stacks
+            .filter((stack, pos) => stacks.indexOf(stack) === pos)
+            .map((stack, index) => {
+              if (index < 8)
+                return (
+                  <MobileStackItem key={`${stacks}${index}`}>
+                    {stack}
+                  </MobileStackItem>
+                );
+            })}
       </MobileStackList>
     );
   }
