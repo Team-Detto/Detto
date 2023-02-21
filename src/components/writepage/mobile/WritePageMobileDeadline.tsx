@@ -7,14 +7,27 @@ import {
 import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
 
-const WritePageMobileDeadline = () => {
+interface Props {
+  deadline: string;
+  onFormValueChangeEvent: (e: any) => void;
+}
+
+const WritePageMobileDeadline = ({
+  deadline,
+  onFormValueChangeEvent,
+}: Props) => {
   return (
     <WritePageMobileDeadlineContainer>
       <WritePageMobileBodyLeftBox>
         <WritePageMobileBodyText>모집 마감일</WritePageMobileBodyText>
       </WritePageMobileBodyLeftBox>
       <WritePageMobileBodyRightBox>
-        <WritePageMobileDeadlineInput type="date" />
+        <WritePageMobileDeadlineInput
+          type="date"
+          name="deadline"
+          value={deadline}
+          onChange={onFormValueChangeEvent}
+        />
       </WritePageMobileBodyRightBox>
     </WritePageMobileDeadlineContainer>
   );
