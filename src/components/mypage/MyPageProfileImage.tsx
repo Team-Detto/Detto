@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { userInfoState } from '../../recoil/atoms';
 import { useSetRecoilState } from 'recoil';
-import { useModal } from 'hooks';
+import { useIsMobile, useModal } from 'hooks';
 import styled from '@emotion/styled';
 import { RiPencilFill } from 'react-icons/ri';
 import ProfileImageModal, {
@@ -29,7 +29,9 @@ const MyPageProfileImage = ({
   const {
     isOpen: isProfileModalOpen,
     handleModalStateChange: profileModalStateChange,
+    handleModalCloseChange: profileModalCloseChange,
   } = useModal(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     setUserInfo((prevState) => {
@@ -41,8 +43,8 @@ const MyPageProfileImage = ({
   }, [profileImg]);
 
   return (
-    <ProfileImageWrapper>
-      <ProfileImageBox>
+    <ProfileImageWrapper isMobile={isMobile}>
+      <ProfileImageBox isMobile={isMobile}>
         <ProfileImage
           src={
             profileImg === '' || profileImg === undefined
@@ -52,7 +54,10 @@ const MyPageProfileImage = ({
           alt="프로필이미지"
         />
       </ProfileImageBox>
-      <ProfileImgEditButton onClick={profileModalStateChange}>
+      <ProfileImgEditButton
+        isMobile={isMobile}
+        onClick={profileModalStateChange}
+      >
         <EditIcon />
       </ProfileImgEditButton>
 
@@ -61,6 +66,7 @@ const MyPageProfileImage = ({
         isOpen={isProfileModalOpen}
         onChangeEvent={onChange}
         onDeleteEvent={onDelete}
+        onCloseEvent={profileModalCloseChange}
         handleModalStateChange={profileModalStateChange}
       />
     </ProfileImageWrapper>
@@ -69,25 +75,26 @@ const MyPageProfileImage = ({
 
 export default MyPageProfileImage;
 
-const ProfileImageWrapper = styled.div`
-  width: 9rem;
+const ProfileImageWrapper = styled.div<{ isMobile: boolean }>`
+  width: ${({ isMobile }) => (isMobile ? '7.75rem' : '9rem')};
   display: flex;
-  flex-direction: column;
-  margin-right: 4.625rem;
+  margin-right: ${({ isMobile }) => (isMobile ? '0' : '4.625rem')};
+  margin: ${({ isMobile }) => (isMobile ? '.875rem auto 0' : '')};
+
   position: relative;
 `;
 
-const ProfileImageBox = styled(ModalProfileImageBox)`
+const ProfileImageBox = styled(ModalProfileImageBox)<{ isMobile: boolean }>`
   margin-bottom: 2.25rem;
 `;
 
-const ProfileImgEditButton = styled.div`
+const ProfileImgEditButton = styled.div<{ isMobile: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
-  right: 3px;
-  bottom: 1.875rem;
+  right: ${({ isMobile }) => (isMobile ? '0.2rem' : '.1875rem')};
+  bottom: ${({ isMobile }) => (isMobile ? '2.1rem' : '1.875rem')};
   z-index: 1;
 
   width: 2.5rem;

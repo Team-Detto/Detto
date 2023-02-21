@@ -153,7 +153,7 @@ const InfoEditConfirmWrapper = styled.div`
   margin-bottom: 4.875rem;
 `;
 
-const InfoEditConfirmBtn = styled.button<{ isActive: boolean }>`
+export const InfoEditConfirmBtn = styled.button<{ isActive: boolean }>`
   margin-top: 2rem;
   width: 14.375rem;
   height: 3rem;
