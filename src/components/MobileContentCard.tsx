@@ -109,6 +109,7 @@ const ContentCardImg = styled.img`
   width: 5.125rem;
   height: 5.125rem;
   border-radius: 0.5rem;
+  object-fit: cover;
 `;
 const ContentCardContentsContainer = styled.div``;
 const RecruitingIcon = styled.div`
