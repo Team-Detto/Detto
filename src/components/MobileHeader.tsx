@@ -52,7 +52,6 @@ const MobileHeader = () => {
               <MobileMenuItem onClick={toggleNoteBox}>
                 <CountBox>
                   <MobileNoteIcon />
-                  {/* TODO:: 쪽지 0개일 경우 카운트 안 보이도록 처리 필요 */}
                   {unreadNoteCount > 0 && (
                     <MobileCount>
                       {unreadNoteCount < 100 ? unreadNoteCount : '99+'}
@@ -148,6 +147,7 @@ const MobileMenuItem = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
 
 const MobileNoteIcon = styled(GrMail)`
