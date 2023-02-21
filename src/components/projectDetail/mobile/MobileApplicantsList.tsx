@@ -39,6 +39,6 @@ const ApplicantsListContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 6px;
-  padding: 23px 17px 37px 17px;
+  /* padding: 23px 17px 37px 17px; */
   gap: 12px;
 `;
