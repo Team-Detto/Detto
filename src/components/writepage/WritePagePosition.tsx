@@ -26,6 +26,7 @@ const WritePagePosition = ({
           width: '7.5rem',
           height: '2.8125rem',
           name: 'planner',
+          placeholder: '0',
         }}
         value={planner}
         onChangeEvent={onFormValueChangeEvent}
@@ -39,6 +40,7 @@ const WritePagePosition = ({
           width: '7.5rem',
           height: '2.8125rem',
           name: 'designer',
+          placeholder: '0',
         }}
         value={designer}
         onChangeEvent={onFormValueChangeEvent}
@@ -52,6 +54,7 @@ const WritePagePosition = ({
           width: '7.5rem',
           height: '2.8125rem',
           name: 'frontend',
+          placeholder: '0',
         }}
         value={frontend}
         onChangeEvent={onFormValueChangeEvent}
@@ -65,6 +68,7 @@ const WritePagePosition = ({
           width: '7.5rem',
           height: '2.8125rem',
           name: 'backend',
+          placeholder: '0',
         }}
         value={backend}
         onChangeEvent={onFormValueChangeEvent}

@@ -115,6 +115,7 @@ export const deleteProject = async (pid: string) => {
 
 //모집중, 모집마감 업데이트
 export const updateRecruiting = async (pid: string, isRecruiting: any) => {
+  if (pid === undefined) return;
   const docRef = doc(firestore, 'post', pid);
   await updateDoc(docRef, { isRecruiting: isRecruiting });
 };
