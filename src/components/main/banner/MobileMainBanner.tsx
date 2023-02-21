@@ -56,6 +56,8 @@ const MobileMainBanner = (props: any) => {
 export default MobileMainBanner;
 const MobileSliderWrapper = styled(Slider)`
   background-color: ${COLORS.gray50};
+  margin: 0;
+  padding: 0;
   width: 100%;
   height: 15.3125rem;
   .slick-slide {
@@ -121,7 +123,7 @@ const MobileBannerTitle = styled.div`
   margin-bottom: 0.5625rem;
 `;
 const MobileBannerSubTitle = styled.div`
-  width: 8.1875rem;
+  width: 9.1875rem;
   height: 1.625rem;
 
   font-weight: 350;
@@ -132,14 +134,12 @@ const MobileBannerSubTitle = styled.div`
 const MobileBannerFirstImg = styled.img`
   position: absolute;
   width: 16.5625rem;
-  height: 17.625rem;
-  left: 14.6875rem;
+  left: 10.6875rem;
   top: -15px;
 `;
 const MobileBannerSecondImg = styled.img`
   position: absolute;
-  width: 25rem;
-  height: 9.375rem;
-  left: 8.125rem;
-  top: 30px;
+  width: 70%;
+  left: 9.125rem;
+  top: 40px;
 `;

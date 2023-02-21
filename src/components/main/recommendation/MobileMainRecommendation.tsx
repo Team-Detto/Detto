@@ -88,23 +88,25 @@ const MobileMainRecommendationWrap = styled.div`
   align-items: center;
   width: 100%;
   height: 27.0625rem;
+  padding: 0rem;
+  margin-top: 2.3125rem;
 `;
 const MobileMainRecommendationContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
 `;
 const MobileMainRecommendationTitle = styled.div`
-  width: 100%;
+  width: 14.375rem;
   height: 1.625rem;
+  padding: 0;
   margin-left: 1.3125rem;
-
   font-family: 'Pretendard';
   font-style: normal;
   font-weight: 700;
   font-size: 1.375rem;
   line-height: 1.625rem;
-
   color: #191f28;
 `;
 const MobileMainRecommendationButtonContainer = styled.div`
@@ -113,7 +115,6 @@ const MobileMainRecommendationButtonContainer = styled.div`
   align-items: flex-start;
   padding: 0px 1.25rem;
   gap: 1rem;
-
   width: 100%;
   height: 3rem;
   border-bottom: 1px solid #f2f4f6;
@@ -134,10 +135,18 @@ const MobileMainRecommendationCardContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 1.625rem;
+  width: 100%;
 `;
 const MobileMainRecommendationCardButton = styled.button`
-  width: 24.375rem;
+  width: 100%;
   height: 1.8125rem;
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 900;
+  font-size: 10px;
+  line-height: 140%;
+  text-align: center;
+  color: #6b7684;
 `;
 
 export default MobileMainRecommendation;

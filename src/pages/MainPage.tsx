@@ -7,6 +7,7 @@ import useIsMobile from 'hooks/useIsMobile';
 import MobileMainBanner from 'components/main/banner/MobileMainBanner';
 import styled from '@emotion/styled';
 import MobileMainRecommendation from 'components/main/recommendation/MobileMainRecommendation';
+import MobileMainFindUsers from 'components/main/findUsers/MobileMainFindUsers';
 const MainPage = () => {
   const Mobile = useIsMobile();
   return (
@@ -16,6 +17,7 @@ const MainPage = () => {
       {Mobile ? (
         <MobileContainer>
           <MobileMainRecommendation />
+          <MobileMainFindUsers />
         </MobileContainer>
       ) : (
         <WebContainer>
@@ -29,6 +31,5 @@ const MainPage = () => {
 };
 const MobileContainer = styled.div`
   width: 100%;
-  position: relative;
 `;
 export default MainPage;
