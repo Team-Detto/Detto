@@ -7,7 +7,7 @@ import {
   updateRecruiting,
   viewProject,
 } from 'apis/postDetail';
-import { useToastPopup } from 'hooks';
+import { useIsMobile, useToastPopup } from 'hooks';
 import { findWithCollectionName } from 'apis/findWithCollectionName';
 import WebContainer from '../components/common/WebContainer';
 import ConfirmAlert from 'components/common/ConfirmAlert';
@@ -18,6 +18,7 @@ import MemberInfoArea from 'components/projectDetail/MemberInfoArea';
 import ContentArea from 'components/projectDetail/ContentArea';
 import ApplyButtonArea from 'components/projectDetail/ApplyButtonArea';
 import ApplicantListArea from 'components/projectDetail/ApplicantListArea';
+import MobileProjectDetailPage from 'components/projectDetail/mobile/projectDetailMobile';
 import { useAuth, useModal, useNotification } from 'hooks';
 import ApplyModal from 'components/projectDetail/ApplyModal/ApplyModal';
 import COLORS from 'assets/styles/colors';
@@ -125,6 +126,16 @@ const ProjectDetailPage = () => {
   //projectData?.uid 가 현재 uid랑 같은지 판별하고 같으면 수정하기 버튼 display, 지원하기 버튼 -> 마감하기 버튼으로 변경, 지원자 목록 보여주기
   //지원하기 버튼 클릭시 지원자 목록에 uid 추가
   //현재 참여중인 인원, 지원한 인원 uid로 모두 user테이블 조회해서 닉네임, 프로필 사진 가져오기???
+  const isMobile = useIsMobile();
+  if (isMobile && projectData) {
+    return (
+      <MobileProjectDetailPage
+        pid={pid}
+        projectData={projectData}
+        userData={userData}
+      />
+    );
+  }
 
   return (
     <ProjectDetailContainer onClick={() => setShare(false)}>
@@ -150,7 +161,6 @@ const ProjectDetailPage = () => {
             <ContentArea projectData={projectData} />
           </ProjectDetailWrapper>
           <ApplyButtonArea
-            pid={pid}
             isApplicant={isApplicant}
             projectData={projectData}
             onApplyModalStateChangeEvent={handleApplyModalOpenChange} //지원하기

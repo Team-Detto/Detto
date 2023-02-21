@@ -21,7 +21,7 @@ const MobileProjectList = ({ category, pidList }: ProjectListProps) => {
     enabled: !!currentPidList,
   });
 
-  console.log('activeProjectsData', activeProjectsData);
+  // console.log('activeProjectsData', activeProjectsData);
 
   return (
     <MobileProjectListContainer>

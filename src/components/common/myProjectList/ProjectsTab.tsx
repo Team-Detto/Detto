@@ -6,23 +6,63 @@ export interface ProjectsTabProps {
   type?: string;
   category: string;
   onTabClick: (e: React.MouseEvent<HTMLLIElement>) => void;
+  version?: string;
 }
 
-const ProjectsTab = ({ type, category, onTabClick }: ProjectsTabProps) => {
+const ProjectsTab = ({
+  type,
+  category,
+  onTabClick,
+  version = 'web',
+}: ProjectsTabProps) => {
+  if (version === 'mobile' && type === 'public') {
+    return (
+      <MobileProjectsTabContainer>
+        {type &&
+          projectTabNames.map((tabName, index) => {
+            if (index === 1 || index === 2) {
+              return (
+                <MobileProjectsTabButton
+                  key={tabName.id}
+                  name={tabName.id}
+                  category={category}
+                  onClick={onTabClick}
+                >
+                  {tabName.value === '참여한 프로젝트' ? '참여한' : '모집중'}
+                </MobileProjectsTabButton>
+              );
+            }
+          })}
+
+        {!type &&
+          projectTabNames.map((tabName) => (
+            <MobileProjectsTabButton
+              key={tabName.id}
+              name={tabName.id}
+              category={category}
+              onClick={onTabClick}
+            >
+              {tabName.value}
+            </MobileProjectsTabButton>
+          ))}
+      </MobileProjectsTabContainer>
+    );
+  }
+
   return (
     <ProjectsTabContainer type={type}>
       {/* 공개프로필 탭 */}
       {type &&
-        projectTabNames.map((tabname, index) => {
+        projectTabNames.map((tabName, index) => {
           if (index === 1 || index === 2) {
             return (
               <ProjectsTabButton
-                key={tabname.id}
-                name={tabname.id}
+                key={tabName.id}
+                name={tabName.id}
                 category={category}
                 onClick={onTabClick}
               >
-                {tabname.value}
+                {tabName.value}
               </ProjectsTabButton>
             );
           }
@@ -70,6 +110,37 @@ const ProjectsTabButton = styled.span<{
   font-weight: 500;
   color: ${({ category, name }) =>
     name === category ? COLORS.violetA500 : COLORS.gray400};
+  transition: all 300ms ease-in-out;
+  cursor: pointer;
+`;
+
+const MobileProjectsTabContainer = styled.div`
+  display: flex;
+  width: 108px;
+  height: 24px;
+  align-items: center;
+  margin: 36px auto;
+  background-color: ${COLORS.gray100};
+  border-radius: 4px;
+`;
+
+const MobileProjectsTabButton = styled.span<{
+  name: string;
+  category: string;
+}>`
+  display: block;
+  text-align: center;
+  width: 54px;
+  height: 100%;
+  padding: 4px 6px;
+  font-weight: 700;
+  font-size: 12px;
+  border-radius: 4px;
+  background-color: ${({ category, name }) =>
+    name === category ? COLORS.violetB300 : COLORS.gray100};
+
+  color: ${({ category, name }) =>
+    name === category ? COLORS.white : COLORS.gray750};
   transition: all 300ms ease-in-out;
   cursor: pointer;
 `;

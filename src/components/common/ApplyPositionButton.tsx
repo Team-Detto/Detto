@@ -3,7 +3,7 @@ import COLORS from 'assets/styles/colors';
 import { positionList } from 'utils/positions';
 
 const ApplyPositionButton = (props: any) => {
-  const { clickValue, setClickValue } = props;
+  const { clickValue, setClickValue, version } = props;
 
   const onClickEvent = (e: React.MouseEvent, idx: number) => {
     e.preventDefault();
@@ -18,6 +18,7 @@ const ApplyPositionButton = (props: any) => {
             key={position.name}
             onClick={(e) => onClickEvent(e, idx)}
             isActive={clickValue === idx}
+            version={version}
           >
             {position.name}
           </PositionButton>
@@ -29,10 +30,14 @@ const ApplyPositionButton = (props: any) => {
 
 export default ApplyPositionButton;
 
-const PositionButton = styled.button`
-  width: 146px;
-  height: 40px;
+const PositionButton = styled.button<{ isActive: boolean; version: string }>`
+  width: ${(props: { version: string }) =>
+    props.version === 'mobile' ? '67px' : '146px'};
+  height: ${(props: { version: string }) =>
+    props.version === 'mobile' ? '42px' : '40px'};
   border-radius: 16px;
+  font-size: ${(props: { version: string }) =>
+    props.version === 'mobile' ? '12px' : '18px'};
 
   background-color: ${(props: { isActive: boolean }) =>
     props.isActive === true ? `${COLORS.violetB500}` : `${COLORS.gray100}`};

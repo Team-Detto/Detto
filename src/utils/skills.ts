@@ -42,5 +42,5 @@ export const concatSkills = (
   stack2: any,
   stack3: any,
 ): string[] => {
-  return [].concat(stack1, stack2, stack3);
+  return Array.from(new Set([].concat(stack1, stack2, stack3))); // 중복 제거
 };
