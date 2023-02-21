@@ -9,13 +9,14 @@ import { LogoBoxH1 } from './Header';
 import PopupContainer from './popup/PopupContainer';
 import COLORS from 'assets/styles/colors';
 
-interface MobileHeaderProps {
-  notes: any;
-  notifications: any;
-}
-
-const MobileHeader = ({ notes, notifications }: MobileHeaderProps) => {
-  const { closePopup, toggleNoteBox, toggleNotificationBox } = usePopup();
+const MobileHeader = () => {
+  const {
+    closePopup,
+    toggleNoteBox,
+    toggleNotificationBox,
+    unreadNoteCount,
+    unreadNotificationCount,
+  } = usePopup();
   const {
     isMain,
     isLoggedIn,
@@ -52,25 +53,23 @@ const MobileHeader = ({ notes, notifications }: MobileHeaderProps) => {
                 <CountBox>
                   <MobileNoteIcon />
                   {/* TODO:: 쪽지 0개일 경우 카운트 안 보이도록 처리 필요 */}
-                  <MobileCount>
-                    {
-                      notes?.filter(({ isRead }: Partial<Note>) => !isRead)
-                        .length
-                    }
-                  </MobileCount>
+                  {unreadNoteCount > 0 && (
+                    <MobileCount>
+                      {unreadNoteCount < 100 ? unreadNoteCount : '99+'}
+                    </MobileCount>
+                  )}
                 </CountBox>
               </MobileMenuItem>
               <MobileMenuItem onClick={toggleNotificationBox}>
                 <CountBox>
                   <MobileNotificationIcon />
-                  {/* TODO:: 알림 0개일 경우 카운트 안 보이도록 처리 필요 */}
-                  <MobileCount>
-                    {
-                      notifications?.filter(
-                        ({ isRead }: Partial<Notification>) => !isRead,
-                      ).length
-                    }
-                  </MobileCount>
+                  {unreadNotificationCount > 0 && (
+                    <MobileCount>
+                      {unreadNotificationCount < 100
+                        ? unreadNotificationCount
+                        : '99+'}
+                    </MobileCount>
+                  )}
                 </CountBox>
               </MobileMenuItem>
             </>
@@ -217,9 +216,10 @@ const MobileCount = styled.span`
   align-items: center;
   position: absolute;
   top: -0.5rem;
-  right: -0.75rem;
-  width: 1.375rem;
-  height: 1.125rem;
+  left: 0.75rem;
+  padding: 0 0.2rem;
+  min-width: 1rem;
+  height: 1.0625rem;
   background-color: ${COLORS.violetB500};
   border-radius: 4px;
 
