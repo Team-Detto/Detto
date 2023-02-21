@@ -2,19 +2,9 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
 import WebContainer from './common/WebContainer';
 import PopupContainer from './popup/PopupContainer';
-import {
-  useAuth,
-  useGlobalModal,
-  useHeader,
-  useIsMobile,
-  usePopup,
-} from 'hooks';
+import { useGlobalModal, useHeader, useIsMobile, usePopup } from 'hooks';
 import COLORS from 'assets/styles/colors';
 import { useEffect } from 'react';
-import { useQueries } from '@tanstack/react-query';
-import { getInboxNotes } from 'apis/notes';
-import { getNotifications } from 'apis/notifications';
-import { staleTime } from 'utils/staleTime';
 
 import MobileHeader from './MobileHeader';
 
@@ -25,7 +15,13 @@ interface headerTypes {
 
 const Header = () => {
   const isMobile = useIsMobile();
-  const { closePopup, toggleNoteBox, toggleNotificationBox } = usePopup();
+  const {
+    closePopup,
+    toggleNoteBox,
+    toggleNotificationBox,
+    unreadNoteCount,
+    unreadNotificationCount,
+  } = usePopup();
   const { openModal } = useGlobalModal();
   const { isMain, isLoggedIn, hideGradient, handleLogoutClick } = useHeader();
   const location = useLocation();
@@ -35,27 +31,9 @@ const Header = () => {
     closePopup();
   }, [location.pathname]);
 
-  const { uid } = useAuth();
-  const [{ data: notes }, { data: notifications }] = useQueries({
-    queries: [
-      {
-        queryKey: ['inbox', uid],
-        queryFn: getInboxNotes,
-        staleTime: staleTime.inboxNotes,
-        enabled: !!uid,
-      },
-      {
-        queryKey: ['notifications', uid],
-        queryFn: getNotifications,
-        staleTime: staleTime.notifications,
-        enabled: !!uid,
-      },
-    ],
-  });
-
   // 모바일일 경우 모바일 헤더 노출
   if (isMobile) {
-    return <MobileHeader notes={notes} notifications={notifications} />;
+    return <MobileHeader />;
   }
 
   return (
@@ -82,12 +60,7 @@ const Header = () => {
                 <NavItemLi onClick={toggleNoteBox}>
                   쪽지
                   <Count>
-                    (
-                    {notes
-                      ? notes.filter(({ isRead }: Partial<Note>) => !isRead)
-                          .length
-                      : 0}
-                    )
+                    ({unreadNoteCount < 100 ? unreadNoteCount : '99+'})
                   </Count>
                 </NavItemLi>
               )}
@@ -96,11 +69,9 @@ const Header = () => {
                   알림
                   <Count>
                     (
-                    {notifications
-                      ? notifications.filter(
-                          ({ isRead }: Partial<Notification>) => !isRead,
-                        ).length
-                      : 0}
+                    {unreadNotificationCount < 100
+                      ? unreadNotificationCount
+                      : '99+'}
                     )
                   </Count>
                 </NavItemLi>

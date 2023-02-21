@@ -56,42 +56,50 @@ export default function MobileSetPositions() {
       {showToast && <ValidationToastPopup message={ToastMessage} top={2} />}
       <ModalNavigator page={page} back />
       <BodyContainer>
-        <TextContainer>
-          <TitleText>어떤 포지션인지 알려주세요</TitleText>
-          <SubText>(중복 선택 가능해요)</SubText>
-        </TextContainer>
-        <PositionButtonsContainer>
-          {positionList.map(({ type, name }) => (
-            <React.Fragment key={type}>
-              <Input
-                type="checkbox"
-                name="position"
-                id={type}
-                onChange={(e) =>
-                  handleCheckPositions(e.currentTarget.checked, type)
-                }
-              />
-              <Label htmlFor={type}>{name}</Label>
-            </React.Fragment>
-          ))}
-        </PositionButtonsContainer>
-        <TextContainer>
-          <TitleText>경력을 선택해주세요</TitleText>
-        </TextContainer>
-        <CareerButtonsContainer>
-          {careerList.map(({ id, value }) => (
-            <React.Fragment key={id}>
-              <Input
-                type="radio"
-                name="career"
-                value={id}
-                id={id}
-                onChange={(e) => setCareer(e.currentTarget.value)}
-              />
-              <Label htmlFor={id}>{value}</Label>
-            </React.Fragment>
-          ))}
-        </CareerButtonsContainer>
+        <div>
+          <TextContainer>
+            <TitleText>어떤 포지션인지 알려주세요</TitleText>
+            <SubText>(중복 선택 가능해요)</SubText>
+          </TextContainer>
+          <ButtonsContainer>
+            {positionList.map(({ type, name }) => (
+              <React.Fragment key={type}>
+                <Input
+                  type="checkbox"
+                  name="position"
+                  id={type}
+                  onChange={(e) =>
+                    handleCheckPositions(e.currentTarget.checked, type)
+                  }
+                />
+                <Label type="position" htmlFor={type}>
+                  {name}
+                </Label>
+              </React.Fragment>
+            ))}
+          </ButtonsContainer>
+        </div>
+        <div>
+          <TextContainer>
+            <TitleText>경력을 선택해주세요</TitleText>
+          </TextContainer>
+          <ButtonsContainer>
+            {careerList.map(({ id, value }) => (
+              <React.Fragment key={id}>
+                <Input
+                  type="radio"
+                  name="career"
+                  value={id}
+                  id={id}
+                  onChange={(e) => setCareer(e.currentTarget.value)}
+                />
+                <Label type="career" htmlFor={id}>
+                  {value}
+                </Label>
+              </React.Fragment>
+            ))}
+          </ButtonsContainer>
+        </div>
       </BodyContainer>
       <MobileConfirmButton onClick={handleConfirmButtonClick} />
     </Container>
@@ -114,8 +122,7 @@ const BodyContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  padding: 0;
+  gap: 1.75rem;
 `;
 
 const TextContainer = styled.div`
@@ -124,7 +131,7 @@ const TextContainer = styled.div`
   align-items: flex-start;
   padding: 0;
 
-  margin-bottom: 0.5625rem;
+  margin-bottom: 0.5rem;
 `;
 
 const TitleText = styled.h3`
@@ -142,35 +149,26 @@ const SubText = styled.h2`
   letter-spacing: -0.02rem;
 `;
 
-const PositionButtonsContainer = styled.div`
+const ButtonsContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
-  gap: 1rem;
-  margin-bottom: 1rem;
+  gap: 0.625rem;
 `;
 
-const CareerButtonsContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  gap: 1rem;
-`;
-
-const Label = styled.label`
+const Label = styled.label<{ type: 'position' | 'career' }>`
   display: flex;
   align-items: center;
   justify-content: center;
 
-  height: 2.5rem;
+  height: 2.625rem;
   flex: 1 1 auto;
 
-  font-size: 0.9rem;
+  font-size: ${({ type }) => (type === 'position' ? '0.6875rem' : '0.875rem')};
   font-weight: 400;
 
   background-color: ${COLORS.gray50};
-  border-radius: 0.8rem;
+  border-radius: 0.75rem;
 
   cursor: pointer;
 
@@ -184,7 +182,7 @@ const Input = styled.input`
 
   &:checked + label {
     color: ${COLORS.white};
-    background-color: ${COLORS.violetB400};
+    background-color: ${COLORS.violetB500};
     font-weight: 700;
   }
 `;

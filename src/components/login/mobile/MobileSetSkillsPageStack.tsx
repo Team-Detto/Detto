@@ -110,4 +110,17 @@ const Skills = styled.div`
   gap: 0.9375rem 0.75rem;
 
   overflow: auto;
+
+  ::-webkit-scrollbar {
+    width: 0.375rem;
+  }
+  ::-webkit-scrollbar-thumb {
+    // 스크롤 막대
+    background: ${COLORS.gray100};
+    border-radius: 0.25rem;
+  }
+  ::-webkit-scrollbar-track {
+    // 스크롤 배경
+    background-color: transparent;
+  }
 `;
