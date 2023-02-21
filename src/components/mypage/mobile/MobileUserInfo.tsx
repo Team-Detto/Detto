@@ -41,6 +41,8 @@ const MobileUserInfo = ({ user }: MypageInfoProps) => {
     updateUserInfoMutate,
     showToast,
     ToastMessage,
+    updateDefaultUserInfoState,
+    defaultUserInfo,
   } = useUpdateProfile();
 
   // 수정 버튼 클릭 시 유효성 검사 확인 후 모달창 오픈
@@ -54,12 +56,14 @@ const MobileUserInfo = ({ user }: MypageInfoProps) => {
   const handleUserInfoUpdate = () => {
     updateUserInfoMutate();
     handleModalStateChange();
+    updateDefaultUserInfoState(userInfo);
   };
 
   useEffect(() => {
     if (!user) return;
 
     setActiveInfoBtn(false);
+    updateDefaultUserInfoState(userInfo);
 
     setUserInfo({
       displayName: user?.displayName,
@@ -72,6 +76,15 @@ const MobileUserInfo = ({ user }: MypageInfoProps) => {
       developerStack: user?.developerStack || [''],
     });
   }, [user]);
+
+  // 기존 정보에서 변경된 정보가 있을 경우에만 수정버튼 활성화
+  useEffect(() => {
+    if (JSON.stringify(defaultUserInfo) !== JSON.stringify(userInfo)) {
+      setActiveInfoBtn(true);
+    } else {
+      setActiveInfoBtn(false);
+    }
+  }, [userInfo]);
 
   return (
     <MobileUserInfoContainer>

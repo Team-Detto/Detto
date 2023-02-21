@@ -1,7 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useSetRecoilState } from 'recoil';
-import { mypageInfoButtonActiveState } from '../../recoil/atoms';
-import { useIsMobile, useModal } from 'hooks';
+import { useIsMobile } from 'hooks';
 import styled from '@emotion/styled';
 import { CgClose } from 'react-icons/cg';
 import {
@@ -36,7 +34,6 @@ const ProfileImageModal = ({
   handleModalStateChange,
   page,
 }: ProfileImageModalProps) => {
-  const setActiveInfoBtn = useSetRecoilState(mypageInfoButtonActiveState);
   const imgRef = useRef<HTMLInputElement | null>(null);
   const isMobile = useIsMobile();
 
@@ -44,7 +41,6 @@ const ProfileImageModal = ({
   const handleProfileEditClick = () => {
     imgRef.current?.click();
     handleModalStateChange();
-    setActiveInfoBtn(true);
   };
 
   // 프로필 삭제 시

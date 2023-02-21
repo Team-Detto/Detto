@@ -16,8 +16,14 @@ const MyPageInfo = ({ user }: MypageInfoProps) => {
     mypageInfoButtonActiveState,
   );
   const { isOpen, handleModalStateChange } = useModal(false);
-  const { updateUserInfoMutate, showToast, ToastMessage, checkInfoValidation } =
-    useUpdateProfile();
+  const {
+    updateUserInfoMutate,
+    showToast,
+    ToastMessage,
+    checkInfoValidation,
+    defaultUserInfo,
+    updateDefaultUserInfoState,
+  } = useUpdateProfile();
 
   // 수정 버튼 클릭 시 유효성 검사 확인 후 변경사항 반영, 모달창 오픈
   const handleUserInfoConfirm = () => {
@@ -26,12 +32,15 @@ const MyPageInfo = ({ user }: MypageInfoProps) => {
     handleModalStateChange();
     // DB로 수정 정보 업데이트
     updateUserInfoMutate();
+    setActiveInfoBtn(false);
+    updateDefaultUserInfoState(userInfo);
   };
 
   useEffect(() => {
     if (!user) return;
 
     setActiveInfoBtn(false);
+    updateDefaultUserInfoState(user);
 
     setUserInfo({
       displayName: user?.displayName,
@@ -44,6 +53,15 @@ const MyPageInfo = ({ user }: MypageInfoProps) => {
       developerStack: user?.developerStack || [''],
     });
   }, [user]);
+
+  // 기존 정보에서 변경된 정보가 있을 경우에만 수정버튼 활성화
+  useEffect(() => {
+    if (JSON.stringify(defaultUserInfo) !== JSON.stringify(userInfo)) {
+      setActiveInfoBtn(true);
+    } else {
+      setActiveInfoBtn(false);
+    }
+  }, [userInfo]);
 
   return (
     <MyPageTopContainer>
