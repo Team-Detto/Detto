@@ -152,15 +152,26 @@ export const MobileContentText = styled.p`
 
 export const MobileContentTextarea = styled.textarea`
   width: 100%;
-  height: 230px;
-  padding: 10px 28px;
+  height: 11.875rem;
+  padding: 0.625rem 1.25rem;
 
   font-weight: 400;
-  font-size: 18px;
-  line-height: 200%;
+  font-size: 0.75rem;
+  line-height: 140%;
 
   border: 1px solid ${COLORS.gray300};
   border-radius: 4px;
 
   resize: none;
+
+  ::-webkit-scrollbar {
+    width: 0.375rem;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: ${COLORS.gray100};
+    border-radius: 0.25rem;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
 `;
