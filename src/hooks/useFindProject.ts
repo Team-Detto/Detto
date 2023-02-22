@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 import { firebaseInfinityScrollProjectDataRequest } from 'apis/boardService';
-import { firebaseFindMyInterestRequset } from 'apis/userService';
+import { firebaseFindMyInterestRequest } from 'apis/userService';
 import { EditType } from 'types/write/writeType';
 import useAuth from './useAuth';
 
@@ -24,7 +24,7 @@ const useFindProject = () => {
       setLastVisible,
     );
     if (uid) {
-      firebaseFindMyInterestRequset(uid, setLikedProjects);
+      firebaseFindMyInterestRequest(uid, setLikedProjects);
     }
 
     window.onbeforeunload = () => {
