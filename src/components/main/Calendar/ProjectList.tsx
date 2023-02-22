@@ -151,8 +151,6 @@ const ProjectListCardTextBox = styled.div`
 const ProjectListCardFindUser = styled.div`
   width: 268px;
   height: 14px;
-  font-family: 'Noto Sans CJK KR';
-  font-style: normal;
   font-weight: 400;
   font-size: 10px;
   line-height: 150%;
@@ -163,20 +161,18 @@ const ProjectListCardFindUser = styled.div`
 const ProjectListCardProjectName = styled.div`
   width: 268px;
   height: 24px;
-  font-family: 'Noto Sans CJK KR';
-  font-style: normal;
   font-weight: 500;
   font-size: 16px;
   line-height: 150%;
-  display: flex;
-  align-items: center;
   color: #464646;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 const ProjectListCardDate = styled.div`
   width: 268px;
   height: 15px;
-  font-family: 'Noto Sans KR';
-  font-style: normal;
   font-weight: 400;
   font-size: 10px;
   line-height: 150%;
