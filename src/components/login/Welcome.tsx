@@ -7,6 +7,11 @@ import { useGlobalModal } from 'hooks';
 export default function Welcome() {
   const { closeModal } = useGlobalModal();
 
+  const handleModalClose = () => {
+    closeModal();
+    window.location.reload();
+  };
+
   return (
     <Container>
       <TopContainer>
@@ -16,7 +21,7 @@ export default function Welcome() {
           <SubText>Detto와 함께 즐거운 프로젝트 여정을 만들어보세요</SubText>
         </TextContainer>
       </TopContainer>
-      <ConfirmButton onClick={closeModal}>확인</ConfirmButton>
+      <ConfirmButton onClick={handleModalClose}>확인</ConfirmButton>
     </Container>
   );
 }

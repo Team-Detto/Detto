@@ -110,7 +110,7 @@ const useUpdateProfile = () => {
 
 export default useUpdateProfile;
 
-const defaultInfo = {
+export const defaultInfo = {
   displayName: '',
   email: '' || null,
   photoURL: '',

@@ -13,7 +13,7 @@ export interface LeftTabProps {
 
 const LeftTab = ({ activeTab, setActiveTab }: LeftTabProps) => {
   const { isOpen, handleModalStateChange } = useModal(false);
-  const { handleLogoutClick } = useHeader();
+  const { withdrawalAccount } = useHeader();
 
   // 탭 활성화하는 함수
   const handleTabClick = (e: React.MouseEvent<HTMLLIElement>) => {
@@ -31,9 +31,9 @@ const LeftTab = ({ activeTab, setActiveTab }: LeftTabProps) => {
 
     // 회원 탈퇴 시 db에서 삭제되는 부분 임시 주석처리
     // await deleteDoc(doc(firestore, 'users', currentUser.uid));
-    // deleteUser(currentUser).catch((err) => console.error(err));
-    // handleModalStateChange();
-    handleLogoutClick();
+    deleteUser(currentUser).catch((err) => console.error(err));
+    handleModalStateChange();
+    withdrawalAccount();
   };
 
   return (
