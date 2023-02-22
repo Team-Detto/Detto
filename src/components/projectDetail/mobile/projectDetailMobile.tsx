@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import TitleThumbnailArea from './MobileTitleThumbnailArea';
 import ViewsToShareArea from './MobileViewsToShareArea';
-import WriterToProjectInfoArea from './MobileWriterToProjectInfoArea';
+import WriterToProjectInfoArea from './MobileWirterToProjectInfoArea';
 import MemberInfoArea from './MobileMemberInfoArea';
 import RecruitContentArea from './MobileRecruitContentArea';
 import ApplicantsList from './MobileApplicantsList';
@@ -92,4 +92,5 @@ const MobileContainer = styled.div`
   height: 100%;
   padding: 3rem 0 5rem 0;
   background-color: #fcfcfc;
+  overflow-x: hidden;
 `;

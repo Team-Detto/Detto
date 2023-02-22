@@ -1,9 +1,11 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
+import { useNavigate } from 'react-router-dom';
 import { getDate } from 'utils/date';
 
 const WriterToProjectInfoArea = ({ projectData, userData }: any) => {
   const {
+    uid,
     positions,
     plannerStack,
     developerStack,
@@ -11,10 +13,13 @@ const WriterToProjectInfoArea = ({ projectData, userData }: any) => {
     startDate,
     endDate,
   } = projectData;
+
+  const navigate = useNavigate();
+
   return (
     <>
       <WriterToProjectInfoContainer>
-        <WriterWrapper>
+        <WriterWrapper onClick={() => navigate(`/profile/${uid}`)}>
           <WriterProfileImg src={userData?.photoURL} />
           <WriterNickname>{userData?.displayName}</WriterNickname>
         </WriterWrapper>
@@ -29,28 +34,35 @@ const WriterToProjectInfoArea = ({ projectData, userData }: any) => {
             </ProjectInfoValue>
           </ProjectInfoObject>
           <ProjectInfoObject>
-            <ProjectInfoKey>프로젝트 스택</ProjectInfoKey>
+            <Div>
+              <ProjectInfoKey>프로젝트</ProjectInfoKey>
+              <ProjectInfoKey>스택</ProjectInfoKey>
+            </Div>
             <ProjectInfoStackWrap>
               <StackDiv>
                 <StackTitle>기획</StackTitle>
-                {plannerStack?.map((skill: string) => {
-                  return <StackValue key={skill}>{skill}</StackValue>;
-                }) ?? '없음'}
+                <StackList>
+                  {plannerStack?.map((skill: string) => {
+                    return <StackValue key={skill}>{skill}</StackValue>;
+                  }) ?? '없음'}
+                </StackList>
               </StackDiv>
               <StackDiv>
                 <StackTitle>개발</StackTitle>
-                <Bumper>
+                <StackList>
                   {developerStack?.map((skill: string) => {
                     return <StackValue key={skill}>{skill}</StackValue>;
                   }) ?? '없음'}
-                </Bumper>
+                </StackList>
                 {/* <UserStacks stacks={developerStack} version="mobile" /> */}
               </StackDiv>
               <StackDiv>
                 <StackTitle>디자인</StackTitle>
-                {designerStack?.map((skill: string) => {
-                  return <StackValue key={skill}>{skill}</StackValue>;
-                }) ?? '없음'}
+                <StackList>
+                  {designerStack?.map((skill: string) => {
+                    return <StackValue key={skill}>{skill}</StackValue>;
+                  }) ?? '없음'}
+                </StackList>
               </StackDiv>
             </ProjectInfoStackWrap>
           </ProjectInfoObject>
@@ -71,18 +83,15 @@ export default WriterToProjectInfoArea;
 const WriterToProjectInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
-
-  /* width: 100%; */
-  height: 271px;
+  min-height: 13.75rem;
   background-color: ${COLORS.white};
-  gap: 13px;
-  margin: 20px auto;
+  gap: 0.9375rem;
+  margin: 1.25rem auto 2.5rem;
 `;
 
 const WriterWrapper = styled.div`
   display: flex;
-  margin: 8px 20px 0 20px;
-  /* width: 100%; */
+  margin: 1rem 1.25rem 0 20px;
   height: 32px;
   align-items: center;
 `;
@@ -107,7 +116,6 @@ const ProjectInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 15px 18px 15px;
-  /* width: 100%; */
   height: 100%;
   gap: 8px;
 `;
@@ -126,11 +134,9 @@ const ProjectInfoKey = styled.div`
   height: 28px;
   font-size: 12px;
   line-height: 28px;
-
   display: flex;
   align-items: center;
   letter-spacing: -0.02em;
-
   color: #383838;
 `;
 
@@ -140,8 +146,6 @@ const ProjectInfoValue = styled.div`
   font-weight: 500;
   font-size: 13px;
   line-height: 28px;
-  /* identical to box height, or 215% */
-
   display: flex;
   align-items: center;
   letter-spacing: -0.02em;
@@ -157,7 +161,7 @@ const ProjectInfoStackWrap = styled.div`
   gap: 10px;
 
   width: 282px;
-  height: 104px;
+  min-height: 104px;
 `;
 
 const StackDiv = styled.div`
@@ -165,13 +169,12 @@ const StackDiv = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  /* gap: 0.625rem; */
   width: 100%;
   height: 100%;
 `;
 
 const StackTitle = styled.div`
-  width: 40px;
+  min-width: 40px;
   height: 100%;
   font-size: 12px;
   display: flex;
@@ -186,7 +189,7 @@ const Bumper = styled.div`
   flex-direction: row;
   align-items: center;
   gap: 0.625rem;
-  margin-left: 0.625rem;
+  margin-left: 0.4rem;
 `;
 
 const StackValue = styled.div`
@@ -199,15 +202,13 @@ const StackValue = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  /* white-space: nowrap; */
-  /* overflow: scroll; */
 `;
 
-const Div = styled.div`
+const Div = styled.div``;
+
+const StackList = styled.div`
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-wrap: wrap;
   gap: 0.625rem;
-  width: 100%;
-  height: 2.5rem;
+  margin-left: 0.4rem;
 `;
