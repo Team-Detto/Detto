@@ -4,10 +4,9 @@ import Likes from './Likes';
 import Share from './Share';
 import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
-import { useEffect } from 'react';
 
 const WriterToShareArea = ({ pid, userData, projectData }: any) => {
-  const { uid, like, title, content, view } = projectData;
+  const { uid, title, content, view, like } = projectData;
   const navigate = useNavigate();
 
   return (
