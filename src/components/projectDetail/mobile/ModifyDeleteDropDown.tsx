@@ -18,7 +18,7 @@ const ModifyDeleteDropDown = ({ pid, popup, setPopup, projectData }: any) => {
         subMessage="게시글은 바로 사라집니다!"
         onClickEvent={() => {
           deleteProjectMutate(pid);
-          navigate('/');
+          window.history.back();
         }}
         onCloseEvent={handleModalStateChange}
       />

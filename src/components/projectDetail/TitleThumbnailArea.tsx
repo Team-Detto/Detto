@@ -40,7 +40,7 @@ const TitleThumbnailArea = ({ projectData, pid }: any) => {
         subMessage="게시글은 바로 사라집니다!"
         onClickEvent={() => {
           handleDeleteProject();
-          navigate('/');
+          window.history.back();
         }}
         onCloseEvent={handleModalStateChange}
       />
