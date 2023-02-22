@@ -17,14 +17,14 @@ import { getUserInfoData } from 'apis/mypageUsers';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
 import Alert from 'components/common/Alert';
 
-export default function SendNote({ data }: { data: Note }) {
+export default function ReplyNote({ data }: { data: Note }) {
   const [disabled, setDisabled] = useState(false);
   const [note, setNote] = useState<SendNote>({ title: '', content: '' });
   const { closeModal } = useGlobalModal();
   const sendNote = useNote();
 
   const { data: receiver } = useQuery({
-    queryKey: ['user', data?.receiverUid],
+    queryKey: ['user', data?.senderUid],
     queryFn: getUserInfoData,
     staleTime: staleTime.user,
   });
@@ -52,7 +52,7 @@ export default function SendNote({ data }: { data: Note }) {
 
   const handleSendButtonClick = () => {
     if (!checkNoteValidation()) return;
-    sendNote({ note: note, receiverUid: data.receiverUid });
+    sendNote({ note: note, receiverUid: data.senderUid });
     setDisabled(true);
     onAlertClickEvent(); //alert창 띄우기
   };
