@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import WebContainer from './common/WebContainer';
 import { LogoBoxH1 } from './Header';
 import iconGithub from 'assets/images/footer_github.png';
+import iconBehance from 'assets/images/footer_behance.png';
 
 const Footer = () => {
   return (
@@ -73,7 +74,7 @@ const Footer = () => {
               </ContentItem>
               <ContentItem>
                 <IconWrapper>
-                  <IconGithub src={iconGithub} alt="깃허브" />
+                  <IconGithub src={iconBehance} alt="비핸스" />
                 </IconWrapper>
                 <PageLink target={'_blank'} to={''}>
                   하연님
