@@ -1,0 +1,212 @@
+import COLORS from 'assets/styles/colors';
+import { Link } from 'react-router-dom';
+import styled from '@emotion/styled';
+import WebContainer from './common/WebContainer';
+import { LogoBoxH1 } from './Header';
+import iconGithub from 'assets/images/footer_github.png';
+
+const Footer = () => {
+  return (
+    <FooterContainer>
+      <WebContainer>
+        <FooterContentsWrapper>
+          <ContentsBox>
+            <LogoBox>
+              <Link to={'/'}> Detto</Link>
+            </LogoBox>
+            <OurTeamText>
+              함께 성장하는 시너지를 믿는 팀, <br />
+              내일배움캠프 리액트 트랙
+              <br /> 팀 디토입니다.
+            </OurTeamText>
+            <IconList>
+              <IconItem />
+              <IconItem />
+              <IconItem />
+            </IconList>
+          </ContentsBox>
+          <ContentsBox>
+            <ContentsTitle>CONTACT</ContentsTitle>
+            <ContentsList>
+              <ContentItem>
+                <IconWrapper>
+                  <IconGithub src={iconGithub} alt="깃허브" />
+                </IconWrapper>
+                <PageLink target={'_blank'} to={'https://github.com/su-no'}>
+                  su-no
+                </PageLink>
+              </ContentItem>
+              <ContentItem>
+                <IconWrapper>
+                  <IconGithub src={iconGithub} alt="깃허브" />
+                </IconWrapper>
+                <PageLink target={'_blank'} to={'https://github.com/yujleee'}>
+                  yujleee
+                </PageLink>
+              </ContentItem>
+              <ContentItem>
+                <IconWrapper>
+                  <IconGithub src={iconGithub} alt="깃허브" />
+                </IconWrapper>
+                <PageLink
+                  target={'_blank'}
+                  to={'https://github.com/baesee0806'}
+                >
+                  baesee0806
+                </PageLink>
+              </ContentItem>
+              <ContentItem>
+                <IconWrapper>
+                  <IconGithub src={iconGithub} alt="깃허브" />
+                </IconWrapper>
+                <PageLink target={'_blank'} to={'https://github.com/vpvm96'}>
+                  vpvm96
+                </PageLink>
+              </ContentItem>
+              <ContentItem>
+                <IconWrapper>
+                  <IconGithub src={iconGithub} alt="깃허브" />
+                </IconWrapper>
+                <PageLink target={'_blank'} to={'https://github.com/jeLee94'}>
+                  jeLee94
+                </PageLink>
+              </ContentItem>
+              <ContentItem>
+                <IconWrapper>
+                  <IconGithub src={iconGithub} alt="깃허브" />
+                </IconWrapper>
+                <PageLink target={'_blank'} to={''}>
+                  하연님
+                </PageLink>
+              </ContentItem>
+            </ContentsList>
+          </ContentsBox>
+          <ContentsBox>
+            <ContentsTitle>FEEDBACK</ContentsTitle>
+            <ContentsList>
+              <ContentItem>
+                <PageLink
+                  target={'_blank'}
+                  to={'https://forms.gle/56Q3PzjfhS6WzbxRA'}
+                >
+                  Google Form
+                </PageLink>
+              </ContentItem>
+            </ContentsList>
+          </ContentsBox>
+          <ContentsBox>
+            <ContentsTitle>CATEGORY</ContentsTitle>
+            <ContentsList>
+              <ContentItem>
+                <PageLink to={'/findproject'}>Planning</PageLink>
+              </ContentItem>
+              <ContentItem>
+                <PageLink to={'/findproject'}>Design</PageLink>
+              </ContentItem>
+              <ContentItem>
+                <PageLink to={'/findproject'}>Frontend</PageLink>
+              </ContentItem>
+              <ContentItem>
+                <PageLink to={'/findproject'}>Backend</PageLink>
+              </ContentItem>
+            </ContentsList>
+          </ContentsBox>
+        </FooterContentsWrapper>
+        <Copyright>@2023 All Rights Reserved</Copyright>
+      </WebContainer>
+    </FooterContainer>
+  );
+};
+
+export default Footer;
+
+const FooterContainer = styled.footer`
+  width: 100%;
+  height: 22.25rem;
+  background-color: ${COLORS.gray50};
+  padding: 4rem 0;
+  position: relative;
+`;
+
+const FooterContentsWrapper = styled.div`
+  display: flex;
+  gap: 10rem;
+`;
+
+const Copyright = styled.p`
+  font-size: 14px;
+  line-height: 140%;
+  color: ${COLORS.gray700};
+  position: absolute;
+  right: 0;
+  bottom: 0.625rem;
+`;
+
+const ContentsBox = styled.div`
+  max-width: 13.75rem;
+  color: ${COLORS.gray750};
+`;
+
+const LogoBox = styled(LogoBoxH1)`
+  margin-left: 0;
+`;
+
+const OurTeamText = styled.p`
+  margin: 1.125rem 0 2.5rem;
+  font-size: 0.875rem;
+  line-height: 160%;
+  color: ${COLORS.gray750};
+`;
+
+const IconList = styled.ul`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const IconItem = styled.li`
+  display: block;
+  width: 2rem;
+  height: 2rem;
+
+  &:last-of-type {
+    margin-right: 1.25rem;
+  }
+`;
+
+const ContentsTitle = styled.strong`
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 140%;
+  letter-spacing: 0.185em;
+`;
+
+const ContentsList = styled.ul`
+  margin-top: 1.125rem;
+`;
+
+const ContentItem = styled.li`
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin-bottom: 0.75rem;
+`;
+
+const IconWrapper = styled.div`
+  width: 1.125rem;
+  height: 1.125rem;
+`;
+
+const IconGithub = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+
+const PageLink = styled(Link)`
+  font-size: 14px;
+
+  &:hover {
+    color: ${COLORS.gray850};
+  }
+`;
