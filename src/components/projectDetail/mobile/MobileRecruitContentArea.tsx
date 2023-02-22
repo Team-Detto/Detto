@@ -1,11 +1,21 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 
+import { Viewer } from '@toast-ui/react-editor';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
+import Prism from 'prismjs';
+
 const MobileRecruitContentArea = ({ content }: any) => {
   return (
     <MobileRecruitContentContainer>
       <MobileRecruitContentTitle>모집안내</MobileRecruitContentTitle>
-      <MobileRecruitContentText>{content}</MobileRecruitContentText>
+      <MobileRecruitContentText>
+        <Viewer
+          initialValue={content}
+          plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
+        />
+      </MobileRecruitContentText>
     </MobileRecruitContentContainer>
   );
 };
@@ -29,11 +39,7 @@ const MobileRecruitContentText = styled.div`
   width: 100%;
   min-height: 183px;
   height: 100%;
-  font-size: 10px;
-  line-height: 140%;
   background-color: ${COLORS.white};
-  color: ${COLORS.gray800};
-
   margin-top: 6px;
   padding: 13px 15px;
 `;
