@@ -5,6 +5,7 @@ import UserPositions from '../UserPositions';
 import { concatSkills } from 'utils/skills';
 import ProjectsTab from 'components/common/myProjectList/ProjectsTab';
 import MobileProjectList from 'components/mypage/mobile/MobileProjectList';
+import PublicProfileImage from './PublicProfileImage';
 
 const MobilePublicProfilePage = ({
   userInfoData,
@@ -23,14 +24,12 @@ const MobilePublicProfilePage = ({
     developerStack,
   } = userInfoData;
 
-  const { uid } = useAuth();
   const skills = concatSkills(plannerStack, designerStack, developerStack);
 
   return (
     <MobileContainer>
-      {/* <PublicProfileContainer> */}
       <UserInfoWrapper>
-        <UserImage src={photoURL} />
+        <PublicProfileImage userInfoData={userInfoData} photoURL={photoURL} />
         <NameAndPositionDiv>
           <UserNickName>{displayName}</UserNickName>
           <UserPositions
@@ -55,7 +54,6 @@ const MobilePublicProfilePage = ({
         />
         <MobileProjectList category={activeProjectTab} pidList={pidList} />
       </ProjectWrapper>
-      {/* </PublicProfileContainer> */}
     </MobileContainer>
   );
 };
@@ -68,20 +66,12 @@ const MobileContainer = styled.div`
   padding: 3rem 0 5rem 0;
 `;
 
-const PublicProfileContainer = styled.div``;
-
 const UserInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 9px;
-`;
-
-const UserImage = styled.img`
-  width: 122px;
-  height: 122px;
-  border-radius: 50%;
 `;
 
 const NameAndPositionDiv = styled.div`
@@ -127,5 +117,3 @@ const UserStacks = styled.div`
 `;
 
 const ProjectWrapper = styled.div``;
-
-const ProjectList = styled.div``;
