@@ -1,8 +1,10 @@
 import styled from '@emotion/styled';
 import ScollToTopImage from 'assets/images/scroll_to_top.png';
+import { useIsMobile } from 'hooks';
 import { useEffect, useState } from 'react';
 
 const ScrollToTopButton = () => {
+  const isMobile = useIsMobile();
   const [showButton, setShowButton] = useState<boolean>(false);
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -21,6 +23,18 @@ const ScrollToTopButton = () => {
     };
   }, []);
 
+  if (isMobile) {
+    return (
+      <>
+        {showButton && (
+          <MobileButton onClick={scrollToTop}>
+            <img src={ScollToTopImage} alt="Scroll to top" />
+          </MobileButton>
+        )}
+      </>
+    );
+  }
+
   return (
     <>
       {showButton && (
@@ -33,6 +47,16 @@ const ScrollToTopButton = () => {
 };
 
 export default ScrollToTopButton;
+
+const MobileButton = styled.button`
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 1000;
+  width: 3.3rem;
+  height: 3.3rem;
+  border-radius: 100%;
+`;
 
 const Button = styled.button`
   position: fixed;
