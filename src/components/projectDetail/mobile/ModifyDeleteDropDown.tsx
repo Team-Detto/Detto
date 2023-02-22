@@ -6,7 +6,7 @@ import MobileConfirmAlert from 'components/common/mobile/MobileConfirmAlert';
 import { useModal } from 'hooks';
 import { useNavigate, Link } from 'react-router-dom';
 
-const ModifyDeleteDropDown = ({ pid, popup, setPopup }: any) => {
+const ModifyDeleteDropDown = ({ pid, popup, setPopup, projectData }: any) => {
   const { isOpen, handleModalStateChange } = useModal(false);
   const navigate = useNavigate();
   const { mutate: deleteProjectMutate } = useMutation(() => deleteProject(pid));
@@ -31,7 +31,9 @@ const ModifyDeleteDropDown = ({ pid, popup, setPopup }: any) => {
           <DropdownBox>
             <DropdownList>
               <DropdownItem>
-                <Link to={`/project/write/${pid}`}>수정하기</Link>
+                <Link to={`/project/write/${pid}`} state={projectData}>
+                  수정하기
+                </Link>
               </DropdownItem>
 
               <DropdownItem onClick={handleModalStateChange}>
