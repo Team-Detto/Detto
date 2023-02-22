@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 
@@ -7,14 +9,26 @@ import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 import Prism from 'prismjs';
 
 const MobileRecruitContentArea = ({ content }: any) => {
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <MobileRecruitContentContainer>
       <MobileRecruitContentTitle>모집안내</MobileRecruitContentTitle>
       <MobileRecruitContentText>
-        <Viewer
-          initialValue={content}
-          plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
-        />
+        {isLoaded && (
+          <Viewer
+            initialValue={content}
+            plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
+          />
+        )}
       </MobileRecruitContentText>
     </MobileRecruitContentContainer>
   );
