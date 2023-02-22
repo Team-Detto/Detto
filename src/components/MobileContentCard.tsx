@@ -60,7 +60,7 @@ const MobileContentCard = ({
   return (
     <MobileContentCardWrap onClick={onNavigateToProjectDetailEvent(id ?? pid)}>
       <ContentCardImgContainer>
-        {!thumbnail ? (
+        {thumbnail ? (
           <ContentCardImg src={thumbnail} />
         ) : (
           <ContentCardImg src={defaultThumbnail} />
@@ -70,7 +70,7 @@ const MobileContentCard = ({
             <AiFillHeart size="1.5rem" color={`${COLORS.pink}`} />
           )}
           {!likedProjects.includes(id ?? pid) && (
-            <AiOutlineHeart size="1.5rem" color={`${COLORS.gray750}`} />
+            <AiOutlineHeart size="1.5rem" color={`${COLORS.gray600}`} />
           )}
         </ContentCardBookmark>
       </ContentCardImgContainer>
@@ -79,7 +79,6 @@ const MobileContentCard = ({
           <RecruitingIcon>
             {isRecruiting ? '모집중' : '모집마감'}
           </RecruitingIcon>
-
           <ContentCardDate>
             프로젝트 시작일 | <span> {getDate(startDate)}</span>
           </ContentCardDate>
@@ -104,14 +103,14 @@ const MobileContentCardWrap = styled.div`
   margin-bottom: 0.9375rem;
 `;
 const ContentCardImgContainer = styled.div`
-  width: 5.125rem;
-  height: 5.125rem;
+  width: 4.5rem;
+  height: 4.5rem;
   margin: 1rem 0.875rem 0.5rem 1.25rem;
   position: relative;
 `;
 const ContentCardImg = styled.img`
-  width: 4.5rem;
-  height: 4.5rem;
+  width: 100%;
+  height: 100%;
   border-radius: 0.5rem;
   object-fit: cover;
 `;
@@ -143,8 +142,6 @@ const ContentCardDateContainer = styled.div`
   align-items: center;
 `;
 const ContentCardDate = styled.div`
-  font-family: 'Noto Sans KR';
-  font-style: normal;
   font-weight: 500;
   font-size: 12px;
   line-height: 17px;
@@ -154,12 +151,12 @@ const ContentCardDate = styled.div`
 `;
 const ContentCardBookmark = styled.button`
   position: absolute;
-  bottom: 0.3125rem;
-  left: 0.335rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  bottom: 0.25rem;
+  left: 0.25rem;
 `;
 const ContentCardTitle = styled.div`
-  font-family: 'Noto Sans KR';
-  font-style: normal;
   font-weight: 700;
   font-size: 16px;
   line-height: 23px;
@@ -173,8 +170,6 @@ const ContentCardSubTextBox = styled.div`
   align-items: center;
 `;
 const ContentCardSubText = styled.p`
-  font-family: 'Noto Sans KR';
-  font-style: normal;
   font-weight: 500;
   font-size: 13px;
   line-height: 19px;
