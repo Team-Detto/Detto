@@ -106,14 +106,8 @@ const useWrite = () => {
   const handleFormValueChange = useCallback(
     (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { name, value } = e.target;
-      const isPosition: boolean = [
-        'planner',
-        'designer',
-        'frontend',
-        'backend',
-      ].some((v: string) => v === name);
-      if (isPosition) {
-        setWriteFormValue((prev: WriteType.WriteFormType) => {
+      setWriteFormValue((prev: WriteType.WriteFormType) => {
+        if (['planner', 'designer', 'frontend', 'backend'].includes(name)) {
           return {
             ...prev,
             positions: {
@@ -121,10 +115,7 @@ const useWrite = () => {
               [name]: Number(value),
             },
           };
-        });
-        return;
-      }
-      setWriteFormValue((prev: WriteType.WriteFormType) => {
+        }
         return {
           ...prev,
           [name]: value,
