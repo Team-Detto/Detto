@@ -8,6 +8,11 @@ import MobileConfirmButton from './MobileConfirmButton';
 export default function MobileWelcome() {
   const { closeModal } = useGlobalModal();
 
+  const handleModalClose = () => {
+    closeModal();
+    window.location.reload();
+  };
+
   return (
     <Container>
       <TopContainer>
@@ -17,7 +22,7 @@ export default function MobileWelcome() {
           <SubText>Detto와 함께 즐거운 프로젝트 여정을 만들어보세요</SubText>
         </TextContainer>
       </TopContainer>
-      <MobileConfirmButton onClick={closeModal} />
+      <MobileConfirmButton onClick={handleModalClose} />
     </Container>
   );
 }

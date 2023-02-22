@@ -75,6 +75,7 @@ const useSocialLogin = () => {
       } else {
         // 기존 유저일 경우, 모달 닫기
         closeModal();
+        window.location.reload();
       }
     } catch (error) {
       console.error('error: ', error);
