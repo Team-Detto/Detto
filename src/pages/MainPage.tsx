@@ -31,5 +31,6 @@ const MainPage = () => {
 };
 const MobileContainer = styled.div`
   width: 100%;
+  padding: 0 1.25rem 6.5rem 1.25rem;
 `;
 export default MainPage;

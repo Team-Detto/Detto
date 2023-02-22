@@ -73,11 +73,9 @@ const MobileMainRecommendation = () => {
             ))}
         </MobileMainRecommendationCardContainer>
       </MobileMainRecommendationContainer>
-      <Link to={'/findproject'}>
-        <MobileMainRecommendationCardButton>
-          더 보기
-        </MobileMainRecommendationCardButton>
-      </Link>
+      <MobileMainRecommendationCardButton to={'/findproject'}>
+        더 보기
+      </MobileMainRecommendationCardButton>
     </MobileMainRecommendationWrap>
   );
 };
@@ -89,7 +87,7 @@ const MobileMainRecommendationWrap = styled.div`
   width: 100%;
   padding: 0rem;
   margin-top: 2.3125rem;
-  margin-bottom: 1.875rem;
+  margin-bottom: 1.625rem;
 `;
 const MobileMainRecommendationContainer = styled.div`
   width: 100%;
@@ -101,9 +99,6 @@ const MobileMainRecommendationTitle = styled.div`
   width: 14.375rem;
   height: 1.625rem;
   padding: 0;
-  margin-left: 1.3125rem;
-  font-family: 'Pretendard';
-  font-style: normal;
   font-weight: 700;
   font-size: 1.375rem;
   line-height: 1.625rem;
@@ -113,7 +108,6 @@ const MobileMainRecommendationButtonContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding: 0px 1.25rem;
   gap: 1rem;
   width: 100%;
   height: 3rem;
@@ -122,14 +116,12 @@ const MobileMainRecommendationButtonContainer = styled.div`
 const MobileMainRecommendationButton = styled.button<{ active: boolean }>`
   width: 3.1875rem;
   height: 3rem;
-  font-family: 'Pretendard';
-  font-style: normal;
   font-weight: 500;
   font-size: 15px;
   line-height: 24px;
   color: ${(props) => (props.active ? COLORS.violetB300 : `#909599`)};
   border-bottom: ${(props) =>
-    props.active ? `1px solid ${COLORS.violetB300}` : `none`};
+    props.active ? `2px solid ${COLORS.violetB300}` : `none`};
 `;
 const MobileMainRecommendationCardContainer = styled.div`
   display: flex;
@@ -137,13 +129,13 @@ const MobileMainRecommendationCardContainer = styled.div`
   margin-bottom: 1.625rem;
   width: 100%;
 `;
-const MobileMainRecommendationCardButton = styled.button`
+const MobileMainRecommendationCardButton = styled(Link)`
   width: 100%;
+  padding: 0.625rem 0;
   font-weight: 900;
   font-size: 10px;
-  line-height: 140%;
   text-align: center;
-  color: #6b7684;
+  color: ${COLORS.gray750};
 `;
 
 export default MobileMainRecommendation;
