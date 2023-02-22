@@ -1,28 +1,54 @@
-import { positionList } from 'utils/positions';
+import { MouseEvent, useCallback } from 'react';
+import { mobilePositionList } from 'utils/positions';
 import {
   EditPageMobileBodyLeftBox,
   EditPageMobileBodyText,
 } from './EditPageMobileBody';
-import COLORS from 'assets/styles/colors';
+import MobileInput from 'components/writepage/mobile/MobileInput';
 import styled from '@emotion/styled';
 
 interface Props {
-  positions: string[];
+  positions: any;
+  setEditFormValue: (value: any) => void;
+  onFormValueChangeEvent: (e: any) => void;
 }
 
-const EditPageMobilePosition = ({ positions }: Props) => {
+const EditPageMobilePosition = ({
+  positions,
+  setEditFormValue,
+  onFormValueChangeEvent,
+}: Props) => {
+  const handleCalculate = useCallback(
+    (e: MouseEvent<HTMLButtonElement>) => {
+      const { id, name, value } = e.currentTarget;
+      const numberValue = Number(value);
+      const updatedValue =
+        id === 'plus' ? numberValue + 1 : Math.max(0, numberValue - 1);
+      setEditFormValue((prev: any) => ({
+        ...prev,
+        positions: {
+          ...prev.positions,
+          [name]: updatedValue,
+        },
+      }));
+    },
+    [setEditFormValue],
+  );
   return (
     <EditPageMobilePositionContainer>
       <EditPageMobileBodyLeftBox>
         <EditPageMobileBodyText>필요 포지션</EditPageMobileBodyText>
       </EditPageMobileBodyLeftBox>
       <EditPageMobileBodyRightBox>
-        {positionList.map((position) => (
-          <EditPageMobileBodyPositionBox key={position.type}>
-            <EditPageMobileBodyTextInput />
-            <EditPageMobileBodyInput type="number" placeholder="0" />
-            <EditPageMobileBodyInputLabel>명</EditPageMobileBodyInputLabel>
-          </EditPageMobileBodyPositionBox>
+        {mobilePositionList.map((position) => (
+          <MobileInput
+            key={position.type}
+            name={position.type}
+            position={position.name}
+            value={positions[position.type]}
+            onChangeEvent={onFormValueChangeEvent}
+            onClickEvent={handleCalculate}
+          />
         ))}
       </EditPageMobileBodyRightBox>
     </EditPageMobilePositionContainer>
@@ -32,55 +58,14 @@ const EditPageMobilePosition = ({ positions }: Props) => {
 const EditPageMobilePositionContainer = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: row;
-`;
-const EditPageMobileBodyTextInput = styled.div`
-  width: 7.125rem;
-  height: 2.6875rem;
-  background: ${COLORS.white};
-  border: 0.0625rem solid ${COLORS.gray100};
-  border-radius: 0.125rem;
-  padding-left: 0.5rem;
-  font-weight: 400;
-  font-size: 0.75rem;
-  line-height: 140%;
-  color: ${COLORS.gray850};
+  flex-direction: column;
 `;
 const EditPageMobileBodyRightBox = styled.div`
-  width: 75%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-`;
-const EditPageMobileBodyPositionBox = styled.div`
   width: 100%;
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   align-items: center;
-  justify-content: center;
   gap: 1rem;
+  margin-top: 1rem;
 `;
-const EditPageMobileBodyInput = styled.input`
-  width: 5.5625rem;
-  height: 2.75rem;
-  border: 0.0625rem solid ${COLORS.gray100};
-  text-align: end;
-  padding-right: 0.5rem;
-  ::-webkit-outer-spin-button,
-  ::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-`;
-const EditPageMobileBodyInputLabel = styled.label`
-  width: 0.6875rem;
-  height: 1.75rem;
-  font-weight: 400;
-  font-size: 0.75rem;
-  line-height: 1.75rem;
-  letter-spacing: -0.02em;
-  color: ${COLORS.gray800};
-`;
-
 export default EditPageMobilePosition;
