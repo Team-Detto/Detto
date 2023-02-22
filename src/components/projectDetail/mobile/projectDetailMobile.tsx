@@ -92,4 +92,5 @@ const MobileContainer = styled.div`
   height: 100%;
   padding: 3rem 0 5rem 0;
   background-color: #fcfcfc;
+  overflow-x: hidden;
 `;

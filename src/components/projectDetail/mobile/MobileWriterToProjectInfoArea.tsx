@@ -36,24 +36,28 @@ const WriterToProjectInfoArea = ({ projectData, userData }: any) => {
             <ProjectInfoStackWrap>
               <StackDiv>
                 <StackTitle>기획</StackTitle>
-                {plannerStack?.map((skill: string) => {
-                  return <StackValue key={skill}>{skill}</StackValue>;
-                }) ?? '없음'}
+                <StackList>
+                  {plannerStack?.map((skill: string) => {
+                    return <StackValue key={skill}>{skill}</StackValue>;
+                  }) ?? '없음'}
+                </StackList>
               </StackDiv>
               <StackDiv>
                 <StackTitle>개발</StackTitle>
-                <Bumper>
+                <StackList>
                   {developerStack?.map((skill: string) => {
                     return <StackValue key={skill}>{skill}</StackValue>;
                   }) ?? '없음'}
-                </Bumper>
+                </StackList>
                 {/* <UserStacks stacks={developerStack} version="mobile" /> */}
               </StackDiv>
               <StackDiv>
                 <StackTitle>디자인</StackTitle>
-                {designerStack?.map((skill: string) => {
-                  return <StackValue key={skill}>{skill}</StackValue>;
-                }) ?? '없음'}
+                <StackList>
+                  {designerStack?.map((skill: string) => {
+                    return <StackValue key={skill}>{skill}</StackValue>;
+                  }) ?? '없음'}
+                </StackList>
               </StackDiv>
             </ProjectInfoStackWrap>
           </ProjectInfoObject>
@@ -74,15 +78,15 @@ export default WriterToProjectInfoArea;
 const WriterToProjectInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 271px;
+  min-height: 13.75rem;
   background-color: ${COLORS.white};
-  gap: 13px;
-  margin: 20px auto;
+  gap: 0.9375rem;
+  margin: 1.25rem auto 2.5rem;
 `;
 
 const WriterWrapper = styled.div`
   display: flex;
-  margin: 8px 20px 0 20px;
+  margin: 1rem 1.25rem 0 20px;
   height: 32px;
   align-items: center;
 `;
@@ -152,7 +156,7 @@ const ProjectInfoStackWrap = styled.div`
   gap: 10px;
 
   width: 282px;
-  height: 104px;
+  min-height: 104px;
 `;
 
 const StackDiv = styled.div`
@@ -165,7 +169,7 @@ const StackDiv = styled.div`
 `;
 
 const StackTitle = styled.div`
-  width: 40px;
+  min-width: 40px;
   height: 100%;
   font-size: 12px;
   display: flex;
@@ -196,3 +200,10 @@ const StackValue = styled.div`
 `;
 
 const Div = styled.div``;
+
+const StackList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  margin-left: 0.4rem;
+`;
