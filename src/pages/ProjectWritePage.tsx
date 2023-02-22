@@ -18,6 +18,7 @@ const ProjectWritePage = () => {
     editRef,
     imageRef,
     showToast,
+    isSubmitting,
     ToastMessage,
     writeFormValue,
     setWriteFormValue,
@@ -54,6 +55,7 @@ const ProjectWritePage = () => {
           isOpen={isOpen}
           message="게시물을 업로드할까요?"
           subMessage="작성한 게시물은 마이페이지에서 볼 수 있습니다."
+          disabled={isSubmitting}
           onCloseEvent={handleModalStateChange}
           onClickEvent={handleCreateProjectButtonClick}
         />
