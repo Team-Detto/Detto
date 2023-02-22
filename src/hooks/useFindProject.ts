@@ -57,6 +57,7 @@ const useFindProject = () => {
   return {
     projects,
     category,
+    setCategory,
     toggle,
     likedProjects,
     handleCategoryClick,

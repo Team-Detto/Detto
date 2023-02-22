@@ -98,16 +98,24 @@ const Footer = () => {
             <ContentsTitle>CATEGORY</ContentsTitle>
             <ContentsList>
               <ContentItem>
-                <PageLink to={'/findproject'}>Planning</PageLink>
+                <PageLink to={'/findproject'} state={'planner'}>
+                  Planning
+                </PageLink>
               </ContentItem>
               <ContentItem>
-                <PageLink to={'/findproject'}>Design</PageLink>
+                <PageLink to={'/findproject'} state={'designer'}>
+                  Design
+                </PageLink>
               </ContentItem>
               <ContentItem>
-                <PageLink to={'/findproject'}>Frontend</PageLink>
+                <PageLink to={'/findproject'} state={'frontend'}>
+                  Frontend
+                </PageLink>
               </ContentItem>
               <ContentItem>
-                <PageLink to={'/findproject'}>Backend</PageLink>
+                <PageLink to={'/findproject'} state={'backend'}>
+                  Backend
+                </PageLink>
               </ContentItem>
             </ContentsList>
           </ContentsBox>
