@@ -2,7 +2,10 @@ import { authService } from 'apis/firebaseService';
 import { signOut } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
+import { userInfoState } from '../recoil/atoms';
 import useAuth from './useAuth';
+import { defaultInfo } from './useUpdateProfile';
 
 // 메인 페이지에서 스크롤이 MAIN_SCROLL_Y 값 이상 되면 헤더의 배경색을 투명에서 하얀색으로 변경
 const MAIN_SCROLL_Y = 480;
@@ -11,6 +14,7 @@ const useHeader = () => {
   const [hideGradient, setHideGradient] = useState<boolean>(true);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [showDropwdown, setShowDropdown] = useState<boolean>(false);
+  const setUserInfo = useSetRecoilState(userInfoState);
   const localUser = useAuth();
 
   const navigate = useNavigate();
@@ -30,6 +34,7 @@ const useHeader = () => {
       localStorage.removeItem('user');
       navigate('/', { replace: true });
       setIsLoggedIn(false);
+      setUserInfo(defaultInfo);
     });
   };
 
