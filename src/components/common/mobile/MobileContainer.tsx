@@ -6,8 +6,7 @@ const MobileContainer = ({ children }: ContainerType) => {
 };
 
 const MobileContainerWrapper = styled.div`
-  width: 390px;
-  margin: 0 auto;
+  padding: 0 1rem;
   position: relative;
 `;
 

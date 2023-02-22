@@ -33,10 +33,8 @@ const WritePageMobileFooterContainer = styled.div`
   gap: 1.5rem;
 `;
 const WritePageMobileFooterEditBox = styled.div`
-  width: 22.25rem;
+  width: 100%;
   height: 25rem;
-  border: 1px solid ${COLORS.gray100};
-  border-radius: 0.25rem;
 `;
 const WritePageMobileFooterCompleatedButton = styled.button`
   width: 17rem;

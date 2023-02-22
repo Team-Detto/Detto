@@ -32,7 +32,7 @@ const WritePageMobileHeaderContainer = styled.div`
   justify-content: center;
 `;
 const WritePageMobileHeaderInput = styled.input`
-  width: 22.25rem;
+  width: 100%;
   height: 2.8125rem;
   padding: 0.625rem 1.25rem;
   background: ${COLORS.white};
