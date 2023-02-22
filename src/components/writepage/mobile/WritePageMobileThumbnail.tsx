@@ -58,21 +58,17 @@ const WritePageMobileThumbnailInput = styled.input`
   border: 1px solid ${COLORS.gray100};
   border-radius: 0.25rem;
   padding-top: 0.6rem;
-
   font-size: 0.75rem;
   font-weight: 400;
   line-height: 140%;
   color: ${COLORS.black};
-
   padding-left: 1rem;
-
   ::file-selector-button {
     display: none;
   }
 `;
 const WritePageMobileThumbnailButton = styled.label<{ thumbnail: string }>`
   cursor: pointer;
-  padding: 0.625rem;
   gap: 0.625rem;
   width: 2.5rem;
   height: 2.5rem;
@@ -82,11 +78,11 @@ const WritePageMobileThumbnailButton = styled.label<{ thumbnail: string }>`
   background-color: ${({ thumbnail }) =>
     thumbnail ? COLORS.gray300 : COLORS.violetB500};
   border-radius: 0.25rem;
-  margin-right: 0.8rem;
 `;
 const WritePageMobileThumbnailText = styled.p`
   color: ${COLORS.white};
-  font-size: 1.5rem;
+  font-size: 1.2rem;
+  margin-top: 0.2rem;
 `;
 
 export default WritePageMobileThumbnail;

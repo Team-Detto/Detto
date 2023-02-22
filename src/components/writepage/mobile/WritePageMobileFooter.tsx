@@ -43,6 +43,7 @@ const WritePageMobileFooterCompleatedButton = styled.button`
   height: 3.75rem;
   background-color: ${COLORS.violetB400};
   border-radius: 0.75rem;
+  margin-bottom: 2rem;
 `;
 const WritePageMobileFooterCompleatedText = styled.p`
   font-weight: 700;

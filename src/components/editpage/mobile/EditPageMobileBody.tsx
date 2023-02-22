@@ -36,7 +36,11 @@ const EditPageMobileBody = ({
 
   return (
     <EditPageMobileBodyContainer>
-      <EditPageMobilePosition positions={positions} />
+      <EditPageMobilePosition
+        positions={positions}
+        setEditFormValue={setEditFormValue}
+        onFormValueChangeEvent={onFormValueChangeEvent}
+      />
       <EditPageMobileStack
         plannerStack={plannerStack}
         designerStack={designerStack}
