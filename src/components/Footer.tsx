@@ -1,12 +1,20 @@
 import COLORS from 'assets/styles/colors';
 import { Link } from 'react-router-dom';
+import { useIsMobile } from 'hooks';
 import styled from '@emotion/styled';
+import MobileFooter from './MobileFooter';
 import WebContainer from './common/WebContainer';
 import { LogoBoxH1 } from './Header';
 import iconGithub from 'assets/images/footer_github.png';
 import iconBehance from 'assets/images/footer_behance.png';
 
 const Footer = () => {
+  const isMobile = useIsMobile();
+
+  if (isMobile) {
+    return <MobileFooter />;
+  }
+
   return (
     <FooterContainer>
       <WebContainer>
@@ -160,7 +168,7 @@ const LogoBox = styled(LogoBoxH1)`
   margin-left: 0;
 `;
 
-const OurTeamText = styled.p`
+export const OurTeamText = styled.p`
   margin: 1.125rem 0 2.5rem;
   font-size: 0.875rem;
   line-height: 160%;
