@@ -31,6 +31,14 @@ const ProjectList = () => {
     setSelectedProject(dayList[0]);
   }, [dayList]);
 
+  if (dayList.length === 0)
+    return (
+      <NoDataMessage>
+        NO DATA :/
+        <span style={{ fontSize: '1rem' }}>다른 날짜를 선택해주세요</span>
+      </NoDataMessage>
+    );
+
   return (
     <ProjectListSlider {...settings} infinite={dayList.length >= 3}>
       {dayList?.map((data: any) => {
@@ -176,4 +184,20 @@ const ProjectListCardDate = styled.div`
   align-items: center;
   color: #616161;
 `;
+
+const NoDataMessage = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 300px;
+  height: 287px;
+
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 200%;
+  color: ${COLORS.gray300};
+`;
+
 export default ProjectList;
