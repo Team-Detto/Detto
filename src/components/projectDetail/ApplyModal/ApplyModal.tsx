@@ -100,11 +100,18 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
     }
   }, [isOpen]);
 
+  const handleBackDropClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    console.log(e);
+    if (e.target === e.currentTarget) {
+      onClickEvent();
+    }
+  };
+
   const isMobile = useIsMobile();
   if (isMobile) {
     return (
       <>
-        <BackDrop isOpen={isOpen}>
+        <BackDrop onClick={handleBackDropClick} isOpen={isOpen}>
           <MobileModalContainer>
             {showToast && (
               <ValidationToastPopup message={ToastMessage} top={-2} />
@@ -235,9 +242,9 @@ const BackDrop = styled.div`
   left: 0;
   bottom: 0;
   right: 0;
-  z-index: 100;
-  background: rgba(191, 191, 191, 0.5);
+  z-index: 1500;
   display: ${(props: { isOpen: boolean }) => (props.isOpen ? 'block' : 'none')};
+  background: rgba(191, 191, 191, 0.5);
 `;
 
 const MobileModalContainer = styled.div`
@@ -253,8 +260,8 @@ const MobileModalContainer = styled.div`
   background: ${COLORS.white};
   border-radius: 1rem;
   box-shadow: 0rem 0.25rem 0.625rem rgba(117, 117, 117, 0.25);
-  z-index: 999;
-  z-index: 999;
+  z-index: 2000;
+  display: block;
 `;
 
 const MobileModalTitle = styled.p`

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useMutation, useQuery, QueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { updateLike, updateMyProject } from '../../apis/postDetail'; //여기서 에러 발생 :모듈 또는 해당 형식 선언을 찾을 수 없습니다.
@@ -7,54 +7,79 @@ import { findWithCollectionName } from 'apis/findWithCollectionName';
 import { useAuth, useGlobalModal } from 'hooks';
 import COLORS from 'assets/styles/colors';
 
-const Likes = ({ pid, like, version = 'web' }: any) => {
+const Likes = ({ pid, version = 'web' }: any) => {
   const { uid } = useAuth();
   const { openModal } = useGlobalModal();
-  const [countLike, setCountLike] = useState(like);
-  const queryClient = new QueryClient();
-  const { mutate: likeMutate } = useMutation(() => updateLike(pid, countLike), {
-    onSuccess: () => {
-      queryClient.invalidateQueries(['post', pid]);
-    },
-  });
-  const { mutate: likedProjectMutate } = useMutation(
-    () => updateMyProject(uid, pid, isLike),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(['myprojects', uid]);
-      },
-    },
-  );
-  const { data: myProjectData } = useQuery({
-    queryKey: ['myprojects', uid],
-    queryFn: () => findWithCollectionName('myprojects', uid),
-  });
 
-  const [isLike, setIsLike] = useState<boolean>(
-    myProjectData?.likedProjects?.includes(pid),
-  ); // 초기값 false로 설정 시 페이지 이동시 다시 false로 초기화됨, 데이터베이스에서 가져온 값은 로드되는 동안 undefined 이므로 useEffect로 한번 더 설정함
-  useEffect(() => {
-    setIsLike(myProjectData?.likedProjects?.includes(pid)); //현재 사용자가 좋아요를 눌렀는지 확인하기 위해
-  }, [myProjectData]);
-
-  //isLike가 변경될 때마다 좋아요 수 및 좋아요한 프로젝트를 db에서 변경해주는 기능
-  useEffect(() => {
-    likeMutate(pid, countLike); // 좋아요 수 변경
-    likedProjectMutate(pid); // likedProjects에 pid 추가/삭제
-  }, [isLike]);
-
-  //좋아요 기능
-  const handleLike = (event: React.MouseEvent) => {
+  const handleLikeButton = async (event: any) => {
     event.preventDefault();
-    setIsLike(!isLike);
-    if (isLike === true) {
-      // 클릭했을 때 true인 경우
+    if (isLike) {
+      setIsLike(false);
+      setIsLike(false);
       setCountLike(countLike - 1);
-    } else if (isLike === false) {
-      //클릭했을 때 false인 경우
+    } else {
+      setIsLike(true);
+      setIsLike(true);
       setCountLike(countLike + 1);
     }
   };
+
+  //좋아요한 프로젝트 조회
+  const { data: myProjects } = useQuery({
+    queryKey: ['myProjects', uid],
+    queryFn: () => findWithCollectionName('myprojects', uid),
+  });
+
+  const { data: projectLike } = useQuery({
+    queryKey: ['post', pid],
+    queryFn: () => findWithCollectionName('post', pid),
+  });
+
+  const [countLike, setCountLike] = useState(projectLike?.like);
+  const [isLike, setIsLike] = useState(myProjects?.likedProjects.includes(pid));
+
+  const queryClient = useQueryClient();
+  const { mutate: updateLikeMutate } = useMutation(
+    () => updateLike(pid, countLike),
+    {
+      onSettled: () => {
+        queryClient.invalidateQueries(['post', pid]);
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries(['post', pid]);
+        setCountLike(projectLike?.like);
+      },
+    },
+  );
+
+  const { mutate: updateMyProjectMutate } = useMutation(
+    () => updateMyProject(uid, pid, isLike),
+    {
+      onSettled: () => {
+        queryClient.invalidateQueries(['myProjects', uid]);
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries(['myProjects', uid]);
+      },
+    },
+  );
+  useEffect(() => {
+    setCountLike(projectLike?.like);
+    // setIsLike(myProjects?.likedProjects.includes(pid));
+    return () => {
+      updateMyProjectMutate();
+      updateLikeMutate();
+      setIsLike(myProjects?.likedProjects.includes(pid));
+    };
+  }, []);
+  useEffect(() => {
+    setCountLike(projectLike?.like);
+  }, [projectLike?.like]);
+
+  useEffect(() => {
+    setIsLike(myProjects?.likedProjects.includes(pid));
+  }, [myProjects?.likedProjects]);
+
   return (
     <IconButton
       onClick={(event) => {
@@ -62,7 +87,7 @@ const Likes = ({ pid, like, version = 'web' }: any) => {
           openModal('login', 0);
           return;
         }
-        handleLike(event);
+        handleLikeButton(event);
       }}
     >
       {isLike ? (

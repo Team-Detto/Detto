@@ -26,7 +26,12 @@ const MobileTitleThumbnailArea = ({ pid, projectData }: any) => {
         )}
       </TitleThumbnailAreaContainer>
       <ProjectThumbnail src={projectData?.thumbnail} />
-      <ModifyDeleteDropDown pid={pid} popup={popup} setPopup={setPopup} />
+      <ModifyDeleteDropDown
+        pid={pid}
+        popup={popup}
+        setPopup={setPopup}
+        projectData={projectData}
+      />
     </>
   );
 };

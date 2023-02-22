@@ -4,6 +4,7 @@ import { findWithCollectionName } from 'apis/findWithCollectionName';
 import COLORS from 'assets/styles/colors';
 import { useIsMobile, useNotification } from 'hooks';
 import { useCallback } from 'react';
+import { AiOutlineClose } from 'react-icons/ai';
 
 interface props {
   userData: any;
@@ -92,36 +93,27 @@ const ApplyButtonArea = ({
   if (isMobile) {
     return (
       <MobileApplyButtonContainer>
-        <MobileMotiveButton //지원 취소
-          onClick={handleResetButtonClick}
-        >
-          아니오
-        </MobileMotiveButton>
-        <MobileMotiveButton
+        <MobileApplyButton
           onClick={(e) => {
             handleApplyButtonClick(e);
           }}
         >
           지원하기
-        </MobileMotiveButton>
+        </MobileApplyButton>
       </MobileApplyButtonContainer>
     );
   }
 
   return (
     <ApplyButtonContainer>
-      <MotiveButton //지원 취소
-        onClick={handleResetButtonClick}
-      >
-        아니오
-      </MotiveButton>
-      <MotiveButton
+      <CloseButton onClick={handleResetButtonClick} />
+      <ApplyButton
         onClick={(e) => {
           handleApplyButtonClick(e);
         }}
       >
         지원하기
-      </MotiveButton>
+      </ApplyButton>
     </ApplyButtonContainer>
   );
 };
@@ -140,7 +132,7 @@ const ApplyButtonContainer = styled.div`
   height: 3.75rem;
 `;
 
-const MotiveButton = styled.button`
+const ApplyButton = styled.button`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -148,15 +140,13 @@ const MotiveButton = styled.button`
   padding: 0.625rem;
   gap: 0.625rem;
 
-  width: 18.9063rem;
+  width: 100%;
   height: 3.75rem;
   border-radius: 0.5rem;
   /* violet B 400 */
 
-  background-color: ${(props: { children: string }) =>
-    props.children === '아니오' ? `${COLORS.gray100}` : `${COLORS.violetB400}`};
-  color: ${(props: { children: string }) =>
-    props.children === '아니오' ? `${COLORS.black}` : `${COLORS.white}`};
+  background-color: ${COLORS.violetB400};
+  color: ${COLORS.white};
 `;
 
 const MobileApplyButtonContainer = styled.div`
@@ -171,7 +161,7 @@ const MobileApplyButtonContainer = styled.div`
   height: 52px;
 `;
 
-const MobileMotiveButton = styled.button`
+const MobileApplyButton = styled.button`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -184,8 +174,16 @@ const MobileMotiveButton = styled.button`
   border-radius: 0.5rem;
   /* violet B 400 */
 
-  background-color: ${(props: { children: string }) =>
-    props.children === '아니오' ? `${COLORS.gray100}` : `${COLORS.violetB400}`};
-  color: ${(props: { children: string }) =>
-    props.children === '아니오' ? `${COLORS.black}` : `${COLORS.white}`};
+  background-color: ${COLORS.violetB400};
+  color: ${COLORS.white};
+`;
+
+const CloseButton = styled(AiOutlineClose)`
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: ${COLORS.gray400};
+  cursor: pointer;
 `;

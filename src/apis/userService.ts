@@ -21,7 +21,7 @@ export const firebaseAllUsersRequest = async () => {
 };
 
 // 내 프로젝트 관심 조회
-export const firebaseFindMyInterestRequset = async (
+export const firebaseFindMyInterestRequest = async (
   uid: string,
   setLikedProjects: Dispatch<React.SetStateAction<string[]>>,
 ) => {
