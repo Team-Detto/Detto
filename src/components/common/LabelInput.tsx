@@ -1,4 +1,4 @@
-import React from 'react';
+import { ChangeEvent } from 'react';
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 
@@ -12,7 +12,7 @@ interface props {
     placeholder?: string;
   };
   value: number | string | readonly string[] | undefined;
-  onChangeEvent: (e: React.ChangeEvent<HTMLInputElement>) => void; // eslint-disable-line no-unused-vars
+  onChangeEvent: (e: ChangeEvent<HTMLInputElement>) => void;
   label: string;
   text?: string;
 }
