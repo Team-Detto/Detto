@@ -1,4 +1,4 @@
-import { useEdtiBoard, useIsMobile } from 'hooks';
+import { useEditBoard, useIsMobile } from 'hooks';
 import ConfirmAlert from 'components/common/ConfirmAlert';
 import MobileConfirmAlert from 'components/common/mobile/MobileConfirmAlert';
 import WebContainer from 'components/common/WebContainer';
@@ -28,9 +28,8 @@ const ProjectEditPage = () => {
     handleEditProjectButtonClick,
     handleAddThumbnailImageChange,
     handleCheckValidationButtonClick,
-  } = useEdtiBoard();
+  } = useEditBoard();
   const isMobile = useIsMobile();
-
   if (isMobile) {
     return (
       <MobileContainer>

@@ -193,7 +193,6 @@ const StackValue = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  overflow: scroll;
 `;
 
 const Div = styled.div``;
