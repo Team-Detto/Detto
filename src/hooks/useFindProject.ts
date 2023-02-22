@@ -34,11 +34,13 @@ const useFindProject = () => {
 
   useBottomScrollListener(
     useCallback(() => {
-      firebaseInfinityScrollProjectDataRequest(
-        setProjects,
-        lastVisible,
-        setLastVisible,
-      );
+      if (lastVisible) {
+        firebaseInfinityScrollProjectDataRequest(
+          setProjects,
+          lastVisible,
+          setLastVisible,
+        );
+      }
     }, [lastVisible]),
   );
 
