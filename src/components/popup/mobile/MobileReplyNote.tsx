@@ -1,13 +1,5 @@
 import ModalNavigator from 'components/common/modal/ModalNavigator';
 import { useGlobalModal, useModal, useNote, useToastPopup } from 'hooks';
-import CustomButton from './CustomButton';
-import {
-  Container,
-  ContentTextarea,
-  HeaderContainer,
-  NameText,
-  ProfileImage,
-} from './styles';
 import { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
@@ -15,23 +7,28 @@ import { staleTime } from 'utils/staleTime';
 import { useQuery } from '@tanstack/react-query';
 import { getUserInfoData } from 'apis/mypageUsers';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
-import Alert from 'components/common/Alert';
+import MobileCustomButton from './MobileCustomButton';
+import {
+  MobileContainer,
+  MobileContentTextarea,
+  MobileNameText,
+  MobileProfileImage,
+} from './styles';
 
-export default function SendNote({ data }: { data: Note }) {
+export default function MobileReplyNote({ data }: { data: Note }) {
   const [disabled, setDisabled] = useState(false);
   const [note, setNote] = useState<SendNote>({ title: '', content: '' });
+  const [isSent, setIsSent] = useState(false);
   const { closeModal } = useGlobalModal();
   const sendNote = useNote();
 
   const { data: receiver } = useQuery({
-    queryKey: ['user', data?.receiverUid],
+    queryKey: ['user', data?.senderUid],
     queryFn: getUserInfoData,
     staleTime: staleTime.user,
   });
 
   const { showToast, ToastMessage, handleToastPopup } = useToastPopup();
-  const { isOpen: isAlertOpen, handleModalStateChange: onAlertClickEvent } =
-    useModal(false);
 
   // 쪽지 유효성 검사
   const checkNoteValidation = useCallback(() => {
@@ -52,68 +49,80 @@ export default function SendNote({ data }: { data: Note }) {
 
   const handleSendButtonClick = () => {
     if (!checkNoteValidation()) return;
-    sendNote({ note: note, receiverUid: data.receiverUid });
+    sendNote({ note: note, receiverUid: data.senderUid });
     setDisabled(true);
-    onAlertClickEvent(); //alert창 띄우기
-  };
-
-  const handleAlertButtonClick = () => {
-    onAlertClickEvent();
-    closeModal();
+    handleToastPopup('쪽지가 전송되었습니다.');
+    setIsSent(true);
+    setTimeout(closeModal, 2000);
   };
 
   if (!receiver) return null;
 
   return (
-    <>
-      <Container>
-        {showToast && <ValidationToastPopup message={ToastMessage} top={2} />}
-        <ModalNavigator page={0} close />
-        <HeaderContainer>
-          <ProfileImage src={receiver.photoURL} />
-          <NameText>{receiver.displayName}님께 쪽지 보내기</NameText>
-        </HeaderContainer>
-        <TitleInput
-          type="text"
-          placeholder="제목을 입력해주세요."
-          autoFocus
-          maxLength={30}
-          value={note.title}
-          onChange={(e) => setNote({ ...note, title: e.target.value })}
-        />
-        <ContentTextarea
+    <MobileContainer>
+      {showToast && (
+        <ValidationToastPopup message={ToastMessage} top={2} isCheck={isSent} />
+      )}
+      <ModalNavigator page={0} close />
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
+        <MobileProfileImage src={receiver.photoURL} />
+        <MobileNameText>{receiver.displayName}님께 쪽지 보내기</MobileNameText>
+      </div>
+      <TitleInput
+        type="text"
+        placeholder="제목을 입력해주세요."
+        autoFocus
+        maxLength={30}
+        value={note.title}
+        onChange={(e) => setNote({ ...note, title: e.target.value })}
+      />
+      <div style={{ position: 'relative' }}>
+        <MobileContentTextarea
           placeholder="내용을 입력해주세요."
           value={note.content}
           maxLength={500}
           onChange={(e) => setNote({ ...note, content: e.target.value })}
         />
-        <CustomButton
-          label="쪽지를 보낼게요"
-          onClick={() => {
-            handleSendButtonClick();
-            setDisabled(true);
-          }}
-          disabled={disabled}
-        />
-      </Container>
-
-      <Alert
-        isOpen={isAlertOpen}
-        onClickEvent={handleAlertButtonClick}
-        mainMsg="쪽지를 보냈어요!"
-        subMsg="보낸 쪽지함에서 확인해보세요."
-        page="sendNote"
+        <ContentCharCount>
+          <Count length={note.content.length}>{note.content.length}</Count>/500
+        </ContentCharCount>
+      </div>
+      <MobileCustomButton
+        label="쪽지를 보낼게요"
+        onClick={handleSendButtonClick}
+        disabled={disabled}
       />
-    </>
+    </MobileContainer>
   );
 }
 
 const TitleInput = styled.input`
   width: 100%;
-  padding: 10px 28px;
+  padding: 0.625rem 1.25rem;
+
   font-weight: 400;
-  font-size: 18px;
+  font-size: 0.75rem;
+  line-height: 140%;
   border: 1px solid ${COLORS.gray300};
-  border-radius: 4px;
-  resize: none;
+  border-radius: 0.25rem;
+`;
+
+const ContentCharCount = styled.span`
+  position: absolute;
+  bottom: 0.6rem;
+  right: 0.5625rem;
+
+  font-weight: 350;
+  font-size: 0.8125rem;
+
+  color: ${COLORS.gray700};
+`;
+
+const Count = styled.span<{ length?: number }>`
+  color: ${({ length }) =>
+    length
+      ? length < 10
+        ? COLORS.gray700
+        : COLORS.violetA500
+      : COLORS.gray700};
 `;
