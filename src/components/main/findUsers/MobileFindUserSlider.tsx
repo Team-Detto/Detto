@@ -10,6 +10,7 @@ import { useQuery } from '@tanstack/react-query';
 import { staleTime } from 'utils/staleTime';
 import { firebaseAllUsersRequest } from 'apis/userService';
 import COLORS from 'assets/styles/colors';
+import defaultProfile from 'assets/images/default_profile.jpg';
 
 const settings = {
   centerPadding: '60px',
@@ -44,7 +45,7 @@ const MobileFindUserSlider = ({ tap }: { tap: string }) => {
         .map((user: any) => (
           <Link to={`/profile/${user.uid}`} key={user.uid}>
             <MobileCard key={user}>
-              <CardImage src={user.photoURL} />
+              <CardImage src={user.photoURL || defaultProfile} />
               <CardNickname>
                 {user.isJunior && <JuniorImage src={Junior} />}{' '}
                 {user.displayName}
