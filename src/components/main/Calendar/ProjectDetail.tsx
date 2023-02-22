@@ -37,20 +37,24 @@ const ProjectDetail = () => {
         </ProjectDetailSproutText>
         <ProjectDetailRow>
           <ProjectDetailLabel>프로젝트 이름</ProjectDetailLabel>
-          {selectedProject.title}
+          <ProjectDetailText>{selectedProject.title}</ProjectDetailText>
         </ProjectDetailRow>
         <ProjectDetailRow>
           <ProjectDetailLabel>기간</ProjectDetailLabel>
-          {getDate(selectedProject.startDate)} ~{' '}
-          {getDate(selectedProject.endDate)}
+          <ProjectDetailText>
+            {getDate(selectedProject.startDate)} ~{' '}
+            {getDate(selectedProject.endDate)}
+          </ProjectDetailText>
         </ProjectDetailRow>
         <ProjectDetailRow>
           <ProjectDetailLabel>포지션</ProjectDetailLabel>
-          {positionsNames.join(', ')}
+          <ProjectDetailText>{positionsNames.join(', ')}</ProjectDetailText>
         </ProjectDetailRow>
         <ProjectDetailRow>
           <ProjectDetailLabel>모집 마감일</ProjectDetailLabel>
-          {getDate(selectedProject.deadline)}
+          <ProjectDetailText>
+            {getDate(selectedProject.deadline)}
+          </ProjectDetailText>
         </ProjectDetailRow>
         <ProjectDetailinquiryAttentionBox>
           <ProjectDetailinquiryAttentionTextBox>
@@ -106,6 +110,15 @@ const ProjectDetailLabel = styled.div`
   font-weight: 400;
   margin-right: 1rem;
 `;
+
+const ProjectDetailText = styled.div`
+  color: #464646;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+`;
+
 const ProjectDetailSproutText = styled.div`
   display: flex;
   flex-direction: row;
