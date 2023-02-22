@@ -35,6 +35,7 @@ const useHeader = () => {
       navigate('/', { replace: true });
       setIsLoggedIn(false);
       setUserInfo(defaultInfo);
+      window.location.reload();
     });
   };
 
