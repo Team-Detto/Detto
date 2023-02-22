@@ -5,6 +5,8 @@ import FindProjectList from 'components/findproject/FindProjectList';
 import FindProjectMobileHeader from 'components/findproject/mobile/FindProjectMobileHeader';
 import FindProjectMobileList from 'components/findproject/mobile/FindProjectMobileList';
 import styled from '@emotion/styled';
+import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const FindProjectPage = () => {
   const {
@@ -12,11 +14,18 @@ const FindProjectPage = () => {
     category,
     toggle,
     likedProjects,
+    setCategory,
     handleCategoryClick,
     handleToggleClick,
     handleNavigateToProjectDetail,
   } = useFindProject();
   const isMobile = useIsMobile();
+  const { state: categoryFromFooter } = useLocation();
+
+  // 푸터에서 클릭한 경우 카테고리 지정
+  useEffect(() => {
+    setCategory(categoryFromFooter);
+  }, [categoryFromFooter]);
 
   if (isMobile) {
     return (
