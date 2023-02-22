@@ -35,7 +35,11 @@ const WritePageMobileBody = ({
   } = writeFormValue;
   return (
     <WritePageMobileBodyContainer>
-      <WritePageMobilePosition positions={positions} />
+      <WritePageMobilePosition
+        positions={positions}
+        setWriteFormValue={setWriteFormValue}
+        onFormValueChangeEvent={onFormValueChangeEvent}
+      />
       <WritePageMobileStack
         plannerStack={plannerStack}
         designerStack={designerStack}
