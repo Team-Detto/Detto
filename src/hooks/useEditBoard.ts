@@ -105,14 +105,8 @@ const useEditBoard = () => {
   const handleFormValueChange = useCallback(
     (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { name, value } = e.target;
-      const isPosition: boolean = [
-        'planner',
-        'designer',
-        'frontend',
-        'backend',
-      ].some((v: string) => v === name);
-      if (isPosition) {
-        setEditFormValue((prev: EditType.EditFormType) => {
+      setEditFormValue((prev: EditType.EditFormType) => {
+        if (['planner', 'designer', 'frontend', 'backend'].includes(name)) {
           return {
             ...prev,
             positions: {
@@ -120,10 +114,7 @@ const useEditBoard = () => {
               [name]: Number(value),
             },
           };
-        });
-        return;
-      }
-      setEditFormValue((prev: EditType.EditFormType) => {
+        }
         return {
           ...prev,
           [name]: value,

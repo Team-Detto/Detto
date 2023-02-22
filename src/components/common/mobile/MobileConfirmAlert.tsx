@@ -5,6 +5,7 @@ import styled from '@emotion/styled';
 interface Props {
   isOpen: boolean;
   message: string;
+  disabled?: boolean;
   subMessage: string;
   onClickEvent: () => void;
   onCloseEvent: () => void;
@@ -13,6 +14,7 @@ interface Props {
 const MobileConfirmAlert = ({
   isOpen,
   message,
+  disabled,
   subMessage,
   onClickEvent,
   onCloseEvent,
@@ -28,7 +30,10 @@ const MobileConfirmAlert = ({
           <MobileConfirmAlertCancelButton onClick={onCloseEvent}>
             NO
           </MobileConfirmAlertCancelButton>
-          <MobileConfirmAlertComfirmButton onClick={onClickEvent}>
+          <MobileConfirmAlertComfirmButton
+            onClick={onClickEvent}
+            disabled={disabled}
+          >
             YES
           </MobileConfirmAlertComfirmButton>
         </MobileConfirmAlertButtonBox>
