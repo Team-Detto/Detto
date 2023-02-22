@@ -67,4 +67,5 @@ const NodataMessage = styled.p`
   font-size: 2rem;
   font-weight: 700;
   color: ${COLORS.gray200};
+  cursor: default;
 `;

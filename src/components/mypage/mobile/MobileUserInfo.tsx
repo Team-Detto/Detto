@@ -19,8 +19,8 @@ import MyPageProfileImage from '../MyPageProfileImage';
 import PositionCheckBox from '../PositionCheckBox';
 import TextInput from '../TextInput';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
-import MobileConfirmAlert from 'components/common/mobile/MobileConfirmAlert';
 import MobileSkillStackList from './MobileSkillStackList';
+import MobileAlert from 'components/common/mobile/MobileAlert';
 
 const MobileUserInfo = ({ user }: MypageInfoProps) => {
   const { uid } = useAuth();
@@ -41,25 +41,26 @@ const MobileUserInfo = ({ user }: MypageInfoProps) => {
     updateUserInfoMutate,
     showToast,
     ToastMessage,
+    updateDefaultUserInfoState,
+    defaultUserInfo,
   } = useUpdateProfile();
 
-  // 수정 버튼 클릭 시 유효성 검사 확인 후 모달창 오픈
+  // 수정 버튼 클릭 시 유효성 검사 확인 후 변경사항 반영, 모달창 오픈
   const handleUserInfoConfirm = () => {
     if (!checkInfoValidation()) return;
 
     handleModalStateChange();
-  };
-
-  // DB로 수정 정보 업데이트
-  const handleUserInfoUpdate = () => {
+    // DB로 수정 정보 업데이트
     updateUserInfoMutate();
-    handleModalStateChange();
+    setActiveInfoBtn(false);
+    updateDefaultUserInfoState(userInfo);
   };
 
   useEffect(() => {
     if (!user) return;
 
     setActiveInfoBtn(false);
+    updateDefaultUserInfoState(user);
 
     setUserInfo({
       displayName: user?.displayName,
@@ -72,6 +73,15 @@ const MobileUserInfo = ({ user }: MypageInfoProps) => {
       developerStack: user?.developerStack || [''],
     });
   }, [user]);
+
+  // 기존 정보에서 변경된 정보가 있을 경우에만 수정버튼 활성화
+  useEffect(() => {
+    if (JSON.stringify(defaultUserInfo) !== JSON.stringify(userInfo)) {
+      setActiveInfoBtn(true);
+    } else {
+      setActiveInfoBtn(false);
+    }
+  }, [userInfo]);
 
   return (
     <MobileUserInfoContainer>
@@ -123,7 +133,6 @@ const MobileUserInfo = ({ user }: MypageInfoProps) => {
         />
       </MobileInfoBox>
       <MobileInfoBox>
-        {/* TODO:: pc 버전 마이페이지처럼 유효성 검사 적용 예정, Alert창 변경 예정 */}
         <MobileInfoEditBtn
           isActive={activeInfoBtn}
           onClick={handleUserInfoConfirm}
@@ -132,12 +141,11 @@ const MobileUserInfo = ({ user }: MypageInfoProps) => {
           개인정보 수정 완료
         </MobileInfoEditBtn>
       </MobileInfoBox>
-      <MobileConfirmAlert
+      <MobileAlert
         isOpen={isOpen}
-        message="개인정보를 수정할까요?"
-        subMessage="수정한 정보는 곧바로 반영됩니다!"
-        onClickEvent={handleUserInfoUpdate}
-        onCloseEvent={handleModalStateChange}
+        mainMsg="수정이 완료되었어요!"
+        subMsg="수정한 정보가 곧바로 반영되었습니다!"
+        onClickEvent={handleModalStateChange}
       />
     </MobileUserInfoContainer>
   );

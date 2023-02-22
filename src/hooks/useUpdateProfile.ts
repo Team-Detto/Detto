@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { mypageInfoButtonActiveState, userInfoState } from '../recoil/atoms';
+import { useRecoilState } from 'recoil';
+import { userInfoState } from '../recoil/atoms';
 import { contactValidation, nicknameValidation } from 'utils/validation';
 import { updateUserInfoData } from 'apis/mypageUsers';
 import useAuth from './useAuth';
@@ -10,12 +10,12 @@ import useToastPopup from './useToastPopup';
 // 마이페이지 개인정보를 위한 훅
 const useUpdateProfile = () => {
   const [userInfo, setUserInfo] = useRecoilState<UserInfo>(userInfoState);
-  const setActiveInfoBtn = useSetRecoilState(mypageInfoButtonActiveState);
-  const { uid } = useAuth();
   const [validationMessage, setValidationMessage] = useState<string>('');
-  const { showToast, ToastMessage, handleToastPopup } = useToastPopup();
   const [contactValidationMessage, setContactValidationMessage] =
     useState<string>('');
+  const [defaultUserInfo, setDefaultUserInfo] = useState<UserInfo>(defaultInfo);
+  const { uid } = useAuth();
+  const { showToast, ToastMessage, handleToastPopup } = useToastPopup();
 
   // 정보 수정 파이어베이스 mutatation
   const queryClient = useQueryClient();
@@ -51,7 +51,6 @@ const useUpdateProfile = () => {
       } else {
         setValidationMessage('');
         setContactValidationMessage('');
-        setActiveInfoBtn(true);
       }
 
       setUserInfo((prevState) => {
@@ -81,16 +80,43 @@ const useUpdateProfile = () => {
     return true;
   };
 
+  const updateDefaultUserInfoState = useCallback((user: UserInfo) => {
+    setDefaultUserInfo({
+      displayName: user?.displayName,
+      email: user?.email,
+      photoURL: user?.photoURL,
+      isJunior: user?.isJunior,
+      positions: user?.positions,
+      plannerStack: user?.plannerStack || [''],
+      designerStack: user?.designerStack || [''],
+      developerStack: user?.developerStack || [''],
+    });
+  }, []);
+
   return {
     validationMessage,
     handleInputChange,
     contactValidationMessage,
-    updateUserInfoMutate,
-    showToast,
     ToastMessage,
+    showToast,
+    defaultUserInfo,
+    setDefaultUserInfo,
     handleToastPopup,
     checkInfoValidation,
+    updateUserInfoMutate,
+    updateDefaultUserInfoState,
   };
 };
 
 export default useUpdateProfile;
+
+const defaultInfo = {
+  displayName: '',
+  email: '' || null,
+  photoURL: '',
+  isJunior: false,
+  positions: [],
+  plannerStack: [],
+  designerStack: [],
+  developerStack: [],
+};

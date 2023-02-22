@@ -9,7 +9,7 @@ import MobileProjectList from './MobileProjectList';
 import { PidListProps } from 'components/common/myProjectList/ProjectList';
 
 interface MobileMypageInfoProps {
-  user: User;
+  user: UserInfo;
   pidList: PidListProps;
 }
 
