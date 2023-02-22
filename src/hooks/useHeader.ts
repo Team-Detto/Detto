@@ -33,10 +33,16 @@ const useHeader = () => {
     signOut(authService).then(() => {
       localStorage.removeItem('user');
       navigate('/', { replace: true });
-      setIsLoggedIn(false);
       setUserInfo(defaultInfo);
       window.location.reload();
     });
+  };
+
+  // 회원탈퇴
+  const withdrawalAccount = () => {
+    localStorage.removeItem('user');
+    setUserInfo(defaultInfo);
+    navigate('/', { replace: true });
   };
 
   // 모바일에서 드롭다운 메뉴 표시 여부
@@ -87,6 +93,7 @@ const useHeader = () => {
     handleDropdownClick,
     handleGoBackClick,
     closeDropdownMenu,
+    withdrawalAccount,
   };
 };
 
