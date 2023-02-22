@@ -52,7 +52,7 @@ const WritePageMobileThumbnailContainer = styled.div`
   justify-content: center;
 `;
 const WritePageMobileThumbnailInput = styled.input`
-  width: 14.5rem;
+  flex: 1;
   height: 2.75rem;
   background-color: ${COLORS.white};
   border: 1px solid ${COLORS.gray100};

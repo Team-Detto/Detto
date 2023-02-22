@@ -102,6 +102,8 @@ const MobileContentCardWrap = styled.div`
   margin: 0.9375rem 0;
 `;
 const ContentCardImgContainer = styled.div`
+  min-width: 4.5rem;
+  min-height: 4.5rem;
   width: 4.5rem;
   height: 4.5rem;
   margin-right: 1.4375rem;
@@ -117,6 +119,8 @@ const ContentCardContentsContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.1875rem;
+  width: 100%;
+  overflow: hidden;
 `;
 const RecruitingIcon = styled.div`
   min-width: 2.8rem;
@@ -161,6 +165,10 @@ const ContentCardTitle = styled.div`
   line-height: 1.4375rem;
 
   color: #333d4b;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 const ContentCardSubTextBox = styled.div`
   display: flex;

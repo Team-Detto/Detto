@@ -165,9 +165,13 @@ const ContentCardTitle = styled.div`
   font-weight: 400;
   font-size: 1.125rem;
   line-height: 140%;
-  display: flex;
-  align-items: center;
   color: ${COLORS.black};
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
 const ContentCardSubTextBox = styled.div`
   display: flex;
