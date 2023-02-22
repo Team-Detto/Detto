@@ -1,5 +1,5 @@
 import { MutableRefObject } from 'react';
-import TextEdiotr from 'components/TextEditor';
+import TextEditor from 'components/TextEditor';
 import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
 
@@ -17,13 +17,13 @@ const EditPageMobileFooter = ({
   return (
     <EditPageMobileFooterContainer>
       <EditPageMobileFooterEditBox>
-        <TextEdiotr editRef={editRef} value={editFormValue.content} />
+        <TextEditor editRef={editRef} value={editFormValue?.content} />
       </EditPageMobileFooterEditBox>
-      <EditPageMobileFooterCompleatedButton onClick={onModalStateChangeEvent}>
-        <EditPageMobileFooterCompleatedText>
+      <EditPageMobileFooterCompletedButton onClick={onModalStateChangeEvent}>
+        <EditPageMobileFooterCompletedText>
           수정 완료
-        </EditPageMobileFooterCompleatedText>
-      </EditPageMobileFooterCompleatedButton>
+        </EditPageMobileFooterCompletedText>
+      </EditPageMobileFooterCompletedButton>
     </EditPageMobileFooterContainer>
   );
 };
@@ -43,13 +43,13 @@ const EditPageMobileFooterEditBox = styled.div`
   border: 1px solid ${COLORS.gray100};
   border-radius: 0.25rem;
 `;
-const EditPageMobileFooterCompleatedButton = styled.button`
+const EditPageMobileFooterCompletedButton = styled.button`
   width: 17rem;
   height: 3.75rem;
   background-color: ${COLORS.violetB400};
   border-radius: 0.75rem;
 `;
-const EditPageMobileFooterCompleatedText = styled.p`
+const EditPageMobileFooterCompletedText = styled.p`
   font-weight: 700;
   font-size: 1rem;
   line-height: 2rem;

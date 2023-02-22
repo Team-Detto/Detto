@@ -1,5 +1,5 @@
 import useAuth from './useAuth';
-import useEdtiBoard from './useEditBoard';
+import useEditBoard from './useEditBoard';
 import useFindProject from './useFindProject';
 import useGlobalModal from './useGlobalModal';
 import useHeader from './useHeader';
@@ -17,7 +17,7 @@ import useWrite from './useWrite';
 
 export {
   useAuth,
-  useEdtiBoard,
+  useEditBoard,
   useFindProject,
   useGlobalModal,
   useHeader,

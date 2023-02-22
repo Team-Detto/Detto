@@ -1,6 +1,6 @@
 import { ChangeEvent } from 'react';
 import { EditType } from 'types/write/writeType';
-import EidtPagePosition from './EditPagePosition';
+import EditPagePosition from './EditPagePosition';
 import EditPageStack from './EditPageStack';
 import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
@@ -35,7 +35,7 @@ const ProjectEditPageBody = ({
     <BodyContainer>
       <BodyPositionBox>
         <BodyText>필요 포지션</BodyText>
-        <EidtPagePosition
+        <EditPagePosition
           positions={positions}
           onFormValueChangeEvent={onFormValueChangeEvent}
         />
