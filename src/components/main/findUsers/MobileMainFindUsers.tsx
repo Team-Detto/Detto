@@ -33,8 +33,6 @@ const MobileMainFindUsers = () => {
 };
 const MainFindUsersWrap = styled.div`
   width: 100%;
-  height: 8.5rem;
-  padding: 0rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -44,25 +42,23 @@ const MainFindUsersTitleDiv = styled.div`
   width: 14.375rem;
   height: 1.5rem;
 
-  font-family: 'Pretendard';
-  font-style: normal;
   font-weight: 700;
   font-size: 1.25rem;
   line-height: 1.5rem;
-  margin-left: 1.25rem;
 `;
 const MainFindUsersButtonContainer = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding: 0px 20px;
   gap: 1rem;
 
   width: 100%;
   height: 3rem;
 
   margin-top: 0.625rem;
+
+  border-bottom: 1px solid ${COLORS.gray100};
 `;
 const MainFindUsersButton = styled.button<{ active: boolean }>`
   box-sizing: border-box;
@@ -73,24 +69,20 @@ const MainFindUsersButton = styled.button<{ active: boolean }>`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0;
+  padding: 0.75rem 0.375rem;
 
-  /* width: 100%; */
-  width: 3.5rem;
   height: 3rem;
-  font-family: 'Pretendard';
-  font-style: normal;
   font-weight: 500;
-  font-size: 12px;
-  line-height: 24px;
+  font-size: 0.9375rem;
+  line-height: 1.5rem;
 
   color: ${(props) => (props.active ? COLORS.violetB300 : `#909599`)};
   border-bottom: ${(props) =>
-    props.active ? `1px solid ${COLORS.violetB300}` : `none`};
+    props.active ? `2px solid ${COLORS.violetB300}` : `none`};
 `;
 const SlideArea = styled.div`
   margin: 0 auto;
-  width: 324px;
+  width: 20.25rem;
 `;
 
 export default MobileMainFindUsers;

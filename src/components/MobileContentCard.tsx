@@ -60,7 +60,7 @@ const MobileContentCard = ({
   return (
     <MobileContentCardWrap onClick={onNavigateToProjectDetailEvent(id ?? pid)}>
       <ContentCardImgContainer>
-        {!thumbnail ? (
+        {thumbnail ? (
           <ContentCardImg src={thumbnail} />
         ) : (
           <ContentCardImg src={defaultThumbnail} />
@@ -70,7 +70,7 @@ const MobileContentCard = ({
             <AiFillHeart size="1.5rem" color={`${COLORS.pink}`} />
           )}
           {!likedProjects.includes(id ?? pid) && (
-            <AiOutlineHeart size="1.5rem" color={`${COLORS.gray750}`} />
+            <AiOutlineHeart size="1.5rem" color={`${COLORS.gray600}`} />
           )}
         </ContentCardBookmark>
       </ContentCardImgContainer>
@@ -79,7 +79,6 @@ const MobileContentCard = ({
           <RecruitingIcon>
             {isRecruiting ? '모집중' : '모집마감'}
           </RecruitingIcon>
-
           <ContentCardDate>
             프로젝트 시작일 | <span> {getDate(startDate)}</span>
           </ContentCardDate>
@@ -100,34 +99,33 @@ const MobileContentCardWrap = styled.div`
   align-items: center;
 
   width: 100%;
-  height: 6.625rem;
-  margin-bottom: 0.9375rem;
+  margin: 0.9375rem 0;
 `;
 const ContentCardImgContainer = styled.div`
-  width: 5.125rem;
-  height: 5.125rem;
-  margin: 1rem 0.875rem 0.5rem 1.25rem;
+  width: 4.5rem;
+  height: 4.5rem;
+  margin-right: 1.4375rem;
   position: relative;
 `;
 const ContentCardImg = styled.img`
-  width: 4.5rem;
-  height: 4.5rem;
+  width: 100%;
+  height: 100%;
   border-radius: 0.5rem;
   object-fit: cover;
 `;
-const ContentCardContentsContainer = styled.div``;
+const ContentCardContentsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.1875rem;
+`;
 const RecruitingIcon = styled.div`
   min-width: 2.8rem;
-  height: 0.875rem;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 0.4375rem;
+  font-size: 0.625rem;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   border-radius: 2.5rem;
-  padding: 0rem 0.5rem;
   background-color: ${(props: { children: string }) =>
     props.children === '모집중' ? `${COLORS.violetB400}` : `${COLORS.gray100}`};
   color: ${(props: { children: string }) =>
@@ -143,26 +141,24 @@ const ContentCardDateContainer = styled.div`
   align-items: center;
 `;
 const ContentCardDate = styled.div`
-  font-family: 'Noto Sans KR';
-  font-style: normal;
   font-weight: 500;
-  font-size: 12px;
-  line-height: 17px;
+  font-size: 0.75rem;
+  line-height: 1.0625rem;
 
   color: #6b7684;
   margin-right: 0.3125rem;
 `;
 const ContentCardBookmark = styled.button`
   position: absolute;
-  bottom: 0.3125rem;
-  left: 0.335rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  bottom: 0.25rem;
+  left: 0.25rem;
 `;
 const ContentCardTitle = styled.div`
-  font-family: 'Noto Sans KR';
-  font-style: normal;
   font-weight: 700;
-  font-size: 16px;
-  line-height: 23px;
+  font-size: 1rem;
+  line-height: 1.4375rem;
 
   color: #333d4b;
 `;
@@ -173,11 +169,9 @@ const ContentCardSubTextBox = styled.div`
   align-items: center;
 `;
 const ContentCardSubText = styled.p`
-  font-family: 'Noto Sans KR';
-  font-style: normal;
   font-weight: 500;
-  font-size: 13px;
-  line-height: 19px;
+  font-size: 0.8125rem;
+  line-height: 1.1875rem;
 
   color: #6b7684;
 

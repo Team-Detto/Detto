@@ -44,6 +44,11 @@ const FindProjectMobileList = ({
   );
 };
 
-const FindProjectMobileListContainer = styled.div``;
+const FindProjectMobileListContainer = styled.div`
+  padding: 0 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9px;
+`;
 
 export default FindProjectMobileList;

@@ -10,6 +10,7 @@ import { useQuery } from '@tanstack/react-query';
 import { staleTime } from 'utils/staleTime';
 import { firebaseAllUsersRequest } from 'apis/userService';
 import COLORS from 'assets/styles/colors';
+import defaultProfile from 'assets/images/default_profile.jpg';
 
 const settings = {
   centerPadding: '60px',
@@ -44,7 +45,7 @@ const MobileFindUserSlider = ({ tap }: { tap: string }) => {
         .map((user: any) => (
           <Link to={`/profile/${user.uid}`} key={user.uid}>
             <MobileCard key={user}>
-              <CardImage src={user.photoURL} />
+              <CardImage src={user.photoURL || defaultProfile} />
               <CardNickname>
                 {user.isJunior && <JuniorImage src={Junior} />}{' '}
                 {user.displayName}
@@ -59,47 +60,45 @@ const MobileFindUserSlider = ({ tap }: { tap: string }) => {
 export default MobileFindUserSlider;
 
 const NoDataMessage = styled.div`
-  height: 169px;
-  font-size: 2rem;
-  font-weight: 700;
   display: flex;
-  align-items: center;
   justify-content: center;
-  width: 100%;
-  color: ${COLORS.gray500};
+  padding: 4rem 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: ${COLORS.gray300};
 `;
 
 const StyledSlider = styled(Slider)`
-  margin: 15px 0 29px 0;
+  margin-top: 0.9375rem;
   .slick-arrow {
     z-index: 10;
   }
   .slick-prev {
-    left: -25px;
-    width: 24px;
-    height: 24px;
+    left: -1.5625rem;
+    width: 1.5rem;
+    height: 1.5rem;
     cursor: pointer;
   }
   .slick-prev:before {
-    width: 24px;
-    height: 24px;
+    width: 1.5rem;
+    height: 1.5rem;
     background-image: url(${VectorPrev});
-    background-size: 24px 24px;
+    background-size: 1.5rem 1.5rem;
     display: inline-block;
     content: '';
     opacity: 1;
   }
   .slick-next {
-    right: -25px;
-    width: 24px;
-    height: 24px;
+    right: -1.5625rem;
+    width: 1.5rem;
+    height: 1.5rem;
     cursor: pointer;
   }
   .slick-next:before {
-    width: 24px;
-    height: 24px;
+    width: 1.5rem;
+    height: 1.5rem;
     background-image: url(${VectorNext});
-    background-size: 24px 24px;
+    background-size: 1.5rem 1.5rem;
     display: inline-block;
     content: '';
     opacity: 1;
@@ -111,15 +110,15 @@ const MobileCard = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  /* width: 84px;
-  height: 123px; */
+  gap: 0.625rem;
+  padding: 0.625rem 0;
 `;
 
 const CardImage = styled.img`
-  width: 64px;
-  height: 64px;
+  width: 4rem;
+  height: 4rem;
   border-radius: 100%;
+  object-fit: cover;
 `;
 const CardNickname = styled.div`
   display: flex;
@@ -127,18 +126,17 @@ const CardNickname = styled.div`
   justify-content: center;
 
   position: relative;
-  height: 20px;
 
   font-weight: 500;
-  font-size: 18px;
-  line-height: 20px;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
   text-align: center;
 
   color: ${COLORS.gray800};
 `;
 const JuniorImage = styled.img`
   position: absolute;
-  left: -20px;
-  width: 16px;
-  height: 16px;
+  left: -1.125rem;
+  width: 0.875rem;
+  height: 0.875rem;
 `;

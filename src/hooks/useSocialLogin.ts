@@ -66,7 +66,6 @@ const useSocialLogin = () => {
       const user = result.user;
       const additionalUserInfo = getAdditionalUserInfo(result);
 
-      console.log('login sucess: ', user);
       navigate(location.pathname);
       if (additionalUserInfo?.isNewUser) {
         // 신규 유저일 경우, 유저 컬렉션에 데이터를 추가 후 다음 페이지로 이동
