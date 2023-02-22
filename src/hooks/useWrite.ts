@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, ChangeEvent, MouseEvent } from 'react';
+import { useState, useRef, useCallback, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth, useModal, useToastPopup } from 'hooks';
 import { firebaseCreateProjectRequest } from 'apis/boardService';
@@ -10,6 +10,7 @@ import {
   positionValidation,
   periodValidation,
   deadlineValidation,
+  stackValidation,
 } from './../utils/validation';
 
 const useWrite = () => {
@@ -28,7 +29,16 @@ const useWrite = () => {
   const { showToast, ToastMessage, handleToastPopup } = useToastPopup();
 
   const handleCheckValidationButtonClick = useCallback(() => {
-    const { title, positions, startDate, endDate, deadline } = writeFormValue;
+    const {
+      title,
+      positions,
+      plannerStack,
+      designerStack,
+      developerStack,
+      startDate,
+      endDate,
+      deadline,
+    } = writeFormValue;
     const markdownText = editRef.current.getInstance().getMarkdown();
     const validations = [
       {
@@ -38,6 +48,15 @@ const useWrite = () => {
       {
         isValid: positionValidation(positions),
         message: '포지션을 최소 1개 이상 선택해주세요.',
+      },
+      {
+        isValid: stackValidation(
+          plannerStack,
+          designerStack,
+          developerStack,
+          positions,
+        ),
+        message: '해당하는 스택을 최소 1개 이상 선택해주세요.',
       },
       {
         isValid: periodValidation(startDate, endDate),

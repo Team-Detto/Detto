@@ -19,6 +19,24 @@ export const positionValidation = (position: object) => {
   return true;
 };
 
+export const stackValidation = (
+  plannerStack: string[],
+  designerStack: string[],
+  developerStack: string[],
+  positions: {
+    planner: number;
+    designer: number;
+    frontend: number;
+    backend: number;
+  },
+) => {
+  if (positions.planner > 0 && plannerStack.length === 0) return false;
+  if (positions.designer > 0 && designerStack.length === 0) return false;
+  if (positions.frontend > 0 && developerStack.length === 0) return false;
+  if (positions.backend > 0 && developerStack.length === 0) return false;
+  return true;
+};
+
 export const periodValidation = (startDate: string, endDate: string) => {
   if (startDate === '' || endDate === '') return false;
   if (startDate > endDate) return false;
