@@ -18,12 +18,14 @@ interface MyPageProfileImageProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onDelete: () => void;
   uid: string;
+  page?: string;
 }
 
 const MyPageProfileImage = ({
   profileImg,
   onChange,
   onDelete,
+  page,
 }: MyPageProfileImageProps) => {
   const setUserInfo = useSetRecoilState(userInfoState);
   const {
@@ -43,8 +45,8 @@ const MyPageProfileImage = ({
   }, [profileImg]);
 
   return (
-    <ProfileImageWrapper isMobile={isMobile}>
-      <ProfileImageBox isMobile={isMobile}>
+    <ProfileImageWrapper isMobile={isMobile} page={page}>
+      <ProfileImageBox isMobile={isMobile} page={page}>
         <ProfileImage
           src={
             profileImg === '' || profileImg === undefined
@@ -54,10 +56,7 @@ const MyPageProfileImage = ({
           alt="프로필이미지"
         />
       </ProfileImageBox>
-      <ProfileImgEditButton
-        isMobile={isMobile}
-        onClick={profileModalStateChange}
-      >
+      <ProfileImgEditButton onClick={profileModalStateChange} page={page}>
         <EditIcon />
       </ProfileImgEditButton>
 
@@ -68,6 +67,7 @@ const MyPageProfileImage = ({
         onDeleteEvent={onDelete}
         onCloseEvent={profileModalCloseChange}
         handleModalStateChange={profileModalStateChange}
+        page={page}
       />
     </ProfileImageWrapper>
   );
@@ -75,26 +75,31 @@ const MyPageProfileImage = ({
 
 export default MyPageProfileImage;
 
-const ProfileImageWrapper = styled.div<{ isMobile: boolean }>`
+const ProfileImageWrapper = styled.div<{ isMobile: boolean; page?: string }>`
   width: ${({ isMobile }) => (isMobile ? '7.75rem' : '9rem')};
   display: flex;
   margin-right: ${({ isMobile }) => (isMobile ? '0' : '4.625rem')};
   margin: ${({ isMobile }) => (isMobile ? '.875rem auto 0' : '')};
 
   position: relative;
+  margin-bottom: ${({ isMobile, page }) =>
+    isMobile ? (page === 'join' ? '0' : '1.5rem') : '0'};
 `;
 
-const ProfileImageBox = styled(ModalProfileImageBox)<{ isMobile: boolean }>`
-  margin-bottom: 2.25rem;
+const ProfileImageBox = styled(ModalProfileImageBox)<{
+  isMobile: boolean;
+  page?: string;
+}>`
+  margin-bottom: ${({ page }) => (page === 'join' ? '0' : '1.5rem')};
 `;
 
-const ProfileImgEditButton = styled.div<{ isMobile: boolean }>`
+const ProfileImgEditButton = styled.div<{ page?: string }>`
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
-  right: ${({ isMobile }) => (isMobile ? '0.2rem' : '.1875rem')};
-  bottom: ${({ isMobile }) => (isMobile ? '2.1rem' : '1.875rem')};
+  right: 0;
+  bottom: ${({ page }) => (page === 'join' ? '-0.4656rem' : '1.5rem')};
   z-index: 1;
 
   width: 2.5rem;

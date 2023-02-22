@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
-import SkillButton from 'components/common/SkillButton';
 import React, { useState } from 'react';
 import { designs, develops, products } from 'utils/skills';
 
@@ -8,6 +7,22 @@ const positions = ['기획', '디자인', '개발'];
 
 export default function MobileSetSkillsPageStack({ skills, setSkills }: any) {
   const [selectedPosition, setSelectedPosition] = useState<string>('기획');
+
+  const handleSkillButtonClick = (position: string, skill: string) => {
+    const stacks = skills[position];
+
+    if (stacks.includes(skill)) {
+      setSkills((prev: any) => ({
+        ...prev,
+        [position]: stacks.filter((item: string) => item !== skill),
+      }));
+    } else {
+      setSkills((prev: any) => ({
+        ...prev,
+        [position]: [...stacks, skill],
+      }));
+    }
+  };
 
   return (
     <Container>
@@ -31,31 +46,43 @@ export default function MobileSetSkillsPageStack({ skills, setSkills }: any) {
           products.map((skill: string) => (
             <SkillButton
               key={skill}
-              name={skill}
-              type="plannerStack"
-              value={skills.plannerStack}
-              setValue={setSkills}
-            />
+              type="button"
+              name="plannerStack"
+              onClick={(e) =>
+                handleSkillButtonClick(e.currentTarget.name, skill)
+              }
+              active={skills.plannerStack.includes(skill)}
+            >
+              {skill}
+            </SkillButton>
           ))}
         {selectedPosition === '디자인' &&
           designs.map((skill: string) => (
             <SkillButton
               key={skill}
-              name={skill}
-              type="designerStack"
-              value={skills.designerStack}
-              setValue={setSkills}
-            />
+              type="button"
+              name="designerStack"
+              onClick={(e) =>
+                handleSkillButtonClick(e.currentTarget.name, skill)
+              }
+              active={skills.designerStack.includes(skill)}
+            >
+              {skill}
+            </SkillButton>
           ))}
         {selectedPosition === '개발' &&
           develops.map((skill: string) => (
             <SkillButton
               key={skill}
-              name={skill}
-              type="developerStack"
-              value={skills.developerStack}
-              setValue={setSkills}
-            />
+              type="button"
+              name="developerStack"
+              onClick={(e) =>
+                handleSkillButtonClick(e.currentTarget.name, skill)
+              }
+              active={skills.developerStack.includes(skill)}
+            >
+              {skill}
+            </SkillButton>
           ))}
       </Skills>
     </Container>
@@ -106,21 +133,36 @@ const Skills = styled.div`
   align-content: flex-start;
 
   padding: 2px 3px;
-
   gap: 0.9375rem 0.75rem;
 
-  overflow: auto;
+  overflow-y: auto;
 
   ::-webkit-scrollbar {
     width: 0.375rem;
   }
   ::-webkit-scrollbar-thumb {
-    // 스크롤 막대
-    background: ${COLORS.gray100};
+    background-color: ${COLORS.gray100};
     border-radius: 0.25rem;
   }
   ::-webkit-scrollbar-track {
-    // 스크롤 배경
     background-color: transparent;
   }
+`;
+
+const SkillButton = styled.button<{ active?: boolean }>`
+  padding: 0 0.75rem;
+  width: 5.25rem;
+  height: 2rem;
+
+  background: ${(props) => (props.active ? COLORS.violetB500 : COLORS.gray100)};
+  border-radius: 2rem;
+
+  font-weight: ${(props) => (props.active ? 700 : 400)};
+  font-size: 0.75rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: ${(props) => (props.active ? COLORS.white : COLORS.black)};
 `;

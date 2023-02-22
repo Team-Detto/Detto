@@ -24,6 +24,7 @@ interface ProfileImageModalProps {
   onDeleteEvent: () => void;
   onCloseEvent: () => void;
   handleModalStateChange: () => void;
+  page?: string;
 }
 
 const ProfileImageModal = ({
@@ -33,6 +34,7 @@ const ProfileImageModal = ({
   onChangeEvent,
   onCloseEvent,
   handleModalStateChange,
+  page,
 }: ProfileImageModalProps) => {
   const setActiveInfoBtn = useSetRecoilState(mypageInfoButtonActiveState);
   const imgRef = useRef<HTMLInputElement | null>(null);
@@ -52,7 +54,7 @@ const ProfileImageModal = ({
   };
 
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && page !== 'join') {
       const prevScrollY = preventScroll();
       return () => {
         allowScroll(prevScrollY);

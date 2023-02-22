@@ -77,6 +77,7 @@ const InfoItemDiv = styled.div`
 const InfoTitle = styled.label`
   display: block;
   width: 4rem;
+  min-width: 4rem;
   font-size: 1.25rem;
   color: #383838;
   text-align: right;

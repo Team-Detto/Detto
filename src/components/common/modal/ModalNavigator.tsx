@@ -23,7 +23,7 @@ export default function ModalNavigator({ back, close }: ModalNavigatorProps) {
         </BackButton>
       )}
       {close && (
-        <CloseButton onClick={() => closeModal()}>
+        <CloseButton onClick={closeModal}>
           <CgClose
             style={{ width: '1.5rem', height: '1.5rem', color: COLORS.gray700 }}
           />
