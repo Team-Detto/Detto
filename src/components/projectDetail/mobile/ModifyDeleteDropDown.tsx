@@ -1,10 +1,27 @@
 import styled from '@emotion/styled';
+import { useMutation } from '@tanstack/react-query';
+import { deleteProject } from 'apis/postDetail';
 import COLORS from 'assets/styles/colors';
-import { Link } from 'react-router-dom';
+import MobileConfirmAlert from 'components/common/mobile/MobileConfirmAlert';
+import { useModal } from 'hooks';
+import { useNavigate, Link } from 'react-router-dom';
 
 const ModifyDeleteDropDown = ({ pid, popup, setPopup }: any) => {
+  const { isOpen, handleModalStateChange } = useModal(false);
+  const navigate = useNavigate();
+  const { mutate: deleteProjectMutate } = useMutation(() => deleteProject(pid));
   return (
     <>
+      <MobileConfirmAlert
+        isOpen={isOpen}
+        message="정말 삭제할까요?"
+        subMessage="게시글은 바로 사라집니다!"
+        onClickEvent={() => {
+          deleteProjectMutate(pid);
+          navigate('/');
+        }}
+        onCloseEvent={handleModalStateChange}
+      />
       {popup && (
         <Backdrop
           onClick={() => {
@@ -17,7 +34,9 @@ const ModifyDeleteDropDown = ({ pid, popup, setPopup }: any) => {
                 <Link to={`/project/write/${pid}`}>수정하기</Link>
               </DropdownItem>
 
-              <DropdownItem>삭제하기</DropdownItem>
+              <DropdownItem onClick={handleModalStateChange}>
+                삭제하기
+              </DropdownItem>
             </DropdownList>
           </DropdownBox>
         </Backdrop>
