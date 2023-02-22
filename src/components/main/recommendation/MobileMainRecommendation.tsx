@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
-import ContentCard from 'components/ContentCard';
 import { useFindProject } from 'hooks';
 import { useState } from 'react';
 import COLORS from 'assets/styles/colors';
@@ -31,7 +30,6 @@ const MobileMainRecommendation = () => {
     queryFn: firebaseMostLikedProjectsRequest,
     staleTime: staleTime.mostLikedPosts,
   });
-  if (!mostViewedProjects || !mostLikedProjects) return null;
 
   return (
     <MobileMainRecommendationWrap>
@@ -54,22 +52,34 @@ const MobileMainRecommendation = () => {
         </MobileMainRecommendationButtonContainer>
         <MobileMainRecommendationCardContainer>
           {tap === 'orderByViews' &&
-            mostViewedProjects.map((project: any) => (
-              <MobileContentCard
-                key={project.id}
-                project={project}
-                likedProjects={likedProjects}
-                onNavigateToProjectDetailEvent={handleNavigateToProjectDetail}
-              />
+            (mostViewedProjects?.length !== 0 ? (
+              mostViewedProjects?.map((project: any) => (
+                <MobileContentCard
+                  key={project.id}
+                  project={project}
+                  likedProjects={likedProjects}
+                  onNavigateToProjectDetailEvent={handleNavigateToProjectDetail}
+                />
+              ))
+            ) : (
+              <MobileNoDataMessage>
+                프로젝트를 찾을 수 없어요 :/
+              </MobileNoDataMessage>
             ))}
           {tap === 'orderByLikes' &&
-            mostLikedProjects.map((project: any) => (
-              <MobileContentCard
-                key={project.id}
-                project={project}
-                likedProjects={likedProjects}
-                onNavigateToProjectDetailEvent={handleNavigateToProjectDetail}
-              />
+            (mostLikedProjects?.length !== 0 ? (
+              mostLikedProjects?.map((project: any) => (
+                <MobileContentCard
+                  key={project.id}
+                  project={project}
+                  likedProjects={likedProjects}
+                  onNavigateToProjectDetailEvent={handleNavigateToProjectDetail}
+                />
+              ))
+            ) : (
+              <MobileNoDataMessage>
+                프로젝트를 찾을 수 없어요 :/
+              </MobileNoDataMessage>
             ))}
         </MobileMainRecommendationCardContainer>
       </MobileMainRecommendationContainer>
@@ -136,6 +146,15 @@ const MobileMainRecommendationCardButton = styled(Link)`
   font-size: 10px;
   text-align: center;
   color: ${COLORS.gray750};
+`;
+const MobileNoDataMessage = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: ${COLORS.gray300};
 `;
 
 export default MobileMainRecommendation;
