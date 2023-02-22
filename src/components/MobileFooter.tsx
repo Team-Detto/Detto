@@ -21,7 +21,9 @@ const FooterContainer = styled.footer`
   padding: 0 1.5rem;
 `;
 
-const CopyRightText = styled(OurTeamText)`
+const CopyRightText = styled.p`
+  margin: 1.125rem 0 2.5rem;
+  line-height: 160%;
   padding-top: 1rem;
   color: ${COLORS.gray700};
   font-size: 0.75rem;
