@@ -44,7 +44,12 @@ const MobileProjectList = ({ category, pidList }: ProjectListProps) => {
 
 export default MobileProjectList;
 
-const MobileProjectListContainer = styled.div``;
+const MobileProjectListContainer = styled.div`
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5625rem;
+`;
 
 const NodataMessage = styled.p`
   display: flex;
