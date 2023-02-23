@@ -43,4 +43,5 @@ export default MobileMyPage;
 
 const MobileMyPageContainer = styled.div`
   width: 100%;
+  margin-bottom: 5rem;
 `;

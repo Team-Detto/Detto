@@ -156,7 +156,7 @@ export default MobileUserInfo;
 const MobileUserInfoContainer = styled.div`
   width: 100%;
   min-height: 29.6875rem;
-  margin: 1.625rem 0;
+  margin: 1.625rem 0 4rem;
   background: ${COLORS.white};
 `;
 

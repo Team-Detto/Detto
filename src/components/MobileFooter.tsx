@@ -89,7 +89,7 @@ const FooterContainer = styled.footer<{ isFindProject: boolean }>`
   width: 100%;
   height: 12rem;
   background-color: ${COLORS.gray50};
-  margin-top: 5rem;
+  /* margin-top: 5rem; */
   padding: 1rem 1.5rem;
   position: relative;
   left: 0;

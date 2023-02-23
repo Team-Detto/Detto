@@ -8,6 +8,7 @@ const MobileContainer = ({ children }: ContainerType) => {
 const MobileContainerWrapper = styled.div`
   padding: 0 1rem;
   position: relative;
+  margin-bottom: 4rem;
 `;
 
 export default MobileContainer;
