@@ -33,9 +33,16 @@ const MobileInviteModal = ({
       true,
     ),
   );
+
+  const handleBackDropClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      onClickEvent();
+    }
+  };
+
   return (
     <>
-      <BackDrop isOpen={isOpen}>
+      <BackDrop onClick={handleBackDropClick} isOpen={isOpen}>
         <ModalContainer>
           <StackDiv>
             {applicant.skills.slice(0, 4).map((skill: any) => (
@@ -102,9 +109,10 @@ const ModalContainer = styled.div`
   background: ${COLORS.white};
   border-radius: 1rem;
   box-shadow: 0rem 0.25rem 0.625rem rgba(117, 117, 117, 0.25);
-  z-index: 999;
-  z-index: 999;
+  z-index: 2000;
+  display: block;
 `;
+
 const StackDiv = styled.div`
   display: flex;
   flex-direction: row;
@@ -112,6 +120,7 @@ const StackDiv = styled.div`
   gap: 0.5rem;
   height: 1.25rem;
 `;
+
 const Stacks = styled.p`
   font-size: 0.625rem;
   background-color: ${COLORS.gray100};
