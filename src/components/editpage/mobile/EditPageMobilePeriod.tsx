@@ -24,6 +24,7 @@ const EditPageMobilePeriod = ({
       </EditPageMobileBodyLeftBox>
       <EditPageMobileBodyRightBox>
         <EditPageMobileDateInput
+          id="startDate"
           type="date"
           name="startDate"
           value={new Date(+new Date(startDate)).toISOString().split('T')[0]}
@@ -31,6 +32,7 @@ const EditPageMobilePeriod = ({
         />
         −
         <EditPageMobileDateInput
+          id="endDate"
           type="date"
           name="endDate"
           value={new Date(+new Date(endDate)).toISOString().split('T')[0]}
