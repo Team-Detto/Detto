@@ -12,10 +12,11 @@ const MobileProjectList = ({ category, pidList }: ProjectListProps) => {
   const { likedProjects, handleNavigateToProjectDetail } = useFindProject();
 
   // 현재 활성화된 탭의 프로젝트 아이디(pid) 리스트
+  console.log(' ', category);
   const currentPidList =
-    category === 'appliedProjects' || category === 'currentProjects'
+    (category === 'appliedProjects' || category === 'currentProjects'
       ? getFilteredPidList(pidList, category)
-      : pidList[category];
+      : pidList?.[category]) ?? [];
 
   const { data: activeProjectsData }: any = useQuery({
     queryKey: ['myProjects', currentPidList],
@@ -30,8 +31,8 @@ const MobileProjectList = ({ category, pidList }: ProjectListProps) => {
     staleTime: staleTime.filterPost,
   });
 
-  const filteredPidList = pidList[category].filter((pid) => {
-    if (projectIdList.includes(pid)) {
+  const filteredPidList = pidList?.[category]?.filter((pid) => {
+    if (projectIdList?.includes(pid)) {
       return pid;
     }
   });
@@ -42,9 +43,10 @@ const MobileProjectList = ({ category, pidList }: ProjectListProps) => {
         <NodataMessage>프로젝트가 없어요 :/</NodataMessage>
       )}
       {activeProjectsData &&
+        filteredPidList &&
         activeProjectsData?.map((project: any, idx: number) => (
           <MobileContentCard
-            key={filteredPidList[idx]}
+            key={project?.createdAt}
             project={project}
             likedProjects={likedProjects}
             pid={filteredPidList[idx]}

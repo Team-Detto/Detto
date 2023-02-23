@@ -26,16 +26,16 @@ const ProjectList = ({ category, pidList }: ProjectListProps) => {
     staleTime: staleTime.filterPost,
   });
 
-  const filteredPidList = pidList[category].filter((pid) => {
+  const filteredPidList = pidList[category]?.filter((pid) => {
     if (projectIdList.includes(pid)) {
       return pid;
     }
   });
 
   const currentPidList =
-    category === 'appliedProjects' || category === 'currentProjects'
+    (category === 'appliedProjects' || category === 'currentProjects'
       ? getFilteredPidList(pidList, category)
-      : pidList[category];
+      : pidList[category]) ?? [];
 
   const { data: activeProjectsData }: any = useQuery({
     queryKey: ['myProjects', currentPidList],
@@ -56,7 +56,7 @@ const ProjectList = ({ category, pidList }: ProjectListProps) => {
               category={category}
               key={project?.createdAt}
               project={project}
-              pid={filteredPidList[idx]}
+              pid={filteredPidList?.[idx]}
               onNavigateToProjectDetailEvent={handleNavigateToProjectDetail}
             />
           ),
