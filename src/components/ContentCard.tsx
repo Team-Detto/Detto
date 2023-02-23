@@ -4,14 +4,16 @@ import { concatSkills } from 'utils/skills';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useAuth } from 'hooks';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateRecruiting } from 'apis/postDetail';
 import defaultThumbnail from 'assets/images/thumbnail_small.jpg';
+import { firebaseLikeProjectUpdateRequest } from 'apis/boardService';
 
 interface Props {
   project: EditType.EditFormType;
-  likedProjects: string[];
+  likedProjects: any;
   onNavigateToProjectDetailEvent: (path: string) => () => void;
 }
 
@@ -33,6 +35,9 @@ const ContentCard = ({
     isRecruiting,
     deadline,
   }: any = project;
+  const [isLike, setIsLike] = useState<boolean>(likedProjects.includes(id));
+
+  const { uid } = useAuth();
   const stacks = concatSkills(plannerStack, designerStack, developerStack);
   const queryClient = useQueryClient();
 
@@ -46,6 +51,20 @@ const ContentCard = ({
     },
   );
 
+  const { mutate: updateLikeMutate } = useMutation(
+    () => firebaseLikeProjectUpdateRequest(id, uid),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['likedProjects', uid]);
+      },
+    },
+  );
+
+  const handleUpdateLike = () => {
+    setIsLike(!isLike);
+    updateLikeMutate();
+  };
+
   useEffect(() => {
     const today = Date.now();
     if (today > deadline) {
@@ -54,8 +73,11 @@ const ContentCard = ({
   }, []);
 
   return (
-    <ContentCardWrap onClick={onNavigateToProjectDetailEvent(id)}>
-      <ContentCardImgContainer src={thumbnail || defaultThumbnail} />
+    <ContentCardWrap>
+      <ContentCardImgContainer
+        src={thumbnail || defaultThumbnail}
+        onClick={onNavigateToProjectDetailEvent(id)}
+      />
       <ContentCardContentsContainer>
         <ContentCardDateContainer>
           <RecruitingIcon>
@@ -65,12 +87,16 @@ const ContentCard = ({
             프로젝트 시작일 | <span> {getDate(startDate)}</span>
           </ContentCardDate>
           <ContentCardBookmark>
-            {likedProjects.includes(id) && (
-              <AiFillHeart size="1.5rem" color={`${COLORS.pink}`} />
-            )}
-            {!likedProjects.includes(id) && (
-              <AiOutlineHeart size="1.5rem" color={`${COLORS.gray750}`} />
-            )}
+            <ContentCardLikeButton
+              name={likedProjects.includes(id) ? 'like' : 'unLike'}
+              onClick={handleUpdateLike}
+            >
+              {likedProjects.includes(id) ? (
+                <AiFillHeart size="1.5rem" color={`${COLORS.pink}`} />
+              ) : (
+                <AiOutlineHeart size="1.5rem" color={`${COLORS.gray750}`} />
+              )}
+            </ContentCardLikeButton>
           </ContentCardBookmark>
         </ContentCardDateContainer>
         <ContentCardTitle>{title}</ContentCardTitle>
@@ -100,7 +126,6 @@ const ContentCardWrap = styled.div`
   background: ${COLORS.white};
   box-shadow: 0rem 0rem 0.375rem 0.125rem rgba(0, 0, 0, 0.04);
   border-radius: 0.375rem;
-  cursor: pointer;
 `;
 const ContentCardImgContainer = styled.img`
   width: 23.75rem;
@@ -108,6 +133,7 @@ const ContentCardImgContainer = styled.img`
   background: ${COLORS.gray300};
   object-fit: cover;
   border-radius: 0.375rem 0.375rem 0rem 0rem;
+  cursor: pointer;
 `;
 const ContentCardContentsContainer = styled.div`
   display: flex;
@@ -158,7 +184,7 @@ const ContentCardDate = styled.div`
     color: ${COLORS.gray850}; //색상표에 없음
   }
 `;
-const ContentCardBookmark = styled.button``;
+const ContentCardBookmark = styled.div``;
 const ContentCardTitle = styled.div`
   width: 21.875rem;
   height: 3.125rem;
@@ -212,5 +238,6 @@ const ContentCardStackButton = styled.div`
   line-height: 2rem;
   color: ${COLORS.black};
 `;
+const ContentCardLikeButton = styled.button<{ name: string }>``;
 
 export default ContentCard;
