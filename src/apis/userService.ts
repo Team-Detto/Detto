@@ -25,13 +25,10 @@ export const firebaseActiveUsersRequest = async () => {
 };
 
 // 내 프로젝트 관심 조회
-export const firebaseFindMyInterestRequest = async (
-  uid: string,
-  setLikedProjects: Dispatch<React.SetStateAction<string[]>>,
-) => {
+export const firebaseFindMyInterestRequest = async (uid: string) => {
   const docRef = doc(firestore, 'myprojects', uid);
   const docSnap = await getDoc(docRef);
   if (docSnap.exists()) {
-    setLikedProjects(docSnap.data().likedProjects);
+    return docSnap.data().likedProjects;
   }
 };
