@@ -143,6 +143,8 @@ const FooterContainer = styled.footer`
   background-color: ${COLORS.gray50};
   padding: 4rem 0;
   position: relative;
+  left: 0;
+  bottom: 0;
 `;
 
 const FooterContentsWrapper = styled.div`
