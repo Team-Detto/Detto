@@ -101,7 +101,6 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
   }, [isOpen]);
 
   const handleBackDropClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    console.log(e);
     if (e.target === e.currentTarget) {
       onClickEvent();
     }
