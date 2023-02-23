@@ -9,6 +9,7 @@ interface UserInfo {
   plannerStack: string[];
   designerStack: string[];
   developerStack: string[];
+  isActive?: boolean;
 }
 
 interface Note {

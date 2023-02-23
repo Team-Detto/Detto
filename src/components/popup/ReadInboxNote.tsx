@@ -47,7 +47,16 @@ export default function ReadInboxNote({ data }: { data: Note }) {
       </HeaderContainer>
       <TitleText>{data.title}</TitleText>
       <ContentText>{data.content}</ContentText>
-      <CustomButton label="답장하기" onClick={handleReplyButtonClick} />
+      {!sender?.isActive ? (
+        <CustomButton
+          label="탈퇴한 회원입니다."
+          onClick={handleReplyButtonClick}
+          color="gray"
+          disabled
+        />
+      ) : (
+        <CustomButton label="답장하기" onClick={handleReplyButtonClick} />
+      )}
     </Container>
   );
 }

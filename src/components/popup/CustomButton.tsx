@@ -5,21 +5,23 @@ type ButtonProps = {
   label: string;
   onClick: () => void;
   disabled?: boolean;
+  color?: string;
 };
 
 export default function CustomButton({
   label,
   onClick,
   disabled,
+  color,
 }: ButtonProps) {
   return (
-    <Button onClick={onClick} disabled={disabled}>
+    <Button onClick={onClick} disabled={disabled} color={color}>
       {label}
     </Button>
   );
 }
 
-const Button = styled.button`
+const Button = styled.button<{ color?: string }>`
   width: 100%;
   height: 3.75rem;
 
@@ -30,11 +32,16 @@ const Button = styled.button`
   align-items: center;
   justify-content: center;
 
-  color: ${COLORS.white};
-  background-color: ${COLORS.violetB400};
+  color: ${({ color }) => (color === 'gray' ? COLORS.gray800 : COLORS.white)};
+  background-color: ${({ color }) =>
+    color === 'gray' ? COLORS.gray100 : COLORS.violetB400};
   border-radius: 1rem;
 
-  &:hover {
-    background-color: ${COLORS.violetB300};
+  :hover {
+    background-color: ${({ color }) =>
+      color === 'gray' ? COLORS.gray100 : COLORS.violetB300};
+  }
+  :disabled {
+    background-color: ${COLORS.gray100};
   }
 `;

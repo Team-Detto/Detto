@@ -21,6 +21,7 @@ const PublicProfilePage = () => {
   const { activeProjectTab, handleProjectTabClick, setActiveProjectTab } =
     useProjectList();
   const { openModalWithData, openModal } = useGlobalModal();
+  const isMobile = useIsMobile();
 
   const { data: userInfoData }: any = useQuery({
     queryKey: ['users', id],
@@ -56,9 +57,16 @@ const PublicProfilePage = () => {
     setActiveProjectTab('currentProjects');
   }, []);
 
-  const isMobile = useIsMobile();
+  if (!userInfoData) return null;
 
-  if (isMobile && userInfoData) {
+  // 탈퇴한 회원일 경우 메세지 표시
+  if (!userInfoData.isActive) {
+    if (isMobile)
+      return <NoDataMessage mobile>탈퇴한 회원입니다 :/</NoDataMessage>;
+    return <NoDataMessage>탈퇴한 회원입니다 :/</NoDataMessage>;
+  }
+
+  if (isMobile) {
     return (
       <MobilePublicProfilePage
         userInfoData={userInfoData}
@@ -244,23 +252,22 @@ const UserInfoValue = styled.div`
   color: #828282; //색상표에 없는데 사용되고 있음. 문의하기
 `;
 
-const UserSkillStackDiv = styled.div`
-  display: flex;
-  align-items: center;
-
-  height: 2rem;
-  padding: 0 0.75rem;
-  background-color: ${COLORS.gray100};
-  border-radius: 2rem;
-
-  font-size: 0.75rem;
-  color: ${COLORS.black};
-
-  cursor: default;
-`;
-
 const UserProjectWrapper = styled.div`
   margin-top: 7.875rem;
   font-size: 1.25rem;
   font-weight: 500;
+`;
+
+const NoDataMessage = styled.div<{ mobile?: boolean }>`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 75vh;
+
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: ${COLORS.gray300};
 `;
