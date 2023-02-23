@@ -2,21 +2,27 @@ import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import ConfirmAlert from 'components/common/ConfirmAlert';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteProject, updateRecruiting } from 'apis/postDetail';
 import { useAuth, useModal } from 'hooks';
-import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import defaultThumbnail from 'assets/images/thumbnail_big.jpg';
 
 const TitleThumbnailArea = ({ projectData, pid }: any) => {
   const { thumbnail, title, isRecruiting, deadline } = projectData;
   const today = new Date().getTime();
-  const navigate = useNavigate();
 
   const { isOpen, handleModalStateChange } = useModal(false);
+  const queryClient = useQueryClient();
   //글 삭제하기 useMutation
-  const { mutate: deleteProjectMutate } = useMutation(() => deleteProject(pid));
+  const { mutate: deleteProjectMutate } = useMutation(
+    () => deleteProject(pid),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries([['post', 'projectIdList']]);
+      },
+    },
+  );
 
   const { uid } = useAuth();
   const handleDeleteProject = () => {

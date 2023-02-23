@@ -1,15 +1,22 @@
 import styled from '@emotion/styled';
-import { useMutation } from '@tanstack/react-query';
-import { deleteProject } from 'apis/postDetail';
 import COLORS from 'assets/styles/colors';
 import MobileConfirmAlert from 'components/common/mobile/MobileConfirmAlert';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { deleteProject } from 'apis/postDetail';
 import { useModal } from 'hooks';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const ModifyDeleteDropDown = ({ pid, popup, setPopup, projectData }: any) => {
   const { isOpen, handleModalStateChange } = useModal(false);
-  const navigate = useNavigate();
-  const { mutate: deleteProjectMutate } = useMutation(() => deleteProject(pid));
+  const queryClient = useQueryClient();
+  const { mutate: deleteProjectMutate } = useMutation(
+    () => deleteProject(pid),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries([['post', 'projectIdList']]);
+      },
+    },
+  );
   return (
     <>
       <MobileConfirmAlert
