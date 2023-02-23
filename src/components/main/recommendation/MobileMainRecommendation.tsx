@@ -97,7 +97,7 @@ const MobileMainRecommendationWrap = styled.div`
   width: 100%;
   padding: 0rem;
   margin-top: 2.3125rem;
-  margin-bottom: 1.625rem;
+  margin-bottom: 2.4rem;
 `;
 const MobileMainRecommendationContainer = styled.div`
   width: 100%;

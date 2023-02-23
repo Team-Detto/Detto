@@ -101,7 +101,7 @@ const EditPageWrapper = styled.div`
   height: 133.5625rem;
 `;
 const EditPageMobileContainer = styled.div`
-  height: 70.125rem;
+  height: 78rem;
 `;
 
 export default ProjectEditPage;

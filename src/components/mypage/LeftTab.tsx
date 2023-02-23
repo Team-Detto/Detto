@@ -68,8 +68,8 @@ export default LeftTab;
 
 const LeftTabWrapper = styled.div`
   min-width: 14.375rem;
-  min-height: 100vh;
-  max-height: 100%;
+  min-height: 50vh;
+  /* max-height: 100%; */
   background-color: ${COLORS.gray50};
   border-right: 1px solid ${COLORS.gray200};
   padding-top: 12.75rem;
@@ -101,9 +101,9 @@ const LeftTabItem = styled.li<{ isActive: boolean }>`
 `;
 
 const WithdrawalBox = styled.div`
-  position: fixed;
+  position: sticky;
   left: 0;
-  bottom: 0;
+  top: 100rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -111,7 +111,6 @@ const WithdrawalBox = styled.div`
   min-width: 14.375rem;
   height: 3rem;
   background-color: ${COLORS.gray100};
-  border-right: 1px solid ${COLORS.gray200};
 
   font-size: 0.875rem;
   color: ${COLORS.red};

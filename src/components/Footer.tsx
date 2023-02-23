@@ -1,22 +1,24 @@
 import COLORS from 'assets/styles/colors';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useIsMobile } from 'hooks';
 import styled from '@emotion/styled';
 import MobileFooter from './MobileFooter';
 import WebContainer from './common/WebContainer';
 import { LogoBoxH1 } from './Header';
 import iconGithub from 'assets/images/footer_github.png';
-import iconBehance from 'assets/images/footer_behance.png';
+import iconGmail from 'assets/images/footer_gmail.png';
 
-const Footer = () => {
+export const Footer = () => {
+  const { pathname } = useLocation();
   const isMobile = useIsMobile();
+  const isFindProject = pathname.includes('findproject');
 
   if (isMobile) {
-    return <MobileFooter />;
+    return <MobileFooter isFindProject={isFindProject} />;
   }
 
   return (
-    <FooterContainer>
+    <FooterContainer isFindProject={isFindProject}>
       <WebContainer>
         <FooterContentsWrapper>
           <ContentsBox>
@@ -42,7 +44,7 @@ const Footer = () => {
                   <IconGithub src={iconGithub} alt="깃허브" />
                 </IconWrapper>
                 <PageLink target={'_blank'} to={'https://github.com/su-no'}>
-                  su-no
+                  Hyojin
                 </PageLink>
               </ContentItem>
               <ContentItem>
@@ -50,7 +52,7 @@ const Footer = () => {
                   <IconGithub src={iconGithub} alt="깃허브" />
                 </IconWrapper>
                 <PageLink target={'_blank'} to={'https://github.com/yujleee'}>
-                  yujleee
+                  Yujeong
                 </PageLink>
               </ContentItem>
               <ContentItem>
@@ -61,7 +63,7 @@ const Footer = () => {
                   target={'_blank'}
                   to={'https://github.com/baesee0806'}
                 >
-                  baesee0806
+                  baesee
                 </PageLink>
               </ContentItem>
               <ContentItem>
@@ -69,7 +71,7 @@ const Footer = () => {
                   <IconGithub src={iconGithub} alt="깃허브" />
                 </IconWrapper>
                 <PageLink target={'_blank'} to={'https://github.com/vpvm96'}>
-                  vpvm96
+                  Leo
                 </PageLink>
               </ContentItem>
               <ContentItem>
@@ -77,15 +79,15 @@ const Footer = () => {
                   <IconGithub src={iconGithub} alt="깃허브" />
                 </IconWrapper>
                 <PageLink target={'_blank'} to={'https://github.com/jeLee94'}>
-                  jeLee94
+                  JungEun
                 </PageLink>
               </ContentItem>
               <ContentItem>
                 <IconWrapper>
-                  <IconGithub src={iconBehance} alt="비핸스" />
+                  <IconGithub src={iconGmail} alt="비핸스" />
                 </IconWrapper>
-                <PageLink target={'_blank'} to={''}>
-                  하연님
+                <PageLink target={'_blank'} to={'mailto:coolhayoen@gmail.com'}>
+                  Hayeon
                 </PageLink>
               </ContentItem>
             </ContentsList>
@@ -137,12 +139,15 @@ const Footer = () => {
 
 export default Footer;
 
-const FooterContainer = styled.footer`
+const FooterContainer = styled.footer<{ isFindProject: boolean }>`
   width: 100%;
   height: 22.25rem;
   background-color: ${COLORS.gray50};
   padding: 4rem 0;
   position: relative;
+  left: 0;
+  bottom: 0;
+  display: ${({ isFindProject }) => (isFindProject ? 'none' : 'block')};
 `;
 
 const FooterContentsWrapper = styled.div`
@@ -221,7 +226,7 @@ const IconGithub = styled.img`
 `;
 
 const PageLink = styled(Link)`
-  font-size: 14px;
+  font-size: 0.875rem;
 
   &:hover {
     color: ${COLORS.gray850};
