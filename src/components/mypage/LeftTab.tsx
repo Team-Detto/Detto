@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import ConfirmAlert from 'components/common/ConfirmAlert';
 import { authService, firestore } from 'apis/firebaseService';
 import COLORS from 'assets/styles/colors';
-import { deleteDoc, doc } from 'firebase/firestore';
+import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 
 export interface LeftTabProps {
   activeTab: string;
@@ -29,8 +29,10 @@ const LeftTab = ({ activeTab, setActiveTab }: LeftTabProps) => {
       return;
     }
 
-    // 회원 탈퇴 시 db에서 삭제되는 부분 임시 주석처리
-    // await deleteDoc(doc(firestore, 'users', currentUser.uid));
+    // 회원 탈퇴 시 users 컬렉션의 isWithdrawal 필드를 true로 변경
+    await updateDoc(doc(firestore, 'users', currentUser.uid), {
+      isWithdrawn: true,
+    });
     deleteUser(currentUser).catch((err) => console.error(err));
     handleModalStateChange();
     withdrawalAccount();
