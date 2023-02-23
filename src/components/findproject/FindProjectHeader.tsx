@@ -71,6 +71,8 @@ const FindProjectCategoryButton = styled.button`
     props.name === props.category
       ? `${COLORS.violetB500}`
       : `${COLORS.gray400}`};
+  font-weight: ${(props: { name: string; category: string }) =>
+    props.name === props.category ? '500' : '400'};
   transition: all 0.3s ease-in-out;
 `;
 const FindProjectHeaderRightBox = styled.div`

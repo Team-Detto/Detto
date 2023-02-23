@@ -103,7 +103,7 @@ const LeftTabItem = styled.li<{ isActive: boolean }>`
 const WithdrawalBox = styled.div`
   position: sticky;
   left: 0;
-  top: 60rem;
+  top: 100rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -111,7 +111,6 @@ const WithdrawalBox = styled.div`
   min-width: 14.375rem;
   height: 3rem;
   background-color: ${COLORS.gray100};
-  border-right: 1px solid ${COLORS.gray200};
 
   font-size: 0.875rem;
   color: ${COLORS.red};

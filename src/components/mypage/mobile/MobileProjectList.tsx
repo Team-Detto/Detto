@@ -54,7 +54,8 @@ const MobileProjectListContainer = styled.div`
 const NodataMessage = styled.p`
   display: flex;
   justify-content: center;
-  padding: 4rem 0;
+  min-height: 30rem;
+  padding: 6rem 0;
   font-size: 1.2rem;
   font-weight: 700;
   color: ${COLORS.gray300};

@@ -89,7 +89,7 @@ const FooterContainer = styled.footer<{ isFindeProject: boolean }>`
   width: 100%;
   height: 12rem;
   background-color: ${COLORS.gray50};
-  margin-top: 3rem;
+  margin-top: 5rem;
   padding: 1rem 1.5rem;
   position: relative;
   left: 0;
@@ -99,13 +99,16 @@ const FooterContainer = styled.footer<{ isFindeProject: boolean }>`
 
 const Logo = styled.h2`
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 900;
   color: ${COLORS.violetB500};
   margin-bottom: 1rem;
   text-align: center;
 `;
 
-const ContentWrapper = styled.div``;
+const ContentWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 
 const ContactTitle = styled.strong`
   font-size: 0.75rem;
@@ -122,7 +125,8 @@ const ContactBox = styled.div`
   padding: 0.5rem 0 1rem;
 `;
 
-const ContactList = styled.div`
+const ContactList = styled.ul`
+  width: 16.875rem;
   height: 1rem;
   display: flex;
   justify-content: center;
@@ -130,7 +134,7 @@ const ContactList = styled.div`
   flex-wrap: wrap;
 `;
 
-const ContentItem = styled.a`
+const ContentItem = styled.li`
   min-width: 4.125rem;
   display: flex;
   align-items: center;
@@ -138,7 +142,7 @@ const ContentItem = styled.a`
   margin-bottom: 0.75rem;
   color: ${COLORS.gray600};
   &:not(:nth-of-type(3n)) {
-    margin-right: 0.75rem;
+    margin-right: 0.875rem;
   }
 `;
 

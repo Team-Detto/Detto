@@ -158,7 +158,6 @@ const MobileUserInfoContainer = styled.div`
   min-height: 29.6875rem;
   margin: 1.625rem 0;
   background: ${COLORS.white};
-  padding-bottom: 5rem;
 `;
 
 const MobileInfoBox = styled.div`
