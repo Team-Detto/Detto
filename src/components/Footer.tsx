@@ -223,7 +223,7 @@ const IconGithub = styled.img`
 `;
 
 const PageLink = styled(Link)`
-  font-size: 14px;
+  font-size: 0.875rem;
 
   &:hover {
     color: ${COLORS.gray850};
