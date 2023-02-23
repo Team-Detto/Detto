@@ -1,17 +1,17 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { MdFeedback } from 'react-icons/md';
 import COLORS from 'assets/styles/colors';
 import iconGithub from 'assets/images/footer_github.png';
 import iconGmail from 'assets/images/footer_gmail.png';
 
-const MobileFooter = () => {
-  const { pathname } = useLocation();
-  const isFindProject = pathname.includes('findproject');
+interface FooterProps {
+  isFindProject: boolean;
+}
 
+const MobileFooter = ({ isFindProject }: FooterProps) => {
   return (
-    // TODO:: 푸터 디자인 후 UI 추가 작업 필요
-    <FooterContainer isFindeProject={isFindProject}>
+    <FooterContainer isFindProject={isFindProject}>
       <Logo>Detto</Logo>
       <ContentWrapper>
         <ContactList>
@@ -85,7 +85,7 @@ const MobileFooter = () => {
 
 export default MobileFooter;
 
-const FooterContainer = styled.footer<{ isFindeProject: boolean }>`
+const FooterContainer = styled.footer<{ isFindProject: boolean }>`
   width: 100%;
   height: 12rem;
   background-color: ${COLORS.gray50};
@@ -94,7 +94,7 @@ const FooterContainer = styled.footer<{ isFindeProject: boolean }>`
   position: relative;
   left: 0;
   bottom: 0;
-  display: ${({ isFindeProject }) => (isFindeProject ? 'none' : 'block')};
+  display: ${({ isFindProject }) => (isFindProject ? 'none' : 'block')};
 `;
 
 const Logo = styled.h2`

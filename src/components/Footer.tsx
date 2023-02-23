@@ -1,5 +1,5 @@
 import COLORS from 'assets/styles/colors';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useIsMobile } from 'hooks';
 import styled from '@emotion/styled';
 import MobileFooter from './MobileFooter';
@@ -8,15 +8,17 @@ import { LogoBoxH1 } from './Header';
 import iconGithub from 'assets/images/footer_github.png';
 import iconGmail from 'assets/images/footer_gmail.png';
 
-const Footer = () => {
+export const Footer = () => {
+  const { pathname } = useLocation();
   const isMobile = useIsMobile();
+  const isFindProject = pathname.includes('findproject');
 
   if (isMobile) {
-    return <MobileFooter />;
+    return <MobileFooter isFindProject={isFindProject} />;
   }
 
   return (
-    <FooterContainer>
+    <FooterContainer isFindProject={isFindProject}>
       <WebContainer>
         <FooterContentsWrapper>
           <ContentsBox>
@@ -137,7 +139,7 @@ const Footer = () => {
 
 export default Footer;
 
-const FooterContainer = styled.footer`
+const FooterContainer = styled.footer<{ isFindProject: boolean }>`
   width: 100%;
   height: 22.25rem;
   background-color: ${COLORS.gray50};
@@ -145,6 +147,7 @@ const FooterContainer = styled.footer`
   position: relative;
   left: 0;
   bottom: 0;
+  display: ${({ isFindProject }) => (isFindProject ? 'none' : 'block')};
 `;
 
 const FooterContentsWrapper = styled.div`
