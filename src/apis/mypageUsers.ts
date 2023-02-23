@@ -1,5 +1,12 @@
 import { firestorage, firestore } from './firebaseService';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  getDoc,
+  query,
+  updateDoc,
+  getDocs,
+} from 'firebase/firestore';
 import {
   deleteObject,
   getDownloadURL,
@@ -72,4 +79,12 @@ export const getUserProjectList = async (params: any) => {
   if (docSnap.exists()) {
     return docSnap.data();
   }
+};
+
+export const getProjectIdList = async () => {
+  const docRef = collection(firestore, `post`);
+  const q = query(docRef);
+  const querySnapshot = await getDocs(q);
+  const docs = querySnapshot.docs.map((doc) => doc.id);
+  return docs;
 };

@@ -4,7 +4,6 @@ import {
   deleteApplicant,
   firebaseGetIsApplicantRequest,
   updateRecruiting,
-  viewProject,
 } from 'apis/postDetail';
 import { findWithCollectionName } from 'apis/findWithCollectionName';
 import WebContainer from '../components/common/WebContainer';
@@ -31,7 +30,7 @@ const ProjectDetailPage = () => {
   //프로젝트 데이터 조회
   const { data: projectData } = useQuery({
     queryKey: ['post', pid],
-    queryFn: () => viewProject(pid),
+    queryFn: () => findWithCollectionName('post', pid),
   });
 
   const { uid } = useAuth(); // 현재 사용자
