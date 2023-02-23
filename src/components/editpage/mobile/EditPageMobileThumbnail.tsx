@@ -25,21 +25,28 @@ const EditPageMobileThumbnail = ({
       </EditPageMobileBodyLeftBox>
       <EditPageMobileBodyRightBox>
         <EditPageMobileThumbnailInput
-          type="file"
           id="thumbnail"
-          accept="image/jpg, image/png, image/jpeg"
-          ref={imageRef}
-          onChange={onAddThumbnailImageChangeEvent}
+          type="text"
+          value={editThumbnail ? editThumbnail.name : '사진을 선택해 주세요'}
+          disabled
         />
-
         <EditPageMobileThumbnailButton
           htmlFor="thumbnail"
           editThumbnail={editThumbnail}
+          onClick={() => imageRef.current?.click()}
         >
           <EditPageMobileThumbnailText>
             <MdOutlinePhotoCamera />
           </EditPageMobileThumbnailText>
         </EditPageMobileThumbnailButton>
+        <input
+          id="file"
+          type="file"
+          style={{ display: 'none' }}
+          ref={imageRef}
+          onChange={onAddThumbnailImageChangeEvent}
+          accept="image/jpg, image/png, image/jpeg"
+        />
       </EditPageMobileBodyRightBox>
     </EditPageMobileThumbnailContainer>
   );
@@ -52,7 +59,7 @@ const EditPageMobileThumbnailContainer = styled.div`
   justify-content: center;
 `;
 const EditPageMobileThumbnailInput = styled.input`
-  width: 14.5rem;
+  width: 13.35rem;
   height: 2.75rem;
   background-color: ${COLORS.white};
   border: 1px solid ${COLORS.gray100};
@@ -63,8 +70,8 @@ const EditPageMobileThumbnailInput = styled.input`
   line-height: 140%;
   color: ${COLORS.black};
   padding-left: 1rem;
-  ::file-selector-button {
-    display: none;
+  :disabled {
+    color: ${COLORS.black};
   }
 `;
 const EditPageMobileThumbnailButton = styled.label`

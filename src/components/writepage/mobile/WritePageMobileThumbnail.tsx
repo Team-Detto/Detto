@@ -1,4 +1,4 @@
-import {} from 'react';
+import { RefObject } from 'react';
 import { MdOutlinePhotoCamera } from 'react-icons/md';
 import {
   WritePageMobileBodyLeftBox,
@@ -9,8 +9,8 @@ import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
 
 interface Props {
-  imageRef: React.RefObject<HTMLInputElement>;
-  thumbnail: string;
+  imageRef: RefObject<HTMLInputElement>;
+  thumbnail: any;
   onAddThumbnailImageChangeEvent: () => void;
 }
 
@@ -19,6 +19,7 @@ const WritePageMobileThumbnail = ({
   thumbnail,
   onAddThumbnailImageChangeEvent,
 }: Props) => {
+  console.log(thumbnail);
   return (
     <WritePageMobileThumbnailContainer>
       <WritePageMobileBodyLeftBox>
@@ -26,20 +27,29 @@ const WritePageMobileThumbnail = ({
       </WritePageMobileBodyLeftBox>
       <WritePageMobileBodyRightBox>
         <WritePageMobileThumbnailInput
-          type="file"
           id="thumbnail"
-          accept="image/jpg, image/png, image/jpeg"
-          ref={imageRef}
+          type="text"
+          value={thumbnail ? thumbnail.name : '사진을 선택해 주세요'}
           onChange={onAddThumbnailImageChangeEvent}
+          disabled
         />
         <WritePageMobileThumbnailButton
           htmlFor="thumbnail"
           thumbnail={thumbnail}
+          onClick={() => imageRef.current?.click()}
         >
           <WritePageMobileThumbnailText>
             <MdOutlinePhotoCamera />
           </WritePageMobileThumbnailText>
         </WritePageMobileThumbnailButton>
+        <input
+          id="file"
+          type="file"
+          style={{ display: 'none' }}
+          ref={imageRef}
+          onChange={onAddThumbnailImageChangeEvent}
+          accept="image/jpg, image/png, image/jpeg"
+        />
       </WritePageMobileBodyRightBox>
     </WritePageMobileThumbnailContainer>
   );
@@ -52,19 +62,18 @@ const WritePageMobileThumbnailContainer = styled.div`
   justify-content: center;
 `;
 const WritePageMobileThumbnailInput = styled.input`
-  flex: 1;
+  width: 13.35rem;
   height: 2.75rem;
   background-color: ${COLORS.white};
   border: 1px solid ${COLORS.gray100};
   border-radius: 0.25rem;
-  padding-top: 0.6rem;
   font-size: 0.75rem;
   font-weight: 400;
   line-height: 140%;
   color: ${COLORS.black};
   padding-left: 1rem;
-  ::file-selector-button {
-    display: none;
+  :disabled {
+    color: ${COLORS.black};
   }
 `;
 const WritePageMobileThumbnailButton = styled.label<{ thumbnail: string }>`
