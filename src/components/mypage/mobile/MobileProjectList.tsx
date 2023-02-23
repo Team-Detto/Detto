@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
+import { getProjectIdList } from 'apis/mypageUsers';
 import COLORS from 'assets/styles/colors';
 import { ProjectListProps } from 'components/common/myProjectList/ProjectList';
 import MobileContentCard from 'components/MobileContentCard';
@@ -11,10 +12,11 @@ const MobileProjectList = ({ category, pidList }: ProjectListProps) => {
   const { likedProjects, handleNavigateToProjectDetail } = useFindProject();
 
   // 현재 활성화된 탭의 프로젝트 아이디(pid) 리스트
+  console.log(' ', category);
   const currentPidList =
-    category === 'appliedProjects' || category === 'currentProjects'
+    (category === 'appliedProjects' || category === 'currentProjects'
       ? getFilteredPidList(pidList, category)
-      : pidList[category];
+      : pidList?.[category]) ?? [];
 
   const { data: activeProjectsData }: any = useQuery({
     queryKey: ['myProjects', currentPidList],
@@ -23,18 +25,31 @@ const MobileProjectList = ({ category, pidList }: ProjectListProps) => {
     enabled: !!currentPidList,
   });
 
+  const { data: projectIdList }: any = useQuery({
+    queryKey: ['post', 'projectIdList'],
+    queryFn: getProjectIdList,
+    staleTime: staleTime.filterPost,
+  });
+
+  const filteredPidList = pidList?.[category]?.filter((pid) => {
+    if (projectIdList?.includes(pid)) {
+      return pid;
+    }
+  });
+
   return (
     <MobileProjectListContainer>
       {activeProjectsData?.length < 1 && (
         <NodataMessage>프로젝트가 없어요 :/</NodataMessage>
       )}
       {activeProjectsData &&
+        filteredPidList &&
         activeProjectsData?.map((project: any, idx: number) => (
           <MobileContentCard
-            key={currentPidList[idx]}
+            key={project?.createdAt}
             project={project}
             likedProjects={likedProjects}
-            pid={currentPidList[idx]}
+            pid={filteredPidList[idx]}
             onNavigateToProjectDetailEvent={handleNavigateToProjectDetail}
           />
         ))}
