@@ -9,13 +9,6 @@ import {
   deleteDoc,
 } from 'firebase/firestore';
 
-// 프로젝트 상세 조회
-export const viewProject = async (pid: any) => {
-  const postDocRef = doc(firestore, 'post', pid);
-  const docSnap = await getDoc(postDocRef);
-  return docSnap.data();
-};
-
 //좋아요 수 업데이트
 export const updateLike = async (pid: any, countLike: any) => {
   if (pid === undefined) return;
