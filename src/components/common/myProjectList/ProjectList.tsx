@@ -5,6 +5,7 @@ import ProjectItem from './ProjectItem';
 import { EditType } from 'types/write/writeType';
 import COLORS from 'assets/styles/colors';
 import { staleTime } from 'utils/staleTime';
+import { getProjectIdList } from 'apis/mypageUsers';
 
 export interface PidListProps {
   [key: string]: string[];
@@ -19,7 +20,18 @@ const ProjectList = ({ category, pidList }: ProjectListProps) => {
   const { getActiveProjects, getFilteredPidList } = useProjectList();
   const { handleNavigateToProjectDetail } = useFindProject();
 
-  // 현재 활성화된 탭의 프로젝트 아이디(pid) 리스트
+  const { data: projectIdList }: any = useQuery({
+    queryKey: ['post', 'projectIdList'],
+    queryFn: getProjectIdList,
+    staleTime: staleTime.filterPost,
+  });
+
+  const filteredPidList = pidList[category].filter((pid) => {
+    if (projectIdList.includes(pid)) {
+      return pid;
+    }
+  });
+
   const currentPidList =
     category === 'appliedProjects' || category === 'currentProjects'
       ? getFilteredPidList(pidList, category)
@@ -44,7 +56,7 @@ const ProjectList = ({ category, pidList }: ProjectListProps) => {
               category={category}
               key={project?.createdAt}
               project={project}
-              pid={currentPidList[idx]}
+              pid={filteredPidList[idx]}
               onNavigateToProjectDetailEvent={handleNavigateToProjectDetail}
             />
           ),
