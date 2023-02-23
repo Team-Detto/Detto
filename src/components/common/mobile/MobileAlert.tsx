@@ -53,7 +53,7 @@ const AlertBackDrop = styled.div`
   left: 0;
   bottom: 0;
   right: 0;
-  z-index: 0;
+  z-index: 99;
   background: rgba(24, 24, 24, 0.14);
   display: ${(props: { isOpen: boolean }) => (props.isOpen ? 'block' : 'none')};
 `;
