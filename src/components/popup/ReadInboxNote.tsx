@@ -47,7 +47,7 @@ export default function ReadInboxNote({ data }: { data: Note }) {
       </HeaderContainer>
       <TitleText>{data.title}</TitleText>
       <ContentText>{data.content}</ContentText>
-      {sender?.isWithdrawn ? (
+      {!sender?.isActive ? (
         <CustomButton
           label="탈퇴한 회원입니다."
           onClick={handleReplyButtonClick}

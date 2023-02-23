@@ -53,7 +53,7 @@ export default function MobileReadInboxNote({ data }: { data: Note }) {
       </MobileHeaderContainer>
       <MobileTitleText>{data.title}</MobileTitleText>
       <MobileContentText>{data.content}</MobileContentText>
-      {sender?.isWithdrawn ? (
+      {!sender?.isActive ? (
         <MobileCustomButton
           label="탈퇴한 회원입니다."
           onClick={handleReplyButtonClick}

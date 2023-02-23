@@ -29,9 +29,9 @@ const LeftTab = ({ activeTab, setActiveTab }: LeftTabProps) => {
       return;
     }
 
-    // 회원 탈퇴 시 users 컬렉션의 isWithdrawal 필드를 true로 변경
+    // 회원 탈퇴 시 users 컬렉션의 isActive 필드를 false로 변경
     await updateDoc(doc(firestore, 'users', currentUser.uid), {
-      isWithdrawn: true,
+      isActive: false,
     });
     deleteUser(currentUser).catch((err) => console.error(err));
     handleModalStateChange();

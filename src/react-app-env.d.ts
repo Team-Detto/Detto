@@ -9,7 +9,7 @@ interface UserInfo {
   plannerStack: string[];
   designerStack: string[];
   developerStack: string[];
-  isWithdrawn?: boolean;
+  isActive?: boolean;
 }
 
 interface Note {

@@ -60,7 +60,7 @@ const PublicProfilePage = () => {
   if (!userInfoData) return null;
 
   // 탈퇴한 회원일 경우 메세지 표시
-  if (userInfoData.isWithdrawn) {
+  if (!userInfoData.isActive) {
     if (isMobile)
       return <NoDataMessage mobile>탈퇴한 회원입니다 :/</NoDataMessage>;
     return <NoDataMessage>탈퇴한 회원입니다 :/</NoDataMessage>;
