@@ -119,10 +119,18 @@ const InviteModal = ({
             </MessageSendButton>
           </ProfileToMessageContainer>
           <UserSkillsContainer>
-            {applicant?.skills.slice(0, 5).map((skill: string) => {
-              return <Skills key={skill}>{skill}</Skills>;
-            })}
-            을/를 경험해 본 팀원이네요!
+            {applicant?.skills.length > 0 ? (
+              <StackList>
+                {applicant?.skills.slice(0, 5).map((skill: string) => {
+                  return <Skills key={skill}>{skill}</Skills>;
+                })}
+                을/를 할 수 있어요!
+              </StackList>
+            ) : (
+              <StackList>
+                <Skills>{applicant.position}</Skills> 포지션에 지원하셨네요!
+              </StackList>
+            )}
           </UserSkillsContainer>
 
           <InviteTitle>{applicant?.displayName} 님을</InviteTitle>
@@ -211,8 +219,7 @@ const MessageSendButton = styled.button`
 
 const UserSkillsContainer = styled.div`
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
   font-weight: 600;
   font-size: 1.25rem;
   color: ${COLORS.gray750};
@@ -221,20 +228,37 @@ const UserSkillsContainer = styled.div`
   gap: 0.1875rem;
 `;
 
+const ApplicantStacks = styled.div`
+  height: 1.625rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  margin-top: 0rem;
+  color: ${COLORS.gray750};
+  line-height: 1.625rem;
+`;
+
+const StackList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  font-size: 15px;
+  align-items: center;
+`;
+
 const Skills = styled.span`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 0rem 0.75rem;
+  padding: 0.25rem 0.5rem;
   gap: 0.625rem;
-  /* width: 3.5rem; */
   height: 2rem;
   width: fit-content;
   font-size: 0.75rem;
-  overflow: hidden;
+  /* overflow: hidden; */
   background: ${COLORS.gray100};
-  border-radius: 2rem;
+  border-radius: 1rem;
+  color: ${COLORS.violetB500};
 `;
 
 const InviteTitle = styled.div`
