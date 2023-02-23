@@ -7,15 +7,19 @@ import {
   collection,
   query,
   limit,
+  where,
 } from 'firebase/firestore';
 
 /**
- * 파이어베이스 users 컬렉션에서 모든 사용자의 정보를 조회
- * @returns 모든 사용자의 정보를 담은 배열
+ * 파이어베이스 users 컬렉션에서 활성화된 사용자의 정보를 조회
+ * @returns 활성화된 사용자의 정보를 담은 배열
  */
-
-export const firebaseAllUsersRequest = async () => {
-  const q = query(collection(firestore, 'users'), limit(20));
+export const firebaseActiveUsersRequest = async () => {
+  const q = query(
+    collection(firestore, 'users'),
+    where('isActive', '==', true),
+    limit(20),
+  );
   const querySnapshot = await getDocs(q);
   return querySnapshot.docs.map((doc) => doc.data());
 };

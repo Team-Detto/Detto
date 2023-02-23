@@ -26,6 +26,7 @@ const initializeUserCollections = (user: User) => {
       plannerStack: [],
       positions: [],
       isJunior: false,
+      isActive: true,
     }),
     setDoc(doc(firestore, 'myprojects', user.uid), {
       likedProjects: [],

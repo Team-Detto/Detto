@@ -53,7 +53,16 @@ export default function MobileReadInboxNote({ data }: { data: Note }) {
       </MobileHeaderContainer>
       <MobileTitleText>{data.title}</MobileTitleText>
       <MobileContentText>{data.content}</MobileContentText>
-      <MobileCustomButton label="답장하기" onClick={handleReplyButtonClick} />
+      {!sender?.isActive ? (
+        <MobileCustomButton
+          label="탈퇴한 회원입니다."
+          onClick={handleReplyButtonClick}
+          color="gray"
+          disabled
+        />
+      ) : (
+        <MobileCustomButton label="답장하기" onClick={handleReplyButtonClick} />
+      )}
     </MobileContainer>
   );
 }

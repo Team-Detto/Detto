@@ -8,7 +8,7 @@ import Junior from 'assets/images/junior.png';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { staleTime } from 'utils/staleTime';
-import { firebaseAllUsersRequest } from 'apis/userService';
+import { firebaseActiveUsersRequest } from 'apis/userService';
 import COLORS from 'assets/styles/colors';
 import defaultProfile from 'assets/images/default_profile.jpg';
 
@@ -24,7 +24,7 @@ const settings = {
 const MobileFindUserSlider = ({ tap }: { tap: string }) => {
   const { data: users } = useQuery({
     queryKey: ['users'],
-    queryFn: firebaseAllUsersRequest,
+    queryFn: firebaseActiveUsersRequest,
     staleTime: staleTime.users,
   });
 
