@@ -24,26 +24,35 @@ const ProjectInfoArea = ({ projectData }: any) => {
         </ProjectInfoValue>
       </ProjectInfoObject>
       <ProjectStackContainer>
-        <ProjectStackKey>프로젝트 스택</ProjectStackKey>
-
+        <Div>
+          <ProjectStackKey>프로젝트</ProjectStackKey>
+          <ProjectStackKey>스택</ProjectStackKey>
+        </Div>
         <ProjectInfoStackWrap>
           <StackDiv>
             <StackTitle>기획</StackTitle>
-            {plannerStack?.map((skill: string) => {
-              return <StackValue key={skill}>{skill}</StackValue>;
-            }) ?? '없음'}
+            <StackList>
+              {plannerStack?.map((skill: string) => {
+                return <StackValue key={skill}>{skill}</StackValue>;
+              }) ?? '없음'}
+            </StackList>
           </StackDiv>
           <StackDiv>
             <StackTitle>개발</StackTitle>
-            {developerStack?.map((skill: string) => {
-              return <StackValue key={skill}>{skill}</StackValue>;
-            }) ?? '없음'}
+            <StackList>
+              {developerStack?.map((skill: string) => {
+                return <StackValue key={skill}>{skill}</StackValue>;
+              }) ?? '없음'}
+            </StackList>
+            {/* <UserStacks stacks={developerStack} version="mobile" /> */}
           </StackDiv>
           <StackDiv>
             <StackTitle>디자인</StackTitle>
-            {designerStack?.map((skill: string) => {
-              return <StackValue key={skill}>{skill}</StackValue>;
-            }) ?? '없음'}
+            <StackList>
+              {designerStack?.map((skill: string) => {
+                return <StackValue key={skill}>{skill}</StackValue>;
+              }) ?? '없음'}
+            </StackList>
           </StackDiv>
         </ProjectInfoStackWrap>
       </ProjectStackContainer>
@@ -79,7 +88,8 @@ const ProjectInfoObject = styled.div`
 const ProjectStackContainer = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
+
   gap: 2.8125rem;
 `;
 
@@ -111,12 +121,24 @@ const StackDiv = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: flex-start;
   gap: 0.625rem;
-  height: 2.5rem;
+  width: 100%;
+  height: 100%;
+`;
+
+const StackList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  margin: 0.4rem;
 `;
 
 const StackTitle = styled.div`
-  width: 4.0625rem;
+  min-width: 4.0625rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
 `;
 
 const StackValue = styled.div`
@@ -127,6 +149,13 @@ const StackValue = styled.div`
   font-size: 0.75rem;
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Div = styled.div`
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 `;

@@ -29,17 +29,30 @@ const ErrorPage = React.lazy(() => import('pages/ErrorPage'));
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route element={<Root />}>
+    <Route element={<Root />} errorElement={<ErrorPage />}>
       <Route path="*" element={<ErrorPage />} />
-      <Route path="/" element={<MainComponentPage />} />
+      <Route
+        path="/"
+        element={<MainComponentPage />}
+        errorElement={<ErrorPage />}
+      />
       <Route
         path="/mypage"
         element={
           useIsLogin() ? <MyPageComponentPage /> : <Navigate to="/" replace />
         }
+        errorElement={<ErrorPage />}
       />
-      <Route path="/findproject" element={<FindProjectComponentPage />} />
-      <Route path="/project/:id" element={<ProjectDetailComponentPage />} />
+      <Route
+        path="/findproject"
+        element={<FindProjectComponentPage />}
+        errorElement={<ErrorPage />}
+      />
+      <Route
+        path="/project/:id"
+        element={<ProjectDetailComponentPage />}
+        errorElement={<ErrorPage />}
+      />
       <Route
         path="/project/write"
         element={
@@ -49,6 +62,7 @@ const router = createBrowserRouter(
             <Navigate to="/" replace />
           )
         }
+        errorElement={<ErrorPage />}
       />
       <Route
         path="/project/write/:id"
@@ -59,8 +73,13 @@ const router = createBrowserRouter(
             <Navigate to="/" replace />
           )
         }
+        errorElement={<ErrorPage />}
       />
-      <Route path="/profile/:id" element={<PublicProfileComponentPage />} />
+      <Route
+        path="/profile/:id"
+        element={<PublicProfileComponentPage />}
+        errorElement={<ErrorPage />}
+      />
     </Route>,
   ),
 );

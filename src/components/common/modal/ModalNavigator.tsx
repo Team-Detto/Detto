@@ -10,11 +10,7 @@ type ModalNavigatorProps = {
   close?: boolean;
 };
 
-export default function ModalNavigator({
-  page,
-  back,
-  close,
-}: ModalNavigatorProps) {
+export default function ModalNavigator({ back, close }: ModalNavigatorProps) {
   const { modal, openModal, closeModal } = useGlobalModal();
 
   return (
@@ -27,7 +23,7 @@ export default function ModalNavigator({
         </BackButton>
       )}
       {close && (
-        <CloseButton onClick={() => closeModal()}>
+        <CloseButton onClick={closeModal}>
           <CgClose
             style={{ width: '1.5rem', height: '1.5rem', color: COLORS.gray700 }}
           />

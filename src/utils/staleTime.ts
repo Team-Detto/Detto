@@ -7,4 +7,5 @@ export const staleTime = {
   myProjects: 1000 * 60 * 1, // 1분 (공개프로필/마이페이지 프로젝트 ['myProjects'])
   mostViewedPosts: 1000 * 60 * 3, // 3분 (인기 포스트 ['posts', 'mostViewed'])
   mostLikedPosts: 1000 * 60 * 3, // 3분 (인기 포스트 ['posts', 'mostLiked'])
+  filterPost: Infinity, // 무한 (필터링용 전체 포스트 ['post', 'projectIdList']) 포스트 삭제될 때만 invalidation
 };

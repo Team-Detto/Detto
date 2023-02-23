@@ -1,13 +1,10 @@
-import { MouseEvent, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   deleteApplicant,
   firebaseGetIsApplicantRequest,
   updateRecruiting,
-  viewProject,
 } from 'apis/postDetail';
-import { useToastPopup } from 'hooks';
 import { findWithCollectionName } from 'apis/findWithCollectionName';
 import WebContainer from '../components/common/WebContainer';
 import ConfirmAlert from 'components/common/ConfirmAlert';
@@ -18,7 +15,8 @@ import MemberInfoArea from 'components/projectDetail/MemberInfoArea';
 import ContentArea from 'components/projectDetail/ContentArea';
 import ApplyButtonArea from 'components/projectDetail/ApplyButtonArea';
 import ApplicantListArea from 'components/projectDetail/ApplicantListArea';
-import { useAuth, useModal, useNotification } from 'hooks';
+import MobileProjectDetailPage from 'components/projectDetail/mobile/projectDetailMobile';
+import { useAuth, useIsMobile, useModal, useNotification } from 'hooks';
 import ApplyModal from 'components/projectDetail/ApplyModal/ApplyModal';
 import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
@@ -27,16 +25,12 @@ const ProjectDetailPage = () => {
   const params = useParams();
   const pid = params?.id;
 
-  const [share, setShare] = useState(false);
-  const [isCopyLink, setIsCopyLink] = useState(false);
-
   const sendNotification = useNotification();
-  const { showToast, ToastMessage, handleToastPopup } = useToastPopup();
 
   //프로젝트 데이터 조회
   const { data: projectData } = useQuery({
     queryKey: ['post', pid],
-    queryFn: () => viewProject(pid),
+    queryFn: () => findWithCollectionName('post', pid),
   });
 
   const { uid } = useAuth(); // 현재 사용자
@@ -99,17 +93,6 @@ const ProjectDetailPage = () => {
     handleCloseModalCloseChange();
   };
 
-  const handleShareButtonClick = (e: MouseEvent<HTMLElement>) => {
-    e.stopPropagation();
-    setShare(!share);
-  };
-
-  const handleCopyLinkButtonClick = () => {
-    navigator.clipboard.writeText(window.location.href);
-    handleToastPopup('링크가 복사되었습니다.');
-    setIsCopyLink(true);
-  };
-
   const {
     isOpen: isApply,
     handleModalOpenChange: handleApplyModalOpenChange,
@@ -125,23 +108,30 @@ const ProjectDetailPage = () => {
   //projectData?.uid 가 현재 uid랑 같은지 판별하고 같으면 수정하기 버튼 display, 지원하기 버튼 -> 마감하기 버튼으로 변경, 지원자 목록 보여주기
   //지원하기 버튼 클릭시 지원자 목록에 uid 추가
   //현재 참여중인 인원, 지원한 인원 uid로 모두 user테이블 조회해서 닉네임, 프로필 사진 가져오기???
+  const isMobile = useIsMobile();
+  if (isMobile && projectData) {
+    return (
+      <MobileProjectDetailPage
+        pid={pid}
+        projectData={projectData}
+        userData={userData}
+        isApplicant={isApplicant}
+        deleteApplicantMutate={deleteApplicantMutate}
+        handleAuthorButtonClick={() => handleAuthorButtonClick()}
+      />
+    );
+  }
 
   return (
-    <ProjectDetailContainer onClick={() => setShare(false)}>
+    <ProjectDetailContainer>
       {projectData && (
         <WebContainer>
           <ProjectDetailWrapper>
             <TitleThumbnailArea projectData={projectData} pid={pid} />
             <WriterToShareArea
               pid={pid}
-              share={share}
               userData={userData}
-              showToast={showToast}
-              isCopyLink={isCopyLink}
               projectData={projectData}
-              ToastMessage={ToastMessage}
-              onShareButtonClickEvent={handleShareButtonClick}
-              onCopyLinkButtonClickEvent={handleCopyLinkButtonClick}
             />
             <RecruitmentInfoContainer>
               <ProjectInfoArea projectData={projectData} />
@@ -150,11 +140,10 @@ const ProjectDetailPage = () => {
             <ContentArea projectData={projectData} />
           </ProjectDetailWrapper>
           <ApplyButtonArea
-            pid={pid}
             isApplicant={isApplicant}
             projectData={projectData}
             onApplyModalStateChangeEvent={handleApplyModalOpenChange} //지원하기
-            onCloseModalStateChangeEvent={handleCloseModalOpenChange} //마감하기
+            onCloseModalStateChangeEvent={handleCloseModalOpenChange} //지원취소, 마감하기
           />
           {/* //지원 안했다면 지원하기 모달 */}
           <ApplyModal
@@ -218,7 +207,7 @@ const RecruitmentInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 73.75rem;
-  height: 43.3125rem;
+  height: 100%;
   background-color: ${COLORS.white};
   margin-top: 3.5rem;
   align-items: center;

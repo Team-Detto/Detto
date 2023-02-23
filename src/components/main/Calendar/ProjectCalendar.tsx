@@ -39,6 +39,7 @@ const ProjectCalendar = () => {
     <ProjectCalendarWrap
       onChange={onChange}
       value={value}
+      calendarType={'US'}
       formatDay={(locale, date) => `${date.getDate()}`}
     />
   );

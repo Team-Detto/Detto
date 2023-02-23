@@ -93,6 +93,7 @@ export default function SendNote({ data }: { data: Note }) {
             handleSendButtonClick();
             setDisabled(true);
           }}
+          disabled={disabled}
         />
       </Container>
 

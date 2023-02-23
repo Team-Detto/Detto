@@ -1,16 +1,5 @@
 /// <reference types="react-scripts" />
 
-interface User {
-  displayName: string;
-  email: string;
-  isJunior: boolean;
-  photoURL: string;
-  positions: string[];
-  plannerStack?: string[];
-  designerStack?: string[];
-  developerStack?: string[];
-}
-
 interface UserInfo {
   displayName: string;
   email: string | null;
@@ -20,6 +9,7 @@ interface UserInfo {
   plannerStack: string[];
   designerStack: string[];
   developerStack: string[];
+  isActive?: boolean;
 }
 
 interface Note {
@@ -48,4 +38,8 @@ interface Notification {
   title: string;
   uid: string;
   link?: { type: 'project' | 'profile'; id: string };
+}
+
+interface MypageInfoProps {
+  user: User;
 }

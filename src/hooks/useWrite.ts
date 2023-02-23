@@ -10,6 +10,7 @@ import {
   positionValidation,
   periodValidation,
   deadlineValidation,
+  stackValidation,
 } from './../utils/validation';
 
 const useWrite = () => {
@@ -21,13 +22,23 @@ const useWrite = () => {
   const [writeFormValue, setWriteFormValue] = useState<WriteType.WriteFormType>(
     initialWriteFormValue,
   );
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const { uid } = useAuth();
   const { isOpen, handleModalStateChange } = useModal(false);
   const { showToast, ToastMessage, handleToastPopup } = useToastPopup();
 
   const handleCheckValidationButtonClick = useCallback(() => {
-    const { title, positions, startDate, endDate, deadline } = writeFormValue;
+    const {
+      title,
+      positions,
+      plannerStack,
+      designerStack,
+      developerStack,
+      startDate,
+      endDate,
+      deadline,
+    } = writeFormValue;
     const markdownText = editRef.current.getInstance().getMarkdown();
     const validations = [
       {
@@ -37,6 +48,15 @@ const useWrite = () => {
       {
         isValid: positionValidation(positions),
         message: '포지션을 최소 1개 이상 선택해주세요.',
+      },
+      {
+        isValid: stackValidation(
+          plannerStack,
+          designerStack,
+          developerStack,
+          positions,
+        ),
+        message: '해당하는 스택을 최소 1개 이상 선택해주세요.',
       },
       {
         isValid: periodValidation(startDate, endDate),
@@ -64,30 +84,29 @@ const useWrite = () => {
     const { thumbnail } = writeFormValue;
     const markdownText = editRef.current.getInstance().getMarkdown();
 
-    if (!thumbnail) {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+
+    try {
+      let resizedImage = null;
+      if (thumbnail) {
+        resizedImage = await resizeFile(thumbnail);
+      }
+
       const docId = await firebaseCreateProjectRequest(
         writeFormValue,
         markdownText,
-        null,
+        resizedImage,
         uid,
       );
       navigate(`/project/${docId}`, {
         replace: true,
       });
-      return;
+    } catch {
+      handleToastPopup('프로젝트 생성에 실패했습니다.');
+    } finally {
+      setIsSubmitting(false);
     }
-
-    const resizedImage = await resizeFile(thumbnail);
-
-    const docId = await firebaseCreateProjectRequest(
-      writeFormValue,
-      markdownText,
-      resizedImage,
-      uid,
-    );
-    navigate(`/project/${docId}`, {
-      replace: true,
-    });
   };
 
   const handleAddThumbnailImage = useCallback(() => {
@@ -106,14 +125,8 @@ const useWrite = () => {
   const handleFormValueChange = useCallback(
     (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { name, value } = e.target;
-      const isPosition: boolean = [
-        'planner',
-        'designer',
-        'frontend',
-        'backend',
-      ].some((v: string) => v === name);
-      if (isPosition) {
-        setWriteFormValue((prev: WriteType.WriteFormType) => {
+      setWriteFormValue((prev: WriteType.WriteFormType) => {
+        if (['planner', 'designer', 'frontend', 'backend'].includes(name)) {
           return {
             ...prev,
             positions: {
@@ -121,10 +134,7 @@ const useWrite = () => {
               [name]: Number(value),
             },
           };
-        });
-        return;
-      }
-      setWriteFormValue((prev: WriteType.WriteFormType) => {
+        }
         return {
           ...prev,
           [name]: value,
@@ -139,6 +149,7 @@ const useWrite = () => {
     editRef,
     imageRef,
     showToast,
+    isSubmitting,
     ToastMessage,
     writeFormValue,
     setWriteFormValue,

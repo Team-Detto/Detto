@@ -10,6 +10,7 @@ import {
   deadlineValidation,
   periodValidation,
   positionValidation,
+  stackValidation,
   titleValidation,
 } from 'utils/validation';
 
@@ -47,7 +48,16 @@ const useEditBoard = () => {
   );
 
   const handleCheckValidationButtonClick = useCallback(() => {
-    const { title, positions, startDate, endDate, deadline } = editFormValue;
+    const {
+      title,
+      positions,
+      plannerStack,
+      designerStack,
+      developerStack,
+      startDate,
+      endDate,
+      deadline,
+    } = editFormValue;
     const markdownText = editRef.current.getInstance().getMarkdown();
     const validations = [
       {
@@ -57,6 +67,15 @@ const useEditBoard = () => {
       {
         isValid: positionValidation(positions),
         message: '포지션을 최소 1개 이상 선택해주세요.',
+      },
+      {
+        isValid: stackValidation(
+          plannerStack,
+          designerStack,
+          developerStack,
+          positions,
+        ),
+        message: '해당하는 스택을 최소 1개 이상 선택해주세요.',
       },
       {
         isValid: periodValidation(startDate, endDate),
@@ -105,14 +124,8 @@ const useEditBoard = () => {
   const handleFormValueChange = useCallback(
     (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { name, value } = e.target;
-      const isPosition: boolean = [
-        'planner',
-        'designer',
-        'frontend',
-        'backend',
-      ].some((v: string) => v === name);
-      if (isPosition) {
-        setEditFormValue((prev: EditType.EditFormType) => {
+      setEditFormValue((prev: EditType.EditFormType) => {
+        if (['planner', 'designer', 'frontend', 'backend'].includes(name)) {
           return {
             ...prev,
             positions: {
@@ -120,10 +133,7 @@ const useEditBoard = () => {
               [name]: Number(value),
             },
           };
-        });
-        return;
-      }
-      setEditFormValue((prev: EditType.EditFormType) => {
+        }
         return {
           ...prev,
           [name]: value,
@@ -139,6 +149,7 @@ const useEditBoard = () => {
     imageRef,
     showToast,
     ToastMessage,
+    editThumbnail,
     editFormValue,
     setEditFormValue,
     handleFormValueChange,

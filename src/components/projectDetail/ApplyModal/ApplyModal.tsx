@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import Alert from 'components/common/Alert';
-import { useAuth, useModal, useToastPopup } from 'hooks';
+import { useAuth, useIsMobile, useModal, useToastPopup } from 'hooks';
 import { useEffect, useState } from 'react';
 import { allowScroll, preventScroll } from 'utils/modal';
 import { positionList } from 'utils/positions';
@@ -12,6 +12,7 @@ import ApplyMotiveArea from './ApplyMotiveArea';
 import ApplyPositionArea from './ApplyPositonArea';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
 import COLORS from 'assets/styles/colors';
+import MobileAlert from 'components/common/mobile/MobileAlert';
 
 interface props {
   isOpen: boolean;
@@ -23,6 +24,11 @@ interface props {
 const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
   const { isOpen: isAlertOpen, handleModalStateChange: onAlertClickEvent } =
     useModal(false);
+
+  const {
+    isOpen: isMobileAlertOpen,
+    handleModalStateChange: onMobileAlertClickEvent,
+  } = useModal(false);
 
   const { uid } = useAuth();
   const [motive, setMotive] = useState('');
@@ -94,12 +100,69 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
     }
   }, [isOpen]);
 
+  const handleBackDropClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      onClickEvent();
+    }
+  };
+
+  const isMobile = useIsMobile();
+  if (isMobile) {
+    return (
+      <>
+        <BackDrop onClick={handleBackDropClick} isOpen={isOpen}>
+          <MobileModalContainer>
+            {showToast && (
+              <ValidationToastPopup message={ToastMessage} top={-2} />
+            )}
+            <MobileModalTitle>{message}</MobileModalTitle>
+            <MobileContentContainer>
+              {/* 포지션 버튼 */}
+              <ApplyPositionArea
+                clickValue={clickValue}
+                setClickValue={setClickValue}
+                version="mobile"
+              />
+              {/* 지원동기 */}
+              <ApplyMotiveArea
+                motive={motive}
+                setMotive={setMotive}
+                version="mobile"
+              />
+            </MobileContentContainer>
+            {/* 아니오, 지원하기 버튼 */}
+            <ApplyButtonArea
+              userData={userData}
+              motive={motive}
+              setMotive={setMotive}
+              clickValue={clickValue}
+              setClickValue={setClickValue}
+              onClickEvent={onClickEvent}
+              onAlertClickEvent={onMobileAlertClickEvent}
+              applicantMutate={applicantMutate}
+              projectMutate={projectMutate}
+              handleToastPopup={handleToastPopup}
+              pid={pid}
+            />
+          </MobileModalContainer>
+        </BackDrop>
+        <MobileAlert
+          isOpen={isMobileAlertOpen}
+          onClickEvent={onMobileAlertClickEvent}
+          mainMsg="지원이 완료되었어요!"
+          subMsg="알림으로 결과를 알려드릴게요!"
+          page="apply"
+        />
+      </>
+    );
+  }
+
   return (
     <>
-      <ModalContainer isOpen={isOpen}>
+      <WebModalContainer isOpen={isOpen}>
         {showToast && <ValidationToastPopup message={ToastMessage} top={2} />}
-        <ModalTitle>{message}</ModalTitle>
-        <ContentContainer>
+        <WebModalTitle>{message}</WebModalTitle>
+        <WebContentContainer>
           {/* 포지션 버튼 */}
           <ApplyPositionArea
             clickValue={clickValue}
@@ -107,7 +170,7 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
           />
           {/* 지원동기 */}
           <ApplyMotiveArea motive={motive} setMotive={setMotive} />
-        </ContentContainer>
+        </WebContentContainer>
         {/* 아니오, 지원하기 버튼 */}
         <ApplyButtonArea
           userData={userData}
@@ -122,7 +185,7 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
           handleToastPopup={handleToastPopup}
           pid={pid}
         />
-      </ModalContainer>
+      </WebModalContainer>
       {/* 지원성공Alert*/}
       <Alert
         isOpen={isAlertOpen}
@@ -137,10 +200,10 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
 
 export default ApplyModal;
 
-const ModalContainer = styled.div`
+const WebModalContainer = styled.div`
   position: fixed;
   width: 41.0625rem;
-  height: 550px;
+  height: 34.375rem;
   left: 50%;
   top: 50%;
   text-align: center;
@@ -153,14 +216,14 @@ const ModalContainer = styled.div`
   display: ${(props: { isOpen: boolean }) => (props.isOpen ? 'block' : 'none')};
 `;
 
-const ModalTitle = styled.p`
+const WebModalTitle = styled.p`
   height: 2.75rem;
   font-weight: 700;
   font-size: 1.75rem;
   margin-top: 2rem;
 `;
 
-const ContentContainer = styled.div`
+const WebContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -169,4 +232,50 @@ const ContentContainer = styled.div`
 
   width: 39.0625rem;
   height: 21.0625rem;
+`;
+
+//모바일
+const BackDrop = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1500;
+  display: ${(props: { isOpen: boolean }) => (props.isOpen ? 'block' : 'none')};
+  background: rgba(191, 191, 191, 0.5);
+`;
+
+const MobileModalContainer = styled.div`
+  position: fixed;
+  width: 20rem;
+  height: 26.1875rem;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 1rem;
+  text-align: center;
+  padding: 1.25rem 1rem;
+  background: ${COLORS.white};
+  border-radius: 1rem;
+  box-shadow: 0rem 0.25rem 0.625rem rgba(117, 117, 117, 0.25);
+  z-index: 2000;
+  display: block;
+`;
+
+const MobileModalTitle = styled.p`
+  height: 1.625rem;
+  font-weight: 700;
+  font-size: 1.125rem;
+  margin-top: 0rem;
+`;
+
+const MobileContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0rem;
+  margin-top: 1.125rem;
+
+  width: 100%;
 `;

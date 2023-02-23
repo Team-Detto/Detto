@@ -1,14 +1,21 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import Alert from 'components/common/Alert';
-import { useAuth, useGlobalModal, useModal, useNotification } from 'hooks';
+import {
+  useAuth,
+  useGlobalModal,
+  useIsMobile,
+  useModal,
+  useNotification,
+} from 'hooks';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateAppliedProject, updateParticipants } from 'apis/postDetail';
 import { modalTypes } from 'components/common/modal/modal';
+import MobileInviteModal from '../mobile/MobileModal/MobileInviteModal';
 
 interface props {
   isOpen: boolean;
-  applicantData: any;
+  applicant: any;
   onClickEvent: () => void;
   pid: string;
   applicantKey: string;
@@ -16,7 +23,7 @@ interface props {
 
 const InviteModal = ({
   isOpen,
-  applicantData,
+  applicant,
   onClickEvent,
   pid,
   applicantKey,
@@ -36,7 +43,7 @@ const InviteModal = ({
   );
   const queryClient = useQueryClient();
   const { mutate: invitedProjectMutate } = useMutation(
-    () => updateAppliedProject(applicantData[applicantKey]?.uid, pid, true),
+    () => updateAppliedProject(applicant?.uid, pid, true),
     {
       onSuccess: () => {
         setTimeout(() => {
@@ -51,7 +58,7 @@ const InviteModal = ({
     // 초대 알림 보내기
     sendNotification({
       title: `${user.displayName}님의 프로젝트에 초대되었습니다. 🎉`,
-      receiverUid: applicantData[applicantKey]?.uid,
+      receiverUid: applicant?.uid,
       link: {
         type: 'project',
         id: pid,
@@ -72,52 +79,75 @@ const InviteModal = ({
     onClickEvent();
   };
 
+  const inviteFunction = () => {
+    onClickEvent();
+    onAlertClickEvent();
+    sendInviteNotification();
+  };
+
+  const isMobile = useIsMobile();
+  if (isMobile) {
+    return (
+      <MobileInviteModal
+        pid={pid}
+        isOpen={isOpen}
+        applicant={applicant}
+        isAlertOpen={isAlertOpen}
+        onClickEvent={onClickEvent}
+        inviteFunction={inviteFunction}
+        onAlertClickEvent={onAlertClickEvent}
+        invitedProjectMutate={invitedProjectMutate} //applicants 데이터 변경
+      />
+    );
+  }
+
   return (
     <>
       <Alert
         isOpen={isAlertOpen}
         onClickEvent={onAlertClickEvent}
         mainMsg="팀원을 초대했어요!"
-        subMsg="현재 참여한 인원에서 확인할 수 있어요!"
+        subMsg="현재 참여 중인 인원에서 확인할 수 있어요!"
         page="apply"
       />
       <ModalContainer isOpen={isOpen}>
         <ModalWrapper>
           <ProfileToMessageContainer>
-            <UserProfileImage src={applicantData[applicantKey]?.profileURL} />
+            <UserProfileImage src={applicant?.profileURL} />
             <MessageSendButton onClick={handleSendNoteButtonClick}>
               쪽지보내기
             </MessageSendButton>
           </ProfileToMessageContainer>
           <UserSkillsContainer>
-            {applicantData[applicantKey]?.skills
-              .slice(0, 5)
-              .map((skill: string) => {
-                return <Skills key={skill}>{skill}</Skills>;
-              })}
-            을/를 경험해 본 팀원이네요!
+            {applicant?.skills.length > 0 ? (
+              <StackList>
+                {applicant?.skills.slice(0, 5).map((skill: string) => {
+                  return <Skills key={skill}>{skill}</Skills>;
+                })}
+                을/를 할 수 있어요!
+              </StackList>
+            ) : (
+              <StackList>
+                <Skills>{applicant.position}</Skills> 포지션에 지원하셨네요!
+              </StackList>
+            )}
           </UserSkillsContainer>
 
-          <InviteTitle>
-            {applicantData[applicantKey]?.displayName} 님을
-          </InviteTitle>
+          <InviteTitle>{applicant?.displayName} 님을</InviteTitle>
           <InviteTitle>팀원으로 초대할까요?</InviteTitle>
 
           <MotiveContainer>
             <MotiveTitle>지원 동기</MotiveTitle>
             <MotiveContentWrap>
-              <MotiveText>{applicantData[applicantKey]?.motive}</MotiveText>
+              <MotiveText>{applicant?.motive}</MotiveText>
             </MotiveContentWrap>
             <MotiveButtonContainer>
               <MotiveButton onClick={onClickEvent}>아니오</MotiveButton>
               <MotiveButton
                 onClick={() => {
-                  onClickEvent();
-                  onAlertClickEvent();
-                  applicantMutate();
+                  inviteFunction();
                   invitedProjectMutate();
-                  sendInviteNotification();
-                  //applicants 데이터 변경
+                  applicantMutate();
                 }}
               >
                 네, 초대할게요!
@@ -189,8 +219,7 @@ const MessageSendButton = styled.button`
 
 const UserSkillsContainer = styled.div`
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
   font-weight: 600;
   font-size: 1.25rem;
   color: ${COLORS.gray750};
@@ -199,20 +228,37 @@ const UserSkillsContainer = styled.div`
   gap: 0.1875rem;
 `;
 
+const ApplicantStacks = styled.div`
+  height: 1.625rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  margin-top: 0rem;
+  color: ${COLORS.gray750};
+  line-height: 1.625rem;
+`;
+
+const StackList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  font-size: 15px;
+  align-items: center;
+`;
+
 const Skills = styled.span`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 0rem 0.75rem;
+  padding: 0.25rem 0.5rem;
   gap: 0.625rem;
-  /* width: 3.5rem; */
   height: 2rem;
   width: fit-content;
   font-size: 0.75rem;
-  overflow: hidden;
+  /* overflow: hidden; */
   background: ${COLORS.gray100};
-  border-radius: 2rem;
+  border-radius: 1rem;
+  color: ${COLORS.violetB500};
 `;
 
 const InviteTitle = styled.div`

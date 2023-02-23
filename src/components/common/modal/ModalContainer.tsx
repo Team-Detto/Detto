@@ -5,19 +5,22 @@ import { modalState } from '../../../recoil/atoms';
 import LoginModal from 'components/login/LoginModal';
 import NoteModal from '../../popup/NoteModal';
 import { modalTypes } from './modal';
+import { useIsMobile } from 'hooks';
 
 interface props {
   width?: string;
   height?: string;
+  isMobile?: boolean;
 }
 
 export default function ModalContainer() {
   const { isOpen, width, height, type } = useRecoilValue(modalState);
+  const isMobile = useIsMobile();
 
   if (!isOpen) return null;
   return (
     <BackDrop>
-      <Container width={width} height={height}>
+      <Container width={width} height={height} isMobile={isMobile}>
         {type === modalTypes.login && <LoginModal />}
         {type === modalTypes.inbox && <NoteModal />}
         {type === modalTypes.outbox && <NoteModal />}
@@ -53,8 +56,8 @@ const Container = styled.div`
   transform: translate(-50%, -50%);
   background: ${COLORS.white};
 
-  border-radius: 8px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.08);
+  border-radius: ${(props: props) => (props.isMobile ? '1rem' : '0.5rem')};
+  box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.08);
 
   overflow: hidden;
 `;

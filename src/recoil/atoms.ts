@@ -5,6 +5,7 @@ export const popupState = atom({
   default: {
     isNoteOpen: false,
     isNotificationOpen: false,
+    isDropdownOpen: false,
   },
 });
 

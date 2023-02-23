@@ -71,6 +71,8 @@ const FindProjectCategoryButton = styled.button`
     props.name === props.category
       ? `${COLORS.violetB500}`
       : `${COLORS.gray400}`};
+  font-weight: ${(props: { name: string; category: string }) =>
+    props.name === props.category ? '500' : '400'};
   transition: all 0.3s ease-in-out;
 `;
 const FindProjectHeaderRightBox = styled.div`
@@ -96,8 +98,8 @@ const FindProjectToggleButton = styled.button`
 `;
 const FindProjectToggleCircle = styled.div`
   background-color: ${COLORS.white};
-  width: 1.3125rem;
-  height: 1.3125rem;
+  width: 1.39rem;
+  height: 1.39rem;
   border-radius: 3.125rem;
   position: absolute;
   left: 5%;

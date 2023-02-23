@@ -1,5 +1,12 @@
 import { firestorage, firestore } from './firebaseService';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  getDoc,
+  query,
+  updateDoc,
+  getDocs,
+} from 'firebase/firestore';
 import {
   deleteObject,
   getDownloadURL,
@@ -26,7 +33,6 @@ export const getUserInfoData = async (params: any) => {
  * @returns imgUrl : 스토리지에 업로드된 이미지 객체 Promise
  */
 export const uploadProfileImg = async (file: any, uid: string) => {
-  // TODO :: 업로드 이미지 용량 최적화
   await uploadBytes(ref(firestorage, `${uid}.jpg`), file);
 
   const imgUrl = await getDownloadURL(ref(firestorage, `${uid}.jpg`));
@@ -73,4 +79,12 @@ export const getUserProjectList = async (params: any) => {
   if (docSnap.exists()) {
     return docSnap.data();
   }
+};
+
+export const getProjectIdList = async () => {
+  const docRef = collection(firestore, `post`);
+  const q = query(docRef);
+  const querySnapshot = await getDocs(q);
+  const docs = querySnapshot.docs.map((doc) => doc.id);
+  return docs;
 };

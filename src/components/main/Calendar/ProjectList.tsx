@@ -31,6 +31,14 @@ const ProjectList = () => {
     setSelectedProject(dayList[0]);
   }, [dayList]);
 
+  if (dayList.length === 0)
+    return (
+      <NoDataMessage>
+        NO DATA :/
+        <span style={{ fontSize: '1rem' }}>다른 날짜를 선택해주세요</span>
+      </NoDataMessage>
+    );
+
   return (
     <ProjectListSlider {...settings} infinite={dayList.length >= 3}>
       {dayList?.map((data: any) => {
@@ -143,8 +151,6 @@ const ProjectListCardTextBox = styled.div`
 const ProjectListCardFindUser = styled.div`
   width: 268px;
   height: 14px;
-  font-family: 'Noto Sans CJK KR';
-  font-style: normal;
   font-weight: 400;
   font-size: 10px;
   line-height: 150%;
@@ -155,20 +161,18 @@ const ProjectListCardFindUser = styled.div`
 const ProjectListCardProjectName = styled.div`
   width: 268px;
   height: 24px;
-  font-family: 'Noto Sans CJK KR';
-  font-style: normal;
   font-weight: 500;
   font-size: 16px;
   line-height: 150%;
-  display: flex;
-  align-items: center;
   color: #464646;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 const ProjectListCardDate = styled.div`
   width: 268px;
   height: 15px;
-  font-family: 'Noto Sans KR';
-  font-style: normal;
   font-weight: 400;
   font-size: 10px;
   line-height: 150%;
@@ -176,4 +180,20 @@ const ProjectListCardDate = styled.div`
   align-items: center;
   color: #616161;
 `;
+
+const NoDataMessage = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 300px;
+  height: 287px;
+
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 200%;
+  color: ${COLORS.gray300};
+`;
+
 export default ProjectList;

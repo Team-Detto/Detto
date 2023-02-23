@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import styled from '@emotion/styled';
-import { useAuth, useProjectList } from 'hooks';
+import { useAuth, useIsMobile, useProjectList } from 'hooks';
+import MobileMyPage from 'components/mypage/mobile/MobileMyPage';
 import WebContainer from 'components/common/WebContainer';
 import MyPageInfo from 'components/mypage/MyPageInfo';
 import ProjectList from 'components/common/myProjectList/ProjectList';
@@ -9,15 +10,17 @@ import LeftTab from 'components/mypage/LeftTab';
 import ProjectsTab from 'components/common/myProjectList/ProjectsTab';
 import { getUserInfoData, getUserProjectList } from 'apis/mypageUsers';
 import { staleTime } from 'utils/staleTime';
+import LoadingPage from './LoadingPage';
 
 const MyPage = () => {
   const [activeTab, setActiveTab] = useState('개인정보');
+  const isMobile = useIsMobile();
   const { uid } = useAuth();
   const { activeProjectTab, handleProjectTabClick, setActiveProjectTab } =
     useProjectList();
 
   // 유저 정보 받아오는 쿼리
-  const { data: userInfoData }: any = useQuery({
+  const { status, data: userInfoData }: any = useQuery({
     queryKey: ['users', uid],
     queryFn: getUserInfoData,
     staleTime: staleTime.users,
@@ -34,14 +37,17 @@ const MyPage = () => {
     setActiveProjectTab('appliedProjects');
   }, []);
 
-  return (
+  if (isMobile)
+    return <MobileMyPage user={userInfoData} pidList={userProjectListsData} />;
+
+  return status === 'loading' ? (
+    <LoadingPage />
+  ) : (
     <MyPageContainer>
       <LeftTab activeTab={activeTab} setActiveTab={setActiveTab} />
       <WebContainer>
         <MypageContentsWrapper>
-          {activeTab === '개인정보' && (
-            <MyPageInfo user={userInfoData} uid={uid} />
-          )}
+          {activeTab === '개인정보' && <MyPageInfo user={userInfoData} />}
           {activeTab === '프로젝트' && (
             <ProjectListWrapper>
               <ProjectsTab
@@ -74,4 +80,4 @@ const MypageContentsWrapper = styled.main`
   padding: 10rem 2.5rem 0 2.375rem;
 `;
 
-const ProjectListWrapper = styled.div``;
+export const ProjectListWrapper = styled.div``;

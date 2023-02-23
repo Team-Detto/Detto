@@ -26,21 +26,13 @@ const initializeUserCollections = (user: User) => {
       plannerStack: [],
       positions: [],
       isJunior: false,
+      isActive: true,
     }),
     setDoc(doc(firestore, 'myprojects', user.uid), {
       likedProjects: [],
       appliedProjects: [],
       postedProjects: [],
       currentProjects: [],
-    }),
-    addDoc(collection(firestore, 'notes'), {
-      senderUid: 'dyczcn8e6Ce1c7xq67EJHAfVsUK2',
-      receiverUid: user.uid,
-      date,
-      title: 'Detto에 오신 것을 환영합니다 🎉',
-      content:
-        '프로젝트를 등록해 팀원을 모집하거나, 관심 있는 프로젝트에 지원해보세요!',
-      isRead: false,
     }),
     addDoc(collection(firestore, 'notifications'), {
       uid: user.uid,
@@ -75,7 +67,6 @@ const useSocialLogin = () => {
       const user = result.user;
       const additionalUserInfo = getAdditionalUserInfo(result);
 
-      console.log('login sucess: ', user);
       navigate(location.pathname);
       if (additionalUserInfo?.isNewUser) {
         // 신규 유저일 경우, 유저 컬렉션에 데이터를 추가 후 다음 페이지로 이동
@@ -84,6 +75,7 @@ const useSocialLogin = () => {
       } else {
         // 기존 유저일 경우, 모달 닫기
         closeModal();
+        window.location.reload();
       }
     } catch (error) {
       console.error('error: ', error);

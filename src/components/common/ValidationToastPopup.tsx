@@ -5,13 +5,14 @@ interface Props {
   message: string;
   top?: number;
   isCopy?: boolean;
+  isCheck?: boolean;
 }
 
-const ValidationToastPopup = ({ message, top, isCopy }: Props) => {
+const ValidationToastPopup = ({ message, top, isCopy, isCheck }: Props) => {
   return (
     <ValidationToastAlertContainer top={top}>
       <ValidationToastAlertIcon>{`${
-        isCopy ? '🔗' : '❌'
+        isCopy ? '🔗' : isCheck ? '✅' : '❌'
       }`}</ValidationToastAlertIcon>
       <ValidationToastAlertText>{message}</ValidationToastAlertText>
     </ValidationToastAlertContainer>

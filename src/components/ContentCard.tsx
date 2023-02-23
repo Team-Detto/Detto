@@ -7,7 +7,7 @@ import styled from '@emotion/styled';
 import { useEffect } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateRecruiting } from 'apis/postDetail';
-import defaultThumbnail from 'assets/images/default_img.jpg';
+import defaultThumbnail from 'assets/images/thumbnail_small.jpg';
 
 interface Props {
   project: EditType.EditFormType;
@@ -122,7 +122,6 @@ const RecruitingIcon = styled.div`
   height: 1.75rem;
   font-style: normal;
   font-weight: 500;
-  font-size: 0.875rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -166,9 +165,13 @@ const ContentCardTitle = styled.div`
   font-weight: 400;
   font-size: 1.125rem;
   line-height: 140%;
-  display: flex;
-  align-items: center;
   color: ${COLORS.black};
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
 const ContentCardSubTextBox = styled.div`
   display: flex;

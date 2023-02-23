@@ -8,7 +8,7 @@ import Junior from 'assets/images/junior.png';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { staleTime } from 'utils/staleTime';
-import { firebaseAllUsersRequest } from 'apis/userService';
+import { firebaseActiveUsersRequest } from 'apis/userService';
 import COLORS from 'assets/styles/colors';
 
 const settings = {
@@ -23,7 +23,7 @@ const settings = {
 const FindUserSlider = ({ tap }: { tap: string }) => {
   const { data: users } = useQuery({
     queryKey: ['users'],
-    queryFn: firebaseAllUsersRequest,
+    queryFn: firebaseActiveUsersRequest,
     staleTime: staleTime.users,
   });
 
@@ -124,6 +124,7 @@ const CardImage = styled.img`
   width: 128px;
   height: 128px;
   border-radius: 100%;
+  object-fit: cover;
 `;
 const CardNickname = styled.div`
   display: flex;
