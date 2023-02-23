@@ -13,7 +13,7 @@ const MobileMemberInfoArea = ({ applicantsData }: any) => {
   return (
     <>
       <MobileMemberInfoAreaContainer>
-        <MemberInfoTitle>현재 참여중인 인원</MemberInfoTitle>
+        <MemberInfoTitle>현재 참여 중인 인원</MemberInfoTitle>
         <MemberInfoWrapper>
           <MemberInfoObject>
             <MemberInfoKey>기획</MemberInfoKey>
@@ -31,12 +31,24 @@ const MobileMemberInfoArea = ({ applicantsData }: any) => {
             })}
           </MemberInfoObject>
           <MemberInfoObject>
-            <MemberInfoKey>개발</MemberInfoKey>
+            <MemberInfoKey>프론트</MemberInfoKey>
             {data?.map((key) => {
-              if (
-                applicantsData[key].position === '프론트엔드' ||
-                applicantsData[key].position === '백엔드'
-              )
+              if (applicantsData[key].position === '프론트엔드')
+                return (
+                  <MemberProfileImg
+                    key={key}
+                    onClick={() =>
+                      navigate(`/profile/${applicantsData[key].uid}`)
+                    }
+                    src={applicantsData[key].profileURL}
+                  ></MemberProfileImg>
+                );
+            })}
+          </MemberInfoObject>
+          <MemberInfoObject>
+            <MemberInfoKey>백엔드</MemberInfoKey>
+            {data?.map((key) => {
+              if (applicantsData[key].position === '백엔드')
                 return (
                   <MemberProfileImg
                     key={key}
@@ -72,17 +84,17 @@ const MobileMemberInfoArea = ({ applicantsData }: any) => {
 export default MobileMemberInfoArea;
 
 const MobileMemberInfoAreaContainer = styled.div`
-  margin-top: 22px;
+  margin-top: 1.125rem;
 `;
 const MemberInfoTitle = styled.div`
-  font-size: 12px;
-  margin-left: 16px;
+  font-size: 0.75rem;
+  margin-left: 1rem;
 `;
 const MemberInfoWrapper = styled.div`
-  height: 198px;
-  margin-top: 6px;
+  height: 12.375rem;
+  margin-top: 0.375rem;
   background: ${COLORS.white};
-  padding: 23px 17px 37px 17px;
+  padding: 1.4375rem 1.0625rem 2.3125rem 1.0625rem;
 
   display: flex;
   flex-direction: column;
@@ -92,28 +104,30 @@ const MemberInfoObject = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 0px;
-  gap: 18px;
+  padding: 0rem;
+  gap: 1.125rem;
+  height: 2.5rem;
+  margin-bottom: 0.625rem;
 `;
 const MemberInfoKey = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 0px;
-  gap: 10px;
+  padding: 0rem;
+  gap: 0.625rem;
 
-  width: 60px;
-  height: 28px;
+  width: 3.75rem;
+  height: 1.75rem;
 
   background: ${COLORS.violetB400};
-  border-radius: 8px;
-  font-size: 12px;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
   color: ${COLORS.white};
 `;
 const MemberProfileImg = styled.img`
-  width: 32px;
-  height: 32px;
+  width: 2rem;
+  height: 2rem;
   border-radius: 50%;
   object-fit: cover;
 `;

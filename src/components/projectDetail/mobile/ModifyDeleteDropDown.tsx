@@ -72,9 +72,9 @@ const DropdownBox = styled.div`
   width: 7.75rem;
   min-height: 7.75rem;
   background-color: ${COLORS.white};
-  padding: 20px 0;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
+  padding: 1.25rem 0;
+  box-shadow: 0rem 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+  border-radius: 0.25rem;
   z-index: 99;
 `;
 
@@ -86,7 +86,7 @@ const DropdownList = styled.ul`
 
 const DropdownItem = styled.li`
   height: 2.5rem;
-  padding: 10px;
+  padding: 0.625rem;
   line-height: 1.25rem;
   font-size: 0.875rem;
   text-align: center;

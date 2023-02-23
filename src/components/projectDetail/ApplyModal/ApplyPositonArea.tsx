@@ -64,7 +64,7 @@ const PositionContentWrap = styled.div`
   align-items: flex-start;
   padding: 0rem;
   gap: ${(props: { version: string }) =>
-    props.version === 'mobile' ? '6px' : '19px'};
+    props.version === 'mobile' ? '0.375rem' : '1.1875rem'};
   margin-top: 0.75rem;
   width: 100%;
   height: 2.5rem;

@@ -35,21 +35,21 @@ const ApplicantsListWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding-top: 19px;
+  padding-top: 1.1875rem;
 `;
 
 const ApplicantsListTitle = styled.div`
   font-size: 1.5rem;
-  margin-left: 16px;
-  font-size: 12px;
+  margin-left: 1rem;
+  font-size: 0.75rem;
   line-height: 140%;
 `;
 
 const ApplicantsListContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 6px;
-  gap: 12px;
+  margin-top: 0.375rem;
+  gap: 0.75rem;
 `;
 
 const CannotFoundApplicant = styled.div`

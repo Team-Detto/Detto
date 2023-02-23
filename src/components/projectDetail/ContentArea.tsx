@@ -47,7 +47,7 @@ const ContentTitle = styled.div`
 
 const ContentWrapper = styled.div`
   width: 73.75rem;
-  min-height: 532px;
+  min-height: 33.25rem;
   height: 100%;
   margin-top: 1.6875rem;
   background-color: ${COLORS.white};

@@ -44,15 +44,15 @@ const ApplicantCard = styled.div`
   align-items: center;
   flex-direction: row;
   width: 100%;
-  height: 106px;
+  height: 6.625rem;
   background-color: ${COLORS.white};
 `;
 
 const ProfileImg = styled.img`
-  width: 40px;
-  height: 40px;
-  border-radius: 50px;
-  margin-left: 18px;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 3.125rem;
+  margin-left: 1.125rem;
 `;
 
 const UserInfoDiv = styled.div`
@@ -62,24 +62,24 @@ const UserInfoDiv = styled.div`
   align-items: flex-start;
   width: 100%;
   height: 100%;
-  padding: 12px 0 12px 8px;
+  padding: 0.75rem 0 0.75rem 0.5rem;
 `;
 
 const Position = styled.div`
-  width: 56px;
-  height: 17px;
+  width: 3.5rem;
+  height: 1.0625rem;
   font-weight: 500;
-  font-size: 12px;
+  font-size: 0.75rem;
   color: ${COLORS.gray750};
 `;
 
 const DisplayName = styled.div`
-  width: 81px;
-  height: 20px;
+  width: 5.0625rem;
+  height: 1.25rem;
 
   font-weight: 700;
-  font-size: 14px;
-  line-height: 20px;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 
   color: ${COLORS.gray850};
 `;
@@ -89,14 +89,14 @@ const Stacks = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  margin-top: 7px;
+  margin-top: 0.4375rem;
 
-  height: 34px;
+  height: 2.125rem;
 `;
 
 const Stack = styled.div`
   font-weight: 500;
-  font-size: 12px;
+  font-size: 0.75rem;
   color: ${COLORS.gray750};
 `;
 
@@ -104,13 +104,13 @@ const InviteButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 180px;
-  height: 36px;
-  margin: auto 18px;
+  width: 11.25rem;
+  height: 2.25rem;
+  margin: auto 1.125rem;
   background: ${COLORS.violetB400};
-  border-radius: 8px;
+  border-radius: 0.5rem;
   color: ${COLORS.white};
   font-weight: 700;
-  font-size: 10px;
-  line-height: 20px;
+  font-size: 0.625rem;
+  line-height: 1.25rem;
 `;

@@ -45,7 +45,7 @@ const UserPositionDiv = styled.div`
   display: flex;
   align-items: center;
   font-size: ${(props: { version: string }) =>
-    props.version === 'mobile' ? '12px' : ''};
+    props.version === 'mobile' ? '0.75rem' : ''};
 `;
 
 const PositionItem = styled.span<{
@@ -60,7 +60,7 @@ const PositionItem = styled.span<{
 
   &::after {
     content: '';
-    width: 1px;
+    width: 0.0625rem;
     height: 0.75rem;
     background-color: ${COLORS.gray500};
     position: absolute;

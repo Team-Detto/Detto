@@ -51,13 +51,13 @@ const UserImageBox = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
-  width: 122px;
-  height: 122px;
+  width: 7.625rem;
+  height: 7.625rem;
 `;
 
 const UserImage = styled.img`
-  width: 122px;
-  height: 122px;
+  width: 7.625rem;
+  height: 7.625rem;
   border-radius: 50%;
 `;
 
@@ -74,7 +74,7 @@ const SendNoteButton = styled.button<{ page?: string }>`
   height: 2.5rem;
   border-radius: 50%;
   background-color: ${COLORS.violetB300};
-  border: 1px solid ${COLORS.white};
+  border: 0.0625rem solid ${COLORS.white};
   cursor: pointer;
   transform: all 300ms ease-in-out;
 
