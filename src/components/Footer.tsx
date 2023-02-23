@@ -6,7 +6,7 @@ import MobileFooter from './MobileFooter';
 import WebContainer from './common/WebContainer';
 import { LogoBoxH1 } from './Header';
 import iconGithub from 'assets/images/footer_github.png';
-import iconBehance from 'assets/images/footer_behance.png';
+import iconGmail from 'assets/images/footer_gmail.png';
 
 const Footer = () => {
   const isMobile = useIsMobile();
@@ -42,7 +42,7 @@ const Footer = () => {
                   <IconGithub src={iconGithub} alt="깃허브" />
                 </IconWrapper>
                 <PageLink target={'_blank'} to={'https://github.com/su-no'}>
-                  su-no
+                  Hyojin
                 </PageLink>
               </ContentItem>
               <ContentItem>
@@ -50,7 +50,7 @@ const Footer = () => {
                   <IconGithub src={iconGithub} alt="깃허브" />
                 </IconWrapper>
                 <PageLink target={'_blank'} to={'https://github.com/yujleee'}>
-                  yujleee
+                  Yujeong
                 </PageLink>
               </ContentItem>
               <ContentItem>
@@ -61,7 +61,7 @@ const Footer = () => {
                   target={'_blank'}
                   to={'https://github.com/baesee0806'}
                 >
-                  baesee0806
+                  baesee
                 </PageLink>
               </ContentItem>
               <ContentItem>
@@ -69,7 +69,7 @@ const Footer = () => {
                   <IconGithub src={iconGithub} alt="깃허브" />
                 </IconWrapper>
                 <PageLink target={'_blank'} to={'https://github.com/vpvm96'}>
-                  vpvm96
+                  Leo
                 </PageLink>
               </ContentItem>
               <ContentItem>
@@ -77,15 +77,15 @@ const Footer = () => {
                   <IconGithub src={iconGithub} alt="깃허브" />
                 </IconWrapper>
                 <PageLink target={'_blank'} to={'https://github.com/jeLee94'}>
-                  jeLee94
+                  JungEun
                 </PageLink>
               </ContentItem>
               <ContentItem>
                 <IconWrapper>
-                  <IconGithub src={iconBehance} alt="비핸스" />
+                  <IconGithub src={iconGmail} alt="비핸스" />
                 </IconWrapper>
-                <PageLink target={'_blank'} to={''}>
-                  하연님
+                <PageLink target={'_blank'} to={'mailto:coolhayoen@gmail.com'}>
+                  Hayeon
                 </PageLink>
               </ContentItem>
             </ContentsList>
