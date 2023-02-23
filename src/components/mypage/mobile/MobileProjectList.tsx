@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
+import { getProjectIdList } from 'apis/mypageUsers';
 import COLORS from 'assets/styles/colors';
 import { ProjectListProps } from 'components/common/myProjectList/ProjectList';
 import MobileContentCard from 'components/MobileContentCard';
@@ -23,6 +24,18 @@ const MobileProjectList = ({ category, pidList }: ProjectListProps) => {
     enabled: !!currentPidList,
   });
 
+  const { data: projectIdList }: any = useQuery({
+    queryKey: ['post', 'projectIdList'],
+    queryFn: getProjectIdList,
+    staleTime: staleTime.filterPost,
+  });
+
+  const filteredPidList = pidList[category].filter((pid) => {
+    if (projectIdList.includes(pid)) {
+      return pid;
+    }
+  });
+
   return (
     <MobileProjectListContainer>
       {activeProjectsData?.length < 1 && (
@@ -31,10 +44,10 @@ const MobileProjectList = ({ category, pidList }: ProjectListProps) => {
       {activeProjectsData &&
         activeProjectsData?.map((project: any, idx: number) => (
           <MobileContentCard
-            key={currentPidList[idx]}
+            key={filteredPidList[idx]}
             project={project}
             likedProjects={likedProjects}
-            pid={currentPidList[idx]}
+            pid={filteredPidList[idx]}
             onNavigateToProjectDetailEvent={handleNavigateToProjectDetail}
           />
         ))}
