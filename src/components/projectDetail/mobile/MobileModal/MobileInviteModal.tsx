@@ -33,15 +33,30 @@ const MobileInviteModal = ({
       true,
     ),
   );
+
+  const handleBackDropClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      onClickEvent();
+    }
+  };
+
   return (
     <>
-      <BackDrop isOpen={isOpen}>
+      <BackDrop onClick={handleBackDropClick} isOpen={isOpen}>
         <ModalContainer>
           <StackDiv>
-            {applicant.skills.slice(0, 4).map((skill: any) => (
-              <Stacks key={skill}>{skill}</Stacks>
-            ))}
-            <ApplicantStacks>을/를 해봤어요!</ApplicantStacks>
+            <StackList>
+              {applicant.skills.slice(0, 5).map((skill: any) => (
+                <Stacks key={skill}>{skill}</Stacks>
+              ))}
+            </StackList>
+            {applicant.skills.length > 0 ? (
+              <ApplicantStacks>을/를 할 수 있어요!</ApplicantStacks>
+            ) : (
+              <ApplicantStacks>
+                {applicant.position} 포지션에 지원하셨네요!
+              </ApplicantStacks>
+            )}
           </StackDiv>
           <NickNameDiv>
             <NickName>{applicant.displayName} 님을</NickName>
@@ -92,26 +107,35 @@ const BackDrop = styled.div`
 const ModalContainer = styled.div`
   position: fixed;
   width: 20rem;
-  height: 26.1875rem;
+  height: 435px;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   border-radius: 1rem;
 
-  padding: 2.8125rem 1rem 1rem 1rem;
+  padding: 2rem 1rem 1rem 1rem;
   background: ${COLORS.white};
   border-radius: 1rem;
   box-shadow: 0rem 0.25rem 0.625rem rgba(117, 117, 117, 0.25);
-  z-index: 999;
-  z-index: 999;
+  z-index: 2000;
+  display: block;
 `;
+
 const StackDiv = styled.div`
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
+  /* align-items: center; */
   gap: 0.5rem;
-  height: 1.25rem;
+  height: 3.25rem;
 `;
+
+const StackList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  /* margin: 0.4rem; */
+`;
+
 const Stacks = styled.p`
   font-size: 0.625rem;
   background-color: ${COLORS.gray100};

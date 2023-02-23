@@ -11,20 +11,6 @@ import MobileMainFindUsers from 'components/main/findUsers/MobileMainFindUsers';
 const MainPage = () => {
   const Mobile = useIsMobile();
 
-  //   console.log(
-  //     `
-  //     %cDevelop Together, Grow Together %c
-  // ██████╗ ███████╗████████╗████████╗ ██████╗
-  // ██╔══██╗██╔════╝╚══██╔══╝╚══██╔══╝██╔═══██╗
-  // ██║  ██║█████╗     ██║      ██║   ██║   ██║
-  // ██║  ██║██╔══╝     ██║      ██║   ██║   ██║
-  // ██████╔╝███████╗   ██║      ██║   ╚██████╔╝
-  // ╚═════╝ ╚══════╝   ╚═╝      ╚═╝    ╚═════╝
-  // %c `,
-  //     'color:#704adb; line-height: 100px; font-size: 12px; font-weight: bold; font-family: "Noto Sans KR", sans-serif; ',
-  //     'color:#6f64f2',
-  //     'line-height:100px',
-  //   );
   return (
     <>
       {Mobile ? <MobileMainBanner /> : <MainBanner />}
@@ -49,3 +35,18 @@ const MobileContainer = styled.div`
   padding: 0 1.25rem 5rem 1.25rem;
 `;
 export default MainPage;
+
+console.log(
+  `
+    %cDevelop Together, Grow Together %c
+██████╗ ███████╗████████╗████████╗ ██████╗
+██╔══██╗██╔════╝╚══██╔══╝╚══██╔══╝██╔═══██╗
+██║  ██║█████╗     ██║      ██║   ██║   ██║
+██║  ██║██╔══╝     ██║      ██║   ██║   ██║
+██████╔╝███████╗   ██║      ██║   ╚██████╔╝
+╚═════╝ ╚══════╝   ╚═╝      ╚═╝    ╚═════╝
+%c `,
+  'color:#704adb; line-height: 100px; font-size: 12px; font-weight: bold; font-family: "Noto Sans KR", sans-serif; ',
+  'color:#6f64f2',
+  'line-height:100px',
+);
