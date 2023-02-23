@@ -13,7 +13,7 @@ const MobileMemberInfoArea = ({ applicantsData }: any) => {
   return (
     <>
       <MobileMemberInfoAreaContainer>
-        <MemberInfoTitle>현재 참여중인 인원</MemberInfoTitle>
+        <MemberInfoTitle>현재 참여 중인 인원</MemberInfoTitle>
         <MemberInfoWrapper>
           <MemberInfoObject>
             <MemberInfoKey>기획</MemberInfoKey>
@@ -31,12 +31,24 @@ const MobileMemberInfoArea = ({ applicantsData }: any) => {
             })}
           </MemberInfoObject>
           <MemberInfoObject>
-            <MemberInfoKey>개발</MemberInfoKey>
+            <MemberInfoKey>프론트</MemberInfoKey>
             {data?.map((key) => {
-              if (
-                applicantsData[key].position === '프론트엔드' ||
-                applicantsData[key].position === '백엔드'
-              )
+              if (applicantsData[key].position === '프론트엔드')
+                return (
+                  <MemberProfileImg
+                    key={key}
+                    onClick={() =>
+                      navigate(`/profile/${applicantsData[key].uid}`)
+                    }
+                    src={applicantsData[key].profileURL}
+                  ></MemberProfileImg>
+                );
+            })}
+          </MemberInfoObject>
+          <MemberInfoObject>
+            <MemberInfoKey>백엔드</MemberInfoKey>
+            {data?.map((key) => {
+              if (applicantsData[key].position === '백엔드')
                 return (
                   <MemberProfileImg
                     key={key}
@@ -72,7 +84,7 @@ const MobileMemberInfoArea = ({ applicantsData }: any) => {
 export default MobileMemberInfoArea;
 
 const MobileMemberInfoAreaContainer = styled.div`
-  margin-top: 22px;
+  margin-top: 18px;
 `;
 const MemberInfoTitle = styled.div`
   font-size: 12px;
@@ -94,6 +106,8 @@ const MemberInfoObject = styled.div`
   align-items: center;
   padding: 0px;
   gap: 18px;
+  height: 40px;
+  margin-bottom: 10px;
 `;
 const MemberInfoKey = styled.div`
   display: flex;

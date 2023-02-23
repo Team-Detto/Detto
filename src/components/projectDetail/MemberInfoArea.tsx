@@ -33,13 +33,27 @@ const MemberInfoArea = ({ applicantsData }: any) => {
             })}
           </MemberInfoDiv>
           <MemberInfoDiv>
-            <PositionDiv>개발</PositionDiv>
+            <PositionDiv>프론트</PositionDiv>
 
             {data.map((key) => {
-              if (
-                applicantsData[key].position === '프론트엔드' ||
-                applicantsData[key].position === '백엔드'
-              )
+              if (applicantsData[key].position === '프론트엔드')
+                return (
+                  <div key={key}>
+                    <MemberProfileImg
+                      onClick={() =>
+                        navigate(`/profile/${applicantsData[key].uid}`)
+                      }
+                      src={applicantsData[key].profileURL}
+                    ></MemberProfileImg>
+                  </div>
+                );
+            })}
+          </MemberInfoDiv>
+          <MemberInfoDiv>
+            <PositionDiv>백엔드</PositionDiv>
+
+            {data.map((key) => {
+              if (applicantsData[key].position === '백엔드')
                 return (
                   <div key={key}>
                     <MemberProfileImg
@@ -81,6 +95,7 @@ const MemberInfoWrapper = styled.div`
   width: 63.625rem;
   height: 22.75rem;
   margin-top: 2.75rem;
+  margin-bottom: 2.75rem;
   display: flex;
   flex-direction: column;
 `;
@@ -109,6 +124,7 @@ const MemberInfoDiv = styled.div`
     justify-content: center;
     align-items: center;
   } */
+  height: 5rem;
 `;
 
 const MemberBox = styled.div`
