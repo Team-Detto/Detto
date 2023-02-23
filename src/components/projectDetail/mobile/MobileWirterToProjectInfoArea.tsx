@@ -54,7 +54,6 @@ const WriterToProjectInfoArea = ({ projectData, userData }: any) => {
                     return <StackValue key={skill}>{skill}</StackValue>;
                   }) ?? '없음'}
                 </StackList>
-                {/* <UserStacks stacks={developerStack} version="mobile" /> */}
               </StackDiv>
               <StackDiv>
                 <StackTitle>디자인</StackTitle>
@@ -160,7 +159,7 @@ const ProjectInfoStackWrap = styled.div`
   padding: 0px;
   gap: 10px;
 
-  width: 282px;
+  width: 100%;
   min-height: 104px;
 `;
 
@@ -179,17 +178,6 @@ const StackTitle = styled.div`
   font-size: 12px;
   display: flex;
   align-items: center;
-`;
-const Bumper = styled.div`
-  width: 100%;
-  height: 100%;
-  overflow: scroll;
-  white-space: nowrap;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0.625rem;
-  margin-left: 0.4rem;
 `;
 
 const StackValue = styled.div`

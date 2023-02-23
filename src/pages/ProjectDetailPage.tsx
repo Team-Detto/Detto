@@ -207,7 +207,7 @@ const RecruitmentInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 73.75rem;
-  height: 43.3125rem;
+  height: 100%;
   background-color: ${COLORS.white};
   margin-top: 3.5rem;
   align-items: center;
