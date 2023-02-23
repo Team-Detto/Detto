@@ -96,8 +96,8 @@ const FindProjectToggleButton = styled.button`
 `;
 const FindProjectToggleCircle = styled.div`
   background-color: ${COLORS.white};
-  width: 1.3125rem;
-  height: 1.3125rem;
+  width: 1.39rem;
+  height: 1.39rem;
   border-radius: 3.125rem;
   position: absolute;
   left: 5%;

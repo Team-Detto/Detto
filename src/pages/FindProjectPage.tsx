@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useFindProject, useIsMobile } from 'hooks';
 import WebContainer from 'components/common/WebContainer';
 import FindProjectHeader from 'components/findproject/FindProjectHeader';
@@ -5,8 +7,6 @@ import FindProjectList from 'components/findproject/FindProjectList';
 import FindProjectMobileHeader from 'components/findproject/mobile/FindProjectMobileHeader';
 import FindProjectMobileList from 'components/findproject/mobile/FindProjectMobileList';
 import styled from '@emotion/styled';
-import { useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
 
 const FindProjectPage = () => {
   const {
@@ -24,7 +24,9 @@ const FindProjectPage = () => {
 
   // 푸터에서 클릭한 경우 카테고리 지정
   useEffect(() => {
-    setCategory(categoryFromFooter);
+    if (categoryFromFooter !== null) {
+      setCategory(categoryFromFooter);
+    }
   }, [categoryFromFooter]);
 
   if (isMobile) {
