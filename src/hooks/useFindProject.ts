@@ -1,10 +1,11 @@
 import { useEffect, useState, useCallback } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 import { firebaseInfinityScrollProjectDataRequest } from 'apis/boardService';
 import { firebaseFindMyInterestRequest } from 'apis/userService';
+import { useAuth } from 'hooks';
+import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 import { EditType } from 'types/write/writeType';
-import useAuth from './useAuth';
 
 const useFindProject = () => {
   const navigate = useNavigate();
@@ -12,10 +13,13 @@ const useFindProject = () => {
   const { uid } = useAuth();
 
   const [projects, setProjects] = useState<EditType.EditFormType[]>([]);
-  const [likedProjects, setLikedProjects] = useState<string[]>([]);
   const [lastVisible, setLastVisible] = useState<any>(undefined);
   const [category, setCategory] = useState<string>('planner');
   const [toggle, setToggle] = useState<boolean>(false);
+
+  const { data: likedProjects } = useQuery(['likedProjects', uid], () =>
+    firebaseFindMyInterestRequest(uid),
+  );
 
   useEffect(() => {
     firebaseInfinityScrollProjectDataRequest(
@@ -23,9 +27,6 @@ const useFindProject = () => {
       lastVisible,
       setLastVisible,
     );
-    if (uid) {
-      firebaseFindMyInterestRequest(uid, setLikedProjects);
-    }
 
     window.onbeforeunload = () => {
       window.scrollTo(0, 0);
@@ -57,13 +58,13 @@ const useFindProject = () => {
   };
 
   return {
+    toggle,
     projects,
     category,
-    setCategory,
-    toggle,
     likedProjects,
-    handleCategoryClick,
+    setCategory,
     handleToggleClick,
+    handleCategoryClick,
     handleNavigateToProjectDetail,
   };
 };
