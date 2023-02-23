@@ -13,6 +13,8 @@ interface Props {
   onFormValueChangeEvent: (e: any) => void;
 }
 
+const TODAY = new Date(+new Date() + 3240 * 10000).toISOString().split('T')[0];
+
 const WritePageMobilePeriod = ({
   startDate,
   endDate,
@@ -25,16 +27,18 @@ const WritePageMobilePeriod = ({
       </WritePageMobileBodyLeftBox>
       <WritePageMobileBodyRightBox>
         <WritePageMobileDateInput
+          id="startDate"
           type="date"
           name="startDate"
-          value={startDate}
+          value={startDate === '' ? TODAY : startDate}
           onChange={onFormValueChangeEvent}
         />
         −
         <WritePageMobileDateInput
+          id="endDate"
           type="date"
           name="endDate"
-          value={endDate}
+          value={endDate === '' ? TODAY : endDate}
           onChange={onFormValueChangeEvent}
         />
       </WritePageMobileBodyRightBox>
