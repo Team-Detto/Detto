@@ -27,9 +27,9 @@ const ViewsToShareContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  height: 16px;
-  padding: 0 20px;
-  gap: 12px;
-  font-size: 12px;
+  height: 1rem;
+  padding: 0 1.25rem;
+  gap: 0.75rem;
+  font-size: 0.75rem;
   color: ${COLORS.gray800};
 `;

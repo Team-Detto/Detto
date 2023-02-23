@@ -91,14 +91,14 @@ const BackDrop = styled.div`
 
 const ModalContainer = styled.div`
   position: fixed;
-  width: 320px;
-  height: 419px;
+  width: 20rem;
+  height: 26.1875rem;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  border-radius: 16px;
+  border-radius: 1rem;
 
-  padding: 45px 16px 16px 16px;
+  padding: 2.8125rem 1rem 1rem 1rem;
   background: ${COLORS.white};
   border-radius: 1rem;
   box-shadow: 0rem 0.25rem 0.625rem rgba(117, 117, 117, 0.25);
@@ -109,32 +109,32 @@ const StackDiv = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 8px;
-  height: 20px;
+  gap: 0.5rem;
+  height: 1.25rem;
 `;
 const Stacks = styled.p`
-  font-size: 10px;
+  font-size: 0.625rem;
   background-color: ${COLORS.gray100};
-  border-radius: 4px;
-  padding: 2px;
+  border-radius: 0.25rem;
+  padding: 0.125rem;
 `;
 
 const ApplicantStacks = styled.p`
-  height: 26px;
+  height: 1.625rem;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 0.875rem;
   margin-top: 0rem;
   color: ${COLORS.gray750};
-  line-height: 26px;
+  line-height: 1.625rem;
 `;
 
 const NickNameDiv = styled.div`
   color: ${COLORS.gray850};
   font-weight: 700;
-  font-size: 18px;
-  line-height: 26px;
-  padding-top: 14px;
-  height: 52px;
+  font-size: 1.125rem;
+  line-height: 1.625rem;
+  padding-top: 0.875rem;
+  height: 3.25rem;
 `;
 
 const NickName = styled.p``;
@@ -143,17 +143,17 @@ const MotiveDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding-top: 25px;
-  gap: 8px;
+  padding-top: 1.5625rem;
+  gap: 0.5rem;
 
-  width: 274px;
+  width: 17.125rem;
 `;
 
 const MotiveTitle = styled.p`
   font-weight: 500;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 140%;
-  /* identical to box height, or 20px */
+  /* identical to box height, or 1.25rem */
 
   display: flex;
   align-items: center;
@@ -166,17 +166,17 @@ const MotiveTitle = styled.p`
 
 const MotiveContent = styled.div`
   display: flex;
-  padding: 10px 20px;
-  gap: 23px;
+  padding: 0.625rem 1.25rem;
+  gap: 1.4375rem;
 
-  width: 274px;
-  height: 141px;
+  width: 17.125rem;
+  height: 8.8125rem;
   overflow: scroll;
 
-  border: 1px solid ${COLORS.gray300};
+  border: 0.0625rem solid ${COLORS.gray300};
   border-radius: 0.5rem;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 0.75rem;
   line-height: 140%;
 
   display: flex;
@@ -188,9 +188,9 @@ const ButtonDiv = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 52px;
-  padding-top: 26px;
-  gap: 4px;
+  height: 3.25rem;
+  padding-top: 1.625rem;
+  gap: 0.25rem;
 `;
 
 const Button = styled.button<{ children: string }>`
@@ -198,10 +198,10 @@ const Button = styled.button<{ children: string }>`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 0.625rem;
 
-  width: 140px;
-  height: 52px;
+  width: 8.75rem;
+  height: 3.25rem;
 
   background: ${({ children }) =>
     children === '아니오' ? COLORS.gray100 : COLORS.violetB400};
@@ -209,5 +209,5 @@ const Button = styled.button<{ children: string }>`
   color: ${({ children }) =>
     children === '아니오' ? COLORS.black : COLORS.white};
 
-  border-radius: 16px;
+  border-radius: 1rem;
 `;

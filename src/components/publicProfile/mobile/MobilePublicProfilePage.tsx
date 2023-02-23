@@ -71,7 +71,7 @@ const UserInfoWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 9px;
+  gap: 0.5625rem;
 `;
 
 const NameAndPositionDiv = styled.div`
@@ -79,21 +79,21 @@ const NameAndPositionDiv = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 0.25rem;
 `;
 
 const UserNickName = styled.div`
   font-weight: 500;
-  font-size: 16px;
+  font-size: 1rem;
 `;
 
 const UserEmail = styled.div`
   font-weight: 500;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: ${COLORS.gray750};
   background: #fafafb;
-  border-radius: 4px;
-  padding: 4px 10px;
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.625rem;
 `;
 
 const StackDiv = styled.div`
@@ -101,16 +101,16 @@ const StackDiv = styled.div`
   grid-template-columns: repeat(4, 1fr);
   align-items: center;
   justify-content: center;
-  margin-top: 19px;
-  gap: 4px;
+  margin-top: 1.1875rem;
+  gap: 0.25rem;
 `;
 
 const UserStacks = styled.div`
-  width: 74px;
-  height: 26px;
-  font-size: 10px;
+  width: 4.625rem;
+  height: 1.625rem;
+  font-size: 0.625rem;
   background: ${COLORS.gray100};
-  border-radius: 12px;
+  border-radius: 0.75rem;
   display: flex;
   align-items: center;
   justify-content: center;

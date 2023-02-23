@@ -204,7 +204,7 @@ export default ApplyModal;
 const WebModalContainer = styled.div`
   position: fixed;
   width: 41.0625rem;
-  height: 550px;
+  height: 34.375rem;
   left: 50%;
   top: 50%;
   text-align: center;
@@ -249,12 +249,12 @@ const BackDrop = styled.div`
 
 const MobileModalContainer = styled.div`
   position: fixed;
-  width: 320px;
-  height: 419px;
+  width: 20rem;
+  height: 26.1875rem;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  border-radius: 16px;
+  border-radius: 1rem;
   text-align: center;
   padding: 1.25rem 1rem;
   background: ${COLORS.white};
@@ -265,9 +265,9 @@ const MobileModalContainer = styled.div`
 `;
 
 const MobileModalTitle = styled.p`
-  height: 26px;
+  height: 1.625rem;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 1.125rem;
   margin-top: 0rem;
 `;
 
@@ -276,7 +276,7 @@ const MobileContentContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding: 0rem;
-  margin-top: 18px;
+  margin-top: 1.125rem;
 
   width: 100%;
 `;

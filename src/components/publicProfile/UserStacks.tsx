@@ -67,13 +67,13 @@ const MobileStackList = styled.ul`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 0.3125rem;
 `;
 
 const MobileStackItem = styled.li`
   display: flex;
   align-items: center;
-  font-size: 10px;
+  font-size: 0.625rem;
   color: ${COLORS.gray750};
   cursor: default;
 `;

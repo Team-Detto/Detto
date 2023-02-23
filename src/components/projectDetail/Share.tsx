@@ -148,9 +148,9 @@ const ShareContainer = styled.div`
   right: -5rem;
 
   background-color: ${COLORS.white};
-  box-shadow: 0 0 10px ${COLORS.gray300};
+  box-shadow: 0 0 0.625rem ${COLORS.gray300};
   z-index: 10;
-  border-radius: 15px;
+  border-radius: 0.9375rem;
 
   ::after {
     bottom: 100%;
@@ -163,8 +163,8 @@ const ShareContainer = styled.div`
     pointer-events: none;
     border-color: rgba(244, 244, 244, 0);
     border-bottom-color: ${COLORS.white};
-    border-width: 10px;
-    margin-left: -10px;
+    border-width: 0.625rem;
+    margin-left: -0.625rem;
   }
 `;
 
@@ -181,9 +181,9 @@ const MobileShareContainer = styled.div`
   left: 18%;
   z-index: 10;
   background-color: ${COLORS.white};
-  box-shadow: 0 0 10px ${COLORS.gray300};
+  box-shadow: 0 0 0.625rem ${COLORS.gray300};
 
-  border-radius: 15px;
+  border-radius: 0.9375rem;
 
   ::after {
     bottom: 100%;
@@ -196,7 +196,7 @@ const MobileShareContainer = styled.div`
     pointer-events: none;
     border-color: rgba(244, 244, 244, 0);
     border-bottom-color: ${COLORS.white};
-    border-width: 10px;
-    margin-left: -10px;
+    border-width: 0.625rem;
+    margin-left: -0.625rem;
   }
 `;

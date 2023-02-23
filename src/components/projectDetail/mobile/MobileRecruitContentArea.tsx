@@ -39,21 +39,21 @@ export default MobileRecruitContentArea;
 const MobileRecruitContentContainer = styled.div`
   width: 100%;
   height: 100%;
-  margin-top: 20px;
-  padding: 0 20px;
+  margin-top: 1.25rem;
+  padding: 0 1.25rem;
 `;
 
 const MobileRecruitContentTitle = styled.div`
-  font-size: 12px;
+  font-size: 0.75rem;
 
   color: ${COLORS.gray800};
 `;
 
 const MobileRecruitContentText = styled.div`
   width: 100%;
-  min-height: 183px;
+  min-height: 11.4375rem;
   height: 100%;
   background-color: ${COLORS.white};
-  margin-top: 6px;
-  padding: 13px 15px;
+  margin-top: 0.375rem;
+  padding: 0.8125rem 0.9375rem;
 `;

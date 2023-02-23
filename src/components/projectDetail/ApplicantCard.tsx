@@ -103,7 +103,7 @@ const ProfileImage = styled.img`
 
 const HoverText = styled.div`
   position: relative;
-  left: 130px;
+  left: 8.125rem;
   background-color: transparent;
   color: ${COLORS.gray300};
   display: none;

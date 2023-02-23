@@ -151,14 +151,14 @@ const ApplyButton = styled.button`
 
 const MobileApplyButtonContainer = styled.div`
   width: 100%;
-  margin-top: 14px;
+  margin-top: 0.875rem;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   padding: 0rem;
   gap: 1rem;
   width: 100%;
-  height: 52px;
+  height: 3.25rem;
 `;
 
 const MobileApplyButton = styled.button`
@@ -170,7 +170,7 @@ const MobileApplyButton = styled.button`
   gap: 0.625rem;
 
   width: 18.9063rem;
-  height: 52px;
+  height: 3.25rem;
   border-radius: 0.5rem;
   /* violet B 400 */
 

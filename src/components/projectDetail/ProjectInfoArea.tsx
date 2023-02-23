@@ -144,9 +144,9 @@ const StackTitle = styled.div`
 const StackValue = styled.div`
   background-color: ${COLORS.gray100};
   height: 2rem;
-  padding: 0 12px;
+  padding: 0 0.75rem;
   border-radius: 2rem;
-  font-size: 12px;
+  font-size: 0.75rem;
   display: flex;
   flex-direction: row;
   align-items: center;
