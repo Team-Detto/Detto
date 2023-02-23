@@ -12,7 +12,6 @@ const MobileProjectList = ({ category, pidList }: ProjectListProps) => {
   const { likedProjects, handleNavigateToProjectDetail } = useFindProject();
 
   // 현재 활성화된 탭의 프로젝트 아이디(pid) 리스트
-  console.log(' ', category);
   const currentPidList =
     (category === 'appliedProjects' || category === 'currentProjects'
       ? getFilteredPidList(pidList, category)
