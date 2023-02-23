@@ -12,6 +12,8 @@ interface Props {
   onFormValueChangeEvent: (e: any) => void;
 }
 
+const TODAY = new Date(+new Date() + 3240 * 10000).toISOString().split('T')[0];
+
 const WritePageMobileDeadline = ({
   deadline,
   onFormValueChangeEvent,
@@ -25,7 +27,7 @@ const WritePageMobileDeadline = ({
         <WritePageMobileDeadlineInput
           type="date"
           name="deadline"
-          value={deadline}
+          value={deadline === '' ? TODAY : deadline}
           onChange={onFormValueChangeEvent}
         />
       </WritePageMobileBodyRightBox>
