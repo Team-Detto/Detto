@@ -67,11 +67,10 @@ const MobileContentCard = ({
       updateRecruitingMutate(id, false as any);
     }
 
-    if (!likedProjects) return;
-    if (likedProjects.includes(id ?? pid)) {
+    if (likedProjects && likedProjects.includes(id ?? pid)) {
       setIsLike(true);
     }
-  }, []);
+  }, [likedProjects]);
 
   useEffect(() => {
     idList.map((id) => {

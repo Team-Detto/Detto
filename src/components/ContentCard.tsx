@@ -70,11 +70,10 @@ const ContentCard = ({
       updateRecruitingMutate(id, false as any);
     }
 
-    if (!likedProjects) return;
-    if (likedProjects.includes(id)) {
+    if (likedProjects && likedProjects.includes(id)) {
       setIsLike(true);
     }
-  }, []);
+  }, [likedProjects]);
 
   return (
     <ContentCardWrap>
