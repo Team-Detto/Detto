@@ -1,15 +1,15 @@
-import { getDate } from 'utils/date';
-import { EditType } from 'types/write/writeType';
-import { concatSkills } from 'utils/skills';
-import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
-import COLORS from 'assets/styles/colors';
-import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
-import { useAuth } from 'hooks';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateRecruiting } from 'apis/postDetail';
-import defaultThumbnail from 'assets/images/thumbnail_small.jpg';
 import { firebaseLikeProjectUpdateRequest } from 'apis/boardService';
+import { useAuth } from 'hooks';
+import { getDate } from 'utils/date';
+import { concatSkills } from 'utils/skills';
+import { EditType } from 'types/write/writeType';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import defaultThumbnail from 'assets/images/thumbnail_small.jpg';
+import COLORS from 'assets/styles/colors';
+import styled from '@emotion/styled';
 
 interface Props {
   project: EditType.EditFormType;
@@ -88,7 +88,7 @@ const ContentCard = ({
           </ContentCardDate>
           <ContentCardBookmark>
             <ContentCardLikeButton
-              name={likedProjects.includes(id) ? 'like' : 'unLike'}
+              name={isLike ? 'like' : 'unlike'}
               onClick={handleUpdateLike}
             >
               {likedProjects.includes(id) ? (
@@ -238,6 +238,36 @@ const ContentCardStackButton = styled.div`
   line-height: 2rem;
   color: ${COLORS.black};
 `;
-const ContentCardLikeButton = styled.button<{ name: string }>``;
+const ContentCardLikeButton = styled.button`
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: scale(1.2);
+  }
+  &:active {
+    animation-name: beat;
+    animation-duration: 1000ms;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+    @keyframes beat {
+      0% {
+        transform: rotate(0deg);
+      }
+      25% {
+        transform: rotate(-10deg);
+      }
+      50% {
+        transform: rotate(10deg);
+      }
+      75% {
+        transform: rotate(-10deg);
+      }
+      100% {
+        transform: rotate(0deg);
+      }
+    }
+  }
+
+  margin-top: 0.5rem;
+`;
 
 export default ContentCard;
