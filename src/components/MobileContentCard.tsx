@@ -32,10 +32,8 @@ const MobileContentCard = ({
     isRecruiting,
     deadline,
   }: any = project;
-  const [isLike, setIsLike] = useState<boolean>(
-    likedProjects.includes(id ?? pid),
-  );
   const { uid } = useAuth();
+  const [isLike, setIsLike] = useState<boolean>(false);
   const idList: any[] = [];
   const queryClient = useQueryClient();
   const today = new Date().getTime();
@@ -67,6 +65,11 @@ const MobileContentCard = ({
     if (today > deadline) {
       idList.push(id);
       updateRecruitingMutate(id, false as any);
+    }
+
+    if (!likedProjects) return;
+    if (likedProjects.includes(id ?? pid)) {
+      setIsLike(true);
     }
   }, []);
 
