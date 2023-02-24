@@ -94,7 +94,7 @@ const ContentCard = ({
               name={isLike ? 'like' : 'unlike'}
               onClick={handleUpdateLike}
             >
-              {likedProjects.includes(id) ? (
+              {likedProjects?.includes(id) ? (
                 <AiFillHeart size="1.5rem" color={`${COLORS.pink}`} />
               ) : (
                 <AiOutlineHeart size="1.5rem" color={`${COLORS.gray750}`} />
