@@ -42,6 +42,9 @@ const WritePageMobileFooterCompleatedButton = styled.button`
   background-color: ${COLORS.violetB400};
   border-radius: 0.75rem;
   margin-bottom: 2rem;
+  &:hover {
+    background-color: ${COLORS.violetB300};
+  }
 `;
 const WritePageMobileFooterCompleatedText = styled.p`
   font-weight: 700;
