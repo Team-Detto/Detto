@@ -87,7 +87,7 @@ const MobileContentCard = ({
           <ContentCardImg src={defaultThumbnail} />
         )}
         <ContentCardBookmark onClick={handleUpdateLike}>
-          {likedProjects.includes(id ?? pid) ? (
+          {likedProjects?.includes(id ?? pid) ? (
             <AiFillHeart size="1.5rem" color={`${COLORS.pink}`} />
           ) : (
             <AiOutlineHeart size="1.5rem" color={`${COLORS.gray750}`} />
