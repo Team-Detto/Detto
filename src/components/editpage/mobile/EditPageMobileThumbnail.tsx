@@ -64,7 +64,6 @@ const EditPageMobileThumbnailInput = styled.input`
   background-color: ${COLORS.white};
   border: 1px solid ${COLORS.gray100};
   border-radius: 0.25rem;
-  padding-top: 0.6rem;
   font-size: 0.75rem;
   font-weight: 400;
   line-height: 140%;
@@ -85,6 +84,9 @@ const EditPageMobileThumbnailButton = styled.label`
   background-color: ${(props: { editThumbnail: string }) =>
     props.editThumbnail ? COLORS.gray300 : COLORS.violetB400};
   border-radius: 0.25rem;
+  &:hover {
+    background-color: ${COLORS.violetB300};
+  }
 `;
 const EditPageMobileThumbnailText = styled.p`
   color: ${COLORS.white};

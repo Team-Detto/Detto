@@ -35,9 +35,8 @@ const ContentCard = ({
     isRecruiting,
     deadline,
   }: any = project;
-  const [isLike, setIsLike] = useState<boolean>(likedProjects.includes(id));
-
   const { uid } = useAuth();
+  const [isLike, setIsLike] = useState<boolean>(false);
   const stacks = concatSkills(plannerStack, designerStack, developerStack);
   const queryClient = useQueryClient();
 
@@ -70,7 +69,11 @@ const ContentCard = ({
     if (today > deadline) {
       updateRecruitingMutate(id, false as any);
     }
-  }, []);
+
+    if (likedProjects && likedProjects.includes(id)) {
+      setIsLike(true);
+    }
+  }, [likedProjects]);
 
   return (
     <ContentCardWrap>

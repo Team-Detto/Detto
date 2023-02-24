@@ -87,6 +87,9 @@ const WritePageMobileThumbnailButton = styled.label<{ thumbnail: string }>`
   background-color: ${({ thumbnail }) =>
     thumbnail ? COLORS.gray300 : COLORS.violetB500};
   border-radius: 0.25rem;
+  &:hover {
+    background-color: ${COLORS.violetB300};
+  }
 `;
 const WritePageMobileThumbnailText = styled.p`
   color: ${COLORS.white};

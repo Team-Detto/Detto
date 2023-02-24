@@ -48,6 +48,10 @@ const FooterCompletedButton = styled.button`
   color: ${COLORS.white};
   border-radius: 2.25rem;
   margin-top: 4rem;
+  transition: background-color 100ms ease-in-out;
+  &:hover {
+    background-color: ${COLORS.violetB300};
+  }
 `;
 const FooterCompletedText = styled.p`
   font-weight: 700;
