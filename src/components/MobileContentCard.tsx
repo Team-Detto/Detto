@@ -1,13 +1,14 @@
-import { getDate } from 'utils/date';
-import { EditType } from 'types/write/writeType';
-import { concatSkills } from 'utils/skills';
-import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
-import COLORS from 'assets/styles/colors';
-import styled from '@emotion/styled';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateRecruiting } from 'apis/postDetail';
+import { firebaseLikeProjectUpdateRequest } from 'apis/boardService';
+import { useAuth } from 'hooks';
+import { getDate } from 'utils/date';
+import { EditType } from 'types/write/writeType';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import defaultThumbnail from 'assets/images/thumbnail_mobile.jpg';
+import COLORS from 'assets/styles/colors';
+import styled from '@emotion/styled';
 interface Props {
   project: EditType.EditFormType;
   likedProjects: string[];
@@ -31,6 +32,10 @@ const MobileContentCard = ({
     isRecruiting,
     deadline,
   }: any = project;
+  const [isLike, setIsLike] = useState<boolean>(
+    likedProjects.includes(id ?? pid),
+  );
+  const { uid } = useAuth();
   const idList: any[] = [];
   const queryClient = useQueryClient();
   const today = new Date().getTime();
@@ -43,6 +48,20 @@ const MobileContentCard = ({
       },
     },
   );
+
+  const { mutate: updateLikeMutate } = useMutation(
+    () => firebaseLikeProjectUpdateRequest(id, uid),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['likedProjects', uid]);
+      },
+    },
+  );
+
+  const handleUpdateLike = () => {
+    setIsLike(!isLike);
+    updateLikeMutate();
+  };
 
   useEffect(() => {
     if (today > deadline) {
@@ -58,23 +77,24 @@ const MobileContentCard = ({
   }, []);
 
   return (
-    <MobileContentCardWrap onClick={onNavigateToProjectDetailEvent(id ?? pid)}>
+    <MobileContentCardWrap>
       <ContentCardImgContainer>
         {thumbnail ? (
           <ContentCardImg src={thumbnail} />
         ) : (
           <ContentCardImg src={defaultThumbnail} />
         )}
-        <ContentCardBookmark>
-          {likedProjects.includes(id ?? pid) && (
+        <ContentCardBookmark onClick={handleUpdateLike}>
+          {likedProjects.includes(id ?? pid) ? (
             <AiFillHeart size="1.5rem" color={`${COLORS.pink}`} />
-          )}
-          {!likedProjects.includes(id ?? pid) && (
-            <AiOutlineHeart size="1.5rem" color={`${COLORS.gray600}`} />
+          ) : (
+            <AiOutlineHeart size="1.5rem" color={`${COLORS.gray750}`} />
           )}
         </ContentCardBookmark>
       </ContentCardImgContainer>
-      <ContentCardContentsContainer>
+      <ContentCardContentsContainer
+        onClick={onNavigateToProjectDetailEvent(id ?? pid)}
+      >
         <ContentCardDateContainer>
           <RecruitingIcon>
             {isRecruiting ? '모집중' : '모집마감'}
@@ -121,6 +141,7 @@ const ContentCardContentsContainer = styled.div`
   gap: 0.1875rem;
   width: 100%;
   overflow: hidden;
+  cursor: pointer;
 `;
 const RecruitingIcon = styled.div`
   min-width: 2.8rem;
@@ -158,6 +179,33 @@ const ContentCardBookmark = styled.button`
   height: 1.5rem;
   bottom: 0.25rem;
   left: 0.25rem;
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: scale(1.1);
+  }
+  &:active {
+    animation-name: beat;
+    animation-duration: 1000ms;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+    @keyframes beat {
+      0% {
+        transform: rotate(0deg);
+      }
+      25% {
+        transform: rotate(-10deg);
+      }
+      50% {
+        transform: rotate(10deg);
+      }
+      75% {
+        transform: rotate(-10deg);
+      }
+      100% {
+        transform: rotate(0deg);
+      }
+    }
+  }
 `;
 const ContentCardTitle = styled.div`
   font-weight: 700;
