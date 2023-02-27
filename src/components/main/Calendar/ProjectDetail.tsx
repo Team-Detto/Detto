@@ -109,6 +109,7 @@ const ProjectDetailLabel = styled.div`
   color: #464646;
   font-weight: 400;
   margin-right: 1rem;
+  box-sizing: border-box;
 `;
 
 const ProjectDetailText = styled.div`
@@ -117,6 +118,7 @@ const ProjectDetailText = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   flex: 1;
+  max-width: 17.5rem;
 `;
 
 const ProjectDetailSproutText = styled.div`

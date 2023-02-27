@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
+import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { dayListState, selectedProjectState } from '../../../recoil/atoms';
 import ProjectCalendar from './ProjectCalendar';
@@ -9,6 +10,7 @@ import ProjectList from './ProjectList';
 const MainCalendar = () => {
   const selectedProject = useRecoilValue<any>(selectedProjectState);
   const dayList = useRecoilValue<any>(dayListState);
+  console.log('selectedProject', selectedProject);
 
   return (
     <MainCalendarWrap>
