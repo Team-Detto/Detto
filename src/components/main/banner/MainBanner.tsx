@@ -46,7 +46,7 @@ const MainBanner = () => {
               디토에서 프로젝트 메이트를 만나보세요
             </BannerSubTitle>
           </BannerTextBox>
-          <BannerSecondImg src={Logo2} />
+          <BannerSecondImg src="videos/logo_main2.webm" loop autoPlay muted />
         </BannerContainer>
       </SlideWrapper>
     </SliderWrapper>
@@ -136,7 +136,7 @@ const BannerFirstImg = styled.img`
   left: 36.9375rem;
   top: 0;
 `;
-const BannerSecondImg = styled.img`
+const BannerSecondImg = styled.video`
   position: absolute;
   width: 52.875rem;
   height: 18.4375rem;
