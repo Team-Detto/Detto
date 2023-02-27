@@ -20,6 +20,7 @@ import { useAuth, useIsMobile, useModal, useNotification } from 'hooks';
 import ApplyModal from 'components/projectDetail/ApplyModal/ApplyModal';
 import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
+import { Helmet } from 'react-helmet-async';
 
 const ProjectDetailPage = () => {
   const params = useParams();
@@ -108,81 +109,149 @@ const ProjectDetailPage = () => {
   //projectData?.uid 가 현재 uid랑 같은지 판별하고 같으면 수정하기 버튼 display, 지원하기 버튼 -> 마감하기 버튼으로 변경, 지원자 목록 보여주기
   //지원하기 버튼 클릭시 지원자 목록에 uid 추가
   //현재 참여중인 인원, 지원한 인원 uid로 모두 user테이블 조회해서 닉네임, 프로필 사진 가져오기???
+
   const isMobile = useIsMobile();
   if (isMobile && projectData) {
     return (
-      <MobileProjectDetailPage
-        pid={pid}
-        projectData={projectData}
-        userData={userData}
-        isApplicant={isApplicant}
-        deleteApplicantMutate={deleteApplicantMutate}
-        handleAuthorButtonClick={() => handleAuthorButtonClick()}
-      />
+      <>
+        <Helmet>
+          <title>{projectData && `${projectData.title} - Detto`}</title>
+
+          <meta
+            name="description"
+            content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
+          />
+
+          <meta property="og:type" content="website" />
+          <meta property="og:title" content={`${projectData?.title} - Detto`} />
+          <meta property="og:site_name" content="Detto" />
+          <meta
+            property="og:description"
+            content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
+          />
+          <meta property="og:image" content={projectData?.thumbnail} />
+          <meta property="og:url" content={`/project/${pid}`} />
+
+          <meta
+            name="twitter:title"
+            content={`${projectData?.title} - Detto`}
+          />
+          <meta
+            name="twitter:description"
+            content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
+          />
+          <meta name="twitter:image" content={projectData?.thumbnail} />
+
+          <link rel="canonical" href={`/project/${pid}`} />
+        </Helmet>
+        <MobileProjectDetailPage
+          pid={pid}
+          projectData={projectData}
+          userData={userData}
+          isApplicant={isApplicant}
+          deleteApplicantMutate={deleteApplicantMutate}
+          handleAuthorButtonClick={() => handleAuthorButtonClick()}
+        />
+      </>
     );
   }
 
   return (
-    <ProjectDetailContainer>
-      {projectData && (
-        <WebContainer>
-          <ProjectDetailWrapper>
-            <TitleThumbnailArea projectData={projectData} pid={pid} />
-            <WriterToShareArea
-              pid={pid}
-              userData={userData}
+    <>
+      <Helmet>
+        <title>{projectData && `${projectData.title} - Detto`}</title>
+
+        <meta
+          name="description"
+          content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
+        />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={`${projectData?.title} - Detto`} />
+        <meta property="og:site_name" content="Detto" />
+        <meta
+          property="og:description"
+          content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
+        />
+        <meta property="og:image" content={projectData?.thumbnail} />
+        <meta
+          property="og:url"
+          content={`https://detto.vercel.app/project/${pid}`}
+        />
+
+        <meta name="twitter:title" content={`${projectData?.title} - Detto`} />
+        <meta
+          name="twitter:description"
+          content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
+        />
+        <meta name="twitter:image" content={projectData?.thumbnail} />
+
+        <link
+          rel="canonical"
+          href={`https://detto.vercel.app/project/${pid}`}
+        />
+      </Helmet>
+      <ProjectDetailContainer>
+        {projectData && (
+          <WebContainer>
+            <ProjectDetailWrapper>
+              <TitleThumbnailArea projectData={projectData} pid={pid} />
+              <WriterToShareArea
+                pid={pid}
+                userData={userData}
+                projectData={projectData}
+              />
+              <RecruitmentInfoContainer>
+                <ProjectInfoArea projectData={projectData} />
+                <MemberInfoArea applicantsData={projectData.applicants} />
+              </RecruitmentInfoContainer>
+              <ContentArea projectData={projectData} />
+            </ProjectDetailWrapper>
+            <ApplyButtonArea
+              isApplicant={isApplicant}
               projectData={projectData}
+              onApplyModalStateChangeEvent={handleApplyModalOpenChange} //지원하기
+              onCloseModalStateChangeEvent={handleCloseModalOpenChange} //지원취소, 마감하기
             />
-            <RecruitmentInfoContainer>
-              <ProjectInfoArea projectData={projectData} />
-              <MemberInfoArea applicantsData={projectData?.applicants} />
-            </RecruitmentInfoContainer>
-            <ContentArea projectData={projectData} />
-          </ProjectDetailWrapper>
-          <ApplyButtonArea
-            isApplicant={isApplicant}
-            projectData={projectData}
-            onApplyModalStateChangeEvent={handleApplyModalOpenChange} //지원하기
-            onCloseModalStateChangeEvent={handleCloseModalOpenChange} //지원취소, 마감하기
-          />
-          {/* //지원 안했다면 지원하기 모달 */}
-          <ApplyModal
-            isOpen={isApply}
-            message="프로젝트를 지원해볼까요?"
-            onClickEvent={handleApplyModalCloseChange}
-            pid={params.id as string}
-          />
-          {/* //지원 했다면 Alert*/}
-          <ConfirmAlert
-            isOpen={isClose}
-            message={
-              isApplicant
-                ? '지원을 취소하시겠습니까?'
-                : '지원공고를 마감할까요?'
-            }
-            subMessage={
-              isApplicant
-                ? '정말 취소 하실건지 확인해주세요!'
-                : '팀원이 모두 모집되었는지 한 번 더 확인해주세요!'
-            }
-            onClickEvent={() => {
-              isApplicant
-                ? (handleCloseModalCloseChange(), deleteApplicantMutate())
-                : handleAuthorButtonClick();
-            }}
-            onCloseEvent={handleCloseModalCloseChange}
-          />
-          {/* currentUser랑 글쓴이uid랑 같고 모집중이면 지원자 목록 보이게하기 */}
-          {projectData?.uid === uid && projectData?.isRecruiting === true && (
-            <ApplicantListArea
-              projectData={projectData}
-              userData={userData}
-              pid={pid}
+            {/* //지원 안했다면 지원하기 모달 */}
+            <ApplyModal
+              isOpen={isApply}
+              message="프로젝트를 지원해볼까요?"
+              onClickEvent={handleApplyModalCloseChange}
+              pid={params.id as string}
             />
-          )}
-        </WebContainer>
-      )}
-    </ProjectDetailContainer>
+            {/* //지원 했다면 Alert*/}
+            <ConfirmAlert
+              isOpen={isClose}
+              message={
+                isApplicant
+                  ? '지원을 취소하시겠습니까?'
+                  : '지원공고를 마감할까요?'
+              }
+              subMessage={
+                isApplicant
+                  ? '정말 취소 하실건지 확인해주세요!'
+                  : '팀원이 모두 모집되었는지 한 번 더 확인해주세요!'
+              }
+              onClickEvent={() => {
+                isApplicant
+                  ? (handleCloseModalCloseChange(), deleteApplicantMutate())
+                  : handleAuthorButtonClick();
+              }}
+              onCloseEvent={handleCloseModalCloseChange}
+            />
+            {/* currentUser랑 글쓴이uid랑 같고 모집중이면 지원자 목록 보이게하기 */}
+            {projectData?.uid === uid && projectData?.isRecruiting === true && (
+              <ApplicantListArea
+                projectData={projectData}
+                userData={userData}
+                pid={pid}
+              />
+            )}
+          </WebContainer>
+        )}
+      </ProjectDetailContainer>
+    </>
   );
 };
 
