@@ -10,7 +10,6 @@ import ProjectList from './ProjectList';
 const MainCalendar = () => {
   const selectedProject = useRecoilValue<any>(selectedProjectState);
   const dayList = useRecoilValue<any>(dayListState);
-  console.log('selectedProject', selectedProject);
 
   return (
     <MainCalendarWrap>

@@ -4,13 +4,18 @@ import UserStacks from 'components/publicProfile/UserStacks';
 import InviteModal from '../InviteModals/InviteModal';
 import { useModal } from 'hooks';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const MobileApplicantCard = ({ key, pid, applicant }: any) => {
+const MobileApplicantCard = ({ pid, applicant, applicantUid }: any) => {
+  const navigate = useNavigate();
   const { isOpen, handleModalStateChange } = useModal(false);
   const [applicantKey, setApplicantKey] = useState('');
   return (
     <ApplicantCard>
-      <ProfileImg src={applicant.profileURL} />
+      <ProfileImg
+        src={applicant.profileURL}
+        onClick={() => navigate(`/profile/${applicant.uid}`)}
+      />
       <UserInfoDiv>
         <Position>{applicant.position}</Position>
         <DisplayName>{applicant.displayName}</DisplayName>
@@ -21,7 +26,7 @@ const MobileApplicantCard = ({ key, pid, applicant }: any) => {
       <InviteButton
         onClick={() => {
           handleModalStateChange();
-          setApplicantKey(key);
+          setApplicantKey(applicantUid);
         }}
       >
         팀원으로 초대하기
