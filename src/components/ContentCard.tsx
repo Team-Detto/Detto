@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, memo } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateRecruiting } from 'apis/postDetail';
 import { firebaseLikeProjectUpdateRequest } from 'apis/boardService';
@@ -59,20 +59,17 @@ const ContentCard = ({
     },
   );
 
-  const handleUpdateLike = () => {
+  const handleUpdateLike = useCallback(() => {
     setIsLike(!isLike);
     updateLikeMutate();
-  };
+  }, [isLike]);
 
   useEffect(() => {
     const today = Date.now();
     if (today > deadline) {
       updateRecruitingMutate(id, false as any);
     }
-
-    if (likedProjects && likedProjects.includes(id)) {
-      setIsLike(true);
-    }
+    setIsLike(likedProjects?.includes(id) ?? false);
   }, [likedProjects]);
 
   return (
@@ -94,7 +91,7 @@ const ContentCard = ({
               name={isLike ? 'like' : 'unlike'}
               onClick={handleUpdateLike}
             >
-              {likedProjects?.includes(id) ? (
+              {isLike ? (
                 <AiFillHeart size="1.5rem" color={`${COLORS.pink}`} />
               ) : (
                 <AiOutlineHeart size="1.5rem" color={`${COLORS.gray750}`} />
@@ -273,4 +270,4 @@ const ContentCardLikeButton = styled.button`
   margin-top: 0.5rem;
 `;
 
-export default ContentCard;
+export default memo(ContentCard);

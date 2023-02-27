@@ -1,5 +1,6 @@
 import { ChangeEvent } from 'react';
 import { WriteType } from 'types/write/writeType';
+import { positionList } from 'utils/positions';
 import LabelInput from 'components/common/LabelInput';
 import styled from '@emotion/styled';
 interface Props {
@@ -11,68 +12,27 @@ const WritePagePosition = ({
   writeFormValue,
   onFormValueChangeEvent,
 }: Props) => {
-  const {
-    positions: { planner, designer, frontend, backend },
-  } = writeFormValue;
+  const { positions }: any = writeFormValue;
 
   return (
     <WritePagePositionContainer>
-      <LabelInput
-        label="기획"
-        text="명"
-        input={{
-          id: 'planner',
-          type: 'number',
-          width: '7.5rem',
-          height: '2.8125rem',
-          name: 'planner',
-          placeholder: '0',
-        }}
-        value={planner}
-        onChangeEvent={onFormValueChangeEvent}
-      />
-      <LabelInput
-        label="디자인"
-        text="명"
-        input={{
-          id: 'designer',
-          type: 'number',
-          width: '7.5rem',
-          height: '2.8125rem',
-          name: 'designer',
-          placeholder: '0',
-        }}
-        value={designer}
-        onChangeEvent={onFormValueChangeEvent}
-      />
-      <LabelInput
-        label="프론트"
-        text="명"
-        input={{
-          id: 'frontend',
-          type: 'number',
-          width: '7.5rem',
-          height: '2.8125rem',
-          name: 'frontend',
-          placeholder: '0',
-        }}
-        value={frontend}
-        onChangeEvent={onFormValueChangeEvent}
-      />
-      <LabelInput
-        label="백엔드"
-        text="명"
-        input={{
-          id: 'backend',
-          type: 'number',
-          width: '7.5rem',
-          height: '2.8125rem',
-          name: 'backend',
-          placeholder: '0',
-        }}
-        value={backend}
-        onChangeEvent={onFormValueChangeEvent}
-      />
+      {positionList.map(({ type, name }) => (
+        <LabelInput
+          key={type}
+          label={name}
+          text="명"
+          input={{
+            id: type,
+            type: 'number',
+            width: '7.5rem',
+            height: '2.8125rem',
+            name: type,
+            placeholder: '0',
+          }}
+          value={positions[type]}
+          onChangeEvent={onFormValueChangeEvent}
+        />
+      ))}
     </WritePagePositionContainer>
   );
 };
