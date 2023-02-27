@@ -20,7 +20,7 @@ const MainPage = () => {
           name="description"
           content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
         />
-
+        <meta name="keywords" content="개발자, 사이드프로젝트" />
         <meta property="og:url" content="https://detto.vercel.app/" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Detto" />
