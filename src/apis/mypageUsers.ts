@@ -33,9 +33,9 @@ export const getUserInfoData = async (params: any) => {
  * @returns imgUrl : 스토리지에 업로드된 이미지 객체 Promise
  */
 export const uploadProfileImg = async (file: any, uid: string) => {
-  await uploadBytes(ref(firestorage, `${uid}.jpg`), file);
+  await uploadBytes(ref(firestorage, `${uid}`), file);
 
-  const imgUrl = await getDownloadURL(ref(firestorage, `${uid}.jpg`));
+  const imgUrl = await getDownloadURL(ref(firestorage, `${uid}`));
   return imgUrl;
 };
 
@@ -44,7 +44,7 @@ export const uploadProfileImg = async (file: any, uid: string) => {
  * @param uid : 유저 uid
  */
 export const deleteProfileImg = async (uid: string) => {
-  const deleteRef = ref(firestorage, `${uid}.jpg`);
+  const deleteRef = ref(firestorage, `${uid}`);
   deleteObject(deleteRef)
     // TODO :: 삭제 성공 시
     .catch((error) =>
