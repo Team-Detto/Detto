@@ -8,7 +8,6 @@ import FindProjectMobileHeader from 'components/findproject/mobile/FindProjectMo
 import FindProjectMobileList from 'components/findproject/mobile/FindProjectMobileList';
 import styled from '@emotion/styled';
 import { Helmet } from 'react-helmet-async';
-import mobilesecondBanner from 'assets/images/mobilesecondBanner.png';
 
 const FindProjectPage = () => {
   const {
@@ -36,30 +35,6 @@ const FindProjectPage = () => {
       <>
         <Helmet>
           <title>{`팀원찾기 - Detto`}</title>
-
-          <meta
-            name="description"
-            content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-          />
-
-          <meta property="og:type" content="website" />
-          <meta property="og:title" content={`팀원찾기 - Detto`} />
-          <meta property="og:site_name" content="Detto" />
-          <meta
-            property="og:description"
-            content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-          />
-          <meta property="og:image" content={mobilesecondBanner} />
-          <meta property="og:url" content={window.location.href} />
-
-          <meta name="twitter:title" content={`팀원찾기 - Detto`} />
-          <meta
-            name="twitter:description"
-            content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-          />
-          <meta name="twitter:image" content={mobilesecondBanner} />
-
-          <link rel="canonical" href={window.location.href} />
         </Helmet>
         <FindProjectMobilePageContainer>
           <FindProjectMobileHeader
@@ -84,30 +59,6 @@ const FindProjectPage = () => {
     <>
       <Helmet>
         <title>{`팀원찾기 - Detto`}</title>
-
-        <meta
-          name="description"
-          content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-        />
-
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content={`팀원찾기 - Detto`} />
-        <meta property="og:site_name" content="Detto" />
-        <meta
-          property="og:description"
-          content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-        />
-        <meta property="og:image" content={mobilesecondBanner} />
-        <meta property="og:url" content={window.location.href} />
-
-        <meta name="twitter:title" content={`팀원찾기 - Detto`} />
-        <meta
-          name="twitter:description"
-          content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-        />
-        <meta name="twitter:image" content={mobilesecondBanner} />
-
-        <link rel="canonical" href={window.location.href} />
       </Helmet>
       <FindProjectPageWrapper>
         <WebContainer>

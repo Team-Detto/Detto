@@ -37,36 +37,6 @@ const ProjectEditPage = () => {
       <>
         <Helmet>
           <title>{`(작성중) ${editFormValue?.title} - Detto`}</title>
-
-          <meta
-            name="description"
-            content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-          />
-
-          <meta property="og:type" content="website" />
-          <meta
-            property="og:title"
-            content="(작성중) ${editFormValue?.title} - Detto"
-          />
-          <meta
-            property="og:description"
-            content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-          />
-          <meta property="og:site_name" content="Detto" />
-          <meta property="og:url" content={window.location.href} />
-          <meta
-            property="og:image"
-            content={editFormValue?.thumbnaile ?? mobilesecondBanner}
-          />
-
-          <meta name="twitter:title" content={`새 글 쓰기 - Detto`} />
-          <meta
-            name="twitter:description"
-            content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-          />
-          <meta name="twitter:image" content={mobilesecondBanner} />
-
-          <link rel="canonical" href={window.location.href} />
         </Helmet>
         <MobileContainer>
           <EditPageMobileContainer>
@@ -105,36 +75,6 @@ const ProjectEditPage = () => {
     <>
       <Helmet>
         <title>{`(작성중) ${editFormValue?.title} - Detto`}</title>
-
-        <meta
-          name="description"
-          content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-        />
-
-        <meta property="og:type" content="website" />
-        <meta
-          property="og:title"
-          content="(작성중) ${editFormValue?.title} - Detto"
-        />
-        <meta
-          property="og:description"
-          content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-        />
-        <meta property="og:site_name" content="Detto" />
-        <meta property="og:url" content={window.location.href} />
-        <meta
-          property="og:image"
-          content={editFormValue?.thumbnaile ?? mobilesecondBanner}
-        />
-
-        <meta name="twitter:title" content={`새 글 쓰기 - Detto`} />
-        <meta
-          name="twitter:description"
-          content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-        />
-        <meta name="twitter:image" content={mobilesecondBanner} />
-
-        <link rel="canonical" href={window.location.href} />
       </Helmet>
       <WebContainer>
         <EditPageWrapper>

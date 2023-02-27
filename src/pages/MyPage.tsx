@@ -12,7 +12,6 @@ import { getUserInfoData, getUserProjectList } from 'apis/mypageUsers';
 import { staleTime } from 'utils/staleTime';
 import LoadingPage from './LoadingPage';
 import { Helmet } from 'react-helmet-async';
-import defaultProfile from 'assets/images/default_profile.jpg';
 
 const MyPage = () => {
   const [activeTab, setActiveTab] = useState('개인정보');
@@ -45,43 +44,6 @@ const MyPage = () => {
     <>
       <Helmet>
         <title>{`${userInfoData.displayName} - Detto`}</title>
-
-        <meta
-          name="description"
-          content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-        />
-        <meta name="keywords" content="개발자, 사이드프로젝트" />
-
-        <meta property="og:type" content="website" />
-        <meta
-          property="og:title"
-          content={`${userInfoData.displayName} - Detto`}
-        />
-        <meta property="og:site_name" content="Detto" />
-        <meta
-          property="og:description"
-          content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-        />
-        <meta
-          property="og:image"
-          content={userInfoData.photoURL ?? defaultProfile}
-        />
-        <meta property="og:url" content="https://detto.vercel.app/" />
-
-        <meta
-          name="twitter:title"
-          content={`${userInfoData.displayName} - Detto`}
-        />
-        <meta
-          name="twitter:description"
-          content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-        />
-        <meta
-          name="twitter:image"
-          content={userInfoData.photoURL ?? defaultProfile}
-        />
-
-        <link rel="canonical" href="https://detto.vercel.app/" />
       </Helmet>
       {isMobile ? (
         <MobileMyPage user={userInfoData} pidList={userProjectListsData} />
