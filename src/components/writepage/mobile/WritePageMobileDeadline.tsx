@@ -1,4 +1,3 @@
-import {} from 'react';
 import {
   WritePageMobileBodyLeftBox,
   WritePageMobileBodyRightBox,
@@ -11,8 +10,6 @@ interface Props {
   deadline: string;
   onFormValueChangeEvent: (e: any) => void;
 }
-
-const TODAY = new Date(+new Date() + 3240 * 10000).toISOString().split('T')[0];
 
 const WritePageMobileDeadline = ({
   deadline,
@@ -27,7 +24,7 @@ const WritePageMobileDeadline = ({
         <WritePageMobileDeadlineInput
           type="date"
           name="deadline"
-          value={deadline === '' ? TODAY : deadline}
+          value={deadline}
           onChange={onFormValueChangeEvent}
         />
       </WritePageMobileBodyRightBox>

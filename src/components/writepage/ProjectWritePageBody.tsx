@@ -1,4 +1,4 @@
-import { RefObject } from 'react';
+import { ChangeEvent, RefObject } from 'react';
 import { WriteType } from 'types/write/writeType';
 import WritePageStack from './WritePageStack';
 import WritePagePosition from './WritePagePosition';
@@ -9,7 +9,7 @@ interface Props {
   imageRef: RefObject<HTMLInputElement>;
   writeFormValue: WriteType.WriteFormType;
   setWriteFormValue: (value: WriteType.WriteFormType) => void;
-  onFormValueChangeEvent: (e: React.ChangeEvent<HTMLInputElement>) => void; // eslint-disable-line no-unused-vars
+  onFormValueChangeEvent: (e: ChangeEvent<HTMLInputElement>) => void;
   onAddThumbnailImageEvent: () => void;
   onAddThumbnailImageChangeEvent: () => void;
 }
