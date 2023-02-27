@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateRecruiting } from 'apis/postDetail';
 import { firebaseLikeProjectUpdateRequest } from 'apis/boardService';
@@ -56,20 +56,17 @@ const MobileContentCard = ({
     },
   );
 
-  const handleUpdateLike = () => {
+  const handleUpdateLike = useCallback(() => {
     setIsLike(!isLike);
     updateLikeMutate();
-  };
+  }, [isLike, updateLikeMutate]);
 
   useEffect(() => {
     if (today > deadline) {
       idList.push(id);
       updateRecruitingMutate(id, false as any);
     }
-
-    if (likedProjects && likedProjects.includes(id ?? pid)) {
-      setIsLike(true);
-    }
+    setIsLike(likedProjects?.includes(id ?? pid) ?? false);
   }, [likedProjects]);
 
   useEffect(() => {
@@ -87,7 +84,7 @@ const MobileContentCard = ({
           <ContentCardImg src={defaultThumbnail} />
         )}
         <ContentCardBookmark onClick={handleUpdateLike}>
-          {likedProjects?.includes(id ?? pid) ? (
+          {isLike ? (
             <AiFillHeart size="1.5rem" color={`${COLORS.pink}`} />
           ) : (
             <AiOutlineHeart size="1.5rem" color={`${COLORS.gray750}`} />
