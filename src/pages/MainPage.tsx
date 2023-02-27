@@ -8,6 +8,8 @@ import MobileMainBanner from 'components/main/banner/MobileMainBanner';
 import styled from '@emotion/styled';
 import MobileMainRecommendation from 'components/main/recommendation/MobileMainRecommendation';
 import MobileMainFindUsers from 'components/main/findUsers/MobileMainFindUsers';
+import { useState } from 'react';
+
 const MainPage = () => {
   const Mobile = useIsMobile();
 
