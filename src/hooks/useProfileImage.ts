@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import Resizer from 'react-image-file-resizer';
 import { deleteProfileImg, uploadProfileImg } from 'apis/mypageUsers';
+import defaultProfile from 'assets/images/default_profile.jpg';
 
 const useProfileImage = (uid: string, photoURL?: string) => {
-  const [profileImg, setProfileImg] = useState<string>('');
+  const [profileImg, setProfileImg] = useState<string>(defaultProfile);
 
   // input type="file"의 onChange 이벤트 핸들러
   const handleProfileImageChange = async (
@@ -27,11 +28,11 @@ const useProfileImage = (uid: string, photoURL?: string) => {
   // 이미지 삭제 이벤트 핸들러
   const handleProfileImageDelete = () => {
     deleteProfileImg(uid);
-    setProfileImg('');
+    setProfileImg(defaultProfile);
   };
 
   useEffect(() => {
-    setProfileImg(photoURL || '');
+    setProfileImg(photoURL ?? defaultProfile);
   }, [photoURL]);
 
   return {
@@ -50,7 +51,7 @@ const resizeFile = (file: File) =>
       file,
       200,
       200,
-      'JPEG',
+      'WEBP',
       70,
       0,
       (uri) => {
