@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import LoadingImg from 'assets/images/logo_loading.gif';
 import { useIsMobile } from 'hooks';
 
 const LoadingPage = () => {
@@ -8,14 +7,14 @@ const LoadingPage = () => {
   if (isMobile) {
     return (
       <MobileContainer>
-        <Image src={LoadingImg} />
+        <Video src="videos/logo_loading.webm" loop autoPlay />
       </MobileContainer>
     );
   }
 
   return (
     <Container>
-      <Image src={LoadingImg} />
+      <Video src="videos/logo_loading.webm" loop autoPlay />
     </Container>
   );
 };
@@ -40,7 +39,7 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const Image = styled.img`
+const Video = styled.video`
   width: 20.4375rem;
   height: 12.9375rem;
 `;

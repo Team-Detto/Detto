@@ -20,25 +20,31 @@ const ProjectList = ({ category, pidList }: ProjectListProps) => {
   const { getActiveProjects, getFilteredPidList } = useProjectList();
   const { handleNavigateToProjectDetail } = useFindProject();
 
+  // 전체 pid 리스트
   const { data: projectIdList }: any = useQuery({
     queryKey: ['post', 'projectIdList'],
     queryFn: getProjectIdList,
     staleTime: staleTime.filterPost,
   });
 
-  const filteredPidList = pidList[category]?.filter((pid) => {
-    if (projectIdList.includes(pid)) {
+  // 현재 활성화된 탭의 pid 리스트
+  let currentPidList: any;
+
+  if (category) {
+    category === 'appliedProjects' || category === 'currentProjects'
+      ? (currentPidList = getFilteredPidList(pidList, category))
+      : (currentPidList = pidList[category]);
+  }
+
+  // 삭제된 pid 필터링
+  const filteredPidList = currentPidList?.filter((pid: any) => {
+    if (projectIdList?.includes(pid)) {
       return pid;
     }
   });
 
-  const currentPidList =
-    (category === 'appliedProjects' || category === 'currentProjects'
-      ? getFilteredPidList(pidList, category)
-      : pidList[category]) ?? [];
-
   const { data: activeProjectsData }: any = useQuery({
-    queryKey: ['myProjects', currentPidList],
+    queryKey: ['myProjects', filteredPidList],
     queryFn: getActiveProjects,
     staleTime: staleTime.myProjects,
     enabled: !!currentPidList,

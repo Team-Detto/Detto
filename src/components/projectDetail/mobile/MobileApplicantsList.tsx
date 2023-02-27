@@ -17,6 +17,7 @@ const MobileApplicantsList = ({ pid, applicants }: any) => {
                   key={key}
                   pid={pid}
                   applicant={applicants[key]}
+                  applicantUid={key}
                 />
               );
             }

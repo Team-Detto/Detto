@@ -40,7 +40,7 @@ const useWrite = () => {
       deadline,
     } = writeFormValue;
     const markdownText = editRef.current.getInstance().getMarkdown();
-    const validations = [
+    const invalidValidation = [
       {
         isValid: titleValidation(title),
         message: '타이틀 길이는 5자 이상 40자 이하로 작성해주세요.',
@@ -70,9 +70,8 @@ const useWrite = () => {
         isValid: contentValidation(markdownText),
         message: '내용 길이는 10자 이상 적어주세요.',
       },
-    ];
+    ].find(({ isValid }) => !isValid);
 
-    const invalidValidation = validations.find(({ isValid }) => !isValid);
     if (invalidValidation) {
       handleToastPopup(invalidValidation.message);
       return;
@@ -162,7 +161,13 @@ const useWrite = () => {
   };
 };
 
-const initialWriteFormValue = {
+const TIME_ZONE = 3240 * 10000;
+const TodayDate = new Date(+new Date() + TIME_ZONE).toISOString().split('T')[0];
+const TommorrowDate = new Date(+new Date() + TIME_ZONE + 86400000)
+  .toISOString()
+  .split('T')[0];
+
+const initialWriteFormValue: WriteType.WriteFormType = {
   title: '',
   positions: {
     planner: 0,
@@ -174,13 +179,10 @@ const initialWriteFormValue = {
   plannerStack: [],
   developerStack: [],
   designerStack: [],
-  startDate: '',
-  endDate: '',
-  deadline: '',
+  startDate: TodayDate,
+  endDate: TommorrowDate,
+  deadline: TodayDate,
 };
-
-const TIME_ZONE = 3240 * 10000;
-const TodayDate = new Date(+new Date() + TIME_ZONE).toISOString().split('T')[0];
 
 const resizeFile = (file: File) =>
   new Promise((resolve) => {

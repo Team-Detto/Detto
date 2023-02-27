@@ -1,9 +1,9 @@
 import { firestore } from 'apis/firebaseService';
 import {
   addDoc,
+  arrayRemove,
   arrayUnion,
   collection,
-  deleteDoc,
   doc,
   getDocs,
   limit,
@@ -12,6 +12,8 @@ import {
   query,
   startAfter,
   updateDoc,
+  increment,
+  getDoc,
 } from 'firebase/firestore';
 import { firebaseImageUploadRequest } from './imageService';
 import { WriteType } from 'types/write/writeType';
@@ -123,7 +125,23 @@ export const firebaseEditProjectRequest = async (
   }
 };
 
-// firebase post 데이터 삭제
-export const firebaseDeleteProjectRequest = async (id: string) => {
-  await deleteDoc(doc(firestore, 'post', id));
+export const firebaseLikeProjectUpdateRequest = async (
+  id: string,
+  uid: string,
+) => {
+  try {
+    const postRef = doc(firestore, 'post', id);
+    const projectsRef = doc(firestore, 'myprojects', uid);
+    const snapshot = await getDoc(projectsRef);
+    const duplicate = snapshot.data()?.likedProjects?.includes(id);
+    if (duplicate) {
+      await updateDoc(postRef, { like: increment(-1) });
+      await updateDoc(projectsRef, { likedProjects: arrayRemove(id) });
+    } else {
+      await updateDoc(postRef, { like: increment(1) });
+      await updateDoc(projectsRef, { likedProjects: arrayUnion(id) });
+    }
+  } catch (e) {
+    console.error(e);
+  }
 };

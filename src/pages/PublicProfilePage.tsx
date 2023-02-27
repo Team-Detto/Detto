@@ -14,6 +14,8 @@ import { concatSkills } from 'utils/skills';
 import { staleTime } from 'utils/staleTime';
 import { modalTypes } from 'components/common/modal/modal';
 import MobilePublicProfilePage from 'components/publicProfile/mobile/MobilePublicProfilePage';
+import { Helmet } from 'react-helmet-async';
+import defaultProfile from 'assets/images/default_profile.jpg';
 
 const PublicProfilePage = () => {
   const { id } = useParams(); //받는사람 id
@@ -66,82 +68,122 @@ const PublicProfilePage = () => {
     return <NoDataMessage>탈퇴한 회원입니다 :/</NoDataMessage>;
   }
 
-  if (isMobile) {
-    return (
-      <MobilePublicProfilePage
-        userInfoData={userInfoData}
-        activeProjectTab={activeProjectTab}
-        handleProjectTabClick={handleProjectTabClick}
-        pidList={userProjectListsData}
-      >
-        test
-      </MobilePublicProfilePage>
-    );
-  }
-
   return (
-    <PublicProfileContainer>
-      <WebContainer>
-        <PublicProfileWrapper>
-          <ProfileBox>
-            <ProfileImgBox>
-              <ProfileImg
-                src={userInfoData?.photoURL}
-                alt={userInfoData?.displayName}
-              />
-            </ProfileImgBox>
-            <ProfileInfoBox>
-              <NicknameAndMessageContainer>
-                <UserInformationDiv>
-                  <UserNicknameDiv>{userInfoData?.displayName}</UserNicknameDiv>
-                  <UserPositions
-                    positions={userInfoData?.positions}
-                    isJunior={userInfoData?.isJunior}
+    <>
+      <Helmet>
+        <title>{`${userInfoData.displayName} - Detto`}</title>
+
+        <meta
+          name="description"
+          content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
+        />
+        <meta name="keywords" content="개발자, 사이드프로젝트" />
+
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content={`${userInfoData.displayName} - Detto`}
+        />
+        <meta property="og:site_name" content="Detto" />
+        <meta
+          property="og:description"
+          content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
+        />
+        <meta
+          property="og:image"
+          content={userInfoData.photoURL ?? defaultProfile}
+        />
+        <meta property="og:url" content="https://detto.vercel.app/" />
+
+        <meta
+          name="twitter:title"
+          content={`${userInfoData.displayName} - Detto`}
+        />
+        <meta
+          name="twitter:description"
+          content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
+        />
+        <meta
+          name="twitter:image"
+          content={userInfoData.photoURL ?? defaultProfile}
+        />
+
+        <link rel="canonical" href="https://detto.vercel.app/" />
+      </Helmet>
+      {isMobile ? (
+        <MobilePublicProfilePage
+          userInfoData={userInfoData}
+          activeProjectTab={activeProjectTab}
+          handleProjectTabClick={handleProjectTabClick}
+          pidList={userProjectListsData}
+        />
+      ) : (
+        <PublicProfileContainer>
+          <WebContainer>
+            <PublicProfileWrapper>
+              <ProfileBox>
+                <ProfileImgBox>
+                  <ProfileImg
+                    src={userInfoData?.photoURL}
+                    alt={userInfoData?.displayName}
                   />
-                  {userInfoData?.uid === uid && (
-                    <IfMyProfileDiv>내 프로필</IfMyProfileDiv>
-                  )}
-                </UserInformationDiv>
-                {userInfoData?.uid !== uid && (
-                  <MessageSendButton
-                    onClick={() => {
-                      if (!uid) {
-                        openModal('login', 0);
-                        return;
-                      }
-                      handleSendNoteButtonClick();
-                    }}
-                  >
-                    쪽지보내기
-                  </MessageSendButton>
+                </ProfileImgBox>
+                <ProfileInfoBox>
+                  <NicknameAndMessageContainer>
+                    <UserInformationDiv>
+                      <UserNicknameDiv>
+                        {userInfoData?.displayName}
+                      </UserNicknameDiv>
+                      <UserPositions
+                        positions={userInfoData?.positions}
+                        isJunior={userInfoData?.isJunior}
+                      />
+                      {userInfoData?.uid === uid && (
+                        <IfMyProfileDiv>내 프로필</IfMyProfileDiv>
+                      )}
+                    </UserInformationDiv>
+                    {userInfoData?.uid !== uid && (
+                      <MessageSendButton
+                        onClick={() => {
+                          if (!uid) {
+                            openModal('login', 0);
+                            return;
+                          }
+                          handleSendNoteButtonClick();
+                        }}
+                      >
+                        쪽지보내기
+                      </MessageSendButton>
+                    )}
+                  </NicknameAndMessageContainer>
+                  <UserInfoObject>
+                    <UserInfoKey>연락처</UserInfoKey>
+                    <UserInfoValue>{userInfoData?.email}</UserInfoValue>
+                  </UserInfoObject>
+                  <UserInfoObject>
+                    <UserInfoKey>기술스택</UserInfoKey>
+                    <UserStacks stacks={stacks} />
+                  </UserInfoObject>
+                </ProfileInfoBox>
+              </ProfileBox>
+              <UserProjectWrapper>
+                <ProjectsTab
+                  type={'public'}
+                  category={activeProjectTab}
+                  onTabClick={handleProjectTabClick}
+                />
+                {userProjectListsData && (
+                  <ProjectList
+                    category={activeProjectTab}
+                    pidList={userProjectListsData}
+                  />
                 )}
-              </NicknameAndMessageContainer>
-              <UserInfoObject>
-                <UserInfoKey>연락처</UserInfoKey>
-                <UserInfoValue>{userInfoData?.email}</UserInfoValue>
-              </UserInfoObject>
-              <UserInfoObject>
-                <UserInfoKey>기술스택</UserInfoKey>
-                <UserStacks stacks={stacks} />
-              </UserInfoObject>
-            </ProfileInfoBox>
-          </ProfileBox>
-          <UserProjectWrapper>
-            <ProjectsTab
-              type={'public'}
-              category={activeProjectTab}
-              onTabClick={handleProjectTabClick}
-            />
-            {userProjectListsData && (
-              <ProjectList
-                category={activeProjectTab}
-                pidList={userProjectListsData}
-              />
-            )}
-          </UserProjectWrapper>
-        </PublicProfileWrapper>
-      </WebContainer>
-    </PublicProfileContainer>
+              </UserProjectWrapper>
+            </PublicProfileWrapper>
+          </WebContainer>
+        </PublicProfileContainer>
+      )}
+    </>
   );
 };
 
