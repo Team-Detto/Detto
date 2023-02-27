@@ -8,38 +8,10 @@ import MobileMainBanner from 'components/main/banner/MobileMainBanner';
 import styled from '@emotion/styled';
 import MobileMainRecommendation from 'components/main/recommendation/MobileMainRecommendation';
 import MobileMainFindUsers from 'components/main/findUsers/MobileMainFindUsers';
-import { Helmet } from 'react-helmet-async';
-import mobileFirestBanner from 'assets/images/mobileFirstBanner.png';
 const MainPage = () => {
   const Mobile = useIsMobile();
   return (
     <>
-      <Helmet>
-        <title>Detto</title>
-        <meta
-          name="description"
-          content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-        />
-        <meta name="keywords" content="개발자, 사이드프로젝트" />
-        <meta property="og:url" content="https://detto.vercel.app/" />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="Detto" />
-        <meta
-          property="og:description"
-          content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-        />
-        <meta property="og:image" content={mobileFirestBanner} />
-        <meta property="og:site_name" content="Detto" />
-
-        <meta property="twitter:url" content="https://detto.vercel.app/" />
-        <meta name="twitter:title" content="Detto" />
-        <meta name="twitter:image" content={mobileFirestBanner} />
-        <meta
-          name="twitter:description"
-          content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-        />
-        <meta name="twitter:image" content={mobileFirestBanner} />
-      </Helmet>
       {Mobile ? <MobileMainBanner /> : <MainBanner />}
       {/* <MainBanner /> */}
       {Mobile ? (

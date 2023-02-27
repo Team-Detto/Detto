@@ -15,7 +15,6 @@ import { staleTime } from 'utils/staleTime';
 import { modalTypes } from 'components/common/modal/modal';
 import MobilePublicProfilePage from 'components/publicProfile/mobile/MobilePublicProfilePage';
 import { Helmet } from 'react-helmet-async';
-import defaultProfile from 'assets/images/default_profile.jpg';
 
 const PublicProfilePage = () => {
   const { id } = useParams(); //받는사람 id
@@ -72,43 +71,6 @@ const PublicProfilePage = () => {
     <>
       <Helmet>
         <title>{`${userInfoData.displayName} - Detto`}</title>
-
-        <meta
-          name="description"
-          content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-        />
-        <meta name="keywords" content="개발자, 사이드프로젝트" />
-
-        <meta property="og:type" content="website" />
-        <meta
-          property="og:title"
-          content={`${userInfoData.displayName} - Detto`}
-        />
-        <meta property="og:site_name" content="Detto" />
-        <meta
-          property="og:description"
-          content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-        />
-        <meta
-          property="og:image"
-          content={userInfoData.photoURL ?? defaultProfile}
-        />
-        <meta property="og:url" content="https://detto.vercel.app/" />
-
-        <meta
-          name="twitter:title"
-          content={`${userInfoData.displayName} - Detto`}
-        />
-        <meta
-          name="twitter:description"
-          content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-        />
-        <meta
-          name="twitter:image"
-          content={userInfoData.photoURL ?? defaultProfile}
-        />
-
-        <link rel="canonical" href="https://detto.vercel.app/" />
       </Helmet>
       {isMobile ? (
         <MobilePublicProfilePage
