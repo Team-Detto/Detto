@@ -190,7 +190,7 @@ const resizeFile = (file: File) =>
       file,
       1900,
       1200,
-      'JPEG',
+      'WEBP',
       60,
       0,
       (uri) => {
