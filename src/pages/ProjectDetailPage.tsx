@@ -21,6 +21,7 @@ import ApplyModal from 'components/projectDetail/ApplyModal/ApplyModal';
 import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
 import { Helmet } from 'react-helmet-async';
+import mobilesecondBanner from 'assets/images/mobilesecondBanner.png';
 
 const ProjectDetailPage = () => {
   const params = useParams();
@@ -129,7 +130,10 @@ const ProjectDetailPage = () => {
             property="og:description"
             content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
           />
-          <meta property="og:image" content={projectData?.thumbnail} />
+          <meta
+            property="og:image"
+            content={projectData?.thumbnail ?? mobilesecondBanner}
+          />
           <meta property="og:url" content={`/project/${pid}`} />
 
           <meta
@@ -140,7 +144,10 @@ const ProjectDetailPage = () => {
             name="twitter:description"
             content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
           />
-          <meta name="twitter:image" content={projectData?.thumbnail} />
+          <meta
+            name="twitter:image"
+            content={projectData?.thumbnail ?? mobilesecondBanner}
+          />
 
           <link rel="canonical" href={`/project/${pid}`} />
         </Helmet>
@@ -173,7 +180,10 @@ const ProjectDetailPage = () => {
           property="og:description"
           content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
         />
-        <meta property="og:image" content={projectData?.thumbnail} />
+        <meta
+          property="og:image"
+          content={projectData?.thumbnail ?? mobilesecondBanner}
+        />
         <meta
           property="og:url"
           content={`https://detto.vercel.app/project/${pid}`}
@@ -184,7 +194,10 @@ const ProjectDetailPage = () => {
           name="twitter:description"
           content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
         />
-        <meta name="twitter:image" content={projectData?.thumbnail} />
+        <meta
+          name="twitter:image"
+          content={projectData?.thumbnail ?? mobilesecondBanner}
+        />
 
         <link
           rel="canonical"
