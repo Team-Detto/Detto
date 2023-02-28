@@ -10,6 +10,7 @@ import {
   firebaseMostViewedProjectsRequest,
 } from 'apis/getPost';
 import MobileContentCard from 'components/MobileContentCard';
+import { getCurrentPathName, logEvent } from 'utils/amplitude';
 
 const tapType = [
   { type: 'orderByViews', name: '조회순' },
@@ -83,7 +84,16 @@ const MobileMainRecommendation = () => {
             ))}
         </MobileMainRecommendationCardContainer>
       </MobileMainRecommendationContainer>
-      <MobileMainRecommendationCardButton to={'/findproject'}>
+      <MobileMainRecommendationCardButton
+        onClick={() => {
+          logEvent('Button Click', {
+            from: getCurrentPathName(),
+            to: 'findproject',
+            name: 'find_project',
+          });
+        }}
+        to={'/findproject'}
+      >
         더 보기
       </MobileMainRecommendationCardButton>
     </MobileMainRecommendationWrap>
