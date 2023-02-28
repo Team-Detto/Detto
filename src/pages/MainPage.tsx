@@ -8,10 +8,15 @@ import MobileMainBanner from 'components/main/banner/MobileMainBanner';
 import styled from '@emotion/styled';
 import MobileMainRecommendation from 'components/main/recommendation/MobileMainRecommendation';
 import MobileMainFindUsers from 'components/main/findUsers/MobileMainFindUsers';
+import { Helmet } from 'react-helmet-async';
+
 const MainPage = () => {
   const Mobile = useIsMobile();
   return (
     <>
+      <Helmet>
+        <title>Detto</title>
+      </Helmet>
       {Mobile ? <MobileMainBanner /> : <MainBanner />}
       {/* <MainBanner /> */}
       {Mobile ? (
