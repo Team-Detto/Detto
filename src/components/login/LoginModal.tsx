@@ -73,8 +73,8 @@ const modals = [
   },
   {
     // 페이지 3 : 프로필 사진, 닉네임 변경
-    width: '47.8125rem',
-    height: '38.5625rem',
+    width: '42rem',
+    height: '30.625rem',
     mobileWidth: '20rem',
     mobileHeight: '26.1875rem',
     component: <SetProfile />,
