@@ -21,6 +21,7 @@ import TextInput from '../TextInput';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
 import MobileSkillStackList from './MobileSkillStackList';
 import MobileAlert from 'components/common/mobile/MobileAlert';
+import { getCurrentPathName, logEvent } from 'utils/amplitude';
 
 const MobileUserInfo = ({ user }: MypageInfoProps) => {
   const { uid } = useAuth();
@@ -135,7 +136,14 @@ const MobileUserInfo = ({ user }: MypageInfoProps) => {
       <MobileInfoBox>
         <MobileInfoEditBtn
           isActive={activeInfoBtn}
-          onClick={handleUserInfoConfirm}
+          onClick={() => {
+            handleUserInfoConfirm();
+            logEvent('Button Click', {
+              from: getCurrentPathName(),
+              to: 'none',
+              name: 'update_profile',
+            });
+          }}
           disabled={!activeInfoBtn}
         >
           개인정보 수정 완료

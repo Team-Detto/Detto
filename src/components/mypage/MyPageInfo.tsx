@@ -9,6 +9,7 @@ import ValidationToastPopup from 'components/common/ValidationToastPopup';
 import { designs, develops, products } from 'utils/skills';
 import COLORS from 'assets/styles/colors';
 import Alert from 'components/common/Alert';
+import { getCurrentPathName, logEvent } from 'utils/amplitude';
 
 const MyPageInfo = ({ user }: MypageInfoProps) => {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
@@ -90,7 +91,14 @@ const MyPageInfo = ({ user }: MypageInfoProps) => {
       <InfoEditConfirmWrapper>
         <InfoEditConfirmBtn
           isActive={activeInfoBtn}
-          onClick={handleUserInfoConfirm}
+          onClick={() => {
+            handleUserInfoConfirm();
+            logEvent('Button Click', {
+              from: getCurrentPathName(),
+              to: 'none',
+              name: 'update_profile',
+            });
+          }}
           disabled={!activeInfoBtn}
         >
           개인정보 수정 완료
