@@ -3,6 +3,7 @@ import { signOut } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
+import { resetAmplitude } from 'utils/amplitude';
 import { userInfoState } from '../recoil/atoms';
 import useAuth from './useAuth';
 import { defaultInfo } from './useUpdateProfile';
@@ -36,6 +37,7 @@ const useHeader = () => {
       setUserInfo(defaultInfo);
       window.location.reload();
     });
+    resetAmplitude();
   };
 
   // 회원탈퇴

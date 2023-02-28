@@ -28,6 +28,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {\
           "packageLocation": "./",\
           "packageDependencies": [\
+            ["@amplitude/analytics-browser", "npm:1.9.0"],\
+            ["@amplitude/analytics-core", "npm:0.12.0"],\
             ["@emotion/react", "virtual:990f75af0e4e97bc6ae8f77688032fa0cb741f39b94d672bd3c1007a785e4716099a18d80092328073a846a121401dd5fae4622660399ff5a4cd78fe25f2791c#npm:11.10.5"],\
             ["@emotion/styled", "virtual:990f75af0e4e97bc6ae8f77688032fa0cb741f39b94d672bd3c1007a785e4716099a18d80092328073a846a121401dd5fae4622660399ff5a4cd78fe25f2791c#npm:11.10.5"],\
             ["@tanstack/react-query", "virtual:990f75af0e4e97bc6ae8f77688032fa0cb741f39b94d672bd3c1007a785e4716099a18d80092328073a846a121401dd5fae4622660399ff5a4cd78fe25f2791c#npm:4.24.4"],\
@@ -87,6 +89,98 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@adobe-css-tools-npm-4.1.0-97446fbfa4-50d0098461.zip/node_modules/@adobe/css-tools/",\
           "packageDependencies": [\
             ["@adobe/css-tools", "npm:4.1.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@amplitude/analytics-browser", [\
+        ["npm:1.9.0", {\
+          "packageLocation": "./.yarn/cache/@amplitude-analytics-browser-npm-1.9.0-22cbc843dc-82287fb5fa.zip/node_modules/@amplitude/analytics-browser/",\
+          "packageDependencies": [\
+            ["@amplitude/analytics-browser", "npm:1.9.0"],\
+            ["@amplitude/analytics-client-common", "npm:0.6.0"],\
+            ["@amplitude/analytics-core", "npm:0.12.0"],\
+            ["@amplitude/analytics-types", "npm:0.17.0"],\
+            ["@amplitude/plugin-page-view-tracking-browser", "npm:0.6.0"],\
+            ["@amplitude/plugin-web-attribution-browser", "npm:0.6.0"],\
+            ["@amplitude/ua-parser-js", "npm:0.7.31"],\
+            ["tslib", "npm:2.5.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@amplitude/analytics-client-common", [\
+        ["npm:0.6.0", {\
+          "packageLocation": "./.yarn/cache/@amplitude-analytics-client-common-npm-0.6.0-1800f673f4-4070893032.zip/node_modules/@amplitude/analytics-client-common/",\
+          "packageDependencies": [\
+            ["@amplitude/analytics-client-common", "npm:0.6.0"],\
+            ["@amplitude/analytics-connector", "npm:1.4.6"],\
+            ["@amplitude/analytics-core", "npm:0.12.0"],\
+            ["@amplitude/analytics-types", "npm:0.17.0"],\
+            ["tslib", "npm:2.5.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@amplitude/analytics-connector", [\
+        ["npm:1.4.6", {\
+          "packageLocation": "./.yarn/cache/@amplitude-analytics-connector-npm-1.4.6-d9e949e37c-0a2acfa54e.zip/node_modules/@amplitude/analytics-connector/",\
+          "packageDependencies": [\
+            ["@amplitude/analytics-connector", "npm:1.4.6"],\
+            ["@amplitude/ua-parser-js", "npm:0.7.31"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@amplitude/analytics-core", [\
+        ["npm:0.12.0", {\
+          "packageLocation": "./.yarn/cache/@amplitude-analytics-core-npm-0.12.0-48e848eb4f-8683746b58.zip/node_modules/@amplitude/analytics-core/",\
+          "packageDependencies": [\
+            ["@amplitude/analytics-core", "npm:0.12.0"],\
+            ["@amplitude/analytics-types", "npm:0.17.0"],\
+            ["tslib", "npm:2.5.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@amplitude/analytics-types", [\
+        ["npm:0.17.0", {\
+          "packageLocation": "./.yarn/cache/@amplitude-analytics-types-npm-0.17.0-36feb8f9c0-e53d6a72ec.zip/node_modules/@amplitude/analytics-types/",\
+          "packageDependencies": [\
+            ["@amplitude/analytics-types", "npm:0.17.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@amplitude/plugin-page-view-tracking-browser", [\
+        ["npm:0.6.0", {\
+          "packageLocation": "./.yarn/cache/@amplitude-plugin-page-view-tracking-browser-npm-0.6.0-f6663855ec-b14828eebf.zip/node_modules/@amplitude/plugin-page-view-tracking-browser/",\
+          "packageDependencies": [\
+            ["@amplitude/plugin-page-view-tracking-browser", "npm:0.6.0"],\
+            ["@amplitude/analytics-client-common", "npm:0.6.0"],\
+            ["@amplitude/analytics-types", "npm:0.17.0"],\
+            ["tslib", "npm:2.5.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@amplitude/plugin-web-attribution-browser", [\
+        ["npm:0.6.0", {\
+          "packageLocation": "./.yarn/cache/@amplitude-plugin-web-attribution-browser-npm-0.6.0-257d3e2df5-608d90f6a0.zip/node_modules/@amplitude/plugin-web-attribution-browser/",\
+          "packageDependencies": [\
+            ["@amplitude/plugin-web-attribution-browser", "npm:0.6.0"],\
+            ["@amplitude/analytics-client-common", "npm:0.6.0"],\
+            ["@amplitude/analytics-types", "npm:0.17.0"],\
+            ["tslib", "npm:2.5.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@amplitude/ua-parser-js", [\
+        ["npm:0.7.31", {\
+          "packageLocation": "./.yarn/cache/@amplitude-ua-parser-js-npm-0.7.31-540ed0892d-c72e7c8656.zip/node_modules/@amplitude/ua-parser-js/",\
+          "packageDependencies": [\
+            ["@amplitude/ua-parser-js", "npm:0.7.31"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -9441,6 +9535,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",\
           "packageDependencies": [\
             ["detto", "workspace:."],\
+            ["@amplitude/analytics-browser", "npm:1.9.0"],\
+            ["@amplitude/analytics-core", "npm:0.12.0"],\
             ["@emotion/react", "virtual:990f75af0e4e97bc6ae8f77688032fa0cb741f39b94d672bd3c1007a785e4716099a18d80092328073a846a121401dd5fae4622660399ff5a4cd78fe25f2791c#npm:11.10.5"],\
             ["@emotion/styled", "virtual:990f75af0e4e97bc6ae8f77688032fa0cb741f39b94d672bd3c1007a785e4716099a18d80092328073a846a121401dd5fae4622660399ff5a4cd78fe25f2791c#npm:11.10.5"],\
             ["@tanstack/react-query", "virtual:990f75af0e4e97bc6ae8f77688032fa0cb741f39b94d672bd3c1007a785e4716099a18d80092328073a846a121401dd5fae4622660399ff5a4cd78fe25f2791c#npm:4.24.4"],\
