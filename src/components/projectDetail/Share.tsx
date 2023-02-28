@@ -13,6 +13,7 @@ import {
 import { useState } from 'react';
 import { useIsMobile, useToastPopup } from 'hooks';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
+import { amplitudeToNoneButtonClick } from 'utils/amplitude';
 
 const Share = ({ title }: any) => {
   const [share, setShare] = useState(false);
@@ -21,11 +22,13 @@ const Share = ({ title }: any) => {
   const handleShareButtonClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     setShare(!share);
+    amplitudeToNoneButtonClick('share');
   };
   const handleCopyLinkButtonClick = () => {
     navigator.clipboard.writeText(window.location.href);
     handleToastPopup('링크가 복사되었습니다.');
     setIsCopyLink(true);
+    amplitudeToNoneButtonClick('share_link');
   };
 
   const isMobile = useIsMobile();
@@ -39,16 +42,32 @@ const Share = ({ title }: any) => {
           </ShareBox>
           {share && (
             <MobileShareContainer>
-              <FacebookShareButton url={window.location.href} title={title}>
+              <FacebookShareButton
+                url={window.location.href}
+                title={title}
+                onClick={() => amplitudeToNoneButtonClick('share_facebook')}
+              >
                 <FacebookIcon size={28} round />
               </FacebookShareButton>
-              <LineShareButton url={window.location.href} title={title}>
+              <LineShareButton
+                url={window.location.href}
+                title={title}
+                onClick={() => amplitudeToNoneButtonClick('share_line')}
+              >
                 <LineIcon size={28} round />
               </LineShareButton>
-              <TwitterShareButton url={window.location.href} title={title}>
+              <TwitterShareButton
+                url={window.location.href}
+                title={title}
+                onClick={() => amplitudeToNoneButtonClick('share_twitter')}
+              >
                 <TwitterIcon size={28} round />
               </TwitterShareButton>
-              <ShareLinkButton onClick={handleCopyLinkButtonClick}>
+              <ShareLinkButton
+                onClick={() => {
+                  handleCopyLinkButtonClick();
+                }}
+              >
                 <BiLink size={18} />
               </ShareLinkButton>
             </MobileShareContainer>
@@ -69,13 +88,25 @@ const Share = ({ title }: any) => {
           </ShareBox>
           {share && (
             <ShareContainer>
-              <FacebookShareButton url={window.location.href} title={title}>
+              <FacebookShareButton
+                url={window.location.href}
+                title={title}
+                onClick={() => amplitudeToNoneButtonClick('share_facebook')}
+              >
                 <FacebookIcon size={32} round />
               </FacebookShareButton>
-              <LineShareButton url={window.location.href} title={title}>
+              <LineShareButton
+                url={window.location.href}
+                title={title}
+                onClick={() => amplitudeToNoneButtonClick('share_line')}
+              >
                 <LineIcon size={32} round />
               </LineShareButton>
-              <TwitterShareButton url={window.location.href} title={title}>
+              <TwitterShareButton
+                url={window.location.href}
+                title={title}
+                onClick={() => amplitudeToNoneButtonClick('share_twitter')}
+              >
                 <TwitterIcon size={32} round />
               </TwitterShareButton>
               <ShareLinkButton onClick={handleCopyLinkButtonClick}>
@@ -107,16 +138,6 @@ const ShareBox = styled.div`
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-`;
-
-//이거 넣으면 밖에 누르면 꺼지긴하는데 휠 따라옴
-const MobileShareBackDrop = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  z-index: 0;
 `;
 
 const ShareLinkButton = styled.button`

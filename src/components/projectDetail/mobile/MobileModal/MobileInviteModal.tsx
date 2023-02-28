@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateAppliedProject, updateParticipants } from 'apis/postDetail';
 import COLORS from 'assets/styles/colors';
 import MobileAlert from 'components/common/mobile/MobileAlert';
+import { amplitudeToNoneButtonClick } from 'utils/amplitude';
 
 const MobileInviteModal = ({
   pid,
@@ -71,6 +72,7 @@ const MobileInviteModal = ({
                     inviteFunction();
                     MobileInvitedProjectMutate();
                     applicantMutate();
+                    amplitudeToNoneButtonClick('invite');
                   }}
                 >
                   초대할게요!

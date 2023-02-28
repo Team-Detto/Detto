@@ -15,6 +15,7 @@ import { staleTime } from 'utils/staleTime';
 import { modalTypes } from 'components/common/modal/modal';
 import MobilePublicProfilePage from 'components/publicProfile/mobile/MobilePublicProfilePage';
 import { Helmet } from 'react-helmet-async';
+import { amplitudeNeedToButtonClick } from 'utils/amplitude';
 
 const PublicProfilePage = () => {
   const { id } = useParams(); //받는사람 id
@@ -46,6 +47,7 @@ const PublicProfilePage = () => {
       content: '',
       isRead: false,
     });
+    amplitudeNeedToButtonClick('sendNoteModal', 'sendNote');
   };
 
   const stacks = concatSkills(

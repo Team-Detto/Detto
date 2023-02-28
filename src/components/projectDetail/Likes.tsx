@@ -6,6 +6,7 @@ import { updateLike, updateMyProject } from '../../apis/postDetail'; //여기서
 import { findWithCollectionName } from 'apis/findWithCollectionName';
 import { useAuth, useGlobalModal } from 'hooks';
 import COLORS from 'assets/styles/colors';
+import { amplitudeToNoneButtonClick } from 'utils/amplitude';
 
 const Likes = ({ pid, version = 'web' }: any) => {
   const { uid } = useAuth();
@@ -88,6 +89,7 @@ const Likes = ({ pid, version = 'web' }: any) => {
           return;
         }
         handleLikeButton(event);
+        amplitudeToNoneButtonClick('like');
       }}
     >
       {isLike ? (

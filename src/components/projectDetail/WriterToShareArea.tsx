@@ -4,6 +4,7 @@ import Likes from './Likes';
 import Share from './Share';
 import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
+import { logEvent } from 'utils/amplitude';
 
 const WriterToShareArea = ({ pid, userData, projectData }: any) => {
   const { uid, title, content, view, like } = projectData;
@@ -14,7 +15,14 @@ const WriterToShareArea = ({ pid, userData, projectData }: any) => {
       <WriterWrapper>
         <WriterProfileImg
           src={userData?.photoURL}
-          onClick={() => navigate(`/profile/${uid}`)} //작성자 공개 프로필 페이지로 이동
+          onClick={() => {
+            navigate(`/profile/${uid}`);
+            logEvent('Button Click', {
+              from: `project_detail`, //pahtname으로 설정 시 이동한 페이지로 인식해서 수정
+              to: 'profile',
+              name: 'profile',
+            });
+          }} //작성자 공개 프로필 페이지로 이동
         />
         <WriterNickname>{userData?.displayName ?? `닉네임`}</WriterNickname>
       </WriterWrapper>

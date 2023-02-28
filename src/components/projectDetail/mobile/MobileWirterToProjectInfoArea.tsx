@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import { useNavigate } from 'react-router-dom';
+import { logEvent } from 'utils/amplitude';
 import { getDate } from 'utils/date';
 
 const WriterToProjectInfoArea = ({ projectData, userData }: any) => {
@@ -19,7 +20,16 @@ const WriterToProjectInfoArea = ({ projectData, userData }: any) => {
   return (
     <>
       <WriterToProjectInfoContainer>
-        <WriterWrapper onClick={() => navigate(`/profile/${uid}`)}>
+        <WriterWrapper
+          onClick={() => {
+            navigate(`/profile/${uid}`);
+            logEvent('Button Click', {
+              from: `project_detail`, //pathname으로 하면 이동한페이지로 인식해서 수정
+              to: 'profile',
+              name: 'profile',
+            });
+          }}
+        >
           <WriterProfileImg src={userData?.photoURL} />
           <WriterNickname>{userData?.displayName}</WriterNickname>
         </WriterWrapper>
