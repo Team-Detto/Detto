@@ -258,7 +258,7 @@ const StackList = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem;
-  font-size: 15px;
+  font-size: 0.9375rem;
   align-items: center;
 `;
 
