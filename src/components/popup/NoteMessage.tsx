@@ -3,6 +3,7 @@ import { firestore } from 'apis/firebaseService';
 import { getUserInfoData } from 'apis/mypageUsers';
 import { doc, updateDoc } from 'firebase/firestore';
 import { useAuth, useGlobalModal } from 'hooks';
+import { amplitudeToNoneButtonClick } from 'utils/amplitude';
 import { getDateAndTime } from 'utils/date';
 import { staleTime } from 'utils/staleTime';
 import { MessageContainer, MessageDateDiv, MessageTitleDiv } from './styles';
@@ -44,8 +45,12 @@ export default function NoteMessage({ type, data }: NoteMessageProps) {
       // 받은 메세지함에서 메세지 클릭 시 읽음 처리
       if (!data.isRead) mutateReadStatus();
       openModalWithData('inbox', data);
+      amplitudeToNoneButtonClick('read_inbox_note');
     }
-    if (type === OUTBOX) openModalWithData('outbox', data);
+    if (type === OUTBOX) {
+      openModalWithData('outbox', data);
+      amplitudeToNoneButtonClick('read_outbox_note');
+    }
   };
 
   if (!sender) return null;

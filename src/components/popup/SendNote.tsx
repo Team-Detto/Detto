@@ -16,6 +16,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getUserInfoData } from 'apis/mypageUsers';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
 import Alert from 'components/common/Alert';
+import { amplitudeToNoneButtonClick } from 'utils/amplitude';
 
 export default function SendNote({ data }: { data: Note }) {
   const [disabled, setDisabled] = useState(false);
@@ -55,6 +56,7 @@ export default function SendNote({ data }: { data: Note }) {
     sendNote({ note: note, receiverUid: data.receiverUid });
     setDisabled(true);
     onAlertClickEvent(); //alert창 띄우기
+    amplitudeToNoneButtonClick('send note'); // 쪽지 보내기 이벤트 로깅
   };
 
   const handleAlertButtonClick = () => {

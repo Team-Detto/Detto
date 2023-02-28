@@ -3,6 +3,7 @@ import { firestore } from 'apis/firebaseService';
 import { doc, updateDoc } from 'firebase/firestore';
 import { useAuth } from 'hooks';
 import { useNavigate } from 'react-router-dom';
+import { amplitudeToNoneButtonClick } from 'utils/amplitude';
 import { getDateAndTime } from 'utils/date';
 import { MessageContainer, MessageDateDiv, MessageTitleDiv } from './styles';
 
@@ -30,9 +31,11 @@ export default function NotificationMessage({ data }: { data: Notification }) {
     // 읽지 않은 알림 클릭 시 읽음 처리
     if (!data.isRead) {
       mutateReadStatus();
+      amplitudeToNoneButtonClick('read_notification');
     }
     // 알림 클릭 시 해당 페이지로 이동
     if (!data.link) return;
+    amplitudeToNoneButtonClick('notification_link');
     if (data.link.type === 'project') {
       return navigate(`/project/${data.link.id}`);
     }

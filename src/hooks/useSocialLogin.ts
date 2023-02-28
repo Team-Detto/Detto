@@ -1,5 +1,3 @@
-import { getCurrentPathName } from './../utils/amplitude';
-import { logEvent } from 'utils/amplitude';
 import { useState } from 'react';
 import { firestore } from 'apis/firebaseService';
 import { useGlobalModal } from 'hooks';
@@ -14,15 +12,7 @@ import {
 } from 'firebase/auth';
 import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
 import { useLocation, useNavigate } from 'react-router-dom';
-
-// 로그인 버튼 클릭 이벤트를 로깅하는 함수
-const amplitudeLoginButtonClick = (name: string) => {
-  logEvent('Button Click', {
-    from: getCurrentPathName(),
-    to: 'none',
-    name,
-  });
-};
+import { amplitudeToNoneButtonClick } from 'utils/amplitude';
 
 // Firebase의 사용자 컬렉션을 초기화하는 함수
 const initializeUserCollections = (user: User) => {
@@ -97,17 +87,17 @@ const useSocialLogin = () => {
   };
 
   const handleGithubLogin = () => {
-    amplitudeLoginButtonClick('github_login');
+    amplitudeToNoneButtonClick('github_login');
     signInWithPopupWithProvider(githubProvider);
   };
 
   const handleFacebookLogin = () => {
-    amplitudeLoginButtonClick('facebook_login');
+    amplitudeToNoneButtonClick('facebook_login');
     signInWithPopupWithProvider(facebookProvider);
   };
 
   const handleGoogleLogin = () => {
-    amplitudeLoginButtonClick('google_login');
+    amplitudeToNoneButtonClick('google_login');
     signInWithPopupWithProvider(googleProvider);
   };
 
