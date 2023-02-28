@@ -14,7 +14,7 @@ interface Props {
   value?: string;
 }
 
-const TextEdiotr = ({ editRef, value }: Props) => {
+const TextEditor = ({ editRef, value }: Props) => {
   const toolbarItems: Array<Array<string>> = [
     ['heading', 'bold', 'italic', 'strike'],
     ['hr'],
@@ -39,4 +39,4 @@ const TextEdiotr = ({ editRef, value }: Props) => {
   );
 };
 
-export default TextEdiotr;
+export default TextEditor;
