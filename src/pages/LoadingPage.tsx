@@ -40,6 +40,6 @@ const Container = styled.div`
 `;
 
 const Video = styled.video`
-  width: 20.4375rem;
-  height: 12.9375rem;
+  width: 4.9375rem;
+  height: 4.8125rem;
 `;
