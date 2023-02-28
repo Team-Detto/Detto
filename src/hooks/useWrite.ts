@@ -2,8 +2,8 @@ import { useState, useRef, useCallback, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth, useModal, useToastPopup } from 'hooks';
 import { firebaseCreateProjectRequest } from 'apis/boardService';
-import Resizer from 'react-image-file-resizer';
 import { WriteType } from 'types/write/writeType';
+import { getCurrentPathName, logEvent } from 'utils/amplitude';
 import {
   titleValidation,
   contentValidation,
@@ -12,6 +12,7 @@ import {
   deadlineValidation,
   stackValidation,
 } from './../utils/validation';
+import Resizer from 'react-image-file-resizer';
 
 const useWrite = () => {
   const navigate = useNavigate();
@@ -98,6 +99,11 @@ const useWrite = () => {
         resizedImage,
         uid,
       );
+      logEvent('Button Click', {
+        from: getCurrentPathName(),
+        to: 'project_detail',
+        name: 'write_project',
+      });
       navigate(`/project/${docId}`, {
         replace: true,
       });
@@ -110,6 +116,11 @@ const useWrite = () => {
 
   const handleAddThumbnailImage = useCallback(() => {
     imageRef.current.click();
+    logEvent('Button Click', {
+      from: getCurrentPathName(),
+      to: 'none',
+      name: 'add_thumbnail_image',
+    });
   }, [imageRef]);
 
   const handleAddThumbnailImageChange = () => {

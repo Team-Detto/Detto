@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { useFindProject, useIsMobile } from 'hooks';
 import WebContainer from 'components/common/WebContainer';
 import FindProjectHeader from 'components/findproject/FindProjectHeader';
@@ -7,7 +8,6 @@ import FindProjectList from 'components/findproject/FindProjectList';
 import FindProjectMobileHeader from 'components/findproject/mobile/FindProjectMobileHeader';
 import FindProjectMobileList from 'components/findproject/mobile/FindProjectMobileList';
 import styled from '@emotion/styled';
-import { Helmet } from 'react-helmet-async';
 
 const FindProjectPage = () => {
   const {
@@ -21,6 +21,7 @@ const FindProjectPage = () => {
     handleNavigateToProjectDetail,
   } = useFindProject();
   const isMobile = useIsMobile();
+
   const { state: categoryFromFooter } = useLocation();
 
   // 푸터에서 클릭한 경우 카테고리 지정
