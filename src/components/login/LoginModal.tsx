@@ -82,8 +82,8 @@ const modals = [
   },
   {
     // 페이지 4 : 환영합니다!
-    width: '37.5625rem',
-    height: '22.9375rem',
+    width: '37.5rem',
+    height: '22.625rem',
     mobileWidth: '20rem',
     mobileHeight: '21.5rem',
     component: <Welcome />,
