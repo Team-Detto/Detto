@@ -5,6 +5,7 @@ import { firebaseLikeProjectUpdateRequest } from 'apis/boardService';
 import { useAuth } from 'hooks';
 import { getDate } from 'utils/date';
 import { concatSkills } from 'utils/skills';
+import { getCurrentPathName, logEvent } from 'utils/amplitude';
 import { EditType } from 'types/write/writeType';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import defaultThumbnail from 'assets/images/thumbnail_small.jpg';
@@ -62,6 +63,11 @@ const ContentCard = ({
   const handleUpdateLike = useCallback(() => {
     setIsLike(!isLike);
     updateLikeMutate();
+    logEvent('Button Click', {
+      from: getCurrentPathName(),
+      to: 'none',
+      name: 'like',
+    });
   }, [isLike]);
 
   useEffect(() => {
