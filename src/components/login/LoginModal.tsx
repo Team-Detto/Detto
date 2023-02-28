@@ -64,8 +64,8 @@ const modals = [
   },
   {
     // 페이지 2 : 기술스택 선택
-    width: '70rem',
-    height: '46.625rem',
+    width: '68.0625rem',
+    height: '44.75rem',
     mobileWidth: '20rem',
     mobileHeight: '26.1875rem',
     component: <SetSkills />,
