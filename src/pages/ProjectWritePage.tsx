@@ -11,7 +11,6 @@ import ProjectWritePageHeader from 'components/writepage/ProjectWritePageHeader'
 import WritePageMobileHeader from 'components/writepage/mobile/WritePageMobileHeader';
 import WritePageMobileBody from 'components/writepage/mobile/WritePageMobileBody';
 import WritePageMobileFooter from 'components/writepage/mobile/WritePageMobileFooter';
-import mobilesecondBanner from 'assets/images/mobilesecondBanner.png';
 import styled from '@emotion/styled';
 
 const ProjectWritePage = () => {

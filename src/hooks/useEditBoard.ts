@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { firebaseEditProjectRequest } from 'apis/boardService';
 import { useModal, useToastPopup } from 'hooks';
 import { EditType } from 'types/write/writeType';
-import { logEvent } from 'utils/amplitude';
+import { getCurrentPathName, logEvent } from 'utils/amplitude';
 import {
   contentValidation,
   deadlineValidation,
@@ -105,7 +105,7 @@ const useEditBoard = () => {
       return;
     }
     logEvent('Button Click', {
-      from: 'edit',
+      from: getCurrentPathName(),
       to: 'project_detail',
       name: 'project_edit',
     });
@@ -120,7 +120,7 @@ const useEditBoard = () => {
   const handleAddThumbnailImage = useCallback(() => {
     imageRef.current.click();
     logEvent('Button Click', {
-      from: 'edit',
+      from: getCurrentPathName(),
       to: 'project_detail',
       name: 'add_thumbnail_image',
     });

@@ -23,11 +23,11 @@ const ValidationToastAlertContainer = styled.div<Partial<Props>>`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding: 0.25rem 1rem;
+  padding: 0.5rem 0.625rem;
   gap: 0.625rem;
 
   width: 23rem;
-  height: 2rem;
+  height: 2.5rem;
 
   position: fixed;
 
@@ -36,18 +36,12 @@ const ValidationToastAlertContainer = styled.div<Partial<Props>>`
   transform: translate(-50%, -50%);
   z-index: 100;
 
-  background: radial-gradient(
-    141.01% 171.08% at -9.84% -9.71%,
-    rgba(255, 255, 255, 0.4) 0%,
-    rgba(255, 255, 255, 0) 100%
-  );
-
-  background-color: ${COLORS.violetB400};
+  background: linear-gradient(180deg, #9586ef 0%, #7a67ec 100%);
 
   filter: drop-shadow(0rem 0rem 0.625rem rgba(0, 0, 0, 0.25));
   backdrop-filter: blur(0.4375rem);
 
-  border-radius: 0.5rem;
+  border-radius: 0.625rem;
 
   animation: toast 0.5s ease-in-out;
   @keyframes toast {
@@ -63,14 +57,16 @@ const ValidationToastAlertContainer = styled.div<Partial<Props>>`
 `;
 const ValidationToastAlertIcon = styled.div`
   width: 5%;
+  text-align: center;
+  align-items: center;
 `;
 const ValidationToastAlertText = styled.p`
   width: 95%;
   height: 100%;
 
-  font-weight: 400;
-  font-size: 0.875rem;
-  line-height: 140%;
+  font-weight: 500;
+  font-size: 0.9375rem;
+  line-height: 1.5rem;
 
   display: flex;
   align-items: center;
