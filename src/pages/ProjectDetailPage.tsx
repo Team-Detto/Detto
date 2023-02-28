@@ -26,7 +26,7 @@ const ProjectDetailPage = () => {
   const params = useParams();
   const pid = params?.id;
 
-  const sendNotification = useNotification();
+  const { sendNotification } = useNotification();
 
   //프로젝트 데이터 조회
   const { data: projectData } = useQuery({

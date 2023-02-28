@@ -32,7 +32,7 @@ const InviteModal = ({
   const { openModalWithData } = useGlobalModal();
   const { isOpen: isAlertOpen, handleModalStateChange: onAlertClickEvent } =
     useModal(false);
-  const sendNotification = useNotification();
+  const { sendNotification } = useNotification();
 
   const { mutate: applicantMutate } = useMutation(() =>
     updateParticipants(

@@ -33,7 +33,7 @@ const useNotification = () => {
 
   const { mutate: sendNotification } = useMutation(updateNoteCollection, {});
 
-  return sendNotification;
+  return { sendNotification };
 };
 
 export default useNotification;

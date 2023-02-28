@@ -33,7 +33,7 @@ const ApplyButtonArea = ({
   handleToastPopup,
   pid,
 }: props) => {
-  const sendNotification = useNotification();
+  const { sendNotification } = useNotification();
 
   const { data: projectData } = useQuery({
     queryKey: ['post', pid],
