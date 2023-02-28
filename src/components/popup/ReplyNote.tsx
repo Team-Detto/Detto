@@ -91,7 +91,6 @@ export default function ReplyNote({ data }: { data: Note }) {
           label="쪽지를 보낼게요"
           onClick={() => {
             handleSendButtonClick();
-            setDisabled(true);
           }}
           disabled={disabled}
         />
