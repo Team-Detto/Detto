@@ -15,7 +15,11 @@ import { staleTime } from 'utils/staleTime';
 import { modalTypes } from 'components/common/modal/modal';
 import MobilePublicProfilePage from 'components/publicProfile/mobile/MobilePublicProfilePage';
 import { Helmet } from 'react-helmet-async';
-import { amplitudeNeedToButtonClick } from 'utils/amplitude';
+import {
+  amplitudeNeedToButtonClick,
+  getCurrentPathName,
+  logEvent,
+} from 'utils/amplitude';
 
 const PublicProfilePage = () => {
   const { id } = useParams(); //받는사람 id
@@ -58,6 +62,11 @@ const PublicProfilePage = () => {
 
   useEffect(() => {
     setActiveProjectTab('currentProjects');
+    logEvent('Visit Page', {
+      from: `${getCurrentPathName()}`,
+      to: 'none',
+      name: 'puplic_profile',
+    });
   }, []);
 
   if (!userInfoData) return null;
