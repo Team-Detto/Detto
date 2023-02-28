@@ -7,6 +7,7 @@ import WebContainer from './common/WebContainer';
 import { LogoBoxH1 } from './Header';
 import iconGithub from 'assets/images/footer_github.png';
 import iconGmail from 'assets/images/footer_gmail.png';
+import { getCurrentPathName, logEvent } from 'utils/amplitude';
 
 export const Footer = () => {
   const { pathname } = useLocation();
@@ -109,22 +110,62 @@ export const Footer = () => {
             <ContentsTitle>CATEGORY</ContentsTitle>
             <ContentsList>
               <ContentItem>
-                <PageLink to={'/findproject'} state={'planner'}>
+                <PageLink
+                  to={'/findproject'}
+                  state={'planner'}
+                  onClick={() => {
+                    logEvent('Button Click', {
+                      from: getCurrentPathName(),
+                      to: 'findproject',
+                      name: 'category_planner',
+                    });
+                  }}
+                >
                   Planning
                 </PageLink>
               </ContentItem>
               <ContentItem>
-                <PageLink to={'/findproject'} state={'designer'}>
+                <PageLink
+                  to={'/findproject'}
+                  state={'designer'}
+                  onClick={() => {
+                    logEvent('Button Click', {
+                      from: getCurrentPathName(),
+                      to: 'findproject',
+                      name: 'category_designer',
+                    });
+                  }}
+                >
                   Design
                 </PageLink>
               </ContentItem>
               <ContentItem>
-                <PageLink to={'/findproject'} state={'frontend'}>
+                <PageLink
+                  to={'/findproject'}
+                  state={'frontend'}
+                  onClick={() => {
+                    logEvent('Button Click', {
+                      from: getCurrentPathName(),
+                      to: 'findproject',
+                      name: 'category_frontend',
+                    });
+                  }}
+                >
                   Frontend
                 </PageLink>
               </ContentItem>
               <ContentItem>
-                <PageLink to={'/findproject'} state={'backend'}>
+                <PageLink
+                  to={'/findproject'}
+                  state={'backend'}
+                  onClick={() => {
+                    logEvent('Button Click', {
+                      from: getCurrentPathName(),
+                      to: 'findproject',
+                      name: 'category_backend',
+                    });
+                  }}
+                >
                   Backend
                 </PageLink>
               </ContentItem>
