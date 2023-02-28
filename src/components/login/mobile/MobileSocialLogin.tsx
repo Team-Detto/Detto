@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
-import KEY_IMG from 'assets/images/login_key.png';
+import LOGO_IMG from 'assets/images/login_logo.webp';
 import GITHUB_MOBILE_IMG from 'assets/images/login_mobile_github.png';
 import FACEBOOK_MOBILE_IMG from 'assets/images/login_mobile_facebook.png';
 import GOOGLE_MOBILE_IMG from 'assets/images/login_mobile_google.png';
@@ -18,7 +18,7 @@ export default function MobileSocialLogin() {
       <ModalNavigator page={0} close />
       <BodyContainer>
         <TitleWrapper>
-          <KeyImg src={KEY_IMG} alt="login" />
+          <KeyImg src={LOGO_IMG} alt="login" />
           <Title>로그인을 해주세요</Title>
         </TitleWrapper>
         <LoginButtons>

@@ -46,8 +46,8 @@ export default function LoginModal() {
 const modals = [
   {
     // 페이지 0 : 로그인
-    width: '41.0625rem',
-    height: '31.4375rem',
+    width: '28.875rem',
+    height: '32.5rem',
     mobileWidth: '20rem',
     mobileHeight: '22rem',
     component: <SocialLogin />,
