@@ -71,6 +71,12 @@ const SkillButton = ({ name, value, isChecked, setValue, type }: props) => {
   return (
     <SkillButtonContainer>
       <SkillBtn type="button" isActive={isActive} onClick={handleActiveButton}>
+        <SkillIconWrapper>
+          <SkillIcon
+            src={require(`../../assets/images/icon_skills/icon_skill_${name.toLowerCase()}.jpg`)}
+            alt={name}
+          />
+        </SkillIconWrapper>
         {name}
       </SkillBtn>
     </SkillButtonContainer>
@@ -78,19 +84,21 @@ const SkillButton = ({ name, value, isChecked, setValue, type }: props) => {
 };
 
 const SkillButtonContainer = styled.div``;
-const SkillBtn = styled.button`
-  background-color: ${(props: { isActive: boolean }) =>
-    props.isActive === true ? `${COLORS.violetB500}` : `${COLORS.gray100}`};
-  color: ${(props: { isActive: boolean }) =>
-    props.isActive === true ? `${COLORS.white}` : `${COLORS.black}`};
-  font-weight: 400;
+const SkillBtn = styled.button<{ isActive: boolean }>`
+  background-color: ${COLORS.gray100};
+  color: ${({ isActive }) => {
+    return isActive === true ? `${COLORS.violetB500}` : `${COLORS.black}`;
+  }};
+  font-weight: ${({ isActive }) => (isActive === true ? '700' : '400')};
   font-size: 0.75rem;
   line-height: 2rem;
-  height: 2rem;
+  height: 2.25rem;
   display: flex;
   align-items: center;
   border-radius: 2rem;
-  padding: 0.3125rem 0.9375rem;
+  border: ${({ isActive }) =>
+    isActive === true ? `1px solid ${COLORS.violetB500}` : `none`};
+  padding: 0.5938rem 1.25rem 0.5938rem 0.625rem;
   transition: transform 0.5s;
   &:hover {
     transform: scale(1.05);
@@ -103,6 +111,7 @@ const WritePageMobileStackButtonBox = styled.div`
   gap: 0.1rem;
 `;
 const WritePageMobileStackSkill = styled.button`
+  display: block;
   width: 4.6rem;
   height: 1.6rem;
   display: flex;
@@ -125,6 +134,21 @@ const WritePageMobileStackSkillCancel = styled.button`
   padding-bottom: 0.3rem;
   color: ${COLORS.white};
   background-color: ${COLORS.gray300};
+`;
+
+const SkillIconWrapper = styled.div`
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 0.5rem;
+`;
+
+const SkillIcon = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 `;
 
 export default memo(SkillButton);
