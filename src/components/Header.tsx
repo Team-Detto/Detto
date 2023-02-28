@@ -5,7 +5,10 @@ import PopupContainer from './popup/PopupContainer';
 import { useGlobalModal, useHeader, useIsMobile, usePopup } from 'hooks';
 import COLORS from 'assets/styles/colors';
 import { useEffect } from 'react';
-import { getCurrentPathName } from 'utils/amplitude';
+import {
+  amplitudeToNoneButtonClick,
+  getCurrentPathName,
+} from 'utils/amplitude';
 
 import MobileHeader from './MobileHeader';
 import { logEvent } from 'utils/amplitude';
@@ -85,11 +88,7 @@ const Header = () => {
                 <NavItemLi
                   onClick={() => {
                     toggleNoteBox();
-                    logEvent('Button Click', {
-                      from: getCurrentPathName(),
-                      to: 'none',
-                      name: 'notes',
-                    });
+                    amplitudeToNoneButtonClick('header_notes');
                   }}
                 >
                   쪽지
@@ -99,7 +98,12 @@ const Header = () => {
                 </NavItemLi>
               )}
               {isLoggedIn && (
-                <NavItemLi onClick={toggleNotificationBox}>
+                <NavItemLi
+                  onClick={() => {
+                    toggleNotificationBox();
+                    amplitudeToNoneButtonClick('header_notifications');
+                  }}
+                >
                   알림
                   <Count>
                     (
@@ -114,11 +118,7 @@ const Header = () => {
                 <NavItemLi
                   onClick={() => {
                     openModal('login', 0);
-                    logEvent('Button Click', {
-                      from: getCurrentPathName(),
-                      to: 'none',
-                      name: 'login',
-                    });
+                    amplitudeToNoneButtonClick('header_login');
                   }}
                 >
                   로그인하기
@@ -145,11 +145,7 @@ const Header = () => {
                 <NavItemLi
                   onClick={() => {
                     handleLogoutClick();
-                    logEvent('Button Click', {
-                      from: getCurrentPathName(),
-                      to: 'none',
-                      name: 'logout',
-                    });
+                    amplitudeToNoneButtonClick('header_logout');
                   }}
                 >
                   로그아웃

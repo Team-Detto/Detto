@@ -18,7 +18,21 @@ export const resetAmplitude = () => {
   reset();
 };
 
+// 현재 페이지의 path를 반환하는 함수
 export const getCurrentPathName = () => {
-  const pathName = window.location.pathname.split('/')[1];
-  return pathName === '' ? 'main' : pathName;
+  const path = window.location.pathname;
+  if (path === '/') return 'main';
+  if (path === '/project/write') return 'project_write';
+  if (path.startsWith('/project/write')) return 'project_edit';
+  if (path.startsWith('/project/')) return 'project_detail';
+  return location.pathname.split('/')[1];
+};
+
+// to: 'none'인 이벤트를 로깅하는 함수
+export const amplitudeToNoneButtonClick = (name: string) => {
+  logEvent('Button Click', {
+    from: getCurrentPathName(),
+    to: 'none',
+    name,
+  });
 };
