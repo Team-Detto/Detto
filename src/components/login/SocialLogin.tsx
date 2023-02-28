@@ -21,7 +21,7 @@ export default function SocialLogin() {
       <LoginButtons>
         <LoginButton onClick={handleGithubLogin} color="black">
           <SocialImg src={GITHUB_IMG} alt="github" />
-          <LogoText>Git</LogoText>
+          <LogoText>GitHub</LogoText>
         </LoginButton>
         <LoginButton onClick={handleFacebookLogin} color="blue">
           <SocialImg src={FACEBOOK_IMG} alt="facebook" />
@@ -44,7 +44,7 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
 
-  padding: 2.5rem 2.3438rem 2.875rem 2.3438rem;
+  padding: 2.5rem;
 `;
 
 const Overlay = styled.div<{ overlay: boolean }>`
@@ -62,8 +62,8 @@ const Overlay = styled.div<{ overlay: boolean }>`
 `;
 
 const LogoImg = styled.img`
-  width: 5.125rem;
-  height: 5.125rem;
+  width: 5.75rem;
+  height: 5.75rem;
   margin-top: 0.25rem;
   margin-bottom: 1.25rem;
 `;

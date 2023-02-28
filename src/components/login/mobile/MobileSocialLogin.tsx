@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import LOGO_IMG from 'assets/images/login_logo.webp';
-import GITHUB_MOBILE_IMG from 'assets/images/login_mobile_github.png';
-import FACEBOOK_MOBILE_IMG from 'assets/images/login_mobile_facebook.png';
-import GOOGLE_MOBILE_IMG from 'assets/images/login_mobile_google.png';
+import GITHUB_IMG from 'assets/images/login_github.png';
+import FACEBOOK_IMG from 'assets/images/login_facebook.png';
+import GOOGLE_IMG from 'assets/images/login_google.png';
 import useSocialLogin from 'hooks/useSocialLogin';
 import ModalNavigator from 'components/common/modal/ModalNavigator';
 
@@ -16,29 +16,36 @@ export default function MobileSocialLogin() {
     <Container>
       <Overlay overlay={overlay} />
       <ModalNavigator page={0} close />
-      <BodyContainer>
-        <TitleWrapper>
-          <KeyImg src={LOGO_IMG} alt="login" />
-          <Title>로그인을 해주세요</Title>
-        </TitleWrapper>
-        <LoginButtons>
-          <LoginButton onClick={handleGithubLogin} color="black">
-            <LogoImg src={GITHUB_MOBILE_IMG} alt="github" />
-            <LogoText>Git</LogoText>
-          </LoginButton>
-          <LoginButton onClick={handleFacebookLogin} color="blue">
-            <LogoImg src={FACEBOOK_MOBILE_IMG} alt="facebook" />
-            <LogoText>Facebook</LogoText>
-          </LoginButton>
-          <LoginButton onClick={handleGoogleLogin} color="white">
-            <LogoImg src={GOOGLE_MOBILE_IMG} alt="google" />
-            <LogoText color="gray">Google</LogoText>
-          </LoginButton>
-        </LoginButtons>
-      </BodyContainer>
+      <LogoImg src={LOGO_IMG} alt="login" />
+      <Title>로그인을 해주세요</Title>
+      <LoginButtons>
+        <LoginButton onClick={handleGithubLogin} color="black">
+          <SocialImg src={GITHUB_IMG} alt="github" />
+          <LogoText>GitHub</LogoText>
+        </LoginButton>
+        <LoginButton onClick={handleFacebookLogin} color="blue">
+          <SocialImg src={FACEBOOK_IMG} alt="facebook" />
+          <LogoText>Facebook</LogoText>
+        </LoginButton>
+        <LoginButton onClick={handleGoogleLogin} color="white">
+          <SocialImg src={GOOGLE_IMG} alt="google" />
+          <LogoText color="gray">Google</LogoText>
+        </LoginButton>
+      </LoginButtons>
     </Container>
   );
 }
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+
+  padding: 1.5625rem 0.875rem 1.25rem 0.875rem;
+`;
 
 const Overlay = styled.div<{ overlay: boolean }>`
   display: ${(props) => (props.overlay ? 'block' : 'none')};
@@ -54,57 +61,34 @@ const Overlay = styled.div<{ overlay: boolean }>`
   background-color: rgba(255, 255, 255, 0.3);
 `;
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-
-  width: 100%;
-  height: 100%;
-
-  padding: 1rem;
-`;
-
-const BodyContainer = styled.div`
-  width: 100%;
-  margin-bottom: 2.5rem;
-`;
-
-const TitleWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-
-const KeyImg = styled.img`
-  width: 1.625rem;
-  height: 1.625rem;
-  margin-right: 0.375rem;
+const LogoImg = styled.img`
+  width: 3.5625rem;
+  height: 3.5625rem;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
 `;
 
 const Title = styled.h2`
   color: ${COLORS.gray850};
-  font-weight: 600;
+
+  font-weight: 700;
   font-size: 1.125rem;
   line-height: 1.625rem;
-  margin-bottom: 1rem;
+
+  margin-bottom: 2rem;
 `;
 
 const LoginButtons = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 0.5rem;
+  gap: 0.75rem;
+  width: 100%;
 `;
 
 const LoginButton = styled.button<{
   color?: string;
 }>`
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-
   padding: 1rem;
 
   width: 100%;
@@ -123,7 +107,7 @@ const LoginButton = styled.button<{
   cursor: pointer;
 `;
 
-const LogoImg = styled.img`
+const SocialImg = styled.img`
   width: 1.5rem;
   height: 1.5rem;
 

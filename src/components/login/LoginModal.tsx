@@ -49,14 +49,14 @@ const modals = [
     width: '28.875rem',
     height: '32.5rem',
     mobileWidth: '20rem',
-    mobileHeight: '22rem',
+    mobileHeight: '24.875rem',
     component: <SocialLogin />,
     mobileComponent: <MobileSocialLogin />,
   },
   {
     // 페이지 1 : 포지션 선택
     width: '44.25rem',
-    height: '36.375rem',
+    height: '32rem',
     mobileWidth: '20rem',
     mobileHeight: '22rem',
     component: <SetPositions />,
