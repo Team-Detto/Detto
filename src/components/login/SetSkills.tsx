@@ -77,22 +77,21 @@ const BodyContainer = styled.div`
 
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 
-  margin-bottom: 5.625rem;
+  margin-bottom: 2.5rem;
+  padding: 0 35px;
 `;
 
 const TextContainer = styled.div`
-  margin-top: 1.125rem;
+  margin-bottom: 1.75rem;
 `;
 
 const TitleText = styled.h2`
-  width: 24.5625rem;
-  height: 5.5rem;
+  width: 22rem;
 
   font-weight: 700;
-  font-size: 1.75rem;
-  line-height: 2.75rem;
+  font-size: 1.5rem;
+  line-height: 140%;
 
   color: ${COLORS.gray850};
 

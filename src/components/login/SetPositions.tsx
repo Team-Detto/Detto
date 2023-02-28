@@ -107,8 +107,7 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
 
-  padding: 2.5rem 2.5rem 3rem;
-  gap: 2.5rem;
+  padding: 2.5rem;
 `;
 
 const BodyContainer = styled.div`
@@ -116,7 +115,8 @@ const BodyContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding: 0px;
-  gap: 1.875rem;
+  margin-top: 1.25rem;
+  width: 100%;
 `;
 
 const TextContainer = styled.div`
@@ -125,14 +125,14 @@ const TextContainer = styled.div`
   align-items: flex-start;
   padding: 0px;
   gap: 0.25rem;
+  margin-bottom: 1.5rem;
 `;
 
 const TitleText = styled.h3`
   color: ${COLORS.gray850};
   font-weight: 700;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   line-height: 2.4375rem;
-  margin-bottom: 0.25rem;
 `;
 
 const SubText = styled.h2`
@@ -145,9 +145,10 @@ const SubText = styled.h2`
 
 const Buttons = styled.div`
   display: flex;
-  gap: 1.1875rem;
-
-  /* margin-bottom: 3.75rem; */
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 1.25rem;
+  width: 100%;
 `;
 
 const Label = styled.label`
@@ -155,8 +156,7 @@ const Label = styled.label`
   align-items: center;
   justify-content: center;
 
-  width: 8.125rem;
-  height: 3.25rem;
+  padding: 0.5rem 2.6563rem;
 
   font-size: 1.125rem;
   font-weight: 400;
@@ -164,12 +164,16 @@ const Label = styled.label`
   background-color: ${COLORS.gray50};
   border-radius: 1rem;
 
+  border: 2px solid transparent;
+
   cursor: pointer;
 
   transition: 100ms ease-in-out;
   &:hover {
     transform: scale(1.05);
   }
+
+  margin-bottom: 2.5rem;
 `;
 
 const Input = styled.input`
@@ -178,8 +182,9 @@ const Input = styled.input`
   color: ${COLORS.gray100};
 
   &:checked + label {
-    color: ${COLORS.white};
-    background-color: ${COLORS.violetB400};
+    color: ${COLORS.violetB500};
+    background-color: ${COLORS.white};
+    border: 2px solid ${COLORS.violetB500};
     font-weight: 700;
   }
 `;
