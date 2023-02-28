@@ -42,6 +42,21 @@ const MemberInfoArea = ({ applicantsData }: any) => {
             })}
           </MemberInfoDiv>
           <MemberInfoDiv>
+            <PositionDiv>디자인</PositionDiv>
+            {data.map((key) => {
+              if (applicantsData[key].position === '디자인')
+                return (
+                  <Div key={key}>
+                    <MemberProfileImg
+                      onClick={() => onClickEvent(applicantsData[key].uid)}
+                      src={applicantsData[key].profileURL}
+                    ></MemberProfileImg>
+                    <HoverText>{applicantsData[key].displayName}</HoverText>
+                  </Div>
+                );
+            })}
+          </MemberInfoDiv>
+          <MemberInfoDiv>
             <PositionDiv>프론트</PositionDiv>
 
             {data.map((key) => {
@@ -62,21 +77,6 @@ const MemberInfoArea = ({ applicantsData }: any) => {
 
             {data.map((key) => {
               if (applicantsData[key].position === '백엔드')
-                return (
-                  <Div key={key}>
-                    <MemberProfileImg
-                      onClick={() => onClickEvent(applicantsData[key].uid)}
-                      src={applicantsData[key].profileURL}
-                    ></MemberProfileImg>
-                    <HoverText>{applicantsData[key].displayName}</HoverText>
-                  </Div>
-                );
-            })}
-          </MemberInfoDiv>
-          <MemberInfoDiv>
-            <PositionDiv>디자인</PositionDiv>
-            {data.map((key) => {
-              if (applicantsData[key].position === '디자인')
                 return (
                   <Div key={key}>
                     <MemberProfileImg
@@ -108,7 +108,8 @@ const MemberInfoWrapper = styled.div`
 const MemberInfoTitle = styled.div`
   height: 2rem;
   font-weight: 500;
-  font-size: 1.25rem;
+  font-size: 1.125rem;
+  color: #383838;
 `;
 
 const MemberInfoBox = styled.div`
@@ -123,24 +124,32 @@ const MemberInfoDiv = styled.div`
   display: flex;
   align-items: center;
   gap: 1.25rem;
-  height: 5rem;
+  height: 4.25rem;
 `;
 
 const PositionDiv = styled.div`
-  font-size: 1.5rem;
-  background-color: ${COLORS.violetB400};
-  width: 7.9375rem;
-  height: 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  font-size: 1.125rem;
+  font-weight: 500;
   color: ${COLORS.white};
-  border-radius: 1.125rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  gap: 0.625rem;
+
+  width: 4.125rem;
+  height: 2.0625rem;
+
+  /* violet B 400 */
+
+  background: #6f64f2;
+  border-radius: 0.625rem;
 `;
 
 const MemberProfileImg = styled.img`
-  width: 4rem;
-  height: 4rem;
+  width: 3.25rem;
+  height: 3.25rem;
   border-radius: 50%;
   /* position: relative; */
   object-fit: cover;
@@ -157,7 +166,7 @@ const HoverText = styled.div`
   z-index: 10;
   width: 100%;
   height: ${(props: { children: string }) =>
-    props.children.length > 5 ? '100%' : '30px'};
+    props.children.length > 5 ? '100%' : '1.875rem'};
   border-radius: 0.625rem;
   background-color: ${COLORS.white};
   box-shadow: 0.0313rem 0.0313rem 0.625rem 0.1rem ${COLORS.violetB300};
