@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import COLORS from 'assets/styles/colors';
 import { useAuth, useProfileImage, useUpdateProfile } from 'hooks';
 import { useRecoilValue } from 'recoil';
 import { userInfoState } from '../../recoil/atoms';
@@ -63,7 +64,7 @@ const MypageInfoTopContainer = styled.div`
   padding-top: 3.125rem;
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
 `;
 
 const InfoWrapper = styled.div``;
@@ -71,15 +72,14 @@ const InfoWrapper = styled.div``;
 const InfoItemDiv = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 1.625rem;
+  margin-bottom: 1.75rem;
 `;
 
 const InfoTitle = styled.label`
   display: block;
-  width: 4rem;
-  min-width: 4rem;
-  font-size: 1.25rem;
-  color: #383838;
-  text-align: right;
-  margin-right: 3rem;
+  min-width: 2.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: ${COLORS.gray900};
+  margin-right: 1.25rem;
 `;

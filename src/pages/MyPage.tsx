@@ -84,7 +84,7 @@ const MyPageContainer = styled.div`
 `;
 
 const MypageContentsWrapper = styled.main`
-  padding: 10rem 2.5rem 0 2.375rem;
+  padding: 10rem 14rem 2.375rem 5rem;
 `;
 
 export const ProjectListWrapper = styled.div``;

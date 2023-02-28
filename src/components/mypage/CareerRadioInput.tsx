@@ -56,8 +56,9 @@ const InfoRadioBoxInput = styled.input`
   border: 0;
 
   &:checked + label {
-    background-color: ${COLORS.violetB500};
-    color: ${COLORS.white};
+    border: 1px solid ${COLORS.violetB500};
+    color: ${COLORS.violetB500};
+    font-weight: 700;
   }
 `;
 

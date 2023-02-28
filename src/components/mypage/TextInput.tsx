@@ -57,10 +57,10 @@ export default TextInput;
 
 const InputBox = styled.div<{ isMobile?: boolean }>`
   width: 100%;
-  height: 2.875rem;
+  height: 2.375rem;
 
   &:last-of-type {
-    margin: ${({ isMobile }) => (isMobile ? '1rem 0' : '0')};
+    margin: ${({ isMobile }) => (isMobile ? '1rem 0' : ' 0')};
   }
 `;
 
@@ -71,7 +71,7 @@ const InfoTextInput = styled.input<{ isMobile?: boolean; page?: string }>`
   border: 1px solid ${COLORS.gray300};
   border-radius: 4px;
   color: ${COLORS.gray800};
-  font-size: ${({ isMobile }) => (isMobile ? '1rem' : '1.125rem')};
+  font-size: ${({ isMobile }) => (isMobile ? '1rem' : '.875rem')};
 `;
 
 const ValidationMessage = styled.p`

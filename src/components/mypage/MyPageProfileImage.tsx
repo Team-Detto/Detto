@@ -79,9 +79,8 @@ const ProfileImageWrapper = styled.div<{ isMobile: boolean; page?: string }>`
   width: ${({ isMobile }) => (isMobile ? '7.75rem' : '9rem')};
   display: flex;
   margin-right: ${({ isMobile, page }) =>
-    isMobile ? '0' : page === 'join' ? '0' : '4.625rem'};
+    isMobile ? '0' : page === 'join' ? '0' : '2.5rem'};
   margin: ${({ isMobile }) => (isMobile ? '.875rem auto 0' : '')};
-
   position: relative;
   margin-bottom: ${({ isMobile, page }) =>
     isMobile ? (page === 'join' ? '0' : '1.5rem') : '0'};

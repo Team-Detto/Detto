@@ -58,9 +58,9 @@ const CheckBoxInput = styled.input`
   border: 0;
 
   &:checked + label {
-    background-color: ${COLORS.violetB500};
-    color: ${COLORS.white};
-    font-weight: 500;
+    border: 1px solid ${COLORS.violetB500};
+    color: ${COLORS.violetB500};
+    font-weight: 700;
   }
 `;
 
