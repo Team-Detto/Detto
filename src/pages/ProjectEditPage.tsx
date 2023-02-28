@@ -11,7 +11,6 @@ import ProjectEditPageFooter from 'components/editpage/ProjectEditPageFooter';
 import EditPageMobileHeader from 'components/editpage/mobile/EditPageMobileHeader';
 import EditPageMobileBody from 'components/editpage/mobile/EditPageMobileBody';
 import EditPageMobileFooter from 'components/editpage/mobile/EditPageMobileFooter';
-import mobilesecondBanner from 'assets/images/mobilesecondBanner.png';
 import styled from '@emotion/styled';
 
 const ProjectEditPage = () => {
