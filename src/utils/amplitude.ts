@@ -36,3 +36,12 @@ export const amplitudeToNoneButtonClick = (name: string) => {
     name,
   });
 };
+
+// to: 가 필요한 이벤트를 로깅하는 함수
+export const amplitudeNeedToButtonClick = (to: string, name: string) => {
+  logEvent('Button Click', {
+    from: getCurrentPathName(),
+    to,
+    name,
+  });
+};

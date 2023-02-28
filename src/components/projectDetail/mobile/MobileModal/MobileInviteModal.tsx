@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateAppliedProject, updateParticipants } from 'apis/postDetail';
 import COLORS from 'assets/styles/colors';
 import MobileAlert from 'components/common/mobile/MobileAlert';
+import { amplitudeToNoneButtonClick } from 'utils/amplitude';
 
 const MobileInviteModal = ({
   pid,
@@ -71,6 +72,7 @@ const MobileInviteModal = ({
                     inviteFunction();
                     MobileInvitedProjectMutate();
                     applicantMutate();
+                    amplitudeToNoneButtonClick('invite');
                   }}
                 >
                   초대할게요!
@@ -107,7 +109,7 @@ const BackDrop = styled.div`
 const ModalContainer = styled.div`
   position: fixed;
   width: 20rem;
-  height: 435px;
+  height: 27.1875rem;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -115,7 +117,6 @@ const ModalContainer = styled.div`
 
   padding: 2rem 1rem 1rem 1rem;
   background: ${COLORS.white};
-  border-radius: 1rem;
   box-shadow: 0rem 0.25rem 0.625rem rgba(117, 117, 117, 0.25);
   z-index: 2000;
   display: block;
@@ -139,7 +140,7 @@ const StackList = styled.div`
 const Stacks = styled.p`
   font-size: 0.625rem;
   background-color: ${COLORS.gray100};
-  border-radius: 0.25rem;
+  border-radius: 0.5rem;
   padding: 0.125rem;
 `;
 
@@ -170,7 +171,7 @@ const MotiveDiv = styled.div`
   padding-top: 1.5625rem;
   gap: 0.5rem;
 
-  width: 17.125rem;
+  width: 100%;
 `;
 
 const MotiveTitle = styled.p`
@@ -193,7 +194,7 @@ const MotiveContent = styled.div`
   padding: 0.625rem 1.25rem;
   gap: 1.4375rem;
 
-  width: 17.125rem;
+  width: 100%;
   height: 8.8125rem;
   overflow: scroll;
 

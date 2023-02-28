@@ -21,6 +21,8 @@ import ApplyModal from 'components/projectDetail/ApplyModal/ApplyModal';
 import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
 import { Helmet } from 'react-helmet-async';
+import { useEffect } from 'react';
+import { getCurrentPathName, logEvent } from 'utils/amplitude';
 
 const ProjectDetailPage = () => {
   const params = useParams();
@@ -105,6 +107,14 @@ const ProjectDetailPage = () => {
     handleModalOpenChange: handleCloseModalOpenChange,
     handleModalCloseChange: handleCloseModalCloseChange,
   } = useModal(false);
+
+  useEffect(() => {
+    logEvent('Visit Page', {
+      from: `${getCurrentPathName()}`,
+      to: 'none',
+      name: 'project_detail',
+    });
+  }, []);
 
   //projectData?.uid 가 현재 uid랑 같은지 판별하고 같으면 수정하기 버튼 display, 지원하기 버튼 -> 마감하기 버튼으로 변경, 지원자 목록 보여주기
   //지원하기 버튼 클릭시 지원자 목록에 uid 추가

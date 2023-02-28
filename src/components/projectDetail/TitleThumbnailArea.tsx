@@ -7,6 +7,10 @@ import { deleteProject, updateRecruiting } from 'apis/postDetail';
 import { useAuth, useModal } from 'hooks';
 import { useEffect } from 'react';
 import defaultThumbnail from 'assets/images/thumbnail_big.jpg';
+import {
+  amplitudeToNoneButtonClick,
+  amplitudeNeedToButtonClick,
+} from 'utils/amplitude';
 
 const TitleThumbnailArea = ({ projectData, pid }: any) => {
   const { thumbnail, title, isRecruiting, deadline } = projectData;
@@ -27,6 +31,7 @@ const TitleThumbnailArea = ({ projectData, pid }: any) => {
   const { uid } = useAuth();
   const handleDeleteProject = () => {
     deleteProjectMutate(pid); //post 컬렉션에서 프로젝트 삭제
+    amplitudeToNoneButtonClick('delete_project');
   };
 
   const { mutate: updateRecruitingMutate } = useMutation(() =>
@@ -48,7 +53,10 @@ const TitleThumbnailArea = ({ projectData, pid }: any) => {
           handleDeleteProject();
           window.history.back();
         }}
-        onCloseEvent={handleModalStateChange}
+        onCloseEvent={() => {
+          handleModalStateChange();
+          amplitudeToNoneButtonClick('delete_project_cancel');
+        }}
       />
       <TitleToModifyButtonWrap>
         <ProjectTitleWrapper>
@@ -66,7 +74,13 @@ const TitleThumbnailArea = ({ projectData, pid }: any) => {
               글 삭제하기
             </ModifyDeleteButton>
             <Link to={`/project/write/${pid}`} state={projectData}>
-              <ModifyDeleteButton>수정하기</ModifyDeleteButton>
+              <ModifyDeleteButton
+                onClick={() =>
+                  amplitudeNeedToButtonClick('edit', 'project_edit')
+                }
+              >
+                수정하기
+              </ModifyDeleteButton>
             </Link>
           </ModifyDeleteButtonWrap>
         )}

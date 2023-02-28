@@ -12,6 +12,10 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateAppliedProject, updateParticipants } from 'apis/postDetail';
 import { modalTypes } from 'components/common/modal/modal';
 import MobileInviteModal from '../mobile/MobileModal/MobileInviteModal';
+import {
+  amplitudeNeedToButtonClick,
+  amplitudeToNoneButtonClick,
+} from 'utils/amplitude';
 
 interface props {
   isOpen: boolean;
@@ -77,6 +81,7 @@ const InviteModal = ({
       isRead: false,
     });
     onClickEvent();
+    amplitudeNeedToButtonClick('sendNoteModal', 'sendNote');
   };
 
   const inviteFunction = () => {
@@ -114,7 +119,11 @@ const InviteModal = ({
         <ModalWrapper>
           <ProfileToMessageContainer>
             <UserProfileImage src={applicant?.profileURL} />
-            <MessageSendButton onClick={handleSendNoteButtonClick}>
+            <MessageSendButton
+              onClick={() => {
+                handleSendNoteButtonClick();
+              }}
+            >
               쪽지보내기
             </MessageSendButton>
           </ProfileToMessageContainer>
@@ -142,12 +151,20 @@ const InviteModal = ({
               <MotiveText>{applicant?.motive}</MotiveText>
             </MotiveContentWrap>
             <MotiveButtonContainer>
-              <MotiveButton onClick={onClickEvent}>아니오</MotiveButton>
+              <MotiveButton
+                onClick={() => {
+                  onClickEvent();
+                  amplitudeToNoneButtonClick('invite_no');
+                }}
+              >
+                아니오
+              </MotiveButton>
               <MotiveButton
                 onClick={() => {
                   inviteFunction();
                   invitedProjectMutate();
                   applicantMutate();
+                  amplitudeToNoneButtonClick('invite_yes');
                 }}
               >
                 네, 초대할게요!

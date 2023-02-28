@@ -5,6 +5,10 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteProject } from 'apis/postDetail';
 import { useModal } from 'hooks';
 import { Link } from 'react-router-dom';
+import {
+  amplitudeToNoneButtonClick,
+  amplitudeNeedToButtonClick,
+} from 'utils/amplitude';
 
 const ModifyDeleteDropDown = ({ pid, popup, setPopup, projectData }: any) => {
   const { isOpen, handleModalStateChange } = useModal(false);
@@ -26,8 +30,12 @@ const ModifyDeleteDropDown = ({ pid, popup, setPopup, projectData }: any) => {
         onClickEvent={() => {
           deleteProjectMutate(pid);
           window.history.back();
+          amplitudeToNoneButtonClick('delete_project_yes');
         }}
-        onCloseEvent={handleModalStateChange}
+        onCloseEvent={() => {
+          handleModalStateChange();
+          amplitudeToNoneButtonClick('delete_project_no');
+        }}
       />
       {popup && (
         <Backdrop
@@ -37,11 +45,15 @@ const ModifyDeleteDropDown = ({ pid, popup, setPopup, projectData }: any) => {
         >
           <DropdownBox>
             <DropdownList>
-              <DropdownItem>
-                <Link to={`/project/write/${pid}`} state={projectData}>
+              <Link to={`/project/write/${pid}`} state={projectData}>
+                <DropdownItem
+                  onClick={() =>
+                    amplitudeNeedToButtonClick('project_edit', 'edit')
+                  }
+                >
                   수정하기
-                </Link>
-              </DropdownItem>
+                </DropdownItem>
+              </Link>
 
               <DropdownItem onClick={handleModalStateChange}>
                 삭제하기

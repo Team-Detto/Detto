@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
+import { logEvent } from 'utils/amplitude';
 
 const MemberInfoArea = ({ applicantsData }: any) => {
   const navigate = useNavigate();
@@ -9,6 +10,15 @@ const MemberInfoArea = ({ applicantsData }: any) => {
   const data = Object?.keys(applicantsData).filter((key) => {
     return applicantsData?.[key]?.recruit === true;
   });
+
+  const onClickEvent = (uid: string) => {
+    navigate(`/profile/${uid}`);
+    logEvent('Button Click', {
+      from: `project_detail`, //pathname으로 하면 이동한페이지로 인식해서 수정
+      to: 'profile',
+      name: 'profile',
+    });
+  };
 
   return (
     <>
@@ -23,9 +33,7 @@ const MemberInfoArea = ({ applicantsData }: any) => {
                   <Div key={key}>
                     <MemberProfileImg
                       key={key}
-                      onClick={() =>
-                        navigate(`/profile/${applicantsData[key].uid}`)
-                      }
+                      onClick={() => onClickEvent(applicantsData[key].uid)}
                       src={applicantsData[key].profileURL}
                     ></MemberProfileImg>
                     <HoverText>{applicantsData[key].displayName}</HoverText>
@@ -41,9 +49,7 @@ const MemberInfoArea = ({ applicantsData }: any) => {
                 return (
                   <Div key={key}>
                     <MemberProfileImg
-                      onClick={() =>
-                        navigate(`/profile/${applicantsData[key].uid}`)
-                      }
+                      onClick={() => onClickEvent(applicantsData[key].uid)}
                       src={applicantsData[key].profileURL}
                     ></MemberProfileImg>
                     <HoverText>{applicantsData[key].displayName}</HoverText>
@@ -59,9 +65,7 @@ const MemberInfoArea = ({ applicantsData }: any) => {
                 return (
                   <Div key={key}>
                     <MemberProfileImg
-                      onClick={() =>
-                        navigate(`/profile/${applicantsData[key].uid}`)
-                      }
+                      onClick={() => onClickEvent(applicantsData[key].uid)}
                       src={applicantsData[key].profileURL}
                     ></MemberProfileImg>
                     <HoverText>{applicantsData[key].displayName}</HoverText>
@@ -77,9 +81,7 @@ const MemberInfoArea = ({ applicantsData }: any) => {
                   <Div key={key}>
                     <MemberProfileImg
                       key={key}
-                      onClick={() =>
-                        navigate(`/profile/${applicantsData[key].uid}`)
-                      }
+                      onClick={() => onClickEvent(applicantsData[key].uid)}
                       src={applicantsData[key].profileURL}
                     ></MemberProfileImg>
                     <HoverText>{applicantsData[key].displayName}</HoverText>
