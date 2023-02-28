@@ -4,6 +4,7 @@ import { updateRecruiting } from 'apis/postDetail';
 import { firebaseLikeProjectUpdateRequest } from 'apis/boardService';
 import { useAuth } from 'hooks';
 import { getDate } from 'utils/date';
+import { getCurrentPathName, logEvent } from 'utils/amplitude';
 import { EditType } from 'types/write/writeType';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import defaultThumbnail from 'assets/images/thumbnail_mobile.jpg';
@@ -59,6 +60,11 @@ const MobileContentCard = ({
   const handleUpdateLike = useCallback(() => {
     setIsLike(!isLike);
     updateLikeMutate();
+    logEvent('Button Click', {
+      from: getCurrentPathName(),
+      to: 'none',
+      name: 'like',
+    });
   }, [isLike, updateLikeMutate]);
 
   useEffect(() => {
