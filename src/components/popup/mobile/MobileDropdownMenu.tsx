@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useGlobalModal, useHeader, usePopup } from 'hooks';
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
+import { getCurrentPathName, logEvent } from 'utils/amplitude';
 
 const MobileDropdownMenu = () => {
   const { openModal } = useGlobalModal();
@@ -18,26 +19,79 @@ const MobileDropdownMenu = () => {
       <DropdownBox>
         <DropdownList>
           {!isLoggedIn && (
-            <DropdownItem onClick={() => openModal('login', 0)}>
+            <DropdownItem
+              onClick={() => {
+                openModal('login', 0);
+                logEvent('Button Click', {
+                  from: getCurrentPathName(),
+                  to: 'none',
+                  name: 'login',
+                });
+              }}
+            >
               로그인
             </DropdownItem>
           )}
           {isLoggedIn && (
-            <DropdownItem onClick={handleLogoutClick}>로그아웃</DropdownItem>
+            <DropdownItem
+              onClick={() => {
+                handleLogoutClick();
+                logEvent('Button Click', {
+                  from: getCurrentPathName(),
+                  to: 'none',
+                  name: 'logout',
+                });
+              }}
+            >
+              로그아웃
+            </DropdownItem>
           )}
           <DropdownItem>
-            <Link to={'/findproject'}>팀원찾기</Link>
+            <Link
+              to={'/findproject'}
+              onClick={() => {
+                logEvent('Button Click', {
+                  from: getCurrentPathName(),
+                  to: 'findproject',
+                  name: 'find_project',
+                });
+              }}
+            >
+              팀원찾기
+            </Link>
           </DropdownItem>
           <DropdownItem onClick={() => !isLoggedIn && openModal('login', 0)}>
             {isLoggedIn ? (
-              <Link to={'/project/write'}>새 글 쓰기</Link>
+              <Link
+                to={'/project/write'}
+                onClick={() => {
+                  logEvent('Button Click', {
+                    from: getCurrentPathName(),
+                    to: 'project_wrtie',
+                    name: 'write_project',
+                  });
+                }}
+              >
+                새 글 쓰기
+              </Link>
             ) : (
               '새 글 쓰기'
             )}
           </DropdownItem>
           {isLoggedIn && (
             <DropdownItem>
-              <Link to={'/mypage'}>마이페이지</Link>
+              <Link
+                to={'/mypage'}
+                onClick={() => {
+                  logEvent('Button Click', {
+                    from: getCurrentPathName(),
+                    to: 'mypage',
+                    name: 'mypage',
+                  });
+                }}
+              >
+                마이페이지
+              </Link>
             </DropdownItem>
           )}
         </DropdownList>

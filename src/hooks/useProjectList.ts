@@ -1,6 +1,7 @@
 import { findWithCollectionName } from 'apis/findWithCollectionName';
 import { PidListProps } from 'components/common/myProjectList/ProjectList';
 import { useState } from 'react';
+import { getCurrentPathName, logEvent } from 'utils/amplitude';
 import { projectTabNames } from 'utils/positions';
 import useIsMobile from './useIsMobile';
 
@@ -21,6 +22,16 @@ const useProjectList = () => {
     );
 
     setActiveProjectTab(projectTabNames[tabValueIndex].id);
+
+    logEvent('Button Click', {
+      from: getCurrentPathName(),
+      to: 'none',
+      name: `category_${
+        innerText === '지원한'
+          ? 'appliedProjects'
+          : projectTabNames[tabValueIndex].id
+      }`,
+    });
   };
 
   // 현재 선택된 탭의 프로젝트 리스트 조회 함수

@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { GrMail } from 'react-icons/gr';
 import { FiChevronLeft } from 'react-icons/fi';
 import { IoNotifications, IoMenu } from 'react-icons/io5';
-import { useGlobalModal, useHeader, usePopup } from 'hooks';
+import { useHeader, usePopup } from 'hooks';
 import { LogoBoxH1 } from './Header';
 import PopupContainer from './popup/PopupContainer';
 import COLORS from 'assets/styles/colors';
@@ -19,24 +19,8 @@ const MobileHeader = () => {
     unreadNoteCount,
     unreadNotificationCount,
   } = usePopup();
-  const {
-    isMain,
-    isLoggedIn,
-    showDropwdown,
-    handleDropdownClick,
-    handleLogoutClick,
-    handleGoBackClick,
-    closeDropdownMenu,
-  } = useHeader();
-  const { openModal } = useGlobalModal();
-
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  const handleDropdownClose = (e: React.MouseEvent<HTMLInputElement>) => {
-    if (dropdownRef.current === e.target) {
-      handleDropdownClick();
-    }
-  };
+  const { isMain, isLoggedIn, handleGoBackClick, closeDropdownMenu } =
+    useHeader();
 
   // 페이지 이동 시 팝업 / 드롭다운 메뉴 닫기
   useEffect(() => {
@@ -91,36 +75,6 @@ const MobileHeader = () => {
         </MobileMenuList>
       </MobileHeaderWrapper>
       <MobileDropdownMenu />
-
-      {/* {showDropwdown && (
-        <DropdownBox>
-          <DropdownList>
-            {!isLoggedIn && (
-              <DropdownItem onClick={() => openModal('login', 0)}>
-                로그인
-              </DropdownItem>
-            )}
-            {isLoggedIn && (
-              <DropdownItem onClick={handleLogoutClick}>로그아웃</DropdownItem>
-            )}
-            <DropdownItem>
-              <Link to={'/findproject'}>팀원찾기</Link>
-            </DropdownItem>
-            <DropdownItem onClick={() => !isLoggedIn && openModal('login', 0)}>
-              {isLoggedIn ? (
-                <Link to={'/project/write'}>새 글 쓰기</Link>
-              ) : (
-                '새 글 쓰기'
-              )}
-            </DropdownItem>
-            {isLoggedIn && (
-              <DropdownItem>
-                <Link to={'/mypage'}>마이페이지</Link>
-              </DropdownItem>
-            )}
-          </DropdownList>
-        </DropdownBox>
-      )} */}
     </MobileHeaderContainer>
   );
 };

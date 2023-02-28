@@ -48,15 +48,38 @@ const Header = () => {
           </LogoBoxH1>
           <Nav>
             <NavListUl>
-              <NavItemLi onClick={() => !isLoggedIn && openModal('login', 0)}>
+              <NavItemLi>
                 {isLoggedIn ? (
-                  <NavItemLink to={'/project/write'}>새 글 쓰기</NavItemLink>
+                  <NavItemLink
+                    to={'/project/write'}
+                    onClick={() => {
+                      !isLoggedIn && openModal('login', 0);
+                      logEvent('Button Click', {
+                        from: getCurrentPathName(),
+                        to: 'project_wrtie',
+                        name: 'write_project',
+                      });
+                    }}
+                  >
+                    새 글 쓰기
+                  </NavItemLink>
                 ) : (
                   '새 글 쓰기'
                 )}
               </NavItemLi>
               <NavItemLi>
-                <NavItemLink to={'/findproject'}>팀원찾기</NavItemLink>
+                <NavItemLink
+                  to={'/findproject'}
+                  onClick={() => {
+                    logEvent('Button Click', {
+                      from: getCurrentPathName(),
+                      to: 'findproject',
+                      name: 'find_project',
+                    });
+                  }}
+                >
+                  팀원찾기
+                </NavItemLink>
               </NavItemLi>
               {isLoggedIn && (
                 <NavItemLi
@@ -104,11 +127,33 @@ const Header = () => {
 
               {isLoggedIn && (
                 <NavItemLi>
-                  <NavItemLink to={'/mypage'}>마이페이지</NavItemLink>
+                  <NavItemLink
+                    to={'/mypage'}
+                    onClick={() => {
+                      logEvent('Button Click', {
+                        from: getCurrentPathName(),
+                        to: 'mypage',
+                        name: 'mypage',
+                      });
+                    }}
+                  >
+                    마이페이지
+                  </NavItemLink>
                 </NavItemLi>
               )}
               {isLoggedIn && (
-                <NavItemLi onClick={handleLogoutClick}>로그아웃</NavItemLi>
+                <NavItemLi
+                  onClick={() => {
+                    handleLogoutClick();
+                    logEvent('Button Click', {
+                      from: getCurrentPathName(),
+                      to: 'none',
+                      name: 'logout',
+                    });
+                  }}
+                >
+                  로그아웃
+                </NavItemLi>
               )}
             </NavListUl>
           </Nav>
