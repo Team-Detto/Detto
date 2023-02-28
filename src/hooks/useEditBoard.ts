@@ -3,8 +3,8 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { firebaseEditProjectRequest } from 'apis/boardService';
 import { useModal, useToastPopup } from 'hooks';
-import Resizer from 'react-image-file-resizer';
 import { EditType } from 'types/write/writeType';
+import { logEvent } from 'utils/amplitude';
 import {
   contentValidation,
   deadlineValidation,
@@ -13,6 +13,7 @@ import {
   stackValidation,
   titleValidation,
 } from 'utils/validation';
+import Resizer from 'react-image-file-resizer';
 
 const useEditBoard = () => {
   const { state } = useLocation();
@@ -103,6 +104,11 @@ const useEditBoard = () => {
     if (!params.id) {
       return;
     }
+    logEvent('Button Click', {
+      from: 'edit',
+      to: 'project_detail',
+      name: 'project_edit',
+    });
     if (!editThumbnail) {
       editProjectRequest(imageRef.current.files[0]);
       return;
@@ -113,6 +119,11 @@ const useEditBoard = () => {
 
   const handleAddThumbnailImage = useCallback(() => {
     imageRef.current.click();
+    logEvent('Button Click', {
+      from: 'edit',
+      to: 'project_detail',
+      name: 'add_thumbnail_image',
+    });
   }, [imageRef]);
 
   const handleAddThumbnailImageChange = () => {
