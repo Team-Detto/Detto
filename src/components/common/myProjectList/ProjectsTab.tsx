@@ -120,7 +120,7 @@ const MobileProjectsTabContainer = styled.div`
   height: 24px;
   align-items: center;
   margin: 36px auto;
-  background-color: ${COLORS.gray100};
+  background-color: ${COLORS.white};
   border-radius: 4px;
 `;
 
@@ -136,6 +136,7 @@ const MobileProjectsTabButton = styled.span<{
   font-weight: 700;
   font-size: 12px;
   border-radius: 4px;
+  margin-top: 3rem;
   background-color: ${({ category, name }) =>
     name === category ? COLORS.violetB300 : COLORS.gray100};
 
