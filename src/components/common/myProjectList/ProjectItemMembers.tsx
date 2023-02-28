@@ -31,10 +31,7 @@ const ProjectItemMembers = ({ applicants }: any) => {
         <ProjectMemberPositionLabel>디자인</ProjectMemberPositionLabel>
         <ProjectMemberList>
           {members.map((key) => {
-            if (
-              applicants[key].position === '프론트엔드' ||
-              applicants[key].position === '백엔드'
-            )
+            if (applicants[key].position === '디자인')
               return (
                 <ProjectMemberItem key={key}>
                   <ProjectMemberProfileImg
@@ -47,10 +44,26 @@ const ProjectItemMembers = ({ applicants }: any) => {
         </ProjectMemberList>
       </ProjectMemberPositionList>
       <ProjectMemberPositionList>
-        <ProjectMemberPositionLabel>개발</ProjectMemberPositionLabel>
+        <ProjectMemberPositionLabel>프론트</ProjectMemberPositionLabel>
         <ProjectMemberList>
           {members.map((key) => {
-            if (applicants[key].position === '디자인')
+            if (applicants[key].position === '프론트엔드')
+              return (
+                <ProjectMemberItem key={key}>
+                  <ProjectMemberProfileImg
+                    src={applicants[key].profileURL}
+                    alt="멤버프로필이미지"
+                  />
+                </ProjectMemberItem>
+              );
+          })}
+        </ProjectMemberList>
+      </ProjectMemberPositionList>
+      <ProjectMemberPositionList>
+        <ProjectMemberPositionLabel>백엔드</ProjectMemberPositionLabel>
+        <ProjectMemberList>
+          {members.map((key) => {
+            if (applicants[key].position === '백엔드')
               return (
                 <ProjectMemberItem key={key}>
                   <ProjectMemberProfileImg
@@ -95,13 +108,13 @@ const ProjectMemberPositionLabel = styled.span`
   justify-content: center;
   align-items: center;
   width: 4.375rem;
-  height: 2rem;
-  padding: 0 0.75rem;
+  height: 2.1rem;
+  padding: 0.25rem 0.5rem;
   margin-right: 1.25rem;
   font-size: 1rem;
-  background-color: ${COLORS.gray850};
+  background-color: ${COLORS.violetB300};
   color: ${COLORS.white};
-  border-radius: 2rem;
+  border-radius: 0.625rem;
 `;
 
 const ProjectMemberList = styled.ul`
@@ -112,8 +125,9 @@ const ProjectMemberList = styled.ul`
 `;
 
 const ProjectMemberItem = styled.li`
-  width: 3.25rem;
-  height: 3.25rem;
+  width: 2.6rem;
+  height: 2.6rem;
   border-radius: 50%;
   overflow: hidden;
+  margin-top: 0.3rem;
 `;

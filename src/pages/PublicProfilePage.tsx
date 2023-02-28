@@ -14,6 +14,7 @@ import { concatSkills } from 'utils/skills';
 import { staleTime } from 'utils/staleTime';
 import { modalTypes } from 'components/common/modal/modal';
 import MobilePublicProfilePage from 'components/publicProfile/mobile/MobilePublicProfilePage';
+import NoteIcon from 'assets/images/note_icon.png';
 import { Helmet } from 'react-helmet-async';
 import {
   amplitudeNeedToButtonClick,
@@ -100,6 +101,19 @@ const PublicProfilePage = () => {
                     src={userInfoData?.photoURL}
                     alt={userInfoData?.displayName}
                   />
+                  {userInfoData?.uid !== uid && (
+                    <MessageSendButton
+                      onClick={() => {
+                        if (!uid) {
+                          openModal('login', 0);
+                          return;
+                        }
+                        handleSendNoteButtonClick();
+                      }}
+                    >
+                      <img src={NoteIcon} alt="note icon" />
+                    </MessageSendButton>
+                  )}
                 </ProfileImgBox>
                 <ProfileInfoBox>
                   <NicknameAndMessageContainer>
@@ -115,19 +129,6 @@ const PublicProfilePage = () => {
                         <IfMyProfileDiv>내 프로필</IfMyProfileDiv>
                       )}
                     </UserInformationDiv>
-                    {userInfoData?.uid !== uid && (
-                      <MessageSendButton
-                        onClick={() => {
-                          if (!uid) {
-                            openModal('login', 0);
-                            return;
-                          }
-                          handleSendNoteButtonClick();
-                        }}
-                      >
-                        쪽지보내기
-                      </MessageSendButton>
-                    )}
                   </NicknameAndMessageContainer>
                   <UserInfoObject>
                     <UserInfoKey>연락처</UserInfoKey>
@@ -178,17 +179,19 @@ const PublicProfileWrapper = styled.div`
 const ProfileBox = styled.div`
   width: 100%;
   height: 14.25rem;
-  margin-top: 12.75rem;
+  margin-top: 10rem;
   display: flex;
   align-items: center;
   gap: 2.4375rem;
+  background-color: ${COLORS.white};
 `;
 
 const ProfileImgBox = styled.div`
-  width: 14.25rem;
-  height: 14.25rem;
+  width: 9rem;
+  height: 9rem;
   border-radius: 50%;
   overflow: hidden;
+  margin-left: 3rem;
 `;
 
 const ProfileImg = styled.img`
@@ -200,7 +203,7 @@ const ProfileImg = styled.img`
 
 const ProfileInfoBox = styled.div`
   width: 55.25rem;
-  height: 10.375rem;
+  height: 9rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -240,16 +243,18 @@ const IfMyProfileDiv = styled.div`
 `;
 
 const MessageSendButton = styled.button`
-  width: 9.8125rem;
-  height: 3.5rem;
-  background-color: ${COLORS.violetB400};
-  color: ${COLORS.white};
-  border-radius: 0.625rem;
-  font-size: 1.25rem;
-  font-weight: 700;
+  position: absolute;
+  width: 2.5rem;
+  height: 2.5rem;
+  top: 19.5rem;
+  left: 10.5rem;
+  border-radius: 50%;
+  border: 1px solid ${COLORS.white};
   display: flex;
   align-items: center;
   justify-content: center;
+  color: ${COLORS.white};
+  background-color: ${COLORS.violetB400};
 `;
 
 const UserInfoObject = styled.div`

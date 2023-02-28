@@ -52,7 +52,7 @@ export default ProjectItem;
 
 const ProjectItemContainer = styled.div`
   width: 100%;
-  height: 20.625rem;
+  height: 24rem;
   display: flex;
 
   background-color: ${COLORS.white};
@@ -63,13 +63,15 @@ const ProjectItemContainer = styled.div`
 const ProjectThumbnailWrapper = styled.div`
   width: 7.375rem;
   height: 7.375rem;
-  margin-right: 2.25rem;
+  margin-left: 1rem;
+  margin-right: 2rem;
 `;
 
 const ProjectThumbnailImg = styled.img`
   display: block;
-  width: 100%;
-  height: 100%;
+  width: 6.25rem;
+  height: 6.25rem;
+  border-radius: 6.25rem;
   object-fit: cover;
 `;
 
