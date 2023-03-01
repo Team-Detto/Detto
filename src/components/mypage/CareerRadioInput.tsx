@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
+import { memo } from 'react';
 
 interface CareerRadioInputProps {
   activeFlag: boolean;
@@ -42,7 +43,7 @@ const CareerRadioInput = ({
   );
 };
 
-export default CareerRadioInput;
+export default memo(CareerRadioInput);
 
 const InfoRadioBoxInput = styled.input`
   position: absolute;
