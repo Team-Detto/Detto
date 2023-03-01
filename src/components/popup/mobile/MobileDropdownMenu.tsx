@@ -2,7 +2,10 @@ import { Link } from 'react-router-dom';
 import { useGlobalModal, useHeader, usePopup } from 'hooks';
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
-import { getCurrentPathName, logEvent } from 'utils/amplitude';
+import {
+  amplitudeNeedToButtonClick,
+  amplitudeToNoneButtonClick,
+} from 'utils/amplitude';
 
 const MobileDropdownMenu = () => {
   const { openModal } = useGlobalModal();
@@ -22,11 +25,7 @@ const MobileDropdownMenu = () => {
             <DropdownItem
               onClick={() => {
                 openModal('login', 0);
-                logEvent('Button Click', {
-                  from: getCurrentPathName(),
-                  to: 'none',
-                  name: 'login',
-                });
+                amplitudeToNoneButtonClick('login');
               }}
             >
               로그인
@@ -36,11 +35,7 @@ const MobileDropdownMenu = () => {
             <DropdownItem
               onClick={() => {
                 handleLogoutClick();
-                logEvent('Button Click', {
-                  from: getCurrentPathName(),
-                  to: 'none',
-                  name: 'logout',
-                });
+                amplitudeToNoneButtonClick('logout');
               }}
             >
               로그아웃
@@ -50,11 +45,7 @@ const MobileDropdownMenu = () => {
             <Link
               to={'/findproject'}
               onClick={() => {
-                logEvent('Button Click', {
-                  from: getCurrentPathName(),
-                  to: 'findproject',
-                  name: 'find_project',
-                });
+                amplitudeNeedToButtonClick('findproject', 'find_project');
               }}
             >
               팀원찾기
@@ -65,11 +56,7 @@ const MobileDropdownMenu = () => {
               <Link
                 to={'/project/write'}
                 onClick={() => {
-                  logEvent('Button Click', {
-                    from: getCurrentPathName(),
-                    to: 'project_wrtie',
-                    name: 'write_project',
-                  });
+                  amplitudeNeedToButtonClick('project_wrtie', 'write_project');
                 }}
               >
                 새 글 쓰기
@@ -83,11 +70,7 @@ const MobileDropdownMenu = () => {
               <Link
                 to={'/mypage'}
                 onClick={() => {
-                  logEvent('Button Click', {
-                    from: getCurrentPathName(),
-                    to: 'mypage',
-                    name: 'mypage',
-                  });
+                  amplitudeNeedToButtonClick('mypage', 'mypage');
                 }}
               >
                 마이페이지

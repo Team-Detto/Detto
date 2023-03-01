@@ -1,22 +1,15 @@
+import { useEffect } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
+import { useGlobalModal, useHeader, useIsMobile, usePopup } from 'hooks';
 import styled from '@emotion/styled';
+import MobileHeader from './MobileHeader';
 import WebContainer from './common/WebContainer';
 import PopupContainer from './popup/PopupContainer';
-import { useGlobalModal, useHeader, useIsMobile, usePopup } from 'hooks';
 import COLORS from 'assets/styles/colors';
-import { useEffect } from 'react';
 import {
   amplitudeToNoneButtonClick,
-  getCurrentPathName,
+  amplitudeNeedToButtonClick,
 } from 'utils/amplitude';
-
-import MobileHeader from './MobileHeader';
-import { logEvent } from 'utils/amplitude';
-
-interface headerTypes {
-  isMain: boolean;
-  hideGradient: boolean;
-}
 
 const Header = () => {
   const isMobile = useIsMobile();
@@ -57,11 +50,10 @@ const Header = () => {
                     to={'/project/write'}
                     onClick={() => {
                       !isLoggedIn && openModal('login', 0);
-                      logEvent('Button Click', {
-                        from: getCurrentPathName(),
-                        to: 'project_wrtie',
-                        name: 'write_project',
-                      });
+                      amplitudeNeedToButtonClick(
+                        'project_wrtie',
+                        'write_project',
+                      );
                     }}
                   >
                     새 글 쓰기
@@ -74,11 +66,7 @@ const Header = () => {
                 <NavItemLink
                   to={'/findproject'}
                   onClick={() => {
-                    logEvent('Button Click', {
-                      from: getCurrentPathName(),
-                      to: 'findproject',
-                      name: 'find_project',
-                    });
+                    amplitudeNeedToButtonClick('findproject', 'find_project');
                   }}
                 >
                   팀원찾기
@@ -130,11 +118,7 @@ const Header = () => {
                   <NavItemLink
                     to={'/mypage'}
                     onClick={() => {
-                      logEvent('Button Click', {
-                        from: getCurrentPathName(),
-                        to: 'mypage',
-                        name: 'mypage',
-                      });
+                      amplitudeNeedToButtonClick('mypage', 'mypage');
                     }}
                   >
                     마이페이지
@@ -161,7 +145,10 @@ const Header = () => {
 
 export default Header;
 
-const HeaderContainer = styled.header<headerTypes>`
+const HeaderContainer = styled.header<{
+  isMain: boolean;
+  hideGradient: boolean;
+}>`
   position: fixed;
   top: 0;
   left: 0;

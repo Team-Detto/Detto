@@ -21,7 +21,7 @@ import TextInput from '../TextInput';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
 import MobileSkillStackList from './MobileSkillStackList';
 import MobileAlert from 'components/common/mobile/MobileAlert';
-import { getCurrentPathName, logEvent } from 'utils/amplitude';
+import { amplitudeToNoneButtonClick } from 'utils/amplitude';
 
 const MobileUserInfo = ({ user }: MypageInfoProps) => {
   const { uid } = useAuth();
@@ -142,11 +142,7 @@ const MobileUserInfo = ({ user }: MypageInfoProps) => {
           isActive={activeInfoBtn}
           onClick={() => {
             handleUserInfoConfirm();
-            logEvent('Button Click', {
-              from: getCurrentPathName(),
-              to: 'none',
-              name: 'update_profile',
-            });
+            amplitudeToNoneButtonClick('update_profile');
           }}
           disabled={!activeInfoBtn}
         >
