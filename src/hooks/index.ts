@@ -14,6 +14,7 @@ import useProjectList from './useProjectList';
 import useToastPopup from './useToastPopup';
 import useUpdateProfile from './useUpdateProfile';
 import useWrite from './useWrite';
+import useGradient from './useGradient';
 
 export {
   useAuth,
@@ -32,4 +33,5 @@ export {
   useToastPopup,
   useUpdateProfile,
   useWrite,
+  useGradient,
 };
