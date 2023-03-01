@@ -44,17 +44,16 @@ const Header = () => {
           </LogoBoxH1>
           <Nav>
             <NavListUl>
-              <NavItemLi>
+              <NavItemLi onClick={() => !isLoggedIn && openModal('login', 0)}>
                 {isLoggedIn ? (
                   <NavItemLink
                     to={'/project/write'}
-                    onClick={() => {
-                      !isLoggedIn && openModal('login', 0);
+                    onClick={() =>
                       amplitudeNeedToButtonClick(
                         'project_wrtie',
                         'write_project',
-                      );
-                    }}
+                      )
+                    }
                   >
                     새 글 쓰기
                   </NavItemLink>
