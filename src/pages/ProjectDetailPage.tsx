@@ -42,7 +42,7 @@ const ProjectDetailPage = () => {
   //글쓴이 조회
   const { data: userData } = useQuery({
     queryKey: ['users', writer],
-    queryFn: () => findWithCollectionName('users', writer), //여기서 TypeError: Cannot read property of undefined 에러남 https://github.com/microsoft/vscode/issues/116219
+    queryFn: () => findWithCollectionName('users', writer),
   });
 
   // 현재 유저가 프로젝트 지원자 인가 조회
@@ -115,10 +115,6 @@ const ProjectDetailPage = () => {
       name: 'project_detail',
     });
   }, []);
-
-  //projectData?.uid 가 현재 uid랑 같은지 판별하고 같으면 수정하기 버튼 display, 지원하기 버튼 -> 마감하기 버튼으로 변경, 지원자 목록 보여주기
-  //지원하기 버튼 클릭시 지원자 목록에 uid 추가
-  //현재 참여중인 인원, 지원한 인원 uid로 모두 user테이블 조회해서 닉네임, 프로필 사진 가져오기???
 
   return (
     <>
