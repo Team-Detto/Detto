@@ -19,11 +19,13 @@ const Share = ({ title }: any) => {
   const [share, setShare] = useState(false);
   const [isCopyLink, setIsCopyLink] = useState(false);
   const { showToast, ToastMessage, handleToastPopup } = useToastPopup();
+
   const handleShareButtonClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     setShare(!share);
     amplitudeToNoneButtonClick('share');
   };
+
   const handleCopyLinkButtonClick = () => {
     navigator.clipboard.writeText(window.location.href);
     handleToastPopup('링크가 복사되었습니다.');

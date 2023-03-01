@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import { getDate } from 'utils/date';
+import { positionList } from 'utils/positions';
 
 const ProjectInfoArea = ({ projectData }: any) => {
   const {
@@ -17,22 +18,32 @@ const ProjectInfoArea = ({ projectData }: any) => {
       <ProjectInfoObject>
         <ProjectInfoKey>모집인원</ProjectInfoKey>
         <ProjectInfoValue>
-          {`기획 ${positions['planner'] ?? `0`}명/ 프론트
-      ${positions['frontend'] ?? `0`}명 / 백엔드
-      ${positions['backend'] ?? `0`}명/ 디자인
-      ${positions['designer'] ?? `0`}명`}
+          {positionList.map((position) => (
+            <Position>
+              {`${position.name}`}
+              <Emphasis>{`${positions[position.type]}`}</Emphasis>명
+            </Position>
+          ))}
         </ProjectInfoValue>
       </ProjectInfoObject>
       <ProjectStackContainer>
         <Div>
-          <ProjectStackKey>프로젝트</ProjectStackKey>
-          <ProjectStackKey>스택</ProjectStackKey>
+          <ProjectStackKey>필요 스택</ProjectStackKey>
         </Div>
         <ProjectInfoStackWrap>
           <StackDiv>
             <StackTitle>기획</StackTitle>
             <StackList>
               {plannerStack?.map((skill: string) => {
+                return <StackValue key={skill}>{skill}</StackValue>;
+              }) ?? '없음'}
+            </StackList>
+          </StackDiv>
+
+          <StackDiv>
+            <StackTitle>디자인</StackTitle>
+            <StackList>
+              {designerStack?.map((skill: string) => {
                 return <StackValue key={skill}>{skill}</StackValue>;
               }) ?? '없음'}
             </StackList>
@@ -45,14 +56,6 @@ const ProjectInfoArea = ({ projectData }: any) => {
               }) ?? '없음'}
             </StackList>
             {/* <UserStacks stacks={developerStack} version="mobile" /> */}
-          </StackDiv>
-          <StackDiv>
-            <StackTitle>디자인</StackTitle>
-            <StackList>
-              {designerStack?.map((skill: string) => {
-                return <StackValue key={skill}>{skill}</StackValue>;
-              }) ?? '없음'}
-            </StackList>
           </StackDiv>
         </ProjectInfoStackWrap>
       </ProjectStackContainer>
@@ -72,11 +75,10 @@ export default ProjectInfoArea;
 const ProjectInfoWrapper = styled.div`
   width: 63.625rem;
   min-height: 12.5rem;
-  font-size: 1.25rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 0.625rem;
+  gap: 2rem;
 `;
 
 const ProjectInfoObject = styled.div`
@@ -101,20 +103,41 @@ const ProjectInfoStackWrap = styled.div`
 
 const ProjectInfoKey = styled.div`
   width: 8.125rem;
+  color: #383838;
 `;
 
 const ProjectInfoValue = styled.div`
+  font-size: 1.125rem;
   display: flex;
   flex-direction: row;
   align-items: center;
   height: 2.5rem;
 `;
+
+const Position = styled.div`
+  height: 1.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  ::after {
+    padding: 0 0.75rem;
+    content: '|';
+  }
+`;
+
+const Emphasis = styled.span`
+  color: ${COLORS.violetB500};
+  font-weight: 700;
+  margin: 0 0.5rem;
+`;
+
 const ProjectStackKey = styled.div`
   width: 8.125rem;
   height: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
+  color: #383838;
 `;
 
 const StackDiv = styled.div`
@@ -136,9 +159,13 @@ const StackList = styled.div`
 
 const StackTitle = styled.div`
   min-width: 4.0625rem;
+  font-size: 1.125rem;
   height: 100%;
   display: flex;
   align-items: center;
+  font-weight: 500;
+  font-size: 18px;
+  color: #383838;
 `;
 
 const StackValue = styled.div`

@@ -5,7 +5,6 @@ import COLORS from 'assets/styles/colors';
 import { useIsMobile, useNotification } from 'hooks';
 import { useCallback } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
-import { amplitudeToNoneButtonClick } from 'utils/amplitude';
 
 interface props {
   userData: any;
@@ -21,7 +20,7 @@ interface props {
   pid: string;
 }
 
-const ApplyButtonArea = ({
+const ApplyModalButtonArea = ({
   motive,
   setMotive,
   clickValue,
@@ -97,7 +96,6 @@ const ApplyButtonArea = ({
         <MobileApplyButton
           onClick={(e) => {
             handleApplyButtonClick(e);
-            amplitudeToNoneButtonClick('apply');
           }}
         >
           지원하기
@@ -112,7 +110,6 @@ const ApplyButtonArea = ({
       <ApplyButton
         onClick={(e) => {
           handleApplyButtonClick(e);
-          amplitudeToNoneButtonClick('apply');
         }}
       >
         지원하기
@@ -121,7 +118,7 @@ const ApplyButtonArea = ({
   );
 };
 
-export default ApplyButtonArea;
+export default ApplyModalButtonArea;
 
 const ApplyButtonContainer = styled.div`
   width: 100%;

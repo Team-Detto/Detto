@@ -57,49 +57,16 @@ const IconWrapper = styled.div`
 `;
 
 const WriterProfileImg = styled.img`
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2rem;
+  height: 2rem;
   border-radius: 50%;
   object-fit: cover;
   cursor: pointer;
 `;
 
 const WriterNickname = styled.p`
-  font-size: 1rem;
+  font-size: 1.125rem;
   display: flex;
   align-items: center;
   margin-left: 0.5rem;
-`;
-
-const ShareContainer = styled.div`
-  position: absolute;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  width: 13rem;
-  height: 3rem;
-
-  top: 3rem;
-  right: -5rem;
-
-  background-color: ${COLORS.white};
-  box-shadow: 0 0 0.625rem ${COLORS.gray300};
-  z-index: 10;
-  border-radius: 0.9375rem;
-
-  ::after {
-    bottom: 100%;
-    left: 50%;
-    border: solid transparent;
-    content: '';
-    height: 0;
-    width: 0;
-    position: absolute;
-    pointer-events: none;
-    border-color: rgba(244, 244, 244, 0);
-    border-bottom-color: ${COLORS.white};
-    border-width: 0.625rem;
-    margin-left: -0.625rem;
-  }
 `;

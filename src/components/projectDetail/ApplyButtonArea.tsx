@@ -62,7 +62,7 @@ const ApplyButton = styled.button`
   width: 32.5625rem;
   height: 5.5rem;
   background-color: ${COLORS.violetB400};
-  border-radius: 2.25rem;
+  border-radius: 1.25rem;
   font-size: 1.75rem;
   color: ${COLORS.white};
   font-weight: 700;
@@ -73,6 +73,6 @@ const ApplyButton = styled.button`
   }
 
   &:disabled {
-    background-color: ${COLORS.gray200};
+    background-color: ${COLORS.gray750};
   }
 `;

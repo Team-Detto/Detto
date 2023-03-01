@@ -43,12 +43,12 @@ const Likes = ({ pid, version = 'web' }: any) => {
   const { mutate: updateLikeMutate } = useMutation(
     () => updateLike(pid, countLike),
     {
-      onSettled: () => {
-        queryClient.invalidateQueries(['post', pid]);
-      },
+      // onSettled: () => {
+      //   queryClient.invalidateQueries(['post', pid]);
+      // },
       onSuccess: () => {
         queryClient.invalidateQueries(['post', pid]);
-        setCountLike(projectLike?.like);
+        // setCountLike(projectLike?.like);
       },
     },
   );
@@ -56,9 +56,9 @@ const Likes = ({ pid, version = 'web' }: any) => {
   const { mutate: updateMyProjectMutate } = useMutation(
     () => updateMyProject(uid, pid, isLike),
     {
-      onSettled: () => {
-        queryClient.invalidateQueries(['myProjects', uid]);
-      },
+      // onSettled: () => {
+      //   queryClient.invalidateQueries(['myProjects', uid]);
+      // },
       onSuccess: () => {
         queryClient.invalidateQueries(['myProjects', uid]);
       },
@@ -66,13 +66,14 @@ const Likes = ({ pid, version = 'web' }: any) => {
   );
   useEffect(() => {
     setCountLike(projectLike?.like);
-    // setIsLike(myProjects?.likedProjects.includes(pid));
+
     return () => {
       updateMyProjectMutate();
       updateLikeMutate();
       setIsLike(myProjects?.likedProjects.includes(pid));
     };
   }, []);
+
   useEffect(() => {
     setCountLike(projectLike?.like);
   }, [projectLike?.like]);
