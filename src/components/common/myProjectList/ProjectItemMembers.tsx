@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 
-const ProjectItemMembers = ({ applicants }: any) => {
+const ProjectItemMembers = ({ applicants, positions }: any) => {
   if (applicants === undefined) applicants = {};
 
   const members = Object?.keys(applicants).filter((key) => {
@@ -11,70 +11,78 @@ const ProjectItemMembers = ({ applicants }: any) => {
   return (
     <>
       <ProjectInfoLabel>함께하고 있는 팀원</ProjectInfoLabel>
-      <ProjectMemberPositionList>
-        <ProjectMemberPositionLabel>기획</ProjectMemberPositionLabel>
-        <ProjectMemberList>
-          {members?.map((key: any) => {
-            if (applicants[key].position === '기획')
-              return (
-                <ProjectMemberItem key={key}>
-                  <ProjectMemberProfileImg
-                    src={applicants[key].profileURL}
-                    alt="멤버프로필이미지"
-                  />
-                </ProjectMemberItem>
-              );
-          })}
-        </ProjectMemberList>
-      </ProjectMemberPositionList>
-      <ProjectMemberPositionList>
-        <ProjectMemberPositionLabel>디자인</ProjectMemberPositionLabel>
-        <ProjectMemberList>
-          {members.map((key) => {
-            if (applicants[key].position === '디자인')
-              return (
-                <ProjectMemberItem key={key}>
-                  <ProjectMemberProfileImg
-                    src={applicants[key].profileURL}
-                    alt="멤버프로필이미지"
-                  />
-                </ProjectMemberItem>
-              );
-          })}
-        </ProjectMemberList>
-      </ProjectMemberPositionList>
-      <ProjectMemberPositionList>
-        <ProjectMemberPositionLabel>프론트</ProjectMemberPositionLabel>
-        <ProjectMemberList>
-          {members.map((key) => {
-            if (applicants[key].position === '프론트엔드')
-              return (
-                <ProjectMemberItem key={key}>
-                  <ProjectMemberProfileImg
-                    src={applicants[key].profileURL}
-                    alt="멤버프로필이미지"
-                  />
-                </ProjectMemberItem>
-              );
-          })}
-        </ProjectMemberList>
-      </ProjectMemberPositionList>
-      <ProjectMemberPositionList>
-        <ProjectMemberPositionLabel>백엔드</ProjectMemberPositionLabel>
-        <ProjectMemberList>
-          {members.map((key) => {
-            if (applicants[key].position === '백엔드')
-              return (
-                <ProjectMemberItem key={key}>
-                  <ProjectMemberProfileImg
-                    src={applicants[key].profileURL}
-                    alt="멤버프로필이미지"
-                  />
-                </ProjectMemberItem>
-              );
-          })}
-        </ProjectMemberList>
-      </ProjectMemberPositionList>
+      {positions.planner > 0 && (
+        <ProjectMemberPositionList>
+          <ProjectMemberPositionLabel>기획</ProjectMemberPositionLabel>
+          <ProjectMemberList>
+            {members?.map((key: any) => {
+              if (applicants[key].position === '기획')
+                return (
+                  <ProjectMemberItem key={key}>
+                    <ProjectMemberProfileImg
+                      src={applicants[key].profileURL}
+                      alt="멤버프로필이미지"
+                    />
+                  </ProjectMemberItem>
+                );
+            })}
+          </ProjectMemberList>
+        </ProjectMemberPositionList>
+      )}
+      {positions.designer > 0 && (
+        <ProjectMemberPositionList>
+          <ProjectMemberPositionLabel>디자인</ProjectMemberPositionLabel>
+          <ProjectMemberList>
+            {members.map((key) => {
+              if (applicants[key].position === '디자인')
+                return (
+                  <ProjectMemberItem key={key}>
+                    <ProjectMemberProfileImg
+                      src={applicants[key].profileURL}
+                      alt="멤버프로필이미지"
+                    />
+                  </ProjectMemberItem>
+                );
+            })}
+          </ProjectMemberList>
+        </ProjectMemberPositionList>
+      )}
+      {positions.frontend > 0 && (
+        <ProjectMemberPositionList>
+          <ProjectMemberPositionLabel>프론트</ProjectMemberPositionLabel>
+          <ProjectMemberList>
+            {members.map((key) => {
+              if (applicants[key].position === '프론트엔드')
+                return (
+                  <ProjectMemberItem key={key}>
+                    <ProjectMemberProfileImg
+                      src={applicants[key].profileURL}
+                      alt="멤버프로필이미지"
+                    />
+                  </ProjectMemberItem>
+                );
+            })}
+          </ProjectMemberList>
+        </ProjectMemberPositionList>
+      )}
+      {positions.backend > 0 && (
+        <ProjectMemberPositionList>
+          <ProjectMemberPositionLabel>백엔드</ProjectMemberPositionLabel>
+          <ProjectMemberList>
+            {members.map((key) => {
+              if (applicants[key].position === '백엔드')
+                return (
+                  <ProjectMemberItem key={key}>
+                    <ProjectMemberProfileImg
+                      src={applicants[key].profileURL}
+                      alt="멤버프로필이미지"
+                    />
+                  </ProjectMemberItem>
+                );
+            })}
+          </ProjectMemberList>
+        </ProjectMemberPositionList>
+      )}
     </>
   );
 };
@@ -88,11 +96,12 @@ const ProjectMemberProfileImg = styled.img`
   object-fit: cover;
 `;
 
-const ProjectInfoLabel = styled.span`
+const ProjectInfoLabel = styled.strong`
   display: block;
-  font-size: 1rem;
+  font-size: 0.875rem;
   color: #464646;
   margin-right: 1rem;
+  font-weight: 400;
   cursor: default;
 `;
 

@@ -119,7 +119,9 @@ const MyPageInfo = ({ user }: MypageInfoProps) => {
 
 export default MyPageInfo;
 
-const MyPageTopContainer = styled.div``;
+const MyPageTopContainer = styled.div`
+  padding: 10rem 14rem 2.375rem 5rem;
+`;
 
 const MyPageSkillsWrapper = styled.div`
   margin-top: 3.125rem;

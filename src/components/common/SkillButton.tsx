@@ -136,7 +136,7 @@ const WritePageMobileStackSkillCancel = styled.button`
   background-color: ${COLORS.gray300};
 `;
 
-const SkillIconWrapper = styled.div`
+export const SkillIconWrapper = styled.div`
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 50%;
@@ -144,7 +144,7 @@ const SkillIconWrapper = styled.div`
   margin-right: 0.5rem;
 `;
 
-const SkillIcon = styled.img`
+export const SkillIcon = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;

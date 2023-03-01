@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import styled from '@emotion/styled';
 import { useAuth, useIsMobile, useProjectList } from 'hooks';
+import { Helmet } from 'react-helmet-async';
+import LoadingPage from './LoadingPage';
 import MobileMyPage from 'components/mypage/mobile/MobileMyPage';
 import WebContainer from 'components/common/WebContainer';
 import MyPageInfo from 'components/mypage/MyPageInfo';
@@ -10,8 +12,6 @@ import LeftTab from 'components/mypage/LeftTab';
 import ProjectsTab from 'components/common/myProjectList/ProjectsTab';
 import { getUserInfoData, getUserProjectList } from 'apis/mypageUsers';
 import { staleTime } from 'utils/staleTime';
-import LoadingPage from './LoadingPage';
-import { Helmet } from 'react-helmet-async';
 
 const MyPage = () => {
   const [activeTab, setActiveTab] = useState('개인정보');
@@ -38,9 +38,11 @@ const MyPage = () => {
     setActiveProjectTab('appliedProjects');
   }, []);
 
-  return status === 'loading' ? (
-    <LoadingPage />
-  ) : (
+  if (status === 'loading') {
+    return <LoadingPage />;
+  }
+
+  return (
     <>
       <Helmet>
         <title>{`${userInfoData.displayName} - Detto`}</title>
@@ -83,8 +85,8 @@ const MyPageContainer = styled.div`
   display: flex;
 `;
 
-const MypageContentsWrapper = styled.main`
-  padding: 10rem 14rem 2.375rem 5rem;
-`;
+const MypageContentsWrapper = styled.main``;
 
-export const ProjectListWrapper = styled.div``;
+export const ProjectListWrapper = styled.div`
+  padding: 10rem 0;
+`;
