@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
+import { useIsMobile, useProjectList } from 'hooks';
 import styled from '@emotion/styled';
 import MobileTopTab from './MobileTopTab';
 import MobileUserInfo from './MobileUserInfo';
 import { ProjectListWrapper } from 'pages/MyPage';
 import MobileProjectListTab from 'components/common/myProjectList/mobile/MobileProjectListTab';
-import { useProjectList } from 'hooks';
 import MobileProjectList from './MobileProjectList';
 import { PidListProps } from 'components/common/myProjectList/ProjectList';
 
@@ -17,6 +17,7 @@ const MobileMyPage = ({ user, pidList }: MobileMypageInfoProps) => {
   const [activeTab, setActiveTab] = useState('개인정보');
   const { activeProjectTab, handleProjectTabClick, setActiveProjectTab } =
     useProjectList();
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     setActiveProjectTab('appliedProjects');
@@ -27,7 +28,7 @@ const MobileMyPage = ({ user, pidList }: MobileMypageInfoProps) => {
       <MobileTopTab activeTab={activeTab} setActiveTab={setActiveTab} />
       {activeTab === '개인정보' && <MobileUserInfo user={user} />}
       {activeTab === '프로젝트' && (
-        <ProjectListWrapper>
+        <ProjectListWrapper isMobile={isMobile}>
           <MobileProjectListTab
             category={activeProjectTab}
             onTabClick={handleProjectTabClick}

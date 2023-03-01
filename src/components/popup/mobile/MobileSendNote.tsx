@@ -52,7 +52,10 @@ export default function MobileSendNote({ data }: { data: Note }) {
       )}
       <ModalNavigator page={0} close />
       <div style={{ display: 'flex', flexDirection: 'row' }}>
-        <MobileProfileImage src={receiver.photoURL} />
+        <MobileProfileImage
+          src={receiver.photoURL}
+          referrerPolicy="no-referrer"
+        />
         <MobileNameText>{receiver.displayName}님께 쪽지 보내기</MobileNameText>
       </div>
       <TitleInput

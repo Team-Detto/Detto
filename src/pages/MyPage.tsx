@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import styled from '@emotion/styled';
 import { useAuth, useIsMobile, useProjectList } from 'hooks';
+import { Helmet } from 'react-helmet-async';
+import LoadingPage from './LoadingPage';
 import MobileMyPage from 'components/mypage/mobile/MobileMyPage';
 import WebContainer from 'components/common/WebContainer';
 import MyPageInfo from 'components/mypage/MyPageInfo';
@@ -10,8 +12,6 @@ import LeftTab from 'components/mypage/LeftTab';
 import ProjectsTab from 'components/common/myProjectList/ProjectsTab';
 import { getUserInfoData, getUserProjectList } from 'apis/mypageUsers';
 import { staleTime } from 'utils/staleTime';
-import LoadingPage from './LoadingPage';
-import { Helmet } from 'react-helmet-async';
 
 const MyPage = () => {
   const [activeTab, setActiveTab] = useState('개인정보');
@@ -38,9 +38,11 @@ const MyPage = () => {
     setActiveProjectTab('appliedProjects');
   }, []);
 
-  return status === 'loading' ? (
-    <LoadingPage />
-  ) : (
+  if (status === 'loading') {
+    return <LoadingPage />;
+  }
+
+  return (
     <>
       <Helmet>
         <title>{`${userInfoData.displayName} - Detto`}</title>
@@ -54,7 +56,7 @@ const MyPage = () => {
             <MypageContentsWrapper>
               {activeTab === '개인정보' && <MyPageInfo user={userInfoData} />}
               {activeTab === '프로젝트' && (
-                <ProjectListWrapper>
+                <ProjectListWrapper isMobile={isMobile}>
                   <ProjectsTab
                     category={activeProjectTab}
                     onTabClick={handleProjectTabClick}
@@ -83,8 +85,9 @@ const MyPageContainer = styled.div`
   display: flex;
 `;
 
-const MypageContentsWrapper = styled.main`
-  padding: 10rem 2.5rem 0 2.375rem;
-`;
+const MypageContentsWrapper = styled.main``;
 
-export const ProjectListWrapper = styled.div``;
+export const ProjectListWrapper = styled.div<{ isMobile: boolean }>`
+  min-height: ${({ isMobile }) => (isMobile ? '28rem' : '')};
+  padding: ${({ isMobile }) => (isMobile ? '' : '10rem 0')};
+`;

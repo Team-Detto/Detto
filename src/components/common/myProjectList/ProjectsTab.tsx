@@ -86,7 +86,7 @@ const ProjectsTab = ({
 
 export default ProjectsTab;
 
-const ProjectsTabContainer = styled.div<{ type?: string }>`
+export const ProjectsTabContainer = styled.div<{ type?: string }>`
   display: flex;
   width: ${({ type }) => (type === 'public' ? '17rem' : '34rem')};
   align-items: center;
@@ -96,7 +96,7 @@ const ProjectsTabContainer = styled.div<{ type?: string }>`
   margin: 0 auto 3.5rem;
 `;
 
-const ProjectsTabButton = styled.span<{
+export const ProjectsTabButton = styled.span<{
   name: string;
   category: string;
 }>`

@@ -115,7 +115,7 @@ const MobileMenuItem = styled.div`
   cursor: pointer;
 `;
 
-const MobileNoteIcon = styled(GrMail)`
+export const MobileNoteIcon = styled(GrMail)`
   font-size: 1.25rem;
   color: ${COLORS.gray750};
 `;

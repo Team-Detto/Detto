@@ -23,6 +23,7 @@ const WriterToShareArea = ({ pid, userData, projectData }: any) => {
               name: 'profile',
             });
           }} //작성자 공개 프로필 페이지로 이동
+          referrerPolicy="no-referrer"
         />
         <WriterNickname>{userData?.displayName ?? `닉네임`}</WriterNickname>
       </WriterWrapper>

@@ -141,7 +141,10 @@ const ModalContentContainer = styled.div`
   align-content: center;
 `;
 
-export const ModalProfileImageBox = styled.div<{ isMobile?: boolean }>`
+export const ModalProfileImageBox = styled.div<{
+  isMobile?: boolean;
+  page?: string;
+}>`
   width: ${({ isMobile }) => (isMobile ? '7.625rem' : '9rem')};
   height: ${({ isMobile }) => (isMobile ? '7.625rem' : '9rem')};
   margin-bottom: 1.5rem;

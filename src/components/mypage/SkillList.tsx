@@ -28,7 +28,7 @@ const SkillList = ({ category, skills, checkedSkills }: SkillListProps) => {
   }
 
   return (
-    <>
+    <SkillsContainer>
       <SkillTitle>{category}</SkillTitle>
       <SkillsWRapper>
         {skills.map((skill: string) => {
@@ -46,18 +46,26 @@ const SkillList = ({ category, skills, checkedSkills }: SkillListProps) => {
           );
         })}
       </SkillsWRapper>
-    </>
+    </SkillsContainer>
   );
 };
 
 export default SkillList;
 
-const SkillTitle = styled.p`
+const SkillsContainer = styled.div`
+  display: flex;
+  margin-bottom: 1.875rem;
+`;
+
+const SkillTitle = styled.strong`
+  display: block;
+  min-width: 3.25rem;
   font-size: 0.875rem;
   color: ${COLORS.gray850};
-  margin-bottom: 0.5625rem;
+  margin-top: 0.25rem;
+  font-weight: 500;
 `;
 
 const SkillsWRapper = styled(ButtonsWrapper)`
-  gap: 0.75rem;
+  gap: 1.25rem;
 `;

@@ -36,6 +36,7 @@ const MobileUserInfo = ({ user }: MypageInfoProps) => {
     useProfileImage(uid, userInfo.photoURL);
   const {
     handleInputChange,
+    handleInputClear,
     validationMessage,
     contactValidationMessage,
     checkInfoValidation,
@@ -98,7 +99,9 @@ const MobileUserInfo = ({ user }: MypageInfoProps) => {
         <TextInput
           name="displayName"
           value={userInfo.displayName}
+          onClearValue={handleInputClear}
           onChangeValue={handleInputChange}
+          placeholder="닉네임을 입력해주세요."
           validationMessage={validationMessage}
           isMobile={isMobile}
         />
@@ -109,6 +112,7 @@ const MobileUserInfo = ({ user }: MypageInfoProps) => {
           name="email"
           value={userInfo.email ?? ''}
           onChangeValue={handleInputChange}
+          onClearValue={handleInputClear}
           placeholder="연락처로 쓰일 이메일을 입력해주세요."
           validationMessage={contactValidationMessage}
           isEmail={true}

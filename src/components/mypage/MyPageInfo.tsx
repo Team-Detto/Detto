@@ -10,6 +10,7 @@ import { designs, develops, products } from 'utils/skills';
 import COLORS from 'assets/styles/colors';
 import Alert from 'components/common/Alert';
 import { getCurrentPathName, logEvent } from 'utils/amplitude';
+import { ProjectsTabContainer } from 'components/common/myProjectList/ProjectsTab';
 
 const MyPageInfo = ({ user }: MypageInfoProps) => {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
@@ -69,7 +70,9 @@ const MyPageInfo = ({ user }: MypageInfoProps) => {
       {showToast && <ValidationToastPopup message={ToastMessage} top={4} />}
       <UserInfoTop /> {/* 유저 개인 정보  */}
       <MyPageSkillsWrapper>
-        <MyPageSkillsTitle>기술스택</MyPageSkillsTitle>
+        <MypageSkillsTabContainer>
+          <MyPageSkillsTitle>기술스택</MyPageSkillsTitle>
+        </MypageSkillsTabContainer>
         <MypageSkillBox>
           <SkillList
             category="기획"
@@ -116,23 +119,36 @@ const MyPageInfo = ({ user }: MypageInfoProps) => {
 
 export default MyPageInfo;
 
-const MyPageTopContainer = styled.div``;
+const MyPageTopContainer = styled.div`
+  padding: 10rem 14rem 2.375rem 5rem;
+`;
 
 const MyPageSkillsWrapper = styled.div`
   margin-top: 3.125rem;
 `;
 
-const MyPageSkillsTitle = styled.h2`
-  font-size: 1.75rem;
-  color: #383838;
+const MypageSkillsTabContainer = styled(ProjectsTabContainer)`
+  justify-content: flex-start;
+  width: 100%;
   margin-bottom: 1.5rem;
+`;
+
+const MyPageSkillsTitle = styled.span`
+  display: block;
+  max-width: 8rem;
+  height: 100%;
+  padding: 0.75rem 0.375rem;
+  border-bottom: 2px solid ${COLORS.violetB500};
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: ${COLORS.violetA500};
 `;
 
 const MypageSkillBox = styled.div``;
 
 const InfoEditConfirmWrapper = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-items: center;
   margin-bottom: 4.875rem;
 `;
@@ -146,6 +162,7 @@ export const InfoEditConfirmBtn = styled.button<{ isActive: boolean }>`
     isActive ? COLORS.violetB500 : COLORS.gray100};
   color: ${({ isActive }) => (isActive ? COLORS.white : COLORS.gray750)};
   transition: all 100ms ease-in-out;
+  font-weight: 700;
 
   &:disabled {
     pointer-events: none;

@@ -53,7 +53,7 @@ export default function SendNote({ data }: { data: Note }) {
         {showToast && <ValidationToastPopup message={ToastMessage} top={2} />}
         <ModalNavigator page={0} close />
         <HeaderContainer>
-          <ProfileImage src={receiver.photoURL} />
+          <ProfileImage src={receiver.photoURL} referrerPolicy="no-referrer" />
           <NameText>{receiver.displayName}님께 쪽지 보내기</NameText>
         </HeaderContainer>
         <TitleInput
