@@ -41,7 +41,11 @@ export default function ReadInboxNote({ data }: { data: Note }) {
     <Container>
       <ModalNavigator page={0} close />
       <HeaderContainer>
-        <ProfileImage src={sender.photoURL} onClick={handleProfileImageClick} />
+        <ProfileImage
+          src={sender.photoURL}
+          onClick={handleProfileImageClick}
+          referrerPolicy="no-referrer"
+        />
         <NameText>{sender.displayName}님께 받은 쪽지</NameText>
         <DateText>{getDateAndTime(data.date)}</DateText>
       </HeaderContainer>

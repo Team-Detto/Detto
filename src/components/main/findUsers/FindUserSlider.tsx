@@ -55,7 +55,11 @@ const FindUserSlider = ({ tap }: { tap: string }) => {
             key={user.uid}
           >
             <Card key={user}>
-              <CardImage src={user.photoURL} />
+              <CardImage
+                src={user.photoURL}
+                alt={user.displayName}
+                referrerPolicy="no-referrer"
+              />
               <CardNickname>
                 {user.isJunior && <JuniorImage src={Junior} />}{' '}
                 {user.displayName}

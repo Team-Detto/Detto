@@ -54,6 +54,7 @@ const MyPageProfileImage = ({
               : profileImg
           }
           alt="프로필이미지"
+          referrerPolicy="no-referrer"
         />
       </ProfileImageBox>
       <ProfileImgEditButton onClick={profileModalStateChange} page={page}>

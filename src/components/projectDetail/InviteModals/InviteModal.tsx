@@ -118,7 +118,10 @@ const InviteModal = ({
       <ModalContainer isOpen={isOpen}>
         <ModalWrapper>
           <ProfileToMessageContainer>
-            <UserProfileImage src={applicant?.profileURL} />
+            <UserProfileImage
+              src={applicant?.profileURL}
+              referrerPolicy="no-referrer"
+            />
             <MessageSendButton
               onClick={() => {
                 handleSendNoteButtonClick();

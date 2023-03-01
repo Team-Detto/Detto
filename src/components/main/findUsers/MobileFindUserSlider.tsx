@@ -56,7 +56,11 @@ const MobileFindUserSlider = ({ tap }: { tap: string }) => {
             key={user.uid}
           >
             <MobileCard key={user}>
-              <CardImage src={user.photoURL || defaultProfile} />
+              <CardImage
+                src={user.photoURL || defaultProfile}
+                referrerPolicy="no-referrer"
+                alt={user.displayName}
+              />
               <CardNickname>
                 {user.isJunior && <JuniorImage src={Junior} />}{' '}
                 {user.displayName}

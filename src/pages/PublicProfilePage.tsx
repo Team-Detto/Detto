@@ -101,6 +101,7 @@ const PublicProfilePage = () => {
                   <ProfileImg
                     src={userInfoData?.photoURL}
                     alt={userInfoData?.displayName}
+                    referrerPolicy="no-referrer"
                   />
                   {userInfoData?.uid !== uid && (
                     <MessageSendButton

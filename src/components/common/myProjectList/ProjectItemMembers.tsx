@@ -22,6 +22,7 @@ const ProjectItemMembers = ({ applicants, positions }: any) => {
                     <ProjectMemberProfileImg
                       src={applicants[key].profileURL}
                       alt="멤버프로필이미지"
+                      referrerPolicy="no-referrer"
                     />
                   </ProjectMemberItem>
                 );
@@ -40,6 +41,7 @@ const ProjectItemMembers = ({ applicants, positions }: any) => {
                     <ProjectMemberProfileImg
                       src={applicants[key].profileURL}
                       alt="멤버프로필이미지"
+                      referrerPolicy="no-referrer"
                     />
                   </ProjectMemberItem>
                 );
@@ -58,6 +60,7 @@ const ProjectItemMembers = ({ applicants, positions }: any) => {
                     <ProjectMemberProfileImg
                       src={applicants[key].profileURL}
                       alt="멤버프로필이미지"
+                      referrerPolicy="no-referrer"
                     />
                   </ProjectMemberItem>
                 );
@@ -76,6 +79,7 @@ const ProjectItemMembers = ({ applicants, positions }: any) => {
                     <ProjectMemberProfileImg
                       src={applicants[key].profileURL}
                       alt="멤버프로필이미지"
+                      referrerPolicy="no-referrer"
                     />
                   </ProjectMemberItem>
                 );

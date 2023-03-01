@@ -35,6 +35,7 @@ const MemberInfoArea = ({ applicantsData }: any) => {
                       key={key}
                       onClick={() => onClickEvent(applicantsData[key].uid)}
                       src={applicantsData[key].profileURL}
+                      referrerPolicy="no-referrer"
                     ></MemberProfileImg>
                     <HoverText>{applicantsData[key].displayName}</HoverText>
                   </Div>
@@ -50,6 +51,7 @@ const MemberInfoArea = ({ applicantsData }: any) => {
                     <MemberProfileImg
                       onClick={() => onClickEvent(applicantsData[key].uid)}
                       src={applicantsData[key].profileURL}
+                      referrerPolicy="no-referrer"
                     ></MemberProfileImg>
                     <HoverText>{applicantsData[key].displayName}</HoverText>
                   </Div>
@@ -66,6 +68,7 @@ const MemberInfoArea = ({ applicantsData }: any) => {
                     <MemberProfileImg
                       onClick={() => onClickEvent(applicantsData[key].uid)}
                       src={applicantsData[key].profileURL}
+                      referrerPolicy="no-referrer"
                     ></MemberProfileImg>
                     <HoverText>{applicantsData[key].displayName}</HoverText>
                   </Div>
@@ -83,6 +86,7 @@ const MemberInfoArea = ({ applicantsData }: any) => {
                       key={key}
                       onClick={() => onClickEvent(applicantsData[key].uid)}
                       src={applicantsData[key].profileURL}
+                      referrerPolicy="no-referrer"
                     ></MemberProfileImg>
                     <HoverText>{applicantsData[key].displayName}</HoverText>
                   </Div>

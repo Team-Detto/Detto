@@ -30,7 +30,10 @@ const WriterToProjectInfoArea = ({ projectData, userData }: any) => {
             });
           }}
         >
-          <WriterProfileImg src={userData?.photoURL} />
+          <WriterProfileImg
+            src={userData?.photoURL}
+            referrerPolicy="no-referrer"
+          />
           <WriterNickname>{userData?.displayName}</WriterNickname>
         </WriterWrapper>
         <ProjectInfoWrapper>

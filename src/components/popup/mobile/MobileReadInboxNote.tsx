@@ -46,6 +46,7 @@ export default function MobileReadInboxNote({ data }: { data: Note }) {
           <MobileProfileImage
             src={sender.photoURL}
             onClick={handleProfileImageClick}
+            referrerPolicy="no-referrer"
           />
           <MobileNameText>{sender.displayName}님께 받은 쪽지</MobileNameText>
         </MobileProfileContainer>
