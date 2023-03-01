@@ -10,8 +10,12 @@ import TextInput from './TextInput';
 
 const UserInfoTop = () => {
   const userInfo = useRecoilValue(userInfoState);
-  const { handleInputChange, validationMessage, contactValidationMessage } =
-    useUpdateProfile();
+  const {
+    handleInputChange,
+    validationMessage,
+    contactValidationMessage,
+    handleInputClear,
+  } = useUpdateProfile();
   const { uid } = useAuth();
   const { profileImg, handleProfileImageChange, handleProfileImageDelete } =
     useProfileImage(uid, userInfo.photoURL);
@@ -31,6 +35,8 @@ const UserInfoTop = () => {
             name="displayName"
             value={userInfo.displayName}
             onChangeValue={handleInputChange}
+            onClearValue={handleInputClear}
+            placeholder="닉네임을 입력해주세요."
             validationMessage={validationMessage}
           />
         </InfoItemDiv>
@@ -40,6 +46,7 @@ const UserInfoTop = () => {
             name="email"
             value={userInfo.email ?? ''}
             onChangeValue={handleInputChange}
+            onClearValue={handleInputClear}
             placeholder="연락처로 쓰일 이메일을 입력해주세요."
             validationMessage={contactValidationMessage}
             isEmail={true}
