@@ -56,7 +56,7 @@ const MyPage = () => {
             <MypageContentsWrapper>
               {activeTab === '개인정보' && <MyPageInfo user={userInfoData} />}
               {activeTab === '프로젝트' && (
-                <ProjectListWrapper>
+                <ProjectListWrapper isMobile={isMobile}>
                   <ProjectsTab
                     category={activeProjectTab}
                     onTabClick={handleProjectTabClick}
@@ -87,6 +87,7 @@ const MyPageContainer = styled.div`
 
 const MypageContentsWrapper = styled.main``;
 
-export const ProjectListWrapper = styled.div`
-  padding: 10rem 0;
+export const ProjectListWrapper = styled.div<{ isMobile: boolean }>`
+  min-height: ${({ isMobile }) => (isMobile ? '28rem' : '')};
+  padding: ${({ isMobile }) => (isMobile ? '' : '10rem 0')};
 `;
