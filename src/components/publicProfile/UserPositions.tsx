@@ -45,7 +45,7 @@ const UserPositionDiv = styled.div`
   display: flex;
   align-items: center;
   font-size: ${(props: { version: string }) =>
-    props.version === 'mobile' ? '0.75rem' : ''};
+    props.version === 'mobile' ? '0.75rem' : '1.125rem'};
 `;
 
 const PositionItem = styled.span<{

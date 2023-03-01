@@ -14,13 +14,14 @@ import { concatSkills } from 'utils/skills';
 import { staleTime } from 'utils/staleTime';
 import { modalTypes } from 'components/common/modal/modal';
 import MobilePublicProfilePage from 'components/publicProfile/mobile/MobilePublicProfilePage';
-import NoteIcon from 'assets/images/note_icon.png';
+// import NoteIcon from 'assets/images/note_icon.png';
 import { Helmet } from 'react-helmet-async';
 import {
   amplitudeNeedToButtonClick,
   getCurrentPathName,
   logEvent,
 } from 'utils/amplitude';
+import { MobileNoteIcon } from 'components/MobileHeader';
 
 const PublicProfilePage = () => {
   const { id } = useParams(); //받는사람 id
@@ -111,7 +112,7 @@ const PublicProfilePage = () => {
                         handleSendNoteButtonClick();
                       }}
                     >
-                      <img src={NoteIcon} alt="note icon" />
+                      <NoteIcon />
                     </MessageSendButton>
                   )}
                 </ProfileImgBox>
@@ -135,7 +136,7 @@ const PublicProfilePage = () => {
                     <UserInfoValue>{userInfoData?.email}</UserInfoValue>
                   </UserInfoObject>
                   <UserInfoObject>
-                    <UserInfoKey>기술스택</UserInfoKey>
+                    <UserInfoKey>기술 스택</UserInfoKey>
                     <UserStacks stacks={stacks} />
                   </UserInfoObject>
                 </ProfileInfoBox>
@@ -178,8 +179,9 @@ const PublicProfileWrapper = styled.div`
 
 const ProfileBox = styled.div`
   width: 100%;
-  height: 14.25rem;
+  min-height: 14.25rem;
   margin-top: 10rem;
+  padding: 2rem 0;
   display: flex;
   align-items: center;
   gap: 2.4375rem;
@@ -220,12 +222,14 @@ const UserInformationDiv = styled.div`
   display: flex;
   align-items: center;
   gap: 0.625rem;
+  margin-bottom: 1rem;
 `;
 
 const UserNicknameDiv = styled.div`
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 500;
   max-width: 10rem;
+  margin-right: 1.25rem;
 `;
 
 const IfMyProfileDiv = styled.div`
@@ -261,19 +265,23 @@ const UserInfoObject = styled.div`
   display: flex;
   align-items: center;
   gap: 0.625rem;
+  margin-bottom: 1.25rem;
 `;
 
 const UserInfoKey = styled.div`
-  width: 6.25rem;
-  color: #828282; //색상표에 없는데 사용되고 있음. 문의하기
+  min-width: 4.375rem;
+  margin-right: 1rem;
+  font-size: 1rem;
+  color: ${COLORS.gray800};
 `;
 
 const UserInfoValue = styled.div`
-  color: #828282; //색상표에 없는데 사용되고 있음. 문의하기
+  font-size: 1rem;
+  color: ${COLORS.gray750};
 `;
 
 const UserProjectWrapper = styled.div`
-  margin-top: 7.875rem;
+  margin-top: 3.75rem;
   font-size: 1.25rem;
   font-weight: 500;
 `;
@@ -290,4 +298,8 @@ const NoDataMessage = styled.div<{ mobile?: boolean }>`
   font-size: 1.25rem;
   font-weight: 700;
   color: ${COLORS.gray300};
+`;
+
+const NoteIcon = styled(MobileNoteIcon)`
+  color: ${COLORS.white};
 `;
