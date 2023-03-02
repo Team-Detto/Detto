@@ -13,6 +13,7 @@ import ApplyPositionArea from './ApplyPositionArea';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
 import COLORS from 'assets/styles/colors';
 import MobileAlert from 'components/common/mobile/MobileAlert';
+import { staleTime } from 'utils/staleTime';
 
 interface props {
   isOpen: boolean;
@@ -39,6 +40,8 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
   const { data: userData } = useQuery({
     queryKey: ['users', uid],
     queryFn: () => findWithCollectionName('users', uid),
+    staleTime: staleTime.users,
+    enabled: !!uid,
   });
 
   //지원한 포지션에 맞는 스택 가져오기 위한 스위치문

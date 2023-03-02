@@ -7,6 +7,7 @@ import { findWithCollectionName } from 'apis/findWithCollectionName';
 import { useAuth, useGlobalModal } from 'hooks';
 import COLORS from 'assets/styles/colors';
 import { amplitudeToNoneButtonClick } from 'utils/amplitude';
+import { staleTime } from 'utils/staleTime';
 
 const Likes = ({ pid, version = 'web' }: any) => {
   const { uid } = useAuth();
@@ -29,11 +30,15 @@ const Likes = ({ pid, version = 'web' }: any) => {
   const { data: myProjects } = useQuery({
     queryKey: ['myProjects', uid],
     queryFn: () => findWithCollectionName('myprojects', uid),
+    staleTime: staleTime.myProjects,
+    enabled: !!uid,
   });
 
   const { data: projectLike } = useQuery({
     queryKey: ['post', pid],
     queryFn: () => findWithCollectionName('post', pid),
+    staleTime: staleTime.likedProjects,
+    enabled: !!pid,
   });
 
   const [countLike, setCountLike] = useState(projectLike?.like);

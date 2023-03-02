@@ -7,6 +7,7 @@ import { firebaseFindMyInterestRequest } from 'apis/userService';
 import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 import { EditType } from 'types/write/writeType';
 import { logEvent, getCurrentPathName } from 'utils/amplitude';
+import { staleTime } from 'utils/staleTime';
 
 const useFindProject = () => {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ const useFindProject = () => {
   const { data: likedProjects } = useQuery({
     queryKey: ['likedProjects', uid],
     queryFn: () => firebaseFindMyInterestRequest(uid),
+    staleTime: staleTime.likedProjects,
     enabled: !!uid,
   });
 
