@@ -2,10 +2,9 @@ import Slider from 'react-slick';
 import styled from '@emotion/styled';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-// import Logo2 from 'assets/images/logo_main2.gif';
 import COLORS from 'assets/styles/colors';
-import mobileFirstBanner from 'assets/images/mobileFirstBanner.png';
-import mobilesecondBanner from 'assets/images/mobilesecondBanner.png';
+import mobileFirstBanner from 'assets/images/mobileFirstBanner.webp';
+import mobilesecondBanner from 'assets/images/mobilesecondBanner.webp';
 const settings = {
   arrows: false,
   dots: true,
