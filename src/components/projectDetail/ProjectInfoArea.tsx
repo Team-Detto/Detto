@@ -18,7 +18,7 @@ const ProjectInfoArea = ({ projectData }: any) => {
       <ProjectInfoObject>
         <ProjectInfoKey>모집 인원</ProjectInfoKey>
         {positionList.map((position) => (
-           <ProjectInfoValue key={position.type}>
+          <ProjectInfoValue key={position.type}>
             {positions[position.type] > 0 && (
               <Position>
                 {`${position.name}`}
@@ -199,7 +199,7 @@ const StackDiv = styled.div`
   height: 100%;
 `;
 
-const StackList = styled.div`
+const StackList = styled.ul`
   display: flex;
   flex-wrap: wrap;
   gap: 0.625rem;

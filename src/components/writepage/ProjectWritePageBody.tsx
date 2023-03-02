@@ -38,25 +38,29 @@ const ProjectWritePageBody = ({
         />
       </WritePageBodyStackBox>
       <WritePageBodyEstimatedPeriodBox>
-        <WritePageBodyText>예상 기간</WritePageBodyText>
+        <WritePageBodyText htmlFor="startDate">예상 기간</WritePageBodyText>
         <WritePageBodyDateInput
           type="date"
           name="startDate"
+          id="startDate"
+          title="시작일"
           value={writeFormValue.startDate}
           onChange={onFormValueChangeEvent}
         />
         <WritePageBodyDateInput
           type="date"
           name="endDate"
+          title="종료일"
           value={writeFormValue.endDate}
           onChange={onFormValueChangeEvent}
         />
       </WritePageBodyEstimatedPeriodBox>
       <WritePageBodyDeadlineBox>
-        <WritePageBodyText>모집 마감일</WritePageBodyText>
+        <WritePageBodyText htmlFor="deadline">모집 마감일</WritePageBodyText>
         <WritePageBodyDateInput
           type="date"
           name="deadline"
+          id="deadline"
           value={writeFormValue.deadline}
           onChange={onFormValueChangeEvent}
         />
@@ -65,8 +69,9 @@ const ProjectWritePageBody = ({
         </WritePageBodyDeadlineText>
       </WritePageBodyDeadlineBox>
       <WritePageBodyThumbnailBox>
-        <WritePageBodyText>썸네일 추가</WritePageBodyText>
+        <WritePageBodyText htmlFor="thumbnail">썸네일 추가</WritePageBodyText>
         <WritePageBodyThumbnailImage
+          id="thumbnail"
           type="file"
           accept="image/jpg, image/png, image/jpeg"
           ref={imageRef}
@@ -89,13 +94,15 @@ const ProjectWritePageBody = ({
 const WritePageBodyContainer = styled.div`
   width: 100%;
 `;
+
 const WritePageBodyPositionBox = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
   margin-top: 2rem;
 `;
-const WritePageBodyText = styled.h2`
+
+const WritePageBodyText = styled.label`
   width: 10.5%;
   display: flex;
   align-items: center;
@@ -104,10 +111,12 @@ const WritePageBodyText = styled.h2`
   letter-spacing: -0.02rem;
   color: #383838;
 `;
+
 const WritePageBodyStackBox = styled.div`
   width: 100%;
   margin-top: 2rem;
 `;
+
 const WritePageBodyEstimatedPeriodBox = styled.div`
   width: 100%;
   margin-top: 2rem;
@@ -115,6 +124,7 @@ const WritePageBodyEstimatedPeriodBox = styled.div`
   display: flex;
   flex-direction: row;
 `;
+
 const WritePageBodyDateInput = styled.input`
   width: 9.5625rem;
   height: 2.75rem;
@@ -124,6 +134,7 @@ const WritePageBodyDateInput = styled.input`
   margin-left: 1.5rem;
   padding-left: 1rem;
 `;
+
 const WritePageBodyDeadlineBox = styled.div`
   width: 100%;
   margin-top: 2rem;
@@ -132,6 +143,7 @@ const WritePageBodyDeadlineBox = styled.div`
   align-items: center;
   flex-direction: row;
 `;
+
 const WritePageBodyDeadlineText = styled.p`
   padding-left: 1rem;
   width: 20rem;
@@ -150,6 +162,7 @@ const WritePageBodyThumbnailBox = styled.div`
   flex-direction: row;
   padding-right: 0.5rem;
 `;
+
 const WritePageBodyThumbnailImage = styled.input`
   padding: 10px 20px;
   width: 62.625rem;
@@ -161,6 +174,7 @@ const WritePageBodyThumbnailImage = styled.input`
     display: none;
   }
 `;
+
 const WritePageBodyThumbnailButton = styled.button`
   padding: 0.625rem 1.75rem;
   width: 226px;
@@ -175,6 +189,7 @@ const WritePageBodyThumbnailButton = styled.button`
     background-color: ${COLORS.violetB300};
   }
 `;
+
 const WritePageBodyThumbnailWarningText = styled.p`
   padding-left: 7rem;
   margin-top: 0.5rem;

@@ -100,7 +100,8 @@ const ContentCard = ({
           </ContentCardDate>
           <ContentCardBookmark>
             <ContentCardLikeButton
-              name={isLike ? 'like' : 'unlike'}
+              id={`${isLike ? 'like' : 'unlike'} ${id}`}
+              aria-label={isLike ? 'like' : 'unlike'}
               onClick={handleUpdateLike}
             >
               {isLike ? (

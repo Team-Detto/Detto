@@ -89,6 +89,8 @@ const Likes = ({ pid, version = 'web' }: any) => {
 
   return (
     <IconButton
+      id={`${isLike ? 'like' : 'unlike'} ${pid}`}
+      aria-label={isLike ? 'like' : 'unlike'}
       onClick={(event) => {
         if (!uid) {
           openModal('login', 0);
