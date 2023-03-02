@@ -41,16 +41,17 @@ const WriterToProjectInfoArea = ({ projectData, userData }: any) => {
         <ProjectInfoWrapper>
           <ProjectInfoObject>
             <ProjectInfoKey>모집 인원</ProjectInfoKey>
-            <ProjectInfoValue>
-              {Object.keys(positions).map((key: string, idx: number) => {
-                return (
-                  <Position key={key}>
-                    {positionList[idx].name}
-                    <Emphasis>{positions[key]}</Emphasis>명
+
+            {positionList.map((position) => (
+              <ProjectInfoValue key={position.type}>
+                {positions[position.type] > 0 && (
+                  <Position>
+                    {`${position.name}`}
+                    <Emphasis>{`${positions[position.type]}`}</Emphasis>명
                   </Position>
-                );
-              })}
-            </ProjectInfoValue>
+                )}
+              </ProjectInfoValue>
+            ))}
           </ProjectInfoObject>
           <ProjectInfoObject>
             <Div>
@@ -174,33 +175,32 @@ const ProjectInfoValue = styled.div`
   min-height: 1.75rem;
   height: 100%;
   flex-wrap: wrap;
-  font-weight: 400;
-  font-size: 0.75rem;
+  font-weight: 500;
+  font-size: 0.8125rem;
   line-height: 1.75rem;
   display: flex;
   align-items: center;
   letter-spacing: -0.02em;
-
   color: #383838;
 `;
 
 const Position = styled.span`
   height: 100%;
   display: flex;
-  flex-wrap: wrap;
   flex-direction: row;
   align-items: center;
-  position: relative;
-  margin: 0 0.7rem 0 0;
-  &::after {
-    content: '|';
-    position: absolute;
-    margin: 0 0.5rem;
-    right: -1rem;
+  :nth-of-type(n + 2) {
+    position: relative;
+    margin-left: 6px;
+    padding-left: 6px;
   }
-
-  &:last-child::after {
-    display: none;
+  :nth-of-type(n + 2)::after {
+    position: absolute;
+    left: 0;
+    top: 5px;
+    content: '';
+    width: 1px;
+    height: 15px;
   }
 `;
 

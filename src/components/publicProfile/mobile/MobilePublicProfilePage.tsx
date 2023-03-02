@@ -25,7 +25,6 @@ const MobilePublicProfilePage = ({
   } = userInfoData;
 
   const skills = concatSkills(plannerStack, designerStack, developerStack);
-
   return (
     <MobileContainer>
       <UserInfoWrapper>

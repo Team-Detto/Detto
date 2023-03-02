@@ -105,7 +105,7 @@ export const ProjectsTabButton = styled.span<{
   height: 100%;
   padding: 0.75rem 0.375rem;
   border-bottom: ${({ category, name }) =>
-    name === category ? `0.125rem solid ${COLORS.violetB500}` : 'none'};
+    name === category ? `.125rem solid ${COLORS.violetB500}` : 'none'};
   font-size: 0.9375rem;
   font-weight: 500;
   color: ${({ category, name }) =>

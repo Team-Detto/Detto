@@ -17,12 +17,12 @@ const ProjectInfoArea = ({ projectData }: any) => {
     <ProjectInfoWrapper>
       <ProjectInfoObject>
         <ProjectInfoKey>모집 인원</ProjectInfoKey>
-        <ProjectInfoValue>
-          {Object.keys(positions).map((key: string, idx: number) => {
-            return (
-              <Position key={key}>
-                {positionList[idx].name}
-                <Emphasis>{positions[key]}</Emphasis>명
+        {positionList.map((position) => (
+          <ProjectInfoValue key={position.type}>
+            {positions[position.type] > 0 && (
+              <Position>
+                {`${position.name}`}
+                <Emphasis>{`${positions[position.type]}`}</Emphasis>명
               </Position>
             );
           })}
