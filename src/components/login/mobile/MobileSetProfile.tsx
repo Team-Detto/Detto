@@ -37,7 +37,8 @@ export default function MobileSetProfile() {
     staleTime: staleTime.user,
   });
 
-  const { handleInputChange, validationMessage } = useUpdateProfile();
+  const { handleInputChange, validationMessage, handleInputClear } =
+    useUpdateProfile();
   const { profileImg, handleProfileImageChange, handleProfileImageDelete } =
     useProfileImage(uid, userInfoData?.photoURL);
 
@@ -102,6 +103,7 @@ export default function MobileSetProfile() {
             name="displayName"
             value={userInfo.displayName}
             onChangeValue={handleInputChange}
+            onClearValue={handleInputClear}
             validationMessage={validationMessage}
             isMobile={true}
             page="join"

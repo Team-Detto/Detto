@@ -36,7 +36,8 @@ export default function SetProfile() {
     staleTime: staleTime.user,
   });
 
-  const { handleInputChange, validationMessage } = useUpdateProfile();
+  const { handleInputChange, validationMessage, handleInputClear } =
+    useUpdateProfile();
   const { profileImg, handleProfileImageChange, handleProfileImageDelete } =
     useProfileImage(uid, userInfoData?.photoURL);
 
@@ -103,6 +104,7 @@ export default function SetProfile() {
               name="displayName"
               value={userInfo.displayName}
               onChangeValue={handleInputChange}
+              onClearValue={handleInputClear}
               validationMessage={validationMessage}
             />
           </NicknameContainer>
