@@ -18,9 +18,11 @@ const useFindProject = () => {
   const [category, setCategory] = useState<string>('planner');
   const [toggle, setToggle] = useState<boolean>(false);
 
-  const { data: likedProjects } = useQuery(['likedProjects', uid], () =>
-    firebaseFindMyInterestRequest(uid),
-  );
+  const { data: likedProjects } = useQuery({
+    queryKey: ['likedProjects', uid],
+    queryFn: () => firebaseFindMyInterestRequest(uid),
+    enabled: !!uid,
+  });
 
   useEffect(() => {
     firebaseInfinityScrollProjectDataRequest(
