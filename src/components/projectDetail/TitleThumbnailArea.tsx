@@ -15,7 +15,6 @@ import {
 const TitleThumbnailArea = ({ projectData, pid }: any) => {
   const { thumbnail, title, isRecruiting, deadline } = projectData;
   const today = new Date().getTime();
-
   const { isOpen, handleModalStateChange } = useModal(false);
   const queryClient = useQueryClient();
   //글 삭제하기 useMutation
@@ -32,11 +31,13 @@ const TitleThumbnailArea = ({ projectData, pid }: any) => {
   const handleDeleteProject = () => {
     deleteProjectMutate(pid); //post 컬렉션에서 프로젝트 삭제
     amplitudeToNoneButtonClick('delete_project');
+    window.history.back();
   };
 
   const { mutate: updateRecruitingMutate } = useMutation(() =>
     updateRecruiting(pid as string, false),
   );
+
   useEffect(() => {
     if (today > deadline) {
       updateRecruitingMutate(pid, false as any);
@@ -51,7 +52,6 @@ const TitleThumbnailArea = ({ projectData, pid }: any) => {
         subMessage="게시글은 바로 사라집니다!"
         onClickEvent={() => {
           handleDeleteProject();
-          window.history.back();
         }}
         onCloseEvent={() => {
           handleModalStateChange();
