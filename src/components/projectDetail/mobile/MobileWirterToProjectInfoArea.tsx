@@ -41,59 +41,52 @@ const WriterToProjectInfoArea = ({ projectData, userData }: any) => {
         <ProjectInfoWrapper>
           <ProjectInfoObject>
             <ProjectInfoKey>모집 인원</ProjectInfoKey>
-
-            {positionList.map((position) => (
-              <ProjectInfoValue key={position.type}>
-                {positions[position.type] > 0 && (
-                  <Position>
-                    {`${position.name}`}
-                    <Emphasis>{`${positions[position.type]}`}</Emphasis>명
+            <ProjectInfoValue>
+              {Object.keys(positions).map((key: string, idx: number) => {
+                return (
+                  <Position key={key}>
+                    {positionList[idx].name}
+                    <Emphasis>{positions[key]}</Emphasis>명
                   </Position>
-                )}
-              </ProjectInfoValue>
-            ))}
+                );
+              })}
+            </ProjectInfoValue>
           </ProjectInfoObject>
           <ProjectInfoObject>
             <Div>
               <ProjectInfoKey>필요 스택</ProjectInfoKey>
             </Div>
             <ProjectInfoStackWrap>
-              <StackDiv>
-                <StackTitle>기획</StackTitle>
-                {plannerStack.length === 0 ? (
-                  <StackValue>협의 가능</StackValue>
-                ) : (
+              {plannerStack.length === 0 ? null : (
+                <StackDiv>
+                  <StackTitle>기획</StackTitle>
                   <StackList>
                     {plannerStack?.map((skill: string) => {
                       return <StackValue key={skill}>{skill}</StackValue>;
                     })}
                   </StackList>
-                )}
-              </StackDiv>
-              <StackDiv>
-                <StackTitle>디자인</StackTitle>
-                {designerStack.length === 0 ? (
-                  <StackValue>협의 가능</StackValue>
-                ) : (
+                </StackDiv>
+              )}
+              {designerStack.length === 0 ? null : (
+                <StackDiv>
+                  <StackTitle>디자인</StackTitle>
                   <StackList>
                     {designerStack?.map((skill: string) => {
                       return <StackValue key={skill}>{skill}</StackValue>;
                     }) ?? '없음'}
                   </StackList>
-                )}
-              </StackDiv>
-              <StackDiv>
-                <StackTitle>개발</StackTitle>
-                {developerStack.length === 0 ? (
-                  <StackValue>협의 가능</StackValue>
-                ) : (
+                </StackDiv>
+              )}
+              {developerStack.length === 0 ? null : (
+                <StackDiv>
+                  <StackTitle>개발</StackTitle>
                   <StackList>
                     {developerStack?.map((skill: string) => {
                       return <StackValue key={skill}>{skill}</StackValue>;
                     }) ?? '없음'}
                   </StackList>
-                )}
-              </StackDiv>
+                </StackDiv>
+              )}
             </ProjectInfoStackWrap>
           </ProjectInfoObject>
           <ProjectInfoObject>
@@ -161,7 +154,7 @@ const ProjectInfoObject = styled.div`
 
 const ProjectInfoKey = styled.div`
   width: 3.58rem;
-  height: 1.75rem;
+  min-height: 1.75rem;
   height: 100%;
   font-size: 0.75rem;
   line-height: 1.75rem;
@@ -175,8 +168,8 @@ const ProjectInfoValue = styled.div`
   min-height: 1.75rem;
   height: 100%;
   flex-wrap: wrap;
-  font-weight: 500;
-  font-size: 0.8125rem;
+  font-weight: 400;
+  font-size: 0.75rem;
   line-height: 1.75rem;
   display: flex;
   align-items: center;
@@ -187,20 +180,19 @@ const ProjectInfoValue = styled.div`
 const Position = styled.span`
   height: 100%;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
   align-items: center;
-  :nth-of-type(n + 2) {
-    position: relative;
-    margin-left: 6px;
-    padding-left: 6px;
-  }
-  :nth-of-type(n + 2)::after {
+  position: relative;
+  margin: 0 0.7rem 0 0;
+  &::after {
+    content: '|';
     position: absolute;
-    left: 0;
-    top: 5px;
-    content: '';
-    width: 1px;
-    height: 15px;
+    margin: 0 0.5rem;
+    right: -1rem;
+  }
+  &:last-child::after {
+    display: none;
   }
 `;
 
