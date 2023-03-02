@@ -4,7 +4,7 @@ import COLORS from 'assets/styles/colors';
 import { doc, updateDoc } from 'firebase/firestore';
 import { useAuth, useGlobalModal, useToastPopup } from 'hooks';
 import React, { useState } from 'react';
-import { career as careerList, positionList } from 'utils/positions';
+import { career as careerList, mobilePositionList } from 'utils/positions';
 import ConfirmButton from './ConfirmButton';
 import ModalNavigator from '../common/modal/ModalNavigator';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
@@ -61,7 +61,7 @@ export default function SetPositions() {
           <SubText>(중복 선택 가능해요)</SubText>
         </TextContainer>
         <Buttons>
-          {positionList.map(({ type, name }) => (
+          {mobilePositionList.map(({ type, name }) => (
             <React.Fragment key={type}>
               <Input
                 type="checkbox"
@@ -92,8 +92,8 @@ export default function SetPositions() {
             </React.Fragment>
           ))}
         </Buttons>
+        <ConfirmButton onClick={handleConfirmButtonClick} />
       </BodyContainer>
-      <ConfirmButton onClick={handleConfirmButtonClick} />
     </Container>
   );
 }
@@ -101,8 +101,7 @@ export default function SetPositions() {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
+  justify-content: space-between;
 
   width: 100%;
   height: 100%;
@@ -115,7 +114,6 @@ const BodyContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding: 0px;
-  margin-top: 1.25rem;
   width: 100%;
 `;
 
@@ -152,11 +150,13 @@ const Buttons = styled.div`
 `;
 
 const Label = styled.label`
+  height: 3.25rem;
+  flex: 1;
+  max-width: 10rem;
+
   display: flex;
   align-items: center;
   justify-content: center;
-
-  padding: 0.5rem 2.6563rem;
 
   font-size: 1.125rem;
   font-weight: 400;
@@ -164,7 +164,7 @@ const Label = styled.label`
   background-color: ${COLORS.gray50};
   border-radius: 1rem;
 
-  border: 2px solid transparent;
+  border: 1px solid transparent;
 
   cursor: pointer;
 
@@ -184,7 +184,7 @@ const Input = styled.input`
   &:checked + label {
     color: ${COLORS.violetB500};
     background-color: ${COLORS.white};
-    border: 2px solid ${COLORS.violetB500};
+    border: 1px solid ${COLORS.violetB500};
     font-weight: 700;
   }
 `;

@@ -52,10 +52,10 @@ export default function SetSkillsPageStack({ skills, setSkills }: any) {
 }
 
 const Container = styled.div`
-  width: 63.0625rem;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 2.1875rem;
+  gap: 2.5rem;
 `;
 
 const RowContainer = styled.div`
@@ -65,16 +65,15 @@ const RowContainer = styled.div`
 `;
 
 const Label = styled.div`
-  width: 3.5rem;
+  width: 3.25rem;
 
   font-weight: 500;
-  font-size: 20px;
-  line-height: 28px;
-  letter-spacing: -0.02em;
+  font-size: 0.9375rem;
+  line-height: 140%;
 
   color: #383838;
 
-  margin-right: 0.8125rem;
+  margin-right: 0.125rem;
 `;
 
 const Skills = styled.div`
@@ -82,5 +81,5 @@ const Skills = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 1.25rem 0.75rem;
+  gap: 1.5rem 1rem;
 `;

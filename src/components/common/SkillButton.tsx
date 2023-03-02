@@ -69,27 +69,23 @@ const SkillButton = ({ name, value, isChecked, setValue, type }: props) => {
   }
 
   return (
-    <SkillButtonContainer>
-      <SkillBtn type="button" isActive={isActive} onClick={handleActiveButton}>
-        <SkillIconWrapper>
-          <SkillIcon
-            src={require(`../../assets/images/icon_skills/icon_skill_${name.toLowerCase()}.jpg`)}
-            alt={name}
-          />
-        </SkillIconWrapper>
-        {name}
-      </SkillBtn>
-    </SkillButtonContainer>
+    <SkillBtn type="button" isActive={isActive} onClick={handleActiveButton}>
+      <SkillIconWrapper>
+        <SkillIcon
+          src={require(`../../assets/images/icon_skills/icon_skill_${name.toLowerCase()}.jpg`)}
+          alt={name}
+        />
+      </SkillIconWrapper>
+      {name}
+    </SkillBtn>
   );
 };
 
-const SkillButtonContainer = styled.div``;
 const SkillBtn = styled.button<{ isActive: boolean }>`
   background-color: ${COLORS.gray100};
-  color: ${({ isActive }) => {
-    return isActive === true ? `${COLORS.violetB500}` : `${COLORS.black}`;
-  }};
-  font-weight: ${({ isActive }) => (isActive === true ? '700' : '400')};
+  color: ${({ isActive }) =>
+    isActive ? `${COLORS.violetB500}` : `${COLORS.black}`};
+  font-weight: ${({ isActive }) => (isActive ? '700' : '400')};
   font-size: 0.75rem;
   line-height: 2rem;
   height: 2.25rem;
@@ -97,19 +93,21 @@ const SkillBtn = styled.button<{ isActive: boolean }>`
   align-items: center;
   border-radius: 2rem;
   border: ${({ isActive }) =>
-    isActive === true ? `1px solid ${COLORS.violetB500}` : `none`};
+    isActive ? `1px solid ${COLORS.violetB500}` : `1px solid transparent`};
   padding: 0.5938rem 1.25rem 0.5938rem 0.625rem;
   transition: transform 0.5s;
   &:hover {
     transform: scale(1.05);
   }
 `;
+
 const WritePageMobileStackButtonBox = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
   gap: 0.1rem;
 `;
+
 const WritePageMobileStackSkill = styled.button`
   display: block;
   width: 4.6rem;
@@ -125,6 +123,7 @@ const WritePageMobileStackSkill = styled.button`
   color: ${COLORS.black};
   background-color: ${COLORS.gray100};
 `;
+
 const WritePageMobileStackSkillCancel = styled.button`
   width: 1rem;
   height: 1rem;
