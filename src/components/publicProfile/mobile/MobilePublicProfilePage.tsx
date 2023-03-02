@@ -38,7 +38,9 @@ const MobilePublicProfilePage = ({
             version="mobile"
           />
         </NameAndPositionDiv>
-        <UserEmail>{email}</UserEmail>
+        <UserEmail>
+          {email.length === 0 ? '등록한 이메일이 없어요:/' : email}
+        </UserEmail>
         <StackDiv>
           {skills.map((stack: string) => (
             <UserStacks key={stack}>{stack}</UserStacks>
