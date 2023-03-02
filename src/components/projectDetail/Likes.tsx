@@ -48,12 +48,8 @@ const Likes = ({ pid, version = 'web' }: any) => {
   const { mutate: updateLikeMutate } = useMutation(
     () => updateLike(pid, countLike),
     {
-      // onSettled: () => {
-      //   queryClient.invalidateQueries(['post', pid]);
-      // },
       onSuccess: () => {
         queryClient.invalidateQueries(['post', pid]);
-        // setCountLike(projectLike?.like);
       },
     },
   );
@@ -61,9 +57,6 @@ const Likes = ({ pid, version = 'web' }: any) => {
   const { mutate: updateMyProjectMutate } = useMutation(
     () => updateMyProject(uid, pid, isLike),
     {
-      // onSettled: () => {
-      //   queryClient.invalidateQueries(['myProjects', uid]);
-      // },
       onSuccess: () => {
         queryClient.invalidateQueries(['myProjects', uid]);
       },
