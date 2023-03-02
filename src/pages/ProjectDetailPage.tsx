@@ -121,15 +121,19 @@ const ProjectDetailPage = () => {
       <Helmet>
         <title>{projectData && `${projectData.title} - Detto`}</title>
       </Helmet>
-      {isMobile && projectData ? (
-        <MobileProjectDetailPage
-          pid={pid}
-          projectData={projectData}
-          userData={userData}
-          isApplicant={isApplicant}
-          deleteApplicantMutate={deleteApplicantMutate}
-          handleAuthorButtonClick={() => handleAuthorButtonClick()}
-        />
+      {isMobile ? (
+        <>
+          {projectData && (
+            <MobileProjectDetailPage
+              pid={pid}
+              projectData={projectData}
+              userData={userData}
+              isApplicant={isApplicant}
+              deleteApplicantMutate={deleteApplicantMutate}
+              handleAuthorButtonClick={() => handleAuthorButtonClick()}
+            />
+          )}
+        </>
       ) : (
         <ProjectDetailContainer>
           {projectData && (
