@@ -7,7 +7,7 @@ import WebContainer from './common/WebContainer';
 import { LogoBoxH1 } from './Header';
 import iconGithub from 'assets/images/footer_github.png';
 import iconGmail from 'assets/images/footer_gmail.png';
-import { getCurrentPathName, logEvent } from 'utils/amplitude';
+import { amplitudeNeedToButtonClick } from 'utils/amplitude';
 
 export const Footer = () => {
   const { pathname } = useLocation();
@@ -114,11 +114,10 @@ export const Footer = () => {
                   to={'/findproject'}
                   state={'planner'}
                   onClick={() => {
-                    logEvent('Button Click', {
-                      from: getCurrentPathName(),
-                      to: 'findproject',
-                      name: 'category_planner',
-                    });
+                    amplitudeNeedToButtonClick(
+                      'findproject',
+                      'category_planner',
+                    );
                   }}
                 >
                   Planning
@@ -129,11 +128,10 @@ export const Footer = () => {
                   to={'/findproject'}
                   state={'designer'}
                   onClick={() => {
-                    logEvent('Button Click', {
-                      from: getCurrentPathName(),
-                      to: 'findproject',
-                      name: 'category_designer',
-                    });
+                    amplitudeNeedToButtonClick(
+                      'findproject',
+                      'category_designer',
+                    );
                   }}
                 >
                   Design
@@ -144,11 +142,10 @@ export const Footer = () => {
                   to={'/findproject'}
                   state={'frontend'}
                   onClick={() => {
-                    logEvent('Button Click', {
-                      from: getCurrentPathName(),
-                      to: 'findproject',
-                      name: 'category_frontend',
-                    });
+                    amplitudeNeedToButtonClick(
+                      'findproject',
+                      'category_frontend',
+                    );
                   }}
                 >
                   Frontend
@@ -159,11 +156,10 @@ export const Footer = () => {
                   to={'/findproject'}
                   state={'backend'}
                   onClick={() => {
-                    logEvent('Button Click', {
-                      from: getCurrentPathName(),
-                      to: 'findproject',
-                      name: 'category_backend',
-                    });
+                    amplitudeNeedToButtonClick(
+                      'findproject',
+                      'category_backend',
+                    );
                   }}
                 >
                   Backend
