@@ -62,7 +62,7 @@ const ProjectList = ({ category, pidList }: ProjectListProps) => {
               category={category}
               key={project?.createdAt}
               project={project}
-              pid={filteredPidList?.[idx]}
+              pid={filteredPidList?.[filteredPidList?.length - idx - 1]}
               onNavigateToProjectDetailEvent={handleNavigateToProjectDetail}
             />
           ),
