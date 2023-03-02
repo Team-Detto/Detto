@@ -60,6 +60,7 @@
   },
   "packageManager": "yarn@3.4.1",
   "devDependencies": {
+    "@tanstack/react-query-devtools": "^4.24.12",
     "@types/jest": "^27.0.1",
     "@types/node": "^18.13.0",
     "@types/prismjs": "^1.26.0",
