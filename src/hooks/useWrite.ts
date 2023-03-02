@@ -18,7 +18,7 @@ const useWrite = () => {
   const navigate = useNavigate();
 
   const editRef = useRef<any>(null);
-  const imageRef = useRef<any>(null);
+  const imageRef = useRef<HTMLInputElement>(null);
 
   const [writeFormValue, setWriteFormValue] = useState<WriteType.WriteFormType>(
     initialWriteFormValue,
@@ -115,7 +115,7 @@ const useWrite = () => {
   };
 
   const handleAddThumbnailImage = useCallback(() => {
-    imageRef.current.click();
+    imageRef.current?.click();
     logEvent('Button Click', {
       from: getCurrentPathName(),
       to: 'none',

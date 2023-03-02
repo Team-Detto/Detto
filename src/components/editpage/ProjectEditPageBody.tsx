@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, RefObject } from 'react';
 import { EditType } from 'types/write/writeType';
 import EditPagePosition from './EditPagePosition';
 import EditPageStack from './EditPageStack';
@@ -6,7 +6,7 @@ import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
 
 interface Props {
-  imageRef: any;
+  imageRef: RefObject<HTMLInputElement>;
   editFormValue: EditType.EditFormType;
   setEditFormValue: (value: EditType.EditFormType) => void;
   onFormValueChangeEvent: (e: ChangeEvent<HTMLInputElement>) => void;

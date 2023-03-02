@@ -24,8 +24,9 @@ const useEditBoard = () => {
   const editRef = useRef<any>(null);
   const imageRef = useRef<any>(null);
 
-  const [editFormValue, setEditFormValue] = useState(state);
-  const [editThumbnail, setEditThumbnail] = useState(null);
+  const [editFormValue, setEditFormValue] =
+    useState<EditType.EditFormType>(state);
+  const [editThumbnail, setEditThumbnail] = useState<File | null>(null);
 
   const { isOpen, handleModalStateChange } = useModal(false);
   const { showToast, ToastMessage, handleToastPopup } = useToastPopup();

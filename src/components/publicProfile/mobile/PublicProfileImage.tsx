@@ -25,7 +25,11 @@ const PublicProfileImage = ({ userInfoData, photoURL }: any) => {
   return (
     <>
       <UserImageBox>
-        <UserImage src={photoURL} referrerPolicy="no-referrer" />
+        <UserImage
+          src={photoURL}
+          alt={userInfoData?.displayName}
+          referrerPolicy="no-referrer"
+        />
         {userInfoData?.uid !== uid && (
           <SendNoteButton
             onClick={() => {

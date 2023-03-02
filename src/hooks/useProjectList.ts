@@ -43,7 +43,7 @@ const useProjectList = () => {
     );
     const filteredData = data?.filter((item) => item !== undefined);
 
-    return filteredData;
+    return [...filteredData].reverse(); // 최신순 정렬 위해 reverse
   };
 
   // 지원한 프로젝트이거나 참여한 프로젝트일 경우 appliedProjects 문서에서 pid 키값을 필터링 해서 꺼내기 위한 함수
@@ -62,7 +62,7 @@ const useProjectList = () => {
       }
     }
 
-    return filteredPidList;
+    return [...filteredPidList].reverse();
   };
 
   return {

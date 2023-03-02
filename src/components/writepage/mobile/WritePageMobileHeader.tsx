@@ -1,10 +1,11 @@
+import { ChangeEvent } from 'react';
+import { WriteType } from 'types/write/writeType';
 import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
-import { WriteType } from 'types/write/writeType';
 
 interface Props {
   writeFormValue: WriteType.WriteFormType;
-  onFormValueChangeEvent: (e: React.ChangeEvent<HTMLInputElement>) => void; // eslint-disable-line no-unused-vars
+  onFormValueChangeEvent: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const WritePageMobileHeader = ({

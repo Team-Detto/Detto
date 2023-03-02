@@ -5,6 +5,7 @@ import COLORS from 'assets/styles/colors';
 import { useIsMobile, useNotification } from 'hooks';
 import { useCallback } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
+import { staleTime } from 'utils/staleTime';
 
 interface props {
   userData: any;
@@ -38,6 +39,8 @@ const ApplyModalButtonArea = ({
   const { data: projectData } = useQuery({
     queryKey: ['post', pid],
     queryFn: () => findWithCollectionName('post', pid),
+    staleTime: staleTime.project,
+    enabled: !!pid,
   });
 
   // 글쓴이에게 지원 알림 보내기

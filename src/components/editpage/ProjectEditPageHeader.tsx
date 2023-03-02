@@ -1,9 +1,11 @@
+import { ChangeEvent } from 'react';
+import { EditType } from 'types/write/writeType';
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 
 interface Props {
-  editFormValue: any;
-  onFormValueChangeEvent: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  editFormValue: EditType.EditFormType;
+  onFormValueChangeEvent: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const ProjectEditPageHeader = ({

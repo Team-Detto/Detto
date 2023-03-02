@@ -32,10 +32,10 @@ export namespace EditType {
     plannerStack: string[];
     developerStack: string[];
     designerStack: string[];
-    startDate: number;
-    endDate: number;
-    deadline: number;
-    createdAt: number;
+    startDate: number | string;
+    endDate: number | string;
+    deadline: number | string;
+    createdAt: number | string;
     isRecruiting: boolean;
     view: number;
     like: number;

@@ -2,11 +2,11 @@ import { ChangeEvent, RefObject } from 'react';
 import { WriteType } from 'types/write/writeType';
 import WritePageMobilePosition from './WritePageMobilePosition';
 import WritePageMobileStack from './WritePageMobileStack';
-import COLORS from 'assets/styles/colors';
-import styled from '@emotion/styled';
 import WritePageMobilePeriod from './WritePageMobilePeriod';
 import WritePageMobileDeadline from './WritePageMobileDeadline';
 import WritePageMobileThumbnail from './WritePageMobileThumbnail';
+import COLORS from 'assets/styles/colors';
+import styled from '@emotion/styled';
 
 interface Props {
   imageRef: RefObject<HTMLInputElement>;

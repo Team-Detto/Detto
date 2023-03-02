@@ -45,6 +45,7 @@ export default function MobileReadInboxNote({ data }: { data: Note }) {
         <MobileProfileContainer>
           <MobileProfileImage
             src={sender.photoURL}
+            alt={sender.displayName + ' 프로필 이미지'}
             onClick={handleProfileImageClick}
             referrerPolicy="no-referrer"
           />

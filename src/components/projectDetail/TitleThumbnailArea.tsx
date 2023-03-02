@@ -82,7 +82,10 @@ const TitleThumbnailArea = ({ projectData, pid }: any) => {
           </ModifyDeleteButtonWrap>
         )}
       </TitleToModifyButtonWrap>
-      <ProjectThumbnail src={thumbnail || defaultThumbnail} />
+      <ProjectThumbnail
+        src={thumbnail || defaultThumbnail}
+        alt={title + '프로젝트 썸네일'}
+      />
     </>
   );
 };

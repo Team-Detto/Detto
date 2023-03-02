@@ -1,4 +1,4 @@
-import { MouseEvent, useCallback } from 'react';
+import { ChangeEvent, MouseEvent, useCallback } from 'react';
 import { mobilePositionList } from 'utils/positions';
 import {
   EditPageMobileBodyLeftBox,
@@ -10,7 +10,7 @@ import styled from '@emotion/styled';
 interface Props {
   positions: any;
   setEditFormValue: (value: any) => void;
-  onFormValueChangeEvent: (e: any) => void;
+  onFormValueChangeEvent: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const EditPageMobilePosition = ({

@@ -1,5 +1,5 @@
-import { useEffect, useState, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState, useCallback, MouseEvent } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { useAuth } from 'hooks';
 import { firebaseInfinityScrollProjectDataRequest } from 'apis/boardService';
@@ -7,9 +7,11 @@ import { firebaseFindMyInterestRequest } from 'apis/userService';
 import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 import { EditType } from 'types/write/writeType';
 import { logEvent, getCurrentPathName } from 'utils/amplitude';
+import { staleTime } from 'utils/staleTime';
 
 const useFindProject = () => {
   const navigate = useNavigate();
+  const { state: categoryFromFooter } = useLocation();
 
   const { uid } = useAuth();
 
@@ -18,9 +20,12 @@ const useFindProject = () => {
   const [category, setCategory] = useState<string>('planner');
   const [toggle, setToggle] = useState<boolean>(false);
 
-  const { data: likedProjects } = useQuery(['likedProjects', uid], () =>
-    firebaseFindMyInterestRequest(uid),
-  );
+  const { data: likedProjects } = useQuery({
+    queryKey: ['likedProjects', uid],
+    queryFn: () => firebaseFindMyInterestRequest(uid),
+    staleTime: staleTime.likedProjects,
+    enabled: !!uid,
+  });
 
   useEffect(() => {
     firebaseInfinityScrollProjectDataRequest(
@@ -34,6 +39,12 @@ const useFindProject = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (categoryFromFooter !== null) {
+      setCategory(categoryFromFooter);
+    }
+  }, [categoryFromFooter]);
+
   useBottomScrollListener(
     useCallback(() => {
       if (lastVisible) {
@@ -46,12 +57,13 @@ const useFindProject = () => {
     }, [lastVisible]),
   );
 
-  const handleCategoryClick = (e: any) => {
-    setCategory(e.target.name);
+  const handleCategoryClick = (e: MouseEvent<HTMLButtonElement>) => {
+    const { name } = e.target as HTMLButtonElement;
+    setCategory(name);
     logEvent('Button Click', {
       from: getCurrentPathName(),
       to: 'none',
-      name: `category_${e.target.name}`,
+      name: `category_${name}`,
     });
   };
 
@@ -78,7 +90,6 @@ const useFindProject = () => {
     projects,
     category,
     likedProjects,
-    setCategory,
     handleToggleClick,
     handleCategoryClick,
     handleNavigateToProjectDetail,

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState, memo } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateRecruiting } from 'apis/postDetail';
 import { firebaseLikeProjectUpdateRequest } from 'apis/boardService';
-import { useAuth } from 'hooks';
+import { useAuth, useGlobalModal } from 'hooks';
 import { getDate } from 'utils/date';
 import { concatSkills } from 'utils/skills';
 import { getCurrentPathName, logEvent } from 'utils/amplitude';
@@ -14,7 +14,7 @@ import styled from '@emotion/styled';
 
 interface Props {
   project: EditType.EditFormType;
-  likedProjects: any;
+  likedProjects: string[];
   onNavigateToProjectDetailEvent: (path: string) => () => void;
 }
 
@@ -40,6 +40,7 @@ const ContentCard = ({
   const [isLike, setIsLike] = useState<boolean>(false);
   const stacks = concatSkills(plannerStack, designerStack, developerStack);
   const queryClient = useQueryClient();
+  const { openModal } = useGlobalModal();
 
   const { mutate: updateRecruitingMutate } = useMutation(
     () => updateRecruiting(id as string, false),
@@ -61,6 +62,10 @@ const ContentCard = ({
   );
 
   const handleUpdateLike = useCallback(() => {
+    if (!uid) {
+      openModal('login', 0);
+      return;
+    }
     setIsLike(!isLike);
     updateLikeMutate();
     logEvent('Button Click', {
@@ -68,7 +73,7 @@ const ContentCard = ({
       to: 'none',
       name: 'like',
     });
-  }, [isLike]);
+  }, [isLike, updateLikeMutate, uid]);
 
   useEffect(() => {
     const today = Date.now();
@@ -83,6 +88,7 @@ const ContentCard = ({
       <ContentCardImgContainer
         src={thumbnail || defaultThumbnail}
         onClick={onNavigateToProjectDetailEvent(id)}
+        alt={title + ` 프로젝트 썸네일`}
       />
       <ContentCardContentsContainer>
         <ContentCardDateContainer>

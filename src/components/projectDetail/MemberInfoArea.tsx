@@ -35,6 +35,7 @@ const MemberInfoArea = ({ applicantsData }: any) => {
                       key={key}
                       onClick={() => onClickEvent(applicantsData[key].uid)}
                       src={applicantsData[key].profileURL}
+                      alt={applicantsData[key].displayName}
                       referrerPolicy="no-referrer"
                     ></MemberProfileImg>
                     <HoverText>{applicantsData[key].displayName}</HoverText>
@@ -51,6 +52,7 @@ const MemberInfoArea = ({ applicantsData }: any) => {
                     <MemberProfileImg
                       onClick={() => onClickEvent(applicantsData[key].uid)}
                       src={applicantsData[key].profileURL}
+                      alt={applicantsData[key].displayName}
                       referrerPolicy="no-referrer"
                     ></MemberProfileImg>
                     <HoverText>{applicantsData[key].displayName}</HoverText>
@@ -68,6 +70,7 @@ const MemberInfoArea = ({ applicantsData }: any) => {
                     <MemberProfileImg
                       onClick={() => onClickEvent(applicantsData[key].uid)}
                       src={applicantsData[key].profileURL}
+                      alt={applicantsData[key].displayName}
                       referrerPolicy="no-referrer"
                     ></MemberProfileImg>
                     <HoverText>{applicantsData[key].displayName}</HoverText>
@@ -85,6 +88,7 @@ const MemberInfoArea = ({ applicantsData }: any) => {
                     <MemberProfileImg
                       key={key}
                       onClick={() => onClickEvent(applicantsData[key].uid)}
+                      alt={applicantsData[key].displayName}
                       src={applicantsData[key].profileURL}
                       referrerPolicy="no-referrer"
                     ></MemberProfileImg>
