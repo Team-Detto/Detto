@@ -16,7 +16,7 @@ const ProjectInfoArea = ({ projectData }: any) => {
   return (
     <ProjectInfoWrapper>
       <ProjectInfoObject>
-        <ProjectInfoKey>모집인원</ProjectInfoKey>
+        <ProjectInfoKey>모집 인원</ProjectInfoKey>
         {positionList.map((position) => (
           <ProjectInfoValue key={position.type}>
             {positions[position.type] > 0 && (
