@@ -10,8 +10,8 @@ const ErrorPage = () => {
         <title>Error - Detto</title>
       </Helmet>
       <Container>
-        <Image src={ErrorImg} />
-        <Message src={ErrorMessage} />
+        <Image src={ErrorImg} alt="404 에러" />
+        <Message src={ErrorMessage} alt="페이지를 찾을 수 없어요" />
       </Container>
     </>
   );

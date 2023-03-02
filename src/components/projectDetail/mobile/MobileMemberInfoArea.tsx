@@ -34,6 +34,7 @@ const MobileMemberInfoArea = ({ applicantsData }: any) => {
                     key={key}
                     onClick={() => onClickEvent(applicantsData[key].uid)}
                     src={applicantsData[key].profileURL}
+                    alt={applicantsData[key].displayName}
                     referrerPolicy="no-referrer"
                   ></MemberProfileImg>
                 );
@@ -48,6 +49,7 @@ const MobileMemberInfoArea = ({ applicantsData }: any) => {
                     key={key}
                     onClick={() => onClickEvent(applicantsData[key].uid)}
                     src={applicantsData[key].profileURL}
+                    alt={applicantsData[key].displayName}
                     referrerPolicy="no-referrer"
                   ></MemberProfileImg>
                 );
@@ -62,6 +64,7 @@ const MobileMemberInfoArea = ({ applicantsData }: any) => {
                     key={key}
                     onClick={() => onClickEvent(applicantsData[key].uid)}
                     src={applicantsData[key].profileURL}
+                    alt={applicantsData[key].displayName}
                     referrerPolicy="no-referrer"
                   ></MemberProfileImg>
                 );
@@ -76,6 +79,7 @@ const MobileMemberInfoArea = ({ applicantsData }: any) => {
                     key={key}
                     onClick={() => onClickEvent(applicantsData[key].uid)}
                     src={applicantsData[key].profileURL}
+                    alt={applicantsData[key].displayName}
                     referrerPolicy="no-referrer"
                   ></MemberProfileImg>
                 );

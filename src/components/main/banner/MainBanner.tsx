@@ -31,7 +31,7 @@ const MainBanner = () => {
               디토에서 프로젝트 메이트를 만나보세요
             </BannerSubTitle>
           </BannerTextBox>
-          <BannerFirstImg src={Logo1} />
+          <BannerFirstImg src={Logo1} alt="배너1" />
         </BannerContainer>
       </SlideWrapper>
       <SlideWrapper>

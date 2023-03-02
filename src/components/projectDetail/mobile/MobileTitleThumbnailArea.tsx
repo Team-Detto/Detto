@@ -25,7 +25,10 @@ const MobileTitleThumbnailArea = ({ pid, projectData }: any) => {
           <MoreIcon onClick={toggleDropdownModifyMenu} />
         )}
       </TitleThumbnailAreaContainer>
-      <ProjectThumbnail src={projectData?.thumbnail} />
+      <ProjectThumbnail
+        src={projectData?.thumbnail}
+        alt={projectData?.title + ' 썸네일 이미지'}
+      />
       <ModifyDeleteDropDown
         pid={pid}
         popup={popup}
