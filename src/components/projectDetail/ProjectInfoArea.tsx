@@ -33,11 +33,9 @@ const ProjectInfoArea = ({ projectData }: any) => {
           <ProjectStackKey>필요 스택</ProjectStackKey>
         </Div>
         <ProjectInfoStackWrap>
-          <StackDiv>
-            <StackTitle>기획</StackTitle>
-            {plannerStack?.length === 0 ? (
-              <StackValue>협의 가능</StackValue>
-            ) : (
+          {plannerStack?.length === 0 ? null : (
+            <StackDiv>
+              <StackTitle>기획</StackTitle>
               <StackList>
                 {plannerStack?.map((skill: string) => {
                   return (
@@ -51,14 +49,12 @@ const ProjectInfoArea = ({ projectData }: any) => {
                   );
                 })}
               </StackList>
-            )}
-          </StackDiv>
+            </StackDiv>
+          )}
 
-          <StackDiv>
-            <StackTitle>디자인</StackTitle>
-            {designerStack?.length === 0 ? (
-              <StackValue>협의가능</StackValue>
-            ) : (
+          {designerStack?.length === 0 ? null : (
+            <StackDiv>
+              <StackTitle>디자인</StackTitle>
               <StackList>
                 {designerStack?.map((skill: string) => {
                   return (
@@ -72,13 +68,11 @@ const ProjectInfoArea = ({ projectData }: any) => {
                   );
                 })}
               </StackList>
-            )}
-          </StackDiv>
-          <StackDiv>
-            <StackTitle>개발</StackTitle>
-            {developerStack?.length === 0 ? (
-              <StackValue>협의가능</StackValue>
-            ) : (
+            </StackDiv>
+          )}
+          {developerStack?.length === 0 ? null : (
+            <StackDiv>
+              <StackTitle>개발</StackTitle>
               <StackList>
                 {developerStack?.map((skill: string) => {
                   return (
@@ -92,8 +86,8 @@ const ProjectInfoArea = ({ projectData }: any) => {
                   );
                 })}
               </StackList>
-            )}
-          </StackDiv>
+            </StackDiv>
+          )}
         </ProjectInfoStackWrap>
       </ProjectStackContainer>
       <ProjectInfoObject>

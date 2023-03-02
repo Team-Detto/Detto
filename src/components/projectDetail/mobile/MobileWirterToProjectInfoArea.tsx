@@ -58,42 +58,36 @@ const WriterToProjectInfoArea = ({ projectData, userData }: any) => {
               <ProjectInfoKey>필요 스택</ProjectInfoKey>
             </Div>
             <ProjectInfoStackWrap>
-              <StackDiv>
-                <StackTitle>기획</StackTitle>
-                {plannerStack.length === 0 ? (
-                  <StackValue>협의 가능</StackValue>
-                ) : (
+              {plannerStack.length === 0 ? null : (
+                <StackDiv>
+                  <StackTitle>기획</StackTitle>
                   <StackList>
                     {plannerStack?.map((skill: string) => {
                       return <StackValue key={skill}>{skill}</StackValue>;
                     })}
                   </StackList>
-                )}
-              </StackDiv>
-              <StackDiv>
-                <StackTitle>디자인</StackTitle>
-                {designerStack.length === 0 ? (
-                  <StackValue>협의 가능</StackValue>
-                ) : (
+                </StackDiv>
+              )}
+              {designerStack.length === 0 ? null : (
+                <StackDiv>
+                  <StackTitle>디자인</StackTitle>
                   <StackList>
                     {designerStack?.map((skill: string) => {
                       return <StackValue key={skill}>{skill}</StackValue>;
                     }) ?? '없음'}
                   </StackList>
-                )}
-              </StackDiv>
-              <StackDiv>
-                <StackTitle>개발</StackTitle>
-                {developerStack.length === 0 ? (
-                  <StackValue>협의 가능</StackValue>
-                ) : (
+                </StackDiv>
+              )}
+              {developerStack.length === 0 ? null : (
+                <StackDiv>
+                  <StackTitle>개발</StackTitle>
                   <StackList>
                     {developerStack?.map((skill: string) => {
                       return <StackValue key={skill}>{skill}</StackValue>;
                     }) ?? '없음'}
                   </StackList>
-                )}
-              </StackDiv>
+                </StackDiv>
+              )}
             </ProjectInfoStackWrap>
           </ProjectInfoObject>
           <ProjectInfoObject>
