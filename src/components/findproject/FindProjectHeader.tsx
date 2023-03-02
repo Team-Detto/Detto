@@ -34,7 +34,12 @@ const FindProjectHeader = ({
       </FindProjectHeaderLeftBox>
       <FindProjectHeaderRightBox>
         <FindProjectToggleBox>
-          <FindProjectToggleButton onClick={onToggleClickEvent} toggle={toggle}>
+          <FindProjectToggleButton
+            onClick={onToggleClickEvent}
+            toggle={toggle}
+            id="only recruiting post"
+            aria-label="모집 중 글만 보기"
+          >
             <FindProjectToggleCircle toggle={toggle} />
           </FindProjectToggleButton>
           <FindProjectToggleText toggle={toggle}>모집 중</FindProjectToggleText>
