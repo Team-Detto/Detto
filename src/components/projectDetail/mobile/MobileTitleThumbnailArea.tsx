@@ -4,6 +4,7 @@ import { useAuth } from 'hooks';
 import { useState } from 'react';
 import { IoMdMore } from 'react-icons/io';
 import ModifyDeleteDropDown from './ModifyDeleteDropDown';
+import defaultThumbnail from 'assets/images/thumbnail_small.webp';
 
 const MobileTitleThumbnailArea = ({ pid, projectData }: any) => {
   const [popup, setPopup] = useState(false);
@@ -26,7 +27,7 @@ const MobileTitleThumbnailArea = ({ pid, projectData }: any) => {
         )}
       </TitleThumbnailAreaContainer>
       <ProjectThumbnail
-        src={projectData?.thumbnail}
+        src={projectData?.thumbnail || defaultThumbnail}
         alt={projectData?.title + ' 썸네일 이미지'}
       />
       <ModifyDeleteDropDown
