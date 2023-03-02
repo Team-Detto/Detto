@@ -14,6 +14,8 @@ const MobileApplicantCard = ({ pid, applicant, applicantUid }: any) => {
     <ApplicantCard>
       <ProfileImg
         src={applicant.profileURL}
+        alt={applicant.displayName}
+        referrerPolicy="no-referrer"
         onClick={() => navigate(`/profile/${applicant.uid}`)}
       />
       <UserInfoDiv>

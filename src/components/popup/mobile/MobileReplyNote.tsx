@@ -54,6 +54,7 @@ export default function MobileReplyNote({ data }: { data: Note }) {
       <div style={{ display: 'flex', flexDirection: 'row' }}>
         <MobileProfileImage
           src={receiver.photoURL}
+          alt={receiver.displayName + ' 프로필 이미지'}
           referrerPolicy="no-referrer"
         />
         <MobileNameText>{receiver.displayName}님께 쪽지 보내기</MobileNameText>

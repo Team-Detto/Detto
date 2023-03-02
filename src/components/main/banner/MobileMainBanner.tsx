@@ -20,10 +20,10 @@ const MobileMainBanner = (props: any) => {
   return (
     <MobileSliderWrapper {...settings}>
       <MobileSlideWrapper>
-        <MobileBannerImg src={mobileFirstBanner} />
+        <MobileBannerImg src={mobileFirstBanner} alt="배너1" />
       </MobileSlideWrapper>
       <MobileSlideWrapper>
-        <MobileBannerImg src={mobilesecondBanner} />
+        <MobileBannerImg src={mobilesecondBanner} alt="배너2" />
         <MobileBannerImg />
       </MobileSlideWrapper>
     </MobileSliderWrapper>

@@ -85,9 +85,12 @@ const MobileContentCard = ({
     <MobileContentCardWrap>
       <ContentCardImgContainer>
         {thumbnail ? (
-          <ContentCardImg src={thumbnail} />
+          <ContentCardImg src={thumbnail} alt={title + '프로젝트 썸네일'} />
         ) : (
-          <ContentCardImg src={defaultThumbnail} />
+          <ContentCardImg
+            src={defaultThumbnail}
+            alt={title + '프로젝트 썸네일'}
+          />
         )}
         <ContentCardBookmark onClick={handleUpdateLike}>
           {isLike ? (

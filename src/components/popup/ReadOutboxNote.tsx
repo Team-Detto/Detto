@@ -39,6 +39,7 @@ export default function ReadOutboxNote({ data }: { data: Note }) {
         <ProfileImage
           src={receiver.photoURL}
           onClick={handleProfileImageClick}
+          alt={receiver.displayName + ' 프로필 이미지'}
           referrerPolicy="no-referrer"
         />
         <NameText>{receiver.displayName}님께 보낸 쪽지</NameText>

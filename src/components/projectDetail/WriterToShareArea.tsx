@@ -15,6 +15,7 @@ const WriterToShareArea = ({ pid, userData, projectData }: any) => {
       <WriterWrapper>
         <WriterProfileImg
           src={userData?.photoURL}
+          alt={userData?.displayName}
           onClick={() => {
             navigate(`/profile/${uid}`);
             logEvent('Button Click', {

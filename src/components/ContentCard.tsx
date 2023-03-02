@@ -83,6 +83,7 @@ const ContentCard = ({
       <ContentCardImgContainer
         src={thumbnail || defaultThumbnail}
         onClick={onNavigateToProjectDetailEvent(id)}
+        alt={title + ` 프로젝트 썸네일`}
       />
       <ContentCardContentsContainer>
         <ContentCardDateContainer>

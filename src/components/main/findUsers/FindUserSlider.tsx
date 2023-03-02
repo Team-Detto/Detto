@@ -61,7 +61,7 @@ const FindUserSlider = ({ tap }: { tap: string }) => {
                 referrerPolicy="no-referrer"
               />
               <CardNickname>
-                {user.isJunior && <JuniorImage src={Junior} />}{' '}
+                {user.isJunior && <JuniorImage src={Junior} alt="주니어" />}{' '}
                 {user.displayName}
               </CardNickname>
             </Card>

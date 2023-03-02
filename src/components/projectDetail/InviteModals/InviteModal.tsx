@@ -120,6 +120,7 @@ const InviteModal = ({
           <ProfileToMessageContainer>
             <UserProfileImage
               src={applicant?.profileURL}
+              alt={applicant?.displayName}
               referrerPolicy="no-referrer"
             />
             <MessageSendButton
