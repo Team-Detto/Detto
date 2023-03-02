@@ -17,18 +17,16 @@ const ProjectInfoArea = ({ projectData }: any) => {
     <ProjectInfoWrapper>
       <ProjectInfoObject>
         <ProjectInfoKey>모집인원</ProjectInfoKey>
-        <ProjectInfoValue>
-          {positionList.map((position) => (
-            <>
-              {positions[position.type] > 0 && (
-                <Position key={position.type}>
-                  {`${position.name}`}
-                  <Emphasis>{`${positions[position.type]}`}</Emphasis>명
-                </Position>
-              )}
-            </>
-          ))}
-        </ProjectInfoValue>
+        {positionList.map((position) => (
+          <ProjectInfoValue key={position.type}>
+            {positions[position.type] > 0 && (
+              <Position>
+                {`${position.name}`}
+                <Emphasis>{`${positions[position.type]}`}</Emphasis>명
+              </Position>
+            )}
+          </ProjectInfoValue>
+        ))}
       </ProjectInfoObject>
       <ProjectStackContainer>
         <Div>
@@ -41,9 +39,9 @@ const ProjectInfoArea = ({ projectData }: any) => {
               <StackValue>협의 가능</StackValue>
             ) : (
               <StackList>
-                {plannerStack?.map((skill: string, idx: number) => {
+                {plannerStack?.map((skill: string) => {
                   return (
-                    <ProjectStackItem key={`${skill}${idx}`}>
+                    <ProjectStackItem key={`${skill}`}>
                       <SkillIcon
                         src={require(`../../assets/images/icon_skills/icon_skill_${skill.toLowerCase()}.jpg`)}
                         alt={skill}
@@ -62,9 +60,9 @@ const ProjectInfoArea = ({ projectData }: any) => {
               <StackValue>협의가능</StackValue>
             ) : (
               <StackList>
-                {designerStack?.map((skill: string, idx: number) => {
+                {designerStack?.map((skill: string) => {
                   return (
-                    <ProjectStackItem key={`${skill}${idx}`}>
+                    <ProjectStackItem key={`${skill}`}>
                       <SkillIcon
                         src={require(`../../assets/images/icon_skills/icon_skill_${skill.toLowerCase()}.jpg`)}
                         alt={skill}
@@ -82,9 +80,9 @@ const ProjectInfoArea = ({ projectData }: any) => {
               <StackValue>협의가능</StackValue>
             ) : (
               <StackList>
-                {developerStack?.map((skill: string, idx: number) => {
+                {developerStack?.map((skill: string) => {
                   return (
-                    <ProjectStackItem key={`${skill}${idx}`}>
+                    <ProjectStackItem key={`${skill}`}>
                       <SkillIcon
                         src={require(`../../assets/images/icon_skills/icon_skill_${skill.toLowerCase()}.jpg`)}
                         alt={skill}
