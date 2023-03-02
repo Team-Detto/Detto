@@ -34,13 +34,14 @@ const PublicProfilePage = () => {
   const { data: userInfoData }: any = useQuery({
     queryKey: ['users', id],
     queryFn: getUserInfoData,
-    staleTime: staleTime.users,
+    staleTime: staleTime.user,
   });
 
   const { data: userProjectListsData }: any = useQuery({
     queryKey: ['myProjects', id],
     queryFn: getUserProjectList,
     staleTime: staleTime.myProjects,
+    enabled: !!id,
   });
 
   const handleSendNoteButtonClick = () => {

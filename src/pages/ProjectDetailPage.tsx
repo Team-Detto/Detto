@@ -23,6 +23,7 @@ import styled from '@emotion/styled';
 import { Helmet } from 'react-helmet-async';
 import { useEffect } from 'react';
 import { getCurrentPathName, logEvent } from 'utils/amplitude';
+import { staleTime } from 'utils/staleTime';
 
 const ProjectDetailPage = () => {
   const params = useParams();
@@ -34,6 +35,8 @@ const ProjectDetailPage = () => {
   const { data: projectData } = useQuery({
     queryKey: ['post', pid],
     queryFn: () => findWithCollectionName('post', pid),
+    staleTime: staleTime.project,
+    enabled: !!pid,
   });
 
   const { uid } = useAuth(); // 현재 사용자
@@ -43,12 +46,15 @@ const ProjectDetailPage = () => {
   const { data: userData } = useQuery({
     queryKey: ['users', writer],
     queryFn: () => findWithCollectionName('users', writer),
+    staleTime: staleTime.user,
+    enabled: !!writer,
   });
 
   // 현재 유저가 프로젝트 지원자 인가 조회
   const { data: isApplicant } = useQuery({
     queryKey: ['post', projectData?.applicants],
     queryFn: () => firebaseGetIsApplicantRequest(pid, uid),
+    staleTime: staleTime.project,
   });
 
   const queryClient = useQueryClient();

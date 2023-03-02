@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateRecruiting } from 'apis/postDetail';
 import { firebaseLikeProjectUpdateRequest } from 'apis/boardService';
-import { useAuth } from 'hooks';
+import { useAuth, useGlobalModal } from 'hooks';
 import { getDate } from 'utils/date';
 import { getCurrentPathName, logEvent } from 'utils/amplitude';
 import { EditType } from 'types/write/writeType';
@@ -38,6 +38,7 @@ const MobileContentCard = ({
   const idList: any[] = [];
   const queryClient = useQueryClient();
   const today = new Date().getTime();
+  const { openModal } = useGlobalModal();
 
   const { mutate: updateRecruitingMutate } = useMutation(
     () => updateRecruiting(id as string, false),
@@ -58,6 +59,10 @@ const MobileContentCard = ({
   );
 
   const handleUpdateLike = useCallback(() => {
+    if (!uid) {
+      openModal('login', 0);
+      return;
+    }
     setIsLike(!isLike);
     updateLikeMutate();
     logEvent('Button Click', {
@@ -65,7 +70,7 @@ const MobileContentCard = ({
       to: 'none',
       name: 'like',
     });
-  }, [isLike, updateLikeMutate]);
+  }, [isLike, updateLikeMutate, uid]);
 
   useEffect(() => {
     if (today > deadline) {

@@ -32,6 +32,7 @@ const MyPage = () => {
     queryKey: ['myProjects', uid],
     queryFn: getUserProjectList,
     staleTime: staleTime.myProjects,
+    enabled: !!uid,
   });
 
   useEffect(() => {
