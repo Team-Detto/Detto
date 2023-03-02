@@ -13,7 +13,6 @@ const UserPositions = ({
   isJunior,
   version = 'web',
 }: UserPositionsProps) => {
-  let contPosition = 0;
   return (
     <UserPositionDiv version={version}>
       {positions?.map((position: string) => {
