@@ -152,8 +152,8 @@ const MobileMainRecommendationCardContainer = styled.div`
 const MobileMainRecommendationCardButton = styled(Link)`
   width: 100%;
   padding: 0.625rem 0;
-  font-weight: 900;
-  font-size: 10px;
+  font-weight: 500;
+  font-size: 11px;
   text-align: center;
   color: ${COLORS.gray750};
 `;
