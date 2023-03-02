@@ -48,7 +48,7 @@ const MobileDropdownMenu = () => {
                 amplitudeNeedToButtonClick('findproject', 'find_project');
               }}
             >
-              팀원찾기
+              프로젝트 찾기
             </Link>
           </DropdownItem>
           <DropdownItem onClick={() => !isLoggedIn && openModal('login', 0)}>
