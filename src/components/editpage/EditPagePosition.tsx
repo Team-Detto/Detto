@@ -1,10 +1,11 @@
-import LabelInput from 'components/common/LabelInput';
+import { ChangeEvent } from 'react';
 import { Position } from 'types/position/positionType';
+import LabelInput from 'components/common/LabelInput';
 import styled from '@emotion/styled';
 
 interface Props {
   positions: Position.Developers;
-  onFormValueChangeEvent: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onFormValueChangeEvent: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const EidtPagePosition = ({ positions, onFormValueChangeEvent }: Props) => {

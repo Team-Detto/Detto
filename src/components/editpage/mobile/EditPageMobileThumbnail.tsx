@@ -1,3 +1,4 @@
+import { RefObject } from 'react';
 import { MdOutlinePhotoCamera } from 'react-icons/md';
 import {
   EditPageMobileBodyLeftBox,
@@ -8,8 +9,8 @@ import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
 
 interface Props {
-  imageRef: any;
-  editThumbnail: any;
+  imageRef: RefObject<HTMLInputElement>;
+  editThumbnail: File | null;
   onAddThumbnailImageChangeEvent: () => void;
 }
 
@@ -81,7 +82,7 @@ const EditPageMobileThumbnailButton = styled.label`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${(props: { editThumbnail: string }) =>
+  background-color: ${(props: { editThumbnail: File | null }) =>
     props.editThumbnail ? COLORS.gray300 : COLORS.violetB400};
   border-radius: 0.25rem;
   &:hover {
