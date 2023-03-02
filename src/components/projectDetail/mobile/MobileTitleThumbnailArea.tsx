@@ -79,7 +79,13 @@ const IsRecruitingDiv = styled.div<{ children: string }>`
   color: ${COLORS.white};
 `;
 
-const TitleDiv = styled.div``;
+const TitleDiv = styled.div`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+`;
 
 const ProjectThumbnail = styled.img`
   min-width: 12.5rem;
