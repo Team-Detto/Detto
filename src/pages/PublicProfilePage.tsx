@@ -31,13 +31,13 @@ const PublicProfilePage = () => {
   const { openModalWithData, openModal } = useGlobalModal();
   const isMobile = useIsMobile();
 
-  const { data: userInfoData }: any = useQuery({
+  const { data: userInfoData } = useQuery({
     queryKey: ['users', id],
     queryFn: getUserInfoData,
     staleTime: staleTime.user,
   });
 
-  const { data: userProjectListsData }: any = useQuery({
+  const { data: userProjectListsData } = useQuery({
     queryKey: ['myProjects', id],
     queryFn: getUserProjectList,
     staleTime: staleTime.myProjects,
@@ -135,7 +135,11 @@ const PublicProfilePage = () => {
                   </NicknameAndMessageContainer>
                   <UserInfoObject>
                     <UserInfoKey>연락처</UserInfoKey>
-                    <UserInfoValue>{userInfoData?.email}</UserInfoValue>
+                    <UserInfoValue>
+                      {userInfoData?.email.length === 0
+                        ? '등록한 이메일이 없어요:/'
+                        : userInfoData?.email}
+                    </UserInfoValue>
                   </UserInfoObject>
                   <UserInfoObject>
                     <UserInfoKey>기술 스택</UserInfoKey>

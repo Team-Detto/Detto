@@ -27,7 +27,7 @@ import { staleTime } from 'utils/staleTime';
 
 const ProjectDetailPage = () => {
   const params = useParams();
-  const pid = params?.id;
+  const pid = params.id as string;
   const isMobile = useIsMobile();
   const { sendNotification } = useNotification();
 
@@ -59,7 +59,7 @@ const ProjectDetailPage = () => {
 
   const queryClient = useQueryClient();
   const { mutate: updateRecruitingMutate } = useMutation(
-    () => updateRecruiting(pid as string, false),
+    () => updateRecruiting(pid, false),
     {
       onSuccess: () => {
         queryClient.invalidateQueries(['post', pid]); //마감하기 버튼 성공시 렌더링
@@ -70,7 +70,7 @@ const ProjectDetailPage = () => {
   );
 
   const { mutate: deleteApplicantMutate } = useMutation(
-    () => deleteApplicant(pid as string, uid),
+    () => deleteApplicant(pid, uid),
     {
       onSuccess: () => {
         queryClient.invalidateQueries(['post', pid]); //지원취소 버튼 성공시 렌더링
@@ -98,7 +98,7 @@ const ProjectDetailPage = () => {
   // 마감하기 버튼 이벤트 핸들러
   const handleAuthorButtonClick = () => {
     sendDeadlineNotificationToApplicants();
-    updateRecruitingMutate(pid as any, false as any);
+    updateRecruitingMutate();
     handleCloseModalCloseChange();
   };
 
