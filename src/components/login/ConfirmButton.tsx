@@ -11,7 +11,7 @@ export default function ConfirmButton({ onClick }: ButtonProps) {
 
 const Button = styled.button`
   width: 100%;
-  height: 3.75rem;
+  height: 3.875rem;
 
   font-weight: 600;
   font-size: 17px;
