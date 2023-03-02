@@ -1,16 +1,16 @@
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { useModal, useUpdateProfile } from 'hooks';
-import styled from '@emotion/styled';
 import { mypageInfoButtonActiveState, userInfoState } from '../../recoil/atoms';
+import styled from '@emotion/styled';
 import UserInfoTop from './UserInfoTop';
 import SkillList from './SkillList';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
-import { designs, develops, products } from 'utils/skills';
-import COLORS from 'assets/styles/colors';
 import Alert from 'components/common/Alert';
-import { getCurrentPathName, logEvent } from 'utils/amplitude';
 import { ProjectsTabContainer } from 'components/common/myProjectList/ProjectsTab';
+import COLORS from 'assets/styles/colors';
+import { amplitudeToNoneButtonClick } from 'utils/amplitude';
+import { designs, develops, products } from 'utils/skills';
 
 const MyPageInfo = ({ user }: MypageInfoProps) => {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
@@ -96,11 +96,7 @@ const MyPageInfo = ({ user }: MypageInfoProps) => {
           isActive={activeInfoBtn}
           onClick={() => {
             handleUserInfoConfirm();
-            logEvent('Button Click', {
-              from: getCurrentPathName(),
-              to: 'none',
-              name: 'update_profile',
-            });
+            amplitudeToNoneButtonClick('update_profile');
           }}
           disabled={!activeInfoBtn}
         >
