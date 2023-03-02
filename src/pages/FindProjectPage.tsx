@@ -23,7 +23,7 @@ const FindProjectPage = () => {
     return (
       <>
         <Helmet>
-          <title>{`팀원찾기 - Detto`}</title>
+          <title>{`프로젝트 찾기 - Detto`}</title>
         </Helmet>
         <FindProjectMobilePageContainer>
           <FindProjectMobileHeader
