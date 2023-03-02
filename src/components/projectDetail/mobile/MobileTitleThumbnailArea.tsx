@@ -70,7 +70,7 @@ const IsRecruitingDiv = styled.div<{ children: string }>`
   align-items: center;
   padding: 0rem;
   gap: 0.625rem;
-  width: 3.75rem;
+  min-width: 3.75rem;
   height: 1.75rem;
   font-size: 0.875rem;
   background: ${({ children }) =>
