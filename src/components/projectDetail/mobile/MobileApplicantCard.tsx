@@ -101,12 +101,6 @@ const Stacks = styled.div`
   height: 2.125rem;
 `;
 
-const Stack = styled.div`
-  font-weight: 500;
-  font-size: 0.75rem;
-  color: ${COLORS.gray750};
-`;
-
 const InviteButton = styled.button`
   display: flex;
   justify-content: center;

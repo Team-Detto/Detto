@@ -2,8 +2,7 @@ import Slider from 'react-slick';
 import styled from '@emotion/styled';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import Logo1 from 'assets/images/logo_main1.png';
-import Logo2 from 'assets/images/logo_main2.gif';
+import Logo1 from 'assets/images/logo_main1.webp';
 import COLORS from 'assets/styles/colors';
 
 const settings = {

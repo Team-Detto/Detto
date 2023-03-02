@@ -7,7 +7,7 @@ import { getDate } from 'utils/date';
 import { getCurrentPathName, logEvent } from 'utils/amplitude';
 import { EditType } from 'types/write/writeType';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
-import defaultThumbnail from 'assets/images/thumbnail_mobile.jpg';
+import defaultThumbnail from 'assets/images/thumbnail_mobile.png';
 import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
 interface Props {

@@ -3,7 +3,7 @@ import { firestore } from 'apis/firebaseService';
 import COLORS from 'assets/styles/colors';
 import { doc, updateDoc } from 'firebase/firestore';
 import { useAuth, useGlobalModal, useToastPopup } from 'hooks';
-import React, { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { career as careerList, mobilePositionList } from 'utils/positions';
 import ConfirmButton from './ConfirmButton';
 import ModalNavigator from '../common/modal/ModalNavigator';
@@ -62,7 +62,7 @@ export default function SetPositions() {
         </TextContainer>
         <Buttons>
           {mobilePositionList.map(({ type, name }) => (
-            <React.Fragment key={type}>
+            <Fragment key={type}>
               <Input
                 type="checkbox"
                 name="position"
@@ -72,7 +72,7 @@ export default function SetPositions() {
                 }
               />
               <Label htmlFor={type}>{name}</Label>
-            </React.Fragment>
+            </Fragment>
           ))}
         </Buttons>
         <TextContainer>
@@ -80,7 +80,7 @@ export default function SetPositions() {
         </TextContainer>
         <Buttons>
           {careerList.map(({ id, value }) => (
-            <React.Fragment key={id}>
+            <Fragment key={id}>
               <Input
                 type="radio"
                 name="career"
@@ -89,7 +89,7 @@ export default function SetPositions() {
                 onChange={(e) => setCareer(e.currentTarget.value)}
               />
               <Label htmlFor={id}>{value}</Label>
-            </React.Fragment>
+            </Fragment>
           ))}
         </Buttons>
         <ConfirmButton onClick={handleConfirmButtonClick} />

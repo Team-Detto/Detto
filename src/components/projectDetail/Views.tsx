@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { updateViews } from '../../apis/postDetail';
 
 const Views = ({ pid, view }: any) => {

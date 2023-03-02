@@ -249,15 +249,6 @@ const UserSkillsContainer = styled.div`
   gap: 0.1875rem;
 `;
 
-const ApplicantStacks = styled.div`
-  height: 1.625rem;
-  font-weight: 500;
-  font-size: 0.875rem;
-  margin-top: 0rem;
-  color: ${COLORS.gray750};
-  line-height: 1.625rem;
-`;
-
 const StackList = styled.div`
   display: flex;
   flex-wrap: wrap;

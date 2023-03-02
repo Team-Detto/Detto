@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import ConfirmAlert from 'components/common/ConfirmAlert';
 import { authService, firestore } from 'apis/firebaseService';
 import COLORS from 'assets/styles/colors';
-import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import { doc, updateDoc } from 'firebase/firestore';
 
 export interface LeftTabProps {
   activeTab: string;

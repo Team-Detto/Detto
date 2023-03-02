@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import ErrorImg from 'assets/images/404ErrorImg.png';
-import ErrorMessage from 'assets/images/404ErrorMessage.png';
+import ErrorImg from 'assets/images/404ErrorImg.webp';
+import ErrorMessage from 'assets/images/404ErrorMessage.webp';
 import { Helmet } from 'react-helmet-async';
 
 const ErrorPage = () => {

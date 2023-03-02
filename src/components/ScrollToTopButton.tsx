@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import ScollToTopImage from 'assets/images/scroll_to_top.png';
+import ScollToTopImage from 'assets/images/scroll_to_top.webp';
 import { useIsMobile } from 'hooks';
 import { useEffect, useState } from 'react';
 import { amplitudeToNoneButtonClick } from 'utils/amplitude';

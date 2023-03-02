@@ -8,7 +8,7 @@ import { concatSkills } from 'utils/skills';
 import { getCurrentPathName, logEvent } from 'utils/amplitude';
 import { EditType } from 'types/write/writeType';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
-import defaultThumbnail from 'assets/images/thumbnail_small.jpg';
+import defaultThumbnail from 'assets/images/thumbnail_small.webp';
 import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
 

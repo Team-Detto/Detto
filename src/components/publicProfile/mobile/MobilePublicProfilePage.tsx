@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
-import { useAuth } from 'hooks';
 import UserPositions from '../UserPositions';
 import { concatSkills } from 'utils/skills';
 import ProjectsTab from 'components/common/myProjectList/ProjectsTab';
