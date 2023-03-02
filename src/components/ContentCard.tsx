@@ -14,7 +14,7 @@ import styled from '@emotion/styled';
 
 interface Props {
   project: EditType.EditFormType;
-  likedProjects: any;
+  likedProjects: string[];
   onNavigateToProjectDetailEvent: (path: string) => () => void;
 }
 

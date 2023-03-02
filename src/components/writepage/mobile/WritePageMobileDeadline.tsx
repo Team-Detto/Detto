@@ -1,3 +1,4 @@
+import { ChangeEvent } from 'react';
 import {
   WritePageMobileBodyLeftBox,
   WritePageMobileBodyRightBox,
@@ -8,7 +9,7 @@ import styled from '@emotion/styled';
 
 interface Props {
   deadline: string;
-  onFormValueChangeEvent: (e: any) => void;
+  onFormValueChangeEvent: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const WritePageMobileDeadline = ({

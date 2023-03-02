@@ -1,3 +1,4 @@
+import { MouseEvent } from 'react';
 import { positionList } from 'utils/positions';
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
@@ -5,7 +6,7 @@ import COLORS from 'assets/styles/colors';
 interface Props {
   toggle: boolean;
   category: string;
-  onCategoryClickEvent: (e: any) => void;
+  onCategoryClickEvent: (e: MouseEvent<HTMLButtonElement>) => void;
   onToggleClickEvent: () => void;
 }
 

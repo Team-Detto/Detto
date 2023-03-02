@@ -1,5 +1,5 @@
-import { useEffect, useState, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState, useCallback, MouseEvent } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { useAuth } from 'hooks';
 import { firebaseInfinityScrollProjectDataRequest } from 'apis/boardService';
@@ -10,6 +10,7 @@ import { logEvent, getCurrentPathName } from 'utils/amplitude';
 
 const useFindProject = () => {
   const navigate = useNavigate();
+  const { state: categoryFromFooter } = useLocation();
 
   const { uid } = useAuth();
 
@@ -34,6 +35,12 @@ const useFindProject = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (categoryFromFooter !== null) {
+      setCategory(categoryFromFooter);
+    }
+  }, [categoryFromFooter]);
+
   useBottomScrollListener(
     useCallback(() => {
       if (lastVisible) {
@@ -46,12 +53,13 @@ const useFindProject = () => {
     }, [lastVisible]),
   );
 
-  const handleCategoryClick = (e: any) => {
-    setCategory(e.target.name);
+  const handleCategoryClick = (e: MouseEvent<HTMLButtonElement>) => {
+    const { name } = e.target as HTMLButtonElement;
+    setCategory(name);
     logEvent('Button Click', {
       from: getCurrentPathName(),
       to: 'none',
-      name: `category_${e.target.name}`,
+      name: `category_${name}`,
     });
   };
 
@@ -78,7 +86,6 @@ const useFindProject = () => {
     projects,
     category,
     likedProjects,
-    setCategory,
     handleToggleClick,
     handleCategoryClick,
     handleNavigateToProjectDetail,

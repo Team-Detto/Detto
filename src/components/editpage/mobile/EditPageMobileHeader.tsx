@@ -1,8 +1,9 @@
+import { EditType } from 'types/write/writeType';
 import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
 
 interface Props {
-  editFormValue: any;
+  editFormValue: EditType.EditFormType;
   onFormValueChangeEvent: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 

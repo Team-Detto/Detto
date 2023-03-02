@@ -37,13 +37,19 @@ export const stackValidation = (
   return true;
 };
 
-export const periodValidation = (startDate: string, endDate: string) => {
+export const periodValidation = (
+  startDate: string | number,
+  endDate: string | number,
+) => {
   if (startDate === '' || endDate === '') return false;
   if (startDate > endDate) return false;
   return true;
 };
 
-export const deadlineValidation = (deadline: string, TodayDate: string) => {
+export const deadlineValidation = (
+  deadline: string | number,
+  TodayDate: string,
+) => {
   if (deadline === '') return false;
   if (deadline < TodayDate) return false;
   return true;

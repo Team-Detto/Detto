@@ -14,7 +14,7 @@ interface Props {
   project: EditType.EditFormType;
   likedProjects: string[];
   pid?: string;
-  onNavigateToProjectDetailEvent: (path: any) => () => void;
+  onNavigateToProjectDetailEvent: (path: string) => () => void;
 }
 
 const MobileContentCard = ({
