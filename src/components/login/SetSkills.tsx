@@ -73,13 +73,11 @@ const Container = styled.div`
 `;
 
 const BodyContainer = styled.div`
-  height: 29rem;
-
   display: flex;
   flex-direction: column;
 
   margin-bottom: 2.5rem;
-  padding: 0 35px;
+  padding: 0 2.1875rem;
 `;
 
 const TextContainer = styled.div`

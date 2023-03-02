@@ -74,15 +74,18 @@ const WritePageStackContainer = styled.div`
   display: flex;
   flex-direction: row;
 `;
+
 const WritePageLeftBox = styled.div`
   width: 10%;
 `;
+
 const WirtePageRightBox = styled.div`
   width: 90%;
   display: flex;
   flex-direction: column;
   gap: 1.4rem;
 `;
+
 const WritePageStackText = styled.h2`
   display: flex;
   align-items: center;
@@ -91,21 +94,25 @@ const WritePageStackText = styled.h2`
   letter-spacing: -0.02rem;
   color: #383838;
 `;
+
 const WritePageStackBox = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
 `;
+
 const WritePageStackLeftBox = styled.div`
-  width: 8%;
+  min-width: 8%;
 `;
+
 const WritePageStackRightBox = styled.div`
-  width: 90%;
+  min-width: 62.5625rem;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   gap: 1rem;
 `;
+
 const WritePageStackCategoryText = styled.p`
   height: 1.75rem;
   font-weight: 500;
