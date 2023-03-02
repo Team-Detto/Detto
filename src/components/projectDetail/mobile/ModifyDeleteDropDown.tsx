@@ -17,7 +17,7 @@ const ModifyDeleteDropDown = ({ pid, popup, setPopup, projectData }: any) => {
     () => deleteProject(pid),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries([['post', 'projectIdList']]);
+        queryClient.invalidateQueries(['post', 'projectIdList']);
       },
     },
   );
