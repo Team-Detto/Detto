@@ -17,14 +17,16 @@ const ProjectInfoArea = ({ projectData }: any) => {
     <ProjectInfoWrapper>
       <ProjectInfoObject>
         <ProjectInfoKey>모집인원</ProjectInfoKey>
-        <ProjectInfoValue>
-          {positionList.map((position) => (
-            <Position>
-              {`${position.name}`}
-              <Emphasis>{`${positions[position.type]}`}</Emphasis>명
-            </Position>
-          ))}
-        </ProjectInfoValue>
+        {positionList.map((position) => (
+          <ProjectInfoValue key={position.type}>
+            {positions[position.type] > 0 && (
+              <Position>
+                {`${position.name}`}
+                <Emphasis>{`${positions[position.type]}`}</Emphasis>명
+              </Position>
+            )}
+          </ProjectInfoValue>
+        ))}
       </ProjectInfoObject>
       <ProjectStackContainer>
         <Div>
@@ -33,29 +35,64 @@ const ProjectInfoArea = ({ projectData }: any) => {
         <ProjectInfoStackWrap>
           <StackDiv>
             <StackTitle>기획</StackTitle>
-            <StackList>
-              {plannerStack?.map((skill: string) => {
-                return <StackValue key={skill}>{skill}</StackValue>;
-              }) ?? '없음'}
-            </StackList>
+            {plannerStack?.length === 0 ? (
+              <StackValue>협의 가능</StackValue>
+            ) : (
+              <StackList>
+                {plannerStack?.map((skill: string) => {
+                  return (
+                    <ProjectStackItem key={`${skill}`}>
+                      <SkillIcon
+                        src={require(`../../assets/images/icon_skills/icon_skill_${skill.toLowerCase()}.jpg`)}
+                        alt={skill}
+                      />
+                      <StackValue>{skill}</StackValue>
+                    </ProjectStackItem>
+                  );
+                })}
+              </StackList>
+            )}
           </StackDiv>
 
           <StackDiv>
             <StackTitle>디자인</StackTitle>
-            <StackList>
-              {designerStack?.map((skill: string) => {
-                return <StackValue key={skill}>{skill}</StackValue>;
-              }) ?? '없음'}
-            </StackList>
+            {designerStack?.length === 0 ? (
+              <StackValue>협의가능</StackValue>
+            ) : (
+              <StackList>
+                {designerStack?.map((skill: string) => {
+                  return (
+                    <ProjectStackItem key={`${skill}`}>
+                      <SkillIcon
+                        src={require(`../../assets/images/icon_skills/icon_skill_${skill.toLowerCase()}.jpg`)}
+                        alt={skill}
+                      />
+                      <StackValue>{skill}</StackValue>
+                    </ProjectStackItem>
+                  );
+                })}
+              </StackList>
+            )}
           </StackDiv>
           <StackDiv>
             <StackTitle>개발</StackTitle>
-            <StackList>
-              {developerStack?.map((skill: string) => {
-                return <StackValue key={skill}>{skill}</StackValue>;
-              }) ?? '없음'}
-            </StackList>
-            {/* <UserStacks stacks={developerStack} version="mobile" /> */}
+            {developerStack?.length === 0 ? (
+              <StackValue>협의가능</StackValue>
+            ) : (
+              <StackList>
+                {developerStack?.map((skill: string) => {
+                  return (
+                    <ProjectStackItem key={`${skill}`}>
+                      <SkillIcon
+                        src={require(`../../assets/images/icon_skills/icon_skill_${skill.toLowerCase()}.jpg`)}
+                        alt={skill}
+                      />
+                      <StackValue>{skill}</StackValue>
+                    </ProjectStackItem>
+                  );
+                })}
+              </StackList>
+            )}
           </StackDiv>
         </ProjectInfoStackWrap>
       </ProjectStackContainer>
@@ -99,6 +136,7 @@ const ProjectInfoStackWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  gap: 1.25rem;
 `;
 
 const ProjectInfoKey = styled.div`
@@ -114,14 +152,24 @@ const ProjectInfoValue = styled.div`
   height: 2.5rem;
 `;
 
-const Position = styled.div`
+const Position = styled.span`
   height: 1.5rem;
   display: flex;
   flex-direction: row;
   align-items: center;
-  ::after {
-    padding: 0 0.75rem;
-    content: '|';
+  :nth-of-type(n + 2) {
+    position: relative;
+    margin-left: 12px;
+    padding-left: 12px;
+  }
+  :nth-of-type(n + 2)::after {
+    position: absolute;
+    left: 0;
+    top: 5px;
+    content: '';
+    width: 1.5px;
+    height: 15px;
+    background-color: black;
   }
 `;
 
@@ -147,6 +195,7 @@ const StackDiv = styled.div`
   justify-content: flex-start;
   gap: 0.625rem;
   width: 100%;
+  min-height: 2.8rem;
   height: 100%;
 `;
 
@@ -164,14 +213,35 @@ const StackTitle = styled.div`
   display: flex;
   align-items: center;
   font-weight: 500;
-  font-size: 18px;
+  font-size: 1.125rem;
   color: #383838;
+`;
+
+const ProjectStackItem = styled.li`
+  display: flex;
+  align-items: center;
+  height: 2rem;
+  padding: 0 0.5rem;
+
+  background-color: ${COLORS.gray100};
+  border-radius: 2rem;
+  font-size: 0.75rem;
+  color: ${COLORS.black};
+  cursor: default;
+`;
+
+export const SkillIcon = styled.img`
+  width: 1.25rem;
+  height: 1.25rem;
+  object-fit: cover;
+  display: block;
+  border-radius: 50%;
 `;
 
 const StackValue = styled.div`
   background-color: ${COLORS.gray100};
   height: 2rem;
-  padding: 0 0.75rem;
+  padding: 0 0.5rem;
   border-radius: 2rem;
   font-size: 0.75rem;
   display: flex;
