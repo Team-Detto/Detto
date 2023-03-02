@@ -17,27 +17,25 @@ const ProjectInfoArea = ({ projectData }: any) => {
     <ProjectInfoWrapper>
       <ProjectInfoObject>
         <ProjectInfoKey>모집 인원</ProjectInfoKey>
-        {positionList.map((position) => (
-          <ProjectInfoValue key={position.type}>
-            {positions[position.type] > 0 && (
-              <Position>
-                {`${position.name}`}
-                <Emphasis>{`${positions[position.type]}`}</Emphasis>명
+        <ProjectInfoValue>
+          {Object.keys(positions).map((key: string, idx: number) => {
+            return (
+              <Position key={key}>
+                {positionList[idx].name}
+                <Emphasis>{positions[key]}</Emphasis>명
               </Position>
-            )}
-          </ProjectInfoValue>
-        ))}
+            );
+          })}
+        </ProjectInfoValue>
       </ProjectInfoObject>
       <ProjectStackContainer>
         <Div>
           <ProjectStackKey>필요 스택</ProjectStackKey>
         </Div>
         <ProjectInfoStackWrap>
-          <StackDiv>
-            <StackTitle>기획</StackTitle>
-            {plannerStack?.length === 0 ? (
-              <StackValue>협의 가능</StackValue>
-            ) : (
+          {plannerStack?.length === 0 ? null : (
+            <StackDiv>
+              <StackTitle>기획</StackTitle>
               <StackList>
                 {plannerStack?.map((skill: string) => {
                   return (
@@ -51,14 +49,12 @@ const ProjectInfoArea = ({ projectData }: any) => {
                   );
                 })}
               </StackList>
-            )}
-          </StackDiv>
+            </StackDiv>
+          )}
 
-          <StackDiv>
-            <StackTitle>디자인</StackTitle>
-            {designerStack?.length === 0 ? (
-              <StackValue>협의가능</StackValue>
-            ) : (
+          {designerStack?.length === 0 ? null : (
+            <StackDiv>
+              <StackTitle>디자인</StackTitle>
               <StackList>
                 {designerStack?.map((skill: string) => {
                   return (
@@ -72,13 +68,11 @@ const ProjectInfoArea = ({ projectData }: any) => {
                   );
                 })}
               </StackList>
-            )}
-          </StackDiv>
-          <StackDiv>
-            <StackTitle>개발</StackTitle>
-            {developerStack?.length === 0 ? (
-              <StackValue>협의가능</StackValue>
-            ) : (
+            </StackDiv>
+          )}
+          {developerStack?.length === 0 ? null : (
+            <StackDiv>
+              <StackTitle>개발</StackTitle>
               <StackList>
                 {developerStack?.map((skill: string) => {
                   return (
@@ -92,8 +86,8 @@ const ProjectInfoArea = ({ projectData }: any) => {
                   );
                 })}
               </StackList>
-            )}
-          </StackDiv>
+            </StackDiv>
+          )}
         </ProjectInfoStackWrap>
       </ProjectStackContainer>
       <ProjectInfoObject>
@@ -158,13 +152,13 @@ const Position = styled.span`
   flex-direction: row;
   align-items: center;
   position: relative;
-  margin: 0 0.5rem;
+  margin: 0 1.3rem 0 0;
 
   &::after {
     content: '|';
     position: absolute;
     margin: 0 0.5rem;
-    right: -1rem;
+    right: -1.3rem;
     top: -0.2rem;
   }
 
