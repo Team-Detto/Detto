@@ -16,7 +16,7 @@ const settings = {
   autoplaySpeed: 4000,
 };
 
-const MobileMainBanner = (props: any) => {
+const MobileMainBanner = () => {
   return (
     <MobileSliderWrapper {...settings}>
       <MobileSlideWrapper>

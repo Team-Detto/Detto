@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
-import React, { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { designs, develops, products } from 'utils/skills';
 
 const positions = ['기획', '디자인', '개발'];
@@ -28,7 +28,7 @@ export default function MobileSetSkillsPageStack({ skills, setSkills }: any) {
     <Container>
       <Buttons>
         {positions.map((position) => (
-          <React.Fragment key={position}>
+          <Fragment key={position}>
             <Input
               defaultChecked={position === selectedPosition}
               type="radio"
@@ -38,7 +38,7 @@ export default function MobileSetSkillsPageStack({ skills, setSkills }: any) {
               onChange={(e) => setSelectedPosition(e.currentTarget.value)}
             />
             <Label htmlFor={position}>{position}</Label>
-          </React.Fragment>
+          </Fragment>
         ))}
       </Buttons>
       <Skills>

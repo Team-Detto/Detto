@@ -3,7 +3,6 @@ import COLORS from 'assets/styles/colors';
 import Views from '../Views';
 import Likes from '../Likes';
 import Share from '../Share';
-import React, { useState } from 'react';
 
 const ViewsToShare = ({ pid, projectData }: any) => {
   const { view, like, title, content } = projectData;

@@ -3,7 +3,7 @@ import { firestore } from 'apis/firebaseService';
 import COLORS from 'assets/styles/colors';
 import { doc, updateDoc } from 'firebase/firestore';
 import { useAuth, useGlobalModal, useToastPopup } from 'hooks';
-import React, { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { career as careerList, positionList } from 'utils/positions';
 import ModalNavigator from 'components/common/modal/ModalNavigator';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
@@ -63,7 +63,7 @@ export default function MobileSetPositions() {
           </TextContainer>
           <ButtonsContainer>
             {positionList.map(({ type, name }) => (
-              <React.Fragment key={type}>
+              <Fragment key={type}>
                 <Input
                   type="checkbox"
                   name="position"
@@ -75,7 +75,7 @@ export default function MobileSetPositions() {
                 <Label type="position" htmlFor={type}>
                   {name}
                 </Label>
-              </React.Fragment>
+              </Fragment>
             ))}
           </ButtonsContainer>
         </div>
@@ -85,7 +85,7 @@ export default function MobileSetPositions() {
           </TextContainer>
           <ButtonsContainer>
             {careerList.map(({ id, value }) => (
-              <React.Fragment key={id}>
+              <Fragment key={id}>
                 <Input
                   type="radio"
                   name="career"
@@ -96,7 +96,7 @@ export default function MobileSetPositions() {
                 <Label type="career" htmlFor={id}>
                   {value}
                 </Label>
-              </React.Fragment>
+              </Fragment>
             ))}
           </ButtonsContainer>
         </div>

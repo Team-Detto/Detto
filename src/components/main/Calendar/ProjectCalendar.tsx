@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import styled from '@emotion/styled';
-import React from 'react';
 import { firebaseGetProjectDataRequest } from 'apis/boardService';
 import { getDate } from 'utils/date';
 import { useSetRecoilState } from 'recoil';
