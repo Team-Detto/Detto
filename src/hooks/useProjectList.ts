@@ -36,7 +36,7 @@ const useProjectList = () => {
 
   // 현재 선택된 탭의 프로젝트 리스트 조회 함수
   const getActiveProjects = async (params: any) => {
-    const [_, pidList] = params.queryKey;
+    const pidList = params.queryKey[1];
 
     const data = await Promise.all(
       pidList?.map((pid: string) => findWithCollectionName('post', pid)),
