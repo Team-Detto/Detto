@@ -84,12 +84,13 @@ const ProjectDetailPage = () => {
     const applicantsUidArray = Object.keys(projectData?.applicants);
 
     applicantsUidArray.forEach((applicant: any) => {
+      if (!params.id) return;
       sendNotification({
         title: '지원하신 프로젝트의 모집이 마감되었습니다.',
         receiverUid: applicant,
         link: {
           type: 'project',
-          id: params.id!,
+          id: params.id,
         },
       });
     });
