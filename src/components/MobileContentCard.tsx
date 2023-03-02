@@ -172,7 +172,7 @@ const ContentCardDateContainer = styled.div`
 `;
 const ContentCardDate = styled.div`
   font-weight: 500;
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
   line-height: 1.0625rem;
 
   color: #6b7684;
@@ -214,7 +214,7 @@ const ContentCardBookmark = styled.button`
 `;
 const ContentCardTitle = styled.div`
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 0.875rem;
   line-height: 1.4375rem;
 
   color: #333d4b;
@@ -231,7 +231,7 @@ const ContentCardSubTextBox = styled.div`
 `;
 const ContentCardSubText = styled.p`
   font-weight: 500;
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   line-height: 1.1875rem;
 
   color: #6b7684;
