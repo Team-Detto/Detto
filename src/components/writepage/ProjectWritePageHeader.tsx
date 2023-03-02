@@ -5,7 +5,7 @@ import COLORS from 'assets/styles/colors';
 
 interface Props {
   writeFormValue: WriteType.WriteFormType;
-  onFormValueChangeEvent: (e: ChangeEvent<HTMLInputElement>) => void; // eslint-disable-line no-unused-vars
+  onFormValueChangeEvent: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const ProjectWritePageHeader = ({
