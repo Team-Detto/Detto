@@ -18,7 +18,7 @@ const ProjectInfoArea = ({ projectData }: any) => {
       <ProjectInfoObject>
         <ProjectInfoKey>모집 인원</ProjectInfoKey>
         {positionList.map((position) => (
-          <ProjectInfoValue key={position.type}>
+           <ProjectInfoValue key={position.type}>
             {positions[position.type] > 0 && (
               <Position>
                 {`${position.name}`}
@@ -157,19 +157,19 @@ const Position = styled.span`
   display: flex;
   flex-direction: row;
   align-items: center;
-  :nth-of-type(n + 2) {
-    position: relative;
-    margin-left: 12px;
-    padding-left: 12px;
-  }
-  :nth-of-type(n + 2)::after {
+  position: relative;
+  margin: 0 0.5rem;
+
+  &::after {
+    content: '|';
     position: absolute;
-    left: 0;
-    top: 5px;
-    content: '';
-    width: 1.5px;
-    height: 15px;
-    background-color: black;
+    margin: 0 0.5rem;
+    right: -1rem;
+    top: -0.2rem;
+  }
+
+  &:last-child::after {
+    display: none;
   }
 `;
 
