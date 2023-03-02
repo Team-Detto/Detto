@@ -1,4 +1,4 @@
-import {} from 'react';
+import { MouseEvent } from 'react';
 import { mobilePositionList } from 'utils/positions';
 import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 interface Props {
   toggle: boolean;
   category: string;
-  onCategoryClickEvent: (e: any) => void;
+  onCategoryClickEvent: (e: MouseEvent<HTMLButtonElement>) => void;
   onToggleClickEvent: () => void;
 }
 

@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useFindProject, useIsMobile } from 'hooks';
 import WebContainer from 'components/common/WebContainer';
@@ -15,21 +13,11 @@ const FindProjectPage = () => {
     category,
     toggle,
     likedProjects,
-    setCategory,
     handleCategoryClick,
     handleToggleClick,
     handleNavigateToProjectDetail,
   } = useFindProject();
   const isMobile = useIsMobile();
-
-  const { state: categoryFromFooter } = useLocation();
-
-  // 푸터에서 클릭한 경우 카테고리 지정
-  useEffect(() => {
-    if (categoryFromFooter !== null) {
-      setCategory(categoryFromFooter);
-    }
-  }, [categoryFromFooter]);
 
   if (isMobile) {
     return (
