@@ -18,14 +18,13 @@ const ProjectInfoArea = ({ projectData }: any) => {
       <ProjectInfoObject>
         <ProjectInfoKey>모집 인원</ProjectInfoKey>
         {positionList.map((position) => (
-          <ProjectInfoValue key={position.type}>
+        <ProjectInfoValue key={position.type}>
             {positions[position.type] > 0 && (
               <Position>
                 {`${position.name}`}
                 <Emphasis>{`${positions[position.type]}`}</Emphasis>명
               </Position>
-            );
-          })}
+            )}
         </ProjectInfoValue>
       </ProjectInfoObject>
       <ProjectStackContainer>
