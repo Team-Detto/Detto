@@ -13,7 +13,9 @@ import {
 export const updateLike = async (pid: any, countLike: any) => {
   if (pid === undefined) return;
   const docRef = doc(firestore, 'post', pid);
-  await updateDoc(docRef, { like: countLike });
+  try {
+    await updateDoc(docRef, { like: countLike });
+  } catch (error) {}
 };
 
 export const updateViews = async (pid: any, countViews: number) => {
