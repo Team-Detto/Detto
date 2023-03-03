@@ -92,16 +92,20 @@ const StackContainer = styled.div`
   max-width: 70.875rem;
   display: flex;
   flex-direction: row;
+  margin-top: 2.5rem;
 `;
+
 const StackPageLeftBox = styled.div`
   width: 10%;
 `;
+
 const StackPageRightBox = styled.div`
   width: 90%;
   display: flex;
   flex-direction: column;
   gap: 1.4rem;
 `;
+
 const StackText = styled.h2`
   display: flex;
   align-items: center;
@@ -110,14 +114,17 @@ const StackText = styled.h2`
   letter-spacing: -0.02rem;
   color: #383838;
 `;
+
 const StacktBox = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
 `;
+
 const StackLeftBox = styled.div`
   width: 8%;
 `;
+
 const StackRightBox = styled.div`
   width: 90%;
   display: flex;
@@ -125,6 +132,7 @@ const StackRightBox = styled.div`
   flex-wrap: wrap;
   gap: 1rem;
 `;
+
 const StackCategoryText = styled.p`
   height: 1.75rem;
   font-weight: 500;
