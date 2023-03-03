@@ -31,6 +31,8 @@ const LabelInput = ({ input, label, text, value, onChangeEvent }: props) => {
 const LabelInputContainer = styled.div`
   width: 100%;
   display: flex;
+  justify-content: center;
+  flex-direction: row;
   align-items: center;
 `;
 const Input = styled.input`
