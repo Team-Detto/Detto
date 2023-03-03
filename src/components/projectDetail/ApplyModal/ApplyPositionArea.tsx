@@ -3,7 +3,8 @@ import COLORS from 'assets/styles/colors';
 import PositionButton from 'components/common/ApplyPositionButton';
 
 const ApplyPositionArea = (props: any) => {
-  const { clickValue, setClickValue, version = 'web' } = props;
+  const { clickValue, setClickValue, version = 'web', positions } = props;
+
   return (
     <PositionContainer>
       <PositionTitle version={version}>
@@ -17,6 +18,7 @@ const ApplyPositionArea = (props: any) => {
           clickValue={clickValue}
           setClickValue={setClickValue}
           version={version}
+          positions={positions}
         />
       </PositionContentWrap>
     </PositionContainer>
