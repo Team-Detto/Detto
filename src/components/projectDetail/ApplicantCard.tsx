@@ -12,9 +12,9 @@ const ApplicantCard = ({ applicant, pid }: any) => {
 
   useEffect(() => {
     if (isOpen) {
-      const prevScrollY = preventScroll();
+      preventScroll();
       return () => {
-        allowScroll(prevScrollY);
+        allowScroll();
       };
     }
   }, [isOpen]);

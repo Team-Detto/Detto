@@ -33,9 +33,9 @@ export default function LoginModal() {
 
   // 모달이 열려있을 때 body 스크롤 방지
   useEffect(() => {
-    const prevScrollY = preventScroll();
+    preventScroll();
     return () => {
-      allowScroll(prevScrollY);
+      allowScroll();
     };
   }, []);
 

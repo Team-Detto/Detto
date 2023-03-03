@@ -21,9 +21,9 @@ const MobileAlert = ({
   useEffect(() => {
     if (page !== ('sendNote' || 'apply')) {
       if (isOpen) {
-        const prevScrollY = preventScroll();
+        preventScroll();
         return () => {
-          allowScroll(prevScrollY);
+          allowScroll();
         };
       }
     }

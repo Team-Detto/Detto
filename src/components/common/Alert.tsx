@@ -15,9 +15,9 @@ const Alert = ({ isOpen, onClickEvent, mainMsg, subMsg, page }: props) => {
   useEffect(() => {
     if (page !== ('sendNote' || 'apply')) {
       if (isOpen) {
-        const prevScrollY = preventScroll();
+        preventScroll();
         return () => {
-          allowScroll(prevScrollY);
+          allowScroll();
         };
       }
     }

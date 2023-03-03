@@ -23,9 +23,9 @@ const NoteModal = () => {
     else updateModalSize('41.0625rem', '31.4375rem');
 
     // 모달이 열려있을 때 body 스크롤 방지
-    const prevScrollY = preventScroll();
+    preventScroll();
     return () => {
-      allowScroll(prevScrollY);
+      allowScroll();
     };
   }, []);
 
