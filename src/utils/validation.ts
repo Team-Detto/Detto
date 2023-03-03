@@ -16,6 +16,9 @@ export const positionValidation = (position: object) => {
   if (Object.values(position).some((value: number) => value < 0)) {
     return false;
   }
+  if (Object.values(position).some((value: number) => value > 99)) {
+    return false;
+  }
   return true;
 };
 
