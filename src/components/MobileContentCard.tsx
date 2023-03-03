@@ -88,7 +88,9 @@ const MobileContentCard = ({
 
   return (
     <MobileContentCardWrap>
-      <ContentCardImgContainer>
+      <ContentCardImgContainer
+        onClick={onNavigateToProjectDetailEvent(id ?? pid)}
+      >
         {thumbnail ? (
           <ContentCardImg src={thumbnail} alt={title + '프로젝트 썸네일'} />
         ) : (
@@ -97,7 +99,12 @@ const MobileContentCard = ({
             alt={title + '프로젝트 썸네일'}
           />
         )}
-        <ContentCardBookmark onClick={handleUpdateLike}>
+        <ContentCardBookmark
+          onClick={(e) => {
+            e.stopPropagation();
+            handleUpdateLike();
+          }}
+        >
           {isLike ? (
             <AiFillHeart size="1.5rem" color={`${COLORS.pink}`} />
           ) : (
@@ -141,6 +148,7 @@ const ContentCardImgContainer = styled.div`
   height: 4.5rem;
   margin-right: 1.4375rem;
   position: relative;
+  cursor: pointer;
 `;
 const ContentCardImg = styled.img`
   width: 100%;
