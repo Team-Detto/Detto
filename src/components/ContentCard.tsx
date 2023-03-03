@@ -57,6 +57,7 @@ const ContentCard = ({
     {
       onSuccess: () => {
         queryClient.invalidateQueries(['likedProjects', uid]);
+        queryClient.invalidateQueries(['myProjects', uid]);
       },
     },
   );
