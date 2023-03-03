@@ -1,4 +1,4 @@
-import { ChangeEvent, RefObject } from 'react';
+import { ChangeEvent, MouseEvent, RefObject } from 'react';
 import { WriteType } from 'types/write/writeType';
 import WritePageMobilePosition from './WritePageMobilePosition';
 import WritePageMobileStack from './WritePageMobileStack';
@@ -12,6 +12,7 @@ interface Props {
   imageRef: RefObject<HTMLInputElement>;
   writeFormValue: WriteType.WriteFormType;
   setWriteFormValue: (value: WriteType.WriteFormType) => void;
+  onCalculateEvent: (e: MouseEvent<HTMLButtonElement>) => void;
   onFormValueChangeEvent: (e: ChangeEvent<HTMLInputElement>) => void;
   onAddThumbnailImageChangeEvent: () => void;
 }
@@ -20,6 +21,7 @@ const WritePageMobileBody = ({
   imageRef,
   writeFormValue,
   setWriteFormValue,
+  onCalculateEvent,
   onFormValueChangeEvent,
   onAddThumbnailImageChangeEvent,
 }: Props) => {
@@ -37,7 +39,7 @@ const WritePageMobileBody = ({
     <WritePageMobileBodyContainer>
       <WritePageMobilePosition
         positions={positions}
-        setWriteFormValue={setWriteFormValue}
+        onCalculateEvent={onCalculateEvent}
         onFormValueChangeEvent={onFormValueChangeEvent}
       />
       <WritePageMobileStack

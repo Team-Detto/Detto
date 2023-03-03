@@ -16,6 +16,7 @@ const EditPageMobileHeader = ({
       <EditPageMobileHeaderInput
         placeholder="제목입니다."
         name="title"
+        type="text"
         maxLength={40}
         value={editFormValue?.title || ''}
         onChange={onFormValueChangeEvent}

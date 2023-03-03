@@ -1,4 +1,4 @@
-import { useCallback, useState, ChangeEvent, useRef } from 'react';
+import { useCallback, useState, ChangeEvent, useRef, MouseEvent } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { firebaseEditProjectRequest } from 'apis/boardService';
@@ -155,6 +155,23 @@ const useEditBoard = () => {
     [setEditFormValue],
   );
 
+  const handleCalculate = useCallback(
+    (e: MouseEvent<HTMLButtonElement>) => {
+      const { id, name, value } = e.currentTarget;
+      const numberValue = Number(value);
+      const updatedValue =
+        id === 'plus' ? numberValue + 1 : Math.max(0, numberValue - 1);
+      setEditFormValue((prev: any) => ({
+        ...prev,
+        positions: {
+          ...prev.positions,
+          [name]: updatedValue,
+        },
+      }));
+    },
+    [setEditFormValue],
+  );
+
   return {
     isOpen,
     editRef,
@@ -164,6 +181,7 @@ const useEditBoard = () => {
     editThumbnail,
     editFormValue,
     setEditFormValue,
+    handleCalculate,
     handleFormValueChange,
     handleModalStateChange,
     handleAddThumbnailImage,

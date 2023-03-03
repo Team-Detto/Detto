@@ -1,4 +1,4 @@
-import { ChangeEvent, RefObject } from 'react';
+import { ChangeEvent, MouseEvent, RefObject } from 'react';
 import EditPageMobilePosition from './EditPageMobilePosition';
 import EditPageMobileStack from './EditPageMobileStack';
 import EditPageMobilePeriod from './EditPageMobilePeriod';
@@ -13,6 +13,7 @@ interface Props {
   editThumbnail: File | null;
   editFormValue: EditType.EditFormType;
   setEditFormValue: (value: any) => void;
+  onCalculateEvent: (e: MouseEvent<HTMLButtonElement>) => void;
   onFormValueChangeEvent: (e: ChangeEvent<HTMLInputElement>) => void;
   onAddThumbnailImageChangeEvent: () => void;
 }
@@ -22,6 +23,7 @@ const EditPageMobileBody = ({
   editThumbnail,
   editFormValue,
   setEditFormValue,
+  onCalculateEvent,
   onFormValueChangeEvent,
   onAddThumbnailImageChangeEvent,
 }: Props) => {
@@ -39,7 +41,7 @@ const EditPageMobileBody = ({
     <EditPageMobileBodyContainer>
       <EditPageMobilePosition
         positions={positions}
-        setEditFormValue={setEditFormValue}
+        onCalculateEvent={onCalculateEvent}
         onFormValueChangeEvent={onFormValueChangeEvent}
       />
       <EditPageMobileStack

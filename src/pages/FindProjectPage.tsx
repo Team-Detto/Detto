@@ -9,12 +9,12 @@ import styled from '@emotion/styled';
 
 const FindProjectPage = () => {
   const {
+    toggle,
     projects,
     category,
-    toggle,
     likedProjects,
-    handleCategoryClick,
     handleToggleClick,
+    handleCategoryClick,
     handleNavigateToProjectDetail,
   } = useFindProject();
   const isMobile = useIsMobile();
@@ -29,14 +29,14 @@ const FindProjectPage = () => {
           <FindProjectMobileHeader
             toggle={toggle}
             category={category}
-            onCategoryClickEvent={handleCategoryClick}
             onToggleClickEvent={handleToggleClick}
+            onCategoryClickEvent={handleCategoryClick}
           />
           <FindProjectMobileList
-            projects={projects}
-            likedProjects={likedProjects}
             toggle={toggle}
             category={category}
+            projects={projects}
+            likedProjects={likedProjects}
             onNavigateToProjectDetailEvent={handleNavigateToProjectDetail}
           />
         </FindProjectMobilePageContainer>
@@ -54,14 +54,14 @@ const FindProjectPage = () => {
           <FindProjectHeader
             toggle={toggle}
             category={category}
-            onCategoryClickEvent={handleCategoryClick}
             onToggleClickEvent={handleToggleClick}
+            onCategoryClickEvent={handleCategoryClick}
           />
           <FindProjectList
-            projects={projects}
-            likedProjects={likedProjects}
             toggle={toggle}
             category={category}
+            projects={projects}
+            likedProjects={likedProjects}
             onNavigateToProjectDetailEvent={handleNavigateToProjectDetail}
           />
         </WebContainer>

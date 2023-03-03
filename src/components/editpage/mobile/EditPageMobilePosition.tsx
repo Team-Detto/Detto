@@ -9,31 +9,15 @@ import styled from '@emotion/styled';
 
 interface Props {
   positions: any;
-  setEditFormValue: (value: any) => void;
+  onCalculateEvent: (e: MouseEvent<HTMLButtonElement>) => void;
   onFormValueChangeEvent: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const EditPageMobilePosition = ({
   positions,
-  setEditFormValue,
+  onCalculateEvent,
   onFormValueChangeEvent,
 }: Props) => {
-  const handleCalculate = useCallback(
-    (e: MouseEvent<HTMLButtonElement>) => {
-      const { id, name, value } = e.currentTarget;
-      const numberValue = Number(value);
-      const updatedValue =
-        id === 'plus' ? numberValue + 1 : Math.max(0, numberValue - 1);
-      setEditFormValue((prev: any) => ({
-        ...prev,
-        positions: {
-          ...prev.positions,
-          [name]: updatedValue,
-        },
-      }));
-    },
-    [setEditFormValue],
-  );
   return (
     <EditPageMobilePositionContainer>
       <EditPageMobileBodyLeftBox>
@@ -47,7 +31,7 @@ const EditPageMobilePosition = ({
             position={position.name}
             value={positions[position.type]}
             onChangeEvent={onFormValueChangeEvent}
-            onClickEvent={handleCalculate}
+            onClickEvent={onCalculateEvent}
           />
         ))}
       </EditPageMobileBodyRightBox>
