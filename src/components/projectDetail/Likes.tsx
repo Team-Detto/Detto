@@ -61,6 +61,7 @@ const Likes = ({ pid, version = 'web' }: any) => {
         queryClient.invalidateQueries(['myProjects', uid]);
         queryClient.invalidateQueries(['post', 'mostViewed']);
         queryClient.invalidateQueries(['post', 'mostLiked']);
+        queryClient.invalidateQueries(['likedProjects', uid]);
       },
     },
   );
