@@ -22,7 +22,7 @@ const ProjectInfoArea = ({ projectData }: any) => {
             return (
               <Position key={key}>
                 {positionList[idx].name}
-                <Emphasis>{positions[key]}</Emphasis>명
+                <Emphasis>{positions[positionList[idx].type]}</Emphasis>명
               </Position>
             );
           })}
