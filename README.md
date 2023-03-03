@@ -4,7 +4,7 @@
 
 프로젝트 기간 : 2023.02.06 ~ 2023.03.13
 
-🔗 [배포링크](https://detto.vercel.app/)
+🔗 [Detto 사이트 바로가기](https://www.detto.site/)
 
 🔗 [시연영상 유튜브](https://www.youtube.com/watch?v=LcIOjxE0Wxs&t=2s)
 
