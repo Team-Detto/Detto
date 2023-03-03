@@ -19,7 +19,6 @@ const ProjectInfoArea = ({ projectData }: any) => {
         <ProjectInfoKey>모집 인원</ProjectInfoKey>
         <ProjectInfoValue>
           {Object.keys(positions).map((key: string, idx: number) => {
-            console.log(positions[key]);
             return (
               <Position key={key}>
                 {positionList[idx].name}
