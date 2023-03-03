@@ -43,12 +43,14 @@ const WriterToProjectInfoArea = ({ projectData, userData }: any) => {
             <ProjectInfoKey>모집 인원</ProjectInfoKey>
             <ProjectInfoValue>
               {Object.keys(positions).map((key: string, idx: number) => {
-                return (
-                  <Position key={key}>
-                    {positionList[idx].name}
-                    <Emphasis>{positions[positionList[idx].type]}</Emphasis>명
-                  </Position>
-                );
+                if (positions[positionList[idx].type] !== 0) {
+                  return (
+                    <Position key={key}>
+                      {positionList[idx].name}
+                      <Emphasis>{positions[positionList[idx].type]}</Emphasis>명
+                    </Position>
+                  );
+                }
               })}
             </ProjectInfoValue>
           </ProjectInfoObject>
@@ -210,7 +212,8 @@ const ProjectInfoStackWrap = styled.div`
   gap: 0.625rem;
 
   width: 100%;
-  min-height: 6.5rem;
+  height: 100%;
+  /* min-height: 6.5rem; */
 `;
 
 const StackDiv = styled.div`
