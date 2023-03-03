@@ -112,7 +112,9 @@ const ContentCard = ({
             </ContentCardLikeButton>
           </ContentCardBookmark>
         </ContentCardDateContainer>
-        <ContentCardTitle>{title}</ContentCardTitle>
+        <ContentCardTitle onClick={onNavigateToProjectDetailEvent(id)}>
+          {title}
+        </ContentCardTitle>
         <ContentCardSubTextBox>
           <ContentCardSubText>조회수 {view}</ContentCardSubText>
           <ContentCardSubText>관심 {like}</ContentCardSubText>
@@ -211,6 +213,8 @@ const ContentCardTitle = styled.div`
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+
+  cursor: pointer;
 `;
 const ContentCardSubTextBox = styled.div`
   display: flex;
