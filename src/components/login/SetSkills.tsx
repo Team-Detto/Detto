@@ -1,13 +1,11 @@
 import styled from '@emotion/styled';
-import { firestore } from 'apis/firebaseService';
 import COLORS from 'assets/styles/colors';
-import { doc, updateDoc } from 'firebase/firestore';
-import { useAuth, useGlobalModal, useToastPopup } from 'hooks';
 import { useState } from 'react';
 import ConfirmButton from './ConfirmButton';
 import ModalNavigator from 'components/common/modal/ModalNavigator';
 import SetSkillsPageStack from './SetSkillsPageStack';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
+import useSetSkills from 'hooks/useSetSkills';
 
 // 페이지 2 : 기술스택 선택
 const page = 2;
@@ -19,31 +17,8 @@ export default function SetSkills() {
     developerStack: [],
   });
 
-  const { showToast, ToastMessage, handleToastPopup } = useToastPopup();
-  const { openModal } = useGlobalModal();
-  const { uid } = useAuth();
-
-  // 기술스택 선택 유효성 검사
-  const checkValidation = () => {
-    if (
-      skills.plannerStack.length === 0 &&
-      skills.designerStack.length === 0 &&
-      skills.developerStack.length === 0
-    ) {
-      handleToastPopup('기술스택을 선택해주세요.');
-      return false;
-    }
-    return true;
-  };
-
-  const handleConfirmButtonClick = async () => {
-    if (!uid) return;
-    if (!checkValidation()) return;
-    await updateDoc(doc(firestore, `users/${uid}`), {
-      ...skills,
-    });
-    openModal('login', page + 1);
-  };
+  const { showToast, ToastMessage, handleConfirmButtonClick } =
+    useSetSkills(skills);
 
   return (
     <Container>
