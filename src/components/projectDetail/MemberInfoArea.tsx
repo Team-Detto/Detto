@@ -24,80 +24,84 @@ const MemberInfoArea = ({ applicantsData }: any) => {
     <>
       <MemberInfoWrapper>
         <MemberInfoTitle>현재 참여 중인 인원</MemberInfoTitle>
-        <MemberInfoBox>
-          <MemberInfoDiv>
-            <PositionDiv>기획</PositionDiv>
-            {data?.map((key) => {
-              if (applicantsData[key].position === '기획')
-                return (
-                  <Div key={key}>
-                    <MemberProfileImg
-                      key={key}
-                      onClick={() => onClickEvent(applicantsData[key].uid)}
-                      src={applicantsData[key].profileURL}
-                      alt={applicantsData[key].displayName}
-                      referrerPolicy="no-referrer"
-                    ></MemberProfileImg>
-                    <HoverText>{applicantsData[key].displayName}</HoverText>
-                  </Div>
-                );
-            })}
-          </MemberInfoDiv>
-          <MemberInfoDiv>
-            <PositionDiv>디자인</PositionDiv>
-            {data.map((key) => {
-              if (applicantsData[key].position === '디자인')
-                return (
-                  <Div key={key}>
-                    <MemberProfileImg
-                      onClick={() => onClickEvent(applicantsData[key].uid)}
-                      src={applicantsData[key].profileURL}
-                      alt={applicantsData[key].displayName}
-                      referrerPolicy="no-referrer"
-                    ></MemberProfileImg>
-                    <HoverText>{applicantsData[key].displayName}</HoverText>
-                  </Div>
-                );
-            })}
-          </MemberInfoDiv>
-          <MemberInfoDiv>
-            <PositionDiv>프론트</PositionDiv>
+        {data.length <= 0 ? (
+          <NodataMessage>아직 모집 중이에요 :/</NodataMessage>
+        ) : (
+          <MemberInfoBox>
+            <MemberInfoDiv>
+              <PositionDiv>기획</PositionDiv>
+              {data?.map((key) => {
+                if (applicantsData[key].position === '기획')
+                  return (
+                    <Div key={key}>
+                      <MemberProfileImg
+                        key={key}
+                        onClick={() => onClickEvent(applicantsData[key].uid)}
+                        src={applicantsData[key].profileURL}
+                        alt={applicantsData[key].displayName}
+                        referrerPolicy="no-referrer"
+                      ></MemberProfileImg>
+                      <HoverText>{applicantsData[key].displayName}</HoverText>
+                    </Div>
+                  );
+              })}
+            </MemberInfoDiv>
+            <MemberInfoDiv>
+              <PositionDiv>디자인</PositionDiv>
+              {data.map((key) => {
+                if (applicantsData[key].position === '디자인')
+                  return (
+                    <Div key={key}>
+                      <MemberProfileImg
+                        onClick={() => onClickEvent(applicantsData[key].uid)}
+                        src={applicantsData[key].profileURL}
+                        alt={applicantsData[key].displayName}
+                        referrerPolicy="no-referrer"
+                      ></MemberProfileImg>
+                      <HoverText>{applicantsData[key].displayName}</HoverText>
+                    </Div>
+                  );
+              })}
+            </MemberInfoDiv>
+            <MemberInfoDiv>
+              <PositionDiv>프론트</PositionDiv>
 
-            {data.map((key) => {
-              if (applicantsData[key].position === '프론트엔드')
-                return (
-                  <Div key={key}>
-                    <MemberProfileImg
-                      onClick={() => onClickEvent(applicantsData[key].uid)}
-                      src={applicantsData[key].profileURL}
-                      alt={applicantsData[key].displayName}
-                      referrerPolicy="no-referrer"
-                    ></MemberProfileImg>
-                    <HoverText>{applicantsData[key].displayName}</HoverText>
-                  </Div>
-                );
-            })}
-          </MemberInfoDiv>
-          <MemberInfoDiv>
-            <PositionDiv>백엔드</PositionDiv>
+              {data.map((key) => {
+                if (applicantsData[key].position === '프론트엔드')
+                  return (
+                    <Div key={key}>
+                      <MemberProfileImg
+                        onClick={() => onClickEvent(applicantsData[key].uid)}
+                        src={applicantsData[key].profileURL}
+                        alt={applicantsData[key].displayName}
+                        referrerPolicy="no-referrer"
+                      ></MemberProfileImg>
+                      <HoverText>{applicantsData[key].displayName}</HoverText>
+                    </Div>
+                  );
+              })}
+            </MemberInfoDiv>
+            <MemberInfoDiv>
+              <PositionDiv>백엔드</PositionDiv>
 
-            {data.map((key) => {
-              if (applicantsData[key].position === '백엔드')
-                return (
-                  <Div key={key}>
-                    <MemberProfileImg
-                      key={key}
-                      onClick={() => onClickEvent(applicantsData[key].uid)}
-                      alt={applicantsData[key].displayName}
-                      src={applicantsData[key].profileURL}
-                      referrerPolicy="no-referrer"
-                    ></MemberProfileImg>
-                    <HoverText>{applicantsData[key].displayName}</HoverText>
-                  </Div>
-                );
-            })}
-          </MemberInfoDiv>
-        </MemberInfoBox>
+              {data.map((key) => {
+                if (applicantsData[key].position === '백엔드')
+                  return (
+                    <Div key={key}>
+                      <MemberProfileImg
+                        key={key}
+                        onClick={() => onClickEvent(applicantsData[key].uid)}
+                        alt={applicantsData[key].displayName}
+                        src={applicantsData[key].profileURL}
+                        referrerPolicy="no-referrer"
+                      ></MemberProfileImg>
+                      <HoverText>{applicantsData[key].displayName}</HoverText>
+                    </Div>
+                  );
+              })}
+            </MemberInfoDiv>
+          </MemberInfoBox>
+        )}
       </MemberInfoWrapper>
     </>
   );
@@ -202,4 +206,16 @@ const Div = styled.div`
     align-items: center;
     justify-content: center;
   }
+`;
+
+const NodataMessage = styled.p`
+  display: flex;
+  justify-content: center;
+  padding: 6rem 0;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-top: 0.375rem;
+  color: ${COLORS.gray200};
+  background-color: ${COLORS.white};
+  cursor: default;
 `;
