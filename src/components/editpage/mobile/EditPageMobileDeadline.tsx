@@ -8,7 +8,7 @@ import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
 
 interface Props {
-  deadline: number;
+  deadline: string | number;
   onFormValueChangeEvent: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 

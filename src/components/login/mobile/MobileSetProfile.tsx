@@ -18,7 +18,6 @@ import MyPageProfileImage from 'components/mypage/MyPageProfileImage';
 import TextInput from 'components/mypage/TextInput';
 import { staleTime } from 'utils/staleTime';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
-import { InfoEditConfirmBtn } from 'components/mypage/MyPageInfo';
 
 // 페이지 3 : 프로필 사진, 닉네임 변경
 const page = 3;
@@ -37,7 +36,8 @@ export default function MobileSetProfile() {
     staleTime: staleTime.user,
   });
 
-  const { handleInputChange, validationMessage } = useUpdateProfile();
+  const { handleInputChange, validationMessage, handleInputClear } =
+    useUpdateProfile();
   const { profileImg, handleProfileImageChange, handleProfileImageDelete } =
     useProfileImage(uid, userInfoData?.photoURL);
 
@@ -102,6 +102,7 @@ export default function MobileSetProfile() {
             name="displayName"
             value={userInfo.displayName}
             onChangeValue={handleInputChange}
+            onClearValue={handleInputClear}
             validationMessage={validationMessage}
             isMobile={true}
             page="join"

@@ -16,7 +16,7 @@ import {
 
 // 유저 프로필 기본정보 조회
 export const getUserInfoData = async (params: any) => {
-  const [_, uid] = params.queryKey;
+  const uid = params.queryKey[1];
 
   const docRef = doc(firestore, 'users', `${uid}`);
   const docSnap = await getDoc(docRef);
@@ -33,9 +33,9 @@ export const getUserInfoData = async (params: any) => {
  * @returns imgUrl : 스토리지에 업로드된 이미지 객체 Promise
  */
 export const uploadProfileImg = async (file: any, uid: string) => {
-  await uploadBytes(ref(firestorage, `${uid}.jpg`), file);
+  await uploadBytes(ref(firestorage, `${uid}`), file);
 
-  const imgUrl = await getDownloadURL(ref(firestorage, `${uid}.jpg`));
+  const imgUrl = await getDownloadURL(ref(firestorage, `${uid}`));
   return imgUrl;
 };
 
@@ -44,7 +44,7 @@ export const uploadProfileImg = async (file: any, uid: string) => {
  * @param uid : 유저 uid
  */
 export const deleteProfileImg = async (uid: string) => {
-  const deleteRef = ref(firestorage, `${uid}.jpg`);
+  const deleteRef = ref(firestorage, `${uid}`);
   deleteObject(deleteRef)
     // TODO :: 삭제 성공 시
     .catch((error) =>
@@ -71,7 +71,7 @@ export const updateUserInfoData = async (uid: string, userInfo: UserInfo) => {
 
 // 유저의 프로젝트 리스트 조회
 export const getUserProjectList = async (params: any) => {
-  const [_, uid] = params.queryKey;
+  const uid = params.queryKey[1];
 
   const docRef = doc(firestore, 'myprojects', `${uid}`);
   const docSnap = await getDoc(docRef);

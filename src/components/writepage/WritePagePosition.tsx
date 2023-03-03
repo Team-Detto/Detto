@@ -15,7 +15,8 @@ const WritePagePosition = ({
   const { positions }: any = writeFormValue;
 
   return (
-    <WritePagePositionContainer>
+    <WritePageBodyPositionBox>
+      <WritePageBodyPositionText>필요 포지션</WritePageBodyPositionText>
       {positionList.map(({ type, name }) => (
         <LabelInput
           key={type}
@@ -33,13 +34,24 @@ const WritePagePosition = ({
           onChangeEvent={onFormValueChangeEvent}
         />
       ))}
-    </WritePagePositionContainer>
+    </WritePageBodyPositionBox>
   );
 };
 
-const WritePagePositionContainer = styled.div`
+const WritePageBodyPositionBox = styled.div`
   width: 100%;
+  margin-top: 2rem;
   display: flex;
+  flex-direction: row;
+`;
+const WritePageBodyPositionText = styled.label`
+  width: 26.8%;
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+  line-height: 1.75rem;
+  letter-spacing: -0.02rem;
+  color: #383838;
 `;
 
 export default WritePagePosition;

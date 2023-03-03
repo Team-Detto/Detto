@@ -60,6 +60,18 @@ const useUpdateProfile = () => {
     [],
   );
 
+  // 텍스트 인풋 클리어
+  const handleInputClear = useCallback((e: React.MouseEvent<SVGAElement>) => {
+    const { name, value } = e.currentTarget
+      .previousElementSibling as HTMLInputElement;
+
+    if (value === '') return;
+
+    setUserInfo((prevState) => {
+      return { ...prevState, [name]: '' };
+    });
+  }, []);
+
   // 정보완료 버튼 유효성 검사
   const checkInfoValidation = () => {
     const nickname = userInfo.displayName;
@@ -96,6 +108,7 @@ const useUpdateProfile = () => {
   return {
     validationMessage,
     handleInputChange,
+    handleInputClear,
     contactValidationMessage,
     ToastMessage,
     showToast,

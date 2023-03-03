@@ -21,6 +21,7 @@ import TextInput from '../TextInput';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
 import MobileSkillStackList from './MobileSkillStackList';
 import MobileAlert from 'components/common/mobile/MobileAlert';
+import { amplitudeToNoneButtonClick } from 'utils/amplitude';
 
 const MobileUserInfo = ({ user }: MypageInfoProps) => {
   const { uid } = useAuth();
@@ -35,6 +36,7 @@ const MobileUserInfo = ({ user }: MypageInfoProps) => {
     useProfileImage(uid, userInfo.photoURL);
   const {
     handleInputChange,
+    handleInputClear,
     validationMessage,
     contactValidationMessage,
     checkInfoValidation,
@@ -97,7 +99,9 @@ const MobileUserInfo = ({ user }: MypageInfoProps) => {
         <TextInput
           name="displayName"
           value={userInfo.displayName}
+          onClearValue={handleInputClear}
           onChangeValue={handleInputChange}
+          placeholder="닉네임을 입력해주세요."
           validationMessage={validationMessage}
           isMobile={isMobile}
         />
@@ -108,6 +112,7 @@ const MobileUserInfo = ({ user }: MypageInfoProps) => {
           name="email"
           value={userInfo.email ?? ''}
           onChangeValue={handleInputChange}
+          onClearValue={handleInputClear}
           placeholder="연락처로 쓰일 이메일을 입력해주세요."
           validationMessage={contactValidationMessage}
           isEmail={true}
@@ -135,7 +140,10 @@ const MobileUserInfo = ({ user }: MypageInfoProps) => {
       <MobileInfoBox>
         <MobileInfoEditBtn
           isActive={activeInfoBtn}
-          onClick={handleUserInfoConfirm}
+          onClick={() => {
+            handleUserInfoConfirm();
+            amplitudeToNoneButtonClick('update_profile');
+          }}
           disabled={!activeInfoBtn}
         >
           개인정보 수정 완료

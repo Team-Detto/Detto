@@ -1,3 +1,4 @@
+import { ChangeEvent } from 'react';
 import {
   EditPageMobileBodyLeftBox,
   EditPageMobileBodyRightBox,
@@ -7,9 +8,9 @@ import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
 
 interface Props {
-  startDate: string;
-  endDate: string;
-  onFormValueChangeEvent: (e: any) => void;
+  startDate: string | number;
+  endDate: string | number;
+  onFormValueChangeEvent: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const EditPageMobilePeriod = ({

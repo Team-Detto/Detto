@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
-import KEY_IMG from 'assets/images/login_key.png';
+import LOGO_IMG from 'assets/images/login_logo.webp';
 import GITHUB_IMG from 'assets/images/login_github.png';
 import FACEBOOK_IMG from 'assets/images/login_facebook.png';
 import GOOGLE_IMG from 'assets/images/login_google.png';
@@ -14,24 +14,24 @@ export default function SocialLogin() {
 
   return (
     <Container>
-      {/* 로그인 팝업창이 열려있을 때 모달창 상호작용을 방지하기 위한 오버레이 */}
       <Overlay overlay={overlay} />
       <ModalNavigator page={0} close />
-      <BodyContainer>
-        <KeyImg src={KEY_IMG} alt="login" />
-        <Title>로그인을 해주세요</Title>
-        <LoginButtons>
-          <LoginButton onClick={handleGithubLogin}>
-            <LogoImg src={GITHUB_IMG} alt="github" />
-          </LoginButton>
-          <LoginButton onClick={handleFacebookLogin}>
-            <LogoImg src={FACEBOOK_IMG} alt="facebook" />
-          </LoginButton>
-          <LoginButton onClick={handleGoogleLogin}>
-            <LogoImg src={GOOGLE_IMG} alt="google" />
-          </LoginButton>
-        </LoginButtons>
-      </BodyContainer>
+      <LogoImg src={LOGO_IMG} alt="login" />
+      <Title>Detto에 오신 걸 환영합니다!</Title>
+      <LoginButtons>
+        <LoginButton onClick={handleGithubLogin} color="black">
+          <SocialImg src={GITHUB_IMG} alt="github" />
+          <LogoText>GitHub</LogoText>
+        </LoginButton>
+        <LoginButton onClick={handleFacebookLogin} color="blue">
+          <SocialImg src={FACEBOOK_IMG} alt="facebook" />
+          <LogoText>Facebook</LogoText>
+        </LoginButton>
+        <LoginButton onClick={handleGoogleLogin} color="white">
+          <SocialImg src={GOOGLE_IMG} alt="google" />
+          <LogoText color="gray">Google</LogoText>
+        </LoginButton>
+      </LoginButtons>
     </Container>
   );
 }
@@ -39,13 +39,12 @@ export default function SocialLogin() {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
 
   width: 100%;
   height: 100%;
 
-  padding: 2.5rem 2.5rem 8.3125rem 2.5rem;
+  padding: 2.5rem;
 `;
 
 const Overlay = styled.div<{ overlay: boolean }>`
@@ -62,15 +61,11 @@ const Overlay = styled.div<{ overlay: boolean }>`
   background-color: rgba(255, 255, 255, 0.3);
 `;
 
-const BodyContainer = styled.div`
-  width: 27.75rem;
-  height: 17.875rem;
-`;
-
-const KeyImg = styled.img`
-  width: 5.125rem;
-  height: 5.125rem;
-  margin-bottom: 1.5625rem;
+const LogoImg = styled.img`
+  width: 5.75rem;
+  height: 5.75rem;
+  margin-top: 0.25rem;
+  margin-bottom: 1.25rem;
 `;
 
 const Title = styled.h2`
@@ -78,26 +73,48 @@ const Title = styled.h2`
   font-weight: 700;
   font-size: 1.75rem;
   line-height: 2.75rem;
-  margin-bottom: 1.5625rem;
+  margin-bottom: 3.75rem;
 `;
 
 const LoginButtons = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
 `;
 
-const LoginButton = styled.button`
+const LoginButton = styled.button<{
+  color?: string;
+}>`
+  display: flex;
+  padding: 1rem;
+
+  width: 100%;
+  height: 3.5rem;
+
+  background-color: ${(props) =>
+    props.color === 'white'
+      ? COLORS.white
+      : props.color === 'black'
+      ? COLORS.black
+      : '#1B80E4'};
+
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+  border-radius: 0.5rem;
+
   cursor: pointer;
-  transition: 100ms ease-in-out;
-  &:hover {
-    transform: scale(1.05);
-  }
 `;
 
-const LogoImg = styled.img`
-  width: 7.5rem;
-  height: 7.5rem;
+const SocialImg = styled.img`
+  width: 1.5rem;
+  height: 1.5rem;
 
-  box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.12);
-  border-radius: 0.75rem;
+  border-radius: 100%;
+`;
+
+const LogoText = styled.span<{ color?: string }>`
+  color: ${(props) => (props.color === 'gray' ? COLORS.gray800 : COLORS.white)};
+  font-weight: 700;
+  font-size: 1rem;
+  flex: 1;
 `;

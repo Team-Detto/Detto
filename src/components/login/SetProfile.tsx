@@ -36,7 +36,8 @@ export default function SetProfile() {
     staleTime: staleTime.user,
   });
 
-  const { handleInputChange, validationMessage } = useUpdateProfile();
+  const { handleInputChange, validationMessage, handleInputClear } =
+    useUpdateProfile();
   const { profileImg, handleProfileImageChange, handleProfileImageDelete } =
     useProfileImage(uid, userInfoData?.photoURL);
 
@@ -95,6 +96,7 @@ export default function SetProfile() {
             onChange={handleProfileImageChange}
             onDelete={handleProfileImageDelete}
             uid={uid}
+            page="join"
           />
           <NicknameContainer>
             <NicknameLabel htmlFor="nickname">닉네임</NicknameLabel>
@@ -102,6 +104,7 @@ export default function SetProfile() {
               name="displayName"
               value={userInfo.displayName}
               onChangeValue={handleInputChange}
+              onClearValue={handleInputClear}
               validationMessage={validationMessage}
             />
           </NicknameContainer>
@@ -115,7 +118,6 @@ export default function SetProfile() {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 
   width: 100%;
   height: 100%;
@@ -123,29 +125,30 @@ const Container = styled.div`
   padding: 2.5rem;
 `;
 
-const BodyContainer = styled.div``;
+const BodyContainer = styled.div`
+  margin-top: 1.25rem;
+`;
 
 const TextContainer = styled.div`
-  height: 8.3125rem;
-  margin-bottom: 1.625rem;
+  margin-bottom: 1.75rem;
 `;
 
 const SubText = styled.h3`
   color: ${COLORS.gray750};
 
-  font-weight: 600;
-  font-size: 1.25rem;
-  line-height: 1.5rem;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.4375rem;
 
-  margin-bottom: 1.3125rem;
+  margin-bottom: 0.5rem;
 `;
 
 const TitleText = styled.h2`
-  width: 18rem;
+  width: 15rem;
 
   font-weight: 700;
-  font-size: 1.75rem;
-  line-height: 2.75rem;
+  font-size: 1.5rem;
+  line-height: 140%;
 
   color: ${COLORS.gray850};
 
@@ -154,27 +157,30 @@ const TitleText = styled.h2`
 
 const ProfileContainer = styled.div`
   display: flex;
-  justify-content: space-around;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: flex-start;
+
+  margin-bottom: 2rem;
 `;
 
 const NicknameContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+
+  margin-left: 1.8125rem;
 `;
 
 const NicknameLabel = styled.label`
   font-weight: 500;
   font-size: 1.25rem;
   line-height: 1.75rem;
-  min-width: 3.4375rem;
+  width: 4.9375rem;
 
   display: flex;
   align-items: center;
   letter-spacing: -0.02em;
 
   color: #383838;
-
-  margin-right: 1.4375rem;
 `;

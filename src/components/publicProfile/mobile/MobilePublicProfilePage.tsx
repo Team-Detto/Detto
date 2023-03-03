@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
-import { useAuth } from 'hooks';
 import UserPositions from '../UserPositions';
 import { concatSkills } from 'utils/skills';
 import ProjectsTab from 'components/common/myProjectList/ProjectsTab';
@@ -25,7 +24,6 @@ const MobilePublicProfilePage = ({
   } = userInfoData;
 
   const skills = concatSkills(plannerStack, designerStack, developerStack);
-
   return (
     <MobileContainer>
       <UserInfoWrapper>
@@ -38,7 +36,9 @@ const MobilePublicProfilePage = ({
             version="mobile"
           />
         </NameAndPositionDiv>
-        <UserEmail>{email}</UserEmail>
+        <UserEmail>
+          {email.length === 0 ? '등록한 이메일이 없어요:/' : email}
+        </UserEmail>
         <StackDiv>
           {skills.map((stack: string) => (
             <UserStacks key={stack}>{stack}</UserStacks>
@@ -62,8 +62,8 @@ export default MobilePublicProfilePage;
 
 const MobileContainer = styled.div`
   width: 100%;
-  height: 100%;
-  padding: 3rem 0 5rem 0;
+  min-height: 100vh;
+  background-color: ${COLORS.gray50};
 `;
 
 const UserInfoWrapper = styled.div`
@@ -72,6 +72,9 @@ const UserInfoWrapper = styled.div`
   align-items: center;
   justify-content: center;
   gap: 0.5625rem;
+  margin-top: 3rem;
+  padding-bottom: 2rem;
+  background-color: ${COLORS.white};
 `;
 
 const NameAndPositionDiv = styled.div`
@@ -97,12 +100,13 @@ const UserEmail = styled.div`
 `;
 
 const StackDiv = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  width: 18rem;
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   margin-top: 1.1875rem;
-  gap: 0.25rem;
+  gap: 0.5rem;
 `;
 
 const UserStacks = styled.div`
@@ -116,4 +120,6 @@ const UserStacks = styled.div`
   justify-content: center;
 `;
 
-const ProjectWrapper = styled.div``;
+const ProjectWrapper = styled.div`
+  background-color: ${COLORS.white};
+`;

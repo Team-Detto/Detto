@@ -1,11 +1,13 @@
 import styled from '@emotion/styled';
-import ScollToTopImage from 'assets/images/scroll_to_top.png';
+import ScollToTopImage from 'assets/images/scroll_to_top.webp';
 import { useIsMobile } from 'hooks';
 import { useEffect, useState } from 'react';
+import { amplitudeToNoneButtonClick } from 'utils/amplitude';
 
 const ScrollToTopButton = () => {
   const isMobile = useIsMobile();
   const [showButton, setShowButton] = useState<boolean>(false);
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -17,7 +19,6 @@ const ScrollToTopButton = () => {
 
   useEffect(() => {
     window.addEventListener('scroll', toggleShowButton);
-
     return () => {
       window.removeEventListener('scroll', toggleShowButton);
     };
@@ -27,7 +28,12 @@ const ScrollToTopButton = () => {
     return (
       <>
         {showButton && (
-          <MobileButton onClick={scrollToTop}>
+          <MobileButton
+            onClick={() => {
+              scrollToTop();
+              amplitudeToNoneButtonClick('scroll_to_top_button');
+            }}
+          >
             <img src={ScollToTopImage} alt="Scroll to top" />
           </MobileButton>
         )}

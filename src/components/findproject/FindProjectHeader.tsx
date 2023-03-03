@@ -1,3 +1,4 @@
+import { MouseEvent } from 'react';
 import { positionList } from 'utils/positions';
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
@@ -5,7 +6,7 @@ import COLORS from 'assets/styles/colors';
 interface Props {
   toggle: boolean;
   category: string;
-  onCategoryClickEvent: (e: any) => void;
+  onCategoryClickEvent: (e: MouseEvent<HTMLButtonElement>) => void;
   onToggleClickEvent: () => void;
 }
 
@@ -33,7 +34,12 @@ const FindProjectHeader = ({
       </FindProjectHeaderLeftBox>
       <FindProjectHeaderRightBox>
         <FindProjectToggleBox>
-          <FindProjectToggleButton onClick={onToggleClickEvent} toggle={toggle}>
+          <FindProjectToggleButton
+            onClick={onToggleClickEvent}
+            toggle={toggle}
+            id="only recruiting post"
+            aria-label="모집 중 글만 보기"
+          >
             <FindProjectToggleCircle toggle={toggle} />
           </FindProjectToggleButton>
           <FindProjectToggleText toggle={toggle}>모집 중</FindProjectToggleText>

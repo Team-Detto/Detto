@@ -1,63 +1,25 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
-import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
-import { useAuth, useGlobalModal, useIsMobile, useProjectList } from 'hooks';
 import WebContainer from 'components/common/WebContainer';
 import ProjectsTab from 'components/common/myProjectList/ProjectsTab';
 import ProjectList from 'components/common/myProjectList/ProjectList';
-import UserPositions from 'components/publicProfile/UserPositions';
-import UserStacks from 'components/publicProfile/UserStacks';
-import { getUserInfoData, getUserProjectList } from 'apis/mypageUsers';
-import { concatSkills } from 'utils/skills';
-import { staleTime } from 'utils/staleTime';
-import { modalTypes } from 'components/common/modal/modal';
 import MobilePublicProfilePage from 'components/publicProfile/mobile/MobilePublicProfilePage';
 import { Helmet } from 'react-helmet-async';
-import defaultProfile from 'assets/images/default_profile.jpg';
+import usePublicProfile from 'hooks/usePublicProfile';
+import UserProfileBox from 'components/publicProfile/UserProfileBox';
 
 const PublicProfilePage = () => {
-  const { id } = useParams(); //받는사람 id
-  const { uid } = useAuth(); //보내는 사람 id (현재 로그인한 유저)
-  const { activeProjectTab, handleProjectTabClick, setActiveProjectTab } =
-    useProjectList();
-  const { openModalWithData, openModal } = useGlobalModal();
-  const isMobile = useIsMobile();
-
-  const { data: userInfoData }: any = useQuery({
-    queryKey: ['users', id],
-    queryFn: getUserInfoData,
-    staleTime: staleTime.users,
-  });
-
-  const { data: userProjectListsData }: any = useQuery({
-    queryKey: ['myProjects', id],
-    queryFn: getUserProjectList,
-    staleTime: staleTime.myProjects,
-  });
-
-  const handleSendNoteButtonClick = () => {
-    openModalWithData(modalTypes.sendNote, {
-      id: 'id', //addDoc이라 id 필요없음
-      senderUid: uid,
-      receiverUid: id as string,
-      date: 0,
-      title: '',
-      content: '',
-      isRead: false,
-    });
-  };
-
-  const stacks = concatSkills(
-    userInfoData?.plannerStack,
-    userInfoData?.designerStack,
-    userInfoData?.developerStack,
-  );
-
-  useEffect(() => {
-    setActiveProjectTab('currentProjects');
-  }, []);
+  const {
+    uid,
+    stacks,
+    openModal,
+    handleSendNoteButtonClick,
+    userInfoData,
+    isMobile,
+    activeProjectTab,
+    handleProjectTabClick,
+    userProjectListsData,
+  } = usePublicProfile();
 
   if (!userInfoData) return null;
 
@@ -72,43 +34,6 @@ const PublicProfilePage = () => {
     <>
       <Helmet>
         <title>{`${userInfoData.displayName} - Detto`}</title>
-
-        <meta
-          name="description"
-          content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-        />
-        <meta name="keywords" content="개발자, 사이드프로젝트" />
-
-        <meta property="og:type" content="website" />
-        <meta
-          property="og:title"
-          content={`${userInfoData.displayName} - Detto`}
-        />
-        <meta property="og:site_name" content="Detto" />
-        <meta
-          property="og:description"
-          content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-        />
-        <meta
-          property="og:image"
-          content={userInfoData.photoURL ?? defaultProfile}
-        />
-        <meta property="og:url" content="https://detto.vercel.app/" />
-
-        <meta
-          name="twitter:title"
-          content={`${userInfoData.displayName} - Detto`}
-        />
-        <meta
-          name="twitter:description"
-          content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-        />
-        <meta
-          name="twitter:image"
-          content={userInfoData.photoURL ?? defaultProfile}
-        />
-
-        <link rel="canonical" href="https://detto.vercel.app/" />
       </Helmet>
       {isMobile ? (
         <MobilePublicProfilePage
@@ -121,51 +46,13 @@ const PublicProfilePage = () => {
         <PublicProfileContainer>
           <WebContainer>
             <PublicProfileWrapper>
-              <ProfileBox>
-                <ProfileImgBox>
-                  <ProfileImg
-                    src={userInfoData?.photoURL}
-                    alt={userInfoData?.displayName}
-                  />
-                </ProfileImgBox>
-                <ProfileInfoBox>
-                  <NicknameAndMessageContainer>
-                    <UserInformationDiv>
-                      <UserNicknameDiv>
-                        {userInfoData?.displayName}
-                      </UserNicknameDiv>
-                      <UserPositions
-                        positions={userInfoData?.positions}
-                        isJunior={userInfoData?.isJunior}
-                      />
-                      {userInfoData?.uid === uid && (
-                        <IfMyProfileDiv>내 프로필</IfMyProfileDiv>
-                      )}
-                    </UserInformationDiv>
-                    {userInfoData?.uid !== uid && (
-                      <MessageSendButton
-                        onClick={() => {
-                          if (!uid) {
-                            openModal('login', 0);
-                            return;
-                          }
-                          handleSendNoteButtonClick();
-                        }}
-                      >
-                        쪽지보내기
-                      </MessageSendButton>
-                    )}
-                  </NicknameAndMessageContainer>
-                  <UserInfoObject>
-                    <UserInfoKey>연락처</UserInfoKey>
-                    <UserInfoValue>{userInfoData?.email}</UserInfoValue>
-                  </UserInfoObject>
-                  <UserInfoObject>
-                    <UserInfoKey>기술스택</UserInfoKey>
-                    <UserStacks stacks={stacks} />
-                  </UserInfoObject>
-                </ProfileInfoBox>
-              </ProfileBox>
+              <UserProfileBox
+                userInfoData={userInfoData}
+                uid={uid}
+                stacks={stacks}
+                openModal={openModal}
+                handleSendNoteButtonClick={handleSendNoteButtonClick}
+              />
               <UserProjectWrapper>
                 <ProjectsTab
                   type={'public'}
@@ -202,100 +89,8 @@ const PublicProfileWrapper = styled.div`
   margin: 0 auto;
 `;
 
-const ProfileBox = styled.div`
-  width: 100%;
-  height: 14.25rem;
-  margin-top: 12.75rem;
-  display: flex;
-  align-items: center;
-  gap: 2.4375rem;
-`;
-
-const ProfileImgBox = styled.div`
-  width: 14.25rem;
-  height: 14.25rem;
-  border-radius: 50%;
-  overflow: hidden;
-`;
-
-const ProfileImg = styled.img`
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-`;
-
-const ProfileInfoBox = styled.div`
-  width: 55.25rem;
-  height: 10.375rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  font-size: 1.25rem;
-`;
-
-const NicknameAndMessageContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const UserInformationDiv = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.625rem;
-`;
-
-const UserNicknameDiv = styled.div`
-  font-size: 1.5rem;
-  font-weight: 500;
-  max-width: 10rem;
-`;
-
-const IfMyProfileDiv = styled.div`
-  width: 5.625rem;
-  height: 1.875rem;
-
-  background-color: ${COLORS.violetB400};
-  color: ${COLORS.white};
-  font-size: 0.875rem;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0.625rem;
-`;
-
-const MessageSendButton = styled.button`
-  width: 9.8125rem;
-  height: 3.5rem;
-  background-color: ${COLORS.violetB400};
-  color: ${COLORS.white};
-  border-radius: 0.625rem;
-  font-size: 1.25rem;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const UserInfoObject = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.625rem;
-`;
-
-const UserInfoKey = styled.div`
-  width: 6.25rem;
-  color: #828282; //색상표에 없는데 사용되고 있음. 문의하기
-`;
-
-const UserInfoValue = styled.div`
-  color: #828282; //색상표에 없는데 사용되고 있음. 문의하기
-`;
-
 const UserProjectWrapper = styled.div`
-  margin-top: 7.875rem;
+  margin-top: 3.75rem;
   font-size: 1.25rem;
   font-weight: 500;
 `;

@@ -11,7 +11,6 @@ import ProjectWritePageHeader from 'components/writepage/ProjectWritePageHeader'
 import WritePageMobileHeader from 'components/writepage/mobile/WritePageMobileHeader';
 import WritePageMobileBody from 'components/writepage/mobile/WritePageMobileBody';
 import WritePageMobileFooter from 'components/writepage/mobile/WritePageMobileFooter';
-import mobilesecondBanner from 'assets/images/mobilesecondBanner.png';
 import styled from '@emotion/styled';
 
 const ProjectWritePage = () => {
@@ -24,6 +23,7 @@ const ProjectWritePage = () => {
     ToastMessage,
     writeFormValue,
     setWriteFormValue,
+    handleCalculate,
     handleFormValueChange,
     handleModalStateChange,
     handleAddThumbnailImage,
@@ -38,30 +38,6 @@ const ProjectWritePage = () => {
       <>
         <Helmet>
           <title>{'새 글 쓰기 - Detto'}</title>
-
-          <meta
-            name="description"
-            content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-          />
-
-          <meta property="og:type" content="website" />
-          <meta property="og:title" content={'새 글 쓰기 - Detto'} />
-          <meta property="og:site_name" content="Detto" />
-          <meta
-            property="description"
-            content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-          />
-          <meta property="og:image" content={mobilesecondBanner} />
-          <meta property="og:url" content={window.location.href} />
-
-          <meta name="twitter:title" content={'새 글 쓰기 - Detto'} />
-          <meta
-            name="twitter:description"
-            content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-          />
-          <meta name="twitter:image" content={mobilesecondBanner} />
-
-          <link rel="canonical" href={window.location.href} />
         </Helmet>
         <MobileContainer>
           <WritePageMobileContainer>
@@ -73,6 +49,7 @@ const ProjectWritePage = () => {
               imageRef={imageRef}
               writeFormValue={writeFormValue}
               setWriteFormValue={setWriteFormValue}
+              onCalculateEvent={handleCalculate}
               onFormValueChangeEvent={handleFormValueChange}
               onAddThumbnailImageChangeEvent={handleAddThumbnailImageChange}
             />
@@ -99,30 +76,6 @@ const ProjectWritePage = () => {
     <>
       <Helmet>
         <title>{'새 글 쓰기 - Detto'}</title>
-
-        <meta
-          name="description"
-          content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-        />
-
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content={'새 글 쓰기 - Detto'} />
-        <meta property="og:site_name" content="Detto" />
-        <meta
-          property="description"
-          content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-        />
-        <meta property="og:image" content={mobilesecondBanner} />
-        <meta property="og:url" content={window.location.href} />
-
-        <meta name="twitter:title" content={'새 글 쓰기 - Detto'} />
-        <meta
-          name="twitter:description"
-          content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-        />
-        <meta name="twitter:image" content={mobilesecondBanner} />
-
-        <link rel="canonical" href={window.location.href} />
       </Helmet>
       <WebContainer>
         <ProjectWritePageWrapper>

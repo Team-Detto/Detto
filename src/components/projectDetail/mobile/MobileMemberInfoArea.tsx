@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import { useNavigate } from 'react-router-dom';
+import { logEvent } from 'utils/amplitude';
 
 const MobileMemberInfoArea = ({ applicantsData }: any) => {
   const navigate = useNavigate();
@@ -9,6 +10,15 @@ const MobileMemberInfoArea = ({ applicantsData }: any) => {
   const data = Object?.keys(applicantsData).filter((key) => {
     return applicantsData?.[key]?.recruit === true;
   });
+
+  const onClickEvent = (uid: string) => {
+    navigate(`/profile/${uid}`);
+    logEvent('Button Click', {
+      from: `project_detail`, //pathname으로 하면 이동한페이지로 인식해서 수정
+      to: 'profile',
+      name: 'profile',
+    });
+  };
 
   return (
     <>
@@ -22,10 +32,10 @@ const MobileMemberInfoArea = ({ applicantsData }: any) => {
                 return (
                   <MemberProfileImg
                     key={key}
-                    onClick={() =>
-                      navigate(`/profile/${applicantsData[key].uid}`)
-                    }
+                    onClick={() => onClickEvent(applicantsData[key].uid)}
                     src={applicantsData[key].profileURL}
+                    alt={applicantsData[key].displayName}
+                    referrerPolicy="no-referrer"
                   ></MemberProfileImg>
                 );
             })}
@@ -37,10 +47,10 @@ const MobileMemberInfoArea = ({ applicantsData }: any) => {
                 return (
                   <MemberProfileImg
                     key={key}
-                    onClick={() =>
-                      navigate(`/profile/${applicantsData[key].uid}`)
-                    }
+                    onClick={() => onClickEvent(applicantsData[key].uid)}
                     src={applicantsData[key].profileURL}
+                    alt={applicantsData[key].displayName}
+                    referrerPolicy="no-referrer"
                   ></MemberProfileImg>
                 );
             })}
@@ -52,10 +62,10 @@ const MobileMemberInfoArea = ({ applicantsData }: any) => {
                 return (
                   <MemberProfileImg
                     key={key}
-                    onClick={() =>
-                      navigate(`/profile/${applicantsData[key].uid}`)
-                    }
+                    onClick={() => onClickEvent(applicantsData[key].uid)}
                     src={applicantsData[key].profileURL}
+                    alt={applicantsData[key].displayName}
+                    referrerPolicy="no-referrer"
                   ></MemberProfileImg>
                 );
             })}
@@ -67,10 +77,10 @@ const MobileMemberInfoArea = ({ applicantsData }: any) => {
                 return (
                   <MemberProfileImg
                     key={key}
-                    onClick={() =>
-                      navigate(`/profile/${applicantsData[key].uid}`)
-                    }
+                    onClick={() => onClickEvent(applicantsData[key].uid)}
                     src={applicantsData[key].profileURL}
+                    alt={applicantsData[key].displayName}
+                    referrerPolicy="no-referrer"
                   ></MemberProfileImg>
                 );
             })}

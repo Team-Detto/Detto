@@ -6,12 +6,15 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteProject, updateRecruiting } from 'apis/postDetail';
 import { useAuth, useModal } from 'hooks';
 import { useEffect } from 'react';
-import defaultThumbnail from 'assets/images/thumbnail_big.jpg';
+import defaultThumbnail from 'assets/images/thumbnail_big.webp';
+import {
+  amplitudeToNoneButtonClick,
+  amplitudeNeedToButtonClick,
+} from 'utils/amplitude';
 
 const TitleThumbnailArea = ({ projectData, pid }: any) => {
   const { thumbnail, title, isRecruiting, deadline } = projectData;
   const today = new Date().getTime();
-
   const { isOpen, handleModalStateChange } = useModal(false);
   const queryClient = useQueryClient();
   //글 삭제하기 useMutation
@@ -27,11 +30,14 @@ const TitleThumbnailArea = ({ projectData, pid }: any) => {
   const { uid } = useAuth();
   const handleDeleteProject = () => {
     deleteProjectMutate(pid); //post 컬렉션에서 프로젝트 삭제
+    amplitudeToNoneButtonClick('delete_project');
+    window.history.back();
   };
 
   const { mutate: updateRecruitingMutate } = useMutation(() =>
     updateRecruiting(pid as string, false),
   );
+
   useEffect(() => {
     if (today > deadline) {
       updateRecruitingMutate(pid, false as any);
@@ -46,17 +52,16 @@ const TitleThumbnailArea = ({ projectData, pid }: any) => {
         subMessage="게시글은 바로 사라집니다!"
         onClickEvent={() => {
           handleDeleteProject();
-          window.history.back();
         }}
-        onCloseEvent={handleModalStateChange}
+        onCloseEvent={() => {
+          handleModalStateChange();
+          amplitudeToNoneButtonClick('delete_project_cancel');
+        }}
       />
       <TitleToModifyButtonWrap>
         <ProjectTitleWrapper>
-          {isRecruiting ? (
-            <RecruitingDiv>모집중</RecruitingDiv>
-          ) : (
-            <RecruitedDiv>모집완료</RecruitedDiv>
-          )}
+          <RecruitingDiv>{isRecruiting ? `모집중` : `모집완료`}</RecruitingDiv>
+
           <ProjectTitle>{title}</ProjectTitle>
         </ProjectTitleWrapper>
 
@@ -66,12 +71,21 @@ const TitleThumbnailArea = ({ projectData, pid }: any) => {
               글 삭제하기
             </ModifyDeleteButton>
             <Link to={`/project/write/${pid}`} state={projectData}>
-              <ModifyDeleteButton>수정하기</ModifyDeleteButton>
+              <ModifyDeleteButton
+                onClick={() =>
+                  amplitudeNeedToButtonClick('edit', 'project_edit')
+                }
+              >
+                수정하기
+              </ModifyDeleteButton>
             </Link>
           </ModifyDeleteButtonWrap>
         )}
       </TitleToModifyButtonWrap>
-      <ProjectThumbnail src={thumbnail || defaultThumbnail} />
+      <ProjectThumbnail
+        src={thumbnail || defaultThumbnail}
+        alt={title + '프로젝트 썸네일'}
+      />
     </>
   );
 };
@@ -91,24 +105,27 @@ const ProjectTitleWrapper = styled.div`
 `;
 
 const RecruitingDiv = styled.div`
-  background-color: ${COLORS.violetB400};
-  color: ${COLORS.white};
-  padding: 0.625rem 1.875rem;
-  border-radius: 2.5rem;
-  font-size: 1.5rem;
-`;
+  background-color: ${({ children }) =>
+    children === '모집중' ? COLORS.violetB400 : COLORS.gray100};
+  color: ${({ children }) =>
+    children === '모집중' ? COLORS.white : COLORS.gray600};
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
 
-const RecruitedDiv = styled.div`
-  background-color: ${COLORS.gray100};
-  color: ${COLORS.gray400};
-  padding: 0.625rem 1.875rem;
-  border-radius: 2.5rem;
-  font-size: 1.5rem;
+  width: ${({ children }) => (children === '모집중' ? '6rem' : '7.125rem')};
+  height: 2.5rem;
+  font-size: 1.25rem;
+  font-weight: 500;
+  border-radius: 1rem;
 `;
 
 const ProjectTitle = styled.div`
+  font-weight: 500;
   font-size: 1.5rem;
-  font-weight: 400;
+  color: ${COLORS.gray900};
 `;
 
 const ModifyDeleteButtonWrap = styled.div`
@@ -128,7 +145,9 @@ const ModifyDeleteButton = styled.button`
   color: ${COLORS.gray400};
   border-radius: 0.25rem;
   min-width: 5.6875rem;
-  height: 3rem;
+  height: 1.75rem;
+  font-weight: 500;
+  font-size: 0.875rem;
 `;
 
 const ProjectThumbnail = styled.img`

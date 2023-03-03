@@ -2,6 +2,10 @@ import { Link } from 'react-router-dom';
 import { useGlobalModal, useHeader, usePopup } from 'hooks';
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
+import {
+  amplitudeNeedToButtonClick,
+  amplitudeToNoneButtonClick,
+} from 'utils/amplitude';
 
 const MobileDropdownMenu = () => {
   const { openModal } = useGlobalModal();
@@ -18,26 +22,59 @@ const MobileDropdownMenu = () => {
       <DropdownBox>
         <DropdownList>
           {!isLoggedIn && (
-            <DropdownItem onClick={() => openModal('login', 0)}>
+            <DropdownItem
+              onClick={() => {
+                openModal('login', 0);
+                amplitudeToNoneButtonClick('login');
+              }}
+            >
               로그인
             </DropdownItem>
           )}
           {isLoggedIn && (
-            <DropdownItem onClick={handleLogoutClick}>로그아웃</DropdownItem>
+            <DropdownItem
+              onClick={() => {
+                handleLogoutClick();
+                amplitudeToNoneButtonClick('logout');
+              }}
+            >
+              로그아웃
+            </DropdownItem>
           )}
           <DropdownItem>
-            <Link to={'/findproject'}>팀원찾기</Link>
+            <Link
+              to={'/findproject'}
+              onClick={() => {
+                amplitudeNeedToButtonClick('findproject', 'find_project');
+              }}
+            >
+              프로젝트 찾기
+            </Link>
           </DropdownItem>
           <DropdownItem onClick={() => !isLoggedIn && openModal('login', 0)}>
             {isLoggedIn ? (
-              <Link to={'/project/write'}>새 글 쓰기</Link>
+              <Link
+                to={'/project/write'}
+                onClick={() => {
+                  amplitudeNeedToButtonClick('project_wrtie', 'write_project');
+                }}
+              >
+                새 글 쓰기
+              </Link>
             ) : (
               '새 글 쓰기'
             )}
           </DropdownItem>
           {isLoggedIn && (
             <DropdownItem>
-              <Link to={'/mypage'}>마이페이지</Link>
+              <Link
+                to={'/mypage'}
+                onClick={() => {
+                  amplitudeNeedToButtonClick('mypage', 'mypage');
+                }}
+              >
+                마이페이지
+              </Link>
             </DropdownItem>
           )}
         </DropdownList>

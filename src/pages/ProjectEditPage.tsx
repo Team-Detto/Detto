@@ -11,7 +11,6 @@ import ProjectEditPageFooter from 'components/editpage/ProjectEditPageFooter';
 import EditPageMobileHeader from 'components/editpage/mobile/EditPageMobileHeader';
 import EditPageMobileBody from 'components/editpage/mobile/EditPageMobileBody';
 import EditPageMobileFooter from 'components/editpage/mobile/EditPageMobileFooter';
-import mobilesecondBanner from 'assets/images/mobilesecondBanner.png';
 import styled from '@emotion/styled';
 
 const ProjectEditPage = () => {
@@ -24,6 +23,7 @@ const ProjectEditPage = () => {
     editThumbnail,
     editFormValue,
     setEditFormValue,
+    handleCalculate,
     handleFormValueChange,
     handleModalStateChange,
     handleAddThumbnailImage,
@@ -37,36 +37,6 @@ const ProjectEditPage = () => {
       <>
         <Helmet>
           <title>{`(작성중) ${editFormValue?.title} - Detto`}</title>
-
-          <meta
-            name="description"
-            content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-          />
-
-          <meta property="og:type" content="website" />
-          <meta
-            property="og:title"
-            content="(작성중) ${editFormValue?.title} - Detto"
-          />
-          <meta
-            property="og:description"
-            content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-          />
-          <meta property="og:site_name" content="Detto" />
-          <meta property="og:url" content={window.location.href} />
-          <meta
-            property="og:image"
-            content={editFormValue?.thumbnaile ?? mobilesecondBanner}
-          />
-
-          <meta name="twitter:title" content={`새 글 쓰기 - Detto`} />
-          <meta
-            name="twitter:description"
-            content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-          />
-          <meta name="twitter:image" content={mobilesecondBanner} />
-
-          <link rel="canonical" href={window.location.href} />
         </Helmet>
         <MobileContainer>
           <EditPageMobileContainer>
@@ -79,6 +49,7 @@ const ProjectEditPage = () => {
               editFormValue={editFormValue}
               editThumbnail={editThumbnail}
               setEditFormValue={setEditFormValue}
+              onCalculateEvent={handleCalculate}
               onFormValueChangeEvent={handleFormValueChange}
               onAddThumbnailImageChangeEvent={handleAddThumbnailImageChange}
             />
@@ -105,36 +76,6 @@ const ProjectEditPage = () => {
     <>
       <Helmet>
         <title>{`(작성중) ${editFormValue?.title} - Detto`}</title>
-
-        <meta
-          name="description"
-          content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-        />
-
-        <meta property="og:type" content="website" />
-        <meta
-          property="og:title"
-          content="(작성중) ${editFormValue?.title} - Detto"
-        />
-        <meta
-          property="og:description"
-          content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-        />
-        <meta property="og:site_name" content="Detto" />
-        <meta property="og:url" content={window.location.href} />
-        <meta
-          property="og:image"
-          content={editFormValue?.thumbnaile ?? mobilesecondBanner}
-        />
-
-        <meta name="twitter:title" content={`새 글 쓰기 - Detto`} />
-        <meta
-          name="twitter:description"
-          content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-        />
-        <meta name="twitter:image" content={mobilesecondBanner} />
-
-        <link rel="canonical" href={window.location.href} />
       </Helmet>
       <WebContainer>
         <EditPageWrapper>

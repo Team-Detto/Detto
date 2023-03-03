@@ -1,6 +1,7 @@
 import { findWithCollectionName } from 'apis/findWithCollectionName';
 import { PidListProps } from 'components/common/myProjectList/ProjectList';
 import { useState } from 'react';
+import { getCurrentPathName, logEvent } from 'utils/amplitude';
 import { projectTabNames } from 'utils/positions';
 import useIsMobile from './useIsMobile';
 
@@ -21,18 +22,28 @@ const useProjectList = () => {
     );
 
     setActiveProjectTab(projectTabNames[tabValueIndex].id);
+
+    logEvent('Button Click', {
+      from: getCurrentPathName(),
+      to: 'none',
+      name: `category_${
+        innerText === '지원한'
+          ? 'appliedProjects'
+          : projectTabNames[tabValueIndex].id
+      }`,
+    });
   };
 
   // 현재 선택된 탭의 프로젝트 리스트 조회 함수
   const getActiveProjects = async (params: any) => {
-    const [_, pidList] = params.queryKey;
+    const pidList = params.queryKey[1];
 
     const data = await Promise.all(
       pidList?.map((pid: string) => findWithCollectionName('post', pid)),
     );
     const filteredData = data?.filter((item) => item !== undefined);
 
-    return filteredData;
+    return [...filteredData].reverse(); // 최신순 정렬 위해 reverse
   };
 
   // 지원한 프로젝트이거나 참여한 프로젝트일 경우 appliedProjects 문서에서 pid 키값을 필터링 해서 꺼내기 위한 함수
@@ -51,7 +62,7 @@ const useProjectList = () => {
       }
     }
 
-    return filteredPidList;
+    return [...filteredPidList].reverse();
   };
 
   return {

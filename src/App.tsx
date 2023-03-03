@@ -1,8 +1,10 @@
 import { Global } from '@emotion/react';
 import { authService } from 'apis/firebaseService';
 import reset from 'assets/styles/globalStyled';
+import { useEffect } from 'react';
 import { RouterProvider } from 'react-router-dom';
 import router from 'routes/Router';
+import { initAmplitude, setAmplitudeUserId } from 'utils/amplitude';
 
 function App() {
   authService.onAuthStateChanged((user) => {
@@ -16,8 +18,13 @@ function App() {
           photoURL: user.photoURL,
         }),
       );
+      setAmplitudeUserId(user.uid);
     }
   });
+
+  useEffect(() => {
+    initAmplitude();
+  }, []);
 
   return (
     <>

@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
+import { SkillIcon, SkillIconWrapper } from 'components/common/SkillButton';
 
 interface UserStacksProps {
   stacks: string[];
@@ -30,9 +31,15 @@ const UserStacks = ({ stacks, version = 'desktop' }: UserStacksProps) => {
       {stacks
         .filter((stack, pos) => stacks.indexOf(stack) === pos)
         .map((stack, index) => {
-          if (index < 8)
+          if (index < 10)
             return (
               <ProjectStackItem key={`${stacks}${index}`}>
+                <SkillIconWrapper>
+                  <SkillIcon
+                    src={require(`../../assets/images/icon_skills/icon_skill_${stack.toLowerCase()}.jpg`)}
+                    alt={stack}
+                  />
+                </SkillIconWrapper>
                 {stack}
               </ProjectStackItem>
             );
@@ -47,7 +54,7 @@ const ProjectStackList = styled.ul`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 0.5rem;
 `;
 
 const ProjectStackItem = styled.li`

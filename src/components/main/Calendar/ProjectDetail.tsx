@@ -4,7 +4,7 @@ import { useRecoilValue } from 'recoil';
 import { selectedProjectState } from '../../../recoil/atoms';
 import { getDate } from 'utils/date';
 import COLORS from 'assets/styles/colors';
-
+import { getCurrentPathName, logEvent } from 'utils/amplitude';
 const positions: any = {
   frontend: '프론트엔드',
   backend: '백엔드',
@@ -73,7 +73,17 @@ const ProjectDetail = () => {
       </ProjectDetailContainer>
 
       <Link to={`/project/${selectedProject.id}`}>
-        <ProjectDetailButton>지원하러 가기</ProjectDetailButton>
+        <ProjectDetailButton
+          onClick={() => {
+            logEvent('Visit Page', {
+              from: getCurrentPathName(),
+              to: 'project_detail',
+              name: 'calendar_apply',
+            });
+          }}
+        >
+          지원하러 가기
+        </ProjectDetailButton>
       </Link>
     </ProjectDetailWrap>
   );

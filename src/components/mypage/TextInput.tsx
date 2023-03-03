@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { MdCancel } from 'react-icons/md';
 import COLORS from 'assets/styles/colors';
 
 interface TextInputProps {
@@ -6,6 +7,7 @@ interface TextInputProps {
   name: string;
   placeholder?: string;
   onChangeValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onClearValue?: (e: React.MouseEvent<SVGAElement>) => void;
   validationMessage: string;
   isEmail?: boolean;
   isMobile?: boolean;
@@ -16,6 +18,7 @@ const TextInput = ({
   value,
   name,
   onChangeValue,
+  onClearValue,
   placeholder,
   validationMessage,
   isEmail,
@@ -48,6 +51,7 @@ const TextInput = ({
           isMobile={isMobile}
         />
       )}
+      <ClearButton onClick={onClearValue} />
       <ValidationMessage>{validationMessage}</ValidationMessage>
     </InputBox>
   );
@@ -57,10 +61,11 @@ export default TextInput;
 
 const InputBox = styled.div<{ isMobile?: boolean }>`
   width: 100%;
-  height: 2.875rem;
+  height: 2.375rem;
+  position: relative;
 
   &:last-of-type {
-    margin: ${({ isMobile }) => (isMobile ? '1rem 0' : '0')};
+    margin: ${({ isMobile }) => (isMobile ? '1rem 0' : ' 0')};
   }
 `;
 
@@ -71,11 +76,23 @@ const InfoTextInput = styled.input<{ isMobile?: boolean; page?: string }>`
   border: 1px solid ${COLORS.gray300};
   border-radius: 4px;
   color: ${COLORS.gray800};
-  font-size: ${({ isMobile }) => (isMobile ? '1rem' : '1.125rem')};
+  font-size: ${({ isMobile }) => (isMobile ? '1rem' : '.875rem')};
 `;
 
 const ValidationMessage = styled.p`
   font-size: 0.75rem;
   padding-left: 0.25rem;
   color: ${COLORS.red};
+`;
+
+const ClearButton = styled(MdCancel)`
+  display: block;
+  font-size: 1rem;
+  box-sizing: border-box;
+  color: ${COLORS.gray300};
+  position: absolute;
+  right: 1.25rem;
+  top: 0.875rem;
+  z-index: 5;
+  cursor: pointer;
 `;

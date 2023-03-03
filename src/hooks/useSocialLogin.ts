@@ -12,6 +12,8 @@ import {
 } from 'firebase/auth';
 import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { amplitudeToNoneButtonClick } from 'utils/amplitude';
+
 // Firebase의 사용자 컬렉션을 초기화하는 함수
 const initializeUserCollections = (user: User) => {
   const date = Date.now();
@@ -85,14 +87,17 @@ const useSocialLogin = () => {
   };
 
   const handleGithubLogin = () => {
+    amplitudeToNoneButtonClick('github_login');
     signInWithPopupWithProvider(githubProvider);
   };
 
   const handleFacebookLogin = () => {
+    amplitudeToNoneButtonClick('facebook_login');
     signInWithPopupWithProvider(facebookProvider);
   };
 
   const handleGoogleLogin = () => {
+    amplitudeToNoneButtonClick('google_login');
     signInWithPopupWithProvider(googleProvider);
   };
 

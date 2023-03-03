@@ -12,6 +12,10 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateAppliedProject, updateParticipants } from 'apis/postDetail';
 import { modalTypes } from 'components/common/modal/modal';
 import MobileInviteModal from '../mobile/MobileModal/MobileInviteModal';
+import {
+  amplitudeNeedToButtonClick,
+  amplitudeToNoneButtonClick,
+} from 'utils/amplitude';
 
 interface props {
   isOpen: boolean;
@@ -32,7 +36,7 @@ const InviteModal = ({
   const { openModalWithData } = useGlobalModal();
   const { isOpen: isAlertOpen, handleModalStateChange: onAlertClickEvent } =
     useModal(false);
-  const sendNotification = useNotification();
+  const { sendNotification } = useNotification();
 
   const { mutate: applicantMutate } = useMutation(() =>
     updateParticipants(
@@ -77,6 +81,7 @@ const InviteModal = ({
       isRead: false,
     });
     onClickEvent();
+    amplitudeNeedToButtonClick('sendNoteModal', 'sendNote');
   };
 
   const inviteFunction = () => {
@@ -113,8 +118,16 @@ const InviteModal = ({
       <ModalContainer isOpen={isOpen}>
         <ModalWrapper>
           <ProfileToMessageContainer>
-            <UserProfileImage src={applicant?.profileURL} />
-            <MessageSendButton onClick={handleSendNoteButtonClick}>
+            <UserProfileImage
+              src={applicant?.profileURL}
+              alt={applicant?.displayName}
+              referrerPolicy="no-referrer"
+            />
+            <MessageSendButton
+              onClick={() => {
+                handleSendNoteButtonClick();
+              }}
+            >
               쪽지보내기
             </MessageSendButton>
           </ProfileToMessageContainer>
@@ -142,12 +155,20 @@ const InviteModal = ({
               <MotiveText>{applicant?.motive}</MotiveText>
             </MotiveContentWrap>
             <MotiveButtonContainer>
-              <MotiveButton onClick={onClickEvent}>아니오</MotiveButton>
+              <MotiveButton
+                onClick={() => {
+                  onClickEvent();
+                  amplitudeToNoneButtonClick('invite_no');
+                }}
+              >
+                아니오
+              </MotiveButton>
               <MotiveButton
                 onClick={() => {
                   inviteFunction();
                   invitedProjectMutate();
                   applicantMutate();
+                  amplitudeToNoneButtonClick('invite_yes');
                 }}
               >
                 네, 초대할게요!
@@ -228,20 +249,11 @@ const UserSkillsContainer = styled.div`
   gap: 0.1875rem;
 `;
 
-const ApplicantStacks = styled.div`
-  height: 1.625rem;
-  font-weight: 500;
-  font-size: 0.875rem;
-  margin-top: 0rem;
-  color: ${COLORS.gray750};
-  line-height: 1.625rem;
-`;
-
 const StackList = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem;
-  font-size: 15px;
+  font-size: 0.9375rem;
   align-items: center;
 `;
 

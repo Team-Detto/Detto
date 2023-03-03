@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import useSelectStack from 'hooks/useSelectStack';
 import SkillButton from 'components/common/SkillButton';
 import {
   WritePageMobileBodyLeftBox,
@@ -22,56 +22,18 @@ const WritePageMobileStack = ({
   developerStack,
   setWriteFormValue,
 }: Props) => {
-  const [selectedPlanner, setSelectedPlanner] = useState<string>('Figma');
-  const [selectedDesigner, setSelectedDesigner] = useState<string>('Figma');
-  const [selectedDeveloper, setSelectedDeveloper] =
-    useState<string>('JavaScript');
-
-  const handleSectionChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    switch (name) {
-      case 'plannerStack':
-        setSelectedPlanner(value);
-        break;
-      case 'designerStack':
-        setSelectedDesigner(value);
-        break;
-      case 'developerStack':
-        setSelectedDeveloper(value);
-        break;
-      default:
-        break;
-    }
-  };
-
-  const handleAddStackButtonClick = (e: any) => {
-    const { name } = e.target;
-    switch (name) {
-      case 'plannerStack':
-        if (plannerStack.includes(selectedPlanner)) return;
-        setWriteFormValue((prev: any) => ({
-          ...prev,
-          plannerStack: [...prev.plannerStack, selectedPlanner],
-        }));
-        break;
-      case 'designerStack':
-        if (designerStack.includes(selectedDesigner)) return;
-        setWriteFormValue((prev: any) => ({
-          ...prev,
-          designerStack: [...prev.designerStack, selectedDesigner],
-        }));
-        break;
-      case 'developerStack':
-        if (developerStack.includes(selectedDeveloper)) return;
-        setWriteFormValue((prev: any) => ({
-          ...prev,
-          developerStack: [...prev.developerStack, selectedDeveloper],
-        }));
-        break;
-      default:
-        break;
-    }
-  };
+  const {
+    selectedPlanner,
+    selectedDesigner,
+    selectedDeveloper,
+    handleSectionChange,
+    handleAddStackButtonClick,
+  } = useSelectStack({
+    plannerStack,
+    designerStack,
+    developerStack,
+    setWriteFormValue,
+  });
 
   return (
     <WritePageMobileStackContainer>

@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import styled from '@emotion/styled';
 import { useAuth, useIsMobile, useProjectList } from 'hooks';
+import { Helmet } from 'react-helmet-async';
+import LoadingPage from './LoadingPage';
 import MobileMyPage from 'components/mypage/mobile/MobileMyPage';
 import WebContainer from 'components/common/WebContainer';
 import MyPageInfo from 'components/mypage/MyPageInfo';
@@ -10,9 +12,6 @@ import LeftTab from 'components/mypage/LeftTab';
 import ProjectsTab from 'components/common/myProjectList/ProjectsTab';
 import { getUserInfoData, getUserProjectList } from 'apis/mypageUsers';
 import { staleTime } from 'utils/staleTime';
-import LoadingPage from './LoadingPage';
-import { Helmet } from 'react-helmet-async';
-import defaultProfile from 'assets/images/default_profile.jpg';
 
 const MyPage = () => {
   const [activeTab, setActiveTab] = useState('개인정보');
@@ -33,55 +32,21 @@ const MyPage = () => {
     queryKey: ['myProjects', uid],
     queryFn: getUserProjectList,
     staleTime: staleTime.myProjects,
+    enabled: !!uid,
   });
 
   useEffect(() => {
     setActiveProjectTab('appliedProjects');
   }, []);
 
-  return status === 'loading' ? (
-    <LoadingPage />
-  ) : (
+  if (status === 'loading') {
+    return <LoadingPage />;
+  }
+
+  return (
     <>
       <Helmet>
         <title>{`${userInfoData.displayName} - Detto`}</title>
-
-        <meta
-          name="description"
-          content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-        />
-        <meta name="keywords" content="개발자, 사이드프로젝트" />
-
-        <meta property="og:type" content="website" />
-        <meta
-          property="og:title"
-          content={`${userInfoData.displayName} - Detto`}
-        />
-        <meta property="og:site_name" content="Detto" />
-        <meta
-          property="og:description"
-          content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-        />
-        <meta
-          property="og:image"
-          content={userInfoData.photoURL ?? defaultProfile}
-        />
-        <meta property="og:url" content="https://detto.vercel.app/" />
-
-        <meta
-          name="twitter:title"
-          content={`${userInfoData.displayName} - Detto`}
-        />
-        <meta
-          name="twitter:description"
-          content="개발자를 위한 사이드 프로젝트 팀 매칭 플랫폼, Detto (Develop Together)"
-        />
-        <meta
-          name="twitter:image"
-          content={userInfoData.photoURL ?? defaultProfile}
-        />
-
-        <link rel="canonical" href="https://detto.vercel.app/" />
       </Helmet>
       {isMobile ? (
         <MobileMyPage user={userInfoData} pidList={userProjectListsData} />
@@ -92,7 +57,7 @@ const MyPage = () => {
             <MypageContentsWrapper>
               {activeTab === '개인정보' && <MyPageInfo user={userInfoData} />}
               {activeTab === '프로젝트' && (
-                <ProjectListWrapper>
+                <ProjectListWrapper isMobile={isMobile}>
                   <ProjectsTab
                     category={activeProjectTab}
                     onTabClick={handleProjectTabClick}
@@ -121,8 +86,9 @@ const MyPageContainer = styled.div`
   display: flex;
 `;
 
-const MypageContentsWrapper = styled.main`
-  padding: 10rem 2.5rem 0 2.375rem;
-`;
+const MypageContentsWrapper = styled.main``;
 
-export const ProjectListWrapper = styled.div``;
+export const ProjectListWrapper = styled.div<{ isMobile: boolean }>`
+  min-height: ${({ isMobile }) => (isMobile ? '28rem' : '')};
+  padding: ${({ isMobile }) => (isMobile ? '' : '10rem 0')};
+`;

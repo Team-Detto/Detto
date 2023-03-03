@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 
@@ -58,9 +59,9 @@ const CheckBoxInput = styled.input`
   border: 0;
 
   &:checked + label {
-    background-color: ${COLORS.violetB500};
-    color: ${COLORS.white};
-    font-weight: 500;
+    border: 1px solid ${COLORS.violetB500};
+    color: ${COLORS.violetB500};
+    font-weight: 700;
   }
 `;
 
@@ -82,4 +83,4 @@ const CheckboxLabel = styled.label`
 
 const CheckBoxText = styled.span``;
 
-export default CheckBoxButton;
+export default memo(CheckBoxButton);

@@ -1,9 +1,9 @@
-import { useState, useRef, useCallback, ChangeEvent } from 'react';
+import { useState, useRef, useCallback, ChangeEvent, MouseEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth, useModal, useToastPopup } from 'hooks';
 import { firebaseCreateProjectRequest } from 'apis/boardService';
-import Resizer from 'react-image-file-resizer';
 import { WriteType } from 'types/write/writeType';
+import { getCurrentPathName, logEvent } from 'utils/amplitude';
 import {
   titleValidation,
   contentValidation,
@@ -12,12 +12,13 @@ import {
   deadlineValidation,
   stackValidation,
 } from './../utils/validation';
+import Resizer from 'react-image-file-resizer';
 
 const useWrite = () => {
   const navigate = useNavigate();
 
   const editRef = useRef<any>(null);
-  const imageRef = useRef<any>(null);
+  const imageRef = useRef<HTMLInputElement>(null);
 
   const [writeFormValue, setWriteFormValue] = useState<WriteType.WriteFormType>(
     initialWriteFormValue,
@@ -98,6 +99,11 @@ const useWrite = () => {
         resizedImage,
         uid,
       );
+      logEvent('Button Click', {
+        from: getCurrentPathName(),
+        to: 'project_detail',
+        name: 'write_project',
+      });
       navigate(`/project/${docId}`, {
         replace: true,
       });
@@ -109,7 +115,12 @@ const useWrite = () => {
   };
 
   const handleAddThumbnailImage = useCallback(() => {
-    imageRef.current.click();
+    imageRef.current?.click();
+    logEvent('Button Click', {
+      from: getCurrentPathName(),
+      to: 'none',
+      name: 'add_thumbnail_image',
+    });
   }, [imageRef]);
 
   const handleAddThumbnailImageChange = () => {
@@ -143,6 +154,23 @@ const useWrite = () => {
     [setWriteFormValue],
   );
 
+  const handleCalculate = useCallback(
+    (e: MouseEvent<HTMLButtonElement>) => {
+      const { id, name, value } = e.currentTarget;
+      const numberValue = Number(value);
+      const updatedValue =
+        id === 'plus' ? numberValue + 1 : Math.max(0, numberValue - 1);
+      setWriteFormValue((prev: any) => ({
+        ...prev,
+        positions: {
+          ...prev.positions,
+          [name]: updatedValue,
+        },
+      }));
+    },
+    [setWriteFormValue],
+  );
+
   return {
     isOpen,
     editRef,
@@ -152,6 +180,7 @@ const useWrite = () => {
     ToastMessage,
     writeFormValue,
     setWriteFormValue,
+    handleCalculate,
     handleFormValueChange,
     handleModalStateChange,
     handleAddThumbnailImage,
@@ -190,7 +219,7 @@ const resizeFile = (file: File) =>
       file,
       1900,
       1200,
-      'JPEG',
+      'WEBP',
       60,
       0,
       (uri) => {

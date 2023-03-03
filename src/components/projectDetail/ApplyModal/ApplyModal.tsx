@@ -7,12 +7,13 @@ import { positionList } from 'utils/positions';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { updateApplicants, updateAppliedProject } from 'apis/postDetail';
 import { findWithCollectionName } from 'apis/findWithCollectionName';
-import ApplyButtonArea from './ApplyButtonArea';
+import ApplyModalButtonArea from './ApplyModalButtonArea';
 import ApplyMotiveArea from './ApplyMotiveArea';
-import ApplyPositionArea from './ApplyPositonArea';
+import ApplyPositionArea from './ApplyPositionArea';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
 import COLORS from 'assets/styles/colors';
 import MobileAlert from 'components/common/mobile/MobileAlert';
+import { staleTime } from 'utils/staleTime';
 
 interface props {
   isOpen: boolean;
@@ -39,6 +40,8 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
   const { data: userData } = useQuery({
     queryKey: ['users', uid],
     queryFn: () => findWithCollectionName('users', uid),
+    staleTime: staleTime.users,
+    enabled: !!uid,
   });
 
   //지원한 포지션에 맞는 스택 가져오기 위한 스위치문
@@ -131,7 +134,7 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
               />
             </MobileContentContainer>
             {/* 아니오, 지원하기 버튼 */}
-            <ApplyButtonArea
+            <ApplyModalButtonArea
               userData={userData}
               motive={motive}
               setMotive={setMotive}
@@ -172,7 +175,7 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
           <ApplyMotiveArea motive={motive} setMotive={setMotive} />
         </WebContentContainer>
         {/* 아니오, 지원하기 버튼 */}
-        <ApplyButtonArea
+        <ApplyModalButtonArea
           userData={userData}
           motive={motive}
           setMotive={setMotive}

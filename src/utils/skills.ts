@@ -1,4 +1,10 @@
-export const products: string[] = ['Figma', 'Notion', 'Protopie', 'Framer'];
+export const products: string[] = [
+  'Figma',
+  'Notion',
+  'Protopie',
+  'Framer',
+  'Zeplin',
+];
 export const develops: string[] = [
   'JavaScript',
   'TypeScript',

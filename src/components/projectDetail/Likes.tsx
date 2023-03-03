@@ -6,6 +6,8 @@ import { updateLike, updateMyProject } from '../../apis/postDetail'; //여기서
 import { findWithCollectionName } from 'apis/findWithCollectionName';
 import { useAuth, useGlobalModal } from 'hooks';
 import COLORS from 'assets/styles/colors';
+import { amplitudeToNoneButtonClick } from 'utils/amplitude';
+import { staleTime } from 'utils/staleTime';
 
 const Likes = ({ pid, version = 'web' }: any) => {
   const { uid } = useAuth();
@@ -28,11 +30,15 @@ const Likes = ({ pid, version = 'web' }: any) => {
   const { data: myProjects } = useQuery({
     queryKey: ['myProjects', uid],
     queryFn: () => findWithCollectionName('myprojects', uid),
+    staleTime: staleTime.myProjects,
+    enabled: !!uid,
   });
 
   const { data: projectLike } = useQuery({
     queryKey: ['post', pid],
     queryFn: () => findWithCollectionName('post', pid),
+    staleTime: staleTime.likedProjects,
+    enabled: !!pid,
   });
 
   const [countLike, setCountLike] = useState(projectLike?.like);
@@ -42,12 +48,8 @@ const Likes = ({ pid, version = 'web' }: any) => {
   const { mutate: updateLikeMutate } = useMutation(
     () => updateLike(pid, countLike),
     {
-      onSettled: () => {
-        queryClient.invalidateQueries(['post', pid]);
-      },
       onSuccess: () => {
         queryClient.invalidateQueries(['post', pid]);
-        setCountLike(projectLike?.like);
       },
     },
   );
@@ -55,9 +57,6 @@ const Likes = ({ pid, version = 'web' }: any) => {
   const { mutate: updateMyProjectMutate } = useMutation(
     () => updateMyProject(uid, pid, isLike),
     {
-      onSettled: () => {
-        queryClient.invalidateQueries(['myProjects', uid]);
-      },
       onSuccess: () => {
         queryClient.invalidateQueries(['myProjects', uid]);
       },
@@ -65,13 +64,16 @@ const Likes = ({ pid, version = 'web' }: any) => {
   );
   useEffect(() => {
     setCountLike(projectLike?.like);
-    // setIsLike(myProjects?.likedProjects.includes(pid));
-    return () => {
-      updateMyProjectMutate();
-      updateLikeMutate();
-      setIsLike(myProjects?.likedProjects.includes(pid));
-    };
+    //삭제 전에 언마운트 돼서 에러 발생 setTimeout추가로 삭제 후 언마운트 시킴
+    setTimeout(() => {
+      return () => {
+        updateMyProjectMutate();
+        updateLikeMutate();
+        setIsLike(myProjects?.likedProjects.includes(pid));
+      };
+    }, 1000);
   }, []);
+
   useEffect(() => {
     setCountLike(projectLike?.like);
   }, [projectLike?.like]);
@@ -82,12 +84,15 @@ const Likes = ({ pid, version = 'web' }: any) => {
 
   return (
     <IconButton
+      id={`${isLike ? 'like' : 'unlike'} ${pid}`}
+      aria-label={isLike ? 'like' : 'unlike'}
       onClick={(event) => {
         if (!uid) {
           openModal('login', 0);
           return;
         }
         handleLikeButton(event);
+        amplitudeToNoneButtonClick('like');
       }}
     >
       {isLike ? (

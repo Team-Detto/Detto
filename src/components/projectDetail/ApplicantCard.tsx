@@ -25,6 +25,8 @@ const ApplicantCard = ({ applicant, pid }: any) => {
         <ProfileImageDiv>
           <ProfileImage
             src={applicant?.profileURL}
+            alt={applicant?.displayName}
+            referrerPolicy="no-referrer"
             onClick={() => navigate(`/profile/${applicant.uid}`)}
           />
 

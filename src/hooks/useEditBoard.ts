@@ -1,10 +1,10 @@
-import { useCallback, useState, ChangeEvent, useRef } from 'react';
+import { useCallback, useState, ChangeEvent, useRef, MouseEvent } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { firebaseEditProjectRequest } from 'apis/boardService';
 import { useModal, useToastPopup } from 'hooks';
-import Resizer from 'react-image-file-resizer';
 import { EditType } from 'types/write/writeType';
+import { getCurrentPathName, logEvent } from 'utils/amplitude';
 import {
   contentValidation,
   deadlineValidation,
@@ -13,6 +13,7 @@ import {
   stackValidation,
   titleValidation,
 } from 'utils/validation';
+import Resizer from 'react-image-file-resizer';
 
 const useEditBoard = () => {
   const { state } = useLocation();
@@ -23,8 +24,9 @@ const useEditBoard = () => {
   const editRef = useRef<any>(null);
   const imageRef = useRef<any>(null);
 
-  const [editFormValue, setEditFormValue] = useState(state);
-  const [editThumbnail, setEditThumbnail] = useState(null);
+  const [editFormValue, setEditFormValue] =
+    useState<EditType.EditFormType>(state);
+  const [editThumbnail, setEditThumbnail] = useState<File | null>(null);
 
   const { isOpen, handleModalStateChange } = useModal(false);
   const { showToast, ToastMessage, handleToastPopup } = useToastPopup();
@@ -103,6 +105,11 @@ const useEditBoard = () => {
     if (!params.id) {
       return;
     }
+    logEvent('Button Click', {
+      from: getCurrentPathName(),
+      to: 'project_detail',
+      name: 'project_edit',
+    });
     if (!editThumbnail) {
       editProjectRequest(imageRef.current.files[0]);
       return;
@@ -113,6 +120,11 @@ const useEditBoard = () => {
 
   const handleAddThumbnailImage = useCallback(() => {
     imageRef.current.click();
+    logEvent('Button Click', {
+      from: getCurrentPathName(),
+      to: 'project_detail',
+      name: 'add_thumbnail_image',
+    });
   }, [imageRef]);
 
   const handleAddThumbnailImageChange = () => {
@@ -143,6 +155,23 @@ const useEditBoard = () => {
     [setEditFormValue],
   );
 
+  const handleCalculate = useCallback(
+    (e: MouseEvent<HTMLButtonElement>) => {
+      const { id, name, value } = e.currentTarget;
+      const numberValue = Number(value);
+      const updatedValue =
+        id === 'plus' ? numberValue + 1 : Math.max(0, numberValue - 1);
+      setEditFormValue((prev: any) => ({
+        ...prev,
+        positions: {
+          ...prev.positions,
+          [name]: updatedValue,
+        },
+      }));
+    },
+    [setEditFormValue],
+  );
+
   return {
     isOpen,
     editRef,
@@ -152,6 +181,7 @@ const useEditBoard = () => {
     editThumbnail,
     editFormValue,
     setEditFormValue,
+    handleCalculate,
     handleFormValueChange,
     handleModalStateChange,
     handleAddThumbnailImage,
@@ -170,7 +200,7 @@ const resizeFile = (file: File) =>
       file,
       1900,
       1200,
-      'JPEG',
+      'WEBP',
       60,
       0,
       (uri) => {

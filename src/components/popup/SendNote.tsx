@@ -1,5 +1,5 @@
 import ModalNavigator from 'components/common/modal/ModalNavigator';
-import { useGlobalModal, useModal, useNote, useToastPopup } from 'hooks';
+import { useGlobalModal, useModal, useNote } from 'hooks';
 import CustomButton from './CustomButton';
 import {
   Container,
@@ -8,7 +8,7 @@ import {
   NameText,
   ProfileImage,
 } from './styles';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import { staleTime } from 'utils/staleTime';
@@ -16,12 +16,15 @@ import { useQuery } from '@tanstack/react-query';
 import { getUserInfoData } from 'apis/mypageUsers';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
 import Alert from 'components/common/Alert';
+import { amplitudeToNoneButtonClick } from 'utils/amplitude';
 
 export default function SendNote({ data }: { data: Note }) {
   const [disabled, setDisabled] = useState(false);
   const [note, setNote] = useState<SendNote>({ title: '', content: '' });
   const { closeModal } = useGlobalModal();
-  const sendNote = useNote();
+  const { sendNote, checkNoteValidation, showToast, ToastMessage } = useNote();
+  const { isOpen: isAlertOpen, handleModalStateChange: onAlertClickEvent } =
+    useModal(false);
 
   const { data: receiver } = useQuery({
     queryKey: ['user', data?.receiverUid],
@@ -29,32 +32,12 @@ export default function SendNote({ data }: { data: Note }) {
     staleTime: staleTime.user,
   });
 
-  const { showToast, ToastMessage, handleToastPopup } = useToastPopup();
-  const { isOpen: isAlertOpen, handleModalStateChange: onAlertClickEvent } =
-    useModal(false);
-
-  // 쪽지 유효성 검사
-  const checkNoteValidation = useCallback(() => {
-    if (!note.title || !note.content) {
-      handleToastPopup('제목은 2자 이상, 내용은 5자 이상 입력해주세요.');
-      return false;
-    }
-    if (note.title.length < 2 || note.content.length < 5) {
-      handleToastPopup('제목은 2자 이상, 내용은 5자 이상 입력해주세요.');
-      return false;
-    }
-    if (note.title.length > 30 || note.content.length > 500) {
-      handleToastPopup('제목은 30자 이하, 내용은 500자 이하 입력해주세요.');
-      return false;
-    }
-    return true;
-  }, [note]);
-
   const handleSendButtonClick = () => {
-    if (!checkNoteValidation()) return;
+    if (!checkNoteValidation(note)) return;
     sendNote({ note: note, receiverUid: data.receiverUid });
     setDisabled(true);
     onAlertClickEvent(); //alert창 띄우기
+    amplitudeToNoneButtonClick('send note'); // 쪽지 보내기 이벤트 로깅
   };
 
   const handleAlertButtonClick = () => {
@@ -70,7 +53,11 @@ export default function SendNote({ data }: { data: Note }) {
         {showToast && <ValidationToastPopup message={ToastMessage} top={2} />}
         <ModalNavigator page={0} close />
         <HeaderContainer>
-          <ProfileImage src={receiver.photoURL} />
+          <ProfileImage
+            src={receiver.photoURL}
+            alt={receiver.displayName + ' 프로필 이미지'}
+            referrerPolicy="no-referrer"
+          />
           <NameText>{receiver.displayName}님께 쪽지 보내기</NameText>
         </HeaderContainer>
         <TitleInput
@@ -91,7 +78,6 @@ export default function SendNote({ data }: { data: Note }) {
           label="쪽지를 보낼게요"
           onClick={() => {
             handleSendButtonClick();
-            setDisabled(true);
           }}
           disabled={disabled}
         />

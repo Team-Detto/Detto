@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Route,
   Navigate,
@@ -7,25 +6,20 @@ import {
 } from 'react-router-dom';
 import { useIsLogin } from 'hooks';
 import Root from 'pages/Root';
+import { lazy } from 'react';
 
-const MainComponentPage = React.lazy(() => import('pages/MainPage'));
-const MyPageComponentPage = React.lazy(() => import('pages/MyPage'));
-const FindProjectComponentPage = React.lazy(
-  () => import('pages/FindProjectPage'),
-);
-const ProjectDetailComponentPage = React.lazy(
+const MainComponentPage = lazy(() => import('pages/MainPage'));
+const MyPageComponentPage = lazy(() => import('pages/MyPage'));
+const FindProjectComponentPage = lazy(() => import('pages/FindProjectPage'));
+const ProjectDetailComponentPage = lazy(
   () => import('pages/ProjectDetailPage'),
 );
-const ProjectWriteComponentPage = React.lazy(
-  () => import('pages/ProjectWritePage'),
-);
-const ProjectEditComponentPage = React.lazy(
-  () => import('pages/ProjectEditPage'),
-);
-const PublicProfileComponentPage = React.lazy(
+const ProjectWriteComponentPage = lazy(() => import('pages/ProjectWritePage'));
+const ProjectEditComponentPage = lazy(() => import('pages/ProjectEditPage'));
+const PublicProfileComponentPage = lazy(
   () => import('pages/PublicProfilePage'),
 );
-const ErrorPage = React.lazy(() => import('pages/ErrorPage'));
+const ErrorPage = lazy(() => import('pages/ErrorPage'));
 
 const router = createBrowserRouter(
   createRoutesFromElements(

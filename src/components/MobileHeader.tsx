@@ -1,10 +1,10 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { GrMail } from 'react-icons/gr';
 import { FiChevronLeft } from 'react-icons/fi';
 import { IoNotifications, IoMenu } from 'react-icons/io5';
-import { useGlobalModal, useHeader, usePopup } from 'hooks';
+import { useHeader, usePopup } from 'hooks';
 import { LogoBoxH1 } from './Header';
 import PopupContainer from './popup/PopupContainer';
 import COLORS from 'assets/styles/colors';
@@ -19,24 +19,8 @@ const MobileHeader = () => {
     unreadNoteCount,
     unreadNotificationCount,
   } = usePopup();
-  const {
-    isMain,
-    isLoggedIn,
-    showDropwdown,
-    handleDropdownClick,
-    handleLogoutClick,
-    handleGoBackClick,
-    closeDropdownMenu,
-  } = useHeader();
-  const { openModal } = useGlobalModal();
-
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  const handleDropdownClose = (e: React.MouseEvent<HTMLInputElement>) => {
-    if (dropdownRef.current === e.target) {
-      handleDropdownClick();
-    }
-  };
+  const { isMain, isLoggedIn, handleGoBackClick, closeDropdownMenu } =
+    useHeader();
 
   // 페이지 이동 시 팝업 / 드롭다운 메뉴 닫기
   useEffect(() => {
@@ -91,36 +75,6 @@ const MobileHeader = () => {
         </MobileMenuList>
       </MobileHeaderWrapper>
       <MobileDropdownMenu />
-
-      {/* {showDropwdown && (
-        <DropdownBox>
-          <DropdownList>
-            {!isLoggedIn && (
-              <DropdownItem onClick={() => openModal('login', 0)}>
-                로그인
-              </DropdownItem>
-            )}
-            {isLoggedIn && (
-              <DropdownItem onClick={handleLogoutClick}>로그아웃</DropdownItem>
-            )}
-            <DropdownItem>
-              <Link to={'/findproject'}>팀원찾기</Link>
-            </DropdownItem>
-            <DropdownItem onClick={() => !isLoggedIn && openModal('login', 0)}>
-              {isLoggedIn ? (
-                <Link to={'/project/write'}>새 글 쓰기</Link>
-              ) : (
-                '새 글 쓰기'
-              )}
-            </DropdownItem>
-            {isLoggedIn && (
-              <DropdownItem>
-                <Link to={'/mypage'}>마이페이지</Link>
-              </DropdownItem>
-            )}
-          </DropdownList>
-        </DropdownBox>
-      )} */}
     </MobileHeaderContainer>
   );
 };
@@ -161,7 +115,7 @@ const MobileMenuItem = styled.div`
   cursor: pointer;
 `;
 
-const MobileNoteIcon = styled(GrMail)`
+export const MobileNoteIcon = styled(GrMail)`
   font-size: 1.25rem;
   color: ${COLORS.gray750};
 `;
@@ -181,38 +135,6 @@ const MobileChevronLeftIcon = styled(FiChevronLeft)`
   font-size: 1.875rem;
   color: ${COLORS.gray750};
   margin-top: 0.25rem;
-`;
-
-const DropdownBox = styled.div`
-  position: absolute;
-  right: 1.5rem;
-  width: 7.75rem;
-  min-height: 10.75rem;
-  background-color: ${COLORS.white};
-  padding: 20px 0;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
-  z-index: 99;
-`;
-
-const DropdownList = styled.ul`
-  display: flex;
-  flex-direction: column;
-  gap: 0.375rem;
-`;
-
-const DropdownItem = styled.li`
-  height: 2.5rem;
-  padding: 10px;
-  line-height: 1.25rem;
-  font-size: 0.875rem;
-  text-align: center;
-  font-weight: 500;
-  color: ${COLORS.gray850};
-
-  &:hover {
-    color: ${COLORS.violetB500};
-  }
 `;
 
 const CountBox = styled.div`

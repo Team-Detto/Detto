@@ -10,6 +10,7 @@ import { useQuery } from '@tanstack/react-query';
 import { staleTime } from 'utils/staleTime';
 import { firebaseActiveUsersRequest } from 'apis/userService';
 import COLORS from 'assets/styles/colors';
+import { getCurrentPathName, logEvent } from 'utils/amplitude';
 
 const settings = {
   centerPadding: '60px',
@@ -42,11 +43,25 @@ const FindUserSlider = ({ tap }: { tap: string }) => {
         // 랜덤으로 섞기
         .sort(() => Math.random() - 0.5)
         .map((user: any) => (
-          <Link to={`/profile/${user.uid}`} key={user.uid}>
+          <Link
+            onClick={() => {
+              logEvent('Visit Page', {
+                from: getCurrentPathName(),
+                to: 'profile',
+                name: 'find_user',
+              });
+            }}
+            to={`/profile/${user.uid}`}
+            key={user.uid}
+          >
             <Card key={user}>
-              <CardImage src={user.photoURL} />
+              <CardImage
+                src={user.photoURL}
+                alt={user.displayName}
+                referrerPolicy="no-referrer"
+              />
               <CardNickname>
-                {user.isJunior && <JuniorImage src={Junior} />}{' '}
+                {user.isJunior && <JuniorImage src={Junior} alt="주니어" />}{' '}
                 {user.displayName}
               </CardNickname>
             </Card>

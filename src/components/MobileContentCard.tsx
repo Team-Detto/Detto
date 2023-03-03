@@ -2,18 +2,19 @@ import { useCallback, useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateRecruiting } from 'apis/postDetail';
 import { firebaseLikeProjectUpdateRequest } from 'apis/boardService';
-import { useAuth } from 'hooks';
+import { useAuth, useGlobalModal } from 'hooks';
 import { getDate } from 'utils/date';
+import { getCurrentPathName, logEvent } from 'utils/amplitude';
 import { EditType } from 'types/write/writeType';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
-import defaultThumbnail from 'assets/images/thumbnail_mobile.jpg';
+import defaultThumbnail from 'assets/images/thumbnail_mobile.png';
 import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
 interface Props {
   project: EditType.EditFormType;
   likedProjects: string[];
   pid?: string;
-  onNavigateToProjectDetailEvent: (path: any) => () => void;
+  onNavigateToProjectDetailEvent: (path: string) => () => void;
 }
 
 const MobileContentCard = ({
@@ -37,6 +38,7 @@ const MobileContentCard = ({
   const idList: any[] = [];
   const queryClient = useQueryClient();
   const today = new Date().getTime();
+  const { openModal } = useGlobalModal();
 
   const { mutate: updateRecruitingMutate } = useMutation(
     () => updateRecruiting(id as string, false),
@@ -57,9 +59,18 @@ const MobileContentCard = ({
   );
 
   const handleUpdateLike = useCallback(() => {
+    if (!uid) {
+      openModal('login', 0);
+      return;
+    }
     setIsLike(!isLike);
     updateLikeMutate();
-  }, [isLike, updateLikeMutate]);
+    logEvent('Button Click', {
+      from: getCurrentPathName(),
+      to: 'none',
+      name: 'like',
+    });
+  }, [isLike, updateLikeMutate, uid]);
 
   useEffect(() => {
     if (today > deadline) {
@@ -79,9 +90,12 @@ const MobileContentCard = ({
     <MobileContentCardWrap>
       <ContentCardImgContainer>
         {thumbnail ? (
-          <ContentCardImg src={thumbnail} />
+          <ContentCardImg src={thumbnail} alt={title + '프로젝트 썸네일'} />
         ) : (
-          <ContentCardImg src={defaultThumbnail} />
+          <ContentCardImg
+            src={defaultThumbnail}
+            alt={title + '프로젝트 썸네일'}
+          />
         )}
         <ContentCardBookmark onClick={handleUpdateLike}>
           {isLike ? (
@@ -166,7 +180,7 @@ const ContentCardDateContainer = styled.div`
 `;
 const ContentCardDate = styled.div`
   font-weight: 500;
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
   line-height: 1.0625rem;
 
   color: #6b7684;
@@ -208,7 +222,7 @@ const ContentCardBookmark = styled.button`
 `;
 const ContentCardTitle = styled.div`
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 0.875rem;
   line-height: 1.4375rem;
 
   color: #333d4b;
@@ -225,7 +239,7 @@ const ContentCardSubTextBox = styled.div`
 `;
 const ContentCardSubText = styled.p`
   font-weight: 500;
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   line-height: 1.1875rem;
 
   color: #6b7684;

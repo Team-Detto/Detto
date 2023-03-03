@@ -13,7 +13,6 @@ const UserPositions = ({
   isJunior,
   version = 'web',
 }: UserPositionsProps) => {
-  let contPosition = 0;
   return (
     <UserPositionDiv version={version}>
       {positions?.map((position: string) => {
@@ -45,7 +44,7 @@ const UserPositionDiv = styled.div`
   display: flex;
   align-items: center;
   font-size: ${(props: { version: string }) =>
-    props.version === 'mobile' ? '0.75rem' : ''};
+    props.version === 'mobile' ? '0.75rem' : '1.125rem'};
 `;
 
 const PositionItem = styled.span<{

@@ -1,55 +1,23 @@
 import styled from '@emotion/styled';
-import { firestore } from 'apis/firebaseService';
 import COLORS from 'assets/styles/colors';
-import { doc, updateDoc } from 'firebase/firestore';
-import { useAuth, useGlobalModal, useToastPopup } from 'hooks';
-import React, { useState } from 'react';
-import { career as careerList, positionList } from 'utils/positions';
+import { Fragment } from 'react';
+import { career as careerList, mobilePositionList } from 'utils/positions';
 import ConfirmButton from './ConfirmButton';
 import ModalNavigator from '../common/modal/ModalNavigator';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
+import useSetPositions from 'hooks/useSetPositions';
 
 // 페이지 1 : 포지션 선택
 const page = 1;
 
 export default function SetPositions() {
-  const [positions, setPositions] = useState<string[]>([]);
-  const [career, setCareer] = useState<string>('');
-
-  const { showToast, ToastMessage, handleToastPopup } = useToastPopup();
-  const { openModal } = useGlobalModal();
-  const { uid } = useAuth();
-
-  const handleCheckPositions = (isChecked: boolean, pos: string) => {
-    if (!isChecked) {
-      setPositions(positions.filter((p) => p !== pos).sort());
-    } else {
-      setPositions([...positions, pos].sort().sort());
-    }
-  };
-
-  // 포지션 선택 유효성 검사
-  const checkValidation = () => {
-    if (positions.length === 0) {
-      handleToastPopup('포지션을 선택해주세요.');
-      return false;
-    }
-    if (career === '') {
-      handleToastPopup('경력을 선택해주세요.');
-      return false;
-    }
-    return true;
-  };
-
-  const handleConfirmButtonClick = async () => {
-    if (!uid) return;
-    if (!checkValidation()) return;
-    await updateDoc(doc(firestore, `users/${uid}`), {
-      positions,
-      isJunior: career === 'junior',
-    });
-    openModal('login', page + 1);
-  };
+  const {
+    showToast,
+    ToastMessage,
+    handleCheckPositions,
+    setCareer,
+    handleConfirmButtonClick,
+  } = useSetPositions();
 
   return (
     <Container>
@@ -61,8 +29,8 @@ export default function SetPositions() {
           <SubText>(중복 선택 가능해요)</SubText>
         </TextContainer>
         <Buttons>
-          {positionList.map(({ type, name }) => (
-            <React.Fragment key={type}>
+          {mobilePositionList.map(({ type, name }) => (
+            <Fragment key={type}>
               <Input
                 type="checkbox"
                 name="position"
@@ -72,7 +40,7 @@ export default function SetPositions() {
                 }
               />
               <Label htmlFor={type}>{name}</Label>
-            </React.Fragment>
+            </Fragment>
           ))}
         </Buttons>
         <TextContainer>
@@ -80,7 +48,7 @@ export default function SetPositions() {
         </TextContainer>
         <Buttons>
           {careerList.map(({ id, value }) => (
-            <React.Fragment key={id}>
+            <Fragment key={id}>
               <Input
                 type="radio"
                 name="career"
@@ -89,11 +57,11 @@ export default function SetPositions() {
                 onChange={(e) => setCareer(e.currentTarget.value)}
               />
               <Label htmlFor={id}>{value}</Label>
-            </React.Fragment>
+            </Fragment>
           ))}
         </Buttons>
+        <ConfirmButton onClick={handleConfirmButtonClick} />
       </BodyContainer>
-      <ConfirmButton onClick={handleConfirmButtonClick} />
     </Container>
   );
 }
@@ -101,14 +69,12 @@ export default function SetPositions() {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
+  justify-content: space-between;
 
   width: 100%;
   height: 100%;
 
-  padding: 2.5rem 2.5rem 3rem;
-  gap: 2.5rem;
+  padding: 2.5rem;
 `;
 
 const BodyContainer = styled.div`
@@ -116,7 +82,7 @@ const BodyContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding: 0px;
-  gap: 1.875rem;
+  width: 100%;
 `;
 
 const TextContainer = styled.div`
@@ -125,14 +91,14 @@ const TextContainer = styled.div`
   align-items: flex-start;
   padding: 0px;
   gap: 0.25rem;
+  margin-bottom: 1.5rem;
 `;
 
 const TitleText = styled.h3`
   color: ${COLORS.gray850};
   font-weight: 700;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   line-height: 2.4375rem;
-  margin-bottom: 0.25rem;
 `;
 
 const SubText = styled.h2`
@@ -145,18 +111,20 @@ const SubText = styled.h2`
 
 const Buttons = styled.div`
   display: flex;
-  gap: 1.1875rem;
-
-  /* margin-bottom: 3.75rem; */
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 1.25rem;
+  width: 100%;
 `;
 
 const Label = styled.label`
+  height: 3.25rem;
+  flex: 1;
+  max-width: 10rem;
+
   display: flex;
   align-items: center;
   justify-content: center;
-
-  width: 8.125rem;
-  height: 3.25rem;
 
   font-size: 1.125rem;
   font-weight: 400;
@@ -164,12 +132,16 @@ const Label = styled.label`
   background-color: ${COLORS.gray50};
   border-radius: 1rem;
 
+  border: 1px solid transparent;
+
   cursor: pointer;
 
   transition: 100ms ease-in-out;
   &:hover {
     transform: scale(1.05);
   }
+
+  margin-bottom: 2.5rem;
 `;
 
 const Input = styled.input`
@@ -178,8 +150,9 @@ const Input = styled.input`
   color: ${COLORS.gray100};
 
   &:checked + label {
-    color: ${COLORS.white};
-    background-color: ${COLORS.violetB400};
+    color: ${COLORS.violetB500};
+    background-color: ${COLORS.white};
+    border: 1px solid ${COLORS.violetB500};
     font-weight: 700;
   }
 `;

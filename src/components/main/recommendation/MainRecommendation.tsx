@@ -10,6 +10,7 @@ import {
   firebaseMostLikedProjectsRequest,
   firebaseMostViewedProjectsRequest,
 } from 'apis/getPost';
+import { getCurrentPathName, logEvent } from 'utils/amplitude';
 
 const tapType = [
   { type: 'orderByViews', name: '조회순' },
@@ -80,7 +81,16 @@ const MainRecommendation = () => {
             ))}
         </MainRecommendationCardContainer>
       </MainRecommendationContainer>
-      <Link to={'/findproject'}>
+      <Link
+        onClick={() => {
+          logEvent('Button Click', {
+            from: getCurrentPathName(),
+            to: 'findproject',
+            name: 'find_project',
+          });
+        }}
+        to={'/findproject'}
+      >
         <MainRecommendationCardButton>전체 보기</MainRecommendationCardButton>
       </Link>
     </MainRecommendationWrap>

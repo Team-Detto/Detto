@@ -2,8 +2,7 @@ import Slider from 'react-slick';
 import styled from '@emotion/styled';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import Logo1 from 'assets/images/logo_main1.png';
-import Logo2 from 'assets/images/logo_main2.gif';
+import Logo1 from 'assets/images/logo_main1.webp';
 import COLORS from 'assets/styles/colors';
 
 const settings = {
@@ -31,7 +30,7 @@ const MainBanner = () => {
               디토에서 프로젝트 메이트를 만나보세요
             </BannerSubTitle>
           </BannerTextBox>
-          <BannerFirstImg src={Logo1} />
+          <BannerFirstImg src={Logo1} alt="배너1" />
         </BannerContainer>
       </SlideWrapper>
       <SlideWrapper>

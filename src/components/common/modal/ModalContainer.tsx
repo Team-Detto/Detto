@@ -56,7 +56,7 @@ const Container = styled.div`
   transform: translate(-50%, -50%);
   background: ${COLORS.white};
 
-  border-radius: ${(props: props) => (props.isMobile ? '1rem' : '0.5rem')};
+  border-radius: ${(props: props) => (props.isMobile ? '1rem' : '.75rem')};
   box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.08);
 
   overflow: hidden;

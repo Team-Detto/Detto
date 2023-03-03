@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import WELCOME_IMG from 'assets/images/login_welcome.png';
+import WELCOME_IMG from 'assets/images/login_welcome.webp';
 import COLORS from 'assets/styles/colors';
 import { useGlobalModal } from 'hooks';
 
@@ -14,13 +14,11 @@ export default function Welcome() {
 
   return (
     <Container>
-      <TopContainer>
-        <KeyImg src={WELCOME_IMG} alt="login" />
-        <TextContainer>
-          <TitleText>Detto에 오신 걸 환영합니다!</TitleText>
-          <SubText>Detto와 함께 즐거운 프로젝트 여정을 만들어보세요</SubText>
-        </TextContainer>
-      </TopContainer>
+      <KeyImg src={WELCOME_IMG} alt="login" />
+      <TextContainer>
+        <TitleText>Detto에 오신 걸 환영합니다!</TitleText>
+        <SubText>Detto와 함께 즐거운 프로젝트 여정을 만들어보세요</SubText>
+      </TextContainer>
       <ConfirmButton onClick={handleModalClose}>확인</ConfirmButton>
     </Container>
   );
@@ -29,27 +27,22 @@ export default function Welcome() {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 
   width: 100%;
   height: 100%;
 
-  padding: 2.1875rem 1.125rem;
-`;
-
-const TopContainer = styled.div`
-  width: 30rem;
-
-  margin-left: 2.125rem;
+  padding: 2.5rem;
 `;
 
 const KeyImg = styled.img`
-  width: 5.125rem;
-  height: 5.125rem;
-  margin-bottom: 2.0625rem;
+  width: 4.6875rem;
+  height: 4.6875rem;
+  margin-bottom: 1.25rem;
 `;
 
-const TextContainer = styled.div``;
+const TextContainer = styled.div`
+  margin-bottom: 3.75rem;
+`;
 
 const TitleText = styled.h2`
   color: ${COLORS.gray850};
@@ -58,7 +51,7 @@ const TitleText = styled.h2`
   font-size: 1.75rem;
   line-height: 2.75rem;
 
-  margin-bottom: 0.8125rem;
+  margin-bottom: 0.25rem;
 `;
 
 const SubText = styled.h3`
