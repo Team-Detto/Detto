@@ -64,12 +64,14 @@ const Likes = ({ pid, version = 'web' }: any) => {
   );
   useEffect(() => {
     setCountLike(projectLike?.like);
-
-    return () => {
-      updateMyProjectMutate();
-      updateLikeMutate();
-      setIsLike(myProjects?.likedProjects.includes(pid));
-    };
+    //삭제 전에 언마운트 돼서 에러 발생 setTimeout추가로 삭제 후 언마운트 시킴
+    setTimeout(() => {
+      return () => {
+        updateMyProjectMutate();
+        updateLikeMutate();
+        setIsLike(myProjects?.likedProjects.includes(pid));
+      };
+    }, 1000);
   }, []);
 
   useEffect(() => {

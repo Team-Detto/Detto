@@ -19,7 +19,6 @@ const WritePageMobileThumbnail = ({
   thumbnail,
   onAddThumbnailImageChangeEvent,
 }: Props) => {
-  console.log(thumbnail);
   return (
     <WritePageMobileThumbnailContainer>
       <WritePageMobileBodyLeftBox>
