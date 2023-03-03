@@ -17,16 +17,16 @@ const ProjectInfoArea = ({ projectData }: any) => {
     <ProjectInfoWrapper>
       <ProjectInfoObject>
         <ProjectInfoKey>모집 인원</ProjectInfoKey>
-        {positionList.map((position) => (
-          <ProjectInfoValue key={position.type}>
-            {positions[position.type] > 0 && (
-              <Position>
-                {`${position.name}`}
-                <Emphasis>{`${positions[position.type]}`}</Emphasis>명
+        <ProjectInfoValue>
+          {Object.keys(positions).map((key: string, idx: number) => {
+            return (
+              <Position key={key}>
+                {positionList[idx].name}
+                <Emphasis>{positions[key]}</Emphasis>명
               </Position>
-            )}
-          </ProjectInfoValue>
-        ))}
+            );
+          })}
+        </ProjectInfoValue>
       </ProjectInfoObject>
       <ProjectStackContainer>
         <Div>
@@ -152,13 +152,13 @@ const Position = styled.span`
   flex-direction: row;
   align-items: center;
   position: relative;
-  margin: 0 0.5rem;
+  margin: 0 1.3rem 0 0;
 
   &::after {
     content: '|';
     position: absolute;
     margin: 0 0.5rem;
-    right: -1rem;
+    right: -1.3rem;
     top: -0.2rem;
   }
 
