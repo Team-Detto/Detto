@@ -1,3 +1,5 @@
+<p align="right"><a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FTeam-Detto%2FDetto&count_bg=%23DBD9F8&title_bg=%23948CF2&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false"/></a></p>
+
 # 💜 Detto
 
 ![logo_main](https://user-images.githubusercontent.com/82587107/221075053-5e92bfbb-dc04-4187-a10e-01cc5ff60f68.gif)
