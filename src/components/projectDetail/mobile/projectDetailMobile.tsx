@@ -50,7 +50,9 @@ const ProjectDetailMobile = ({
       )}
       {projectData?.uid === uid && (
         <>
-          <ApplicantsList pid={pid} applicants={projectData?.applicants} />
+          {projectData?.isRecruiting && (
+            <ApplicantsList pid={pid} applicants={projectData?.applicants} />
+          )}
           <EndRecruitButton
             onClick={handleCloseModalOpenChange}
             isRecruiting={projectData?.isRecruiting}
@@ -62,6 +64,7 @@ const ProjectDetailMobile = ({
         isOpen={isApply}
         message="프로젝트를 지원해볼까요?"
         onClickEvent={handleApplyModalCloseChange}
+        positions={projectData?.positions}
         pid={pid}
       />
       <MobileConfirmAlert

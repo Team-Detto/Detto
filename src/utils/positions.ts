@@ -23,3 +23,5 @@ export const mobilePositionList = [
   { type: 'frontend', name: '프론트' },
   { type: 'backend', name: '백엔드' },
 ];
+
+export const positionType = ['planner', 'designer', 'frontend', 'backend'];
