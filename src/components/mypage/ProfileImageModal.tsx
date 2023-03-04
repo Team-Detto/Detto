@@ -51,9 +51,9 @@ const ProfileImageModal = ({
 
   useEffect(() => {
     if (isOpen && page !== 'join') {
-      const prevScrollY = preventScroll();
+      preventScroll();
       return () => {
-        allowScroll(prevScrollY);
+        allowScroll();
       };
     }
   }, [isOpen]);

@@ -96,9 +96,9 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
 
   useEffect(() => {
     if (isOpen) {
-      const prevScrollY = preventScroll();
+      preventScroll();
       return () => {
-        allowScroll(prevScrollY);
+        allowScroll();
       };
     }
   }, [isOpen]);
