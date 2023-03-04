@@ -11,17 +11,19 @@ import defaultThumbnail from 'assets/images/thumbnail_mobile.png';
 import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
 interface Props {
+  pid?: string;
   project: EditType.EditFormType;
   likedProjects: string[];
-  pid?: string;
+  onUpdateLikedCountEvent?: (id: string) => void;
   onNavigateToProjectDetailEvent: (path: string) => () => void;
 }
 
 const MobileContentCard = ({
+  pid,
   project,
   likedProjects,
+  onUpdateLikedCountEvent,
   onNavigateToProjectDetailEvent,
-  pid,
 }: Props) => {
   const {
     id,
@@ -55,6 +57,7 @@ const MobileContentCard = ({
       onSuccess: () => {
         queryClient.invalidateQueries(['likedProjects', uid]);
         queryClient.invalidateQueries(['myProjects', uid]);
+        onUpdateLikedCountEvent?.(id);
       },
     },
   );
