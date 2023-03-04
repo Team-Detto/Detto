@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { logEvent } from 'utils/amplitude';
 
@@ -10,6 +11,15 @@ const MobileMemberInfoArea = ({ applicantsData }: any) => {
   const data = Object?.keys(applicantsData).filter((key) => {
     return applicantsData?.[key]?.recruit === true;
   });
+
+  const handlePosition = (position: string) => {
+    return Object?.keys(applicantsData).filter((key) => {
+      return (
+        applicantsData?.[key]?.recruit === true &&
+        applicantsData?.[key]?.position === position
+      );
+    });
+  };
 
   const onClickEvent = (uid: string) => {
     navigate(`/profile/${uid}`);
@@ -28,66 +38,74 @@ const MobileMemberInfoArea = ({ applicantsData }: any) => {
           <NodataMessage>아직 모집 중이에요 :/</NodataMessage>
         ) : (
           <MemberInfoWrapper>
-            <MemberInfoObject>
-              <MemberInfoKey>기획</MemberInfoKey>
-              {data?.map((key) => {
-                if (applicantsData[key].position === '기획')
-                  return (
-                    <MemberProfileImg
-                      key={key}
-                      onClick={() => onClickEvent(applicantsData[key].uid)}
-                      src={applicantsData[key].profileURL}
-                      alt={applicantsData[key].displayName}
-                      referrerPolicy="no-referrer"
-                    ></MemberProfileImg>
-                  );
-              })}
-            </MemberInfoObject>
-            <MemberInfoObject>
-              <MemberInfoKey>프론트</MemberInfoKey>
-              {data?.map((key) => {
-                if (applicantsData[key].position === '프론트엔드')
-                  return (
-                    <MemberProfileImg
-                      key={key}
-                      onClick={() => onClickEvent(applicantsData[key].uid)}
-                      src={applicantsData[key].profileURL}
-                      alt={applicantsData[key].displayName}
-                      referrerPolicy="no-referrer"
-                    ></MemberProfileImg>
-                  );
-              })}
-            </MemberInfoObject>
-            <MemberInfoObject>
-              <MemberInfoKey>백엔드</MemberInfoKey>
-              {data?.map((key) => {
-                if (applicantsData[key].position === '백엔드')
-                  return (
-                    <MemberProfileImg
-                      key={key}
-                      onClick={() => onClickEvent(applicantsData[key].uid)}
-                      src={applicantsData[key].profileURL}
-                      alt={applicantsData[key].displayName}
-                      referrerPolicy="no-referrer"
-                    ></MemberProfileImg>
-                  );
-              })}
-            </MemberInfoObject>
-            <MemberInfoObject>
-              <MemberInfoKey>디자인</MemberInfoKey>
-              {data?.map((key) => {
-                if (applicantsData[key].position === '디자인')
-                  return (
-                    <MemberProfileImg
-                      key={key}
-                      onClick={() => onClickEvent(applicantsData[key].uid)}
-                      src={applicantsData[key].profileURL}
-                      alt={applicantsData[key].displayName}
-                      referrerPolicy="no-referrer"
-                    ></MemberProfileImg>
-                  );
-              })}
-            </MemberInfoObject>
+            {handlePosition('기획').length > 0 && (
+              <MemberInfoObject>
+                <MemberInfoKey>기획</MemberInfoKey>
+                {data?.map((key) => {
+                  if (applicantsData[key].position === '기획')
+                    return (
+                      <MemberProfileImg
+                        key={key}
+                        onClick={() => onClickEvent(applicantsData[key].uid)}
+                        src={applicantsData[key].profileURL}
+                        alt={applicantsData[key].displayName}
+                        referrerPolicy="no-referrer"
+                      ></MemberProfileImg>
+                    );
+                })}
+              </MemberInfoObject>
+            )}
+            {handlePosition('디자인').length > 0 && (
+              <MemberInfoObject>
+                <MemberInfoKey>디자인</MemberInfoKey>
+                {data?.map((key) => {
+                  if (applicantsData[key].position === '디자인')
+                    return (
+                      <MemberProfileImg
+                        key={key}
+                        onClick={() => onClickEvent(applicantsData[key].uid)}
+                        src={applicantsData[key].profileURL}
+                        alt={applicantsData[key].displayName}
+                        referrerPolicy="no-referrer"
+                      ></MemberProfileImg>
+                    );
+                })}
+              </MemberInfoObject>
+            )}
+            {handlePosition('프론트엔드').length > 0 && (
+              <MemberInfoObject>
+                <MemberInfoKey>프론트</MemberInfoKey>
+                {data?.map((key) => {
+                  if (applicantsData[key].position === '프론트엔드')
+                    return (
+                      <MemberProfileImg
+                        key={key}
+                        onClick={() => onClickEvent(applicantsData[key].uid)}
+                        src={applicantsData[key].profileURL}
+                        alt={applicantsData[key].displayName}
+                        referrerPolicy="no-referrer"
+                      ></MemberProfileImg>
+                    );
+                })}
+              </MemberInfoObject>
+            )}
+            {handlePosition('백엔드').length > 0 && (
+              <MemberInfoObject>
+                <MemberInfoKey>백엔드</MemberInfoKey>
+                {data?.map((key) => {
+                  if (applicantsData[key].position === '백엔드')
+                    return (
+                      <MemberProfileImg
+                        key={key}
+                        onClick={() => onClickEvent(applicantsData[key].uid)}
+                        src={applicantsData[key].profileURL}
+                        alt={applicantsData[key].displayName}
+                        referrerPolicy="no-referrer"
+                      ></MemberProfileImg>
+                    );
+                })}
+              </MemberInfoObject>
+            )}
           </MemberInfoWrapper>
         )}
       </MobileMemberInfoAreaContainer>
@@ -105,14 +123,13 @@ const MemberInfoTitle = styled.div`
   margin-left: 1rem;
 `;
 const MemberInfoWrapper = styled.div`
-  height: 12.375rem;
+  height: 100%;
   margin-top: 0.375rem;
   background: ${COLORS.white};
   padding: 1.4375rem 1.0625rem 2.3125rem 1.0625rem;
-
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 0.625rem;
 `;
 const MemberInfoObject = styled.div`
   display: flex;
@@ -121,7 +138,6 @@ const MemberInfoObject = styled.div`
   padding: 0rem;
   gap: 1.125rem;
   height: 2.5rem;
-  margin-bottom: 0.625rem;
 `;
 const MemberInfoKey = styled.div`
   display: flex;

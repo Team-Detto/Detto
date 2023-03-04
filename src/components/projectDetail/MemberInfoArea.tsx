@@ -2,14 +2,29 @@ import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import { logEvent } from 'utils/amplitude';
+import { useEffect } from 'react';
 
 const MemberInfoArea = ({ applicantsData }: any) => {
   const navigate = useNavigate();
   if (applicantsData === undefined) applicantsData = {};
 
-  const data = Object?.keys(applicantsData).filter((key) => {
+  const participantsData = Object?.keys(applicantsData).filter((key) => {
     return applicantsData?.[key]?.recruit === true;
   });
+
+  const handlePosition = (position: string) => {
+    return Object?.keys(applicantsData).filter((key) => {
+      // console.log(applicantsData?.[key]?.position);
+      return (
+        applicantsData?.[key]?.recruit === true &&
+        applicantsData?.[key]?.position === position
+      );
+    });
+  };
+
+  useEffect(() => {
+    console.log(handlePosition('기획').length);
+  }, []);
 
   const onClickEvent = (uid: string) => {
     navigate(`/profile/${uid}`);
@@ -24,82 +39,91 @@ const MemberInfoArea = ({ applicantsData }: any) => {
     <>
       <MemberInfoWrapper>
         <MemberInfoTitle>현재 참여 중인 인원</MemberInfoTitle>
-        {data.length <= 0 ? (
+        {participantsData.length <= 0 ? (
           <NodataMessage>아직 모집 중이에요 :/</NodataMessage>
         ) : (
           <MemberInfoBox>
-            <MemberInfoDiv>
-              <PositionDiv>기획</PositionDiv>
-              {data?.map((key) => {
-                if (applicantsData[key].position === '기획')
-                  return (
-                    <Div key={key}>
-                      <MemberProfileImg
-                        key={key}
-                        onClick={() => onClickEvent(applicantsData[key].uid)}
-                        src={applicantsData[key].profileURL}
-                        alt={applicantsData[key].displayName}
-                        referrerPolicy="no-referrer"
-                      ></MemberProfileImg>
-                      <HoverText>{applicantsData[key].displayName}</HoverText>
-                    </Div>
-                  );
-              })}
-            </MemberInfoDiv>
-            <MemberInfoDiv>
-              <PositionDiv>디자인</PositionDiv>
-              {data.map((key) => {
-                if (applicantsData[key].position === '디자인')
-                  return (
-                    <Div key={key}>
-                      <MemberProfileImg
-                        onClick={() => onClickEvent(applicantsData[key].uid)}
-                        src={applicantsData[key].profileURL}
-                        alt={applicantsData[key].displayName}
-                        referrerPolicy="no-referrer"
-                      ></MemberProfileImg>
-                      <HoverText>{applicantsData[key].displayName}</HoverText>
-                    </Div>
-                  );
-              })}
-            </MemberInfoDiv>
-            <MemberInfoDiv>
-              <PositionDiv>프론트</PositionDiv>
+            {handlePosition('기획').length > 0 && (
+              <MemberInfoDiv>
+                <PositionDiv>기획</PositionDiv>
 
-              {data.map((key) => {
-                if (applicantsData[key].position === '프론트엔드')
-                  return (
-                    <Div key={key}>
-                      <MemberProfileImg
-                        onClick={() => onClickEvent(applicantsData[key].uid)}
-                        src={applicantsData[key].profileURL}
-                        alt={applicantsData[key].displayName}
-                        referrerPolicy="no-referrer"
-                      ></MemberProfileImg>
-                      <HoverText>{applicantsData[key].displayName}</HoverText>
-                    </Div>
-                  );
-              })}
-            </MemberInfoDiv>
-            <MemberInfoDiv>
-              <PositionDiv>백엔드</PositionDiv>
+                {participantsData?.map((key) => {
+                  if (applicantsData[key].position === '기획')
+                    return (
+                      <Div key={key}>
+                        <MemberProfileImg
+                          key={key}
+                          onClick={() => onClickEvent(applicantsData[key].uid)}
+                          src={applicantsData[key].profileURL}
+                          alt={applicantsData[key].displayName}
+                          referrerPolicy="no-referrer"
+                        ></MemberProfileImg>
+                        <HoverText>{applicantsData[key].displayName}</HoverText>
+                      </Div>
+                    );
+                })}
+              </MemberInfoDiv>
+            )}
+            {handlePosition('디자인').length > 0 && (
+              <MemberInfoDiv>
+                <PositionDiv>디자인</PositionDiv>
+                {participantsData.map((key) => {
+                  if (applicantsData[key].position === '디자인')
+                    return (
+                      <Div key={key}>
+                        <MemberProfileImg
+                          onClick={() => onClickEvent(applicantsData[key].uid)}
+                          src={applicantsData[key].profileURL}
+                          alt={applicantsData[key].displayName}
+                          referrerPolicy="no-referrer"
+                        ></MemberProfileImg>
+                        <HoverText>{applicantsData[key].displayName}</HoverText>
+                      </Div>
+                    );
+                })}
+              </MemberInfoDiv>
+            )}
+            {handlePosition('프론트엔드').length > 0 && (
+              <MemberInfoDiv>
+                <PositionDiv>프론트</PositionDiv>
 
-              {data.map((key) => {
-                if (applicantsData[key].position === '백엔드')
-                  return (
-                    <Div key={key}>
-                      <MemberProfileImg
-                        key={key}
-                        onClick={() => onClickEvent(applicantsData[key].uid)}
-                        alt={applicantsData[key].displayName}
-                        src={applicantsData[key].profileURL}
-                        referrerPolicy="no-referrer"
-                      ></MemberProfileImg>
-                      <HoverText>{applicantsData[key].displayName}</HoverText>
-                    </Div>
-                  );
-              })}
-            </MemberInfoDiv>
+                {participantsData.map((key) => {
+                  if (applicantsData[key].position === '프론트엔드')
+                    return (
+                      <Div key={key}>
+                        <MemberProfileImg
+                          onClick={() => onClickEvent(applicantsData[key].uid)}
+                          src={applicantsData[key].profileURL}
+                          alt={applicantsData[key].displayName}
+                          referrerPolicy="no-referrer"
+                        ></MemberProfileImg>
+                        <HoverText>{applicantsData[key].displayName}</HoverText>
+                      </Div>
+                    );
+                })}
+              </MemberInfoDiv>
+            )}
+            {handlePosition('백엔드').length > 0 && (
+              <MemberInfoDiv>
+                <PositionDiv>백엔드</PositionDiv>
+
+                {participantsData.map((key) => {
+                  if (applicantsData[key].position === '백엔드')
+                    return (
+                      <Div key={key}>
+                        <MemberProfileImg
+                          key={key}
+                          onClick={() => onClickEvent(applicantsData[key].uid)}
+                          alt={applicantsData[key].displayName}
+                          src={applicantsData[key].profileURL}
+                          referrerPolicy="no-referrer"
+                        ></MemberProfileImg>
+                        <HoverText>{applicantsData[key].displayName}</HoverText>
+                      </Div>
+                    );
+                })}
+              </MemberInfoDiv>
+            )}
           </MemberInfoBox>
         )}
       </MemberInfoWrapper>

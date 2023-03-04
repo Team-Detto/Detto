@@ -108,7 +108,8 @@ export default WriterToProjectInfoArea;
 const WriterToProjectInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 13.75rem;
+  min-height: 10rem;
+  height: 100%;
   background-color: ${COLORS.white};
   gap: 0.9375rem;
   margin: 1.25rem auto 2.5rem;
