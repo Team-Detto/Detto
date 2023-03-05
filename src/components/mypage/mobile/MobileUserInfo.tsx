@@ -113,7 +113,7 @@ const MobileUserInfo = ({ user }: MypageInfoProps) => {
           value={userInfo.email ?? ''}
           onChangeValue={handleInputChange}
           onClearValue={handleInputClear}
-          placeholder="연락처로 쓰일 이메일을 입력해주세요."
+          placeholder="이메일을 입력해주세요."
           validationMessage={contactValidationMessage}
           isEmail={true}
           isMobile={isMobile}

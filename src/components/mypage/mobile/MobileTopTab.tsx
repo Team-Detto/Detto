@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import { LeftTabProps } from '../LeftTab';
 
-const TobTab = ({ activeTab, setActiveTab }: LeftTabProps) => {
+const MobileTopTab = ({ activeTab, setActiveTab }: LeftTabProps) => {
   // 탭 활성화하는 함수
   const handleTabClick = (e: React.MouseEvent<HTMLLIElement>) => {
     const { innerText } = e.currentTarget;
@@ -27,7 +27,7 @@ const TobTab = ({ activeTab, setActiveTab }: LeftTabProps) => {
   );
 };
 
-export default TobTab;
+export default MobileTopTab;
 
 const TabContainer = styled.div`
   width: 100%;

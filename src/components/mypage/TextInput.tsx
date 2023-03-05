@@ -31,7 +31,7 @@ const TextInput = ({
         <InfoTextInput
           type="text"
           name={name}
-          defaultValue={value}
+          value={value}
           onChange={onChangeValue}
           placeholder={placeholder}
           minLength={2}
@@ -43,7 +43,7 @@ const TextInput = ({
         <InfoTextInput
           type="email"
           name={name}
-          defaultValue={value}
+          value={value}
           onChange={onChangeValue}
           placeholder={placeholder}
           minLength={2}
