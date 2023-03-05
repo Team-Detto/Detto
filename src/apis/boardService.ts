@@ -145,3 +145,15 @@ export const firebaseLikeProjectUpdateRequest = async (
     console.error(e);
   }
 };
+
+export const firebaseGetLikdCountRequest = async (id: string) => {
+  try {
+    const postRef = doc(firestore, 'post', id);
+    const snapshot = await getDoc(postRef);
+    if (snapshot.exists()) {
+      return snapshot.data().like;
+    }
+  } catch (e) {
+    console.error(e);
+  }
+};

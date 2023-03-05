@@ -15,12 +15,14 @@ import styled from '@emotion/styled';
 interface Props {
   project: EditType.EditFormType;
   likedProjects: string[];
+  onUpdateLikedCountEvent?: (id: string) => void;
   onNavigateToProjectDetailEvent: (path: string) => () => void;
 }
 
 const ContentCard = ({
   project,
   likedProjects,
+  onUpdateLikedCountEvent,
   onNavigateToProjectDetailEvent,
 }: Props) => {
   const {
@@ -58,6 +60,7 @@ const ContentCard = ({
       onSuccess: () => {
         queryClient.invalidateQueries(['likedProjects', uid]);
         queryClient.invalidateQueries(['myProjects', uid]);
+        onUpdateLikedCountEvent?.(id);
       },
     },
   );
