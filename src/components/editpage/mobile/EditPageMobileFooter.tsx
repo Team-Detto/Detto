@@ -37,12 +37,13 @@ const EditPageMobileFooterContainer = styled.div`
   justify-content: center;
   gap: 1.5rem;
 `;
+
 const EditPageMobileFooterEditBox = styled.div`
-  width: 22.25rem;
+  width: 100%;
   height: 25rem;
-  border: 1px solid ${COLORS.gray100};
   border-radius: 0.25rem;
 `;
+
 const EditPageMobileFooterCompletedButton = styled.button`
   width: 17rem;
   height: 3.75rem;
@@ -53,6 +54,7 @@ const EditPageMobileFooterCompletedButton = styled.button`
     background-color: ${COLORS.violetB300};
   }
 `;
+
 const EditPageMobileFooterCompletedText = styled.p`
   font-weight: 700;
   font-size: 1rem;
