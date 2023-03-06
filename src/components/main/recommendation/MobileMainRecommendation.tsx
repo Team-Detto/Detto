@@ -150,12 +150,14 @@ const MobileMainRecommendationCardContainer = styled.div`
   width: 100%;
 `;
 const MobileMainRecommendationCardButton = styled(Link)`
-  width: 100%;
-  padding: 0.625rem 0;
+  width: 80px;
+  padding: 0.5rem 0;
   font-weight: 500;
   font-size: 11px;
   text-align: center;
   color: ${COLORS.gray750};
+  border: 1px solid ${COLORS.gray300};
+  border-radius: 15px;
 `;
 const MobileNoDataMessage = styled.div`
   display: flex;
