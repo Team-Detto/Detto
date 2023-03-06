@@ -161,7 +161,7 @@ const ImageWrap = styled.div`
 `;
 
 const DeadLineIcon = styled.div<{ day: number }>`
-  z-index: 1000;
+  z-index: 10;
   position: absolute;
   top: 10px;
   right: 10px;
