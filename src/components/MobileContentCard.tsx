@@ -207,7 +207,7 @@ const ContentCardDate = styled.div`
 `;
 
 const DeadLineIcon = styled.div<{ day: number }>`
-  z-index: 1000;
+  z-index: 10;
   position: absolute;
   font-size: 0.625rem;
   top: 0;
