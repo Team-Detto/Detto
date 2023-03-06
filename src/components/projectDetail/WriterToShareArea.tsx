@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 import { logEvent } from 'utils/amplitude';
 
 const WriterToShareArea = ({ pid, userData, projectData }: any) => {
-  const { uid, title, content, view, like } = projectData;
+  const { uid, title, content, view, like, thumbnail } = projectData;
   const navigate = useNavigate();
 
   return (
@@ -30,7 +30,7 @@ const WriterToShareArea = ({ pid, userData, projectData }: any) => {
       <IconWrapper>
         <Views pid={pid} view={view} />
         <Likes pid={pid} like={like} />
-        <Share title={title} content={content} />
+        <Share title={title} content={content} thumbnail={thumbnail} />
       </IconWrapper>
     </WriterToShareContainer>
   );
