@@ -23,12 +23,14 @@ const MobileRecruitContentArea = ({ content }: any) => {
     <MobileRecruitContentContainer>
       <MobileRecruitContentTitle>모집안내</MobileRecruitContentTitle>
       <MobileRecruitContentText>
-        {isLoaded && (
-          <Viewer
-            initialValue={content}
-            plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
-          />
-        )}
+        <ContentWrapper>
+          {isLoaded && (
+            <Viewer
+              initialValue={content}
+              plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
+            />
+          )}
+        </ContentWrapper>
       </MobileRecruitContentText>
     </MobileRecruitContentContainer>
   );
@@ -56,4 +58,64 @@ const MobileRecruitContentText = styled.div`
   background-color: ${COLORS.white};
   margin-top: 0.375rem;
   padding: 0.8125rem 0.9375rem;
+`;
+
+const ContentWrapper = styled.div`
+  .toastui-editor-contents {
+    p {
+      font-size: 0.8rem;
+      line-height: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin-top: 1.2rem;
+      padding-bottom: 0.1rem;
+      border-bottom: none;
+    }
+
+    h1 {
+      font-size: 1.4rem;
+    }
+    h2 {
+      font-size: 1.3rem;
+    }
+    h3 {
+      font-size: 1.2rem;
+    }
+    h4 {
+      font-size: 1.1rem;
+    }
+    h5 {
+      font-size: 1rem;
+    }
+    h6 {
+      font-size: 0.9rem;
+    }
+
+    ul,
+    ol {
+      margin-bottom: 1rem;
+      li {
+        line-height: 1.2rem;
+        p {
+          margin-bottom: 0;
+        }
+        ::before {
+          content: '';
+          margin-top: 0.5rem;
+          margin-left: -0.9rem;
+          width: 0.25rem;
+          height: 0.25rem;
+          border-radius: 100%;
+          background-color: ${COLORS.black};
+        }
+      }
+    }
+  }
 `;
