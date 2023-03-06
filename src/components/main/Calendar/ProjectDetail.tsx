@@ -104,14 +104,14 @@ const ProjectDetailContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding: 0px;
-  gap: 16px;
+  gap: 1rem;
 `;
 const ProjectDetailRow = styled.div`
   display: flex;
   flex-direction: row;
 
   font-weight: 500;
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 150%;
   letter-spacing: -0.25px;
 `;
@@ -135,10 +135,10 @@ const ProjectDetailSproutText = styled.div`
   display: flex;
   flex-direction: row;
   color: #464646;
-  height: 21px;
+  height: 1.3125rem;
 
   font-weight: 400;
-  font-size: 14px;
+  font-size: .875rem;
   line-height: 150%;
 `;
 const ProjectDetailSproutTextSpan = styled.p`
@@ -168,13 +168,13 @@ const ProjectDetailinquiryAttentionTextBox = styled.div`
   flex-direction: row;
 
   font-weight: 400;
-  font-size: 12px;
+  font-size: .75rem;
   line-height: 140%;
   color: ${COLORS.gray600};
 `;
 const ProjectDetailinquiryAttentionTextP = styled.p`
   font-weight: 700;
-  font-size: 12px;
+  font-size: .75rem;
   line-height: 140%;
   color: ${COLORS.gray600};
   margin-left: 2px;
