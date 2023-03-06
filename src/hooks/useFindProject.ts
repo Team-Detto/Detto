@@ -28,6 +28,7 @@ const useFindProject = () => {
     queryFn: () => firebaseFindMyInterestRequest(uid),
     staleTime: staleTime.likedProjects,
     enabled: !!uid,
+    suspense: true,
   });
 
   useEffect(() => {
