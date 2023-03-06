@@ -209,7 +209,6 @@ const RecruitingIcon = styled.div`
   justify-content: center;
   text-align: center;
   border-radius: 2.5rem;
-  padding: 0rem 0.5rem;
   background-color: ${(props: { children: string }) =>
     props.children === '모집중' ? `${COLORS.violetB400}` : `${COLORS.gray100}`};
   color: ${(props: { children: string }) =>
