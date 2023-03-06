@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
-import { useAuth } from 'hooks';
 import UserPositions from '../UserPositions';
 import { concatSkills } from 'utils/skills';
 import ProjectsTab from 'components/common/myProjectList/ProjectsTab';
@@ -25,7 +24,6 @@ const MobilePublicProfilePage = ({
   } = userInfoData;
 
   const skills = concatSkills(plannerStack, designerStack, developerStack);
-
   return (
     <MobileContainer>
       <UserInfoWrapper>
@@ -38,7 +36,9 @@ const MobilePublicProfilePage = ({
             version="mobile"
           />
         </NameAndPositionDiv>
-        <UserEmail>{email}</UserEmail>
+        <UserEmail>
+          {email.length === 0 ? '등록한 이메일이 없어요:/' : email}
+        </UserEmail>
         <StackDiv>
           {skills.map((stack: string) => (
             <UserStacks key={stack}>{stack}</UserStacks>

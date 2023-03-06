@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import WELCOME_IMG from 'assets/images/login_welcome.png';
+import WELCOME_IMG from 'assets/images/login_welcome.webp';
 import COLORS from 'assets/styles/colors';
 import { useGlobalModal } from 'hooks';
 

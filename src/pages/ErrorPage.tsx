@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import ErrorImg from 'assets/images/404ErrorImg.png';
-import ErrorMessage from 'assets/images/404ErrorMessage.png';
+import ErrorImg from 'assets/images/404ErrorImg.webp';
+import ErrorMessage from 'assets/images/404ErrorMessage.webp';
 import { Helmet } from 'react-helmet-async';
 
 const ErrorPage = () => {
@@ -10,8 +10,8 @@ const ErrorPage = () => {
         <title>Error - Detto</title>
       </Helmet>
       <Container>
-        <Image src={ErrorImg} />
-        <Message src={ErrorMessage} />
+        <Image src={ErrorImg} alt="404 에러" />
+        <Message src={ErrorMessage} alt="페이지를 찾을 수 없어요" />
       </Container>
     </>
   );

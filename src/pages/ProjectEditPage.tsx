@@ -23,6 +23,7 @@ const ProjectEditPage = () => {
     editThumbnail,
     editFormValue,
     setEditFormValue,
+    handleCalculate,
     handleFormValueChange,
     handleModalStateChange,
     handleAddThumbnailImage,
@@ -48,6 +49,7 @@ const ProjectEditPage = () => {
               editFormValue={editFormValue}
               editThumbnail={editThumbnail}
               setEditFormValue={setEditFormValue}
+              onCalculateEvent={handleCalculate}
               onFormValueChangeEvent={handleFormValueChange}
               onAddThumbnailImageChangeEvent={handleAddThumbnailImageChange}
             />

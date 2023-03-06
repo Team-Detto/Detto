@@ -1,10 +1,7 @@
-import { deleteUser } from 'firebase/auth';
-import { useHeader, useModal } from 'hooks';
 import styled from '@emotion/styled';
+import useWithdrawal from 'hooks/useWithdrawal';
 import ConfirmAlert from 'components/common/ConfirmAlert';
-import { authService, firestore } from 'apis/firebaseService';
 import COLORS from 'assets/styles/colors';
-import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 
 export interface LeftTabProps {
   activeTab: string;
@@ -12,30 +9,13 @@ export interface LeftTabProps {
 }
 
 const LeftTab = ({ activeTab, setActiveTab }: LeftTabProps) => {
-  const { isOpen, handleModalStateChange } = useModal(false);
-  const { withdrawalAccount } = useHeader();
+  const { isOpen, handleModalStateChange, handleWithdrawalClick } =
+    useWithdrawal();
 
   // 탭 활성화하는 함수
   const handleTabClick = (e: React.MouseEvent<HTMLLIElement>) => {
     const { innerText } = e.currentTarget;
     setActiveTab(innerText);
-  };
-
-  // 회원 탈퇴 함수
-  const handleWithdrawalClick = async () => {
-    const currentUser = authService.currentUser;
-
-    if (!currentUser) {
-      return;
-    }
-
-    // 회원 탈퇴 시 users 컬렉션의 isActive 필드를 false로 변경
-    await updateDoc(doc(firestore, 'users', currentUser.uid), {
-      isActive: false,
-    });
-    deleteUser(currentUser).catch((err) => console.error(err));
-    handleModalStateChange();
-    withdrawalAccount();
   };
 
   return (

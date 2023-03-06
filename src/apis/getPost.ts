@@ -9,7 +9,6 @@ import {
   where,
 } from 'firebase/firestore';
 import { firestore } from 'apis/firebaseService';
-import { getDate } from 'utils/date';
 
 // 프로젝트 상세 조회
 export const viewProject = async (params: any) => {

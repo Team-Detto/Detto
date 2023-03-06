@@ -1,17 +1,18 @@
-import { ChangeEvent, RefObject } from 'react';
+import { ChangeEvent, MouseEvent, RefObject } from 'react';
 import { WriteType } from 'types/write/writeType';
 import WritePageMobilePosition from './WritePageMobilePosition';
 import WritePageMobileStack from './WritePageMobileStack';
-import COLORS from 'assets/styles/colors';
-import styled from '@emotion/styled';
 import WritePageMobilePeriod from './WritePageMobilePeriod';
 import WritePageMobileDeadline from './WritePageMobileDeadline';
 import WritePageMobileThumbnail from './WritePageMobileThumbnail';
+import COLORS from 'assets/styles/colors';
+import styled from '@emotion/styled';
 
 interface Props {
   imageRef: RefObject<HTMLInputElement>;
   writeFormValue: WriteType.WriteFormType;
   setWriteFormValue: (value: WriteType.WriteFormType) => void;
+  onCalculateEvent: (e: MouseEvent<HTMLButtonElement>) => void;
   onFormValueChangeEvent: (e: ChangeEvent<HTMLInputElement>) => void;
   onAddThumbnailImageChangeEvent: () => void;
 }
@@ -20,6 +21,7 @@ const WritePageMobileBody = ({
   imageRef,
   writeFormValue,
   setWriteFormValue,
+  onCalculateEvent,
   onFormValueChangeEvent,
   onAddThumbnailImageChangeEvent,
 }: Props) => {
@@ -37,7 +39,7 @@ const WritePageMobileBody = ({
     <WritePageMobileBodyContainer>
       <WritePageMobilePosition
         positions={positions}
-        setWriteFormValue={setWriteFormValue}
+        onCalculateEvent={onCalculateEvent}
         onFormValueChangeEvent={onFormValueChangeEvent}
       />
       <WritePageMobileStack
@@ -66,23 +68,26 @@ const WritePageMobileBody = ({
 
 const WritePageMobileBodyContainer = styled.div`
   width: 100%;
-  margin-top: 2rem;
+  margin-top: 1.3rem;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 1.5rem;
 `;
+
 export const WritePageMobileBodyLeftBox = styled.div`
-  width: 22%;
+  width: 4.5625rem;
   display: flex;
-  margin: 0.7rem 0rem 0rem 0.7rem;
+  margin-top: 0.7rem;
 `;
+
 export const WritePageMobileBodyRightBox = styled.div`
-  width: 75%;
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 1rem;
 `;
+
 export const WritePageMobileBodyText = styled.p`
   width: 3.625rem;
   height: 1.0625rem;
@@ -91,4 +96,5 @@ export const WritePageMobileBodyText = styled.p`
   line-height: 140%;
   color: ${COLORS.gray800};
 `;
+
 export default WritePageMobileBody;

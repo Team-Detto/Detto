@@ -1,55 +1,23 @@
 import styled from '@emotion/styled';
-import { firestore } from 'apis/firebaseService';
 import COLORS from 'assets/styles/colors';
-import { doc, updateDoc } from 'firebase/firestore';
-import { useAuth, useGlobalModal, useToastPopup } from 'hooks';
-import React, { useState } from 'react';
+import { Fragment } from 'react';
 import { career as careerList, mobilePositionList } from 'utils/positions';
 import ConfirmButton from './ConfirmButton';
 import ModalNavigator from '../common/modal/ModalNavigator';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
+import useSetPositions from 'hooks/useSetPositions';
 
 // 페이지 1 : 포지션 선택
 const page = 1;
 
 export default function SetPositions() {
-  const [positions, setPositions] = useState<string[]>([]);
-  const [career, setCareer] = useState<string>('');
-
-  const { showToast, ToastMessage, handleToastPopup } = useToastPopup();
-  const { openModal } = useGlobalModal();
-  const { uid } = useAuth();
-
-  const handleCheckPositions = (isChecked: boolean, pos: string) => {
-    if (!isChecked) {
-      setPositions(positions.filter((p) => p !== pos).sort());
-    } else {
-      setPositions([...positions, pos].sort().sort());
-    }
-  };
-
-  // 포지션 선택 유효성 검사
-  const checkValidation = () => {
-    if (positions.length === 0) {
-      handleToastPopup('포지션을 선택해주세요.');
-      return false;
-    }
-    if (career === '') {
-      handleToastPopup('경력을 선택해주세요.');
-      return false;
-    }
-    return true;
-  };
-
-  const handleConfirmButtonClick = async () => {
-    if (!uid) return;
-    if (!checkValidation()) return;
-    await updateDoc(doc(firestore, `users/${uid}`), {
-      positions,
-      isJunior: career === 'junior',
-    });
-    openModal('login', page + 1);
-  };
+  const {
+    showToast,
+    ToastMessage,
+    handleCheckPositions,
+    setCareer,
+    handleConfirmButtonClick,
+  } = useSetPositions();
 
   return (
     <Container>
@@ -62,7 +30,7 @@ export default function SetPositions() {
         </TextContainer>
         <Buttons>
           {mobilePositionList.map(({ type, name }) => (
-            <React.Fragment key={type}>
+            <Fragment key={type}>
               <Input
                 type="checkbox"
                 name="position"
@@ -72,7 +40,7 @@ export default function SetPositions() {
                 }
               />
               <Label htmlFor={type}>{name}</Label>
-            </React.Fragment>
+            </Fragment>
           ))}
         </Buttons>
         <TextContainer>
@@ -80,7 +48,7 @@ export default function SetPositions() {
         </TextContainer>
         <Buttons>
           {careerList.map(({ id, value }) => (
-            <React.Fragment key={id}>
+            <Fragment key={id}>
               <Input
                 type="radio"
                 name="career"
@@ -89,7 +57,7 @@ export default function SetPositions() {
                 onChange={(e) => setCareer(e.currentTarget.value)}
               />
               <Label htmlFor={id}>{value}</Label>
-            </React.Fragment>
+            </Fragment>
           ))}
         </Buttons>
         <ConfirmButton onClick={handleConfirmButtonClick} />

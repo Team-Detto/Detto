@@ -14,6 +14,8 @@ const MobileApplicantCard = ({ pid, applicant, applicantUid }: any) => {
     <ApplicantCard>
       <ProfileImg
         src={applicant.profileURL}
+        alt={applicant.displayName}
+        referrerPolicy="no-referrer"
         onClick={() => navigate(`/profile/${applicant.uid}`)}
       />
       <UserInfoDiv>
@@ -97,12 +99,6 @@ const Stacks = styled.div`
   margin-top: 0.4375rem;
 
   height: 2.125rem;
-`;
-
-const Stack = styled.div`
-  font-weight: 500;
-  font-size: 0.75rem;
-  color: ${COLORS.gray750};
 `;
 
 const InviteButton = styled.button`

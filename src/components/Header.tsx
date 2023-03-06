@@ -68,7 +68,7 @@ const Header = () => {
                     amplitudeNeedToButtonClick('findproject', 'find_project');
                   }}
                 >
-                  팀원찾기
+                  프로젝트 찾기
                 </NavItemLink>
               </NavItemLi>
               {isLoggedIn && (

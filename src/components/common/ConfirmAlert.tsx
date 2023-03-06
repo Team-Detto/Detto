@@ -20,9 +20,9 @@ const ConfirmAlert = ({
 }: props) => {
   useEffect(() => {
     if (isOpen) {
-      const prevScrollY = preventScroll();
+      preventScroll();
       return () => {
-        allowScroll(prevScrollY);
+        allowScroll();
       };
     }
   }, [isOpen]);

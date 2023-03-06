@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, ChangeEvent } from 'react';
+import { useState, useRef, useCallback, ChangeEvent, MouseEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth, useModal, useToastPopup } from 'hooks';
 import { firebaseCreateProjectRequest } from 'apis/boardService';
@@ -18,7 +18,7 @@ const useWrite = () => {
   const navigate = useNavigate();
 
   const editRef = useRef<any>(null);
-  const imageRef = useRef<any>(null);
+  const imageRef = useRef<HTMLInputElement>(null);
 
   const [writeFormValue, setWriteFormValue] = useState<WriteType.WriteFormType>(
     initialWriteFormValue,
@@ -115,7 +115,7 @@ const useWrite = () => {
   };
 
   const handleAddThumbnailImage = useCallback(() => {
-    imageRef.current.click();
+    imageRef.current?.click();
     logEvent('Button Click', {
       from: getCurrentPathName(),
       to: 'none',
@@ -154,6 +154,23 @@ const useWrite = () => {
     [setWriteFormValue],
   );
 
+  const handleCalculate = useCallback(
+    (e: MouseEvent<HTMLButtonElement>) => {
+      const { id, name, value } = e.currentTarget;
+      const numberValue = Number(value);
+      const updatedValue =
+        id === 'plus' ? numberValue + 1 : Math.max(0, numberValue - 1);
+      setWriteFormValue((prev: any) => ({
+        ...prev,
+        positions: {
+          ...prev.positions,
+          [name]: updatedValue,
+        },
+      }));
+    },
+    [setWriteFormValue],
+  );
+
   return {
     isOpen,
     editRef,
@@ -163,6 +180,7 @@ const useWrite = () => {
     ToastMessage,
     writeFormValue,
     setWriteFormValue,
+    handleCalculate,
     handleFormValueChange,
     handleModalStateChange,
     handleAddThumbnailImage,

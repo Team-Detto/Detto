@@ -120,6 +120,7 @@ const InviteModal = ({
           <ProfileToMessageContainer>
             <UserProfileImage
               src={applicant?.profileURL}
+              alt={applicant?.displayName}
               referrerPolicy="no-referrer"
             />
             <MessageSendButton
@@ -246,15 +247,6 @@ const UserSkillsContainer = styled.div`
   margin-top: 2rem;
   margin-bottom: 0.6875rem;
   gap: 0.1875rem;
-`;
-
-const ApplicantStacks = styled.div`
-  height: 1.625rem;
-  font-weight: 500;
-  font-size: 0.875rem;
-  margin-top: 0rem;
-  color: ${COLORS.gray750};
-  line-height: 1.625rem;
 `;
 
 const StackList = styled.div`

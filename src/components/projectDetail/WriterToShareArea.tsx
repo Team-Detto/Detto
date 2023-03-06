@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom';
 import Views from './Views';
 import Likes from './Likes';
 import Share from './Share';
-import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
 import { logEvent } from 'utils/amplitude';
 
@@ -15,6 +14,7 @@ const WriterToShareArea = ({ pid, userData, projectData }: any) => {
       <WriterWrapper>
         <WriterProfileImg
           src={userData?.photoURL}
+          alt={userData?.displayName}
           onClick={() => {
             navigate(`/profile/${uid}`);
             logEvent('Button Click', {

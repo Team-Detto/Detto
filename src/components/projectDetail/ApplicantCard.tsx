@@ -12,9 +12,9 @@ const ApplicantCard = ({ applicant, pid }: any) => {
 
   useEffect(() => {
     if (isOpen) {
-      const prevScrollY = preventScroll();
+      preventScroll();
       return () => {
-        allowScroll(prevScrollY);
+        allowScroll();
       };
     }
   }, [isOpen]);
@@ -25,6 +25,7 @@ const ApplicantCard = ({ applicant, pid }: any) => {
         <ProfileImageDiv>
           <ProfileImage
             src={applicant?.profileURL}
+            alt={applicant?.displayName}
             referrerPolicy="no-referrer"
             onClick={() => navigate(`/profile/${applicant.uid}`)}
           />

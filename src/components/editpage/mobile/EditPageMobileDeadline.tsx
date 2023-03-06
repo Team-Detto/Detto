@@ -8,7 +8,7 @@ import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
 
 interface Props {
-  deadline: number;
+  deadline: string | number;
   onFormValueChangeEvent: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -34,11 +34,11 @@ const EditPageMobileDeadline = ({
 };
 
 const EditPageMobileDeadlineContainer = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
 `;
+
 const EditPageMobileDeadlineInput = styled.input`
   width: 7.0625rem;
   height: 2.75rem;

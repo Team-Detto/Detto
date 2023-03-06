@@ -1,12 +1,15 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, RefObject } from 'react';
 import { EditType } from 'types/write/writeType';
 import EditPagePosition from './EditPagePosition';
 import EditPageStack from './EditPageStack';
 import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
+import EditPagePeriod from './EditPagePeriod';
+import EditPageDeadline from './EditPageDeadline';
+import EditPageThumbnail from './EditPageThumbnail';
 
 interface Props {
-  imageRef: any;
+  imageRef: RefObject<HTMLInputElement>;
   editFormValue: EditType.EditFormType;
   setEditFormValue: (value: EditType.EditFormType) => void;
   onFormValueChangeEvent: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -29,70 +32,35 @@ const ProjectEditPageBody = ({
     startDate,
     endDate,
     deadline,
+    isRecruiting,
   } = editFormValue;
-
   return (
     <BodyContainer>
-      <BodyPositionBox>
-        <BodyText>필요 포지션</BodyText>
-        <EditPagePosition
-          positions={positions}
-          onFormValueChangeEvent={onFormValueChangeEvent}
-        />
-      </BodyPositionBox>
-      <BodyStackBox>
-        <EditPageStack
-          plannerStack={plannerStack}
-          designerStack={designerStack}
-          developerStack={developerStack}
-          setEditFormValue={setEditFormValue}
-        />
-      </BodyStackBox>
-      <BodyEstimatedPeriodBox>
-        <BodyText>예상 기간</BodyText>
-        <BodyDateInput
-          type="date"
-          name="startDate"
-          value={new Date(+new Date(startDate)).toISOString().split('T')[0]}
-          onChange={onFormValueChangeEvent}
-        />
-        <BodyDateInput
-          type="date"
-          name="endDate"
-          value={new Date(+new Date(endDate)).toISOString().split('T')[0]}
-          onChange={onFormValueChangeEvent}
-        />
-      </BodyEstimatedPeriodBox>
-      <BodyDeadlineBox>
-        <BodyText>모집 마감일</BodyText>
-        <BodyDateInput
-          type="date"
-          name="deadline"
-          value={new Date(+new Date(deadline)).toISOString().split('T')[0]}
-          onChange={onFormValueChangeEvent}
-        />
-        <BodyDeadlineText>
-          입력하신 날짜 11시 59분에 자동 마감됩니다.
-        </BodyDeadlineText>
-      </BodyDeadlineBox>
-      <BodyThumbnailBox>
-        <BodyText>썸네일 추가</BodyText>
-        <BodyThumbnailImage
-          type="file"
-          accept="image/jpg, image/png, image/jpeg"
-          ref={imageRef}
-          onChange={onAddThumbnailImageChangeEvent}
-        />
-        <BodyThumbnailButton
-          onClick={onAddThumbnailImageEvent}
-          imageRef={imageRef}
-        >
-          사진 추가하기
-        </BodyThumbnailButton>
-      </BodyThumbnailBox>
-      <BodyThumbnailWarningText>
-        권장 이미지 사이즈는 1200x600 입니다.
-      </BodyThumbnailWarningText>
+      <EditPagePosition
+        positions={positions}
+        onFormValueChangeEvent={onFormValueChangeEvent}
+      />
+      <EditPageStack
+        plannerStack={plannerStack}
+        designerStack={designerStack}
+        developerStack={developerStack}
+        setEditFormValue={setEditFormValue}
+      />
+      <EditPagePeriod
+        startDate={startDate}
+        endDate={endDate}
+        onFormValueChangeEvent={onFormValueChangeEvent}
+      />
+      <EditPageDeadline
+        isRecruiting={isRecruiting}
+        deadline={deadline}
+        onFormValueChangeEvent={onFormValueChangeEvent}
+      />
+      <EditPageThumbnail
+        imageRef={imageRef}
+        onAddThumbnailImageEvent={onAddThumbnailImageEvent}
+        onAddThumbnailImageChangeEvent={onAddThumbnailImageChangeEvent}
+      />
     </BodyContainer>
   );
 };
@@ -100,13 +68,8 @@ const ProjectEditPageBody = ({
 const BodyContainer = styled.div`
   width: 100%;
 `;
-const BodyPositionBox = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  margin-top: 2rem;
-`;
-const BodyText = styled.h2`
+
+export const BodyText = styled.h2`
   width: 10.5%;
   display: flex;
   align-items: center;
@@ -115,18 +78,8 @@ const BodyText = styled.h2`
   letter-spacing: -0.02rem;
   color: #383838;
 `;
-const BodyStackBox = styled.div`
-  width: 100%;
-  margin-top: 2rem;
-`;
-const BodyEstimatedPeriodBox = styled.div`
-  width: 100%;
-  margin-top: 2rem;
-  padding-right: 25rem;
-  display: flex;
-  flex-direction: row;
-`;
-const BodyDateInput = styled.input`
+
+export const BodyDateInput = styled.input`
   width: 9.5625rem;
   height: 2.75rem;
   border: 1px solid ${COLORS.gray300};
@@ -135,66 +88,4 @@ const BodyDateInput = styled.input`
   margin-left: 1.5rem;
   padding-left: 1rem;
 `;
-const BodyDeadlineBox = styled.div`
-  width: 100%;
-  margin-top: 2rem;
-  padding-right: 25rem;
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-`;
-const BodyThumbnailBox = styled.div`
-  width: 100%;
-  margin-top: 2rem;
-  display: flex;
-  flex-direction: row;
-  padding-right: 0.5rem;
-`;
-const BodyThumbnailImage = styled.input`
-  padding: 10px 20px;
-  width: 62.625rem;
-  height: 44px;
-  background: ${COLORS.white};
-  border: 1px solid ${COLORS.gray300};
-  border-radius: 4px;
-  ::file-selector-button {
-    display: none;
-  }
-`;
-const BodyThumbnailButton = styled.button`
-  padding: 0.625rem 1.75rem;
-  width: 226px;
-  height: 43px;
-  background: ${(props: { imageRef: any }) =>
-    props.imageRef.current?.files?.length ? COLORS.gray300 : COLORS.violetB400};
-  color: ${COLORS.white};
-  border-radius: 8px;
-  margin-left: 2rem;
-  transition: background-color 100ms ease-in-out;
-  &:hover {
-    background-color: ${COLORS.violetB300};
-  }
-`;
-const BodyThumbnailWarningText = styled.p`
-  padding-left: 7rem;
-  margin-top: 0.5rem;
-  width: 20rem;
-  height: 1.0625rem;
-  font-weight: 400;
-  font-size: 0.75rem;
-  line-height: 140%;
-  color: ${COLORS.gray600};
-`;
-const BodyDeadlineText = styled.p`
-  padding-left: 1rem;
-  width: 20rem;
-  height: 1.0625rem;
-  font-weight: 400;
-  font-size: 0.75rem;
-  line-height: 140%;
-  color: ${COLORS.gray600};
-  display: flex;
-  align-items: center;
-`;
-
 export default ProjectEditPageBody;

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import Slider from 'react-slick';
 import styled from '@emotion/styled';
 import 'slick-carousel/slick/slick.css';
@@ -25,10 +25,12 @@ const ProjectList = () => {
   const dayList = useRecoilValue<any>(dayListState);
   const [selectedProject, setSelectedProject] =
     useRecoilState(selectedProjectState);
+  const sliderRef = useRef<Slider>(null);
 
   useEffect(() => {
-    // 슬라이더의 첫번째 프로젝트를 초기값으로 설정
+    // 날짜를 변경하면 첫번째 프로젝트를 선택하고, 첫번째 페이지로 이동
     setSelectedProject(dayList[0]);
+    sliderRef.current?.slickGoTo(0);
   }, [dayList]);
 
   if (dayList.length === 0)
@@ -40,7 +42,11 @@ const ProjectList = () => {
     );
 
   return (
-    <ProjectListSlider {...settings} infinite={dayList.length >= 3}>
+    <ProjectListSlider
+      {...settings}
+      infinite={dayList.length >= 3}
+      ref={sliderRef}
+    >
       {dayList?.map((data: any) => {
         const cntDevelopers = data.positions.frontend + data.positions.backend;
         const cntDesingers = data.positions.designer;
@@ -69,6 +75,8 @@ const ProjectList = () => {
     </ProjectListSlider>
   );
 };
+
+export default ProjectList;
 
 const ProjectListSlider = styled(Slider)`
   .slick-list {
@@ -122,6 +130,7 @@ const ProjectListSlider = styled(Slider)`
     opacity: 1;
   }
 `;
+
 const ProjectListCardContainer = styled.div<{ active?: boolean }>`
   padding: 12px 16px;
   gap: 8px;
@@ -139,6 +148,7 @@ const ProjectListCardContainer = styled.div<{ active?: boolean }>`
   }
   transition: all 100ms ease-in-out;
 `;
+
 const ProjectListCardTextBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -148,6 +158,7 @@ const ProjectListCardTextBox = styled.div`
   height: 2.375rem;
   margin-bottom: 5px;
 `;
+
 const ProjectListCardFindUser = styled.div`
   width: 16.75rem;
   height: .875rem;
@@ -158,6 +169,7 @@ const ProjectListCardFindUser = styled.div`
   align-items: center;
   color: #616161;
 `;
+
 const ProjectListCardProjectName = styled.div`
   width: 268px;
   height: 24px;
@@ -170,6 +182,7 @@ const ProjectListCardProjectName = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
 `;
+
 const ProjectListCardDate = styled.div`
   width: 268px;
   height: 15px;
@@ -195,5 +208,3 @@ const NoDataMessage = styled.div`
   line-height: 200%;
   color: ${COLORS.gray300};
 `;
-
-export default ProjectList;

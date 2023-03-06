@@ -13,7 +13,7 @@ const MobileApplyButtonArea = ({
   const { openModal } = useGlobalModal();
   return (
     <ApplyButtonArea>
-      {isRecruiting ? ( //지원 중
+      {isRecruiting ? ( //모집 중
         applicants?.[uid]?.recruit ? ( //이미 초대된 경우
           <ApplyButton disabled={true}>이미 초대되었어요!</ApplyButton>
         ) : (

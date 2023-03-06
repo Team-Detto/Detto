@@ -4,6 +4,7 @@ import { useAuth } from 'hooks';
 import { useState } from 'react';
 import { IoMdMore } from 'react-icons/io';
 import ModifyDeleteDropDown from './ModifyDeleteDropDown';
+import defaultThumbnail from 'assets/images/thumbnail_small.webp';
 
 const MobileTitleThumbnailArea = ({ pid, projectData }: any) => {
   const [popup, setPopup] = useState(false);
@@ -25,7 +26,10 @@ const MobileTitleThumbnailArea = ({ pid, projectData }: any) => {
           <MoreIcon onClick={toggleDropdownModifyMenu} />
         )}
       </TitleThumbnailAreaContainer>
-      <ProjectThumbnail src={projectData?.thumbnail} />
+      <ProjectThumbnail
+        src={projectData?.thumbnail || defaultThumbnail}
+        alt={projectData?.title + ' 썸네일 이미지'}
+      />
       <ModifyDeleteDropDown
         pid={pid}
         popup={popup}
@@ -44,7 +48,6 @@ const TitleThumbnailAreaContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 1.75rem;
   padding: 0 1.25rem;
   gap: 0.75rem;
 `;
@@ -55,7 +58,6 @@ const TitleBox = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  height: 1.75rem;
   gap: 0.75rem;
 `;
 
@@ -66,7 +68,7 @@ const IsRecruitingDiv = styled.div<{ children: string }>`
   align-items: center;
   padding: 0rem;
   gap: 0.625rem;
-  width: 3.75rem;
+  min-width: 3.75rem;
   height: 1.75rem;
   font-size: 0.875rem;
   background: ${({ children }) =>
@@ -75,13 +77,19 @@ const IsRecruitingDiv = styled.div<{ children: string }>`
   color: ${COLORS.white};
 `;
 
-const TitleDiv = styled.div``;
+const TitleDiv = styled.div`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+`;
 
 const ProjectThumbnail = styled.img`
-  min-width: 12.5rem;
-  width: 90%;
-  height: 10.875rem;
-  margin: 0.875rem 1.25rem;
+  padding: 0 1.25rem;
+  width: 100%;
+  height: 25vh;
+  margin: 0.875rem 0 0.625rem 0;
   object-fit: cover;
 `;
 

@@ -11,33 +11,34 @@ const ProjectInfoArea = ({ projectData }: any) => {
     plannerStack,
     startDate,
     endDate,
+    deadline,
   } = projectData;
 
   return (
     <ProjectInfoWrapper>
       <ProjectInfoObject>
-        <ProjectInfoKey>모집인원</ProjectInfoKey>
-        {positionList.map((position) => (
-          <ProjectInfoValue key={position.type}>
-            {positions[position.type] > 0 && (
-              <Position>
-                {`${position.name}`}
-                <Emphasis>{`${positions[position.type]}`}</Emphasis>명
-              </Position>
-            )}
-          </ProjectInfoValue>
-        ))}
+        <ProjectInfoKey>모집 인원</ProjectInfoKey>
+        <ProjectInfoValue>
+          {Object.keys(positions).map((key: string, idx: number) => {
+            if (positions[positionList[idx].type] !== 0) {
+              return (
+                <Position key={key}>
+                  {positionList[idx].name}
+                  <Emphasis>{positions[positionList[idx].type]}</Emphasis>명
+                </Position>
+              );
+            }
+          })}
+        </ProjectInfoValue>
       </ProjectInfoObject>
       <ProjectStackContainer>
         <Div>
           <ProjectStackKey>필요 스택</ProjectStackKey>
         </Div>
         <ProjectInfoStackWrap>
-          <StackDiv>
-            <StackTitle>기획</StackTitle>
-            {plannerStack?.length === 0 ? (
-              <StackValue>협의 가능</StackValue>
-            ) : (
+          {plannerStack?.length === 0 ? null : (
+            <StackDiv>
+              <StackTitle>기획</StackTitle>
               <StackList>
                 {plannerStack?.map((skill: string) => {
                   return (
@@ -51,14 +52,12 @@ const ProjectInfoArea = ({ projectData }: any) => {
                   );
                 })}
               </StackList>
-            )}
-          </StackDiv>
+            </StackDiv>
+          )}
 
-          <StackDiv>
-            <StackTitle>디자인</StackTitle>
-            {designerStack?.length === 0 ? (
-              <StackValue>협의가능</StackValue>
-            ) : (
+          {designerStack?.length === 0 ? null : (
+            <StackDiv>
+              <StackTitle>디자인</StackTitle>
               <StackList>
                 {designerStack?.map((skill: string) => {
                   return (
@@ -72,13 +71,11 @@ const ProjectInfoArea = ({ projectData }: any) => {
                   );
                 })}
               </StackList>
-            )}
-          </StackDiv>
-          <StackDiv>
-            <StackTitle>개발</StackTitle>
-            {developerStack?.length === 0 ? (
-              <StackValue>협의가능</StackValue>
-            ) : (
+            </StackDiv>
+          )}
+          {developerStack?.length === 0 ? null : (
+            <StackDiv>
+              <StackTitle>개발</StackTitle>
               <StackList>
                 {developerStack?.map((skill: string) => {
                   return (
@@ -92,8 +89,8 @@ const ProjectInfoArea = ({ projectData }: any) => {
                   );
                 })}
               </StackList>
-            )}
-          </StackDiv>
+            </StackDiv>
+          )}
         </ProjectInfoStackWrap>
       </ProjectStackContainer>
       <ProjectInfoObject>
@@ -102,7 +99,10 @@ const ProjectInfoArea = ({ projectData }: any) => {
           {getDate(startDate)} - {getDate(endDate)}
         </ProjectInfoValue>
       </ProjectInfoObject>
-      <ProjectInfoObject></ProjectInfoObject>
+      <ProjectInfoObject>
+        <ProjectInfoKey>모집 마감일</ProjectInfoKey>
+        <ProjectInfoValue>{getDate(deadline)}</ProjectInfoValue>
+      </ProjectInfoObject>
     </ProjectInfoWrapper>
   );
 };
@@ -157,19 +157,19 @@ const Position = styled.span`
   display: flex;
   flex-direction: row;
   align-items: center;
-  :nth-of-type(n + 2) {
-    position: relative;
-    margin-left: 12px;
-    padding-left: 12px;
-  }
-  :nth-of-type(n + 2)::after {
+  position: relative;
+  margin: 0 1.3rem 0 0;
+
+  &::after {
+    content: '|';
     position: absolute;
-    left: 0;
-    top: 5px;
-    content: '';
-    width: 1.5px;
-    height: 15px;
-    background-color: black;
+    margin: 0 0.5rem;
+    right: -1.3rem;
+    top: -0.2rem;
+  }
+
+  &:last-child::after {
+    display: none;
   }
 `;
 
@@ -199,7 +199,7 @@ const StackDiv = styled.div`
   height: 100%;
 `;
 
-const StackList = styled.div`
+const StackList = styled.ul`
   display: flex;
   flex-wrap: wrap;
   gap: 0.625rem;

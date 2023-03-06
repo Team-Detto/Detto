@@ -1,4 +1,4 @@
-import { RefObject } from 'react';
+import { ChangeEvent, RefObject } from 'react';
 import { MdOutlinePhotoCamera } from 'react-icons/md';
 import {
   WritePageMobileBodyLeftBox,
@@ -10,8 +10,8 @@ import styled from '@emotion/styled';
 
 interface Props {
   imageRef: RefObject<HTMLInputElement>;
-  thumbnail: any;
-  onAddThumbnailImageChangeEvent: () => void;
+  thumbnail: File | null;
+  onAddThumbnailImageChangeEvent: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const WritePageMobileThumbnail = ({
@@ -55,13 +55,12 @@ const WritePageMobileThumbnail = ({
 };
 
 const WritePageMobileThumbnailContainer = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
 `;
 const WritePageMobileThumbnailInput = styled.input`
-  width: 13.35rem;
+  min-width: 13.35rem;
   height: 2.75rem;
   background-color: ${COLORS.white};
   border: 1px solid ${COLORS.gray100};
@@ -75,7 +74,7 @@ const WritePageMobileThumbnailInput = styled.input`
     color: ${COLORS.black};
   }
 `;
-const WritePageMobileThumbnailButton = styled.label<{ thumbnail: string }>`
+const WritePageMobileThumbnailButton = styled.label<{ thumbnail: File | null }>`
   cursor: pointer;
   gap: 0.625rem;
   width: 2.5rem;

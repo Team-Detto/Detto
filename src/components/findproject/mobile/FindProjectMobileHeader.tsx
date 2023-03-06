@@ -1,4 +1,4 @@
-import {} from 'react';
+import { MouseEvent } from 'react';
 import { mobilePositionList } from 'utils/positions';
 import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 interface Props {
   toggle: boolean;
   category: string;
-  onCategoryClickEvent: (e: any) => void;
+  onCategoryClickEvent: (e: MouseEvent<HTMLButtonElement>) => void;
   onToggleClickEvent: () => void;
 }
 
@@ -40,9 +40,6 @@ const FindProjectMobileHeader = ({
         <FindProjectMobileToggleText toggle={toggle}>
           모집 중
         </FindProjectMobileToggleText>
-        <FindProjectMobileToggleSubText>
-          글만 보기
-        </FindProjectMobileToggleSubText>
       </FindProjectMobileToggleBox>
     </FindProjectMobileHeaderContainer>
   );
@@ -119,9 +116,6 @@ const FindProjectMobileToggleText = styled.p`
   color: ${(props: { toggle: boolean }) =>
     props.toggle ? `${COLORS.gray800}` : `${COLORS.violetB500}`};
   transition: all 0.3s ease-in-out;
-`;
-const FindProjectMobileToggleSubText = styled.p`
-  font-size: 0.875rem;
 `;
 
 export default FindProjectMobileHeader;

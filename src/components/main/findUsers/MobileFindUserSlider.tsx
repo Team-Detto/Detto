@@ -62,7 +62,7 @@ const MobileFindUserSlider = ({ tap }: { tap: string }) => {
                 alt={user.displayName}
               />
               <CardNickname>
-                {user.isJunior && <JuniorImage src={Junior} />}{' '}
+                {user.isJunior && <JuniorImage src={Junior} alt="주니어" />}{' '}
                 {user.displayName}
               </CardNickname>
             </MobileCard>

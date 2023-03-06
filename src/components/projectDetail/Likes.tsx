@@ -7,6 +7,7 @@ import { findWithCollectionName } from 'apis/findWithCollectionName';
 import { useAuth, useGlobalModal } from 'hooks';
 import COLORS from 'assets/styles/colors';
 import { amplitudeToNoneButtonClick } from 'utils/amplitude';
+import { staleTime } from 'utils/staleTime';
 
 const Likes = ({ pid, version = 'web' }: any) => {
   const { uid } = useAuth();
@@ -29,11 +30,15 @@ const Likes = ({ pid, version = 'web' }: any) => {
   const { data: myProjects } = useQuery({
     queryKey: ['myProjects', uid],
     queryFn: () => findWithCollectionName('myprojects', uid),
+    staleTime: staleTime.myProjects,
+    enabled: !!uid,
   });
 
   const { data: projectLike } = useQuery({
     queryKey: ['post', pid],
     queryFn: () => findWithCollectionName('post', pid),
+    staleTime: staleTime.likedProjects,
+    enabled: !!pid,
   });
 
   const [countLike, setCountLike] = useState(projectLike?.like);
@@ -43,12 +48,8 @@ const Likes = ({ pid, version = 'web' }: any) => {
   const { mutate: updateLikeMutate } = useMutation(
     () => updateLike(pid, countLike),
     {
-      // onSettled: () => {
-      //   queryClient.invalidateQueries(['post', pid]);
-      // },
       onSuccess: () => {
         queryClient.invalidateQueries(['post', pid]);
-        // setCountLike(projectLike?.like);
       },
     },
   );
@@ -56,16 +57,17 @@ const Likes = ({ pid, version = 'web' }: any) => {
   const { mutate: updateMyProjectMutate } = useMutation(
     () => updateMyProject(uid, pid, isLike),
     {
-      // onSettled: () => {
-      //   queryClient.invalidateQueries(['myProjects', uid]);
-      // },
       onSuccess: () => {
         queryClient.invalidateQueries(['myProjects', uid]);
+        queryClient.invalidateQueries(['post', 'mostViewed']);
+        queryClient.invalidateQueries(['post', 'mostLiked']);
+        queryClient.invalidateQueries(['likedProjects', uid]);
       },
     },
   );
   useEffect(() => {
     setCountLike(projectLike?.like);
+    //삭제 전에 언마운트 돼서 에러 발생 setTimeout추가하면 좋아요 오류 발생 삭제 후 언마운트 시킴
 
     return () => {
       updateMyProjectMutate();
@@ -84,6 +86,8 @@ const Likes = ({ pid, version = 'web' }: any) => {
 
   return (
     <IconButton
+      id={`${isLike ? 'like' : 'unlike'} ${pid}`}
+      aria-label={isLike ? 'like' : 'unlike'}
       onClick={(event) => {
         if (!uid) {
           openModal('login', 0);

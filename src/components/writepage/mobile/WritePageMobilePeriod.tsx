@@ -1,4 +1,4 @@
-import {} from 'react';
+import { ChangeEvent } from 'react';
 import {
   WritePageMobileBodyLeftBox,
   WritePageMobileBodyRightBox,
@@ -10,7 +10,7 @@ import styled from '@emotion/styled';
 interface Props {
   startDate: string;
   endDate: string;
-  onFormValueChangeEvent: (e: any) => void;
+  onFormValueChangeEvent: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const WritePageMobilePeriod = ({
@@ -45,7 +45,6 @@ const WritePageMobilePeriod = ({
 };
 
 const WritePageMobilePeriodContainer = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;

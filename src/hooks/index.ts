@@ -15,6 +15,7 @@ import useToastPopup from './useToastPopup';
 import useUpdateProfile from './useUpdateProfile';
 import useWrite from './useWrite';
 import useGradient from './useGradient';
+import useWithdrawal from './useWithdrawal';
 
 export {
   useAuth,
@@ -34,4 +35,5 @@ export {
   useUpdateProfile,
   useWrite,
   useGradient,
+  useWithdrawal,
 };

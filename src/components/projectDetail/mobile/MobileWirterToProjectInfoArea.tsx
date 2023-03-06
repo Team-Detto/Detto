@@ -3,6 +3,7 @@ import COLORS from 'assets/styles/colors';
 import { useNavigate } from 'react-router-dom';
 import { logEvent } from 'utils/amplitude';
 import { getDate } from 'utils/date';
+import { positionList } from 'utils/positions';
 
 const WriterToProjectInfoArea = ({ projectData, userData }: any) => {
   const {
@@ -13,61 +14,62 @@ const WriterToProjectInfoArea = ({ projectData, userData }: any) => {
     designerStack,
     startDate,
     endDate,
+    deadline,
   } = projectData;
 
   const navigate = useNavigate();
 
   return (
-    <>
-      <WriterToProjectInfoContainer>
-        <WriterWrapper
-          onClick={() => {
-            navigate(`/profile/${uid}`);
-            logEvent('Button Click', {
-              from: `project_detail`, //pathname으로 하면 이동한페이지로 인식해서 수정
-              to: 'profile',
-              name: 'profile',
-            });
-          }}
-        >
-          <WriterProfileImg
-            src={userData?.photoURL}
-            referrerPolicy="no-referrer"
-          />
-          <WriterNickname>{userData?.displayName}</WriterNickname>
-        </WriterWrapper>
-        <ProjectInfoWrapper>
-          <ProjectInfoObject>
-            <ProjectInfoKey>모집 인원</ProjectInfoKey>
-            <ProjectInfoValue>
-              {`기획 ${positions['planner'] ?? `0`}명/ 프론트
-              ${positions['frontend'] ?? `0`}명 / 백엔드
-              ${positions['backend'] ?? `0`}명/ 디자인
-              ${positions['designer'] ?? `0`}명`}
-            </ProjectInfoValue>
-          </ProjectInfoObject>
-          <ProjectInfoObject>
-            <Div>
-              <ProjectInfoKey>프로젝트</ProjectInfoKey>
-              <ProjectInfoKey>스택</ProjectInfoKey>
-            </Div>
-            <ProjectInfoStackWrap>
+    <WriterToProjectInfoContainer>
+      <WriterWrapper
+        onClick={() => {
+          navigate(`/profile/${uid}`);
+          logEvent('Button Click', {
+            from: `project_detail`, //pathname으로 하면 이동한페이지로 인식해서 수정
+            to: 'profile',
+            name: 'profile',
+          });
+        }}
+      >
+        <WriterProfileImg
+          src={userData?.photoURL}
+          alt={userData?.displayName}
+          referrerPolicy="no-referrer"
+        />
+        <WriterNickname>{userData?.displayName}</WriterNickname>
+      </WriterWrapper>
+      <ProjectInfoWrapper>
+        <ProjectInfoObject>
+          <ProjectInfoKey>모집 인원</ProjectInfoKey>
+          <ProjectInfoValue>
+            {Object.keys(positions).map((key: string, idx: number) => {
+              if (positions[positionList[idx].type] !== 0) {
+                return (
+                  <Position key={key}>
+                    {positionList[idx].name}
+                    <Emphasis>{positions[positionList[idx].type]}</Emphasis>명
+                  </Position>
+                );
+              }
+            })}
+          </ProjectInfoValue>
+        </ProjectInfoObject>
+        <ProjectInfoObject>
+          <Div>
+            <ProjectInfoKey>필요 스택</ProjectInfoKey>
+          </Div>
+          <ProjectInfoStackWrap>
+            {plannerStack.length === 0 ? null : (
               <StackDiv>
                 <StackTitle>기획</StackTitle>
                 <StackList>
                   {plannerStack?.map((skill: string) => {
                     return <StackValue key={skill}>{skill}</StackValue>;
-                  }) ?? '없음'}
+                  })}
                 </StackList>
               </StackDiv>
-              <StackDiv>
-                <StackTitle>개발</StackTitle>
-                <StackList>
-                  {developerStack?.map((skill: string) => {
-                    return <StackValue key={skill}>{skill}</StackValue>;
-                  }) ?? '없음'}
-                </StackList>
-              </StackDiv>
+            )}
+            {designerStack.length === 0 ? null : (
               <StackDiv>
                 <StackTitle>디자인</StackTitle>
                 <StackList>
@@ -76,17 +78,31 @@ const WriterToProjectInfoArea = ({ projectData, userData }: any) => {
                   }) ?? '없음'}
                 </StackList>
               </StackDiv>
-            </ProjectInfoStackWrap>
-          </ProjectInfoObject>
-          <ProjectInfoObject>
-            <ProjectInfoKey>예상 기간</ProjectInfoKey>
-            <ProjectInfoValue>
-              {getDate(startDate)} - {getDate(endDate)}
-            </ProjectInfoValue>
-          </ProjectInfoObject>
-        </ProjectInfoWrapper>
-      </WriterToProjectInfoContainer>
-    </>
+            )}
+            {developerStack.length === 0 ? null : (
+              <StackDiv>
+                <StackTitle>개발</StackTitle>
+                <StackList>
+                  {developerStack?.map((skill: string) => {
+                    return <StackValue key={skill}>{skill}</StackValue>;
+                  }) ?? '없음'}
+                </StackList>
+              </StackDiv>
+            )}
+          </ProjectInfoStackWrap>
+        </ProjectInfoObject>
+        <ProjectInfoObject>
+          <ProjectInfoKey>예상 기간</ProjectInfoKey>
+          <ProjectInfoValue>
+            {getDate(startDate)} - {getDate(endDate)}
+          </ProjectInfoValue>
+        </ProjectInfoObject>
+        <ProjectInfoObject>
+          <ProjectInfoKey>모집 마감일</ProjectInfoKey>
+          <ProjectInfoValue>{getDate(deadline)}</ProjectInfoValue>
+        </ProjectInfoObject>
+      </ProjectInfoWrapper>
+    </WriterToProjectInfoContainer>
   );
 };
 
@@ -95,7 +111,8 @@ export default WriterToProjectInfoArea;
 const WriterToProjectInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 13.75rem;
+  min-height: 10rem;
+  height: 100%;
   background-color: ${COLORS.white};
   gap: 0.9375rem;
   margin: 1.25rem auto 2.5rem;
@@ -135,15 +152,16 @@ const ProjectInfoWrapper = styled.div`
 const ProjectInfoObject = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
   height: 100%;
   gap: 0.5rem;
 `;
 
 const ProjectInfoKey = styled.div`
-  width: 4.25rem;
-  height: 1.75rem;
+  width: 3.58rem;
+  min-height: 1.75rem;
+  height: 100%;
   font-size: 0.75rem;
   line-height: 1.75rem;
   display: flex;
@@ -153,16 +171,41 @@ const ProjectInfoKey = styled.div`
 `;
 
 const ProjectInfoValue = styled.div`
-  height: 1.75rem;
-
-  font-weight: 500;
-  font-size: 0.8125rem;
+  min-height: 1.75rem;
+  height: 100%;
+  flex-wrap: wrap;
+  font-weight: 400;
+  font-size: 0.75rem;
   line-height: 1.75rem;
   display: flex;
   align-items: center;
   letter-spacing: -0.02em;
-
   color: #383838;
+`;
+
+const Position = styled.span`
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  margin: 0 0.7rem 0 0;
+  &::after {
+    content: '|';
+    position: absolute;
+    margin: 0 0.5rem;
+    right: -1rem;
+  }
+  &:last-child::after {
+    display: none;
+  }
+`;
+
+const Emphasis = styled.span`
+  color: ${COLORS.violetB500};
+  font-weight: 700;
+  margin: 0 0.1rem;
 `;
 
 const ProjectInfoStackWrap = styled.div`
@@ -173,21 +216,21 @@ const ProjectInfoStackWrap = styled.div`
   gap: 0.625rem;
 
   width: 100%;
-  min-height: 6.5rem;
+  height: 100%;
+  /* min-height: 6.5rem; */
 `;
 
 const StackDiv = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
   justify-content: flex-start;
   width: 100%;
-  height: 100%;
+  min-height: 26px;
 `;
 
 const StackTitle = styled.div`
   min-width: 2.5rem;
-  height: 100%;
+  height: 26px;
   font-size: 0.75rem;
   display: flex;
   align-items: center;

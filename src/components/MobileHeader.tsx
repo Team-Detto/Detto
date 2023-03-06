@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { GrMail } from 'react-icons/gr';
@@ -135,38 +135,6 @@ const MobileChevronLeftIcon = styled(FiChevronLeft)`
   font-size: 1.875rem;
   color: ${COLORS.gray750};
   margin-top: 0.25rem;
-`;
-
-const DropdownBox = styled.div`
-  position: absolute;
-  right: 1.5rem;
-  width: 7.75rem;
-  min-height: 10.75rem;
-  background-color: ${COLORS.white};
-  padding: 20px 0;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
-  z-index: 99;
-`;
-
-const DropdownList = styled.ul`
-  display: flex;
-  flex-direction: column;
-  gap: 0.375rem;
-`;
-
-const DropdownItem = styled.li`
-  height: 2.5rem;
-  padding: 10px;
-  line-height: 1.25rem;
-  font-size: 0.875rem;
-  text-align: center;
-  font-weight: 500;
-  color: ${COLORS.gray850};
-
-  &:hover {
-    color: ${COLORS.violetB500};
-  }
 `;
 
 const CountBox = styled.div`

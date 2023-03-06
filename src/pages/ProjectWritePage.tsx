@@ -23,6 +23,7 @@ const ProjectWritePage = () => {
     ToastMessage,
     writeFormValue,
     setWriteFormValue,
+    handleCalculate,
     handleFormValueChange,
     handleModalStateChange,
     handleAddThumbnailImage,
@@ -48,6 +49,7 @@ const ProjectWritePage = () => {
               imageRef={imageRef}
               writeFormValue={writeFormValue}
               setWriteFormValue={setWriteFormValue}
+              onCalculateEvent={handleCalculate}
               onFormValueChangeEvent={handleFormValueChange}
               onAddThumbnailImageChangeEvent={handleAddThumbnailImageChange}
             />

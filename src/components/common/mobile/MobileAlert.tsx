@@ -21,9 +21,9 @@ const MobileAlert = ({
   useEffect(() => {
     if (page !== ('sendNote' || 'apply')) {
       if (isOpen) {
-        const prevScrollY = preventScroll();
+        preventScroll();
         return () => {
-          allowScroll(prevScrollY);
+          allowScroll();
         };
       }
     }
@@ -61,7 +61,7 @@ const AlertBackDrop = styled.div`
 const AlertContainer = styled.div`
   position: fixed;
   width: 20rem;
-  height: 288px;
+  height: 18rem;
   left: 50%;
   top: 50%;
   text-align: center;
@@ -81,9 +81,9 @@ const AlertMessageContainer = styled.div`
   gap: 0.5rem;
 `;
 const AlertMessageEmotion = styled.p`
-  width: 80px;
-  height: 80px;
-  font-size: 60px;
+  width: 5rem;
+  height: 5rem;
+  font-size: 3.75rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -94,14 +94,14 @@ const AlertMessageMainMessage = styled.p`
   /* margin-top: 2rem; */
   height: 1.75rem;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 1.125rem;
   color: ${COLORS.gray850};
 `;
 const AlertMessageSubMessage = styled.p`
   width: 100%;
   text-align: start;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: ${COLORS.gray750};
 `;
 const AlertButtonContainer = styled.div`
@@ -111,13 +111,13 @@ const AlertButtonContainer = styled.div`
   align-items: center;
 `;
 const AlertButton = styled.button`
-  padding: 21px 95px;
+  padding: 1.3125rem 5.9375rem;
 
-  width: 284px;
-  height: 52px;
+  width: 17.75rem;
+  height: 3.25rem;
 
   background: #6f64f2;
-  border-radius: 16px;
+  border-radius: 1rem;
   color: ${COLORS.white};
 
   display: flex;

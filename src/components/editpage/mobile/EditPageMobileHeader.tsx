@@ -1,8 +1,9 @@
+import { EditType } from 'types/write/writeType';
 import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
 
 interface Props {
-  editFormValue: any;
+  editFormValue: EditType.EditFormType;
   onFormValueChangeEvent: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -15,6 +16,7 @@ const EditPageMobileHeader = ({
       <EditPageMobileHeaderInput
         placeholder="제목입니다."
         name="title"
+        type="text"
         maxLength={40}
         value={editFormValue?.title || ''}
         onChange={onFormValueChangeEvent}
@@ -29,8 +31,9 @@ const EditPageMobileHeaderContainer = styled.div`
   display: flex;
   justify-content: center;
 `;
+
 const EditPageMobileHeaderInput = styled.input`
-  width: 22.25rem;
+  width: 100%;
   height: 2.8125rem;
   padding: 0.625rem 1.25rem;
   background: ${COLORS.white};

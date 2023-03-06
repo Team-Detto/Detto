@@ -32,10 +32,12 @@ const WritePageMobileFooterContainer = styled.div`
   justify-content: center;
   gap: 1.5rem;
 `;
+
 const WritePageMobileFooterEditBox = styled.div`
   width: 100%;
   height: 25rem;
 `;
+
 const WritePageMobileFooterCompleatedButton = styled.button`
   width: 17rem;
   height: 3.75rem;
@@ -46,6 +48,7 @@ const WritePageMobileFooterCompleatedButton = styled.button`
     background-color: ${COLORS.violetB300};
   }
 `;
+
 const WritePageMobileFooterCompleatedText = styled.p`
   font-weight: 700;
   font-size: 1rem;

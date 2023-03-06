@@ -1,11 +1,3 @@
-import { useParams } from 'react-router-dom';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import {
-  deleteApplicant,
-  firebaseGetIsApplicantRequest,
-  updateRecruiting,
-} from 'apis/postDetail';
-import { findWithCollectionName } from 'apis/findWithCollectionName';
 import WebContainer from '../components/common/WebContainer';
 import ConfirmAlert from 'components/common/ConfirmAlert';
 import TitleThumbnailArea from 'components/projectDetail/TitleThumbnailArea';
@@ -16,105 +8,29 @@ import ContentArea from 'components/projectDetail/ContentArea';
 import ApplyButtonArea from 'components/projectDetail/ApplyButtonArea';
 import ApplicantListArea from 'components/projectDetail/ApplicantListArea';
 import MobileProjectDetailPage from 'components/projectDetail/mobile/projectDetailMobile';
-import { useAuth, useIsMobile, useModal, useNotification } from 'hooks';
 import ApplyModal from 'components/projectDetail/ApplyModal/ApplyModal';
 import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
+import useDetailProject from 'hooks/useDetailProject';
 import { Helmet } from 'react-helmet-async';
-import { useEffect } from 'react';
-import { getCurrentPathName, logEvent } from 'utils/amplitude';
 
 const ProjectDetailPage = () => {
-  const params = useParams();
-  const pid = params?.id;
-  const isMobile = useIsMobile();
-  const { sendNotification } = useNotification();
-
-  //프로젝트 데이터 조회
-  const { data: projectData } = useQuery({
-    queryKey: ['post', pid],
-    queryFn: () => findWithCollectionName('post', pid),
-  });
-
-  const { uid } = useAuth(); // 현재 사용자
-  const writer = projectData?.uid; //글쓴이
-
-  //글쓴이 조회
-  const { data: userData } = useQuery({
-    queryKey: ['users', writer],
-    queryFn: () => findWithCollectionName('users', writer),
-  });
-
-  // 현재 유저가 프로젝트 지원자 인가 조회
-  const { data: isApplicant } = useQuery({
-    queryKey: ['post', projectData?.applicants],
-    queryFn: () => firebaseGetIsApplicantRequest(pid, uid),
-  });
-
-  const queryClient = useQueryClient();
-  const { mutate: updateRecruitingMutate } = useMutation(
-    () => updateRecruiting(pid as string, false),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(['post', pid]); //마감하기 버튼 성공시 렌더링
-        queryClient.invalidateQueries(['post', 'mostViewed']);
-        queryClient.invalidateQueries(['post', 'mostLiked']);
-      },
-    },
-  );
-
-  const { mutate: deleteApplicantMutate } = useMutation(
-    () => deleteApplicant(pid as string, uid),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(['post', pid]); //지원취소 버튼 성공시 렌더링
-      },
-    },
-  );
-
-  // 지원자에게 마감 알림 보내기
-  const sendDeadlineNotificationToApplicants = () => {
-    // applicants map을 array로 변경
-    const applicantsUidArray = Object.keys(projectData?.applicants);
-
-    applicantsUidArray.forEach((applicant: any) => {
-      sendNotification({
-        title: '지원하신 프로젝트의 모집이 마감되었습니다.',
-        receiverUid: applicant,
-        link: {
-          type: 'project',
-          id: params.id!,
-        },
-      });
-    });
-  };
-
-  // 마감하기 버튼 이벤트 핸들러
-  const handleAuthorButtonClick = () => {
-    sendDeadlineNotificationToApplicants();
-    updateRecruitingMutate(pid as any, false as any);
-    handleCloseModalCloseChange();
-  };
-
   const {
-    isOpen: isApply,
-    handleModalOpenChange: handleApplyModalOpenChange,
-    handleModalCloseChange: handleApplyModalCloseChange,
-  } = useModal(false);
-
-  const {
-    isOpen: isClose,
-    handleModalOpenChange: handleCloseModalOpenChange,
-    handleModalCloseChange: handleCloseModalCloseChange,
-  } = useModal(false);
-
-  useEffect(() => {
-    logEvent('Visit Page', {
-      from: `${getCurrentPathName()}`,
-      to: 'none',
-      name: 'project_detail',
-    });
-  }, []);
+    pid,
+    uid,
+    projectData,
+    userData,
+    isApplicant,
+    isMobile,
+    isApply,
+    isClose,
+    handleApplyModalOpenChange,
+    handleApplyModalCloseChange,
+    handleCloseModalOpenChange,
+    handleCloseModalCloseChange,
+    handleAuthorButtonClick,
+    deleteApplicantMutate,
+  } = useDetailProject();
 
   return (
     <>
@@ -162,7 +78,8 @@ const ProjectDetailPage = () => {
                 isOpen={isApply}
                 message="프로젝트를 지원해볼까요?"
                 onClickEvent={handleApplyModalCloseChange}
-                pid={params.id as string}
+                positions={projectData?.positions}
+                pid={pid}
               />
               {/* //지원 했다면 Alert*/}
               <ConfirmAlert

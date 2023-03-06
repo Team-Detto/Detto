@@ -13,15 +13,23 @@ import ApplyPositionArea from './ApplyPositionArea';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
 import COLORS from 'assets/styles/colors';
 import MobileAlert from 'components/common/mobile/MobileAlert';
+import { staleTime } from 'utils/staleTime';
 
 interface props {
   isOpen: boolean;
   message: string;
   onClickEvent: () => void;
+  positions: Object;
   pid: string;
 }
 
-const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
+const ApplyModal = ({
+  isOpen,
+  message,
+  onClickEvent,
+  positions,
+  pid,
+}: props) => {
   const { isOpen: isAlertOpen, handleModalStateChange: onAlertClickEvent } =
     useModal(false);
 
@@ -39,6 +47,8 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
   const { data: userData } = useQuery({
     queryKey: ['users', uid],
     queryFn: () => findWithCollectionName('users', uid),
+    staleTime: staleTime.users,
+    enabled: !!uid,
   });
 
   //지원한 포지션에 맞는 스택 가져오기 위한 스위치문
@@ -93,9 +103,9 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
 
   useEffect(() => {
     if (isOpen) {
-      const prevScrollY = preventScroll();
+      preventScroll();
       return () => {
-        allowScroll(prevScrollY);
+        allowScroll();
       };
     }
   }, [isOpen]);
@@ -122,6 +132,7 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
                 clickValue={clickValue}
                 setClickValue={setClickValue}
                 version="mobile"
+                positions={positions}
               />
               {/* 지원동기 */}
               <ApplyMotiveArea
@@ -165,6 +176,7 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
         <WebContentContainer>
           {/* 포지션 버튼 */}
           <ApplyPositionArea
+            positions={positions}
             clickValue={clickValue}
             setClickValue={setClickValue}
           />

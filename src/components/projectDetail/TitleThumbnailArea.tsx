@@ -6,7 +6,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteProject, updateRecruiting } from 'apis/postDetail';
 import { useAuth, useModal } from 'hooks';
 import { useEffect } from 'react';
-import defaultThumbnail from 'assets/images/thumbnail_big.jpg';
+import defaultThumbnail from 'assets/images/thumbnail_big.webp';
 import {
   amplitudeToNoneButtonClick,
   amplitudeNeedToButtonClick,
@@ -82,7 +82,10 @@ const TitleThumbnailArea = ({ projectData, pid }: any) => {
           </ModifyDeleteButtonWrap>
         )}
       </TitleToModifyButtonWrap>
-      <ProjectThumbnail src={thumbnail || defaultThumbnail} />
+      <ProjectThumbnail
+        src={thumbnail || defaultThumbnail}
+        alt={title + '프로젝트 썸네일'}
+      />
     </>
   );
 };

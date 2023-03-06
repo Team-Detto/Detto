@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useFindProject, useIsMobile } from 'hooks';
 import WebContainer from 'components/common/WebContainer';
@@ -11,44 +9,36 @@ import styled from '@emotion/styled';
 
 const FindProjectPage = () => {
   const {
+    toggle,
     projects,
     category,
-    toggle,
     likedProjects,
-    setCategory,
-    handleCategoryClick,
     handleToggleClick,
+    handleCategoryClick,
+    handleUpdateLikedCount,
     handleNavigateToProjectDetail,
   } = useFindProject();
   const isMobile = useIsMobile();
-
-  const { state: categoryFromFooter } = useLocation();
-
-  // 푸터에서 클릭한 경우 카테고리 지정
-  useEffect(() => {
-    if (categoryFromFooter !== null) {
-      setCategory(categoryFromFooter);
-    }
-  }, [categoryFromFooter]);
 
   if (isMobile) {
     return (
       <>
         <Helmet>
-          <title>{`팀원찾기 - Detto`}</title>
+          <title>{`프로젝트 찾기 - Detto`}</title>
         </Helmet>
         <FindProjectMobilePageContainer>
           <FindProjectMobileHeader
             toggle={toggle}
             category={category}
-            onCategoryClickEvent={handleCategoryClick}
             onToggleClickEvent={handleToggleClick}
+            onCategoryClickEvent={handleCategoryClick}
           />
           <FindProjectMobileList
-            projects={projects}
-            likedProjects={likedProjects}
             toggle={toggle}
             category={category}
+            projects={projects}
+            likedProjects={likedProjects}
+            onUpdateLikedCountEvent={handleUpdateLikedCount}
             onNavigateToProjectDetailEvent={handleNavigateToProjectDetail}
           />
         </FindProjectMobilePageContainer>
@@ -59,21 +49,22 @@ const FindProjectPage = () => {
   return (
     <>
       <Helmet>
-        <title>{`팀원찾기 - Detto`}</title>
+        <title>{`프로젝트 찾기 - Detto`}</title>
       </Helmet>
       <FindProjectPageWrapper>
         <WebContainer>
           <FindProjectHeader
             toggle={toggle}
             category={category}
-            onCategoryClickEvent={handleCategoryClick}
             onToggleClickEvent={handleToggleClick}
+            onCategoryClickEvent={handleCategoryClick}
           />
           <FindProjectList
-            projects={projects}
-            likedProjects={likedProjects}
             toggle={toggle}
             category={category}
+            projects={projects}
+            likedProjects={likedProjects}
+            onUpdateLikedCountEvent={handleUpdateLikedCount}
             onNavigateToProjectDetailEvent={handleNavigateToProjectDetail}
           />
         </WebContainer>
@@ -87,9 +78,9 @@ const FindProjectPageWrapper = styled.div`
   height: 100%;
   padding-bottom: 10rem;
 `;
+
 const FindProjectMobilePageContainer = styled.div`
-  max-width: 500px;
-  min-width: 350px;
+  width: 100%;
   height: 55.875rem;
 `;
 

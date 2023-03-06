@@ -4,8 +4,8 @@ import SkillButton from 'components/common/SkillButton';
 import styled from '@emotion/styled';
 
 interface Props {
-  writeFormValue?: WriteType.WriteFormType;
-  setWriteFormValue?: (value: WriteType.WriteFormType) => void;
+  writeFormValue: WriteType.WriteFormType;
+  setWriteFormValue: (value: WriteType.WriteFormType) => void;
 }
 
 const WritePageStack = ({ writeFormValue, setWriteFormValue }: Props) => {
@@ -73,6 +73,7 @@ const WritePageStackContainer = styled.div`
   max-width: 70.875rem;
   display: flex;
   flex-direction: row;
+  margin-top: 2.5rem;
 `;
 
 const WritePageLeftBox = styled.div`
@@ -103,6 +104,7 @@ const WritePageStackBox = styled.div`
 
 const WritePageStackLeftBox = styled.div`
   min-width: 8%;
+  padding-left: 0.1rem;
 `;
 
 const WritePageStackRightBox = styled.div`

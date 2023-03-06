@@ -3,7 +3,7 @@ import { useQueries } from '@tanstack/react-query';
 import { getInboxNotes, getOutboxNotes } from 'apis/notes';
 import COLORS from 'assets/styles/colors';
 import { useAuth, usePopup } from 'hooks';
-import React, { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { staleTime } from 'utils/staleTime';
 import NoteMessage from './NoteMessage';
 import { PopupWrapper } from './styles';
@@ -52,7 +52,7 @@ export default function NoteBox() {
     <PopupWrapper popup="message" onClick={(e) => e.stopPropagation()}>
       <BoxContainer>
         {boxList.map(({ id, label }) => (
-          <React.Fragment key={id}>
+          <Fragment key={id}>
             <MenuToggleInput
               type="radio"
               name="message"
@@ -70,7 +70,7 @@ export default function NoteBox() {
             ) : (
               <MenuLabel htmlFor={id}>{label}</MenuLabel>
             )}
-          </React.Fragment>
+          </Fragment>
         ))}
       </BoxContainer>
       <MessageWrapper>
