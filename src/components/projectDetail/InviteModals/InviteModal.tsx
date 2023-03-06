@@ -141,7 +141,7 @@ const InviteModal = ({
               </StackList>
             ) : (
               <StackList>
-                <Skills>{applicant.position}</Skills> 포지션에 지원하셨네요!
+                <Skills>{applicant?.position}</Skills> 포지션에 지원하셨네요!
               </StackList>
             )}
           </UserSkillsContainer>

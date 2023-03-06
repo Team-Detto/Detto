@@ -1,23 +1,15 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
-import InviteModal from './InviteModals/InviteModal';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
-import { allowScroll, preventScroll } from 'utils/modal';
-import { useModal } from 'hooks';
 
-const ApplicantCard = ({ applicant, pid }: any) => {
+const ApplicantCard = ({
+  applicant,
+  applicantUid,
+  setClickApplicant,
+  isOpen,
+  handleModalStateChange,
+}: any) => {
   const navigate = useNavigate();
-  const { isOpen, handleModalStateChange } = useModal(false);
-
-  // useEffect(() => {
-  //   if (isOpen) {
-  //     preventScroll();
-  //     return () => {
-  //       allowScroll();
-  //     };
-  //   }
-  // }, [isOpen]);
 
   return (
     <>
@@ -49,19 +41,13 @@ const ApplicantCard = ({ applicant, pid }: any) => {
         </StackContainer>
         <InviteButton
           onClick={() => {
+            setClickApplicant(applicantUid);
             handleModalStateChange();
           }}
         >
           지원자 정보 보기
         </InviteButton>
       </ApplicantWrap>
-      <InviteModal
-        isOpen={isOpen}
-        applicant={applicant}
-        onClickEvent={handleModalStateChange}
-        pid={pid}
-        applicantKey={applicant?.uid}
-      />
     </>
   );
 };
