@@ -77,10 +77,6 @@ const ContentWrapper = styled.div`
       padding: 1rem 0 0.2rem 0;
       border-bottom: none;
       margin: 0;
-
-      &:first-child {
-        padding-top: 0;
-      }
     }
 
     h1 {
