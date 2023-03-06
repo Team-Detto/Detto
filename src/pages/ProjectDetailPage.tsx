@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import WebContainer from '../components/common/WebContainer';
 import ConfirmAlert from 'components/common/ConfirmAlert';
 import TitleThumbnailArea from 'components/projectDetail/TitleThumbnailArea';
@@ -31,6 +32,12 @@ const ProjectDetailPage = () => {
     handleAuthorButtonClick,
     deleteApplicantMutate,
   } = useDetailProject();
+
+  useEffect(() => {
+    if (!window.Kakao.isInitialized()) {
+      window.Kakao.init(process.env.REACT_APP_KAKAO_API_KEY);
+    }
+  }, []);
 
   return (
     <>
