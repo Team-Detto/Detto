@@ -103,7 +103,6 @@ const ProjectInfoArea = ({ projectData }: any) => {
         <ProjectInfoKey>모집 마감일</ProjectInfoKey>
         <ProjectInfoValue>{getDate(deadline)}</ProjectInfoValue>
       </ProjectInfoObject>
-      <ProjectInfoObject></ProjectInfoObject>
     </ProjectInfoWrapper>
   );
 };
