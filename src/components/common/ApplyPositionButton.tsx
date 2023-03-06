@@ -6,7 +6,6 @@ import { positionList, positionType } from 'utils/positions';
 
 const ApplyPositionButton = (props: any) => {
   const { clickValue, setClickValue, version, positions } = props;
-  // console.log(positions);
   const [disabled, setDisabled] = useState<Array<boolean>>([
     false,
     false,
@@ -26,7 +25,6 @@ const ApplyPositionButton = (props: any) => {
         : setDisabled(tmp),
     );
   }, []);
-  console.log(disabled);
 
   return (
     <>
