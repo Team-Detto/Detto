@@ -8,6 +8,7 @@ import {
   useModal,
   useProfileImage,
   useUpdateProfile,
+  useWithdrawal,
 } from 'hooks';
 import {
   mypageInfoButtonActiveState,
@@ -22,6 +23,7 @@ import ValidationToastPopup from 'components/common/ValidationToastPopup';
 import MobileSkillStackList from './MobileSkillStackList';
 import MobileAlert from 'components/common/mobile/MobileAlert';
 import { amplitudeToNoneButtonClick } from 'utils/amplitude';
+import MobileConfirmAlert from 'components/common/mobile/MobileConfirmAlert';
 
 const MobileUserInfo = ({ user }: MypageInfoProps) => {
   const { uid } = useAuth();
@@ -46,6 +48,11 @@ const MobileUserInfo = ({ user }: MypageInfoProps) => {
     updateDefaultUserInfoState,
     defaultUserInfo,
   } = useUpdateProfile();
+  const {
+    isOpen: isWithdrawalModalOpen,
+    handleModalStateChange: handlleWithdrawalModalStateChange,
+    handleWithdrawalClick,
+  } = useWithdrawal();
 
   // 수정 버튼 클릭 시 유효성 검사 확인 후 변경사항 반영, 모달창 오픈
   const handleUserInfoConfirm = () => {
@@ -149,11 +156,23 @@ const MobileUserInfo = ({ user }: MypageInfoProps) => {
           개인정보 수정 완료
         </MobileInfoEditBtn>
       </MobileInfoBox>
+      <MobileInfoBox>
+        <MobileWithdrawalBtn onClick={handlleWithdrawalModalStateChange}>
+          회원탈퇴
+        </MobileWithdrawalBtn>
+      </MobileInfoBox>
       <MobileAlert
         isOpen={isOpen}
         mainMsg="수정이 완료되었어요!"
         subMsg="수정한 정보가 곧바로 반영되었습니다!"
         onClickEvent={handleModalStateChange}
+      />
+      <MobileConfirmAlert
+        isOpen={isWithdrawalModalOpen}
+        message={'탈퇴할까요?'}
+        subMessage={'탈퇴는 되돌릴 수 없습니다. 신중히 선택해주세요! 🥺'}
+        onClickEvent={handleWithdrawalClick}
+        onCloseEvent={handlleWithdrawalModalStateChange}
       />
     </MobileUserInfoContainer>
   );
@@ -197,4 +216,13 @@ const MobileInfoTitle = styled.label`
 const MobileInfoEditBtn = styled(InfoEditConfirmBtn)`
   display: block;
   margin: 3.125rem auto 0;
+`;
+
+const MobileWithdrawalBtn = styled.span`
+  display: flex;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: ${COLORS.gray700};
+  text-decoration: underline;
+  margin-top: 2.5rem;
 `;

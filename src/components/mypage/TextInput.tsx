@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { MdCancel } from 'react-icons/md';
 import COLORS from 'assets/styles/colors';
+import { useEffect } from 'react';
 
 interface TextInputProps {
   value: string;
@@ -31,7 +32,7 @@ const TextInput = ({
         <InfoTextInput
           type="text"
           name={name}
-          value={value}
+          value={value || ''}
           onChange={onChangeValue}
           placeholder={placeholder}
           minLength={2}
