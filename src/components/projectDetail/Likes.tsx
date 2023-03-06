@@ -17,10 +17,8 @@ const Likes = ({ pid, version = 'web' }: any) => {
     event.preventDefault();
     if (isLike) {
       setIsLike(false);
-      setIsLike(false);
       setCountLike(countLike - 1);
     } else {
-      setIsLike(true);
       setIsLike(true);
       setCountLike(countLike + 1);
     }
@@ -66,23 +64,13 @@ const Likes = ({ pid, version = 'web' }: any) => {
     },
   );
   useEffect(() => {
-    setCountLike(projectLike?.like);
-    //삭제 전에 언마운트 돼서 에러 발생 setTimeout추가하면 좋아요 오류 발생 삭제 후 언마운트 시킴
-
-    return () => {
-      updateMyProjectMutate();
-      updateLikeMutate();
-      setIsLike(myProjects?.likedProjects.includes(pid));
-    };
-  }, []);
+    updateMyProjectMutate();
+    updateLikeMutate();
+  }, [isLike]);
 
   useEffect(() => {
     setCountLike(projectLike?.like);
   }, [projectLike?.like]);
-
-  useEffect(() => {
-    setIsLike(myProjects?.likedProjects.includes(pid));
-  }, [myProjects?.likedProjects]);
 
   return (
     <IconButton
