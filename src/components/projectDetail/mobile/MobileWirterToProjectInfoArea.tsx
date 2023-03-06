@@ -14,6 +14,7 @@ const WriterToProjectInfoArea = ({ projectData, userData }: any) => {
     designerStack,
     startDate,
     endDate,
+    deadline,
   } = projectData;
 
   const navigate = useNavigate();
@@ -95,6 +96,10 @@ const WriterToProjectInfoArea = ({ projectData, userData }: any) => {
           <ProjectInfoValue>
             {getDate(startDate)} - {getDate(endDate)}
           </ProjectInfoValue>
+        </ProjectInfoObject>
+        <ProjectInfoObject>
+          <ProjectInfoKey>모집 마감일</ProjectInfoKey>
+          <ProjectInfoValue>{getDate(deadline)}</ProjectInfoValue>
         </ProjectInfoObject>
       </ProjectInfoWrapper>
     </WriterToProjectInfoContainer>
