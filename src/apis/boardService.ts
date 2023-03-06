@@ -92,7 +92,9 @@ export const firebaseInfinityScrollProjectDataRequest = async (
     setProjectData((prev: any) => {
       const arr = [...prev];
       querySnapshot.forEach((doc) => {
-        arr.push({ ...doc.data(), id: doc.id });
+        if (!arr.find((project: any) => project.id === doc.id)) {
+          arr.push({ ...doc.data(), id: doc.id });
+        }
       });
       return arr;
     });

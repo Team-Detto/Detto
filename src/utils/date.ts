@@ -17,3 +17,10 @@ export const getDateAndTime = (milliseconds: number) => {
   const minuites = `${date.getMinutes()}`.padStart(2, '0');
   return `${year}.${month}.${day} ${hour}:${minuites}`;
 };
+
+//디데이 계산
+export const getDays = (milliseconds: number) => {
+  const date = new Date(milliseconds);
+  const day = `${date.getDate() - 1}`.padStart(2);
+  return `${day}`;
+};
