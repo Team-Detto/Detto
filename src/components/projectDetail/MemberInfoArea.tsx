@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import { logEvent } from 'utils/amplitude';
-import { useEffect } from 'react';
 
 const MemberInfoArea = ({ applicantsData }: any) => {
   const navigate = useNavigate();

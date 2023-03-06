@@ -98,7 +98,7 @@ const ContentCard = ({
         />
         {isRecruiting && day >= 0 && (
           <DeadLineIcon day={day}>
-            {day === 0 ? '마감일' : `D - ${getDays(deadline - today)}`}
+            {day <= 0 ? '마감일' : `D - ${getDays(deadline - today)}`}
           </DeadLineIcon>
         )}
       </ImageWrap>

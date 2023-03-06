@@ -1,5 +1,5 @@
 import { logEvent } from '@amplitude/analytics-browser';
-import { useQuery } from '@tanstack/react-query';
+import { useQueries, useQuery } from '@tanstack/react-query';
 import { getUserInfoData, getUserProjectList } from 'apis/mypageUsers';
 import { modalTypes } from 'components/common/modal/modal';
 import { useEffect } from 'react';
@@ -24,17 +24,25 @@ const usePubicProfile = () => {
   const { openModalWithData, openModal } = useGlobalModal();
   const isMobile = useIsMobile();
 
-  const { data: userInfoData } = useQuery({
-    queryKey: ['users', pid],
-    queryFn: getUserInfoData,
-    staleTime: staleTime.user,
-  });
-
-  const { data: userProjectListsData } = useQuery({
-    queryKey: ['myProjects', pid],
-    queryFn: getUserProjectList,
-    staleTime: staleTime.myProjects,
-    enabled: !!pid,
+  const [{ data: userInfoData }, { data: userProjectListsData }] = useQueries({
+    queries: [
+      //유저 정보 조회
+      {
+        queryKey: ['users', pid],
+        queryFn: getUserInfoData,
+        staleTime: staleTime.user,
+        enabled: !!pid,
+        suspense: true,
+      },
+      //유저가 참여한 프로젝트 조회
+      {
+        queryKey: ['myProjects', pid],
+        queryFn: getUserProjectList,
+        staleTime: staleTime.myProjects,
+        enabled: !!pid,
+        suspense: true,
+      },
+    ],
   });
 
   const handleSendNoteButtonClick = () => {

@@ -1,5 +1,5 @@
 import { MutableRefObject } from 'react';
-import TextEdiotr from 'components/TextEditor';
+import TextEditor from 'components/TextEditor';
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 
@@ -12,7 +12,7 @@ const ProjectWritePageFooter = ({ editRef, onOpenButtonClickEvent }: props) => {
   return (
     <ProjectWritePageFooterContainer>
       <ProjectWritePageFooterEditBox>
-        <TextEdiotr editRef={editRef} />
+        <TextEditor editRef={editRef} />
       </ProjectWritePageFooterEditBox>
       <ProjectWritePageFooterCompleatedButton onClick={onOpenButtonClickEvent}>
         <ProjectWritePageFooterCompleatedText>
@@ -31,12 +31,14 @@ const ProjectWritePageFooterContainer = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
 const ProjectWritePageFooterEditBox = styled.div`
   width: 73.75rem;
   height: 68.1875rem;
   border: 0.0625rem solid ${COLORS.gray300};
   z-index: 0;
 `;
+
 const ProjectWritePageFooterCompleatedButton = styled.button`
   width: 29.375rem;
   height: 5.5rem;
@@ -51,6 +53,7 @@ const ProjectWritePageFooterCompleatedButton = styled.button`
     background-color: ${COLORS.violetB300};
   }
 `;
+
 const ProjectWritePageFooterCompleatedText = styled.p`
   font-weight: 700;
   font-size: 1.75rem;

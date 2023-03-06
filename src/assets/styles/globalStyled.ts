@@ -113,7 +113,6 @@ const reset = css`
   [type='submit'] {
     -webkit-appearance: button;
     background-color: transparent;
-    background-image: none;
   }
   :-moz-focusring {
     outline: auto;

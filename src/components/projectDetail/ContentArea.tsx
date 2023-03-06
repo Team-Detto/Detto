@@ -66,9 +66,13 @@ const ContentWrapper = styled.div`
     h4,
     h5,
     h6 {
-      margin-top: 3rem;
-      padding-bottom: 1rem;
+      padding: 2rem 0 1rem 0;
       border-bottom: none;
+      margin: 0;
+
+      &:first-of-type {
+        padding-top: 0;
+      }
     }
 
     h1 {
