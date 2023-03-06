@@ -43,7 +43,6 @@ const FindProjectHeader = ({
             <FindProjectToggleCircle toggle={toggle} />
           </FindProjectToggleButton>
           <FindProjectToggleText toggle={toggle}>모집 중</FindProjectToggleText>
-          <FindProjectToggleSubText> 글만 보기</FindProjectToggleSubText>
         </FindProjectToggleBox>
       </FindProjectHeaderRightBox>
     </FindProjectHeaderContainer>
@@ -120,9 +119,6 @@ const FindProjectToggleText = styled.p`
   color: ${(props: { toggle: boolean }) =>
     props.toggle ? `${COLORS.gray800}` : `${COLORS.violetB500}`};
   transition: all 0.3s ease-in-out;
-`;
-const FindProjectToggleSubText = styled.p`
-  font-size: 1.125rem;
 `;
 
 export default FindProjectHeader;
