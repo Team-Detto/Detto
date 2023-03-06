@@ -32,8 +32,8 @@ const ProjectEditPageBody = ({
     startDate,
     endDate,
     deadline,
+    isRecruiting,
   } = editFormValue;
-
   return (
     <BodyContainer>
       <EditPagePosition
@@ -52,6 +52,7 @@ const ProjectEditPageBody = ({
         onFormValueChangeEvent={onFormValueChangeEvent}
       />
       <EditPageDeadline
+        isRecruiting={isRecruiting}
         deadline={deadline}
         onFormValueChangeEvent={onFormValueChangeEvent}
       />

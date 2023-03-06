@@ -5,23 +5,32 @@ import styled from '@emotion/styled';
 
 interface Props {
   deadline: string | number;
+  isRecruiting: boolean;
   onFormValueChangeEvent: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const EditPageDeadline = ({ deadline, onFormValueChangeEvent }: Props) => {
+const EditPageDeadline = ({
+  deadline,
+  isRecruiting,
+  onFormValueChangeEvent,
+}: Props) => {
   return (
-    <BodyDeadlineBox>
-      <BodyText>모집 마감일</BodyText>
-      <BodyDateInput
-        type="date"
-        name="deadline"
-        value={new Date(+new Date(deadline)).toISOString().split('T')[0]}
-        onChange={onFormValueChangeEvent}
-      />
-      <BodyDeadlineText>
-        입력하신 날짜 11시 59분에 자동 마감됩니다.
-      </BodyDeadlineText>
-    </BodyDeadlineBox>
+    <>
+      {isRecruiting && (
+        <BodyDeadlineBox>
+          <BodyText>모집 마감일</BodyText>
+          <BodyDateInput
+            type="date"
+            name="deadline"
+            value={new Date(+new Date(deadline)).toISOString().split('T')[0]}
+            onChange={onFormValueChangeEvent}
+          />
+          <BodyDeadlineText>
+            입력하신 날짜 11시 59분에 자동 마감됩니다.
+          </BodyDeadlineText>
+        </BodyDeadlineBox>
+      )}
+    </>
   );
 };
 

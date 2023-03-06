@@ -14,17 +14,12 @@ const MemberInfoArea = ({ applicantsData }: any) => {
 
   const handlePosition = (position: string) => {
     return Object?.keys(applicantsData).filter((key) => {
-      // console.log(applicantsData?.[key]?.position);
       return (
         applicantsData?.[key]?.recruit === true &&
         applicantsData?.[key]?.position === position
       );
     });
   };
-
-  useEffect(() => {
-    console.log(handlePosition('기획').length);
-  }, []);
 
   const onClickEvent = (uid: string) => {
     navigate(`/profile/${uid}`);

@@ -22,7 +22,7 @@ const EditPageStack = ({
         <StackText>필요 스택</StackText>
       </StackPageLeftBox>
       <StackPageRightBox>
-        <StacktBox>
+        <StackBox>
           <StackLeftBox>
             <StackCategoryText>기획</StackCategoryText>
           </StackLeftBox>
@@ -41,8 +41,8 @@ const EditPageStack = ({
               );
             })}
           </StackRightBox>
-        </StacktBox>
-        <StacktBox>
+        </StackBox>
+        <StackBox>
           <StackLeftBox>
             <StackCategoryText>디자인</StackCategoryText>
           </StackLeftBox>
@@ -61,8 +61,8 @@ const EditPageStack = ({
               );
             })}
           </StackRightBox>
-        </StacktBox>
-        <StacktBox>
+        </StackBox>
+        <StackBox>
           <StackLeftBox>
             <StackCategoryText>개발</StackCategoryText>
           </StackLeftBox>
@@ -81,7 +81,7 @@ const EditPageStack = ({
               );
             })}
           </StackRightBox>
-        </StacktBox>
+        </StackBox>
       </StackPageRightBox>
     </StackContainer>
   );
@@ -115,7 +115,7 @@ const StackText = styled.h2`
   color: #383838;
 `;
 
-const StacktBox = styled.div`
+const StackBox = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
