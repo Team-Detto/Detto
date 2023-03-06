@@ -31,85 +31,83 @@ const MobileMemberInfoArea = ({ applicantsData }: any) => {
   };
 
   return (
-    <>
-      <MobileMemberInfoAreaContainer>
-        <MemberInfoTitle>현재 참여 중인 인원</MemberInfoTitle>
-        {data.length <= 0 ? (
-          <NodataMessage>아직 모집 중이에요 :/</NodataMessage>
-        ) : (
-          <MemberInfoWrapper>
-            {handlePosition('기획').length > 0 && (
-              <MemberInfoObject>
-                <MemberInfoKey>기획</MemberInfoKey>
-                {data?.map((key) => {
-                  if (applicantsData[key].position === '기획')
-                    return (
-                      <MemberProfileImg
-                        key={key}
-                        onClick={() => onClickEvent(applicantsData[key].uid)}
-                        src={applicantsData[key].profileURL}
-                        alt={applicantsData[key].displayName}
-                        referrerPolicy="no-referrer"
-                      ></MemberProfileImg>
-                    );
-                })}
-              </MemberInfoObject>
-            )}
-            {handlePosition('디자인').length > 0 && (
-              <MemberInfoObject>
-                <MemberInfoKey>디자인</MemberInfoKey>
-                {data?.map((key) => {
-                  if (applicantsData[key].position === '디자인')
-                    return (
-                      <MemberProfileImg
-                        key={key}
-                        onClick={() => onClickEvent(applicantsData[key].uid)}
-                        src={applicantsData[key].profileURL}
-                        alt={applicantsData[key].displayName}
-                        referrerPolicy="no-referrer"
-                      ></MemberProfileImg>
-                    );
-                })}
-              </MemberInfoObject>
-            )}
-            {handlePosition('프론트엔드').length > 0 && (
-              <MemberInfoObject>
-                <MemberInfoKey>프론트</MemberInfoKey>
-                {data?.map((key) => {
-                  if (applicantsData[key].position === '프론트엔드')
-                    return (
-                      <MemberProfileImg
-                        key={key}
-                        onClick={() => onClickEvent(applicantsData[key].uid)}
-                        src={applicantsData[key].profileURL}
-                        alt={applicantsData[key].displayName}
-                        referrerPolicy="no-referrer"
-                      ></MemberProfileImg>
-                    );
-                })}
-              </MemberInfoObject>
-            )}
-            {handlePosition('백엔드').length > 0 && (
-              <MemberInfoObject>
-                <MemberInfoKey>백엔드</MemberInfoKey>
-                {data?.map((key) => {
-                  if (applicantsData[key].position === '백엔드')
-                    return (
-                      <MemberProfileImg
-                        key={key}
-                        onClick={() => onClickEvent(applicantsData[key].uid)}
-                        src={applicantsData[key].profileURL}
-                        alt={applicantsData[key].displayName}
-                        referrerPolicy="no-referrer"
-                      ></MemberProfileImg>
-                    );
-                })}
-              </MemberInfoObject>
-            )}
-          </MemberInfoWrapper>
-        )}
-      </MobileMemberInfoAreaContainer>
-    </>
+    <MobileMemberInfoAreaContainer>
+      <MemberInfoTitle>현재 참여 중인 인원</MemberInfoTitle>
+      {data.length <= 0 ? (
+        <NodataMessage>아직 모집 중이에요 :/</NodataMessage>
+      ) : (
+        <MemberInfoWrapper>
+          {handlePosition('기획').length > 0 && (
+            <MemberInfoObject>
+              <MemberInfoKey>기획</MemberInfoKey>
+              {data?.map((key) => {
+                if (applicantsData[key].position === '기획')
+                  return (
+                    <MemberProfileImg
+                      key={key}
+                      onClick={() => onClickEvent(applicantsData[key].uid)}
+                      src={applicantsData[key].profileURL}
+                      alt={applicantsData[key].displayName}
+                      referrerPolicy="no-referrer"
+                    ></MemberProfileImg>
+                  );
+              })}
+            </MemberInfoObject>
+          )}
+          {handlePosition('디자인').length > 0 && (
+            <MemberInfoObject>
+              <MemberInfoKey>디자인</MemberInfoKey>
+              {data?.map((key) => {
+                if (applicantsData[key].position === '디자인')
+                  return (
+                    <MemberProfileImg
+                      key={key}
+                      onClick={() => onClickEvent(applicantsData[key].uid)}
+                      src={applicantsData[key].profileURL}
+                      alt={applicantsData[key].displayName}
+                      referrerPolicy="no-referrer"
+                    ></MemberProfileImg>
+                  );
+              })}
+            </MemberInfoObject>
+          )}
+          {handlePosition('프론트엔드').length > 0 && (
+            <MemberInfoObject>
+              <MemberInfoKey>프론트</MemberInfoKey>
+              {data?.map((key) => {
+                if (applicantsData[key].position === '프론트엔드')
+                  return (
+                    <MemberProfileImg
+                      key={key}
+                      onClick={() => onClickEvent(applicantsData[key].uid)}
+                      src={applicantsData[key].profileURL}
+                      alt={applicantsData[key].displayName}
+                      referrerPolicy="no-referrer"
+                    ></MemberProfileImg>
+                  );
+              })}
+            </MemberInfoObject>
+          )}
+          {handlePosition('백엔드').length > 0 && (
+            <MemberInfoObject>
+              <MemberInfoKey>백엔드</MemberInfoKey>
+              {data?.map((key) => {
+                if (applicantsData[key].position === '백엔드')
+                  return (
+                    <MemberProfileImg
+                      key={key}
+                      onClick={() => onClickEvent(applicantsData[key].uid)}
+                      src={applicantsData[key].profileURL}
+                      alt={applicantsData[key].displayName}
+                      referrerPolicy="no-referrer"
+                    ></MemberProfileImg>
+                  );
+              })}
+            </MemberInfoObject>
+          )}
+        </MemberInfoWrapper>
+      )}
+    </MobileMemberInfoAreaContainer>
   );
 };
 

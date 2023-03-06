@@ -19,87 +19,85 @@ const WriterToProjectInfoArea = ({ projectData, userData }: any) => {
   const navigate = useNavigate();
 
   return (
-    <>
-      <WriterToProjectInfoContainer>
-        <WriterWrapper
-          onClick={() => {
-            navigate(`/profile/${uid}`);
-            logEvent('Button Click', {
-              from: `project_detail`, //pathname으로 하면 이동한페이지로 인식해서 수정
-              to: 'profile',
-              name: 'profile',
-            });
-          }}
-        >
-          <WriterProfileImg
-            src={userData?.photoURL}
-            alt={userData?.displayName}
-            referrerPolicy="no-referrer"
-          />
-          <WriterNickname>{userData?.displayName}</WriterNickname>
-        </WriterWrapper>
-        <ProjectInfoWrapper>
-          <ProjectInfoObject>
-            <ProjectInfoKey>모집 인원</ProjectInfoKey>
-            <ProjectInfoValue>
-              {Object.keys(positions).map((key: string, idx: number) => {
-                if (positions[positionList[idx].type] !== 0) {
-                  return (
-                    <Position key={key}>
-                      {positionList[idx].name}
-                      <Emphasis>{positions[positionList[idx].type]}</Emphasis>명
-                    </Position>
-                  );
-                }
-              })}
-            </ProjectInfoValue>
-          </ProjectInfoObject>
-          <ProjectInfoObject>
-            <Div>
-              <ProjectInfoKey>필요 스택</ProjectInfoKey>
-            </Div>
-            <ProjectInfoStackWrap>
-              {plannerStack.length === 0 ? null : (
-                <StackDiv>
-                  <StackTitle>기획</StackTitle>
-                  <StackList>
-                    {plannerStack?.map((skill: string) => {
-                      return <StackValue key={skill}>{skill}</StackValue>;
-                    })}
-                  </StackList>
-                </StackDiv>
-              )}
-              {designerStack.length === 0 ? null : (
-                <StackDiv>
-                  <StackTitle>디자인</StackTitle>
-                  <StackList>
-                    {designerStack?.map((skill: string) => {
-                      return <StackValue key={skill}>{skill}</StackValue>;
-                    }) ?? '없음'}
-                  </StackList>
-                </StackDiv>
-              )}
-              {developerStack.length === 0 ? null : (
-                <StackDiv>
-                  <StackTitle>개발</StackTitle>
-                  <StackList>
-                    {developerStack?.map((skill: string) => {
-                      return <StackValue key={skill}>{skill}</StackValue>;
-                    }) ?? '없음'}
-                  </StackList>
-                </StackDiv>
-              )}
-            </ProjectInfoStackWrap>
-          </ProjectInfoObject>
-          <ProjectInfoObject>
-            <ProjectInfoKey>예상 기간</ProjectInfoKey>
-            <ProjectInfoValue>
-              {getDate(startDate)} - {getDate(endDate)}
-            </ProjectInfoValue>
-          </ProjectInfoObject>
-        </ProjectInfoWrapper>
-      </WriterToProjectInfoContainer>
-    </>
+    <WriterToProjectInfoContainer>
+      <WriterWrapper
+        onClick={() => {
+          navigate(`/profile/${uid}`);
+          logEvent('Button Click', {
+            from: `project_detail`, //pathname으로 하면 이동한페이지로 인식해서 수정
+            to: 'profile',
+            name: 'profile',
+          });
+        }}
+      >
+        <WriterProfileImg
+          src={userData?.photoURL}
+          alt={userData?.displayName}
+          referrerPolicy="no-referrer"
+        />
+        <WriterNickname>{userData?.displayName}</WriterNickname>
+      </WriterWrapper>
+      <ProjectInfoWrapper>
+        <ProjectInfoObject>
+          <ProjectInfoKey>모집 인원</ProjectInfoKey>
+          <ProjectInfoValue>
+            {Object.keys(positions).map((key: string, idx: number) => {
+              if (positions[positionList[idx].type] !== 0) {
+                return (
+                  <Position key={key}>
+                    {positionList[idx].name}
+                    <Emphasis>{positions[positionList[idx].type]}</Emphasis>명
+                  </Position>
+                );
+              }
+            })}
+          </ProjectInfoValue>
+        </ProjectInfoObject>
+        <ProjectInfoObject>
+          <Div>
+            <ProjectInfoKey>필요 스택</ProjectInfoKey>
+          </Div>
+          <ProjectInfoStackWrap>
+            {plannerStack.length === 0 ? null : (
+              <StackDiv>
+                <StackTitle>기획</StackTitle>
+                <StackList>
+                  {plannerStack?.map((skill: string) => {
+                    return <StackValue key={skill}>{skill}</StackValue>;
+                  })}
+                </StackList>
+              </StackDiv>
+            )}
+            {designerStack.length === 0 ? null : (
+              <StackDiv>
+                <StackTitle>디자인</StackTitle>
+                <StackList>
+                  {designerStack?.map((skill: string) => {
+                    return <StackValue key={skill}>{skill}</StackValue>;
+                  }) ?? '없음'}
+                </StackList>
+              </StackDiv>
+            )}
+            {developerStack.length === 0 ? null : (
+              <StackDiv>
+                <StackTitle>개발</StackTitle>
+                <StackList>
+                  {developerStack?.map((skill: string) => {
+                    return <StackValue key={skill}>{skill}</StackValue>;
+                  }) ?? '없음'}
+                </StackList>
+              </StackDiv>
+            )}
+          </ProjectInfoStackWrap>
+        </ProjectInfoObject>
+        <ProjectInfoObject>
+          <ProjectInfoKey>예상 기간</ProjectInfoKey>
+          <ProjectInfoValue>
+            {getDate(startDate)} - {getDate(endDate)}
+          </ProjectInfoValue>
+        </ProjectInfoObject>
+      </ProjectInfoWrapper>
+    </WriterToProjectInfoContainer>
   );
 };
 
@@ -149,7 +147,7 @@ const ProjectInfoWrapper = styled.div`
 const ProjectInfoObject = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
   height: 100%;
   gap: 0.5rem;
