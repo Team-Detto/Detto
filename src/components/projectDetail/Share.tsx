@@ -69,7 +69,10 @@ const Share = ({ title, content, thumbnail }: ShareProps) => {
   if (isMobile) {
     return (
       <>
-        <IconContainer onClick={(e) => handleShareButtonClick(e)}>
+        <IconContainer
+          onClick={(e) => handleShareButtonClick(e)}
+          isMobile={isMobile}
+        >
           <ShareBox>
             <RiShareBoxLine />
             공유
@@ -87,7 +90,9 @@ const Share = ({ title, content, thumbnail }: ShareProps) => {
                 <ShareKaKaoBtn
                   isMobile={isMobile}
                   onClick={handleShareKakaoClick}
-                ></ShareKaKaoBtn>
+                >
+                  <KaKaoIconImg src={kakaoIcon} />
+                </ShareKaKaoBtn>
               </ShareKaKaoArea>
               <TwitterShareButton
                 url={window.location.href}
@@ -129,7 +134,9 @@ const Share = ({ title, content, thumbnail }: ShareProps) => {
                 <FacebookIcon size={32} round />
               </FacebookShareButton>
               <ShareKaKaoArea>
-                <ShareKaKaoBtn onClick={handleShareKakaoClick}></ShareKaKaoBtn>
+                <ShareKaKaoBtn onClick={handleShareKakaoClick}>
+                  <KaKaoIconImg src={kakaoIcon} />
+                </ShareKaKaoBtn>
               </ShareKaKaoArea>
               <TwitterShareButton
                 url={window.location.href}
@@ -154,10 +161,11 @@ const Share = ({ title, content, thumbnail }: ShareProps) => {
 
 export default Share;
 
-const IconContainer = styled.div`
+const IconContainer = styled.div<{ isMobile?: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: ${({ isMobile }) => (isMobile ? 'relative' : '')};
 
   gap: 0.5rem;
 `;
@@ -228,11 +236,12 @@ const MobileShareContainer = styled.div`
   width: 10rem;
   height: 2.5rem;
 
-  top: 23rem;
-  left: 18%;
+  top: 2rem;
+  left: -3rem;
   z-index: 10;
   background-color: ${COLORS.white};
   box-shadow: 0 0 0.625rem ${COLORS.gray300};
+  padding-top: 0.25rem;
 
   border-radius: 0.9375rem;
 
@@ -264,6 +273,12 @@ const ShareKaKaoBtn = styled.button<{ isMobile?: boolean }>`
   height: ${({ isMobile }) => (isMobile ? '1.75rem' : '2rem')};
   border-radius: 50%;
   overflow: hidden;
-  background: url(${kakaoIcon}) no-repeat center center;
   cursor: pointer;
+`;
+
+const KaKaoIconImg = styled.img`
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
