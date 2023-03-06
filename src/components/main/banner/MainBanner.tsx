@@ -49,7 +49,6 @@ const MainBanner = () => {
             src={require('assets/videos/logo_main2.webm')}
             loop
             autoPlay
-            muted
             controls={false}
           />
         </BannerContainer>

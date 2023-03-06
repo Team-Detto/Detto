@@ -1,5 +1,10 @@
 import { logEvent } from '@amplitude/analytics-browser';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  useMutation,
+  useQueries,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 import { findWithCollectionName } from 'apis/findWithCollectionName';
 import {
   deleteApplicant,
@@ -27,24 +32,31 @@ const useDetailProject = () => {
     queryFn: () => findWithCollectionName('post', pid),
     staleTime: staleTime.project,
     enabled: !!pid,
+    suspense: true,
   });
 
   const { uid } = useAuth(); // 현재 사용자
   const writer = projectData?.uid; //글쓴이
+  const applicants = projectData?.applicants;
 
-  //글쓴이 조회
-  const { data: userData } = useQuery({
-    queryKey: ['users', writer],
-    queryFn: () => findWithCollectionName('users', writer),
-    staleTime: staleTime.user,
-    enabled: !!writer,
-  });
-
-  // 현재 유저가 프로젝트 지원자 인가 조회
-  const { data: isApplicant } = useQuery({
-    queryKey: ['post', projectData?.applicants],
-    queryFn: () => firebaseGetIsApplicantRequest(pid, uid),
-    staleTime: staleTime.project,
+  const [{ data: userData }, { data: isApplicant }] = useQueries({
+    queries: [
+      //글쓴이 조회
+      {
+        queryKey: ['users', writer],
+        queryFn: () => findWithCollectionName('users', writer),
+        staleTime: staleTime.user,
+        enabled: !!writer,
+        suspense: true,
+      },
+      // 현재 유저가 프로젝트 지원자 인가 조회
+      {
+        queryKey: ['post', applicants],
+        queryFn: () => firebaseGetIsApplicantRequest(pid, uid),
+        staleTime: staleTime.project,
+        suspense: true,
+      },
+    ],
   });
 
   const queryClient = useQueryClient();
@@ -71,7 +83,7 @@ const useDetailProject = () => {
   // 지원자에게 마감 알림 보내기
   const sendDeadlineNotificationToApplicants = () => {
     // applicants map을 array로 변경
-    const applicantsUidArray = Object.keys(projectData?.applicants);
+    const applicantsUidArray = Object.keys(applicants);
 
     applicantsUidArray.forEach((applicant: any) => {
       if (!params.id) return;
