@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import Slider from 'react-slick';
 import styled from '@emotion/styled';
 import 'slick-carousel/slick/slick.css';
@@ -25,10 +25,12 @@ const ProjectList = () => {
   const dayList = useRecoilValue<any>(dayListState);
   const [selectedProject, setSelectedProject] =
     useRecoilState(selectedProjectState);
+  const sliderRef = useRef<Slider>(null);
 
   useEffect(() => {
-    // 슬라이더의 첫번째 프로젝트를 초기값으로 설정
+    // 날짜를 변경하면 첫번째 프로젝트를 선택하고, 첫번째 페이지로 이동
     setSelectedProject(dayList[0]);
+    sliderRef.current?.slickGoTo(0);
   }, [dayList]);
 
   if (dayList.length === 0)
@@ -40,7 +42,11 @@ const ProjectList = () => {
     );
 
   return (
-    <ProjectListSlider {...settings} infinite={dayList.length >= 3}>
+    <ProjectListSlider
+      {...settings}
+      infinite={dayList.length >= 3}
+      ref={sliderRef}
+    >
       {dayList?.map((data: any) => {
         const cntDevelopers = data.positions.frontend + data.positions.backend;
         const cntDesingers = data.positions.designer;
@@ -70,18 +76,20 @@ const ProjectList = () => {
   );
 };
 
+export default ProjectList;
+
 const ProjectListSlider = styled(Slider)`
   .slick-list {
-    width: 300px;
-    height: 287px !important;
+    width: 18.75rem;
+    height: 17.9375rem !important;
   }
   .slick-arrow {
     display: flex;
     z-index: 10;
   }
   .slick-prev {
-    width: 26px;
-    height: 26px;
+    width: 1.625rem;
+    height: 1.625rem;
     cursor: pointer;
     position: absolute;
     left: 50%;
@@ -92,8 +100,8 @@ const ProjectListSlider = styled(Slider)`
     }
   }
   .slick-prev:before {
-    width: 26px;
-    height: 26px;
+    width: 1.625rem;
+    height: 1.625rem;
     background-image: url(${VectorUp});
     background-size: 26px 26px;
     display: inline-block;
@@ -101,8 +109,8 @@ const ProjectListSlider = styled(Slider)`
     opacity: 1;
   }
   .slick-next {
-    width: 26px;
-    height: 26px;
+    width: 1.625rem;
+    height: 1.625rem;
     cursor: pointer;
     position: absolute;
     left: 50%;
@@ -113,8 +121,8 @@ const ProjectListSlider = styled(Slider)`
     }
   }
   .slick-next:before {
-    width: 26px;
-    height: 26px;
+    width: 1.625rem;
+    height: 1.625rem;
     background-image: url(${VectorDown});
     background-size: 26px 26px;
     display: inline-block;
@@ -122,11 +130,12 @@ const ProjectListSlider = styled(Slider)`
     opacity: 1;
   }
 `;
+
 const ProjectListCardContainer = styled.div<{ active?: boolean }>`
   padding: 12px 16px;
   gap: 8px;
-  width: 300px;
-  height: 85px;
+  width: 18.75rem;
+  height: 5.3125rem;
   margin-bottom: 0.8rem;
   background: ${COLORS.white};
   border: 1px solid;
@@ -139,18 +148,20 @@ const ProjectListCardContainer = styled.div<{ active?: boolean }>`
   }
   transition: all 100ms ease-in-out;
 `;
+
 const ProjectListCardTextBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 0px;
-  width: 268px;
-  height: 38px;
+  width: 16.75rem;
+  height: 2.375rem;
   margin-bottom: 5px;
 `;
+
 const ProjectListCardFindUser = styled.div`
-  width: 268px;
-  height: 14px;
+  width: 16.75rem;
+  height: .875rem;
   font-weight: 400;
   font-size: 10px;
   line-height: 150%;
@@ -158,6 +169,7 @@ const ProjectListCardFindUser = styled.div`
   align-items: center;
   color: #616161;
 `;
+
 const ProjectListCardProjectName = styled.div`
   width: 268px;
   height: 24px;
@@ -170,6 +182,7 @@ const ProjectListCardProjectName = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
 `;
+
 const ProjectListCardDate = styled.div`
   width: 268px;
   height: 15px;
@@ -195,5 +208,3 @@ const NoDataMessage = styled.div`
   line-height: 200%;
   color: ${COLORS.gray300};
 `;
-
-export default ProjectList;

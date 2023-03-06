@@ -12,9 +12,9 @@ const useNoteMessage = (type: string, data: Note) => {
   const user = useAuth();
   const { openModalWithData } = useGlobalModal();
 
-  // sender의 프로필 정보
-  const { data: sender } = useQuery({
-    queryKey: ['users', data.senderUid],
+  // 받은 쪽지함은 보낸 사람 닉네임을 표시, 보낸 쪽지함은 받는 사람 닉네임을 표시
+  const { data: displayUser } = useQuery({
+    queryKey: ['users', type === 'inbox' ? data.senderUid : data.receiverUid],
     queryFn: getUserInfoData,
     staleTime: staleTime.user,
   });
@@ -46,7 +46,7 @@ const useNoteMessage = (type: string, data: Note) => {
     }
   };
 
-  return { handleTitleClick, sender };
+  return { handleTitleClick, displayUser };
 };
 
 export default useNoteMessage;

@@ -15,6 +15,7 @@ const FindProjectPage = () => {
     likedProjects,
     handleToggleClick,
     handleCategoryClick,
+    handleUpdateLikedCount,
     handleNavigateToProjectDetail,
   } = useFindProject();
   const isMobile = useIsMobile();
@@ -37,6 +38,7 @@ const FindProjectPage = () => {
             category={category}
             projects={projects}
             likedProjects={likedProjects}
+            onUpdateLikedCountEvent={handleUpdateLikedCount}
             onNavigateToProjectDetailEvent={handleNavigateToProjectDetail}
           />
         </FindProjectMobilePageContainer>
@@ -62,6 +64,7 @@ const FindProjectPage = () => {
             category={category}
             projects={projects}
             likedProjects={likedProjects}
+            onUpdateLikedCountEvent={handleUpdateLikedCount}
             onNavigateToProjectDetailEvent={handleNavigateToProjectDetail}
           />
         </WebContainer>
@@ -75,9 +78,9 @@ const FindProjectPageWrapper = styled.div`
   height: 100%;
   padding-bottom: 10rem;
 `;
+
 const FindProjectMobilePageContainer = styled.div`
-  max-width: 500px;
-  min-width: 350px;
+  width: 100%;
   height: 55.875rem;
 `;
 

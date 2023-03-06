@@ -8,16 +8,16 @@ interface NoteMessageProps {
 }
 
 export default function NoteMessage({ type, data }: NoteMessageProps) {
-  const { handleTitleClick, sender } = useNoteMessage(type, data);
+  const { handleTitleClick, displayUser } = useNoteMessage(type, data);
 
-  if (!sender) return null;
+  if (!displayUser) return null;
   return (
     <MessageContainer>
       <MessageTitleDiv isRead={data.isRead} onClick={handleTitleClick}>
         {data.title}
       </MessageTitleDiv>
       <MessageDateDiv>
-        {sender.displayName} | {getDateAndTime(data.date)}
+        {displayUser.displayName} | {getDateAndTime(data.date)}
       </MessageDateDiv>
     </MessageContainer>
   );

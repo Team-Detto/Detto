@@ -55,13 +55,12 @@ const WritePageMobileThumbnail = ({
 };
 
 const WritePageMobileThumbnailContainer = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
 `;
 const WritePageMobileThumbnailInput = styled.input`
-  width: 13.35rem;
+  min-width: 13.35rem;
   height: 2.75rem;
   background-color: ${COLORS.white};
   border: 1px solid ${COLORS.gray100};

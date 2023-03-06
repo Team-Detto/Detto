@@ -2,7 +2,10 @@ import { useEffect, useState, useCallback, MouseEvent } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { useAuth } from 'hooks';
-import { firebaseInfinityScrollProjectDataRequest } from 'apis/boardService';
+import {
+  firebaseGetLikdCountRequest,
+  firebaseInfinityScrollProjectDataRequest,
+} from 'apis/boardService';
 import { firebaseFindMyInterestRequest } from 'apis/userService';
 import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 import { EditType } from 'types/write/writeType';
@@ -85,6 +88,15 @@ const useFindProject = () => {
     navigate(`/project/${path}`);
   };
 
+  const handleUpdateLikedCount = useCallback(async (id: string) => {
+    const likeCount = await firebaseGetLikdCountRequest(id);
+    setProjects((prev) =>
+      prev.map((project) =>
+        project.id === id ? { ...project, like: likeCount } : project,
+      ),
+    );
+  }, []);
+
   return {
     toggle,
     projects,
@@ -92,6 +104,7 @@ const useFindProject = () => {
     likedProjects,
     handleToggleClick,
     handleCategoryClick,
+    handleUpdateLikedCount,
     handleNavigateToProjectDetail,
   };
 };

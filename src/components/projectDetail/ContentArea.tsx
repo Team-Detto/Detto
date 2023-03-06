@@ -53,25 +53,62 @@ const ContentWrapper = styled.div`
   background-color: ${COLORS.white};
   padding: 2.5rem;
   font-size: 1.25rem;
-  .toastui-editor-contents p {
-    font-size: 1.2rem;
-  }
-  .toastui-editor-contents h1 {
-    font-size: 2.4rem;
-  }
-  .toastui-editor-contents h2 {
-    font-size: 2.1rem;
-  }
-  .toastui-editor-contents h3 {
-    font-size: 1.9rem;
-  }
-  .toastui-editor-contents h4 {
-    font-size: 1.7rem;
-  }
-  .toastui-editor-contents h5 {
-    font-size: 1.5rem;
-  }
-  .toastui-editor-contents h6 {
-    font-size: 1.3rem;
+  .toastui-editor-contents {
+    p {
+      font-size: 1.2rem;
+      line-height: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin-top: 3rem;
+      padding-bottom: 1rem;
+      border-bottom: none;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+    }
+    h2 {
+      font-size: 2.1rem;
+    }
+    h3 {
+      font-size: 1.9rem;
+    }
+    h4 {
+      font-size: 1.7rem;
+    }
+    h5 {
+      font-size: 1.5rem;
+    }
+    h6 {
+      font-size: 1.3rem;
+    }
+
+    ul,
+    ol {
+      margin-bottom: 1rem;
+      padding-left: 2rem;
+      li {
+        margin-bottom: 0.5rem;
+        p {
+          margin-bottom: 0;
+        }
+        ::before {
+          content: '';
+          margin-top: 0.75rem;
+          margin-left: -1.25rem;
+          width: 0.4375rem;
+          height: 0.4375rem;
+          border-radius: 100%;
+          background-color: ${COLORS.black};
+        }
+      }
+    }
   }
 `;

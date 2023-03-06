@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateRecruiting } from 'apis/postDetail';
 import { firebaseLikeProjectUpdateRequest } from 'apis/boardService';
 import { useAuth, useGlobalModal } from 'hooks';
-import { getDate } from 'utils/date';
+import { getDate, getDays } from 'utils/date';
 import { concatSkills } from 'utils/skills';
 import { getCurrentPathName, logEvent } from 'utils/amplitude';
 import { EditType } from 'types/write/writeType';
@@ -15,12 +15,14 @@ import styled from '@emotion/styled';
 interface Props {
   project: EditType.EditFormType;
   likedProjects: string[];
+  onUpdateLikedCountEvent?: (id: string) => void;
   onNavigateToProjectDetailEvent: (path: string) => () => void;
 }
 
 const ContentCard = ({
   project,
   likedProjects,
+  onUpdateLikedCountEvent,
   onNavigateToProjectDetailEvent,
 }: Props) => {
   const {
@@ -57,6 +59,8 @@ const ContentCard = ({
     {
       onSuccess: () => {
         queryClient.invalidateQueries(['likedProjects', uid]);
+        queryClient.invalidateQueries(['myProjects', uid]);
+        onUpdateLikedCountEvent?.(id);
       },
     },
   );
@@ -75,21 +79,29 @@ const ContentCard = ({
     });
   }, [isLike, updateLikeMutate, uid]);
 
+  const today: any = Date.now();
   useEffect(() => {
-    const today = Date.now();
     if (today > deadline) {
       updateRecruitingMutate(id, false as any);
     }
     setIsLike(likedProjects?.includes(id) ?? false);
   }, [likedProjects]);
 
+  const day = Number(getDays(deadline - today));
   return (
     <ContentCardWrap>
-      <ContentCardImgContainer
-        src={thumbnail || defaultThumbnail}
-        onClick={onNavigateToProjectDetailEvent(id)}
-        alt={title + ` 프로젝트 썸네일`}
-      />
+      <ImageWrap>
+        <ContentCardImgContainer
+          src={thumbnail || defaultThumbnail}
+          onClick={onNavigateToProjectDetailEvent(id)}
+          alt={title + ` 프로젝트 썸네일`}
+        />
+        {isRecruiting && day >= 0 && (
+          <DeadLineIcon day={day}>
+            {day <= 0 ? '마감일' : `D - ${getDays(deadline - today)}`}
+          </DeadLineIcon>
+        )}
+      </ImageWrap>
       <ContentCardContentsContainer>
         <ContentCardDateContainer>
           <RecruitingIcon>
@@ -112,7 +124,9 @@ const ContentCard = ({
             </ContentCardLikeButton>
           </ContentCardBookmark>
         </ContentCardDateContainer>
-        <ContentCardTitle>{title}</ContentCardTitle>
+        <ContentCardTitle onClick={onNavigateToProjectDetailEvent(id)}>
+          {title}
+        </ContentCardTitle>
         <ContentCardSubTextBox>
           <ContentCardSubText>조회수 {view}</ContentCardSubText>
           <ContentCardSubText>관심 {like}</ContentCardSubText>
@@ -140,7 +154,36 @@ const ContentCardWrap = styled.div`
   box-shadow: 0rem 0rem 0.375rem 0.125rem rgba(0, 0, 0, 0.04);
   border-radius: 0.375rem;
 `;
+
+const ImageWrap = styled.div`
+  position: relative;
+  width: 100%;
+`;
+
+const DeadLineIcon = styled.div<{ day: number }>`
+  z-index: 10;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 3.75rem;
+  height: 1.75rem;
+  font-style: normal;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: 2.5rem;
+  /* padding: 0rem 0.5rem; */
+  background-color: ${({ day }) =>
+    day <= 3 ? `${COLORS.red}` : `${COLORS.gray100}`};
+  color: ${({ day }) => (day <= 3 ? `${COLORS.white}` : `${COLORS.gray400}`)};
+  font-size: 0.75rem;
+`;
+
 const ContentCardImgContainer = styled.img`
+  position: relative;
+  z-index: 0;
   width: 23.75rem;
   height: 13.375rem;
   background: ${COLORS.gray300};
@@ -166,12 +209,11 @@ const RecruitingIcon = styled.div`
   justify-content: center;
   text-align: center;
   border-radius: 2.5rem;
-  padding: 0rem 0.5rem;
   background-color: ${(props: { children: string }) =>
     props.children === '모집중' ? `${COLORS.violetB400}` : `${COLORS.gray100}`};
   color: ${(props: { children: string }) =>
     props.children === '모집중' ? `${COLORS.white}` : `${COLORS.gray400}`};
-  font-size: 0.625rem;
+  font-size: 0.75rem;
 `;
 
 const ContentCardDateContainer = styled.div`
@@ -211,6 +253,8 @@ const ContentCardTitle = styled.div`
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+
+  cursor: pointer;
 `;
 const ContentCardSubTextBox = styled.div`
   display: flex;

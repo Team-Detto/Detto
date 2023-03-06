@@ -1,16 +1,21 @@
 import styled from '@emotion/styled';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { getProjectIdList } from 'apis/mypageUsers';
 import COLORS from 'assets/styles/colors';
 import { ProjectListProps } from 'components/common/myProjectList/ProjectList';
 import MobileContentCard from 'components/MobileContentCard';
 import { useFindProject, useProjectList } from 'hooks';
+import { useEffect } from 'react';
 import { staleTime } from 'utils/staleTime';
 
 const MobileProjectList = ({ category, pidList }: ProjectListProps) => {
   const { getActiveProjects, getFilteredPidList } = useProjectList();
   const { likedProjects, handleNavigateToProjectDetail } = useFindProject();
+  const queryClient = useQueryClient();
 
+  useEffect(() => {
+    queryClient.invalidateQueries(['post', 'projectIdList']);
+  }, []);
   // 전체 pid 리스트
   const { data: projectIdList }: any = useQuery({
     queryKey: ['post', 'projectIdList'],
@@ -53,7 +58,7 @@ const MobileProjectList = ({ category, pidList }: ProjectListProps) => {
             key={project?.createdAt}
             project={project}
             likedProjects={likedProjects}
-            pid={filteredPidList[idx]}
+            pid={filteredPidList?.[filteredPidList?.length - idx - 1]}
             onNavigateToProjectDetailEvent={handleNavigateToProjectDetail}
           />
         ))}

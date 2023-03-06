@@ -11,6 +11,7 @@ const ProjectInfoArea = ({ projectData }: any) => {
     plannerStack,
     startDate,
     endDate,
+    deadline,
   } = projectData;
 
   return (
@@ -19,12 +20,14 @@ const ProjectInfoArea = ({ projectData }: any) => {
         <ProjectInfoKey>모집 인원</ProjectInfoKey>
         <ProjectInfoValue>
           {Object.keys(positions).map((key: string, idx: number) => {
-            return (
-              <Position key={key}>
-                {positionList[idx].name}
-                <Emphasis>{positions[positionList[idx].type]}</Emphasis>명
-              </Position>
-            );
+            if (positions[positionList[idx].type] !== 0) {
+              return (
+                <Position key={key}>
+                  {positionList[idx].name}
+                  <Emphasis>{positions[positionList[idx].type]}</Emphasis>명
+                </Position>
+              );
+            }
           })}
         </ProjectInfoValue>
       </ProjectInfoObject>
@@ -96,7 +99,10 @@ const ProjectInfoArea = ({ projectData }: any) => {
           {getDate(startDate)} - {getDate(endDate)}
         </ProjectInfoValue>
       </ProjectInfoObject>
-      <ProjectInfoObject></ProjectInfoObject>
+      <ProjectInfoObject>
+        <ProjectInfoKey>모집 마감일</ProjectInfoKey>
+        <ProjectInfoValue>{getDate(deadline)}</ProjectInfoValue>
+      </ProjectInfoObject>
     </ProjectInfoWrapper>
   );
 };

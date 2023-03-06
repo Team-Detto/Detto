@@ -10,18 +10,18 @@ const ApplicantCard = ({ applicant, pid }: any) => {
   const navigate = useNavigate();
   const { isOpen, handleModalStateChange } = useModal(false);
 
-  useEffect(() => {
-    if (isOpen) {
-      const prevScrollY = preventScroll();
-      return () => {
-        allowScroll(prevScrollY);
-      };
-    }
-  }, [isOpen]);
+  // useEffect(() => {
+  //   if (isOpen) {
+  //     preventScroll();
+  //     return () => {
+  //       allowScroll();
+  //     };
+  //   }
+  // }, [isOpen]);
 
   return (
     <>
-      <ApplicantWrap key={applicant?.uid}>
+      <ApplicantWrap key={applicant?.uid} isOpen={isOpen}>
         <ProfileImageDiv>
           <ProfileImage
             src={applicant?.profileURL}
@@ -68,7 +68,7 @@ const ApplicantCard = ({ applicant, pid }: any) => {
 
 export default ApplicantCard;
 
-const ApplicantWrap = styled.div`
+const ApplicantWrap = styled.div<{ isOpen: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -77,7 +77,7 @@ const ApplicantWrap = styled.div`
   height: 22.625rem;
   border-radius: 0.625rem;
   padding: 0 1.25rem;
-  margin-bottom: 0.625rem;
+  margin-bottom: ${({ isOpen }) => (!isOpen ? '0' : '20rem')};
 `;
 
 const ProfileImageDiv = styled.div`

@@ -73,7 +73,7 @@ const MobileFooter = ({ isFindProject }: FooterProps) => {
             <IconWrapper>
               <IconGithub src={iconGmail} alt="비핸스" />
             </IconWrapper>
-            <PageLink target={'_blank'} to={'mailto:coolhayoen@gmail.com'}>
+            <PageLink target={'_blank'} to={'mailto:coolhayeon@gmail.com'}>
               Hayeon
             </PageLink>
           </ContentItem>

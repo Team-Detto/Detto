@@ -92,7 +92,9 @@ export const firebaseInfinityScrollProjectDataRequest = async (
     setProjectData((prev: any) => {
       const arr = [...prev];
       querySnapshot.forEach((doc) => {
-        arr.push({ ...doc.data(), id: doc.id });
+        if (!arr.find((project: any) => project.id === doc.id)) {
+          arr.push({ ...doc.data(), id: doc.id });
+        }
       });
       return arr;
     });
@@ -140,6 +142,18 @@ export const firebaseLikeProjectUpdateRequest = async (
     } else {
       await updateDoc(postRef, { like: increment(1) });
       await updateDoc(projectsRef, { likedProjects: arrayUnion(id) });
+    }
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+export const firebaseGetLikdCountRequest = async (id: string) => {
+  try {
+    const postRef = doc(firestore, 'post', id);
+    const snapshot = await getDoc(postRef);
+    if (snapshot.exists()) {
+      return snapshot.data().like;
     }
   } catch (e) {
     console.error(e);

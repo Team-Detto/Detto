@@ -16,10 +16,8 @@ import { getCurrentPathName, logEvent } from 'utils/amplitude';
 const settings = {
   centerPadding: '60px',
   slidesToShow: 3,
-  slidesToScroll: 3,
+  slidesToScroll: 1,
   swipeToSlide: true,
-  autoplay: true,
-  autoplaySpeed: 4000,
 };
 
 const MobileFindUserSlider = ({ tap }: { tap: string }) => {

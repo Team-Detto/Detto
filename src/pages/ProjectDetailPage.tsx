@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import WebContainer from '../components/common/WebContainer';
 import ConfirmAlert from 'components/common/ConfirmAlert';
 import TitleThumbnailArea from 'components/projectDetail/TitleThumbnailArea';
@@ -31,6 +32,12 @@ const ProjectDetailPage = () => {
     handleAuthorButtonClick,
     deleteApplicantMutate,
   } = useDetailProject();
+
+  useEffect(() => {
+    if (!window.Kakao.isInitialized()) {
+      window.Kakao.init(process.env.REACT_APP_KAKAO_API_KEY);
+    }
+  }, []);
 
   return (
     <>
@@ -78,6 +85,7 @@ const ProjectDetailPage = () => {
                 isOpen={isApply}
                 message="프로젝트를 지원해볼까요?"
                 onClickEvent={handleApplyModalCloseChange}
+                positions={projectData?.positions}
                 pid={pid}
               />
               {/* //지원 했다면 Alert*/}

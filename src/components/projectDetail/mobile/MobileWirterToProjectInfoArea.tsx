@@ -14,90 +14,95 @@ const WriterToProjectInfoArea = ({ projectData, userData }: any) => {
     designerStack,
     startDate,
     endDate,
+    deadline,
   } = projectData;
 
   const navigate = useNavigate();
 
   return (
-    <>
-      <WriterToProjectInfoContainer>
-        <WriterWrapper
-          onClick={() => {
-            navigate(`/profile/${uid}`);
-            logEvent('Button Click', {
-              from: `project_detail`, //pathname으로 하면 이동한페이지로 인식해서 수정
-              to: 'profile',
-              name: 'profile',
-            });
-          }}
-        >
-          <WriterProfileImg
-            src={userData?.photoURL}
-            alt={userData?.displayName}
-            referrerPolicy="no-referrer"
-          />
-          <WriterNickname>{userData?.displayName}</WriterNickname>
-        </WriterWrapper>
-        <ProjectInfoWrapper>
-          <ProjectInfoObject>
-            <ProjectInfoKey>모집 인원</ProjectInfoKey>
-            <ProjectInfoValue>
-              {Object.keys(positions).map((key: string, idx: number) => {
+    <WriterToProjectInfoContainer>
+      <WriterWrapper
+        onClick={() => {
+          navigate(`/profile/${uid}`);
+          logEvent('Button Click', {
+            from: `project_detail`, //pathname으로 하면 이동한페이지로 인식해서 수정
+            to: 'profile',
+            name: 'profile',
+          });
+        }}
+      >
+        <WriterProfileImg
+          src={userData?.photoURL}
+          alt={userData?.displayName}
+          referrerPolicy="no-referrer"
+        />
+        <WriterNickname>{userData?.displayName}</WriterNickname>
+      </WriterWrapper>
+      <ProjectInfoWrapper>
+        <ProjectInfoObject>
+          <ProjectInfoKey>모집 인원</ProjectInfoKey>
+          <ProjectInfoValue>
+            {Object.keys(positions).map((key: string, idx: number) => {
+              if (positions[positionList[idx].type] !== 0) {
                 return (
                   <Position key={key}>
                     {positionList[idx].name}
                     <Emphasis>{positions[positionList[idx].type]}</Emphasis>명
                   </Position>
                 );
-              })}
-            </ProjectInfoValue>
-          </ProjectInfoObject>
-          <ProjectInfoObject>
-            <Div>
-              <ProjectInfoKey>필요 스택</ProjectInfoKey>
-            </Div>
-            <ProjectInfoStackWrap>
-              {plannerStack.length === 0 ? null : (
-                <StackDiv>
-                  <StackTitle>기획</StackTitle>
-                  <StackList>
-                    {plannerStack?.map((skill: string) => {
-                      return <StackValue key={skill}>{skill}</StackValue>;
-                    })}
-                  </StackList>
-                </StackDiv>
-              )}
-              {designerStack.length === 0 ? null : (
-                <StackDiv>
-                  <StackTitle>디자인</StackTitle>
-                  <StackList>
-                    {designerStack?.map((skill: string) => {
-                      return <StackValue key={skill}>{skill}</StackValue>;
-                    }) ?? '없음'}
-                  </StackList>
-                </StackDiv>
-              )}
-              {developerStack.length === 0 ? null : (
-                <StackDiv>
-                  <StackTitle>개발</StackTitle>
-                  <StackList>
-                    {developerStack?.map((skill: string) => {
-                      return <StackValue key={skill}>{skill}</StackValue>;
-                    }) ?? '없음'}
-                  </StackList>
-                </StackDiv>
-              )}
-            </ProjectInfoStackWrap>
-          </ProjectInfoObject>
-          <ProjectInfoObject>
-            <ProjectInfoKey>예상 기간</ProjectInfoKey>
-            <ProjectInfoValue>
-              {getDate(startDate)} - {getDate(endDate)}
-            </ProjectInfoValue>
-          </ProjectInfoObject>
-        </ProjectInfoWrapper>
-      </WriterToProjectInfoContainer>
-    </>
+              }
+            })}
+          </ProjectInfoValue>
+        </ProjectInfoObject>
+        <ProjectInfoObject>
+          <Div>
+            <ProjectInfoKey>필요 스택</ProjectInfoKey>
+          </Div>
+          <ProjectInfoStackWrap>
+            {plannerStack.length === 0 ? null : (
+              <StackDiv>
+                <StackTitle>기획</StackTitle>
+                <StackList>
+                  {plannerStack?.map((skill: string) => {
+                    return <StackValue key={skill}>{skill}</StackValue>;
+                  })}
+                </StackList>
+              </StackDiv>
+            )}
+            {designerStack.length === 0 ? null : (
+              <StackDiv>
+                <StackTitle>디자인</StackTitle>
+                <StackList>
+                  {designerStack?.map((skill: string) => {
+                    return <StackValue key={skill}>{skill}</StackValue>;
+                  }) ?? '없음'}
+                </StackList>
+              </StackDiv>
+            )}
+            {developerStack.length === 0 ? null : (
+              <StackDiv>
+                <StackTitle>개발</StackTitle>
+                <StackList>
+                  {developerStack?.map((skill: string) => {
+                    return <StackValue key={skill}>{skill}</StackValue>;
+                  }) ?? '없음'}
+                </StackList>
+              </StackDiv>
+            )}
+          </ProjectInfoStackWrap>
+        </ProjectInfoObject>
+        <ProjectInfoObject>
+          <ProjectInfoKey>예상 기간</ProjectInfoKey>
+          <ProjectInfoValue>
+            {getDate(startDate)} - {getDate(endDate)}
+          </ProjectInfoValue>
+        </ProjectInfoObject>
+        <ProjectInfoObject>
+          <ProjectInfoKey>모집 마감일</ProjectInfoKey>
+          <ProjectInfoValue>{getDate(deadline)}</ProjectInfoValue>
+        </ProjectInfoObject>
+      </ProjectInfoWrapper>
+    </WriterToProjectInfoContainer>
   );
 };
 
@@ -106,7 +111,8 @@ export default WriterToProjectInfoArea;
 const WriterToProjectInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 13.75rem;
+  min-height: 10rem;
+  height: 100%;
   background-color: ${COLORS.white};
   gap: 0.9375rem;
   margin: 1.25rem auto 2.5rem;
@@ -146,7 +152,7 @@ const ProjectInfoWrapper = styled.div`
 const ProjectInfoObject = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
   height: 100%;
   gap: 0.5rem;
@@ -210,7 +216,8 @@ const ProjectInfoStackWrap = styled.div`
   gap: 0.625rem;
 
   width: 100%;
-  min-height: 6.5rem;
+  height: 100%;
+  /* min-height: 6.5rem; */
 `;
 
 const StackDiv = styled.div`

@@ -43,3 +43,7 @@ interface Notification {
 interface MypageInfoProps {
   user: User;
 }
+
+interface Window {
+  Kakao: any;
+}

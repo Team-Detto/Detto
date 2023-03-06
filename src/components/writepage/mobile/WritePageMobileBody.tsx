@@ -68,23 +68,26 @@ const WritePageMobileBody = ({
 
 const WritePageMobileBodyContainer = styled.div`
   width: 100%;
-  margin-top: 2rem;
+  margin-top: 1.3rem;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 1.5rem;
 `;
+
 export const WritePageMobileBodyLeftBox = styled.div`
-  width: 22%;
+  width: 4.5625rem;
   display: flex;
-  margin: 0.7rem 0rem 0rem 0.7rem;
+  margin-top: 0.7rem;
 `;
+
 export const WritePageMobileBodyRightBox = styled.div`
-  width: 75%;
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 1rem;
 `;
+
 export const WritePageMobileBodyText = styled.p`
   width: 3.625rem;
   height: 1.0625rem;
@@ -93,4 +96,5 @@ export const WritePageMobileBodyText = styled.p`
   line-height: 140%;
   color: ${COLORS.gray800};
 `;
+
 export default WritePageMobileBody;

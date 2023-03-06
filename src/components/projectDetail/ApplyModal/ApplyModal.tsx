@@ -19,10 +19,17 @@ interface props {
   isOpen: boolean;
   message: string;
   onClickEvent: () => void;
+  positions: Object;
   pid: string;
 }
 
-const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
+const ApplyModal = ({
+  isOpen,
+  message,
+  onClickEvent,
+  positions,
+  pid,
+}: props) => {
   const { isOpen: isAlertOpen, handleModalStateChange: onAlertClickEvent } =
     useModal(false);
 
@@ -96,9 +103,9 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
 
   useEffect(() => {
     if (isOpen) {
-      const prevScrollY = preventScroll();
+      preventScroll();
       return () => {
-        allowScroll(prevScrollY);
+        allowScroll();
       };
     }
   }, [isOpen]);
@@ -125,6 +132,7 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
                 clickValue={clickValue}
                 setClickValue={setClickValue}
                 version="mobile"
+                positions={positions}
               />
               {/* 지원동기 */}
               <ApplyMotiveArea
@@ -168,6 +176,7 @@ const ApplyModal = ({ isOpen, message, onClickEvent, pid }: props) => {
         <WebContentContainer>
           {/* 포지션 버튼 */}
           <ApplyPositionArea
+            positions={positions}
             clickValue={clickValue}
             setClickValue={setClickValue}
           />

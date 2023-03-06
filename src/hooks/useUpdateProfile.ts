@@ -57,20 +57,23 @@ const useUpdateProfile = () => {
         return { ...prevState, [name]: value };
       });
     },
-    [],
+    [userInfo],
   );
 
   // 텍스트 인풋 클리어
-  const handleInputClear = useCallback((e: React.MouseEvent<SVGAElement>) => {
-    const { name, value } = e.currentTarget
-      .previousElementSibling as HTMLInputElement;
+  const handleInputClear = useCallback(
+    (e: React.MouseEvent<SVGAElement>) => {
+      const { name, value } = e.currentTarget
+        .previousElementSibling as HTMLInputElement;
 
-    if (value === '') return;
+      if (value === '') return;
 
-    setUserInfo((prevState) => {
-      return { ...prevState, [name]: '' };
-    });
-  }, []);
+      setUserInfo((prevState) => {
+        return { ...prevState, [name]: '' };
+      });
+    },
+    [userInfo],
+  );
 
   // 정보완료 버튼 유효성 검사
   const checkInfoValidation = () => {
@@ -92,18 +95,21 @@ const useUpdateProfile = () => {
     return true;
   };
 
-  const updateDefaultUserInfoState = useCallback((user: UserInfo) => {
-    setDefaultUserInfo({
-      displayName: user?.displayName,
-      email: user?.email,
-      photoURL: user?.photoURL,
-      isJunior: user?.isJunior,
-      positions: user?.positions,
-      plannerStack: user?.plannerStack || [''],
-      designerStack: user?.designerStack || [''],
-      developerStack: user?.developerStack || [''],
-    });
-  }, []);
+  const updateDefaultUserInfoState = useCallback(
+    (user: UserInfo) => {
+      setDefaultUserInfo({
+        displayName: user?.displayName,
+        email: user?.email,
+        photoURL: user?.photoURL,
+        isJunior: user?.isJunior,
+        positions: user?.positions,
+        plannerStack: user?.plannerStack || [''],
+        designerStack: user?.designerStack || [''],
+        developerStack: user?.developerStack || [''],
+      });
+    },
+    [defaultInfo],
+  );
 
   return {
     validationMessage,
