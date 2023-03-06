@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateRecruiting } from 'apis/postDetail';
 import { firebaseLikeProjectUpdateRequest } from 'apis/boardService';
 import { useAuth, useGlobalModal } from 'hooks';
-import { getDate } from 'utils/date';
+import { getDate, getDays } from 'utils/date';
 import { getCurrentPathName, logEvent } from 'utils/amplitude';
 import { EditType } from 'types/write/writeType';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
@@ -90,6 +90,7 @@ const MobileContentCard = ({
     });
   }, []);
 
+  const day = Number(getDays(deadline - today));
   return (
     <MobileContentCardWrap>
       <ContentCardImgContainer
@@ -126,6 +127,11 @@ const MobileContentCard = ({
           <ContentCardDate>
             프로젝트 시작일 | <span> {getDate(startDate)}</span>
           </ContentCardDate>
+          {isRecruiting && day >= 0 && (
+            <DeadLineIcon day={day}>
+              {day === 0 ? '마감일' : `D - ${getDays(deadline - today)}`}
+            </DeadLineIcon>
+          )}
         </ContentCardDateContainer>
         <ContentCardTitle>{title}</ContentCardTitle>
         <ContentCardSubTextBox>
@@ -189,6 +195,7 @@ const ContentCardDateContainer = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+  position: relative;
 `;
 const ContentCardDate = styled.div`
   font-weight: 500;
@@ -198,6 +205,26 @@ const ContentCardDate = styled.div`
   color: #6b7684;
   margin-right: 0.3125rem;
 `;
+
+const DeadLineIcon = styled.div<{ day: number }>`
+  z-index: 1000;
+  position: absolute;
+  font-size: 0.625rem;
+  top: 0;
+  right: 3px;
+  min-width: 2.8rem;
+  font-size: 0.625rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: 2.5rem;
+  /* padding: 0rem 0.5rem; */
+  background-color: ${({ day }) =>
+    day <= 3 ? `${COLORS.red}` : `${COLORS.gray100}`};
+  color: ${({ day }) => (day <= 3 ? `${COLORS.white}` : `${COLORS.gray400}`)};
+`;
+
 const ContentCardBookmark = styled.button`
   position: absolute;
   width: 1.5rem;
