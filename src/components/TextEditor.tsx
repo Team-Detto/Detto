@@ -14,17 +14,17 @@ interface Props {
   value?: string;
 }
 
-const TextEditor = ({ editRef, value }: Props) => {
-  const toolbarItems: Array<Array<string>> = [
-    ['heading', 'bold', 'italic', 'strike'],
-    ['hr'],
-    ['ul', 'ol', 'task'],
-    ['table', 'link'],
-    ['image'],
-    ['code'],
-    ['scrollSync'],
-  ];
+const toolbarItems: Array<Array<string>> = [
+  ['heading', 'bold', 'italic', 'strike'],
+  ['hr'],
+  ['ul', 'ol', 'task'],
+  ['table', 'link'],
+  ['image'],
+  ['code'],
+  ['scrollSync'],
+];
 
+const TextEditor = ({ editRef, value }: Props) => {
   return (
     <Editor
       ref={editRef}
