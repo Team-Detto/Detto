@@ -63,6 +63,7 @@ const MemberInfoArea = ({ applicantsData }: any) => {
                   if (applicantsData[key].position === '디자인')
                     return (
                       <MemberProfileImg
+                        key={key}
                         onClick={() => onClickEvent(applicantsData[key].uid)}
                         src={applicantsData[key].profileURL}
                         alt={applicantsData[key].displayName}
@@ -80,6 +81,7 @@ const MemberInfoArea = ({ applicantsData }: any) => {
                   if (applicantsData[key].position === '프론트엔드')
                     return (
                       <MemberProfileImg
+                        key={key}
                         onClick={() => onClickEvent(applicantsData[key].uid)}
                         src={applicantsData[key].profileURL}
                         alt={applicantsData[key].displayName}
