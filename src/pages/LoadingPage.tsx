@@ -7,14 +7,24 @@ const LoadingPage = () => {
   if (isMobile) {
     return (
       <MobileContainer>
-        <Video src="videos/logo_loading.webm" loop autoPlay />
+        <Video
+          src={require('assets/videos/logo_loading.webm')}
+          loop
+          autoPlay
+          controls={false}
+        />
       </MobileContainer>
     );
   }
 
   return (
     <Container>
-      <Video src="videos/logo_loading.webm" loop autoPlay />
+      <Video
+        src={require('assets/videos/logo_loading.webm')}
+        loop
+        autoPlay
+        controls={false}
+      />
     </Container>
   );
 };
