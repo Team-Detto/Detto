@@ -11,6 +11,7 @@ const ProjectInfoArea = ({ projectData }: any) => {
     plannerStack,
     startDate,
     endDate,
+    deadline,
   } = projectData;
 
   return (
@@ -97,6 +98,10 @@ const ProjectInfoArea = ({ projectData }: any) => {
         <ProjectInfoValue>
           {getDate(startDate)} - {getDate(endDate)}
         </ProjectInfoValue>
+      </ProjectInfoObject>
+      <ProjectInfoObject>
+        <ProjectInfoKey>모집 마감일</ProjectInfoKey>
+        <ProjectInfoValue>{getDate(deadline)}</ProjectInfoValue>
       </ProjectInfoObject>
       <ProjectInfoObject></ProjectInfoObject>
     </ProjectInfoWrapper>
