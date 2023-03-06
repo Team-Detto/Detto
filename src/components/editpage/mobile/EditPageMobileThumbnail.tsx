@@ -54,13 +54,13 @@ const EditPageMobileThumbnail = ({
 };
 
 const EditPageMobileThumbnailContainer = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
 `;
+
 const EditPageMobileThumbnailInput = styled.input`
-  width: 13.35rem;
+  min-width: 13.35rem;
   height: 2.75rem;
   background-color: ${COLORS.white};
   border: 1px solid ${COLORS.gray100};
@@ -74,6 +74,7 @@ const EditPageMobileThumbnailInput = styled.input`
     color: ${COLORS.black};
   }
 `;
+
 const EditPageMobileThumbnailButton = styled.label`
   cursor: pointer;
   gap: 0.625rem;
@@ -89,6 +90,7 @@ const EditPageMobileThumbnailButton = styled.label`
     background-color: ${COLORS.violetB300};
   }
 `;
+
 const EditPageMobileThumbnailText = styled.p`
   color: ${COLORS.white};
   font-size: 1.2rem;

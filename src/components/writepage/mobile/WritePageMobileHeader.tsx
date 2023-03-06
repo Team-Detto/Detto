@@ -16,7 +16,7 @@ const WritePageMobileHeader = ({
     <WritePageMobileHeaderContainer>
       <WritePageMobileHeaderInput
         type="text"
-        placeholder="제목입니다."
+        placeholder="제목을 입력해주세요."
         name="title"
         maxLength={40}
         value={writeFormValue.title}

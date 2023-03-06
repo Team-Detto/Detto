@@ -31,8 +31,9 @@ const EditPageMobileHeaderContainer = styled.div`
   display: flex;
   justify-content: center;
 `;
+
 const EditPageMobileHeaderInput = styled.input`
-  width: 22.25rem;
+  width: 100%;
   height: 2.8125rem;
   padding: 0.625rem 1.25rem;
   background: ${COLORS.white};

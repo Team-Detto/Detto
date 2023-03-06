@@ -48,7 +48,6 @@ const TitleThumbnailAreaContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 1.75rem;
   padding: 0 1.25rem;
   gap: 0.75rem;
 `;
@@ -59,7 +58,6 @@ const TitleBox = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  height: 1.75rem;
   gap: 0.75rem;
 `;
 
@@ -88,10 +86,10 @@ const TitleDiv = styled.div`
 `;
 
 const ProjectThumbnail = styled.img`
-  min-width: 12.5rem;
-  width: 90%;
-  height: 10.875rem;
-  margin: 0.875rem 1.25rem;
+  padding: 0 1.25rem;
+  width: 100%;
+  height: 25vh;
+  margin: 0.875rem 0 0.625rem 0;
   object-fit: cover;
 `;
 

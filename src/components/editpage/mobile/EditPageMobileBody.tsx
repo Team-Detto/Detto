@@ -70,23 +70,26 @@ const EditPageMobileBody = ({
 
 const EditPageMobileBodyContainer = styled.div`
   width: 100%;
-  margin-top: 2rem;
+  margin-top: 1.3rem;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 1.5rem;
 `;
+
 export const EditPageMobileBodyLeftBox = styled.div`
-  width: 22%;
+  width: 4.5625rem;
   display: flex;
-  margin: 0.7rem 0rem 0rem 0.7rem;
+  margin-top: 0.7rem;
 `;
+
 export const EditPageMobileBodyRightBox = styled.div`
-  width: 75%;
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 1rem;
 `;
+
 export const EditPageMobileBodyText = styled.p`
   width: 3.625rem;
   height: 1.0625rem;

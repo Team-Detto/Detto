@@ -78,9 +78,9 @@ const FindProjectPageWrapper = styled.div`
   height: 100%;
   padding-bottom: 10rem;
 `;
+
 const FindProjectMobilePageContainer = styled.div`
-  max-width: 500px;
-  min-width: 350px;
+  width: 100%;
   height: 55.875rem;
 `;
 
