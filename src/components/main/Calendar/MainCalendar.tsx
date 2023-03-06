@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
-import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { dayListState, selectedProjectState } from '../../../recoil/atoms';
 import ProjectCalendar from './ProjectCalendar';
@@ -53,8 +52,8 @@ const ProjectListContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding: 14px 0px;
-  gap: 24px;
-  height: 411px;
+  gap: 1.5rem;
+  height: 25.6875rem;
   margin-left: 5rem;
   margin-right: 5rem;
 `;

@@ -72,16 +72,16 @@ const ProjectList = () => {
 
 const ProjectListSlider = styled(Slider)`
   .slick-list {
-    width: 300px;
-    height: 287px !important;
+    width: 18.75rem;
+    height: 17.9375rem !important;
   }
   .slick-arrow {
     display: flex;
     z-index: 10;
   }
   .slick-prev {
-    width: 26px;
-    height: 26px;
+    width: 1.625rem;
+    height: 1.625rem;
     cursor: pointer;
     position: absolute;
     left: 50%;
@@ -92,8 +92,8 @@ const ProjectListSlider = styled(Slider)`
     }
   }
   .slick-prev:before {
-    width: 26px;
-    height: 26px;
+    width: 1.625rem;
+    height: 1.625rem;
     background-image: url(${VectorUp});
     background-size: 26px 26px;
     display: inline-block;
@@ -101,8 +101,8 @@ const ProjectListSlider = styled(Slider)`
     opacity: 1;
   }
   .slick-next {
-    width: 26px;
-    height: 26px;
+    width: 1.625rem;
+    height: 1.625rem;
     cursor: pointer;
     position: absolute;
     left: 50%;
@@ -113,8 +113,8 @@ const ProjectListSlider = styled(Slider)`
     }
   }
   .slick-next:before {
-    width: 26px;
-    height: 26px;
+    width: 1.625rem;
+    height: 1.625rem;
     background-image: url(${VectorDown});
     background-size: 26px 26px;
     display: inline-block;
@@ -125,8 +125,8 @@ const ProjectListSlider = styled(Slider)`
 const ProjectListCardContainer = styled.div<{ active?: boolean }>`
   padding: 12px 16px;
   gap: 8px;
-  width: 300px;
-  height: 85px;
+  width: 18.75rem;
+  height: 5.3125rem;
   margin-bottom: 0.8rem;
   background: ${COLORS.white};
   border: 1px solid;
@@ -144,13 +144,13 @@ const ProjectListCardTextBox = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding: 0px;
-  width: 268px;
-  height: 38px;
+  width: 16.75rem;
+  height: 2.375rem;
   margin-bottom: 5px;
 `;
 const ProjectListCardFindUser = styled.div`
-  width: 268px;
-  height: 14px;
+  width: 16.75rem;
+  height: .875rem;
   font-weight: 400;
   font-size: 10px;
   line-height: 150%;

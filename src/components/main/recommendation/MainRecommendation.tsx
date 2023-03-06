@@ -102,8 +102,8 @@ const MainRecommendationWrap = styled.div`
   align-items: center;
   padding: 0px;
   gap: 75px;
-  width: 1180px;
-  height: 755px;
+  width: 73.75rem;
+  height: 47.1875rem;
   margin: 108px auto 190px auto;
 `;
 const MainRecommendationContainer = styled.div`
@@ -112,16 +112,16 @@ const MainRecommendationContainer = styled.div`
   align-items: center;
   padding: 0px;
   gap: 45px;
-  width: 1180px;
-  height: 632px;
+  width: 73.75rem;
+  height: 39.5rem;
 `;
 const MainRecommendationTitle = styled.div`
-  width: 326px;
-  height: 44px;
+  width: 20.375rem;
+  height: 2.75rem;
 
   font-weight: 700;
-  font-size: 32px;
-  line-height: 44px;
+  font-size: 2rem;
+  line-height: 2.75rem;
   color: ${COLORS.gray800};
 `;
 const MainRecommendationButtonContainer = styled.div`
@@ -130,8 +130,8 @@ const MainRecommendationButtonContainer = styled.div`
   align-items: flex-start;
   padding: 0px;
   gap: 19px;
-  width: 301px;
-  height: 48px;
+  width: 18.8125rem;
+  height: 3rem;
 `;
 
 const MainRecommendationButton = styled.button<{ active: boolean }>`
@@ -142,12 +142,12 @@ const MainRecommendationButton = styled.button<{ active: boolean }>`
   align-items: center;
   padding: 8px 48px;
   gap: 10px;
-  width: 150px;
-  height: 48px;
+  width: 9.375rem;
+  height: 3rem;
 
   font-weight: ${(props) => (props.active ? '700' : '400')};
-  font-size: 16px;
-  line-height: 32px;
+  font-size: 1rem;
+  line-height: 2rem;
 
   color: ${(props) => (props.active ? COLORS.white : COLORS.black)};
   background-color: ${(props) =>
@@ -165,8 +165,8 @@ const MainRecommendationCardContainer = styled.div`
   align-items: flex-start;
   padding: 0px;
   gap: 20px;
-  width: 1180px;
-  height: 450px;
+  width: 73.75rem;
+  height: 28.125rem;
 `;
 const MainRecommendationCardButton = styled.button`
   display: flex;
