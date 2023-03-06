@@ -11,6 +11,7 @@ const LoadingPage = () => {
           src={require('assets/videos/logo_loading.webm')}
           loop
           autoPlay
+          controls={false}
         />
       </MobileContainer>
     );
@@ -22,6 +23,7 @@ const LoadingPage = () => {
         src={require('assets/videos/logo_loading.webm')}
         loop
         autoPlay
+        controls={false}
       />
     </Container>
   );

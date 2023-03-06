@@ -50,6 +50,7 @@ const MainBanner = () => {
             loop
             autoPlay
             muted
+            controls={false}
           />
         </BannerContainer>
       </SlideWrapper>
