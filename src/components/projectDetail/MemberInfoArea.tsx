@@ -45,16 +45,13 @@ const MemberInfoArea = ({ applicantsData }: any) => {
                 {participantsData?.map((key) => {
                   if (applicantsData[key].position === '기획')
                     return (
-                      <Div key={key}>
-                        <MemberProfileImg
-                          key={key}
-                          onClick={() => onClickEvent(applicantsData[key].uid)}
-                          src={applicantsData[key].profileURL}
-                          alt={applicantsData[key].displayName}
-                          referrerPolicy="no-referrer"
-                        ></MemberProfileImg>
-                        <HoverText>{applicantsData[key].displayName}</HoverText>
-                      </Div>
+                      <MemberProfileImg
+                        key={key}
+                        onClick={() => onClickEvent(applicantsData[key].uid)}
+                        src={applicantsData[key].profileURL}
+                        alt={applicantsData[key].displayName}
+                        referrerPolicy="no-referrer"
+                      />
                     );
                 })}
               </MemberInfoDiv>
@@ -65,15 +62,13 @@ const MemberInfoArea = ({ applicantsData }: any) => {
                 {participantsData.map((key) => {
                   if (applicantsData[key].position === '디자인')
                     return (
-                      <Div key={key}>
-                        <MemberProfileImg
-                          onClick={() => onClickEvent(applicantsData[key].uid)}
-                          src={applicantsData[key].profileURL}
-                          alt={applicantsData[key].displayName}
-                          referrerPolicy="no-referrer"
-                        ></MemberProfileImg>
-                        <HoverText>{applicantsData[key].displayName}</HoverText>
-                      </Div>
+                      <MemberProfileImg
+                        key={key}
+                        onClick={() => onClickEvent(applicantsData[key].uid)}
+                        src={applicantsData[key].profileURL}
+                        alt={applicantsData[key].displayName}
+                        referrerPolicy="no-referrer"
+                      />
                     );
                 })}
               </MemberInfoDiv>
@@ -85,15 +80,13 @@ const MemberInfoArea = ({ applicantsData }: any) => {
                 {participantsData.map((key) => {
                   if (applicantsData[key].position === '프론트엔드')
                     return (
-                      <Div key={key}>
-                        <MemberProfileImg
-                          onClick={() => onClickEvent(applicantsData[key].uid)}
-                          src={applicantsData[key].profileURL}
-                          alt={applicantsData[key].displayName}
-                          referrerPolicy="no-referrer"
-                        ></MemberProfileImg>
-                        <HoverText>{applicantsData[key].displayName}</HoverText>
-                      </Div>
+                      <MemberProfileImg
+                        key={key}
+                        onClick={() => onClickEvent(applicantsData[key].uid)}
+                        src={applicantsData[key].profileURL}
+                        alt={applicantsData[key].displayName}
+                        referrerPolicy="no-referrer"
+                      />
                     );
                 })}
               </MemberInfoDiv>
@@ -105,16 +98,13 @@ const MemberInfoArea = ({ applicantsData }: any) => {
                 {participantsData.map((key) => {
                   if (applicantsData[key].position === '백엔드')
                     return (
-                      <Div key={key}>
-                        <MemberProfileImg
-                          key={key}
-                          onClick={() => onClickEvent(applicantsData[key].uid)}
-                          alt={applicantsData[key].displayName}
-                          src={applicantsData[key].profileURL}
-                          referrerPolicy="no-referrer"
-                        ></MemberProfileImg>
-                        <HoverText>{applicantsData[key].displayName}</HoverText>
-                      </Div>
+                      <MemberProfileImg
+                        key={key}
+                        onClick={() => onClickEvent(applicantsData[key].uid)}
+                        alt={applicantsData[key].displayName}
+                        src={applicantsData[key].profileURL}
+                        referrerPolicy="no-referrer"
+                      />
                     );
                 })}
               </MemberInfoDiv>
@@ -184,7 +174,7 @@ const MemberProfileImg = styled.img`
   border-radius: 50%;
   /* position: relative; */
   object-fit: cover;
-
+  cursor: pointer;
   z-index: 0;
 `;
 
