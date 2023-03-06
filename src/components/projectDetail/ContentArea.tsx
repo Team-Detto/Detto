@@ -70,7 +70,7 @@ const ContentWrapper = styled.div`
       border-bottom: none;
       margin: 0;
 
-      &:first-child {
+      &:first-of-type {
         padding-top: 0;
       }
     }

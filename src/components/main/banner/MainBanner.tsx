@@ -45,7 +45,12 @@ const MainBanner = () => {
               디토에서 프로젝트 메이트를 만나보세요
             </BannerSubTitle>
           </BannerTextBox>
-          <BannerSecondImg src="videos/logo_main2.webm" loop autoPlay muted />
+          <BannerSecondImg
+            src={require('assets/videos/logo_main2.webm')}
+            loop
+            autoPlay
+            muted
+          />
         </BannerContainer>
       </SlideWrapper>
     </SliderWrapper>
