@@ -20,7 +20,7 @@ const useWithdrawal = () => {
     await updateDoc(doc(firestore, 'users', currentUser.uid), {
       isActive: false,
     });
-    deleteUser(currentUser).catch((err) => console.error(err));
+    deleteUser(currentUser).catch((err) => new Error(err));
     handleModalStateChange();
     withdrawalAccount();
   };
