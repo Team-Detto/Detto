@@ -63,7 +63,7 @@ const useEditBoard = () => {
     const markdownText = editRef.current.getInstance().getMarkdown();
     const validations = [
       {
-        isValid: titleValidation(title),
+        isValid: titleValidation(title.trim()),
         message: '타이틀 길이는 5자 이상 40자 이하로 작성해주세요.',
       },
       {
@@ -88,7 +88,7 @@ const useEditBoard = () => {
         message: '마감 날짜는 오늘 이후로 설정해주세요.',
       },
       {
-        isValid: contentValidation(markdownText),
+        isValid: contentValidation(markdownText.trim()),
         message: '내용 길이는 10자 이상 적어주세요.',
       },
     ];
