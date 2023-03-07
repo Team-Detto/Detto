@@ -69,7 +69,7 @@ const MobileProjectList = ({ category, pidList }: ProjectListProps) => {
 export default MobileProjectList;
 
 const MobileProjectListContainer = styled.div`
-  padding: 0 20px;
+  padding: 20px 20px;
   display: flex;
   flex-direction: column;
   gap: 0.5625rem;
