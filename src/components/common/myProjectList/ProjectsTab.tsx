@@ -18,21 +18,23 @@ const ProjectsTab = ({
   if (version === 'mobile' && type === 'public') {
     return (
       <MobileProjectsTabContainer>
-        {type &&
-          projectTabNames.map((tabName, index) => {
-            if (index === 1 || index === 2) {
-              return (
-                <MobileProjectsTabButton
-                  key={tabName.id}
-                  name={tabName.id}
-                  category={category}
-                  onClick={onTabClick}
-                >
-                  {tabName.value === '참여한 프로젝트' ? '참여한' : '모집중'}
-                </MobileProjectsTabButton>
-              );
-            }
-          })}
+        <MobilePadding>
+          {type &&
+            projectTabNames.map((tabName, index) => {
+              if (index === 1 || index === 2) {
+                return (
+                  <MobileProjectsTabButton
+                    key={tabName.id}
+                    name={tabName.id}
+                    category={category}
+                    onClick={onTabClick}
+                  >
+                    {tabName.value === '참여한 프로젝트' ? '참여한' : '모집중'}
+                  </MobileProjectsTabButton>
+                );
+              }
+            })}
+        </MobilePadding>
 
         {!type &&
           projectTabNames.map((tabName) => (
@@ -116,11 +118,20 @@ export const ProjectsTabButton = styled.span<{
 
 const MobileProjectsTabContainer = styled.div`
   display: flex;
-  width: 6.75rem;
+
+  align-items: center;
+  margin: 1rem auto;
+
+  border-radius: 0.25rem;
+`;
+
+const MobilePadding = styled.div`
+  display: flex;
+  width: 9rem;
   height: 1.5rem;
   align-items: center;
   margin: 1rem auto;
-  background-color: ${COLORS.white};
+  background-color: ${COLORS.gray100};
   border-radius: 0.25rem;
 `;
 
@@ -130,13 +141,13 @@ const MobileProjectsTabButton = styled.span<{
 }>`
   display: block;
   text-align: center;
-  width: 3.375rem;
+  width: 100%;
   height: 100%;
   padding: 0.25rem 0.375rem;
   font-weight: 700;
   font-size: 0.75rem;
   border-radius: 0.25rem;
-  margin-top: 3rem;
+
   background-color: ${({ category, name }) =>
     name === category ? COLORS.violetB300 : COLORS.gray100};
 
