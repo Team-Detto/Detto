@@ -3134,6 +3134,85 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sentry/browser@npm:7.41.0":
+  version: 7.41.0
+  resolution: "@sentry/browser@npm:7.41.0"
+  dependencies:
+    "@sentry/core": 7.41.0
+    "@sentry/replay": 7.41.0
+    "@sentry/types": 7.41.0
+    "@sentry/utils": 7.41.0
+    tslib: ^1.9.3
+  checksum: 27f403da4a201bc8cd044206ca2364925bae175981856ecb019b345af75e0454d378e75f04bb0e4713b79fcc605e440cc711a3581beaec436e1fa60c7f2f7116
+  languageName: node
+  linkType: hard
+
+"@sentry/core@npm:7.41.0":
+  version: 7.41.0
+  resolution: "@sentry/core@npm:7.41.0"
+  dependencies:
+    "@sentry/types": 7.41.0
+    "@sentry/utils": 7.41.0
+    tslib: ^1.9.3
+  checksum: 59e80206e0fd37e8a475532f1369e9e5bd98af821041c7b3054ddba6dbea9ad8e0801826cd811c2b670b8ae34518d89120df83f474fb2442e71080bd139dd4e6
+  languageName: node
+  linkType: hard
+
+"@sentry/react@npm:^7.41.0":
+  version: 7.41.0
+  resolution: "@sentry/react@npm:7.41.0"
+  dependencies:
+    "@sentry/browser": 7.41.0
+    "@sentry/types": 7.41.0
+    "@sentry/utils": 7.41.0
+    hoist-non-react-statics: ^3.3.2
+    tslib: ^1.9.3
+  peerDependencies:
+    react: 15.x || 16.x || 17.x || 18.x
+  checksum: dc0e6f0a602f28b57ecd839b6eec7819e22ce358a701a04087ddc0d2862e8dd2d8abf621609c0d0cb5ecc2dc624488614780867bea48f0588ff0e74208c41dc5
+  languageName: node
+  linkType: hard
+
+"@sentry/replay@npm:7.41.0":
+  version: 7.41.0
+  resolution: "@sentry/replay@npm:7.41.0"
+  dependencies:
+    "@sentry/core": 7.41.0
+    "@sentry/types": 7.41.0
+    "@sentry/utils": 7.41.0
+  checksum: 4de5b6ab495c1af2812a0be2316061e622ce8546b55878bfb231d64bafbf77188b53950601f37285522b4b3416b7546917fa7032b7abffb7a24108380b832698
+  languageName: node
+  linkType: hard
+
+"@sentry/tracing@npm:^7.41.0":
+  version: 7.41.0
+  resolution: "@sentry/tracing@npm:7.41.0"
+  dependencies:
+    "@sentry/core": 7.41.0
+    "@sentry/types": 7.41.0
+    "@sentry/utils": 7.41.0
+    tslib: ^1.9.3
+  checksum: 4b537a408d0b78a40c0f19efc80bde91396fb8edef156a38df5eb8250364839e464bcc1dd919e62712dcaffada1c0ba65bfd9a7c0205c9e99aca850c65dcf64a
+  languageName: node
+  linkType: hard
+
+"@sentry/types@npm:7.41.0":
+  version: 7.41.0
+  resolution: "@sentry/types@npm:7.41.0"
+  checksum: d65c81770a7a9765a8ff66b6c612cb499cd32de2c158a7733b99c0ae1422134fc31f544537e5f739bcd66e2a3eb644b16d9cbeb65299afe0ea5441393e64a633
+  languageName: node
+  linkType: hard
+
+"@sentry/utils@npm:7.41.0":
+  version: 7.41.0
+  resolution: "@sentry/utils@npm:7.41.0"
+  dependencies:
+    "@sentry/types": 7.41.0
+    tslib: ^1.9.3
+  checksum: 540d9f862c6ef86732918ba8d7f0ba83fd9a60dd8e1af4408f7938cefdcbca82ea08303cfcc263d674c806cc469c4c28107d3161b1a933f300040c8eb16c8b2a
+  languageName: node
+  linkType: hard
+
 "@sinclair/typebox@npm:^0.24.1":
   version: 0.24.51
   resolution: "@sinclair/typebox@npm:0.24.51"
@@ -6402,6 +6481,8 @@ __metadata:
     "@amplitude/analytics-core": ^0.12.0
     "@emotion/react": ^11.10.5
     "@emotion/styled": ^11.10.5
+    "@sentry/react": ^7.41.0
+    "@sentry/tracing": ^7.41.0
     "@tanstack/react-query": ^4.24.4
     "@tanstack/react-query-devtools": ^4.24.12
     "@testing-library/jest-dom": ^5.14.1
@@ -8215,7 +8296,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hoist-non-react-statics@npm:^3.3.1":
+"hoist-non-react-statics@npm:^3.3.1, hoist-non-react-statics@npm:^3.3.2":
   version: 3.3.2
   resolution: "hoist-non-react-statics@npm:3.3.2"
   dependencies:
@@ -14157,7 +14238,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^1.8.1":
+"tslib@npm:^1.8.1, tslib@npm:^1.9.3":
   version: 1.14.1
   resolution: "tslib@npm:1.14.1"
   checksum: dbe628ef87f66691d5d2959b3e41b9ca0045c3ee3c7c7b906cc1e328b39f199bb1ad9e671c39025bd56122ac57dfbf7385a94843b1cc07c60a4db74795829acd
