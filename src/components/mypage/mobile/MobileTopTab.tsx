@@ -50,4 +50,6 @@ const TabButton = styled.span<{ isActive: boolean }>`
   color: ${({ isActive }) => (isActive ? COLORS.violetB500 : COLORS.gray400)};
   border-bottom: ${({ isActive }) =>
     isActive ? `2px solid ${COLORS.violetB500}` : 'none'};
+
+  cursor: pointer;
 `;

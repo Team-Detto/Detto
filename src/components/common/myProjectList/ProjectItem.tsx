@@ -43,7 +43,7 @@ const ProjectItem = ({
         </ProjectInfoBox>
         <ProjectInfoBox>
           <ProjectInfoLabel>프로젝트 스택</ProjectInfoLabel>
-          <UserStacks stacks={stacks} />
+          <UserStacks stacks={stacks} isItem={true} />
         </ProjectInfoBox>
         <ProjectInfoBox>
           <ProjectItemMembers

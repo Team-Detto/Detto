@@ -75,4 +75,5 @@ const MobileTabBtn = styled.span<{
   color: ${({ category, name }) =>
     name === category ? COLORS.white : COLORS.gray750};
   font-weight: ${({ category, name }) => (name === category ? '700' : '400')};
+  cursor: pointer;
 `;
