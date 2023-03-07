@@ -27,7 +27,7 @@ const WritePageDeadline = ({
         onChange={onFormValueChangeEvent}
       />
       <WritePageBodyDeadlineText>
-        입력하신 날짜 11시 59분에 자동 마감됩니다.
+        입력하신 날짜 자정에 자동 마감됩니다.
       </WritePageBodyDeadlineText>
     </WritePageBodyDeadlineBox>
   );

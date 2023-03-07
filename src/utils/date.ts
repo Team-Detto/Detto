@@ -20,7 +20,6 @@ export const getDateAndTime = (milliseconds: number) => {
 
 //디데이 계산
 export const getDays = (milliseconds: number) => {
-  const date = new Date(milliseconds);
-  const day = `${date.getDate() - 1}`.padStart(2);
-  return `${day}`;
+  const hours = Math.floor(milliseconds / (1000 * 60 * 60));
+  return Number(Math.floor(hours / 24));
 };
