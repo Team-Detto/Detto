@@ -59,8 +59,9 @@ const ProjectList = () => {
           >
             <ProjectListCardTextBox>
               <ProjectListCardFindUser>
-                기획 {cntPlanners}명 | 디자이너 {cntDesingers}명 | 개발{' '}
-                {cntDevelopers}명 찾고 있어요!
+                {cntPlanners > 0 && `기획 ${cntPlanners}명 |`}
+                {cntDesingers > 0 && `디자이너 ${cntDesingers}명 |`}
+                {cntDevelopers > 0 && `개발 ${cntDevelopers}명`}
               </ProjectListCardFindUser>
               <ProjectListCardProjectName>
                 {data.title}
@@ -161,7 +162,7 @@ const ProjectListCardTextBox = styled.div`
 
 const ProjectListCardFindUser = styled.div`
   width: 16.75rem;
-  height: .875rem;
+  height: 0.875rem;
   font-weight: 400;
   font-size: 10px;
   line-height: 150%;
