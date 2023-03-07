@@ -3,12 +3,8 @@ import COLORS from 'assets/styles/colors';
 import { Fragment } from 'react';
 import { career as careerList, mobilePositionList } from 'utils/positions';
 import ConfirmButton from './ConfirmButton';
-import ModalNavigator from '../common/modal/ModalNavigator';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
 import useSetPositions from 'hooks/useSetPositions';
-
-// 페이지 1 : 포지션 선택
-const page = 1;
 
 export default function SetPositions() {
   const {
@@ -22,7 +18,6 @@ export default function SetPositions() {
   return (
     <Container>
       {showToast && <ValidationToastPopup message={ToastMessage} top={2} />}
-      <ModalNavigator page={page} back />
       <BodyContainer>
         <TextContainer>
           <TitleText>어떤 포지션인지 알려주세요</TitleText>

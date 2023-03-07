@@ -131,6 +131,12 @@ const useEditBoard = () => {
     setEditThumbnail(
       imageRef.current?.files?.length ? imageRef.current.files[0] : '',
     );
+    setEditFormValue({
+      ...editFormValue,
+      thumbnail: imageRef.current?.files?.length
+        ? imageRef.current.files[0].name
+        : '',
+    });
   };
 
   const handleFormValueChange = useCallback(

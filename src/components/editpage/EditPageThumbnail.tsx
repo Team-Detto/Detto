@@ -5,12 +5,14 @@ import styled from '@emotion/styled';
 
 interface Props {
   imageRef: RefObject<HTMLInputElement>;
+  thumbnail: string;
   onAddThumbnailImageEvent: () => void;
   onAddThumbnailImageChangeEvent: () => void;
 }
 
 const EditPageThumbnail = ({
   imageRef,
+  thumbnail,
   onAddThumbnailImageEvent,
   onAddThumbnailImageChangeEvent,
 }: Props) => {
@@ -19,10 +21,10 @@ const EditPageThumbnail = ({
       <BodyThumbnailBox>
         <BodyText>썸네일 추가</BodyText>
         <BodyThumbnailImage
-          type="file"
-          accept="image/jpg, image/png, image/jpeg"
-          ref={imageRef}
-          onChange={onAddThumbnailImageChangeEvent}
+          id="thumbnail"
+          type="text"
+          value={thumbnail ? thumbnail : '사진을 선택해 주세요'}
+          disabled
         />
         <BodyThumbnailButton
           onClick={onAddThumbnailImageEvent}
@@ -30,6 +32,14 @@ const EditPageThumbnail = ({
         >
           사진 추가하기
         </BodyThumbnailButton>
+        <input
+          id="file"
+          type="file"
+          style={{ display: 'none' }}
+          ref={imageRef}
+          onChange={onAddThumbnailImageChangeEvent}
+          accept="image/jpg, image/png, image/jpeg"
+        />
       </BodyThumbnailBox>
       <BodyThumbnailWarningText>
         권장 이미지 사이즈는 1200x600 입니다.

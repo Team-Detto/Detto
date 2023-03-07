@@ -10,13 +10,13 @@ import styled from '@emotion/styled';
 
 interface Props {
   imageRef: RefObject<HTMLInputElement>;
-  editThumbnail: File | null;
+  thumbnail: string;
   onAddThumbnailImageChangeEvent: () => void;
 }
 
 const EditPageMobileThumbnail = ({
   imageRef,
-  editThumbnail,
+  thumbnail,
   onAddThumbnailImageChangeEvent,
 }: Props) => {
   return (
@@ -28,12 +28,12 @@ const EditPageMobileThumbnail = ({
         <EditPageMobileThumbnailInput
           id="thumbnail"
           type="text"
-          value={editThumbnail ? editThumbnail.name : '사진을 선택해 주세요'}
+          value={thumbnail ? thumbnail : '사진을 선택해 주세요'}
           disabled
         />
         <EditPageMobileThumbnailButton
           htmlFor="thumbnail"
-          editThumbnail={editThumbnail}
+          thumbnail={thumbnail}
           onClick={() => imageRef.current?.click()}
         >
           <EditPageMobileThumbnailText>
@@ -83,8 +83,8 @@ const EditPageMobileThumbnailButton = styled.label`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${(props: { editThumbnail: File | null }) =>
-    props.editThumbnail ? COLORS.gray300 : COLORS.violetB400};
+  background-color: ${(props: { thumbnail: string }) =>
+    props.thumbnail ? COLORS.gray300 : COLORS.violetB400};
   border-radius: 0.25rem;
   &:hover {
     background-color: ${COLORS.violetB300};
