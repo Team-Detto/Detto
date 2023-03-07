@@ -66,3 +66,8 @@ export const mypageInfoButtonActiveState = atom<boolean>({
   key: 'mypageInfoButtonActiveState',
   default: false,
 });
+
+export const findProjectCategoryState = atom<string>({
+  key: 'findProjectCategoryState',
+  default: 'planner',
+});
