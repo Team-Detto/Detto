@@ -33,6 +33,7 @@ const ProjectEditPageBody = ({
     endDate,
     deadline,
     isRecruiting,
+    thumbnail,
   } = editFormValue;
   return (
     <BodyContainer>
@@ -58,6 +59,7 @@ const ProjectEditPageBody = ({
       />
       <EditPageThumbnail
         imageRef={imageRef}
+        thumbnail={thumbnail}
         onAddThumbnailImageEvent={onAddThumbnailImageEvent}
         onAddThumbnailImageChangeEvent={onAddThumbnailImageChangeEvent}
       />

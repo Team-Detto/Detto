@@ -10,7 +10,6 @@ import { EditType } from 'types/write/writeType';
 
 interface Props {
   imageRef: RefObject<HTMLInputElement>;
-  editThumbnail: File | null;
   editFormValue: EditType.EditFormType;
   setEditFormValue: (value: any) => void;
   onCalculateEvent: (e: MouseEvent<HTMLButtonElement>) => void;
@@ -20,7 +19,6 @@ interface Props {
 
 const EditPageMobileBody = ({
   imageRef,
-  editThumbnail,
   editFormValue,
   setEditFormValue,
   onCalculateEvent,
@@ -35,8 +33,8 @@ const EditPageMobileBody = ({
     startDate,
     endDate,
     deadline,
+    thumbnail,
   } = editFormValue;
-
   return (
     <EditPageMobileBodyContainer>
       <EditPageMobilePosition
@@ -61,7 +59,7 @@ const EditPageMobileBody = ({
       />
       <EditPageMobileThumbnail
         imageRef={imageRef}
-        editThumbnail={editThumbnail}
+        thumbnail={thumbnail}
         onAddThumbnailImageChangeEvent={onAddThumbnailImageChangeEvent}
       />
     </EditPageMobileBodyContainer>
