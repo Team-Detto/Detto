@@ -216,6 +216,7 @@ const MobileInfoTitle = styled.label`
 const MobileInfoEditBtn = styled(InfoEditConfirmBtn)`
   display: block;
   margin: 3.125rem auto 0;
+  cursor: pointer;
 `;
 
 const MobileWithdrawalBtn = styled.span`
@@ -225,4 +226,5 @@ const MobileWithdrawalBtn = styled.span`
   color: ${COLORS.gray700};
   text-decoration: underline;
   margin-top: 2.5rem;
+  cursor: pointer;
 `;

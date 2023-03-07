@@ -38,18 +38,26 @@ const useNote = () => {
 
   // 쪽지 유효성 검사
   const checkNoteValidation = (note: any) => {
-    if (!note.title || !note.content) {
+    const trimmedNote = {
+      title: note.title.trim(),
+      content: note.content.trim(),
+    };
+
+    if (!trimmedNote.title || !trimmedNote.content) {
       handleToastPopup('제목은 2자 이상, 내용은 5자 이상 입력해주세요.');
       return false;
     }
-    if (note.title.length < 2 || note.content.length < 5) {
+
+    if (trimmedNote.title.length < 2 || trimmedNote.content.length < 5) {
       handleToastPopup('제목은 2자 이상, 내용은 5자 이상 입력해주세요.');
       return false;
     }
-    if (note.title.length > 30 || note.content.length > 500) {
+
+    if (trimmedNote.title.length > 30 || trimmedNote.content.length > 500) {
       handleToastPopup('제목은 30자 이하, 내용은 500자 이하 입력해주세요.');
       return false;
     }
+
     return true;
   };
 
