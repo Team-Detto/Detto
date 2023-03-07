@@ -35,16 +35,16 @@ const useUpdateProfile = () => {
 
       const isValidate =
         name === 'displayName'
-          ? nicknameValidation(value)
-          : contactValidation(value);
+          ? nicknameValidation(value.trim())
+          : contactValidation(value.trim());
 
       if (!isValidate) {
         if (name === 'displayName') {
-          value.length < 2
+          value.trim().length < 2
             ? setValidationMessage('닉네임은 2자 이상이어야 합니다.')
             : setValidationMessage('닉네임은 7자 이하여야 합니다.');
         } else {
-          value === ''
+          value.trim() === ''
             ? setContactValidationMessage('이메일을 입력해주세요.')
             : setContactValidationMessage('이메일을 올바르게 입력해주세요.');
         }
