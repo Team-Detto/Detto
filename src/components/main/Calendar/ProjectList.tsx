@@ -59,8 +59,14 @@ const ProjectList = () => {
           >
             <ProjectListCardTextBox>
               <ProjectListCardFindUser>
-                {cntPlanners > 0 && `기획 ${cntPlanners}명 |`}
-                {cntDesingers > 0 && `디자이너 ${cntDesingers}명 |`}
+                {cntPlanners > 0 && `기획 ${cntPlanners}명 `}
+                {cntPlanners > 0 && cntDesingers > 0 && `| `}
+                {cntPlanners > 0 &&
+                  cntDesingers == 0 &&
+                  cntDevelopers > 0 &&
+                  `| `}
+                {cntDesingers > 0 && `디자이너 ${cntDesingers}명 `}
+                {cntDesingers > 0 && cntDevelopers > 0 && `| `}
                 {cntDevelopers > 0 && `개발 ${cntDevelopers}명`}
               </ProjectListCardFindUser>
               <ProjectListCardProjectName>
