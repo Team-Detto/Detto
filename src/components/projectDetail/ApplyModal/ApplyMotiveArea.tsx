@@ -7,7 +7,7 @@ const ApplyMotiveArea = ({ motive, setMotive, version = 'web' }: any) => {
       <MotiveTitle version={version}>지원동기</MotiveTitle>
       <MotiveContentWrap>
         <MotiveTextArea
-          placeholder="지원동기를 입력해주세요"
+          placeholder="지원동기를 입력해주세요."
           onChange={(e: any) => setMotive(e.target.value)}
           value={motive}
           version={version}
@@ -45,7 +45,7 @@ const MotiveTextArea = styled.textarea`
   flex-direction: row;
   align-items: flex-start;
   padding: ${(props: { version: string }) =>
-    props.version === 'mobile' ? '.625rem 1.25rem' : '0.625rem 1.75rem'};
+    props.version === 'mobile' ? '0.625rem 1.25rem' : '0.625rem 1.75rem'};
   gap: 0.625rem;
 
   width: ${(props: { version: string }) =>
