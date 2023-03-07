@@ -31,7 +31,7 @@ export const firebaseCreateProjectRequest = async (
       ...formData,
       startDate: new Date(formData.startDate).getTime(),
       endDate: new Date(formData.endDate).getTime(),
-      deadline: new Date(formData.deadline).setHours(23, 59),
+      deadline: new Date(formData.deadline).setHours(23, 59, 59, 999),
       content: markdownText,
       thumbnail: thumbnailUrl,
       view: 0,
