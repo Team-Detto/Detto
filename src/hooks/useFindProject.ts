@@ -5,7 +5,7 @@ import { useRecoilState } from 'recoil';
 import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 import { useAuth } from 'hooks';
 import {
-  firebaseGetLikdCountRequest,
+  firebaseGetLikedCountRequest,
   firebaseInfinityScrollProjectDataRequest,
 } from 'apis/boardService';
 import { firebaseFindMyInterestRequest } from 'apis/userService';
@@ -92,7 +92,7 @@ const useFindProject = () => {
   };
 
   const handleUpdateLikedCount = useCallback(async (id: string) => {
-    const likeCount = await firebaseGetLikdCountRequest(id);
+    const likeCount = await firebaseGetLikedCountRequest(id);
     setProjects((prev) =>
       prev.map((project) =>
         project.id === id ? { ...project, like: likeCount } : project,
