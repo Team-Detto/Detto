@@ -36,6 +36,7 @@ const MainFindUsersWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  margin-top: 2.5rem;
 `;
 const MainFindUsersContainer = styled.div``;
 const MainFindUsersTitleDiv = styled.div`
