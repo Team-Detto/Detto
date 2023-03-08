@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
+import ParticipantsProfile from 'components/projectDetail/ParticipantsProfile';
 
 const ProjectItemMembers = ({ applicants, positions }: any) => {
   if (applicants === undefined) applicants = {};
@@ -17,15 +18,7 @@ const ProjectItemMembers = ({ applicants, positions }: any) => {
           <ProjectMemberList>
             {members?.map((key: any) => {
               if (applicants[key].position === '기획')
-                return (
-                  <ProjectMemberItem key={key}>
-                    <ProjectMemberProfileImg
-                      src={applicants[key].profileURL}
-                      alt="멤버프로필이미지"
-                      referrerPolicy="no-referrer"
-                    />
-                  </ProjectMemberItem>
-                );
+                return <ParticipantsProfile key={key} participantsUid={key} />;
             })}
           </ProjectMemberList>
         </ProjectMemberPositionList>
@@ -36,15 +29,7 @@ const ProjectItemMembers = ({ applicants, positions }: any) => {
           <ProjectMemberList>
             {members.map((key) => {
               if (applicants[key].position === '디자인')
-                return (
-                  <ProjectMemberItem key={key}>
-                    <ProjectMemberProfileImg
-                      src={applicants[key].profileURL}
-                      alt="멤버프로필이미지"
-                      referrerPolicy="no-referrer"
-                    />
-                  </ProjectMemberItem>
-                );
+                return <ParticipantsProfile key={key} participantsUid={key} />;
             })}
           </ProjectMemberList>
         </ProjectMemberPositionList>
@@ -55,15 +40,7 @@ const ProjectItemMembers = ({ applicants, positions }: any) => {
           <ProjectMemberList>
             {members.map((key) => {
               if (applicants[key].position === '프론트엔드')
-                return (
-                  <ProjectMemberItem key={key}>
-                    <ProjectMemberProfileImg
-                      src={applicants[key].profileURL}
-                      alt="멤버프로필이미지"
-                      referrerPolicy="no-referrer"
-                    />
-                  </ProjectMemberItem>
-                );
+                return <ParticipantsProfile key={key} participantsUid={key} />;
             })}
           </ProjectMemberList>
         </ProjectMemberPositionList>
@@ -74,15 +51,7 @@ const ProjectItemMembers = ({ applicants, positions }: any) => {
           <ProjectMemberList>
             {members.map((key) => {
               if (applicants[key].position === '백엔드')
-                return (
-                  <ProjectMemberItem key={key}>
-                    <ProjectMemberProfileImg
-                      src={applicants[key].profileURL}
-                      alt="멤버프로필이미지"
-                      referrerPolicy="no-referrer"
-                    />
-                  </ProjectMemberItem>
-                );
+                return <ParticipantsProfile key={key} participantsUid={key} />;
             })}
           </ProjectMemberList>
         </ProjectMemberPositionList>
@@ -92,13 +61,6 @@ const ProjectItemMembers = ({ applicants, positions }: any) => {
 };
 
 export default ProjectItemMembers;
-
-const ProjectMemberProfileImg = styled.img`
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-`;
 
 const ProjectInfoLabel = styled.strong`
   display: block;
@@ -135,12 +97,4 @@ const ProjectMemberList = styled.ul`
   align-items: center;
   min-height: 3.25rem;
   gap: 1.5rem;
-`;
-
-const ProjectMemberItem = styled.li`
-  width: 2.6rem;
-  height: 2.6rem;
-  border-radius: 50%;
-  overflow: hidden;
-  margin-top: 0.3rem;
 `;

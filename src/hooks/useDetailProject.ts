@@ -85,7 +85,7 @@ const useDetailProject = () => {
     // applicants map을 array로 변경
     const applicantsUidArray = Object.keys(applicants);
 
-    applicantsUidArray.forEach((applicant: any) => {
+    applicantsUidArray.forEach((applicant: string) => {
       if (!params.id) return;
       sendNotification({
         title: '지원하신 프로젝트의 모집이 마감되었습니다.',

@@ -8,7 +8,7 @@ import {
   useModal,
   useNotification,
 } from 'hooks';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { updateAppliedProject, updateParticipants } from 'apis/postDetail';
 import { modalTypes } from 'components/common/modal/modal';
 import MobileInviteModal from '../mobile/MobileModal/MobileInviteModal';
@@ -16,6 +16,8 @@ import {
   amplitudeNeedToButtonClick,
   amplitudeToNoneButtonClick,
 } from 'utils/amplitude';
+import { getUserInfoData } from 'apis/mypageUsers';
+import { staleTime } from 'utils/staleTime';
 
 interface props {
   isOpen: boolean;
@@ -37,6 +39,13 @@ const InviteModal = ({
   const { isOpen: isAlertOpen, handleModalStateChange: onAlertClickEvent } =
     useModal(false);
   const { sendNotification } = useNotification();
+
+  // 유저 정보 받아오는 쿼리
+  const { data: applierInfoData }: any = useQuery({
+    queryKey: ['users', applicantKey],
+    queryFn: getUserInfoData,
+    staleTime: staleTime.users,
+  });
 
   const { mutate: applicantMutate } = useMutation(() =>
     updateParticipants(
@@ -119,8 +128,8 @@ const InviteModal = ({
         <ModalWrapper>
           <ProfileToMessageContainer>
             <UserProfileImage
-              src={applicant?.profileURL}
-              alt={applicant?.displayName}
+              src={applierInfoData?.photoURL}
+              alt={applierInfoData?.displayName}
               referrerPolicy="no-referrer"
             />
             <MessageSendButton
@@ -146,7 +155,7 @@ const InviteModal = ({
             )}
           </UserSkillsContainer>
 
-          <InviteTitle>{applicant?.displayName} 님을</InviteTitle>
+          <InviteTitle>{applierInfoData?.displayName} 님을</InviteTitle>
           <InviteTitle>팀원으로 초대할까요?</InviteTitle>
 
           <MotiveContainer>

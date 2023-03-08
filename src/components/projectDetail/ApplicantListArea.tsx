@@ -40,14 +40,14 @@ const ApplicantListArea = ({ projectData, pid }: any) => {
           <StyledSlider {...settings} infinite={applicants.length >= 4}>
             {applicants &&
               Object.keys(applicants).map((key) => {
-                if (applicants[key]?.recruit === false) {
+                if (applicants?.[key]?.recruit === false) {
                   countFlag += 1;
                   return (
                     <ApplicantCard
                       key={key}
                       pid={pid}
                       applicantUid={key}
-                      applicant={applicants[key]}
+                      applicant={applicants?.[key]}
                       setClickApplicant={setClickApplicant}
                       handleModalStateChange={handleModalStateChange}
                       isOpen={isOpen}
@@ -66,7 +66,7 @@ const ApplicantListArea = ({ projectData, pid }: any) => {
         applicant={applicants?.[clickApplicant]}
         onClickEvent={handleModalStateChange}
         pid={pid}
-        applicantKey={applicants?.[clickApplicant]?.uid}
+        applicantKey={clickApplicant}
       />
     </>
   );

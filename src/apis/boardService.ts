@@ -148,7 +148,7 @@ export const firebaseLikeProjectUpdateRequest = async (
   }
 };
 
-export const firebaseGetLikdCountRequest = async (id: string) => {
+export const firebaseGetLikedCountRequest = async (id: string) => {
   try {
     const postRef = doc(firestore, 'post', id);
     const snapshot = await getDoc(postRef);
