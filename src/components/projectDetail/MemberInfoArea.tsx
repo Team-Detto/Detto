@@ -1,7 +1,8 @@
-import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import { logEvent } from 'utils/amplitude';
+import { useNavigate } from 'react-router-dom';
+import ParticipantsProfile from './ParticipantsProfile';
 
 const MemberInfoArea = ({ applicantsData }: any) => {
   const navigate = useNavigate();
@@ -44,12 +45,10 @@ const MemberInfoArea = ({ applicantsData }: any) => {
                 {participantsData?.map((key) => {
                   if (applicantsData[key].position === '기획')
                     return (
-                      <MemberProfileImg
+                      <ParticipantsProfile
                         key={key}
-                        onClick={() => onClickEvent(applicantsData[key].uid)}
-                        src={applicantsData[key].profileURL}
-                        alt={applicantsData[key].displayName}
-                        referrerPolicy="no-referrer"
+                        LinkToPublicProfile={onClickEvent}
+                        participantsUid={applicantsData[key].uid}
                       />
                     );
                 })}
@@ -61,12 +60,10 @@ const MemberInfoArea = ({ applicantsData }: any) => {
                 {participantsData.map((key) => {
                   if (applicantsData[key].position === '디자인')
                     return (
-                      <MemberProfileImg
+                      <ParticipantsProfile
                         key={key}
-                        onClick={() => onClickEvent(applicantsData[key].uid)}
-                        src={applicantsData[key].profileURL}
-                        alt={applicantsData[key].displayName}
-                        referrerPolicy="no-referrer"
+                        LinkToPublicProfile={onClickEvent}
+                        participantsUid={applicantsData[key].uid}
                       />
                     );
                 })}
@@ -79,12 +76,10 @@ const MemberInfoArea = ({ applicantsData }: any) => {
                 {participantsData.map((key) => {
                   if (applicantsData[key].position === '프론트엔드')
                     return (
-                      <MemberProfileImg
+                      <ParticipantsProfile
                         key={key}
-                        onClick={() => onClickEvent(applicantsData[key].uid)}
-                        src={applicantsData[key].profileURL}
-                        alt={applicantsData[key].displayName}
-                        referrerPolicy="no-referrer"
+                        LinkToPublicProfile={onClickEvent}
+                        participantsUid={applicantsData[key].uid}
                       />
                     );
                 })}
@@ -97,12 +92,10 @@ const MemberInfoArea = ({ applicantsData }: any) => {
                 {participantsData.map((key) => {
                   if (applicantsData[key].position === '백엔드')
                     return (
-                      <MemberProfileImg
+                      <ParticipantsProfile
                         key={key}
-                        onClick={() => onClickEvent(applicantsData[key].uid)}
-                        alt={applicantsData[key].displayName}
-                        src={applicantsData[key].profileURL}
-                        referrerPolicy="no-referrer"
+                        LinkToPublicProfile={onClickEvent}
+                        participantsUid={applicantsData[key].uid}
                       />
                     );
                 })}
@@ -160,60 +153,8 @@ const PositionDiv = styled.div`
 
   width: 4.125rem;
   height: 2.0625rem;
-
-  /* violet B 400 */
-
-  background: #6f64f2;
+  background: ${COLORS.violetB400};
   border-radius: 0.625rem;
-`;
-
-const MemberProfileImg = styled.img`
-  width: 3.25rem;
-  height: 3.25rem;
-  border-radius: 50%;
-  /* position: relative; */
-  object-fit: cover;
-  cursor: pointer;
-  z-index: 0;
-`;
-
-const HoverText = styled.div`
-  position: absolute;
-  top: 70%;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  z-index: 10;
-  width: 100%;
-  height: ${(props: { children: string }) =>
-    props.children.length > 5 ? '100%' : '1.875rem'};
-  border-radius: 0.625rem;
-  background-color: ${COLORS.white};
-  box-shadow: 0.0313rem 0.0313rem 0.625rem 0.1rem ${COLORS.violetB300};
-  color: ${COLORS.black};
-  z-index: 999;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  font-weight: 500;
-
-  display: none;
-`;
-
-const Div = styled.div`
-  position: relative;
-  width: 5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  cursor: pointer;
-  z-index: 0;
-  :hover > div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
 `;
 
 const NodataMessage = styled.p`

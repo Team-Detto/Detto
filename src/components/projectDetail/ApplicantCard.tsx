@@ -1,6 +1,9 @@
 import styled from '@emotion/styled';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { getUserInfoData } from 'apis/mypageUsers';
 import COLORS from 'assets/styles/colors';
 import { useNavigate } from 'react-router-dom';
+import { staleTime } from 'utils/staleTime';
 
 const ApplicantCard = ({
   applicant,
@@ -11,21 +14,28 @@ const ApplicantCard = ({
 }: any) => {
   const navigate = useNavigate();
 
+  // 유저 정보 받아오는 쿼리
+  const { data: applierInfoData }: any = useQuery({
+    queryKey: ['users', applicantUid],
+    queryFn: getUserInfoData,
+    staleTime: staleTime.users,
+  });
+
   return (
     <>
-      <ApplicantWrap key={applicant?.uid} isOpen={isOpen}>
+      <ApplicantWrap key={applicantUid} isOpen={isOpen}>
         <ProfileImageDiv>
           <ProfileImage
-            src={applicant?.profileURL}
-            alt={applicant?.displayName}
+            src={applierInfoData?.photoURL}
+            alt={applierInfoData?.displayName}
             referrerPolicy="no-referrer"
-            onClick={() => navigate(`/profile/${applicant.uid}`)}
+            onClick={() => navigate(`/profile/${applicantUid}`)}
           />
 
           <HoverText>클릭 시 공개 프로필로 이동</HoverText>
         </ProfileImageDiv>
 
-        <NicknameDiv>{applicant?.displayName}</NicknameDiv>
+        <NicknameDiv>{applierInfoData?.displayName}</NicknameDiv>
         <PositionDiv>{applicant?.position}</PositionDiv>
         <StackContainer>
           <StackWrap>
