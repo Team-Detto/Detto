@@ -3,13 +3,19 @@ import { useQuery } from '@tanstack/react-query';
 import { getUserInfoData } from 'apis/mypageUsers';
 import { staleTime } from 'utils/staleTime';
 
+interface Props {
+  LinkToPublicProfile?: (uid: string) => void;
+  participantsUid: string;
+  version?: 'web' | 'mobile';
+}
+
 const ParticipantsProfile = ({
   LinkToPublicProfile,
   participantsUid,
   version = 'web',
-}: any) => {
+}: Props) => {
   // 유저 정보 받아오는 쿼리
-  const { data: applierInfoData }: any = useQuery({
+  const { data: applierInfoData } = useQuery({
     queryKey: ['users', participantsUid],
     queryFn: getUserInfoData,
     staleTime: staleTime.users,
@@ -18,7 +24,9 @@ const ParticipantsProfile = ({
   return (
     <ProjectMemberItem version={version}>
       <MemberProfileImg
-        onClick={() => LinkToPublicProfile(participantsUid)}
+        onClick={() =>
+          LinkToPublicProfile ? LinkToPublicProfile(participantsUid) : null
+        }
         src={applierInfoData?.photoURL}
         alt={applierInfoData?.displayName}
         referrerPolicy="no-referrer"
