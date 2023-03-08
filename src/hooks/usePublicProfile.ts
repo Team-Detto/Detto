@@ -17,7 +17,7 @@ import useProjectList from './useProjectList';
 
 const usePubicProfile = () => {
   const params = useParams();
-  const pid = params.id as string; //받는사람 id
+  const receiverId = params?.id as string; //받는사람 id
   const { uid } = useAuth(); //보내는 사람 id (현재 로그인한 유저)
   const { activeProjectTab, handleProjectTabClick, setActiveProjectTab } =
     useProjectList();
@@ -28,18 +28,18 @@ const usePubicProfile = () => {
     queries: [
       //유저 정보 조회
       {
-        queryKey: ['users', pid],
+        queryKey: ['users', receiverId],
         queryFn: getUserInfoData,
         staleTime: staleTime.user,
-        enabled: !!pid,
+        enabled: !!receiverId,
         suspense: true,
       },
       //유저가 참여한 프로젝트 조회
       {
-        queryKey: ['myProjects', pid],
+        queryKey: ['myProjects', receiverId],
         queryFn: getUserProjectList,
         staleTime: staleTime.myProjects,
-        enabled: !!pid,
+        enabled: !!receiverId,
         suspense: true,
       },
     ],
@@ -49,7 +49,7 @@ const usePubicProfile = () => {
     openModalWithData(modalTypes.sendNote, {
       id: 'id', //addDoc이라 id 필요없음
       senderUid: uid,
-      receiverUid: pid,
+      receiverUid: receiverId,
       date: 0,
       title: '',
       content: '',
@@ -69,7 +69,7 @@ const usePubicProfile = () => {
     logEvent('Visit Page', {
       from: `${getCurrentPathName()}`,
       to: 'none',
-      name: 'puplic_profile',
+      name: 'public_profile',
     });
   }, []);
 
