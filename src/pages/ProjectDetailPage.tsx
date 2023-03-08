@@ -83,7 +83,6 @@ const ProjectDetailPage = () => {
               {/* //지원 안했다면 지원하기 모달 */}
               <ApplyModal
                 isOpen={isApply}
-                message="프로젝트를 지원해볼까요?"
                 onClickEvent={handleApplyModalCloseChange}
                 positions={projectData?.positions}
                 pid={pid}

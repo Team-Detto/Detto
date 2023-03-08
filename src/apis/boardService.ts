@@ -31,7 +31,7 @@ export const firebaseCreateProjectRequest = async (
       ...formData,
       startDate: new Date(formData.startDate).getTime(),
       endDate: new Date(formData.endDate).getTime(),
-      deadline: new Date(formData.deadline).setHours(23, 59),
+      deadline: new Date(formData.deadline).setHours(23, 59, 59, 999),
       content: markdownText,
       thumbnail: thumbnailUrl,
       view: 0,
@@ -48,7 +48,7 @@ export const firebaseCreateProjectRequest = async (
 
     return postDoc.id;
   } catch (e) {
-    console.error(e);
+    throw new Error('프로젝트 생성에 실패했습니다.');
   }
 };
 
@@ -123,7 +123,7 @@ export const firebaseEditProjectRequest = async (
       deadline: new Date(editFormData.deadline).setHours(23, 59),
     });
   } catch (e) {
-    console.error(e);
+    throw new Error('프로젝트 수정에 실패했습니다.');
   }
 };
 
@@ -144,11 +144,11 @@ export const firebaseLikeProjectUpdateRequest = async (
       await updateDoc(projectsRef, { likedProjects: arrayUnion(id) });
     }
   } catch (e) {
-    console.error(e);
+    throw new Error('좋아요 업데이트에 실패했습니다.');
   }
 };
 
-export const firebaseGetLikdCountRequest = async (id: string) => {
+export const firebaseGetLikedCountRequest = async (id: string) => {
   try {
     const postRef = doc(firestore, 'post', id);
     const snapshot = await getDoc(postRef);
@@ -156,6 +156,6 @@ export const firebaseGetLikdCountRequest = async (id: string) => {
       return snapshot.data().like;
     }
   } catch (e) {
-    console.error(e);
+    throw new Error('좋아요 수를 가져오는데 실패했습니다.');
   }
 };

@@ -45,7 +45,13 @@ const MainBanner = () => {
               디토에서 프로젝트 메이트를 만나보세요
             </BannerSubTitle>
           </BannerTextBox>
-          <BannerSecondImg src="videos/logo_main2.webm" loop autoPlay muted />
+          <BannerSecondImg
+            src={require('assets/videos/logo_main2.webm')}
+            loop
+            autoPlay
+            muted
+            controls={false}
+          />
         </BannerContainer>
       </SlideWrapper>
     </SliderWrapper>
@@ -56,10 +62,10 @@ export default MainBanner;
 const SliderWrapper = styled(Slider)`
   background-color: ${COLORS.gray50};
   width: 100%;
-  height: 44rem;
+  height: 33rem;
   .slick-slide {
     width: 100%;
-    height: 44rem;
+    height: 33rem;
   }
   .slick-dots {
     position: absolute;
@@ -105,7 +111,7 @@ const BannerTextBox = styled.div`
   width: 22.25rem;
   height: 12.8125rem;
   left: 9.125rem;
-  top: 19.0625rem;
+  top: 13.0625rem;
 `;
 const BannerTitle = styled.div`
   width: 22.25rem;
@@ -130,15 +136,15 @@ const BannerSubTitle = styled.div`
 `;
 const BannerFirstImg = styled.img`
   position: absolute;
-  width: 46.9375rem;
-  height: 50.125rem;
+  width: 34.9375rem;
+  height: 34.125rem;
   left: 36.9375rem;
-  top: 0;
+  top: 16px;
 `;
 const BannerSecondImg = styled.video`
   position: absolute;
   width: 52.875rem;
   height: 18.4375rem;
   left: 29.625rem;
-  top: 15.1875rem;
+  top: 9.1875rem;
 `;

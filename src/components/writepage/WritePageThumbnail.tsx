@@ -23,10 +23,13 @@ const WritePageThumbnail = ({
         <WritePageBodyText htmlFor="thumbnail">썸네일 추가</WritePageBodyText>
         <WritePageBodyThumbnailImage
           id="thumbnail"
-          type="file"
-          accept="image/jpg, image/png, image/jpeg"
-          ref={imageRef}
-          onChange={onAddThumbnailImageChangeEvent}
+          type="text"
+          value={
+            writeFormValue.thumbnail
+              ? writeFormValue.thumbnail.name
+              : '사진을 선택해 주세요'
+          }
+          disabled
         />
         <WritePageBodyThumbnailButton
           onClick={onAddThumbnailImageEvent}
@@ -34,6 +37,14 @@ const WritePageThumbnail = ({
         >
           사진 추가하기
         </WritePageBodyThumbnailButton>
+        <input
+          id="file"
+          type="file"
+          style={{ display: 'none' }}
+          ref={imageRef}
+          onChange={onAddThumbnailImageChangeEvent}
+          accept="image/jpg, image/png, image/jpeg"
+        />
       </WritePageBodyThumbnailBox>
       <WritePageBodyThumbnailWarningText>
         권장 이미지 사이즈는 1200x600 입니다.

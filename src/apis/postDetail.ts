@@ -15,7 +15,9 @@ export const updateLike = async (pid: any, countLike: any) => {
   const docRef = doc(firestore, 'post', pid);
   try {
     await updateDoc(docRef, { like: countLike });
-  } catch (error) {}
+  } catch (error) {
+    throw new Error('좋아요 업데이트에 실패했습니다.');
+  }
 };
 
 export const updateViews = async (pid: any, countViews: number) => {
@@ -58,8 +60,6 @@ export const updateAppliedProject = async (
 export const updateApplicants = async (
   pid: string,
   uid: string,
-  displayName: string,
-  profileURL: string,
   skills: any,
   position: string,
   motive: string,
@@ -71,9 +71,6 @@ export const updateApplicants = async (
     {
       applicants: {
         [uid]: {
-          uid: uid,
-          displayName: displayName,
-          profileURL: profileURL,
           skills: skills,
           position: position,
           motive: motive,

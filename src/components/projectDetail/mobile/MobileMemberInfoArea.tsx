@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { logEvent } from 'utils/amplitude';
+import ParticipantsProfile from '../ParticipantsProfile';
 
 const MobileMemberInfoArea = ({ applicantsData }: any) => {
   const navigate = useNavigate();
@@ -43,13 +43,12 @@ const MobileMemberInfoArea = ({ applicantsData }: any) => {
               {data?.map((key) => {
                 if (applicantsData[key].position === '기획')
                   return (
-                    <MemberProfileImg
+                    <ParticipantsProfile
                       key={key}
-                      onClick={() => onClickEvent(applicantsData[key].uid)}
-                      src={applicantsData[key].profileURL}
-                      alt={applicantsData[key].displayName}
-                      referrerPolicy="no-referrer"
-                    ></MemberProfileImg>
+                      LinkToPublicProfile={onClickEvent}
+                      participantsUid={applicantsData[key].uid}
+                      version="mobile"
+                    />
                   );
               })}
             </MemberInfoObject>
@@ -60,13 +59,12 @@ const MobileMemberInfoArea = ({ applicantsData }: any) => {
               {data?.map((key) => {
                 if (applicantsData[key].position === '디자인')
                   return (
-                    <MemberProfileImg
+                    <ParticipantsProfile
                       key={key}
-                      onClick={() => onClickEvent(applicantsData[key].uid)}
-                      src={applicantsData[key].profileURL}
-                      alt={applicantsData[key].displayName}
-                      referrerPolicy="no-referrer"
-                    ></MemberProfileImg>
+                      LinkToPublicProfile={onClickEvent}
+                      participantsUid={applicantsData[key].uid}
+                      version="mobile"
+                    />
                   );
               })}
             </MemberInfoObject>
@@ -77,13 +75,12 @@ const MobileMemberInfoArea = ({ applicantsData }: any) => {
               {data?.map((key) => {
                 if (applicantsData[key].position === '프론트엔드')
                   return (
-                    <MemberProfileImg
+                    <ParticipantsProfile
                       key={key}
-                      onClick={() => onClickEvent(applicantsData[key].uid)}
-                      src={applicantsData[key].profileURL}
-                      alt={applicantsData[key].displayName}
-                      referrerPolicy="no-referrer"
-                    ></MemberProfileImg>
+                      LinkToPublicProfile={onClickEvent}
+                      participantsUid={applicantsData[key].uid}
+                      version="mobile"
+                    />
                   );
               })}
             </MemberInfoObject>
@@ -94,13 +91,12 @@ const MobileMemberInfoArea = ({ applicantsData }: any) => {
               {data?.map((key) => {
                 if (applicantsData[key].position === '백엔드')
                   return (
-                    <MemberProfileImg
+                    <ParticipantsProfile
                       key={key}
-                      onClick={() => onClickEvent(applicantsData[key].uid)}
-                      src={applicantsData[key].profileURL}
-                      alt={applicantsData[key].displayName}
-                      referrerPolicy="no-referrer"
-                    ></MemberProfileImg>
+                      LinkToPublicProfile={onClickEvent}
+                      participantsUid={applicantsData[key].uid}
+                      version="mobile"
+                    />
                   );
               })}
             </MemberInfoObject>

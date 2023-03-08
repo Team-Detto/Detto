@@ -47,9 +47,9 @@ export const deleteProfileImg = async (uid: string) => {
   const deleteRef = ref(firestorage, `${uid}`);
   deleteObject(deleteRef)
     // TODO :: 삭제 성공 시
-    .catch((error) =>
+    .catch(
+      (error) => new Error(error),
       // TODO :: 삭제 실패 시 에러 페이지 이동
-      console.log('delete fail', error),
     );
 };
 
@@ -65,7 +65,7 @@ export const updateUserInfoData = async (uid: string, userInfo: UserInfo) => {
     });
   } catch (error) {
     // TODO:: 에러 페이지 이동
-    console.log('update fail', error);
+    throw new Error('프로필 수정에 실패했습니다.');
   }
 };
 

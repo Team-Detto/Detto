@@ -20,7 +20,6 @@ const ProjectEditPage = () => {
     imageRef,
     showToast,
     ToastMessage,
-    editThumbnail,
     editFormValue,
     setEditFormValue,
     handleCalculate,
@@ -47,7 +46,6 @@ const ProjectEditPage = () => {
             <EditPageMobileBody
               imageRef={imageRef}
               editFormValue={editFormValue}
-              editThumbnail={editThumbnail}
               setEditFormValue={setEditFormValue}
               onCalculateEvent={handleCalculate}
               onFormValueChangeEvent={handleFormValueChange}

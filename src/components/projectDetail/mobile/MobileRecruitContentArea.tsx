@@ -74,9 +74,9 @@ const ContentWrapper = styled.div`
     h4,
     h5,
     h6 {
-      margin-top: 1.2rem;
-      padding-bottom: 0.1rem;
+      padding: 1rem 0 0.2rem 0;
       border-bottom: none;
+      margin: 0;
     }
 
     h1 {

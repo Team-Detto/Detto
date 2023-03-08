@@ -1,13 +1,15 @@
 import { useEffect, useState, useCallback, MouseEvent } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import { useRecoilState } from 'recoil';
+import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 import { useAuth } from 'hooks';
 import {
-  firebaseGetLikdCountRequest,
+  firebaseGetLikedCountRequest,
   firebaseInfinityScrollProjectDataRequest,
 } from 'apis/boardService';
 import { firebaseFindMyInterestRequest } from 'apis/userService';
-import { useBottomScrollListener } from 'react-bottom-scroll-listener';
+import { findProjectCategoryState } from '../recoil/atoms';
 import { EditType } from 'types/write/writeType';
 import { logEvent, getCurrentPathName } from 'utils/amplitude';
 import { staleTime } from 'utils/staleTime';
@@ -20,7 +22,7 @@ const useFindProject = () => {
 
   const [projects, setProjects] = useState<EditType.EditFormType[]>([]);
   const [lastVisible, setLastVisible] = useState<any>(undefined);
-  const [category, setCategory] = useState<string>('planner');
+  const [category, setCategory] = useRecoilState(findProjectCategoryState);
   const [toggle, setToggle] = useState<boolean>(false);
 
   const { data: likedProjects } = useQuery({
@@ -28,6 +30,7 @@ const useFindProject = () => {
     queryFn: () => firebaseFindMyInterestRequest(uid),
     staleTime: staleTime.likedProjects,
     enabled: !!uid,
+    suspense: true,
   });
 
   useEffect(() => {
@@ -89,7 +92,7 @@ const useFindProject = () => {
   };
 
   const handleUpdateLikedCount = useCallback(async (id: string) => {
-    const likeCount = await firebaseGetLikdCountRequest(id);
+    const likeCount = await firebaseGetLikedCountRequest(id);
     setProjects((prev) =>
       prev.map((project) =>
         project.id === id ? { ...project, like: likeCount } : project,

@@ -1,39 +1,41 @@
 import styled from '@emotion/styled';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { getUserInfoData } from 'apis/mypageUsers';
 import COLORS from 'assets/styles/colors';
-import InviteModal from './InviteModals/InviteModal';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
-import { allowScroll, preventScroll } from 'utils/modal';
-import { useModal } from 'hooks';
+import { staleTime } from 'utils/staleTime';
 
-const ApplicantCard = ({ applicant, pid }: any) => {
+const ApplicantCard = ({
+  applicant,
+  applicantUid,
+  setClickApplicant,
+  isOpen,
+  handleModalStateChange,
+}: any) => {
   const navigate = useNavigate();
-  const { isOpen, handleModalStateChange } = useModal(false);
 
-  // useEffect(() => {
-  //   if (isOpen) {
-  //     preventScroll();
-  //     return () => {
-  //       allowScroll();
-  //     };
-  //   }
-  // }, [isOpen]);
+  // 유저 정보 받아오는 쿼리
+  const { data: applierInfoData }: any = useQuery({
+    queryKey: ['users', applicantUid],
+    queryFn: getUserInfoData,
+    staleTime: staleTime.users,
+  });
 
   return (
     <>
-      <ApplicantWrap key={applicant?.uid} isOpen={isOpen}>
+      <ApplicantWrap key={applicantUid} isOpen={isOpen}>
         <ProfileImageDiv>
           <ProfileImage
-            src={applicant?.profileURL}
-            alt={applicant?.displayName}
+            src={applierInfoData?.photoURL}
+            alt={applierInfoData?.displayName}
             referrerPolicy="no-referrer"
-            onClick={() => navigate(`/profile/${applicant.uid}`)}
+            onClick={() => navigate(`/profile/${applicantUid}`)}
           />
 
           <HoverText>클릭 시 공개 프로필로 이동</HoverText>
         </ProfileImageDiv>
 
-        <NicknameDiv>{applicant?.displayName}</NicknameDiv>
+        <NicknameDiv>{applierInfoData?.displayName}</NicknameDiv>
         <PositionDiv>{applicant?.position}</PositionDiv>
         <StackContainer>
           <StackWrap>
@@ -49,19 +51,13 @@ const ApplicantCard = ({ applicant, pid }: any) => {
         </StackContainer>
         <InviteButton
           onClick={() => {
+            setClickApplicant(applicantUid);
             handleModalStateChange();
           }}
         >
           지원자 정보 보기
         </InviteButton>
       </ApplicantWrap>
-      <InviteModal
-        isOpen={isOpen}
-        applicant={applicant}
-        onClickEvent={handleModalStateChange}
-        pid={pid}
-        applicantKey={applicant?.uid}
-      />
     </>
   );
 };

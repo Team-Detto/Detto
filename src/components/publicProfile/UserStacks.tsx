@@ -5,9 +5,14 @@ import { SkillIcon, SkillIconWrapper } from 'components/common/SkillButton';
 interface UserStacksProps {
   stacks: string[];
   version?: 'mobile' | 'desktop';
+  isItem?: boolean;
 }
 
-const UserStacks = ({ stacks, version = 'desktop' }: UserStacksProps) => {
+const UserStacks = ({
+  stacks,
+  isItem,
+  version = 'desktop',
+}: UserStacksProps) => {
   if (version === 'mobile') {
     return (
       <MobileStackList>
@@ -33,7 +38,10 @@ const UserStacks = ({ stacks, version = 'desktop' }: UserStacksProps) => {
         .map((stack, index) => {
           if (index < 10)
             return (
-              <ProjectStackItem key={`${stacks}${index}`}>
+              <ProjectStackItem
+                key={`${stacks}${index}`}
+                isItem={isItem ?? false}
+              >
                 <SkillIconWrapper>
                   <SkillIcon
                     src={require(`../../assets/images/icon_skills/icon_skill_${stack.toLowerCase()}.jpg`)}
@@ -57,7 +65,7 @@ const ProjectStackList = styled.ul`
   gap: 0.5rem;
 `;
 
-const ProjectStackItem = styled.li`
+const ProjectStackItem = styled.li<{ isItem: boolean }>`
   display: flex;
   align-items: center;
   height: 2rem;
@@ -66,7 +74,7 @@ const ProjectStackItem = styled.li`
   border-radius: 2rem;
   font-size: 0.75rem;
   color: ${COLORS.black};
-  cursor: default;
+  cursor: ${({ isItem }) => (isItem ? 'pointer' : '')};
 `;
 
 //모바일 버전

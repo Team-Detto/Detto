@@ -62,7 +62,6 @@ const ProjectDetailMobile = ({
 
       <ApplyModal
         isOpen={isApply}
-        message="프로젝트를 지원해볼까요?"
         onClickEvent={handleApplyModalCloseChange}
         positions={projectData?.positions}
         pid={pid}

@@ -6,9 +6,15 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import VectorPrev from 'assets/images/VectorPrev.png';
 import VectorNext from 'assets/images/VectorNext.png';
+import { useEffect, useState } from 'react';
+import InviteModal from './InviteModals/InviteModal';
+import { useModal } from 'hooks';
+import { allowScroll, preventScroll } from 'utils/modal';
 
 const ApplicantListArea = ({ projectData, pid }: any) => {
   const { applicants } = projectData;
+  const [clickApplicant, setClickApplicant] = useState('');
+  const { isOpen, handleModalStateChange } = useModal(false);
   let countFlag = 0;
   const settings = {
     centerPadding: '60px',
@@ -18,6 +24,14 @@ const ApplicantListArea = ({ projectData, pid }: any) => {
     autoplay: true,
     autoplaySpeed: 4000,
   };
+  useEffect(() => {
+    if (isOpen) {
+      preventScroll();
+      return () => {
+        allowScroll();
+      };
+    }
+  }, [isOpen]);
   return (
     <>
       <ApplicantListContainer>
@@ -26,25 +40,34 @@ const ApplicantListArea = ({ projectData, pid }: any) => {
           <StyledSlider {...settings} infinite={applicants.length >= 4}>
             {applicants &&
               Object.keys(applicants).map((key) => {
-                if (applicants[key]?.recruit === false) {
+                if (applicants?.[key]?.recruit === false) {
                   countFlag += 1;
                   return (
                     <ApplicantCard
                       key={key}
                       pid={pid}
-                      applicant={applicants[key]}
+                      applicantUid={key}
+                      applicant={applicants?.[key]}
+                      setClickApplicant={setClickApplicant}
+                      handleModalStateChange={handleModalStateChange}
+                      isOpen={isOpen}
                     />
                   );
                 }
               })}
-            {countFlag === 0 && (
-              <CannotFoundApplicant>
-                아직 지원자가 없어요 :/
-              </CannotFoundApplicant>
-            )}
           </StyledSlider>
         </ApplicantListContent>
+        {countFlag === 0 && (
+          <CannotFoundApplicant>아직 지원자가 없어요 :/</CannotFoundApplicant>
+        )}
       </ApplicantListContainer>
+      <InviteModal
+        isOpen={isOpen}
+        applicant={applicants?.[clickApplicant]}
+        onClickEvent={handleModalStateChange}
+        pid={pid}
+        applicantKey={clickApplicant}
+      />
     </>
   );
 };

@@ -1,9 +1,11 @@
 import styled from '@emotion/styled';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { updateAppliedProject, updateParticipants } from 'apis/postDetail';
 import COLORS from 'assets/styles/colors';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { getUserInfoData } from 'apis/mypageUsers';
+import { updateAppliedProject, updateParticipants } from 'apis/postDetail';
 import MobileAlert from 'components/common/mobile/MobileAlert';
 import { amplitudeToNoneButtonClick } from 'utils/amplitude';
+import { staleTime } from 'utils/staleTime';
 
 const MobileInviteModal = ({
   pid,
@@ -41,6 +43,13 @@ const MobileInviteModal = ({
     }
   };
 
+  // 유저 정보 받아오는 쿼리
+  const { data: applierInfoData }: any = useQuery({
+    queryKey: ['users', applicant?.uid],
+    queryFn: getUserInfoData,
+    staleTime: staleTime.users,
+  });
+
   return (
     <>
       <BackDrop onClick={handleBackDropClick} isOpen={isOpen}>
@@ -60,7 +69,7 @@ const MobileInviteModal = ({
             )}
           </StackDiv>
           <NickNameDiv>
-            <NickName>{applicant.displayName} 님을</NickName>
+            <NickName>{applierInfoData.displayName} 님을</NickName>
             <NickName>팀원으로 초대할까요?</NickName>
             <MotiveDiv>
               <MotiveTitle>지원 동기</MotiveTitle>

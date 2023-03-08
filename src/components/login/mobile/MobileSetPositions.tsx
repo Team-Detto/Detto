@@ -2,13 +2,9 @@ import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import { Fragment } from 'react';
 import { career as careerList, positionList } from 'utils/positions';
-import ModalNavigator from 'components/common/modal/ModalNavigator';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
 import MobileConfirmButton from './MobileConfirmButton';
 import useSetPositions from 'hooks/useSetPositions';
-
-// 페이지 1 : 포지션 선택
-const page = 1;
 
 export default function MobileSetPositions() {
   const {
@@ -22,7 +18,6 @@ export default function MobileSetPositions() {
   return (
     <Container>
       {showToast && <ValidationToastPopup message={ToastMessage} top={2} />}
-      <ModalNavigator page={page} back />
       <BodyContainer>
         <div>
           <TextContainer>

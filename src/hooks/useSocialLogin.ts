@@ -80,7 +80,7 @@ const useSocialLogin = () => {
         window.location.reload();
       }
     } catch (error) {
-      console.error('error: ', error);
+      throw new Error('로그인에 실패했습니다.');
     } finally {
       setOverlay(false);
     }

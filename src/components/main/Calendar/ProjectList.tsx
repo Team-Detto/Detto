@@ -27,6 +27,7 @@ const ProjectList = () => {
     useRecoilState(selectedProjectState);
   const sliderRef = useRef<Slider>(null);
 
+  const dayListFilter = dayList.filter((el: any) => el.isRecruiting === true);
   useEffect(() => {
     // 날짜를 변경하면 첫번째 프로젝트를 선택하고, 첫번째 페이지로 이동
     setSelectedProject(dayList[0]);
@@ -47,7 +48,7 @@ const ProjectList = () => {
       infinite={dayList.length >= 3}
       ref={sliderRef}
     >
-      {dayList?.map((data: any) => {
+      {dayListFilter?.map((data: any) => {
         const cntDevelopers = data.positions.frontend + data.positions.backend;
         const cntDesingers = data.positions.designer;
         const cntPlanners = data.positions.planner;
@@ -59,8 +60,15 @@ const ProjectList = () => {
           >
             <ProjectListCardTextBox>
               <ProjectListCardFindUser>
-                기획 {cntPlanners}명 | 디자이너 {cntDesingers}명 | 개발{' '}
-                {cntDevelopers}명 찾고 있어요!
+                {cntPlanners > 0 && `기획 ${cntPlanners}명 `}
+                {cntPlanners > 0 && cntDesingers > 0 && `| `}
+                {cntPlanners > 0 &&
+                  cntDesingers == 0 &&
+                  cntDevelopers > 0 &&
+                  `| `}
+                {cntDesingers > 0 && `디자이너 ${cntDesingers}명 `}
+                {cntDesingers > 0 && cntDevelopers > 0 && `| `}
+                {cntDevelopers > 0 && `개발 ${cntDevelopers}명`}
               </ProjectListCardFindUser>
               <ProjectListCardProjectName>
                 {data.title}
@@ -161,7 +169,7 @@ const ProjectListCardTextBox = styled.div`
 
 const ProjectListCardFindUser = styled.div`
   width: 16.75rem;
-  height: .875rem;
+  height: 0.875rem;
   font-weight: 400;
   font-size: 10px;
   line-height: 150%;

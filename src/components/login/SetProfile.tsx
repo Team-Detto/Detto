@@ -27,8 +27,7 @@ export default function SetProfile() {
   const { showToast, ToastMessage, handleToastPopup } = useToastPopup();
   const { openModal } = useGlobalModal();
 
-  const user = useAuth();
-  const { uid } = user;
+  const { uid } = useAuth();
 
   const { data: userInfoData }: any = useQuery({
     queryKey: ['users', uid],
@@ -47,8 +46,8 @@ export default function SetProfile() {
 
   // 닉네임  유효성 검사
   const checkValidation = () => {
-    const nameLenght = userInfo.displayName.length;
-    if (nameLenght < 2 || nameLenght > 7) {
+    const nameLength = userInfo.displayName.length;
+    if (nameLength < 2 || nameLength > 7) {
       handleToastPopup('닉네임은 2자 이상 7자 이하로 입력해주세요.');
       return false;
     }

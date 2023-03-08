@@ -1,5 +1,5 @@
 import { MutableRefObject } from 'react';
-import TextEdiotr from 'components/TextEditor';
+import TextEditor from 'components/TextEditor';
 import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
 
@@ -12,7 +12,7 @@ const WritePageMobileFooter = ({ editRef, onOpenButtonClickEvent }: Props) => {
   return (
     <WritePageMobileFooterContainer>
       <WritePageMobileFooterEditBox>
-        <TextEdiotr editRef={editRef} />
+        <TextEditor editRef={editRef} />
       </WritePageMobileFooterEditBox>
       <WritePageMobileFooterCompleatedButton onClick={onOpenButtonClickEvent}>
         <WritePageMobileFooterCompleatedText>
