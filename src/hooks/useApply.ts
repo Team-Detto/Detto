@@ -61,8 +61,6 @@ const useApply = ({ isOpen, onClickEvent, pid }: props) => {
     updateApplicants(
       pid, //pid로 수정
       uid,
-      userData?.displayName,
-      userData?.photoURL,
       skills,
       positionList[clickValue].name,
       motive,
