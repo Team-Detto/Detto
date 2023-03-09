@@ -22,36 +22,43 @@ const MobileApplicantCard = ({ pid, applicant, applicantUid }: any) => {
   });
 
   return (
-    <ApplicantCard>
-      <ProfileImg
-        src={applierInfoData.photoURL}
-        alt={applierInfoData.displayName}
-        referrerPolicy="no-referrer"
-        onClick={() => navigate(`/profile/${applicant.uid}`)}
-      />
-      <UserInfoDiv>
-        <Position>{applicant.position}</Position>
-        <DisplayName>{applierInfoData.displayName}</DisplayName>
-        <Stacks>
-          <UserStacks stacks={applicant.skills} version="mobile"></UserStacks>
-        </Stacks>
-      </UserInfoDiv>
-      <InviteButton
-        onClick={() => {
-          handleModalStateChange();
-          setApplicantKey(applicantUid);
-        }}
-      >
-        팀원으로 초대하기
-      </InviteButton>
-      <InviteModal
-        pid={pid}
-        isOpen={isOpen}
-        applicant={applicant}
-        applicantKey={applicantKey}
-        onClickEvent={handleModalStateChange}
-      />
-    </ApplicantCard>
+    <>
+      {applierInfoData && (
+        <ApplicantCard>
+          <ProfileImg
+            src={applierInfoData?.photoURL}
+            alt={applierInfoData?.displayName}
+            referrerPolicy="no-referrer"
+            onClick={() => navigate(`/profile/${applicant.uid}`)}
+          />
+          <UserInfoDiv>
+            <Position>{applicant?.position}</Position>
+            <DisplayName>{applierInfoData?.displayName}</DisplayName>
+            <Stacks>
+              <UserStacks
+                stacks={applicant?.skills}
+                version="mobile"
+              ></UserStacks>
+            </Stacks>
+          </UserInfoDiv>
+          <InviteButton
+            onClick={() => {
+              handleModalStateChange();
+              setApplicantKey(applicantUid);
+            }}
+          >
+            팀원으로 초대하기
+          </InviteButton>
+          <InviteModal
+            pid={pid}
+            isOpen={isOpen}
+            applicant={applicant}
+            applicantKey={applicantKey}
+            onClickEvent={handleModalStateChange}
+          />
+        </ApplicantCard>
+      )}
+    </>
   );
 };
 
