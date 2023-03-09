@@ -1,4 +1,4 @@
-import { useEffect, useState, memo } from 'react';
+import { useEffect, memo } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateRecruiting } from 'apis/postDetail';
 import { getDate, getDays } from 'utils/date';
@@ -191,7 +191,35 @@ const ContentCardDate = styled.div`
     color: ${COLORS.gray850}; //색상표에 없음
   }
 `;
-const ContentCardBookmark = styled.div``;
+const ContentCardBookmark = styled.div`
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: scale(1.1);
+  }
+  &:active {
+    animation-name: beat;
+    animation-duration: 1000ms;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+    @keyframes beat {
+      0% {
+        transform: rotate(0deg);
+      }
+      25% {
+        transform: rotate(-10deg);
+      }
+      50% {
+        transform: rotate(10deg);
+      }
+      75% {
+        transform: rotate(-10deg);
+      }
+      100% {
+        transform: rotate(0deg);
+      }
+    }
+  }
+`;
 const ContentCardTitle = styled.div`
   width: 21.875rem;
   height: 3.125rem;

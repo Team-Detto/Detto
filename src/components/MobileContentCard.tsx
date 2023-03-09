@@ -1,12 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateRecruiting } from 'apis/postDetail';
-import { firebaseLikeProjectUpdateRequest } from 'apis/boardService';
 import { useAuth, useGlobalModal } from 'hooks';
 import { getDate, getDays } from 'utils/date';
-import { getCurrentPathName, logEvent } from 'utils/amplitude';
 import { EditType } from 'types/write/writeType';
-import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import defaultThumbnail from 'assets/images/thumbnail_mobile.png';
 import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
@@ -23,7 +20,6 @@ const MobileContentCard = ({
   pid,
   project,
   likedProjects,
-  onUpdateLikedCountEvent,
   onNavigateToProjectDetailEvent,
 }: Props) => {
   const {
@@ -36,12 +32,9 @@ const MobileContentCard = ({
     isRecruiting,
     deadline,
   }: any = project;
-  const { uid } = useAuth();
-  const [isLike, setIsLike] = useState<boolean>(false);
   const idList: any[] = [];
   const queryClient = useQueryClient();
   const today = new Date().getTime();
-  const { openModal } = useGlobalModal();
 
   const { mutate: updateRecruitingMutate } = useMutation(
     () => updateRecruiting(id as string, false),
@@ -52,37 +45,11 @@ const MobileContentCard = ({
     },
   );
 
-  const { mutate: updateLikeMutate } = useMutation(
-    () => firebaseLikeProjectUpdateRequest(id, uid),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(['likedProjects', uid]);
-        queryClient.invalidateQueries(['myProjects', uid]);
-        onUpdateLikedCountEvent?.(id);
-      },
-    },
-  );
-
-  const handleUpdateLike = useCallback(() => {
-    if (!uid) {
-      openModal('login', 0);
-      return;
-    }
-    setIsLike(!isLike);
-    updateLikeMutate();
-    logEvent('Button Click', {
-      from: getCurrentPathName(),
-      to: 'none',
-      name: 'like',
-    });
-  }, [isLike, updateLikeMutate, uid]);
-
   useEffect(() => {
     if (today > deadline) {
       idList.push(id);
       updateRecruitingMutate(id, false as any);
     }
-    setIsLike(likedProjects?.includes(id ?? pid) ?? false);
   }, [likedProjects]);
 
   useEffect(() => {
@@ -105,7 +72,9 @@ const MobileContentCard = ({
             alt={title + '프로젝트 썸네일'}
           />
         )}
-        <Likes pid={id} page="card" />
+        <ContentCardLikeBox onClick={(e) => e.stopPropagation()}>
+          <Likes pid={id} page="card" />
+        </ContentCardLikeBox>
       </ContentCardImgContainer>
       <ContentCardContentsContainer
         onClick={onNavigateToProjectDetailEvent(id ?? pid)}
@@ -215,7 +184,7 @@ const DeadLineIcon = styled.div<{ day: number }>`
   color: ${({ day }) => (day <= 3 ? `${COLORS.white}` : `${COLORS.gray400}`)};
 `;
 
-const ContentCardBookmark = styled.button`
+const ContentCardLikeBox = styled.div`
   position: absolute;
   width: 1.5rem;
   height: 1.5rem;
