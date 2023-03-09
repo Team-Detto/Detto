@@ -186,8 +186,10 @@ const DeadLineIcon = styled.div<{ day: number }>`
 
 const ContentCardLikeBox = styled.div`
   position: absolute;
+  width: 1.5rem;
+  height: 1.5rem;
   bottom: 0.25rem;
-  right: 0.25rem;
+  left: 0.25rem;
   transition: transform 0.3s ease;
   &:hover {
     transform: scale(1.1);
