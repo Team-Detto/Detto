@@ -10,6 +10,7 @@ import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import defaultThumbnail from 'assets/images/thumbnail_mobile.png';
 import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
+import Likes from './projectDetail/Likes';
 interface Props {
   pid?: string;
   project: EditType.EditFormType;
@@ -104,18 +105,7 @@ const MobileContentCard = ({
             alt={title + '프로젝트 썸네일'}
           />
         )}
-        <ContentCardBookmark
-          onClick={(e) => {
-            e.stopPropagation();
-            handleUpdateLike();
-          }}
-        >
-          {isLike ? (
-            <AiFillHeart size="1.5rem" color={`${COLORS.pink}`} />
-          ) : (
-            <AiOutlineHeart size="1.5rem" color={`${COLORS.gray750}`} />
-          )}
-        </ContentCardBookmark>
+        <Likes pid={id} page="card" />
       </ContentCardImgContainer>
       <ContentCardContentsContainer
         onClick={onNavigateToProjectDetailEvent(id ?? pid)}
