@@ -11,18 +11,19 @@ const WriterToShareArea = ({ pid, userData, projectData }: any) => {
 
   return (
     <WriterToShareContainer>
-      <WriterWrapper>
+      <WriterWrapper
+        onClick={() => {
+          navigate(`/profile/${uid}`);
+          logEvent('Button Click', {
+            from: `project_detail`, //pahtname으로 설정 시 이동한 페이지로 인식해서 수정
+            to: 'profile',
+            name: 'profile',
+          });
+        }} //작성자 공개 프로필 페이지로 이동
+      >
         <WriterProfileImg
           src={userData?.photoURL}
           alt={userData?.displayName}
-          onClick={() => {
-            navigate(`/profile/${uid}`);
-            logEvent('Button Click', {
-              from: `project_detail`, //pahtname으로 설정 시 이동한 페이지로 인식해서 수정
-              to: 'profile',
-              name: 'profile',
-            });
-          }} //작성자 공개 프로필 페이지로 이동
           referrerPolicy="no-referrer"
         />
         <WriterNickname>{userData?.displayName ?? `닉네임`}</WriterNickname>
@@ -47,6 +48,7 @@ const WriterToShareContainer = styled.div`
 const WriterWrapper = styled.div`
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 const IconWrapper = styled.div`
@@ -62,7 +64,6 @@ const WriterProfileImg = styled.img`
   height: 2rem;
   border-radius: 50%;
   object-fit: cover;
-  cursor: pointer;
 `;
 
 const WriterNickname = styled.p`

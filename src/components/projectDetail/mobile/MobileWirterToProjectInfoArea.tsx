@@ -21,22 +21,24 @@ const WriterToProjectInfoArea = ({ projectData, userData }: any) => {
 
   return (
     <WriterToProjectInfoContainer>
-      <WriterWrapper
-        onClick={() => {
-          navigate(`/profile/${uid}`);
-          logEvent('Button Click', {
-            from: `project_detail`, //pathname으로 하면 이동한페이지로 인식해서 수정
-            to: 'profile',
-            name: 'profile',
-          });
-        }}
-      >
-        <WriterProfileImg
-          src={userData?.photoURL}
-          alt={userData?.displayName}
-          referrerPolicy="no-referrer"
-        />
-        <WriterNickname>{userData?.displayName}</WriterNickname>
+      <WriterWrapper>
+        <WriterBox
+          onClick={() => {
+            navigate(`/profile/${uid}`);
+            logEvent('Button Click', {
+              from: `project_detail`, //pathname으로 하면 이동한페이지로 인식해서 수정
+              to: 'profile',
+              name: 'profile',
+            });
+          }}
+        >
+          <WriterProfileImg
+            src={userData?.photoURL}
+            alt={userData?.displayName}
+            referrerPolicy="no-referrer"
+          />
+          <WriterNickname>{userData?.displayName}</WriterNickname>
+        </WriterBox>
       </WriterWrapper>
       <ProjectInfoWrapper>
         <ProjectInfoObject>
@@ -119,10 +121,14 @@ const WriterToProjectInfoContainer = styled.div`
 `;
 
 const WriterWrapper = styled.div`
-  display: flex;
   margin: 1rem 1.25rem 0 1.25rem;
   height: 2rem;
+`;
+
+const WriterBox = styled.div`
+  display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 const WriterProfileImg = styled.img`
