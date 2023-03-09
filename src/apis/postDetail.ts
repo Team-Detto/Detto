@@ -10,8 +10,9 @@ import {
 } from 'firebase/firestore';
 
 //좋아요 수 업데이트
-export const updateLike = async (pid: any, countLike: any) => {
+export const updateLike = async (pid: string, countLike: number) => {
   if (pid === undefined) return;
+  if (countLike === undefined) return;
   const docRef = doc(firestore, 'post', pid);
   try {
     await updateDoc(docRef, { like: countLike });
