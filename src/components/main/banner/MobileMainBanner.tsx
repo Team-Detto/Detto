@@ -34,6 +34,7 @@ export default MobileMainBanner;
 
 const MobileSliderWrapper = styled(Slider)`
   background-color: ${COLORS.gray50};
+  max-height: 40vh;
 
   .slick-dots {
     position: absolute;
@@ -65,9 +66,11 @@ const MobileSliderWrapper = styled(Slider)`
 const MobileSlideWrapper = styled.div`
   width: 100%;
   overflow: hidden;
+  max-height: 40vh;
 `;
 
 const MobileBannerImg = styled.img`
   width: 100%;
   object-fit: cover;
+  max-height: 40vh;
 `;
