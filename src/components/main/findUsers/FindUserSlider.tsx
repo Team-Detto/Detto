@@ -8,7 +8,7 @@ import Junior from 'assets/images/junior.png';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { staleTime } from 'utils/staleTime';
-import { firebaseRandomActiveUsersRequest } from 'apis/userService';
+import { firebaseActiveUsersRequest } from 'apis/userService';
 import COLORS from 'assets/styles/colors';
 import { getCurrentPathName, logEvent } from 'utils/amplitude';
 
@@ -23,9 +23,9 @@ const settings = {
 
 const FindUserSlider = ({ tap }: { tap: string }) => {
   const { data: users } = useQuery({
-    queryKey: ['users', 'random'],
-    queryFn: firebaseRandomActiveUsersRequest,
-    staleTime: staleTime.randomUsers,
+    queryKey: ['users'],
+    queryFn: firebaseActiveUsersRequest,
+    staleTime: staleTime.users,
   });
 
   if (!users) return null;
@@ -39,31 +39,34 @@ const FindUserSlider = ({ tap }: { tap: string }) => {
 
   return (
     <StyledSlider {...settings} infinite={filteredUsers.length >= 5}>
-      {filteredUsers.map((user: any) => (
-        <Link
-          onClick={() => {
-            logEvent('Visit Page', {
-              from: getCurrentPathName(),
-              to: 'profile',
-              name: 'find_user',
-            });
-          }}
-          to={`/profile/${user.uid}`}
-          key={user.uid}
-        >
-          <Card key={user}>
-            <CardImage
-              src={user.photoURL}
-              alt={user.displayName}
-              referrerPolicy="no-referrer"
-            />
-            <CardNickname>
-              {user.isJunior && <JuniorImage src={Junior} alt="주니어" />}{' '}
-              {user.displayName}
-            </CardNickname>
-          </Card>
-        </Link>
-      ))}
+      {filteredUsers
+        // 랜덤으로 섞기
+        .sort(() => Math.random() - 0.5)
+        .map((user: any) => (
+          <Link
+            onClick={() => {
+              logEvent('Visit Page', {
+                from: getCurrentPathName(),
+                to: 'profile',
+                name: 'find_user',
+              });
+            }}
+            to={`/profile/${user.uid}`}
+            key={user.uid}
+          >
+            <Card key={user}>
+              <CardImage
+                src={user.photoURL}
+                alt={user.displayName}
+                referrerPolicy="no-referrer"
+              />
+              <CardNickname>
+                {user.isJunior && <JuniorImage src={Junior} alt="주니어" />}{' '}
+                {user.displayName}
+              </CardNickname>
+            </Card>
+          </Link>
+        ))}
     </StyledSlider>
   );
 };
@@ -138,7 +141,6 @@ const CardImage = styled.img`
   border-radius: 100%;
   object-fit: cover;
 `;
-
 const CardNickname = styled.div`
   display: flex;
   align-items: center;
@@ -154,7 +156,6 @@ const CardNickname = styled.div`
 
   color: ${COLORS.gray800};
 `;
-
 const JuniorImage = styled.img`
   position: absolute;
   left: -20px;
