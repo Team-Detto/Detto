@@ -15,7 +15,6 @@ const FindProjectPage = () => {
     likedProjects,
     handleToggleClick,
     handleCategoryClick,
-    handleUpdateLikedCount,
     handleNavigateToProjectDetail,
   } = useFindProject();
   const isMobile = useIsMobile();
@@ -38,7 +37,6 @@ const FindProjectPage = () => {
             category={category}
             projects={projects}
             likedProjects={likedProjects}
-            onUpdateLikedCountEvent={handleUpdateLikedCount}
             onNavigateToProjectDetailEvent={handleNavigateToProjectDetail}
           />
         </FindProjectMobilePageContainer>
@@ -64,7 +62,6 @@ const FindProjectPage = () => {
             category={category}
             projects={projects}
             likedProjects={likedProjects}
-            onUpdateLikedCountEvent={handleUpdateLikedCount}
             onNavigateToProjectDetailEvent={handleNavigateToProjectDetail}
           />
         </WebContainer>
