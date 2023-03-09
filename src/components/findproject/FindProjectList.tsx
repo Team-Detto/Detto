@@ -22,12 +22,12 @@ const FindProjectList = ({
   return (
     <FindProjectListContainer>
       {projects
-        .filter((project: any) => project.positions[category] !== 0)
+        .filter((project: any) => project?.positions[category] !== 0)
         .map((project) =>
           !toggle ? (
-            project.isRecruiting && (
+            project?.isRecruiting && (
               <ContentCard
-                key={project.id}
+                key={project?.id}
                 project={project}
                 likedProjects={likedProjects}
                 onUpdateLikedCountEvent={onUpdateLikedCountEvent}
