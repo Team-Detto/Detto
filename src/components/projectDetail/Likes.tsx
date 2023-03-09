@@ -78,14 +78,20 @@ const Likes = ({ pid, version = 'web', page = 'detail' }: Props) => {
       },
     },
   );
+
   useEffect(() => {
     updateMyProjectMutate();
     updateLikeMutate();
-  }, [isLike]);
+  }, [isLike, countLike]);
 
   useEffect(() => {
     setCountLike(projectLike?.like);
   }, [projectLike?.like]);
+
+  // 새로고침 시 myProjects가 늦게 불러와져서 추가한 useEffect
+  useEffect(() => {
+    setIsLike(myProjects?.likedProjects?.includes(pid));
+  }, [myProjects?.likedProjects]);
 
   return (
     <IconButton
