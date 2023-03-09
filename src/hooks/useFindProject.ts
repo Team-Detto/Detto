@@ -1,13 +1,10 @@
-import { useEffect, useState, useCallback, MouseEvent } from 'react';
+import { useEffect, useState, MouseEvent } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
 import { useRecoilState } from 'recoil';
 import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 import { useAuth } from 'hooks';
-import {
-  firebaseGetLikedCountRequest,
-  firebaseInfinityScrollProjectDataRequest,
-} from 'apis/boardService';
+import { firebaseInfinityScrollProjectDataRequest } from 'apis/boardService';
 import { firebaseFindMyInterestRequest } from 'apis/userService';
 import { findProjectCategoryState } from '../recoil/atoms';
 import { EditType } from 'types/write/writeType';
@@ -21,7 +18,6 @@ const useFindProject = () => {
   const { uid } = useAuth();
 
   const [projects, setProjects] = useState<EditType.EditFormType[]>([]);
-  const [lastVisible, setLastVisible] = useState<any>(undefined);
   const [category, setCategory] = useRecoilState(findProjectCategoryState);
   const [toggle, setToggle] = useState<boolean>(false);
 
@@ -33,13 +29,22 @@ const useFindProject = () => {
     suspense: true,
   });
 
-  useEffect(() => {
-    firebaseInfinityScrollProjectDataRequest(
-      setProjects,
-      lastVisible,
-      setLastVisible,
-    );
+  const { fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
+    ['post'],
+    firebaseInfinityScrollProjectDataRequest,
+    {
+      getNextPageParam: (lastPage) => lastPage[lastPage.length - 1]?.createdAt,
+      onSuccess: (data) => {
+        setProjects(() => [...data.pages.flat()]);
+      },
+    },
+  );
 
+  useBottomScrollListener(() => {
+    if (!isFetchingNextPage && hasNextPage) fetchNextPage();
+  });
+
+  useEffect(() => {
     window.onbeforeunload = () => {
       window.scrollTo(0, 0);
     };
@@ -50,18 +55,6 @@ const useFindProject = () => {
       setCategory(categoryFromFooter);
     }
   }, [categoryFromFooter]);
-
-  useBottomScrollListener(
-    useCallback(() => {
-      if (lastVisible) {
-        firebaseInfinityScrollProjectDataRequest(
-          setProjects,
-          lastVisible,
-          setLastVisible,
-        );
-      }
-    }, [lastVisible]),
-  );
 
   const handleCategoryClick = (e: MouseEvent<HTMLButtonElement>) => {
     const { name } = e.target as HTMLButtonElement;
@@ -91,15 +84,6 @@ const useFindProject = () => {
     navigate(`/project/${path}`);
   };
 
-  const handleUpdateLikedCount = useCallback(async (id: string) => {
-    const likeCount = await firebaseGetLikedCountRequest(id);
-    setProjects((prev) =>
-      prev.map((project) =>
-        project.id === id ? { ...project, like: likeCount } : project,
-      ),
-    );
-  }, []);
-
   return {
     toggle,
     projects,
@@ -107,7 +91,6 @@ const useFindProject = () => {
     likedProjects,
     handleToggleClick,
     handleCategoryClick,
-    handleUpdateLikedCount,
     handleNavigateToProjectDetail,
   };
 };
