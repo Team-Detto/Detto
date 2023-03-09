@@ -1,30 +1,21 @@
-import { useCallback, useEffect, useState, memo } from 'react';
+import { useEffect, useState, memo } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateRecruiting } from 'apis/postDetail';
-import { firebaseLikeProjectUpdateRequest } from 'apis/boardService';
-import { useAuth, useGlobalModal } from 'hooks';
 import { getDate, getDays } from 'utils/date';
 import { concatSkills } from 'utils/skills';
-import { getCurrentPathName, logEvent } from 'utils/amplitude';
 import { EditType } from 'types/write/writeType';
-import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import defaultThumbnail from 'assets/images/thumbnail_small.webp';
 import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
+import Likes from './projectDetail/Likes';
 
 interface Props {
   project: EditType.EditFormType;
   likedProjects: string[];
-  onUpdateLikedCountEvent?: (id: string) => void;
   onNavigateToProjectDetailEvent: (path: string) => () => void;
 }
 
-const ContentCard = ({
-  project,
-  likedProjects,
-  onUpdateLikedCountEvent,
-  onNavigateToProjectDetailEvent,
-}: Props) => {
+const ContentCard = ({ project, onNavigateToProjectDetailEvent }: Props) => {
   const {
     id,
     title,
@@ -38,11 +29,8 @@ const ContentCard = ({
     isRecruiting,
     deadline,
   }: any = project;
-  const { uid } = useAuth();
-  const [isLike, setIsLike] = useState<boolean>(false);
   const stacks = concatSkills(plannerStack, designerStack, developerStack);
   const queryClient = useQueryClient();
-  const { openModal } = useGlobalModal();
 
   const { mutate: updateRecruitingMutate } = useMutation(
     () => updateRecruiting(id as string, false),
@@ -54,38 +42,12 @@ const ContentCard = ({
     },
   );
 
-  const { mutate: updateLikeMutate } = useMutation(
-    () => firebaseLikeProjectUpdateRequest(id, uid),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(['likedProjects', uid]);
-        queryClient.invalidateQueries(['myProjects', uid]);
-        onUpdateLikedCountEvent?.(id);
-      },
-    },
-  );
-
-  const handleUpdateLike = useCallback(() => {
-    if (!uid) {
-      openModal('login', 0);
-      return;
-    }
-    setIsLike(!isLike);
-    updateLikeMutate();
-    logEvent('Button Click', {
-      from: getCurrentPathName(),
-      to: 'none',
-      name: 'like',
-    });
-  }, [isLike, updateLikeMutate, uid]);
-
   const today: any = Date.now();
   useEffect(() => {
     if (today > deadline) {
       updateRecruitingMutate(id, false as any);
     }
-    setIsLike(likedProjects?.includes(id) ?? false);
-  }, [likedProjects]);
+  }, []);
 
   const day = Number(getDays(deadline - today));
   return (
@@ -111,17 +73,7 @@ const ContentCard = ({
             프로젝트 시작일 | <span> {getDate(startDate)}</span>
           </ContentCardDate>
           <ContentCardBookmark>
-            <ContentCardLikeButton
-              id={`${isLike ? 'like' : 'unlike'} ${id}`}
-              aria-label={isLike ? 'like' : 'unlike'}
-              onClick={handleUpdateLike}
-            >
-              {isLike ? (
-                <AiFillHeart size="1.5rem" color={`${COLORS.pink}`} />
-              ) : (
-                <AiOutlineHeart size="1.5rem" color={`${COLORS.gray750}`} />
-              )}
-            </ContentCardLikeButton>
+            <Likes pid={id} page="card" />
           </ContentCardBookmark>
         </ContentCardDateContainer>
         <ContentCardTitle onClick={onNavigateToProjectDetailEvent(id)}>
@@ -294,37 +246,6 @@ const ContentCardStackButton = styled.div`
   font-size: 0.75rem;
   line-height: 2rem;
   color: ${COLORS.black};
-`;
-const ContentCardLikeButton = styled.button`
-  transition: transform 0.3s ease;
-  &:hover {
-    transform: scale(1.2);
-  }
-  &:active {
-    animation-name: beat;
-    animation-duration: 1000ms;
-    animation-iteration-count: 1;
-    animation-timing-function: ease-in-out;
-    @keyframes beat {
-      0% {
-        transform: rotate(0deg);
-      }
-      25% {
-        transform: rotate(-10deg);
-      }
-      50% {
-        transform: rotate(10deg);
-      }
-      75% {
-        transform: rotate(-10deg);
-      }
-      100% {
-        transform: rotate(0deg);
-      }
-    }
-  }
-
-  margin-top: 0.5rem;
 `;
 
 export default memo(ContentCard);

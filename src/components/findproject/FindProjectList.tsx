@@ -7,7 +7,6 @@ interface Props {
   toggle: boolean;
   category: string;
   likedProjects: string[];
-  onUpdateLikedCountEvent: (id: string) => void;
   onNavigateToProjectDetailEvent: (path: string) => () => void;
 }
 
@@ -16,7 +15,6 @@ const FindProjectList = ({
   toggle,
   category,
   likedProjects,
-  onUpdateLikedCountEvent,
   onNavigateToProjectDetailEvent,
 }: Props) => {
   return (
@@ -30,7 +28,6 @@ const FindProjectList = ({
                 key={project.id}
                 project={project}
                 likedProjects={likedProjects}
-                onUpdateLikedCountEvent={onUpdateLikedCountEvent}
                 onNavigateToProjectDetailEvent={onNavigateToProjectDetailEvent}
               />
             )
@@ -39,7 +36,6 @@ const FindProjectList = ({
               key={project.id}
               project={project}
               likedProjects={likedProjects}
-              onUpdateLikedCountEvent={onUpdateLikedCountEvent}
               onNavigateToProjectDetailEvent={onNavigateToProjectDetailEvent}
             />
           ),
