@@ -4,6 +4,7 @@ export const staleTime = {
   notifications: 1000 * 60 * 1, // 1분 (로그인한 사용자의 받은 알림)
   user: 1000 * 60 * 1, // 1분 (단일 유저 ['users', uid])
   users: 1000 * 60 * 3, // 3분 (전체 유저 ['users'])
+  randomUsers: 1000 * 60 * 10, // 10분 (랜덤 유저 ['users', 'random'])
   myProjects: 1000 * 60 * 1, // 1분 (공개프로필/마이페이지 프로젝트 ['myProjects'])
   mostViewedPosts: 1000 * 60 * 5, // 5분 (인기 포스트 ['posts', 'mostViewed'])
   mostLikedPosts: 1000 * 60 * 5, // 5분 (인기 포스트 ['posts', 'mostLiked'])
