@@ -69,7 +69,7 @@ const MobileInviteModal = ({
             )}
           </StackDiv>
           <NickNameDiv>
-            <NickName>{applierInfoData.displayName} 님을</NickName>
+            <NickName>{applierInfoData?.displayName} 님을</NickName>
             <NickName>팀원으로 초대할까요?</NickName>
             <MotiveDiv>
               <MotiveTitle>지원 동기</MotiveTitle>
