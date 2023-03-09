@@ -30,7 +30,7 @@ const useFindProject = () => {
   });
 
   const { fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
-    ['post'],
+    ['post', 'findProject'],
     firebaseInfinityScrollProjectDataRequest,
     {
       getNextPageParam: (lastPage) => lastPage[lastPage.length - 1]?.createdAt,
