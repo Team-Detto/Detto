@@ -6,10 +6,20 @@ import { updateLike, updateMyProject } from '../../apis/postDetail'; //여기서
 import { findWithCollectionName } from 'apis/findWithCollectionName';
 import { useAuth, useGlobalModal } from 'hooks';
 import COLORS from 'assets/styles/colors';
-import { amplitudeToNoneButtonClick } from 'utils/amplitude';
+import {
+  amplitudeToNoneButtonClick,
+  getCurrentPathName,
+} from 'utils/amplitude';
 import { staleTime } from 'utils/staleTime';
+import { logEvent } from '@amplitude/analytics-browser';
 
-const Likes = ({ pid, version = 'web' }: any) => {
+interface Props {
+  pid: string;
+  version?: string;
+  page?: string;
+}
+
+const Likes = ({ pid, version = 'web', page = 'detail' }: Props) => {
   const { uid } = useAuth();
   const { openModal } = useGlobalModal();
 
@@ -22,6 +32,11 @@ const Likes = ({ pid, version = 'web' }: any) => {
       setIsLike(true);
       setCountLike(countLike + 1);
     }
+    logEvent('Button Click', {
+      from: getCurrentPathName(),
+      to: 'none',
+      name: 'like',
+    });
   };
 
   //좋아요한 프로젝트 조회
@@ -90,7 +105,7 @@ const Likes = ({ pid, version = 'web' }: any) => {
       ) : (
         <LineHeart version={version} />
       )}
-      관심 {countLike ?? ' 0'}
+      <>{page === 'detail' && <span>관심 {countLike ?? ' 0'}</span>}</>
     </IconButton> // 로그아웃인 경우 관심 버튼 클릭 시 likedProjects에 데이터가 없어서 로직 에러 발생: 예외처리 필요
   );
 };
