@@ -4,18 +4,44 @@ import Likes from './Likes';
 import Share from './Share';
 import styled from '@emotion/styled';
 import { logEvent } from 'utils/amplitude';
+import COLORS from 'assets/styles/colors';
+import { HiMail } from 'react-icons/hi';
+import { modalTypes } from 'components/common/modal/modal';
+import { useAuth, useGlobalModal } from 'hooks';
 
 const WriterToShareArea = ({ pid, userData, projectData }: any) => {
-  const { uid, title, content, view, thumbnail } = projectData;
+  const {
+    uid: receiverUid,
+    title,
+    content,
+    view,
+    like,
+    thumbnail,
+  } = projectData;
   const navigate = useNavigate();
+  const { uid: SenderUid } = useAuth(); //보내는 사람 id
+  // const { id } = useParams(); //받는사람 id
+  const { openModalWithData, openModal } = useGlobalModal();
+
+  const handleSendNoteButtonClick = () => {
+    openModalWithData(modalTypes.sendNote, {
+      id: 'id', //addDoc이라 id 필요없음
+      senderUid: SenderUid,
+      receiverUid: receiverUid,
+      date: 0,
+      title: '',
+      content: '',
+      isRead: false,
+    });
+  };
 
   return (
     <WriterToShareContainer>
       <WriterWrapper
         onClick={() => {
-          navigate(`/profile/${uid}`);
+          navigate(`/profile/${receiverUid}`);
           logEvent('Button Click', {
-            from: `project_detail`, //pahtname으로 설정 시 이동한 페이지로 인식해서 수정
+            from: `project_detail`, //pathname으로 설정 시 이동한 페이지로 인식해서 수정
             to: 'profile',
             name: 'profile',
           });
@@ -27,6 +53,20 @@ const WriterToShareArea = ({ pid, userData, projectData }: any) => {
           referrerPolicy="no-referrer"
         />
         <WriterNickname>{userData?.displayName ?? `닉네임`}</WriterNickname>
+
+        {receiverUid !== SenderUid && (
+          <SendNoteButton
+            onClick={() => {
+              if (!SenderUid) {
+                openModal('login', 0);
+                return;
+              }
+              handleSendNoteButtonClick();
+            }}
+          >
+            <NoteIcon className="note" />
+          </SendNoteButton>
+        )}
       </WriterWrapper>
       <IconWrapper>
         <Views pid={pid} view={view} />
@@ -71,4 +111,21 @@ const WriterNickname = styled.p`
   display: flex;
   align-items: center;
   margin-left: 0.5rem;
+`;
+
+const SendNoteButton = styled.button<{ page?: string }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.3rem 0 0 0.5rem;
+  cursor: pointer;
+  transform: all 300ms ease-in-out;
+  > .note :hover {
+    background-color: ${COLORS.black};
+  }
+`;
+
+const NoteIcon = styled(HiMail)`
+  font-size: 1.5rem;
+  color: ${COLORS.violetB300};
 `;
