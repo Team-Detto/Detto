@@ -10,8 +10,14 @@ import { useEffect, useState } from 'react';
 import InviteModal from './InviteModals/InviteModal';
 import { useModal } from 'hooks';
 import { allowScroll, preventScroll } from 'utils/modal';
+import { DocumentData } from 'firebase/firestore';
 
-const ApplicantListArea = ({ projectData, pid }: any) => {
+interface ApplicantListAreaProps {
+  projectData: DocumentData;
+  pid: string;
+}
+
+const ApplicantListArea = ({ projectData, pid }: ApplicantListAreaProps) => {
   const { applicants } = projectData;
   const [clickApplicant, setClickApplicant] = useState('');
   const { isOpen, handleModalStateChange } = useModal(false);

@@ -2,14 +2,26 @@ import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import MobileApplicantCard from './MobileApplicantCard';
 
-const MobileApplicantsList = ({ pid, applicants }: any) => {
+interface Applicants {
+  [key: string]: any;
+  recruit: boolean;
+}
+interface MobileApplicantsListProps {
+  pid: string;
+  applicants: Applicants;
+}
+
+const MobileApplicantsList = ({
+  pid,
+  applicants,
+}: MobileApplicantsListProps) => {
   let count = 0;
   return (
     <ApplicantsListWrapper>
       <ApplicantsListTitle>지원자 목록</ApplicantsListTitle>
       <ApplicantsListContainer>
         {applicants &&
-          Object.keys(applicants).map((key: any) => {
+          Object.keys(applicants).map((key: string) => {
             if (applicants[key]?.recruit === false) {
               count += 1;
               return (
