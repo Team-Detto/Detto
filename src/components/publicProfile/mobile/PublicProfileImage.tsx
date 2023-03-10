@@ -40,7 +40,7 @@ const PublicProfileImage = ({ userInfoData, photoURL }: any) => {
               handleSendNoteButtonClick();
             }}
           >
-            <EditIcon />
+            <NoteIcon />
           </SendNoteButton>
         )}
       </UserImageBox>
@@ -87,7 +87,7 @@ const SendNoteButton = styled.button<{ page?: string }>`
   }
 `;
 
-const EditIcon = styled(HiMail)`
+const NoteIcon = styled(HiMail)`
   font-size: 1.5rem;
   color: ${COLORS.white};
 `;
