@@ -37,23 +37,24 @@ const WriterToShareArea = ({ pid, userData, projectData }: any) => {
 
   return (
     <WriterToShareContainer>
-      <WriterWrapper
-        onClick={() => {
-          navigate(`/profile/${receiverUid}`);
-          logEvent('Button Click', {
-            from: `project_detail`, //pathname으로 설정 시 이동한 페이지로 인식해서 수정
-            to: 'profile',
-            name: 'profile',
-          });
-        }} //작성자 공개 프로필 페이지로 이동
-      >
-        <WriterProfileImg
-          src={userData?.photoURL}
-          alt={userData?.displayName}
-          referrerPolicy="no-referrer"
-        />
-        <WriterNickname>{userData?.displayName ?? `닉네임`}</WriterNickname>
-
+      <WriterContainer>
+        <WriterWrapper
+          onClick={() => {
+            navigate(`/profile/${receiverUid}`);
+            logEvent('Button Click', {
+              from: `project_detail`, //pathname으로 설정 시 이동한 페이지로 인식해서 수정
+              to: 'profile',
+              name: 'profile',
+            });
+          }} //작성자 공개 프로필 페이지로 이동
+        >
+          <WriterProfileImg
+            src={userData?.photoURL}
+            alt={userData?.displayName}
+            referrerPolicy="no-referrer"
+          />
+          <WriterNickname>{userData?.displayName ?? `닉네임`}</WriterNickname>
+        </WriterWrapper>
         {receiverUid !== SenderUid && (
           <SendNoteButton
             onClick={() => {
@@ -67,7 +68,7 @@ const WriterToShareArea = ({ pid, userData, projectData }: any) => {
             <NoteIcon className="note" />
           </SendNoteButton>
         )}
-      </WriterWrapper>
+      </WriterContainer>
       <IconWrapper>
         <Views pid={pid} view={view} />
         <Likes pid={pid} />
@@ -83,6 +84,12 @@ const WriterToShareContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 2.125rem;
+`;
+
+const WriterContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 1rem 1.25rem 0 1.25rem;
 `;
 
 const WriterWrapper = styled.div`
