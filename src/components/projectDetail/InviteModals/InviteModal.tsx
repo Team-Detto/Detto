@@ -110,7 +110,6 @@ const InviteModal = ({
         onClickEvent={onClickEvent}
         inviteFunction={inviteFunction}
         onAlertClickEvent={onAlertClickEvent}
-        invitedProjectMutate={invitedProjectMutate} //applicants 데이터 변경
       />
     );
   }

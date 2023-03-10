@@ -7,8 +7,9 @@ import { Viewer } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 import Prism from 'prismjs';
+import { DocumentData } from 'firebase/firestore';
 
-const ContentArea = ({ projectData }: any) => {
+const ContentArea = ({ projectData }: DocumentData) => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
   useEffect(() => {

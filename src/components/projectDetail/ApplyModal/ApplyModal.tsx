@@ -12,7 +12,7 @@ import useApply from 'hooks/useApply';
 interface props {
   isOpen: boolean;
   onClickEvent: () => void;
-  positions: Object;
+  positions: string[];
   pid: string;
 }
 
@@ -73,7 +73,6 @@ const ApplyModal = ({ isOpen, onClickEvent, positions, pid }: props) => {
               motive={motive}
               clickValue={clickValue}
               handleToastPopup={handleToastPopup}
-              onClickEvent={onClickEvent}
               onAlertClickEvent={onAlertClickEvent}
               handleResetButtonClick={handleResetButtonClick}
             />

@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
+import { DocumentData } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { logEvent } from 'utils/amplitude';
 import ParticipantsProfile from '../ParticipantsProfile';
 
-const MobileMemberInfoArea = ({ applicantsData }: any) => {
+const MobileMemberInfoArea = ({ applicantsData }: DocumentData) => {
   const navigate = useNavigate();
   if (applicantsData === undefined) applicantsData = {};
 

@@ -1,8 +1,17 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import { MobileNoteIcon } from 'components/MobileHeader';
+import { DocumentData } from 'firebase/firestore';
 import UserPositions from './UserPositions';
 import UserStacks from './UserStacks';
+
+interface UserProfileBoxProps {
+  userInfoData: DocumentData;
+  uid: string;
+  openModal: (modalName: string, modalIndex: number) => void;
+  handleSendNoteButtonClick: () => void;
+  stacks: string[];
+}
 
 const UserProfileBox = ({
   userInfoData,
@@ -10,7 +19,7 @@ const UserProfileBox = ({
   openModal,
   handleSendNoteButtonClick,
   stacks,
-}: any) => {
+}: UserProfileBoxProps) => {
   return (
     <ProfileBox>
       <ProfileImgBox>

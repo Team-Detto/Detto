@@ -7,6 +7,16 @@ import MobileAlert from 'components/common/mobile/MobileAlert';
 import { amplitudeToNoneButtonClick } from 'utils/amplitude';
 import { staleTime } from 'utils/staleTime';
 
+interface MobileInviteModalProps {
+  pid: string;
+  isOpen: boolean;
+  applicant: any;
+  isAlertOpen: boolean;
+  onClickEvent: () => void;
+  inviteFunction: () => void;
+  onAlertClickEvent: () => void;
+}
+
 const MobileInviteModal = ({
   pid,
   isOpen,
@@ -15,7 +25,7 @@ const MobileInviteModal = ({
   onClickEvent,
   inviteFunction,
   onAlertClickEvent,
-}: any) => {
+}: MobileInviteModalProps) => {
   const queryClient = useQueryClient();
   const { mutate: MobileInvitedProjectMutate } = useMutation(
     () => updateAppliedProject(applicant?.uid, pid, true),

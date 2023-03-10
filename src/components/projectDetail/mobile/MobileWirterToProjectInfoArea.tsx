@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import { modalTypes } from 'components/common/modal/modal';
+import { DocumentData } from 'firebase/firestore';
 import { useAuth, useGlobalModal } from 'hooks';
 import { HiMail } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +9,15 @@ import { logEvent } from 'utils/amplitude';
 import { getDate } from 'utils/date';
 import { positionList } from 'utils/positions';
 
-const WriterToProjectInfoArea = ({ projectData, userData }: any) => {
+interface WriterToProjectInfoContainerProps {
+  projectData: DocumentData;
+  userData: DocumentData;
+}
+
+const WriterToProjectInfoArea = ({
+  projectData,
+  userData,
+}: WriterToProjectInfoContainerProps) => {
   const {
     uid: receiverUid,
     positions,

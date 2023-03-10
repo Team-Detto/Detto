@@ -4,15 +4,11 @@ import { SkillIcon, SkillIconWrapper } from 'components/common/SkillButton';
 
 interface UserStacksProps {
   stacks: string[];
-  version?: 'mobile' | 'desktop';
+  version?: 'mobile' | 'web';
   isItem?: boolean;
 }
 
-const UserStacks = ({
-  stacks,
-  isItem,
-  version = 'desktop',
-}: UserStacksProps) => {
+const UserStacks = ({ stacks, isItem, version = 'web' }: UserStacksProps) => {
   if (version === 'mobile') {
     return (
       <MobileStackList>
