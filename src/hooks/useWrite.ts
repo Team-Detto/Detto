@@ -188,6 +188,11 @@ const useWrite = () => {
     handleModalOpenChange();
   };
 
+  const preventRefresh = (e: BeforeUnloadEvent) => {
+    e.preventDefault();
+    e.returnValue = '';
+  };
+
   const handlePreventGoBack = useCallback(() => {
     handleModalCloseChange();
     window.removeEventListener('popstate', preventGoBack);
@@ -198,10 +203,12 @@ const useWrite = () => {
     (() => {
       history.pushState(null, '', location.href);
       window.addEventListener('popstate', preventGoBack);
+      window.addEventListener('beforeunload', preventRefresh);
     })();
 
     return () => {
       window.removeEventListener('popstate', preventGoBack);
+      window.removeEventListener('beforeunload', preventRefresh);
     };
   }, []);
 
