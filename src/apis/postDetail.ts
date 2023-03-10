@@ -61,7 +61,7 @@ export const updateAppliedProject = async (
 export const updateApplicants = async (
   pid: string,
   uid: string,
-  skills: any,
+  skills: string[],
   position: string,
   motive: string,
   recruit?: boolean,
@@ -109,14 +109,17 @@ export const deleteProject = async (pid: string) => {
 };
 
 //모집중, 모집마감 업데이트
-export const updateRecruiting = async (pid: string, isRecruiting: any) => {
+export const updateRecruiting = async (pid: string, isRecruiting: boolean) => {
   if (pid === undefined) return;
   const docRef = doc(firestore, 'post', pid);
   await updateDoc(docRef, { isRecruiting: isRecruiting });
 };
 
 // 지원 여부 확인
-export const firebaseGetIsApplicantRequest = async (pid: any, uid: string) => {
+export const firebaseGetIsApplicantRequest = async (
+  pid: string,
+  uid: string,
+) => {
   const postDocRef = doc(firestore, 'post', pid);
   const docSnap = await getDoc(postDocRef);
   const applicants = docSnap.data()?.applicants;

@@ -13,9 +13,12 @@ import {
   ref,
   uploadBytes,
 } from 'firebase/storage';
+import { QueryFunctionContext } from '@tanstack/react-query';
 
 // 유저 프로필 기본정보 조회
-export const getUserInfoData = async (params: any) => {
+export const getUserInfoData = async (
+  params: QueryFunctionContext<[string, string]>,
+) => {
   const uid = params.queryKey[1];
 
   const docRef = doc(firestore, 'users', `${uid}`);
@@ -70,7 +73,9 @@ export const updateUserInfoData = async (uid: string, userInfo: UserInfo) => {
 };
 
 // 유저의 프로젝트 리스트 조회
-export const getUserProjectList = async (params: any) => {
+export const getUserProjectList = async (
+  params: QueryFunctionContext<[string, string]>,
+) => {
   const uid = params.queryKey[1];
 
   const docRef = doc(firestore, 'myprojects', `${uid}`);

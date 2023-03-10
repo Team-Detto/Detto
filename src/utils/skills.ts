@@ -44,9 +44,9 @@ export const designs: string[] = [
 
 // 기술 스택 하나로 합치는 함수
 export const concatSkills = (
-  stack1: any,
-  stack2: any,
-  stack3: any,
+  stack1: string[],
+  stack2: string[],
+  stack3: string[],
 ): string[] => {
-  return Array.from(new Set([].concat(stack1, stack2, stack3))); // 중복 제거
+  return Array.from(new Set(([] as string[]).concat(stack1, stack2, stack3))); // 중복 제거
 };

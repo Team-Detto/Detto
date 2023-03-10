@@ -39,12 +39,12 @@ const ApplicantCard = ({
         <PositionDiv>{applicant?.position}</PositionDiv>
         <StackContainer>
           <StackWrap>
-            {applicant?.skills.slice(0, 3).map((skill: any) => {
+            {applicant?.skills.slice(0, 3).map((skill: string) => {
               return <StackDiv key={skill}>{skill}</StackDiv>;
             })}
           </StackWrap>
           <StackWrap>
-            {applicant?.skills.slice(3, 6).map((skill: any) => {
+            {applicant?.skills.slice(3, 6).map((skill: string) => {
               return <StackDiv key={skill}>{skill}</StackDiv>;
             })}
           </StackWrap>

@@ -1,12 +1,15 @@
 import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
 import { firestore } from 'apis/firebaseService';
+import { QueryFunctionContext } from '@tanstack/react-query';
 
 /**
  * uid를 이용해 받은 쪽지 목록 조회
  * @param params useQuery Params
  * @returns 사용자가 받은 쪽지를 시간 내림차순으로 정렬한 배열
  */
-export const getInboxNotes = async (params: any) => {
+export const getInboxNotes = async (
+  params: QueryFunctionContext<[string, string]>,
+) => {
   const uid = params.queryKey[1];
   const docRef = collection(firestore, `notes`);
   const q = query(
@@ -24,7 +27,9 @@ export const getInboxNotes = async (params: any) => {
  * @param params useQuery Params
  * @returns 사용자가 보낸 쪽지를 시간 내림차순으로 정렬한 배열
  */
-export const getOutboxNotes = async (params: any) => {
+export const getOutboxNotes = async (
+  params: QueryFunctionContext<[string, string]>,
+) => {
   const uid = params.queryKey[1];
   const docRef = collection(firestore, `notes`);
   const q = query(
