@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 
 interface Props {
   editRef: MutableRefObject<any>;
-  editFormValue: any;
+  editFormValue: EditType.EditFormType;
   onModalStateChangeEvent: () => void;
 }
 

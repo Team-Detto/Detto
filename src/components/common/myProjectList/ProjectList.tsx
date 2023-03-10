@@ -2,7 +2,6 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import styled from '@emotion/styled';
 import { useFindProject, useProjectList } from 'hooks';
 import ProjectItem from './ProjectItem';
-import { EditType } from 'types/write/writeType';
 import COLORS from 'assets/styles/colors';
 import { staleTime } from 'utils/staleTime';
 import { getProjectIdList } from 'apis/mypageUsers';

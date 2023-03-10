@@ -5,7 +5,7 @@ import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
 
 interface Props {
-  positions: any;
+  positions: Position.Developers | any;
   onFormValueChangeEvent: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 

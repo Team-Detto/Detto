@@ -1,5 +1,4 @@
 import { ChangeEvent, RefObject } from 'react';
-import { WriteType } from 'types/write/writeType';
 import WritePageStack from './WritePageStack';
 import WritePagePosition from './WritePagePosition';
 import WritePagePeriod from './WritePagePeriod';
