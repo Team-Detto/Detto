@@ -10,7 +10,6 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { firebaseEditProjectRequest } from 'apis/boardService';
 import { useModal, useToastPopup } from 'hooks';
-import { EditType } from 'types/write/writeType';
 import { getCurrentPathName, logEvent } from 'utils/amplitude';
 import {
   contentValidation,
@@ -30,6 +29,8 @@ const useEditBoard = () => {
 
   const editRef = useRef<any>(null);
   const imageRef = useRef<any>(null);
+
+  console.log(imageRef);
 
   const [editFormValue, setEditFormValue] = useState<EditType.EditFormType>(
     state || JSON.parse(sessionStorage.getItem('editFormValue') || '{}'),
@@ -53,7 +54,7 @@ const useEditBoard = () => {
   const { showToast, ToastMessage, handleToastPopup } = useToastPopup();
 
   const { mutate: editProjectRequest } = useMutation(
-    (resizedFile: any) =>
+    (resizedFile: File | null) =>
       firebaseEditProjectRequest(
         params.id as string,
         editFormValue,
@@ -136,11 +137,11 @@ const useEditBoard = () => {
       return;
     }
     const resizedFile = await resizeFile(editThumbnail);
-    editProjectRequest(resizedFile);
+    editProjectRequest(resizedFile as File);
   };
 
   const handleAddThumbnailImage = useCallback(() => {
-    imageRef.current.click();
+    imageRef.current?.click();
     logEvent('Button Click', {
       from: getCurrentPathName(),
       to: 'project_detail',
@@ -188,7 +189,7 @@ const useEditBoard = () => {
       const numberValue = Number(value);
       const updatedValue =
         id === 'plus' ? numberValue + 1 : Math.max(0, numberValue - 1);
-      setEditFormValue((prev: any) => ({
+      setEditFormValue((prev: EditType.EditFormType) => ({
         ...prev,
         positions: {
           ...prev.positions,

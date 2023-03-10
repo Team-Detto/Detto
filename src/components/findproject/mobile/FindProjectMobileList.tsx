@@ -1,5 +1,4 @@
 import MobileContentCard from 'components/MobileContentCard';
-import { EditType } from 'types/write/writeType';
 import styled from '@emotion/styled';
 
 interface Props {

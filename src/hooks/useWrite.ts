@@ -9,7 +9,6 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useAuth, useModal, useToastPopup } from 'hooks';
 import { firebaseCreateProjectRequest } from 'apis/boardService';
-import { WriteType } from 'types/write/writeType';
 import { getCurrentPathName, logEvent } from 'utils/amplitude';
 import {
   titleValidation,
@@ -108,7 +107,7 @@ const useWrite = () => {
       const docId = await firebaseCreateProjectRequest(
         writeFormValue,
         markdownText,
-        resizedImage,
+        resizedImage as File,
         uid,
       );
       logEvent('Button Click', {
@@ -172,7 +171,7 @@ const useWrite = () => {
       const numberValue = Number(value);
       const updatedValue =
         id === 'plus' ? numberValue + 1 : Math.max(0, numberValue - 1);
-      setWriteFormValue((prev: any) => ({
+      setWriteFormValue((prev: WriteType.WriteFormType) => ({
         ...prev,
         positions: {
           ...prev.positions,

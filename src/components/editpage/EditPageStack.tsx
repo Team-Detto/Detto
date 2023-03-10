@@ -1,5 +1,4 @@
 import { products, develops, designs } from 'utils/skills';
-import { EditType } from 'types/write/writeType';
 import SkillButton from 'components/common/SkillButton';
 import styled from '@emotion/styled';
 

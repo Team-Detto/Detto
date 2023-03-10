@@ -6,12 +6,11 @@ import EditPageMobileDeadline from './EditPageMobileDeadline';
 import EditPageMobileThumbnail from './EditPageMobileThumbnail';
 import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
-import { EditType } from 'types/write/writeType';
 
 interface Props {
   imageRef: RefObject<HTMLInputElement>;
   editFormValue: EditType.EditFormType;
-  setEditFormValue: (value: any) => void;
+  setEditFormValue: (value: EditType.EditFormType) => void;
   onCalculateEvent: (e: MouseEvent<HTMLButtonElement>) => void;
   onFormValueChangeEvent: (e: ChangeEvent<HTMLInputElement>) => void;
   onAddThumbnailImageChangeEvent: () => void;

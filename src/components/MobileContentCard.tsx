@@ -3,7 +3,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateRecruiting } from 'apis/postDetail';
 import { useAuth, useGlobalModal } from 'hooks';
 import { getDate, getDays } from 'utils/date';
-import { EditType } from 'types/write/writeType';
 import defaultThumbnail from 'assets/images/thumbnail_mobile.png';
 import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';

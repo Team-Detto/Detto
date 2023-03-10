@@ -1,5 +1,4 @@
 import { ChangeEvent, Dispatch, useState } from 'react';
-import { EditType } from 'types/write/writeType';
 
 interface Props {
   plannerStack: string[];

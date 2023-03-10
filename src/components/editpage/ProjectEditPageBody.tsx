@@ -1,5 +1,4 @@
 import { ChangeEvent, RefObject } from 'react';
-import { EditType } from 'types/write/writeType';
 import EditPagePosition from './EditPagePosition';
 import EditPageStack from './EditPageStack';
 import COLORS from 'assets/styles/colors';

@@ -3,7 +3,6 @@ import {
   WritePageBodyText,
   WritePageBodyDateInput,
 } from './ProjectWritePageBody';
-import { WriteType } from 'types/write/writeType';
 import styled from '@emotion/styled';
 
 interface Props {
