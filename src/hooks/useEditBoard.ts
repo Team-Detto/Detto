@@ -1,4 +1,11 @@
-import { useCallback, useState, ChangeEvent, useRef, MouseEvent } from 'react';
+import {
+  useCallback,
+  useState,
+  ChangeEvent,
+  useRef,
+  MouseEvent,
+  useEffect,
+} from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { firebaseEditProjectRequest } from 'apis/boardService';
@@ -29,6 +36,11 @@ const useEditBoard = () => {
   const [editThumbnail, setEditThumbnail] = useState<File | null>(null);
 
   const { isOpen, handleModalStateChange } = useModal(false);
+  const {
+    isOpen: isPrompt,
+    handleModalOpenChange,
+    handleModalCloseChange,
+  } = useModal(false);
   const { showToast, ToastMessage, handleToastPopup } = useToastPopup();
 
   const { mutate: editProjectRequest } = useMutation(
@@ -178,8 +190,31 @@ const useEditBoard = () => {
     [setEditFormValue],
   );
 
+  const preventGoBack = () => {
+    history.pushState(null, '', location.href);
+    handleModalOpenChange();
+  };
+
+  const handlePreventGoBack = useCallback(() => {
+    handleModalCloseChange();
+    window.removeEventListener('popstate', preventGoBack);
+    return navigate(-2);
+  }, []);
+
+  useEffect(() => {
+    (() => {
+      history.pushState(null, '', location.href);
+      window.addEventListener('popstate', preventGoBack);
+    })();
+
+    return () => {
+      window.removeEventListener('popstate', preventGoBack);
+    };
+  }, []);
+
   return {
     isOpen,
+    isPrompt,
     editRef,
     imageRef,
     showToast,
@@ -188,8 +223,10 @@ const useEditBoard = () => {
     editFormValue,
     setEditFormValue,
     handleCalculate,
+    handlePreventGoBack,
     handleFormValueChange,
     handleModalStateChange,
+    handleModalCloseChange,
     handleAddThumbnailImage,
     handleEditProjectButtonClick,
     handleAddThumbnailImageChange,
