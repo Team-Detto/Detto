@@ -33,7 +33,7 @@ const ProjectList = ({ category, pidList }: ProjectListProps) => {
   });
 
   // 현재 활성화된 탭의 pid 리스트
-  let currentPidList: any;
+  let currentPidList: string[] = [];
 
   if (category) {
     category === 'appliedProjects' || category === 'currentProjects'
@@ -42,7 +42,7 @@ const ProjectList = ({ category, pidList }: ProjectListProps) => {
   }
 
   // 삭제된 pid 필터링
-  const filteredPidList = currentPidList?.filter((pid: any) => {
+  const filteredPidList = currentPidList?.filter((pid: string) => {
     if (projectIdList?.includes(pid)) {
       return pid;
     }

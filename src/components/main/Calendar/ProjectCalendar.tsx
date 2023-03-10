@@ -11,7 +11,7 @@ const ProjectCalendar = () => {
   const [value, onChange] = useState(new Date());
   const [dayList, setDayList] = useRecoilState(dayListState);
   const SelectDate = getDate(value.getTime());
-  const getDayList = (createAt: any, deadline: any) => {
+  const getDayList = (createAt: number, deadline: number) => {
     const dayList = [];
     const start = new Date(getDate(createAt));
     const end = new Date(getDate(deadline));
