@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
+import { DocumentData } from 'firebase/firestore';
 import { getDate } from 'utils/date';
 import { positionList } from 'utils/positions';
 
-const ProjectInfoArea = ({ projectData }: any) => {
+const ProjectInfoArea = ({ projectData }: DocumentData) => {
   const {
     positions,
     developerStack,

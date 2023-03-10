@@ -11,8 +11,14 @@ import {
   amplitudeToNoneButtonClick,
   amplitudeNeedToButtonClick,
 } from 'utils/amplitude';
+import { DocumentData } from 'firebase/firestore';
 
-const TitleThumbnailArea = ({ projectData, pid }: any) => {
+interface TitleThumbnailAreaProps {
+  projectData: DocumentData;
+  pid: string;
+}
+
+const TitleThumbnailArea = ({ projectData, pid }: TitleThumbnailAreaProps) => {
   const { thumbnail, title, isRecruiting, deadline } = projectData;
   const today = new Date().getTime();
   const { isOpen, handleModalStateChange } = useModal(false);
@@ -27,20 +33,20 @@ const TitleThumbnailArea = ({ projectData, pid }: any) => {
     },
   );
 
+  const { mutate: updateRecruitingMutate } = useMutation(() =>
+    updateRecruiting(pid, false),
+  );
+
   const { uid } = useAuth();
   const handleDeleteProject = () => {
-    deleteProjectMutate(pid); //post 컬렉션에서 프로젝트 삭제
+    deleteProjectMutate(); //post 컬렉션에서 프로젝트 삭제
     amplitudeToNoneButtonClick('delete_project');
     window.history.back();
   };
 
-  const { mutate: updateRecruitingMutate } = useMutation(() =>
-    updateRecruiting(pid as string, false),
-  );
-
   useEffect(() => {
     if (today > deadline) {
-      updateRecruitingMutate(pid, false as any);
+      updateRecruitingMutate();
     }
   }, []);
 
