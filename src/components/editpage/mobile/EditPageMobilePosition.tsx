@@ -8,7 +8,7 @@ import MobileInput from 'components/writepage/mobile/MobileInput';
 import styled from '@emotion/styled';
 
 interface Props {
-  positions: any;
+  positions: Position.Developers | any;
   onCalculateEvent: (e: MouseEvent<HTMLButtonElement>) => void;
   onFormValueChangeEvent: (e: ChangeEvent<HTMLInputElement>) => void;
 }

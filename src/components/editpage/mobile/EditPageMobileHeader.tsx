@@ -1,4 +1,3 @@
-import { EditType } from 'types/write/writeType';
 import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
 

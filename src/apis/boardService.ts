@@ -1,7 +1,6 @@
 import { firestore } from 'apis/firebaseService';
 import {
   addDoc,
-  arrayRemove,
   arrayUnion,
   collection,
   doc,
@@ -12,16 +11,14 @@ import {
   query,
   startAfter,
   updateDoc,
-  increment,
   getDoc,
 } from 'firebase/firestore';
 import { firebaseImageUploadRequest } from './imageService';
-import { WriteType } from 'types/write/writeType';
 
 export const firebaseCreateProjectRequest = async (
   formData: WriteType.WriteFormType,
   markdownText: string,
-  image: any,
+  image: File | null,
   uid: string,
 ) => {
   try {
@@ -87,7 +84,7 @@ export const firebaseInfinityScrollProjectDataRequest = async ({
   const querySnapshot = await getDocs(q);
   const data: any = [];
   querySnapshot.forEach((doc) => {
-    data.push({ ...doc.data(), id: doc.id });
+    data.push({ ...doc.data(), id: doc.id as string });
   });
 
   return data;
@@ -95,9 +92,9 @@ export const firebaseInfinityScrollProjectDataRequest = async ({
 
 export const firebaseEditProjectRequest = async (
   id: string,
-  editFormData: any,
+  editFormData: EditType.EditFormType,
   markdownText: string,
-  image: any,
+  image: File | null,
 ) => {
   try {
     const thumbnailUrl = await firebaseImageUploadRequest(image);

@@ -1,5 +1,4 @@
 import { ChangeEvent } from 'react';
-import { WriteType } from 'types/write/writeType';
 import COLORS from 'assets/styles/colors';
 import styled from '@emotion/styled';
 

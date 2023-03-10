@@ -7,7 +7,6 @@ import { useAuth } from 'hooks';
 import { firebaseInfinityScrollProjectDataRequest } from 'apis/boardService';
 import { firebaseFindMyInterestRequest } from 'apis/userService';
 import { findProjectCategoryState } from '../recoil/atoms';
-import { EditType } from 'types/write/writeType';
 import { logEvent, getCurrentPathName } from 'utils/amplitude';
 import { staleTime } from 'utils/staleTime';
 

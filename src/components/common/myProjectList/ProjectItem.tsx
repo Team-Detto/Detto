@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
-import { EditType } from 'types/write/writeType';
 import defaultThumbnail from 'assets/images/thumbnail_small.webp';
 import ProjectItemMembers from './ProjectItemMembers';
 import { concatSkills } from 'utils/skills';
