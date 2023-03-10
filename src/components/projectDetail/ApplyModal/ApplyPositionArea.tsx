@@ -2,9 +2,19 @@ import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import PositionButton from 'components/common/ApplyPositionButton';
 
-const ApplyPositionArea = (props: any) => {
-  const { clickValue, setClickValue, version = 'web', positions } = props;
+interface ApplyPositionAreaProps {
+  positions: string[];
+  clickValue: number;
+  setClickValue: (value: number) => void;
+  version?: 'web' | 'mobile';
+}
 
+const ApplyPositionArea = ({
+  positions,
+  clickValue,
+  setClickValue,
+  version = 'web',
+}: ApplyPositionAreaProps) => {
   return (
     <PositionContainer>
       <PositionTitle version={version}>

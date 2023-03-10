@@ -3,8 +3,14 @@ import COLORS from 'assets/styles/colors';
 import Views from '../Views';
 import Likes from '../Likes';
 import Share from '../Share';
+import { DocumentData } from 'firebase/firestore';
 
-const ViewsToShare = ({ pid, projectData }: any) => {
+interface ViewsToShareProps {
+  pid: string;
+  projectData: DocumentData;
+}
+
+const ViewsToShare = ({ pid, projectData }: ViewsToShareProps) => {
   const { view, title, content, thumbnail } = projectData;
 
   return (

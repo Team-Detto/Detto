@@ -8,8 +8,19 @@ import COLORS from 'assets/styles/colors';
 import { HiMail } from 'react-icons/hi';
 import { modalTypes } from 'components/common/modal/modal';
 import { useAuth, useGlobalModal } from 'hooks';
+import { DocumentData } from 'firebase/firestore';
 
-const WriterToShareArea = ({ pid, userData, projectData }: any) => {
+interface WriterToShareContainerProps {
+  pid: string;
+  userData: DocumentData;
+  projectData: DocumentData;
+}
+
+const WriterToShareArea = ({
+  pid,
+  userData,
+  projectData,
+}: WriterToShareContainerProps) => {
   const {
     uid: receiverUid,
     title,

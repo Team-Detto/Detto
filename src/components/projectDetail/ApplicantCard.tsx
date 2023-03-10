@@ -1,9 +1,19 @@
 import styled from '@emotion/styled';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { getUserInfoData } from 'apis/mypageUsers';
 import COLORS from 'assets/styles/colors';
+import { DocumentData } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { staleTime } from 'utils/staleTime';
+
+interface ApplicantCardProps {
+  pid: string;
+  applicantUid: string;
+  applicant: DocumentData;
+  setClickApplicant: (applicantUid: string) => void;
+  isOpen: boolean;
+  handleModalStateChange: () => void;
+}
 
 const ApplicantCard = ({
   applicant,
@@ -11,11 +21,11 @@ const ApplicantCard = ({
   setClickApplicant,
   isOpen,
   handleModalStateChange,
-}: any) => {
+}: ApplicantCardProps) => {
   const navigate = useNavigate();
 
   // 유저 정보 받아오는 쿼리
-  const { data: applierInfoData }: any = useQuery({
+  const { data: applierInfoData }: DocumentData = useQuery({
     queryKey: ['users', applicantUid],
     queryFn: getUserInfoData,
     staleTime: staleTime.users,

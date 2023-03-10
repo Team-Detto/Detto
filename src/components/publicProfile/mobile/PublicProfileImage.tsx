@@ -4,8 +4,17 @@ import { HiMail } from 'react-icons/hi';
 import { useParams } from 'react-router-dom';
 import { modalTypes } from 'components/common/modal/modal';
 import { useAuth, useGlobalModal } from 'hooks';
+import { DocumentData } from 'firebase/firestore';
 
-const PublicProfileImage = ({ userInfoData, photoURL }: any) => {
+interface PublicProfileImageProps {
+  userInfoData: DocumentData;
+  photoURL: string;
+}
+
+const PublicProfileImage = ({
+  userInfoData,
+  photoURL,
+}: PublicProfileImageProps) => {
   const { uid } = useAuth(); //보내는 사람 id
   const { id } = useParams(); //받는사람 id
   const { openModalWithData, openModal } = useGlobalModal();

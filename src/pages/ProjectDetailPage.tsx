@@ -110,11 +110,7 @@ const ProjectDetailPage = () => {
               {/* currentUser랑 글쓴이uid랑 같고 모집중이면 지원자 목록 보이게하기 */}
               {projectData?.uid === uid &&
                 projectData?.isRecruiting === true && (
-                  <ApplicantListArea
-                    projectData={projectData}
-                    userData={userData}
-                    pid={pid}
-                  />
+                  <ApplicantListArea projectData={projectData} pid={pid} />
                 )}
             </WebContainer>
           )}

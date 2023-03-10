@@ -21,7 +21,7 @@ export const updateLike = async (pid: string, countLike: number) => {
   }
 };
 
-export const updateViews = async (pid: any, countViews: number) => {
+export const updateViews = async (pid: string, countViews: number) => {
   if (pid === undefined) return;
   const docRef = doc(firestore, 'post', pid);
   await updateDoc(docRef, { view: countViews });

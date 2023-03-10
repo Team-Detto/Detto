@@ -10,6 +10,16 @@ import { useAuth, useModal } from 'hooks';
 import ApplyModal from '../ApplyModal/ApplyModal';
 import MobileConfirmAlert from 'components/common/mobile/MobileConfirmAlert';
 import EndRecruitButton from './EndRecruitButton';
+import { DocumentData } from 'firebase/firestore';
+
+interface ProjectDetailMobileProps {
+  pid: string;
+  projectData: DocumentData;
+  userData: DocumentData;
+  isApplicant?: boolean;
+  deleteApplicantMutate: () => void;
+  handleAuthorButtonClick: () => void;
+}
 
 const ProjectDetailMobile = ({
   pid,
@@ -18,7 +28,7 @@ const ProjectDetailMobile = ({
   isApplicant,
   deleteApplicantMutate,
   handleAuthorButtonClick,
-}: any) => {
+}: ProjectDetailMobileProps) => {
   const { uid } = useAuth();
 
   const {

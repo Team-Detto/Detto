@@ -3,8 +3,9 @@ import COLORS from 'assets/styles/colors';
 import { logEvent } from 'utils/amplitude';
 import { useNavigate } from 'react-router-dom';
 import ParticipantsProfile from './ParticipantsProfile';
+import { DocumentData } from 'firebase/firestore';
 
-const MemberInfoArea = ({ applicantsData }: any) => {
+const MemberInfoArea = ({ applicantsData }: DocumentData) => {
   const navigate = useNavigate();
   if (applicantsData === undefined) applicantsData = {};
 

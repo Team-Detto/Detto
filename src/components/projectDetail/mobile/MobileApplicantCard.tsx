@@ -8,14 +8,25 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getUserInfoData } from 'apis/mypageUsers';
 import { staleTime } from 'utils/staleTime';
+import { DocumentData } from 'firebase/firestore';
 
-const MobileApplicantCard = ({ pid, applicant, applicantUid }: any) => {
+interface MobileApplicantCardProps {
+  pid: string;
+  applicant: any;
+  applicantUid: string;
+}
+
+const MobileApplicantCard = ({
+  pid,
+  applicant,
+  applicantUid,
+}: MobileApplicantCardProps) => {
   const navigate = useNavigate();
   const { isOpen, handleModalStateChange } = useModal(false);
   const [applicantKey, setApplicantKey] = useState('');
 
   // 유저 정보 받아오는 쿼리
-  const { data: applierInfoData }: any = useQuery({
+  const { data: applierInfoData }: DocumentData = useQuery({
     queryKey: ['users', applicantUid],
     queryFn: getUserInfoData,
     staleTime: staleTime.users,
