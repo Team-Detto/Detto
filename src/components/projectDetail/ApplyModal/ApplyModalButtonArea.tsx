@@ -8,7 +8,6 @@ interface props {
   motive: string;
   clickValue: number;
   handleToastPopup: (message: string) => void;
-  onClickEvent: () => void;
   onAlertClickEvent: () => void;
   handleResetButtonClick: () => void;
 }
@@ -17,7 +16,6 @@ const ApplyModalButtonArea = ({
   motive,
   clickValue,
   handleToastPopup,
-  onClickEvent,
   onAlertClickEvent,
   handleResetButtonClick,
 }: props) => {
@@ -46,7 +44,6 @@ const ApplyModalButtonArea = ({
           onClick={() => {
             if (!checkMotiveValidation()) return;
             onAlertClickEvent();
-            // onClickEvent();
           }}
         >
           지원하기

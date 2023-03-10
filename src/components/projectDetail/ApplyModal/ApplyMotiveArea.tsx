@@ -1,14 +1,24 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 
-const ApplyMotiveArea = ({ motive, setMotive, version = 'web' }: any) => {
+interface ApplyMotiveAreaProps {
+  motive: string;
+  setMotive: (motive: string) => void;
+  version?: 'web' | 'mobile';
+}
+
+const ApplyMotiveArea = ({
+  motive,
+  setMotive,
+  version = 'web',
+}: ApplyMotiveAreaProps) => {
   return (
     <MotiveContainer>
       <MotiveTitle version={version}>지원동기</MotiveTitle>
       <MotiveContentWrap>
         <MotiveTextArea
           placeholder="지원동기를 입력해주세요."
-          onChange={(e: any) => setMotive(e.target.value)}
+          onChange={(e) => setMotive(e.target.value)}
           value={motive}
           version={version}
         />

@@ -6,6 +6,23 @@ import ApplyModalButtonArea from 'components/projectDetail/ApplyModal/ApplyModal
 import ApplyMotiveArea from 'components/projectDetail/ApplyModal/ApplyMotiveArea';
 import ApplyPositionArea from 'components/projectDetail/ApplyModal/ApplyPositionArea';
 
+interface MobileApplyModalProps {
+  onClickEvent: () => void;
+  isOpen: boolean;
+  showToast: boolean;
+  ToastMessage: string;
+  clickValue: number;
+  setClickValue: (value: number) => void;
+  positions: string[];
+  motive: string;
+  setMotive: (value: string) => void;
+  handleToastPopup: (message: string) => void;
+  onMobileAlertClickEvent: () => void;
+  isMobileAlertOpen: boolean;
+  handleResetButtonClick: () => void;
+  handleApplyButtonClick: () => void;
+}
+
 const MobileApplyModal = ({
   onClickEvent,
   isOpen,
@@ -21,7 +38,7 @@ const MobileApplyModal = ({
   isMobileAlertOpen,
   handleResetButtonClick,
   handleApplyButtonClick,
-}: any) => {
+}: MobileApplyModalProps) => {
   const handleBackDropClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       onClickEvent();
@@ -56,7 +73,6 @@ const MobileApplyModal = ({
             motive={motive}
             clickValue={clickValue}
             handleToastPopup={handleToastPopup}
-            onClickEvent={onClickEvent}
             onAlertClickEvent={onMobileAlertClickEvent}
             handleResetButtonClick={handleResetButtonClick}
           />
