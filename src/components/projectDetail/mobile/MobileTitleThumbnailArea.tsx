@@ -5,8 +5,17 @@ import { useState } from 'react';
 import { IoMdMore } from 'react-icons/io';
 import ModifyDeleteDropDown from './ModifyDeleteDropDown';
 import defaultThumbnail from 'assets/images/thumbnail_small.webp';
+import { DocumentData } from 'firebase/firestore';
 
-const MobileTitleThumbnailArea = ({ pid, projectData }: any) => {
+interface MobileTitleThumbnailAreaProps {
+  pid: string;
+  projectData: DocumentData;
+}
+
+const MobileTitleThumbnailArea = ({
+  pid,
+  projectData,
+}: MobileTitleThumbnailAreaProps) => {
   const [popup, setPopup] = useState(false);
   const { uid } = useAuth();
   const toggleDropdownModifyMenu = () => {

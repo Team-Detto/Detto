@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
-
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
-
 import { Viewer } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
