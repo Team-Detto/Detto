@@ -31,9 +31,18 @@ const useEditBoard = () => {
   const editRef = useRef<any>(null);
   const imageRef = useRef<any>(null);
 
-  const [editFormValue, setEditFormValue] =
-    useState<EditType.EditFormType>(state);
+  const [editFormValue, setEditFormValue] = useState<EditType.EditFormType>(
+    state || JSON.parse(sessionStorage.getItem('editFormValue') || '{}'),
+  );
   const [editThumbnail, setEditThumbnail] = useState<File | null>(null);
+
+  useEffect(() => {
+    sessionStorage.setItem('editFormValue', JSON.stringify(editFormValue));
+
+    return () => {
+      sessionStorage.removeItem('editFormValue');
+    };
+  }, [state]);
 
   const { isOpen, handleModalStateChange } = useModal(false);
   const {
@@ -195,6 +204,11 @@ const useEditBoard = () => {
     handleModalOpenChange();
   };
 
+  const preventRefresh = (e: BeforeUnloadEvent) => {
+    e.preventDefault();
+    e.returnValue = '';
+  };
+
   const handlePreventGoBack = useCallback(() => {
     handleModalCloseChange();
     window.removeEventListener('popstate', preventGoBack);
@@ -205,10 +219,12 @@ const useEditBoard = () => {
     (() => {
       history.pushState(null, '', location.href);
       window.addEventListener('popstate', preventGoBack);
+      window.addEventListener('beforeunload', preventRefresh);
     })();
 
     return () => {
       window.removeEventListener('popstate', preventGoBack);
+      window.removeEventListener('beforeunload', preventRefresh);
     };
   }, []);
 
