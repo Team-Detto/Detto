@@ -9,13 +9,13 @@ import useAuth from './useAuth';
 import useModal from './useModal';
 import useNotification from './useNotification';
 
-interface props {
+interface useApplyProps {
   isOpen: boolean;
   onClickEvent: () => void;
   pid: string;
 }
 
-const useApply = ({ isOpen, onClickEvent, pid }: props) => {
+const useApply = ({ isOpen, onClickEvent, pid }: useApplyProps) => {
   const { isOpen: isAlertOpen, handleModalStateChange: onAlertClickEvent } =
     useModal(false);
 

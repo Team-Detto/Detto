@@ -11,6 +11,7 @@ import {
   firebaseGetIsApplicantRequest,
   updateRecruiting,
 } from 'apis/postDetail';
+import { DocumentData } from 'firebase/firestore';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getCurrentPathName } from 'utils/amplitude';
@@ -27,7 +28,7 @@ const useDetailProject = () => {
   const { sendNotification } = useNotification();
 
   //프로젝트 데이터 조회
-  const { data: projectData } = useQuery({
+  const { data: projectData }: DocumentData = useQuery({
     queryKey: ['post', pid],
     queryFn: () => findWithCollectionName('post', pid),
     staleTime: staleTime.project,
@@ -39,25 +40,26 @@ const useDetailProject = () => {
   const writer = projectData?.uid; //글쓴이
   const applicants = projectData?.applicants;
 
-  const [{ data: userData }, { data: isApplicant }] = useQueries({
-    queries: [
-      //글쓴이 조회
-      {
-        queryKey: ['users', writer],
-        queryFn: () => findWithCollectionName('users', writer),
-        staleTime: staleTime.user,
-        enabled: !!writer,
-        suspense: true,
-      },
-      // 현재 유저가 프로젝트 지원자 인가 조회
-      {
-        queryKey: ['post', applicants],
-        queryFn: () => firebaseGetIsApplicantRequest(pid, uid),
-        staleTime: staleTime.project,
-        suspense: true,
-      },
-    ],
-  });
+  const [{ data: userData }, { data: isApplicant }]: DocumentData[] =
+    useQueries({
+      queries: [
+        //글쓴이 조회
+        {
+          queryKey: ['users', writer],
+          queryFn: () => findWithCollectionName('users', writer),
+          staleTime: staleTime.user,
+          enabled: !!writer,
+          suspense: true,
+        },
+        // 현재 유저가 프로젝트 지원자 인가 조회
+        {
+          queryKey: ['post', applicants],
+          queryFn: () => firebaseGetIsApplicantRequest(pid, uid),
+          staleTime: staleTime.project,
+          suspense: true,
+        },
+      ],
+    });
 
   const queryClient = useQueryClient();
   const { mutate: updateRecruitingMutate } = useMutation(
@@ -85,11 +87,11 @@ const useDetailProject = () => {
     // applicants map을 array로 변경
     const applicantsUidArray = Object.keys(applicants);
 
-    applicantsUidArray.forEach((applicant: string) => {
+    applicantsUidArray.forEach((applicantUid: string) => {
       if (!params.id) return;
       sendNotification({
         title: '지원하신 프로젝트의 모집이 마감되었습니다.',
-        receiverUid: applicant,
+        receiverUid: applicantUid,
         link: {
           type: 'project',
           id: params.id,
