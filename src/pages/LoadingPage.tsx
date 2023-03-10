@@ -12,6 +12,7 @@ const LoadingPage = () => {
           loop
           autoPlay
           controls={false}
+          isMobile={isMobile}
         />
       </MobileContainer>
     );
@@ -20,10 +21,11 @@ const LoadingPage = () => {
   return (
     <Container>
       <Video
-        src={require('assets/videos/logo_loading.webm')}
+        src={require('assets/videos/logo_loading2.webm')}
         loop
         autoPlay
         controls={false}
+        isMobile={isMobile}
       />
     </Container>
   );
@@ -49,7 +51,7 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const Video = styled.video`
-  width: 4.9375rem;
-  height: 4.8125rem;
+const Video = styled.video<{ isMobile: boolean }>`
+  width: ${({ isMobile }) => (isMobile ? '4.9375rem' : '21.6875rem')};
+  height: ${({ isMobile }) => (isMobile ? '4.8125rem' : '12.9375rem')};
 `;
