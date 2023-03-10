@@ -2,6 +2,11 @@ import { useMutation } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { updateViews } from '../../apis/postDetail';
 
+interface ViewsProps {
+  pid: string;
+  view: number;
+}
+
 const Views = ({ pid, view }: any) => {
   const [countViews, setCountViews] = useState(view);
 
