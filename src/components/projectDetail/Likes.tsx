@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { updateLike, updateMyProject } from '../../apis/postDetail'; //여기서 에러 발생 :모듈 또는 해당 형식 선언을 찾을 수 없습니다.
 import { findWithCollectionName } from 'apis/findWithCollectionName';
@@ -13,17 +13,17 @@ import {
 import { staleTime } from 'utils/staleTime';
 import { logEvent } from '@amplitude/analytics-browser';
 
-interface Props {
+interface LikesProps {
   pid: string;
   version?: string;
   page?: string;
 }
 
-const Likes = ({ pid, version = 'web', page = 'detail' }: Props) => {
+const Likes = ({ pid, version = 'web', page = 'detail' }: LikesProps) => {
   const { uid } = useAuth();
   const { openModal } = useGlobalModal();
 
-  const handleLikeButton = async (event: any) => {
+  const handleLikeButton = async (event: React.MouseEvent) => {
     event.preventDefault();
     if (isLike) {
       setIsLike(false);
