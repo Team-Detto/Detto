@@ -71,3 +71,8 @@ export const findProjectCategoryState = atom<string>({
   key: 'findProjectCategoryState',
   default: 'planner',
 });
+
+export const deletedPidState = atom<string>({
+  key: 'deletedPidState',
+  default: '',
+});

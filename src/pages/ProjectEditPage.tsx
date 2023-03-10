@@ -12,6 +12,9 @@ import EditPageMobileHeader from 'components/editpage/mobile/EditPageMobileHeade
 import EditPageMobileBody from 'components/editpage/mobile/EditPageMobileBody';
 import EditPageMobileFooter from 'components/editpage/mobile/EditPageMobileFooter';
 import styled from '@emotion/styled';
+import { useEffect } from 'react';
+import { useRecoilValue } from 'recoil';
+import { deletedPidState } from '../recoil/atoms';
 
 const ProjectEditPage = () => {
   const {
@@ -34,6 +37,15 @@ const ProjectEditPage = () => {
     handleCheckValidationButtonClick,
   } = useEditBoard();
   const isMobile = useIsMobile();
+
+  const deletedPid = useRecoilValue(deletedPidState);
+  //이 페이지가 delete된 후에 넘어왔다면 메인페이지로 이동
+  useEffect(() => {
+    if (deletedPid) {
+      window.location.href = '/';
+    }
+  }, [deletedPid]);
+
   if (isMobile) {
     return (
       <>
