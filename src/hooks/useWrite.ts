@@ -1,4 +1,11 @@
-import { useState, useRef, useCallback, ChangeEvent, MouseEvent } from 'react';
+import {
+  useState,
+  useRef,
+  useCallback,
+  ChangeEvent,
+  MouseEvent,
+  useEffect,
+} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth, useModal, useToastPopup } from 'hooks';
 import { firebaseCreateProjectRequest } from 'apis/boardService';
@@ -27,6 +34,11 @@ const useWrite = () => {
 
   const { uid } = useAuth();
   const { isOpen, handleModalStateChange } = useModal(false);
+  const {
+    isOpen: isPrompt,
+    handleModalOpenChange,
+    handleModalCloseChange,
+  } = useModal(false);
   const { showToast, ToastMessage, handleToastPopup } = useToastPopup();
 
   const handleCheckValidationButtonClick = useCallback(() => {
@@ -171,8 +183,31 @@ const useWrite = () => {
     [setWriteFormValue],
   );
 
+  const preventGoBack = () => {
+    history.pushState(null, '', location.href);
+    handleModalOpenChange();
+  };
+
+  const handlePreventGoBack = useCallback(() => {
+    handleModalCloseChange();
+    window.removeEventListener('popstate', preventGoBack);
+    return navigate(-2);
+  }, []);
+
+  useEffect(() => {
+    (() => {
+      history.pushState(null, '', location.href);
+      window.addEventListener('popstate', preventGoBack);
+    })();
+
+    return () => {
+      window.removeEventListener('popstate', preventGoBack);
+    };
+  }, []);
+
   return {
     isOpen,
+    isPrompt,
     editRef,
     imageRef,
     showToast,
@@ -181,8 +216,10 @@ const useWrite = () => {
     writeFormValue,
     setWriteFormValue,
     handleCalculate,
+    handlePreventGoBack,
     handleFormValueChange,
     handleModalStateChange,
+    handleModalCloseChange,
     handleAddThumbnailImage,
     handleAddThumbnailImageChange,
     handleCreateProjectButtonClick,
