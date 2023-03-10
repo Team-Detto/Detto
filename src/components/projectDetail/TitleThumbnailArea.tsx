@@ -5,13 +5,15 @@ import ConfirmAlert from 'components/common/ConfirmAlert';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteProject, updateRecruiting } from 'apis/postDetail';
 import { useAuth, useModal } from 'hooks';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import defaultThumbnail from 'assets/images/thumbnail_big.webp';
 import {
   amplitudeToNoneButtonClick,
   amplitudeNeedToButtonClick,
 } from 'utils/amplitude';
 import { DocumentData } from 'firebase/firestore';
+import { useSetRecoilState } from 'recoil';
+import { deletedPidState } from '../../recoil/atoms';
 
 interface TitleThumbnailAreaProps {
   projectData: DocumentData;
@@ -23,6 +25,7 @@ const TitleThumbnailArea = ({ projectData, pid }: TitleThumbnailAreaProps) => {
   const today = new Date().getTime();
   const { isOpen, handleModalStateChange } = useModal(false);
   const queryClient = useQueryClient();
+  const setDeletedPid = useSetRecoilState(deletedPidState);
   //글 삭제하기 useMutation
   const { mutate: deleteProjectMutate } = useMutation(
     () => deleteProject(pid),
@@ -41,6 +44,7 @@ const TitleThumbnailArea = ({ projectData, pid }: TitleThumbnailAreaProps) => {
   const handleDeleteProject = () => {
     deleteProjectMutate(); //post 컬렉션에서 프로젝트 삭제
     amplitudeToNoneButtonClick('delete_project');
+    setDeletedPid(pid);
     window.history.back();
   };
 

@@ -20,6 +20,8 @@ import {
   titleValidation,
 } from 'utils/validation';
 import Resizer from 'react-image-file-resizer';
+import { useRecoilValue } from 'recoil';
+import { deletedPidState } from '../recoil/atoms';
 
 const useEditBoard = () => {
   const { state } = useLocation();
@@ -216,14 +218,17 @@ const useEditBoard = () => {
     return navigate(-2);
   }, []);
 
+  const deletedPid = useRecoilValue(deletedPidState);
   useEffect(() => {
     (() => {
+      if (deletedPid) return;
       history.pushState(null, '', location.href);
       window.addEventListener('popstate', preventGoBack);
       window.addEventListener('beforeunload', preventRefresh);
     })();
 
     return () => {
+      if (deletedPid) return;
       window.removeEventListener('popstate', preventGoBack);
       window.removeEventListener('beforeunload', preventRefresh);
     };
