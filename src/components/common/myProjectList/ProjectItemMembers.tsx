@@ -16,7 +16,7 @@ const ProjectItemMembers = ({ applicants, positions }: any) => {
         <ProjectMemberPositionList>
           <ProjectMemberPositionLabel>기획</ProjectMemberPositionLabel>
           <ProjectMemberList>
-            {members?.map((key: any) => {
+            {members.map((key: string) => {
               if (applicants[key].position === '기획')
                 return <ParticipantsProfile key={key} participantsUid={key} />;
             })}
@@ -27,7 +27,7 @@ const ProjectItemMembers = ({ applicants, positions }: any) => {
         <ProjectMemberPositionList>
           <ProjectMemberPositionLabel>디자인</ProjectMemberPositionLabel>
           <ProjectMemberList>
-            {members.map((key) => {
+            {members.map((key: string) => {
               if (applicants[key].position === '디자인')
                 return <ParticipantsProfile key={key} participantsUid={key} />;
             })}
@@ -38,7 +38,7 @@ const ProjectItemMembers = ({ applicants, positions }: any) => {
         <ProjectMemberPositionList>
           <ProjectMemberPositionLabel>프론트</ProjectMemberPositionLabel>
           <ProjectMemberList>
-            {members.map((key) => {
+            {members.map((key: string) => {
               if (applicants[key].position === '프론트엔드')
                 return <ParticipantsProfile key={key} participantsUid={key} />;
             })}
@@ -49,7 +49,7 @@ const ProjectItemMembers = ({ applicants, positions }: any) => {
         <ProjectMemberPositionList>
           <ProjectMemberPositionLabel>백엔드</ProjectMemberPositionLabel>
           <ProjectMemberList>
-            {members.map((key) => {
+            {members.map((key: string) => {
               if (applicants[key].position === '백엔드')
                 return <ParticipantsProfile key={key} participantsUid={key} />;
             })}

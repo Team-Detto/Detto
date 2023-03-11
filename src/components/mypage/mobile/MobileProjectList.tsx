@@ -4,6 +4,7 @@ import { getProjectIdList } from 'apis/mypageUsers';
 import COLORS from 'assets/styles/colors';
 import { ProjectListProps } from 'components/common/myProjectList/ProjectList';
 import MobileContentCard from 'components/MobileContentCard';
+import { DocumentData } from 'firebase/firestore';
 import { useFindProject, useProjectList } from 'hooks';
 import { useEffect } from 'react';
 import { staleTime } from 'utils/staleTime';
@@ -17,14 +18,14 @@ const MobileProjectList = ({ category, pidList }: ProjectListProps) => {
     queryClient.invalidateQueries(['post', 'projectIdList']);
   }, []);
   // 전체 pid 리스트
-  const { data: projectIdList }: any = useQuery({
+  const { data: projectIdList }: DocumentData = useQuery({
     queryKey: ['post', 'projectIdList'],
     queryFn: getProjectIdList,
     staleTime: staleTime.filterPost,
   });
 
   // 현재 활성화된 탭의 pid 리스트
-  let currentPidList: any;
+  let currentPidList: string[] = [];
 
   if (category) {
     category === 'appliedProjects' || category === 'currentProjects'
@@ -32,14 +33,14 @@ const MobileProjectList = ({ category, pidList }: ProjectListProps) => {
       : (currentPidList = pidList[category]);
   }
   // 삭제된 pid 필터링
-  const filteredPidList = currentPidList?.filter((pid: any) => {
+  const filteredPidList = currentPidList?.filter((pid: string) => {
     if (projectIdList?.includes(pid)) {
       return pid;
     }
   });
 
   // 필터링된 pid 데이터 조회
-  const { data: activeProjectsData }: any = useQuery({
+  const { data: activeProjectsData }: DocumentData = useQuery({
     queryKey: ['myProjects', filteredPidList],
     queryFn: getActiveProjects,
     staleTime: staleTime.myProjects,
@@ -53,15 +54,17 @@ const MobileProjectList = ({ category, pidList }: ProjectListProps) => {
       )}
       {activeProjectsData &&
         filteredPidList &&
-        activeProjectsData?.map((project: any, idx: number) => (
-          <MobileContentCard
-            key={project?.createdAt}
-            project={project}
-            likedProjects={likedProjects}
-            pid={filteredPidList?.[filteredPidList?.length - idx - 1]}
-            onNavigateToProjectDetailEvent={handleNavigateToProjectDetail}
-          />
-        ))}
+        activeProjectsData?.map(
+          (project: EditType.EditFormType, idx: number) => (
+            <MobileContentCard
+              key={project?.createdAt}
+              project={project}
+              likedProjects={likedProjects}
+              pid={filteredPidList?.[filteredPidList?.length - idx - 1]}
+              onNavigateToProjectDetailEvent={handleNavigateToProjectDetail}
+            />
+          ),
+        )}
     </MobileProjectListContainer>
   );
 };

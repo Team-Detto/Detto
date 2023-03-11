@@ -1,11 +1,12 @@
+import { useEffect } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { DocumentData } from 'firebase/firestore';
 import styled from '@emotion/styled';
 import { useFindProject, useProjectList } from 'hooks';
 import ProjectItem from './ProjectItem';
+import { getProjectIdList } from 'apis/mypageUsers';
 import COLORS from 'assets/styles/colors';
 import { staleTime } from 'utils/staleTime';
-import { getProjectIdList } from 'apis/mypageUsers';
-import { useEffect } from 'react';
 
 export interface PidListProps {
   [key: string]: string[];
@@ -24,8 +25,9 @@ const ProjectList = ({ category, pidList }: ProjectListProps) => {
   useEffect(() => {
     queryClient.invalidateQueries(['post', 'projectIdList']); //projectIdList
   }, []);
+
   // 전체 pid 리스트
-  const { data: projectIdList }: any = useQuery({
+  const { data: projectIdList }: DocumentData = useQuery({
     queryKey: ['post', 'projectIdList'],
     queryFn: getProjectIdList,
     staleTime: staleTime.filterPost,
@@ -47,7 +49,8 @@ const ProjectList = ({ category, pidList }: ProjectListProps) => {
     }
   });
 
-  const { data: activeProjectsData }: any = useQuery({
+  // 현재 활성화된 탭의 프로젝트 리스트
+  const { data: activeProjectsData }: DocumentData = useQuery({
     queryKey: ['myProjects', filteredPidList],
     queryFn: getActiveProjects,
     staleTime: staleTime.myProjects,
