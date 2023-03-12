@@ -7,7 +7,7 @@ import MobileConfirmButton from './MobileConfirmButton';
 import useSetPositions from 'hooks/useSetPositions';
 import { GlobalModalWrapper } from 'components/common/modal/GlobalModal';
 
-export default function MobileSetPositions() {
+const MobileSetPositions = () => {
   const {
     showToast,
     ToastMessage,
@@ -70,7 +70,9 @@ export default function MobileSetPositions() {
       </Container>
     </GlobalModalWrapper>
   );
-}
+};
+
+export default MobileSetPositions;
 
 const Container = styled.div`
   display: flex;

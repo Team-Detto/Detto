@@ -6,7 +6,7 @@ import MobileNotificationBox from './mobile/MobileNotificationBox';
 import NoteBox from './NoteBox';
 import NotificationBox from './NotificationBox';
 
-export default function PopupContainer() {
+const PopupContainer = () => {
   const {
     closePopup,
     popup: { isNoteOpen, isNotificationOpen },
@@ -31,7 +31,9 @@ export default function PopupContainer() {
       </WebContainer>
     </OutsidePopupWrapper>
   );
-}
+};
+
+export default PopupContainer;
 
 const OutsidePopupWrapper = styled.div`
   position: fixed;

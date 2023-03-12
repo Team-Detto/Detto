@@ -8,7 +8,7 @@ import { staleTime } from 'utils/staleTime';
 import NotificationMessage from './NotificationMessage';
 import { PopupWrapper } from './styles';
 
-export default function NotificationBox() {
+const NotificationBox = () => {
   const {
     popup: { isNotificationOpen },
   } = usePopup();
@@ -49,7 +49,9 @@ export default function NotificationBox() {
       </MessageWrapper>
     </PopupWrapper>
   );
-}
+};
+
+export default NotificationBox;
 
 const TitleWrapper = styled.div`
   width: 100%;

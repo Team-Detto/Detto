@@ -11,7 +11,7 @@ import { GlobalModalWrapper } from 'components/common/modal/GlobalModal';
 // 페이지 2 : 기술스택 선택
 const page = 2;
 
-export default function SetSkills() {
+const SetSkills = () => {
   const [skills, setSkills] = useState({
     plannerStack: [],
     designerStack: [],
@@ -39,7 +39,9 @@ export default function SetSkills() {
       </Container>
     </GlobalModalWrapper>
   );
-}
+};
+
+export default SetSkills;
 
 const Container = styled.div`
   display: flex;

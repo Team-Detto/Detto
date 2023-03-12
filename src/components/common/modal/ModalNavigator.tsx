@@ -10,7 +10,7 @@ type ModalNavigatorProps = {
   close?: boolean;
 };
 
-export default function ModalNavigator({ back, close }: ModalNavigatorProps) {
+const ModalNavigator = ({ back, close }: ModalNavigatorProps) => {
   const { modal, openModal, closeModal } = useGlobalModal();
 
   return (
@@ -31,7 +31,9 @@ export default function ModalNavigator({ back, close }: ModalNavigatorProps) {
       )}
     </Container>
   );
-}
+};
+
+export default ModalNavigator;
 
 const Container = styled.div`
   position: relative;

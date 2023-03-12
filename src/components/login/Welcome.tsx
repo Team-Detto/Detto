@@ -5,7 +5,7 @@ import { GlobalModalWrapper } from 'components/common/modal/GlobalModal';
 import { useGlobalModal } from 'hooks';
 
 // 페이지 4 : 환영합니다!
-export default function Welcome() {
+const Welcome = () => {
   const { closeModal } = useGlobalModal();
 
   const handleModalClose = () => {
@@ -25,7 +25,9 @@ export default function Welcome() {
       </Container>
     </GlobalModalWrapper>
   );
-}
+};
+
+export default Welcome;
 
 const Container = styled.div`
   display: flex;

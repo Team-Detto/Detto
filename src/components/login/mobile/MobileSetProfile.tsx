@@ -23,7 +23,7 @@ import { GlobalModalWrapper } from 'components/common/modal/GlobalModal';
 // 페이지 3 : 프로필 사진, 닉네임 변경
 const page = 3;
 
-export default function MobileSetProfile() {
+const MobileSetProfile = () => {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const { showToast, ToastMessage, handleToastPopup } = useToastPopup();
   const { openModal } = useGlobalModal();
@@ -115,7 +115,9 @@ export default function MobileSetProfile() {
       </Container>
     </GlobalModalWrapper>
   );
-}
+};
+
+export default MobileSetProfile;
 
 const Container = styled.div`
   width: 100%;

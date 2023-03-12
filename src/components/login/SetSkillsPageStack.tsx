@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import SkillButton from 'components/common/SkillButton';
 import { designs, develops, products } from 'utils/skills';
 
-export default function SetSkillsPageStack({ skills, setSkills }: any) {
+const SetSkillsPageStack = ({ skills, setSkills }: any) => {
   return (
     <Container>
       <RowContainer>
@@ -49,7 +49,9 @@ export default function SetSkillsPageStack({ skills, setSkills }: any) {
       </RowContainer>
     </Container>
   );
-}
+};
+
+export default SetSkillsPageStack;
 
 const Container = styled.div`
   width: 100%;

@@ -16,7 +16,7 @@ import {
 } from './styles';
 import { GlobalModalWrapper } from 'components/common/modal/GlobalModal';
 
-export default function MobileSendNote({ data }: { data: Note }) {
+const MobileSendNote = ({ data }: { data: Note }) => {
   const [disabled, setDisabled] = useState(false);
   const [note, setNote] = useState<SendNote>({ title: '', content: '' });
   const [isSent, setIsSent] = useState(false);
@@ -95,7 +95,9 @@ export default function MobileSendNote({ data }: { data: Note }) {
       </MobileContainer>
     </GlobalModalWrapper>
   );
-}
+};
+
+export default MobileSendNote;
 
 const TitleInput = styled.input`
   width: 100%;
