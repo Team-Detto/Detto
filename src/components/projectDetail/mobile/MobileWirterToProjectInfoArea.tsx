@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
-import { modalTypes } from 'components/common/modal/modal';
+import { modalTypes } from 'components/common/modal/modalTypes';
 import { DocumentData } from 'firebase/firestore';
 import { useAuth, useGlobalModal } from 'hooks';
 import { HiMail } from 'react-icons/hi';

@@ -4,8 +4,9 @@ import { useRecoilValue } from 'recoil';
 import { modalState } from '../../../recoil/atoms';
 import LoginModal from 'components/login/LoginModal';
 import NoteModal from '../../popup/NoteModal';
-import { modalTypes } from './modal';
-import { useIsMobile } from 'hooks';
+import { modalTypes } from './modalTypes';
+import { useEffect } from 'react';
+import { allowScroll, preventScroll } from 'utils/modal';
 
 interface props {
   width?: string;
@@ -13,20 +14,24 @@ interface props {
   isMobile?: boolean;
 }
 
-export default function ModalContainer() {
-  const { isOpen, width, height, type } = useRecoilValue(modalState);
-  const isMobile = useIsMobile();
+export default function GlobalModal() {
+  const { type } = useRecoilValue(modalState);
 
-  if (!isOpen) return null;
+  // 모달이 열려있을 때 body 스크롤 방지
+  useEffect(() => {
+    preventScroll();
+    return () => {
+      allowScroll();
+    };
+  }, []);
+
   return (
     <BackDrop>
-      <Container width={width} height={height} isMobile={isMobile}>
-        {type === modalTypes.login && <LoginModal />}
-        {type === modalTypes.inbox && <NoteModal />}
-        {type === modalTypes.outbox && <NoteModal />}
-        {type === modalTypes.reply && <NoteModal />}
-        {type === modalTypes.sendNote && <NoteModal />}
-      </Container>
+      {type === modalTypes.login && <LoginModal />}
+      {type === modalTypes.inbox && <NoteModal />}
+      {type === modalTypes.outbox && <NoteModal />}
+      {type === modalTypes.reply && <NoteModal />}
+      {type === modalTypes.sendNote && <NoteModal />}
     </BackDrop>
   );
 }
@@ -41,7 +46,7 @@ const BackDrop = styled.div`
   background: rgba(191, 191, 191, 0.05);
 `;
 
-const Container = styled.div`
+export const GlobalModalWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

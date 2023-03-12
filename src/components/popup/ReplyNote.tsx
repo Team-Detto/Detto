@@ -17,6 +17,7 @@ import { getUserInfoData } from 'apis/mypageUsers';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
 import Alert from 'components/common/Alert';
 import { amplitudeToNoneButtonClick } from 'utils/amplitude';
+import { GlobalModalWrapper } from 'components/common/modal/GlobalModal';
 
 export default function ReplyNote({ data }: { data: Note }) {
   const [disabled, setDisabled] = useState(false);
@@ -49,7 +50,7 @@ export default function ReplyNote({ data }: { data: Note }) {
   if (!receiver) return null;
 
   return (
-    <>
+    <GlobalModalWrapper width="41.0625rem" height="31.4375rem">
       <Container>
         {showToast && <ValidationToastPopup message={ToastMessage} top={2} />}
         <ModalNavigator page={0} close />
@@ -91,7 +92,7 @@ export default function ReplyNote({ data }: { data: Note }) {
         subMsg="보낸 쪽지함에서 확인해보세요."
         page="sendNote"
       />
-    </>
+    </GlobalModalWrapper>
   );
 }
 

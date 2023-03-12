@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import WELCOME_IMG from 'assets/images/login_welcome.webp';
 import COLORS from 'assets/styles/colors';
+import { GlobalModalWrapper } from 'components/common/modal/GlobalModal';
 import { useGlobalModal } from 'hooks';
 import MobileConfirmButton from './MobileConfirmButton';
 
@@ -14,16 +15,18 @@ export default function MobileWelcome() {
   };
 
   return (
-    <Container>
-      <TopContainer>
-        <KeyImg src={WELCOME_IMG} alt="login" />
-        <TextContainer>
-          <TitleText>Detto에 오신 걸 환영합니다!</TitleText>
-          <SubText>Detto와 함께 즐거운 프로젝트 여정을 만들어보세요</SubText>
-        </TextContainer>
-      </TopContainer>
-      <MobileConfirmButton onClick={handleModalClose} />
-    </Container>
+    <GlobalModalWrapper width="20rem" height="21.5rem" isMobile>
+      <Container>
+        <TopContainer>
+          <KeyImg src={WELCOME_IMG} alt="login" />
+          <TextContainer>
+            <TitleText>Detto에 오신 걸 환영합니다!</TitleText>
+            <SubText>Detto와 함께 즐거운 프로젝트 여정을 만들어보세요</SubText>
+          </TextContainer>
+        </TopContainer>
+        <MobileConfirmButton onClick={handleModalClose} />
+      </Container>
+    </GlobalModalWrapper>
   );
 }
 
