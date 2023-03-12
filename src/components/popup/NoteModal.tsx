@@ -1,7 +1,5 @@
-import { modalTypes } from 'components/common/modal/modal';
+import { modalTypes } from 'components/common/modal/modalTypes';
 import { useGlobalModal, useIsMobile } from 'hooks';
-import { useEffect } from 'react';
-import { allowScroll, preventScroll } from 'utils/modal';
 import MobileReadInboxNote from './mobile/MobileReadInboxNote';
 import MobileReadOutboxNote from './mobile/MobileReadOutboxNote';
 import MobileReplyNote from './mobile/MobileReplyNote';
@@ -14,20 +12,8 @@ import SendNote from './SendNote';
 const NoteModal = () => {
   const {
     modal: { type, data },
-    updateModalSize,
   } = useGlobalModal();
   const isMobile = useIsMobile();
-
-  useEffect(() => {
-    if (isMobile) updateModalSize('82%', '26.1875rem');
-    else updateModalSize('41.0625rem', '31.4375rem');
-
-    // 모달이 열려있을 때 body 스크롤 방지
-    preventScroll();
-    return () => {
-      allowScroll();
-    };
-  }, []);
 
   // 받은쪽지함 쪽지 읽기
   if (type === modalTypes.inbox) {

@@ -6,6 +6,7 @@ import ModalNavigator from 'components/common/modal/ModalNavigator';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
 import MobileSetSkillsPageStack from './MobileSetSkillsPageStack';
 import useSetSkills from 'hooks/useSetSkills';
+import { GlobalModalWrapper } from 'components/common/modal/GlobalModal';
 
 // 페이지 2 : 기술스택 선택
 const page = 2;
@@ -21,18 +22,22 @@ export default function SetSkills() {
     useSetSkills(skills);
 
   return (
-    <Container>
-      {showToast && <ValidationToastPopup message={ToastMessage} top={2} />}
-      <ModalNavigator page={page} back />
-      <BodyContainer>
-        <div>
-          <TitleText>어떤 기술 스택을 하실 수 있으신지 선택해주세요</TitleText>
-          <SubText>(중복 선택 가능해요)</SubText>
-        </div>
-        <MobileSetSkillsPageStack skills={skills} setSkills={setSkills} />
-      </BodyContainer>
-      <MobileConfirmButton onClick={handleConfirmButtonClick} />
-    </Container>
+    <GlobalModalWrapper width="20rem" height="26.1875rem" isMobile>
+      <Container>
+        {showToast && <ValidationToastPopup message={ToastMessage} top={2} />}
+        <ModalNavigator page={page} back />
+        <BodyContainer>
+          <div>
+            <TitleText>
+              어떤 기술 스택을 하실 수 있으신지 선택해주세요
+            </TitleText>
+            <SubText>(중복 선택 가능해요)</SubText>
+          </div>
+          <MobileSetSkillsPageStack skills={skills} setSkills={setSkills} />
+        </BodyContainer>
+        <MobileConfirmButton onClick={handleConfirmButtonClick} />
+      </Container>
+    </GlobalModalWrapper>
   );
 }
 

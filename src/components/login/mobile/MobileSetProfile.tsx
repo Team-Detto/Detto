@@ -18,6 +18,7 @@ import MyPageProfileImage from 'components/mypage/MyPageProfileImage';
 import TextInput from 'components/mypage/TextInput';
 import { staleTime } from 'utils/staleTime';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
+import { GlobalModalWrapper } from 'components/common/modal/GlobalModal';
 
 // 페이지 3 : 프로필 사진, 닉네임 변경
 const page = 3;
@@ -82,35 +83,37 @@ export default function MobileSetProfile() {
   }, [profileImg]);
 
   return (
-    <Container>
-      {showToast && <ValidationToastPopup message={ToastMessage} top={2} />}
-      <ModalNavigator page={page} back />
-      <BodyContainer>
-        <div>
-          <SubText>나를 찾는 팀원이 많아지는 방법!</SubText>
-          <TitleText>팀원들에게 소개할 프로필을 입력해주세요</TitleText>
-        </div>
-        <ProfileContainer>
-          <MyPageProfileImage
-            profileImg={profileImg}
-            onChange={handleProfileImageChange}
-            onDelete={handleProfileImageDelete}
-            uid={uid}
-            page="join"
-          />
-          <TextInput
-            name="displayName"
-            value={userInfo.displayName}
-            onChangeValue={handleInputChange}
-            onClearValue={handleInputClear}
-            validationMessage={validationMessage}
-            isMobile={true}
-            page="join"
-          />
-        </ProfileContainer>
-      </BodyContainer>
-      <MobileConfirmButton onClick={handleConfirmButtonClick} />
-    </Container>
+    <GlobalModalWrapper width="20rem" height="26.1875rem" isMobile>
+      <Container>
+        {showToast && <ValidationToastPopup message={ToastMessage} top={2} />}
+        <ModalNavigator page={page} back />
+        <BodyContainer>
+          <div>
+            <SubText>나를 찾는 팀원이 많아지는 방법!</SubText>
+            <TitleText>팀원들에게 소개할 프로필을 입력해주세요</TitleText>
+          </div>
+          <ProfileContainer>
+            <MyPageProfileImage
+              profileImg={profileImg}
+              onChange={handleProfileImageChange}
+              onDelete={handleProfileImageDelete}
+              uid={uid}
+              page="join"
+            />
+            <TextInput
+              name="displayName"
+              value={userInfo.displayName}
+              onChangeValue={handleInputChange}
+              onClearValue={handleInputClear}
+              validationMessage={validationMessage}
+              isMobile={true}
+              page="join"
+            />
+          </ProfileContainer>
+        </BodyContainer>
+        <MobileConfirmButton onClick={handleConfirmButtonClick} />
+      </Container>
+    </GlobalModalWrapper>
   );
 }
 

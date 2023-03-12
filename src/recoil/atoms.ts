@@ -11,8 +11,6 @@ export const popupState = atom({
 
 type ModalState = {
   isOpen: boolean;
-  height: string;
-  width: string;
   type: string;
   page: number;
   data: Note;
@@ -23,8 +21,6 @@ export const modalState = atom<ModalState>({
   default: {
     page: 0,
     isOpen: false,
-    height: '400px',
-    width: '400px',
     type: '',
     data: {
       id: '',
