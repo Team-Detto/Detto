@@ -7,18 +7,18 @@ interface ViewsProps {
   view: number;
 }
 
-const Views = ({ pid, view }: any) => {
+const Views = ({ pid, view }: ViewsProps) => {
   const [countViews, setCountViews] = useState(view);
 
-  const { mutate: viewMutation } = useMutation(() =>
-    updateViews(pid, countViews),
+  const { mutate: viewMutation } = useMutation(({ pid, view }: ViewsProps) =>
+    updateViews(pid, view),
   );
   useEffect(() => {
     setCountViews(countViews + 1);
   }, []);
 
   useEffect(() => {
-    viewMutation(pid, countViews);
+    viewMutation({ pid, view: countViews });
   }, [countViews]);
 
   return <div>조회 {countViews}</div>;

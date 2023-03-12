@@ -43,7 +43,7 @@ const useProfileImage = (uid: string, photoURL?: string) => {
 
 export default useProfileImage;
 
-const resizeFile = (file: File) =>
+const resizeFile = (file: File): any =>
   new Promise((resolve) => {
     Resizer.imageFileResizer(
       file,

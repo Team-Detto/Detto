@@ -6,7 +6,10 @@ export const initAmplitude = () => {
   init(API_KEY);
 };
 
-export const logEvent = (eventName: string, eventProperties: any) => {
+export const logEvent = (
+  eventName: string,
+  eventProperties: Record<string, any>,
+) => {
   track(eventName, eventProperties);
 };
 
