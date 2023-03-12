@@ -23,10 +23,10 @@ export default function Root() {
   return (
     <>
       <Header />
+      <ScrollToTop />
+      <ScrollToTopButton />
+      {isOpen && <GlobalModal />}
       <Suspense fallback={<LoadingPage />}>
-        <ScrollToTop />
-        <ScrollToTopButton />
-        {isOpen && <GlobalModal />}
         <Outlet />
       </Suspense>
       <Footer />
