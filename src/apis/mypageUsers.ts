@@ -35,7 +35,7 @@ export const getUserInfoData = async (
  * @param uid : 유저 uid
  * @returns imgUrl : 스토리지에 업로드된 이미지 객체 Promise
  */
-export const uploadProfileImg = async (file: any, uid: string) => {
+export const uploadProfileImg = async (file: File, uid: string) => {
   await uploadBytes(ref(firestorage, `${uid}`), file);
 
   const imgUrl = await getDownloadURL(ref(firestorage, `${uid}`));

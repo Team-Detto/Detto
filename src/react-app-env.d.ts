@@ -104,7 +104,7 @@ namespace EditType {
 }
 
 interface ProjectType {
-  applicants: any;
+  applicants: string[];
   content: string;
   createdAt: number;
   deadline: number;

@@ -37,7 +37,7 @@ const useNote = () => {
   });
 
   // 쪽지 유효성 검사
-  const checkNoteValidation = (note: any) => {
+  const checkNoteValidation = (note: SendNote) => {
     const trimmedNote = {
       title: note.title.trim(),
       content: note.content.trim(),
