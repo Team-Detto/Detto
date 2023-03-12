@@ -13,20 +13,20 @@ interface props {
   isMobile?: boolean;
 }
 
-export default function ModalContainer() {
+export default function GlobalModal() {
   const { isOpen, width, height, type } = useRecoilValue(modalState);
   const isMobile = useIsMobile();
 
   if (!isOpen) return null;
   return (
     <BackDrop>
-      <Container width={width} height={height} isMobile={isMobile}>
-        {type === modalTypes.login && <LoginModal />}
-        {type === modalTypes.inbox && <NoteModal />}
-        {type === modalTypes.outbox && <NoteModal />}
-        {type === modalTypes.reply && <NoteModal />}
-        {type === modalTypes.sendNote && <NoteModal />}
-      </Container>
+      {/* <GlobalModalWrapper width={width} height={height} isMobile={isMobile}> */}
+      {type === modalTypes.login && <LoginModal />}
+      {type === modalTypes.inbox && <NoteModal />}
+      {type === modalTypes.outbox && <NoteModal />}
+      {type === modalTypes.reply && <NoteModal />}
+      {type === modalTypes.sendNote && <NoteModal />}
+      {/* </GlobalModalWrapper> */}
     </BackDrop>
   );
 }
@@ -41,7 +41,7 @@ const BackDrop = styled.div`
   background: rgba(191, 191, 191, 0.05);
 `;
 
-const Container = styled.div`
+export const GlobalModalWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

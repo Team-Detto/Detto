@@ -1,7 +1,7 @@
 import { Suspense, useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { useGlobalModal } from 'hooks';
-import ModalContainer from 'components/common/modal/ModalContainer';
+import GlobalModal from 'components/common/modal/GlobalModal';
 import ScrollToTop from 'components/common/scrollToTop';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
@@ -23,7 +23,7 @@ export default function Root() {
       <Suspense fallback={<LoadingPage />}>
         <ScrollToTop />
         <ScrollToTopButton />
-        <ModalContainer />
+        <GlobalModal />
         <Outlet />
       </Suspense>
       <Footer />

@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import WELCOME_IMG from 'assets/images/login_welcome.webp';
 import COLORS from 'assets/styles/colors';
+import { GlobalModalWrapper } from 'components/common/modal/GlobalModal';
 import { useGlobalModal } from 'hooks';
 
 // 페이지 4 : 환영합니다!
@@ -13,14 +14,16 @@ export default function Welcome() {
   };
 
   return (
-    <Container>
-      <KeyImg src={WELCOME_IMG} alt="login" />
-      <TextContainer>
-        <TitleText>Detto에 오신 걸 환영합니다!</TitleText>
-        <SubText>Detto와 함께 즐거운 프로젝트 여정을 만들어보세요</SubText>
-      </TextContainer>
-      <ConfirmButton onClick={handleModalClose}>확인</ConfirmButton>
-    </Container>
+    <GlobalModalWrapper width="37.5rem" height="22.625rem">
+      <Container>
+        <KeyImg src={WELCOME_IMG} alt="login" />
+        <TextContainer>
+          <TitleText>Detto에 오신 걸 환영합니다!</TitleText>
+          <SubText>Detto와 함께 즐거운 프로젝트 여정을 만들어보세요</SubText>
+        </TextContainer>
+        <ConfirmButton onClick={handleModalClose}>확인</ConfirmButton>
+      </Container>
+    </GlobalModalWrapper>
   );
 }
 

@@ -22,15 +22,6 @@ export default function LoginModal() {
     updateModalSize,
   } = useGlobalModal();
 
-  // 페이지에 따라 모달 크기 조절
-  useEffect(() => {
-    if (isMobile) {
-      updateModalSize(modals[page].mobileWidth, modals[page].mobileHeight);
-    } else {
-      updateModalSize(modals[page].width, modals[page].height);
-    }
-  }, [page]);
-
   // 모달이 열려있을 때 body 스크롤 방지
   useEffect(() => {
     preventScroll();
