@@ -9,7 +9,10 @@ import ScrollToTopButton from 'components/ScrollToTopButton';
 import LoadingPage from './LoadingPage';
 
 export default function Root() {
-  const { closeModal } = useGlobalModal();
+  const {
+    modal: { isOpen },
+    closeModal,
+  } = useGlobalModal();
   const location = useLocation();
 
   // 페이지 이동 시 팝업 닫기
@@ -23,7 +26,7 @@ export default function Root() {
       <Suspense fallback={<LoadingPage />}>
         <ScrollToTop />
         <ScrollToTopButton />
-        <GlobalModal />
+        {isOpen && <GlobalModal />}
         <Outlet />
       </Suspense>
       <Footer />

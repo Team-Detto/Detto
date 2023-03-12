@@ -4,8 +4,9 @@ import { useRecoilValue } from 'recoil';
 import { modalState } from '../../../recoil/atoms';
 import LoginModal from 'components/login/LoginModal';
 import NoteModal from '../../popup/NoteModal';
-import { modalTypes } from './modal';
-import { useIsMobile } from 'hooks';
+import { modalTypes } from './modalTypes';
+import { useEffect } from 'react';
+import { allowScroll, preventScroll } from 'utils/modal';
 
 interface props {
   width?: string;
@@ -14,19 +15,23 @@ interface props {
 }
 
 export default function GlobalModal() {
-  const { isOpen, width, height, type } = useRecoilValue(modalState);
-  const isMobile = useIsMobile();
+  const { type } = useRecoilValue(modalState);
 
-  if (!isOpen) return null;
+  // 모달이 열려있을 때 body 스크롤 방지
+  useEffect(() => {
+    preventScroll();
+    return () => {
+      allowScroll();
+    };
+  }, []);
+
   return (
     <BackDrop>
-      {/* <GlobalModalWrapper width={width} height={height} isMobile={isMobile}> */}
       {type === modalTypes.login && <LoginModal />}
       {type === modalTypes.inbox && <NoteModal />}
       {type === modalTypes.outbox && <NoteModal />}
       {type === modalTypes.reply && <NoteModal />}
       {type === modalTypes.sendNote && <NoteModal />}
-      {/* </GlobalModalWrapper> */}
     </BackDrop>
   );
 }

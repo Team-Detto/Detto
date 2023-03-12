@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { getUserInfoData } from 'apis/mypageUsers';
+import { GlobalModalWrapper } from 'components/common/modal/GlobalModal';
 import ModalNavigator from 'components/common/modal/ModalNavigator';
 import { useGlobalModal } from 'hooks';
 import { useNavigate } from 'react-router-dom';
@@ -34,23 +35,27 @@ export default function MobileReadOutboxNote({ data }: { data: Note }) {
 
   if (!receiver) return null;
   return (
-    <MobileContainer>
-      <ModalNavigator page={0} close />
-      <MobileHeaderContainer>
-        <MobileProfileContainer>
-          <MobileProfileImage
-            src={receiver.photoURL}
-            onClick={handleProfileImageClick}
-            alt={receiver.displayName + ' 프로필 이미지'}
-            referrerPolicy="no-referrer"
-          />
-          <MobileNameText>{receiver.displayName}님께 보낸 쪽지</MobileNameText>
-        </MobileProfileContainer>
-        <MobileDateText>{getDateAndTime(data.date)}</MobileDateText>
-      </MobileHeaderContainer>
-      <MobileTitleText>{data.title}</MobileTitleText>
-      <MobileContentText>{data.content}</MobileContentText>
-      <MobileCustomButton label="확인" onClick={closeModal} />
-    </MobileContainer>
+    <GlobalModalWrapper width="82%" height="26.1875rem" isMobile>
+      <MobileContainer>
+        <ModalNavigator page={0} close />
+        <MobileHeaderContainer>
+          <MobileProfileContainer>
+            <MobileProfileImage
+              src={receiver.photoURL}
+              onClick={handleProfileImageClick}
+              alt={receiver.displayName + ' 프로필 이미지'}
+              referrerPolicy="no-referrer"
+            />
+            <MobileNameText>
+              {receiver.displayName}님께 보낸 쪽지
+            </MobileNameText>
+          </MobileProfileContainer>
+          <MobileDateText>{getDateAndTime(data.date)}</MobileDateText>
+        </MobileHeaderContainer>
+        <MobileTitleText>{data.title}</MobileTitleText>
+        <MobileContentText>{data.content}</MobileContentText>
+        <MobileCustomButton label="확인" onClick={closeModal} />
+      </MobileContainer>
+    </GlobalModalWrapper>
   );
 }
