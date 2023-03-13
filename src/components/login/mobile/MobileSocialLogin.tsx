@@ -9,7 +9,7 @@ import ModalNavigator from 'components/common/modal/ModalNavigator';
 import { GlobalModalWrapper } from 'components/common/modal/GlobalModal';
 
 // 페이지 0 : 로그인
-export default function MobileSocialLogin() {
+const MobileSocialLogin = () => {
   const { overlay, handleGithubLogin, handleGoogleLogin, handleFacebookLogin } =
     useSocialLogin();
 
@@ -37,7 +37,9 @@ export default function MobileSocialLogin() {
       </Container>
     </GlobalModalWrapper>
   );
-}
+};
+
+export default MobileSocialLogin;
 
 const Container = styled.div`
   display: flex;

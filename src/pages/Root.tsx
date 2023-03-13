@@ -2,13 +2,13 @@ import { Suspense, useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { useGlobalModal } from 'hooks';
 import GlobalModal from 'components/common/modal/GlobalModal';
-import ScrollToTop from 'components/common/scrollToTop';
+import ScrollToTop from 'components/common/ScrollToTop';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 import ScrollToTopButton from 'components/ScrollToTopButton';
 import LoadingPage from './LoadingPage';
 
-export default function Root() {
+const Root = () => {
   const {
     modal: { isOpen },
     closeModal,
@@ -32,4 +32,6 @@ export default function Root() {
       <Footer />
     </>
   );
-}
+};
+
+export default Root;

@@ -19,7 +19,7 @@ import Alert from 'components/common/Alert';
 import { amplitudeToNoneButtonClick } from 'utils/amplitude';
 import { GlobalModalWrapper } from 'components/common/modal/GlobalModal';
 
-export default function ReplyNote({ data }: { data: Note }) {
+const ReplyNote = ({ data }: { data: Note }) => {
   const [disabled, setDisabled] = useState(false);
   const [note, setNote] = useState<SendNote>({ title: '', content: '' });
   const { closeModal } = useGlobalModal();
@@ -94,7 +94,9 @@ export default function ReplyNote({ data }: { data: Note }) {
       />
     </GlobalModalWrapper>
   );
-}
+};
+
+export default ReplyNote;
 
 const TitleInput = styled.input`
   width: 100%;

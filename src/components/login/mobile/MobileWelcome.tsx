@@ -6,7 +6,7 @@ import { useGlobalModal } from 'hooks';
 import MobileConfirmButton from './MobileConfirmButton';
 
 // 페이지 4 : 환영합니다!
-export default function MobileWelcome() {
+const MobileWelcome = () => {
   const { closeModal } = useGlobalModal();
 
   const handleModalClose = () => {
@@ -28,7 +28,9 @@ export default function MobileWelcome() {
       </Container>
     </GlobalModalWrapper>
   );
-}
+};
+
+export default MobileWelcome;
 
 const Container = styled.div`
   display: flex;

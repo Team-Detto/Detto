@@ -8,18 +8,15 @@ type ButtonProps = {
   color?: string;
 };
 
-export default function CustomButton({
-  label,
-  onClick,
-  disabled,
-  color,
-}: ButtonProps) {
+const CustomButton = ({ label, onClick, disabled, color }: ButtonProps) => {
   return (
     <Button onClick={onClick} disabled={disabled} color={color}>
       {label}
     </Button>
   );
-}
+};
+
+export default CustomButton;
 
 const Button = styled.button<{ color?: string }>`
   width: 100%;

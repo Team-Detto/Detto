@@ -7,7 +7,7 @@ interface NoteMessageProps {
   data: Note;
 }
 
-export default function NoteMessage({ type, data }: NoteMessageProps) {
+const NoteMessage = ({ type, data }: NoteMessageProps) => {
   const { handleTitleClick, displayUser } = useNoteMessage(type, data);
 
   if (!displayUser) return null;
@@ -21,4 +21,6 @@ export default function NoteMessage({ type, data }: NoteMessageProps) {
       </MessageDateDiv>
     </MessageContainer>
   );
-}
+};
+
+export default NoteMessage;

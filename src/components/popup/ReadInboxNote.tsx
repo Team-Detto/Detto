@@ -18,7 +18,7 @@ import {
 } from './styles';
 import { GlobalModalWrapper } from 'components/common/modal/GlobalModal';
 
-export default function ReadInboxNote({ data }: { data: Note }) {
+const ReadInboxNote = ({ data }: { data: Note }) => {
   const { openModalWithData } = useGlobalModal();
   const navigate = useNavigate();
 
@@ -67,4 +67,6 @@ export default function ReadInboxNote({ data }: { data: Note }) {
       </Container>
     </GlobalModalWrapper>
   );
-}
+};
+
+export default ReadInboxNote;

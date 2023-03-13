@@ -7,7 +7,7 @@ import ValidationToastPopup from 'components/common/ValidationToastPopup';
 import useSetPositions from 'hooks/useSetPositions';
 import { GlobalModalWrapper } from 'components/common/modal/GlobalModal';
 
-export default function SetPositions() {
+const SetPositions = () => {
   const {
     showToast,
     ToastMessage,
@@ -62,7 +62,9 @@ export default function SetPositions() {
       </Container>
     </GlobalModalWrapper>
   );
-}
+};
+
+export default SetPositions;
 
 const Container = styled.div`
   display: flex;

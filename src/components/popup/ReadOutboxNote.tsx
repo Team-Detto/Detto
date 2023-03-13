@@ -17,7 +17,7 @@ import {
   TitleText,
 } from './styles';
 
-export default function ReadOutboxNote({ data }: { data: Note }) {
+const ReadOutboxNote = ({ data }: { data: Note }) => {
   const { closeModal } = useGlobalModal();
   const navigate = useNavigate();
 
@@ -53,4 +53,6 @@ export default function ReadOutboxNote({ data }: { data: Note }) {
       </Container>
     </GlobalModalWrapper>
   );
-}
+};
+
+export default ReadOutboxNote;

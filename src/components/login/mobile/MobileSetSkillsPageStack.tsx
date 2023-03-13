@@ -5,7 +5,7 @@ import { designs, develops, products } from 'utils/skills';
 
 const positions = ['기획', '디자인', '개발'];
 
-export default function MobileSetSkillsPageStack({ skills, setSkills }: any) {
+const MobileSetSkillsPageStack = ({ skills, setSkills }: any) => {
   const [selectedPosition, setSelectedPosition] = useState<string>('기획');
 
   const handleSkillButtonClick = (position: string, skill: string) => {
@@ -87,7 +87,9 @@ export default function MobileSetSkillsPageStack({ skills, setSkills }: any) {
       </Skills>
     </Container>
   );
-}
+};
+
+export default MobileSetSkillsPageStack;
 
 const Container = styled.div`
   width: 100%;

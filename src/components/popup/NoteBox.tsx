@@ -13,7 +13,7 @@ const boxList = [
   { id: 'outbox', label: '보낸 쪽지' },
 ];
 
-export default function NoteBox() {
+const NoteBox = () => {
   // 받은 쪽지함, 보낸 쪽지함 선택 상태
   const [selectedBox, setSelectedBox] = useState('inbox');
   const [unreadCount, setUnreadCount] = useState<number>(0);
@@ -93,7 +93,9 @@ export default function NoteBox() {
       </MessageWrapper>
     </PopupWrapper>
   );
-}
+};
+
+export default NoteBox;
 
 const BoxContainer = styled.div`
   width: 100%;

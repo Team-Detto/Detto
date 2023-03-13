@@ -18,7 +18,7 @@ import {
   MobileTitleText,
 } from './styles';
 
-export default function MobileReadOutboxNote({ data }: { data: Note }) {
+const MobileReadOutboxNote = ({ data }: { data: Note }) => {
   const { closeModal } = useGlobalModal();
   const navigate = useNavigate();
 
@@ -58,4 +58,6 @@ export default function MobileReadOutboxNote({ data }: { data: Note }) {
       </MobileContainer>
     </GlobalModalWrapper>
   );
-}
+};
+
+export default MobileReadOutboxNote;

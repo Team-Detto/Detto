@@ -8,18 +8,20 @@ type ButtonProps = {
   color?: string;
 };
 
-export default function MobileCustomButton({
+const MobileCustomButton = ({
   label,
   onClick,
   disabled,
   color,
-}: ButtonProps) {
+}: ButtonProps) => {
   return (
     <Button onClick={onClick} disabled={disabled} color={color}>
       {label}
     </Button>
   );
-}
+};
+
+export default MobileCustomButton;
 
 const Button = styled.button<{ color?: string }>`
   width: 100%;
