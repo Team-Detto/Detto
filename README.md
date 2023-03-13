@@ -28,7 +28,7 @@
 
 **프로젝트 문서**
  
-| 📒 [팀 Notion ](https://sunohvoiin.notion.site/f3ea4c69953d4c4dbbaf0256d9f3dc70) | 🎉 [프로젝트 S.A](https://sunohvoiin.notion.site/Detto-S-A-cc26bd8ec18f4d969cd06cfc412652fe) | 💌 [베타 테스트 피드백](https://sunohvoiin.notion.site/ac659f3772f0480c9243ba5b7b7ada13) | 🚀 [트러블 슈팅 및 최적화](https://sunohvoiin.notion.site/9076e7263c4c416eb19a706f1114602d) | 💬 [KPT 회고]()
+| 📒 [팀 Notion ](https://sunohvoiin.notion.site/f3ea4c69953d4c4dbbaf0256d9f3dc70) | 🎉 [프로젝트 S.A](https://sunohvoiin.notion.site/Detto-S-A-cc26bd8ec18f4d969cd06cfc412652fe) | 💌 [베타 테스트 피드백](https://sunohvoiin.notion.site/ac659f3772f0480c9243ba5b7b7ada13) | 🚀 [트러블 슈팅 및 최적화](https://sunohvoiin.notion.site/9076e7263c4c416eb19a706f1114602d) | 💬 [KPT 회고](https://sunohvoiin.notion.site/230313-46ab3ebf8be743a7abf2df8dfb19549d)
 | ---- | ---- | ---- | ---- | ---- |
 
 <br/>
