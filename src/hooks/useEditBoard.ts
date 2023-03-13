@@ -6,6 +6,8 @@ import {
   MouseEvent,
   useEffect,
 } from 'react';
+import { useRecoilValue } from 'recoil';
+import { deletedPidState } from '../recoil/atoms';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { firebaseEditProjectRequest } from 'apis/boardService';
@@ -20,8 +22,6 @@ import {
   titleValidation,
 } from 'utils/validation';
 import Resizer from 'react-image-file-resizer';
-import { useRecoilValue } from 'recoil';
-import { deletedPidState } from '../recoil/atoms';
 
 const useEditBoard = () => {
   const { state } = useLocation();
@@ -32,7 +32,7 @@ const useEditBoard = () => {
   const editRef = useRef<any>(null);
   const imageRef = useRef<any>(null);
 
-  console.log(imageRef);
+  const deletedPid = useRecoilValue(deletedPidState);
 
   const [editFormValue, setEditFormValue] = useState<EditType.EditFormType>(
     state || JSON.parse(sessionStorage.getItem('editFormValue') || '{}'),
@@ -218,7 +218,6 @@ const useEditBoard = () => {
     return navigate(-2);
   }, []);
 
-  const deletedPid = useRecoilValue(deletedPidState);
   useEffect(() => {
     (() => {
       if (deletedPid) return;
