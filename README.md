@@ -2,7 +2,10 @@
 
 # 💜 Detto
 
-<img src="https://user-images.githubusercontent.com/82587107/221075053-5e92bfbb-dc04-4187-a10e-01cc5ff60f68.gif" alt="로고" width="80%">
+<br/>
+<div align="center"><img src="https://user-images.githubusercontent.com/88768022/224604036-7bef065d-272f-4b4d-af67-9392cd6bc0a3.png" alt="로고" width="700px"></div>
+<br/>
+
 
 
 **프로젝트 기간** : 2023.02.06 ~ 2023.03.13
