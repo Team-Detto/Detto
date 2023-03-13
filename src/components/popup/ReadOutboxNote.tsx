@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { getUserInfoData } from 'apis/mypageUsers';
+import { GlobalModalWrapper } from 'components/common/modal/GlobalModal';
 import ModalNavigator from 'components/common/modal/ModalNavigator';
 import { useGlobalModal } from 'hooks';
 import { useNavigate } from 'react-router-dom';
@@ -16,7 +17,7 @@ import {
   TitleText,
 } from './styles';
 
-export default function ReadOutboxNote({ data }: { data: Note }) {
+const ReadOutboxNote = ({ data }: { data: Note }) => {
   const { closeModal } = useGlobalModal();
   const navigate = useNavigate();
 
@@ -33,21 +34,25 @@ export default function ReadOutboxNote({ data }: { data: Note }) {
 
   if (!receiver) return null;
   return (
-    <Container>
-      <ModalNavigator page={0} close />
-      <HeaderContainer>
-        <ProfileImage
-          src={receiver.photoURL}
-          onClick={handleProfileImageClick}
-          alt={receiver.displayName + ' 프로필 이미지'}
-          referrerPolicy="no-referrer"
-        />
-        <NameText>{receiver.displayName}님께 보낸 쪽지</NameText>
-        <DateText>{getDateAndTime(data.date)}</DateText>
-      </HeaderContainer>
-      <TitleText>{data.title}</TitleText>
-      <ContentText>{data.content}</ContentText>
-      <CustomButton label="확인" onClick={closeModal} />
-    </Container>
+    <GlobalModalWrapper width="41.0625rem" height="31.4375rem">
+      <Container>
+        <ModalNavigator page={0} close />
+        <HeaderContainer>
+          <ProfileImage
+            src={receiver.photoURL}
+            onClick={handleProfileImageClick}
+            alt={receiver.displayName + ' 프로필 이미지'}
+            referrerPolicy="no-referrer"
+          />
+          <NameText>{receiver.displayName}님께 보낸 쪽지</NameText>
+          <DateText>{getDateAndTime(data.date)}</DateText>
+        </HeaderContainer>
+        <TitleText>{data.title}</TitleText>
+        <ContentText>{data.content}</ContentText>
+        <CustomButton label="확인" onClick={closeModal} />
+      </Container>
+    </GlobalModalWrapper>
   );
-}
+};
+
+export default ReadOutboxNote;

@@ -16,6 +16,7 @@ import styled from '@emotion/styled';
 const ProjectWritePage = () => {
   const {
     isOpen,
+    isPrompt,
     editRef,
     imageRef,
     showToast,
@@ -24,8 +25,10 @@ const ProjectWritePage = () => {
     writeFormValue,
     setWriteFormValue,
     handleCalculate,
+    handlePreventGoBack,
     handleFormValueChange,
     handleModalStateChange,
+    handleModalCloseChange,
     handleAddThumbnailImage,
     handleAddThumbnailImageChange,
     handleCreateProjectButtonClick,
@@ -66,6 +69,13 @@ const ProjectWritePage = () => {
             onCloseEvent={handleModalStateChange}
             onClickEvent={handleCreateProjectButtonClick}
           />
+          <MobileConfirmAlert
+            isOpen={isPrompt}
+            message="게시글 작성을 취소하시겠습니까?"
+            subMessage="작성 중인 게시글은 저장되지 않습니다."
+            onClickEvent={handlePreventGoBack}
+            onCloseEvent={handleModalCloseChange}
+          />
           {showToast && <ValidationToastPopup message={ToastMessage} />}
         </MobileContainer>
       </>
@@ -101,6 +111,13 @@ const ProjectWritePage = () => {
             subMessage="작성한 게시물은 마이페이지에서 볼 수 있습니다."
             onClickEvent={handleCreateProjectButtonClick}
             onCloseEvent={handleModalStateChange}
+          />
+          <ConfirmAlert
+            isOpen={isPrompt}
+            message="정말 나가시겠습니까?"
+            subMessage="작성한 내용은 저장되지 않습니다."
+            onClickEvent={handlePreventGoBack}
+            onCloseEvent={handleModalCloseChange}
           />
           {showToast && <ValidationToastPopup message={ToastMessage} />}
         </ProjectWritePageWrapper>

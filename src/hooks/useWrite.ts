@@ -1,8 +1,14 @@
-import { useState, useRef, useCallback, ChangeEvent, MouseEvent } from 'react';
+import {
+  useState,
+  useRef,
+  useCallback,
+  ChangeEvent,
+  MouseEvent,
+  useEffect,
+} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth, useModal, useToastPopup } from 'hooks';
 import { firebaseCreateProjectRequest } from 'apis/boardService';
-import { WriteType } from 'types/write/writeType';
 import { getCurrentPathName, logEvent } from 'utils/amplitude';
 import {
   titleValidation,
@@ -27,6 +33,11 @@ const useWrite = () => {
 
   const { uid } = useAuth();
   const { isOpen, handleModalStateChange } = useModal(false);
+  const {
+    isOpen: isPrompt,
+    handleModalOpenChange,
+    handleModalCloseChange,
+  } = useModal(false);
   const { showToast, ToastMessage, handleToastPopup } = useToastPopup();
 
   const handleCheckValidationButtonClick = useCallback(() => {
@@ -96,7 +107,7 @@ const useWrite = () => {
       const docId = await firebaseCreateProjectRequest(
         writeFormValue,
         markdownText,
-        resizedImage,
+        resizedImage as File,
         uid,
       );
       logEvent('Button Click', {
@@ -160,7 +171,7 @@ const useWrite = () => {
       const numberValue = Number(value);
       const updatedValue =
         id === 'plus' ? numberValue + 1 : Math.max(0, numberValue - 1);
-      setWriteFormValue((prev: any) => ({
+      setWriteFormValue((prev: WriteType.WriteFormType) => ({
         ...prev,
         positions: {
           ...prev.positions,
@@ -171,8 +182,38 @@ const useWrite = () => {
     [setWriteFormValue],
   );
 
+  const preventGoBack = () => {
+    history.pushState(null, '', location.href);
+    handleModalOpenChange();
+  };
+
+  const preventRefresh = (e: BeforeUnloadEvent) => {
+    e.preventDefault();
+    e.returnValue = '';
+  };
+
+  const handlePreventGoBack = useCallback(() => {
+    handleModalCloseChange();
+    window.removeEventListener('popstate', preventGoBack);
+    return navigate(-2);
+  }, []);
+
+  useEffect(() => {
+    (() => {
+      history.pushState(null, '', location.href);
+      window.addEventListener('popstate', preventGoBack);
+      window.addEventListener('beforeunload', preventRefresh);
+    })();
+
+    return () => {
+      window.removeEventListener('popstate', preventGoBack);
+      window.removeEventListener('beforeunload', preventRefresh);
+    };
+  }, []);
+
   return {
     isOpen,
+    isPrompt,
     editRef,
     imageRef,
     showToast,
@@ -181,8 +222,10 @@ const useWrite = () => {
     writeFormValue,
     setWriteFormValue,
     handleCalculate,
+    handlePreventGoBack,
     handleFormValueChange,
     handleModalStateChange,
+    handleModalCloseChange,
     handleAddThumbnailImage,
     handleAddThumbnailImageChange,
     handleCreateProjectButtonClick,

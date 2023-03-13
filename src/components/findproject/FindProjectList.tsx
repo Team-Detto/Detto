@@ -1,5 +1,4 @@
 import ContentCard from 'components/ContentCard';
-import { EditType } from 'types/write/writeType';
 import styled from '@emotion/styled';
 
 interface Props {
@@ -7,7 +6,6 @@ interface Props {
   toggle: boolean;
   category: string;
   likedProjects: string[];
-  onUpdateLikedCountEvent: (id: string) => void;
   onNavigateToProjectDetailEvent: (path: string) => () => void;
 }
 
@@ -16,21 +14,19 @@ const FindProjectList = ({
   toggle,
   category,
   likedProjects,
-  onUpdateLikedCountEvent,
   onNavigateToProjectDetailEvent,
 }: Props) => {
   return (
     <FindProjectListContainer>
       {projects
-        .filter((project: any) => project.positions[category] !== 0)
+        .filter((project: any) => project?.positions[category] !== 0)
         .map((project) =>
           !toggle ? (
-            project.isRecruiting && (
+            project?.isRecruiting && (
               <ContentCard
-                key={project.id}
+                key={project?.id}
                 project={project}
                 likedProjects={likedProjects}
-                onUpdateLikedCountEvent={onUpdateLikedCountEvent}
                 onNavigateToProjectDetailEvent={onNavigateToProjectDetailEvent}
               />
             )
@@ -39,7 +35,6 @@ const FindProjectList = ({
               key={project.id}
               project={project}
               likedProjects={likedProjects}
-              onUpdateLikedCountEvent={onUpdateLikedCountEvent}
               onNavigateToProjectDetailEvent={onNavigateToProjectDetailEvent}
             />
           ),

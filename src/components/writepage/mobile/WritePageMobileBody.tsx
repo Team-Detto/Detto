@@ -1,5 +1,4 @@
 import { ChangeEvent, MouseEvent, RefObject } from 'react';
-import { WriteType } from 'types/write/writeType';
 import WritePageMobilePosition from './WritePageMobilePosition';
 import WritePageMobileStack from './WritePageMobileStack';
 import WritePageMobilePeriod from './WritePageMobilePeriod';

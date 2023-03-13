@@ -5,9 +5,11 @@ type ButtonProps = {
   onClick: () => void;
 };
 
-export default function MobileConfirmButton({ onClick }: ButtonProps) {
+const MobileConfirmButton = ({ onClick }: ButtonProps) => {
   return <Button onClick={onClick}>확인</Button>;
-}
+};
+
+export default MobileConfirmButton;
 
 const Button = styled.button`
   width: 100%;

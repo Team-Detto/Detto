@@ -5,13 +5,22 @@ import { concatSkills } from 'utils/skills';
 import ProjectsTab from 'components/common/myProjectList/ProjectsTab';
 import MobileProjectList from 'components/mypage/mobile/MobileProjectList';
 import PublicProfileImage from './PublicProfileImage';
+import { DocumentData } from 'firebase/firestore';
+import React from 'react';
+
+interface MobilePublicProfilePageProps {
+  userInfoData: DocumentData;
+  activeProjectTab: string;
+  handleProjectTabClick: (category: React.MouseEvent<HTMLLIElement>) => void;
+  pidList: DocumentData;
+}
 
 const MobilePublicProfilePage = ({
   userInfoData,
   activeProjectTab,
   handleProjectTabClick,
   pidList,
-}: any) => {
+}: MobilePublicProfilePageProps) => {
   const {
     photoURL,
     displayName,

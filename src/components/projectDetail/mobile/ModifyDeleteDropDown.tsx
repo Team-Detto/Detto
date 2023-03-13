@@ -9,18 +9,36 @@ import {
   amplitudeToNoneButtonClick,
   amplitudeNeedToButtonClick,
 } from 'utils/amplitude';
+import { DocumentData } from 'firebase/firestore';
+import { useSetRecoilState } from 'recoil';
+import { deletedPidState } from '../../../recoil/atoms';
 
-const ModifyDeleteDropDown = ({ pid, popup, setPopup, projectData }: any) => {
+interface ModifyDeleteDropDownProps {
+  pid: string;
+  popup: boolean;
+  setPopup: (popup: boolean) => void;
+  projectData: DocumentData;
+}
+
+const ModifyDeleteDropDown = ({
+  pid,
+  popup,
+  setPopup,
+  projectData,
+}: ModifyDeleteDropDownProps) => {
   const { isOpen, handleModalStateChange } = useModal(false);
+  const setDeletedPid = useSetRecoilState(deletedPidState);
   const queryClient = useQueryClient();
   const { mutate: deleteProjectMutate } = useMutation(
     () => deleteProject(pid),
     {
       onSuccess: () => {
         queryClient.invalidateQueries(['post', 'projectIdList']);
+        setDeletedPid(pid);
       },
     },
   );
+
   return (
     <>
       <MobileConfirmAlert
@@ -28,7 +46,7 @@ const ModifyDeleteDropDown = ({ pid, popup, setPopup, projectData }: any) => {
         message="정말 삭제할까요?"
         subMessage="게시글은 바로 사라집니다!"
         onClickEvent={() => {
-          deleteProjectMutate(pid);
+          deleteProjectMutate();
           window.history.back();
           amplitudeToNoneButtonClick('delete_project_yes');
         }}

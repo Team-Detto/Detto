@@ -6,35 +6,40 @@ import FACEBOOK_IMG from 'assets/images/login_facebook.png';
 import GOOGLE_IMG from 'assets/images/login_google.png';
 import useSocialLogin from 'hooks/useSocialLogin';
 import ModalNavigator from 'components/common/modal/ModalNavigator';
+import { GlobalModalWrapper } from 'components/common/modal/GlobalModal';
 
 // 페이지 0 : 로그인
-export default function MobileSocialLogin() {
+const MobileSocialLogin = () => {
   const { overlay, handleGithubLogin, handleGoogleLogin, handleFacebookLogin } =
     useSocialLogin();
 
   return (
-    <Container>
-      <Overlay overlay={overlay} />
-      <ModalNavigator page={0} close />
-      <LogoImg src={LOGO_IMG} alt="login" />
-      <Title>로그인을 해주세요</Title>
-      <LoginButtons>
-        <LoginButton onClick={handleGithubLogin} color="black">
-          <SocialImg src={GITHUB_IMG} alt="github" />
-          <LogoText>GitHub</LogoText>
-        </LoginButton>
-        <LoginButton onClick={handleFacebookLogin} color="blue">
-          <SocialImg src={FACEBOOK_IMG} alt="facebook" />
-          <LogoText>Facebook</LogoText>
-        </LoginButton>
-        <LoginButton onClick={handleGoogleLogin} color="white">
-          <SocialImg src={GOOGLE_IMG} alt="google" />
-          <LogoText color="gray">Google</LogoText>
-        </LoginButton>
-      </LoginButtons>
-    </Container>
+    <GlobalModalWrapper width="20rem" height="24.875rem" isMobile>
+      <Container>
+        <Overlay overlay={overlay} />
+        <ModalNavigator page={0} close />
+        <LogoImg src={LOGO_IMG} alt="login" />
+        <Title>로그인을 해주세요</Title>
+        <LoginButtons>
+          <LoginButton onClick={handleGithubLogin} color="black">
+            <SocialImg src={GITHUB_IMG} alt="github" />
+            <LogoText>GitHub</LogoText>
+          </LoginButton>
+          <LoginButton onClick={handleFacebookLogin} color="blue">
+            <SocialImg src={FACEBOOK_IMG} alt="facebook" />
+            <LogoText>Facebook</LogoText>
+          </LoginButton>
+          <LoginButton onClick={handleGoogleLogin} color="white">
+            <SocialImg src={GOOGLE_IMG} alt="google" />
+            <LogoText color="gray">Google</LogoText>
+          </LoginButton>
+        </LoginButtons>
+      </Container>
+    </GlobalModalWrapper>
   );
-}
+};
+
+export default MobileSocialLogin;
 
 const Container = styled.div`
   display: flex;

@@ -23,7 +23,7 @@ const ErrorPage = lazy(() => import('pages/ErrorPage'));
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route element={<Root />} errorElement={<ErrorPage />}>
+    <Route element={<Root />}>
       <Route path="*" element={<ErrorPage />} />
       <Route
         path="/"

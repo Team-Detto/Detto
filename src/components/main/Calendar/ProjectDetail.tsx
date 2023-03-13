@@ -5,13 +5,13 @@ import { selectedProjectState } from '../../../recoil/atoms';
 import { getDate } from 'utils/date';
 import COLORS from 'assets/styles/colors';
 import { getCurrentPathName, logEvent } from 'utils/amplitude';
-const positions: any = {
+
+const positions: { [key: string]: string } = {
   frontend: '프론트엔드',
   backend: '백엔드',
   designer: '디자인',
   planner: '기획',
 };
-
 const ProjectDetail = () => {
   const selectedProject = useRecoilValue<any>(selectedProjectState);
   if (!selectedProject) return null;
@@ -138,7 +138,7 @@ const ProjectDetailSproutText = styled.div`
   height: 1.3125rem;
 
   font-weight: 400;
-  font-size: .875rem;
+  font-size: 0.875rem;
   line-height: 150%;
 `;
 const ProjectDetailSproutTextSpan = styled.p`
@@ -168,13 +168,13 @@ const ProjectDetailinquiryAttentionTextBox = styled.div`
   flex-direction: row;
 
   font-weight: 400;
-  font-size: .75rem;
+  font-size: 0.75rem;
   line-height: 140%;
   color: ${COLORS.gray600};
 `;
 const ProjectDetailinquiryAttentionTextP = styled.p`
   font-weight: 700;
-  font-size: .75rem;
+  font-size: 0.75rem;
   line-height: 140%;
   color: ${COLORS.gray600};
   margin-left: 2px;

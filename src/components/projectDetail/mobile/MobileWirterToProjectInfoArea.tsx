@@ -1,13 +1,25 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
+import { modalTypes } from 'components/common/modal/modalTypes';
+import { DocumentData } from 'firebase/firestore';
+import { useAuth, useGlobalModal } from 'hooks';
+import { HiMail } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
 import { logEvent } from 'utils/amplitude';
 import { getDate } from 'utils/date';
 import { positionList } from 'utils/positions';
 
-const WriterToProjectInfoArea = ({ projectData, userData }: any) => {
+interface WriterToProjectInfoContainerProps {
+  projectData: DocumentData;
+  userData: DocumentData;
+}
+
+const WriterToProjectInfoArea = ({
+  projectData,
+  userData,
+}: WriterToProjectInfoContainerProps) => {
   const {
-    uid,
+    uid: receiverUid,
     positions,
     plannerStack,
     developerStack,
@@ -18,26 +30,54 @@ const WriterToProjectInfoArea = ({ projectData, userData }: any) => {
   } = projectData;
 
   const navigate = useNavigate();
+  const { uid: SenderUid } = useAuth(); //보내는 사람 id
+  const { openModalWithData, openModal } = useGlobalModal();
 
+  const handleSendNoteButtonClick = () => {
+    openModalWithData(modalTypes.sendNote, {
+      id: 'id', //addDoc이라 id 필요없음
+      senderUid: SenderUid,
+      receiverUid: receiverUid,
+      date: 0,
+      title: '',
+      content: '',
+      isRead: false,
+    });
+  };
   return (
     <WriterToProjectInfoContainer>
-      <WriterWrapper
-        onClick={() => {
-          navigate(`/profile/${uid}`);
-          logEvent('Button Click', {
-            from: `project_detail`, //pathname으로 하면 이동한페이지로 인식해서 수정
-            to: 'profile',
-            name: 'profile',
-          });
-        }}
-      >
-        <WriterProfileImg
-          src={userData?.photoURL}
-          alt={userData?.displayName}
-          referrerPolicy="no-referrer"
-        />
-        <WriterNickname>{userData?.displayName}</WriterNickname>
-      </WriterWrapper>
+      <WriterContainer>
+        <WriterWrapper
+          onClick={() => {
+            navigate(`/profile/${receiverUid}`);
+            logEvent('Button Click', {
+              from: `project_detail`, //pathname으로 하면 이동한페이지로 인식해서 수정
+              to: 'profile',
+              name: 'profile',
+            });
+          }}
+        >
+          <WriterProfileImg
+            src={userData?.photoURL}
+            alt={userData?.displayName}
+            referrerPolicy="no-referrer"
+          />
+          <WriterNickname>{userData?.displayName}</WriterNickname>
+        </WriterWrapper>
+        {receiverUid !== SenderUid && (
+          <SendNoteButton
+            onClick={() => {
+              if (!SenderUid) {
+                openModal('login', 0);
+                return;
+              }
+              handleSendNoteButtonClick();
+            }}
+          >
+            <NoteIcon className="note" />
+          </SendNoteButton>
+        )}
+      </WriterContainer>
       <ProjectInfoWrapper>
         <ProjectInfoObject>
           <ProjectInfoKey>모집 인원</ProjectInfoKey>
@@ -118,9 +158,15 @@ const WriterToProjectInfoContainer = styled.div`
   margin: 1.25rem auto 2.5rem;
 `;
 
+const WriterContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 1rem 1.25rem 0 1.25rem;
+`;
+
 const WriterWrapper = styled.div`
   display: flex;
-  margin: 1rem 1.25rem 0 1.25rem;
+
   height: 2rem;
   align-items: center;
 `;
@@ -255,4 +301,21 @@ const StackList = styled.div`
   flex-wrap: wrap;
   gap: 0.625rem;
   margin-left: 0.4rem;
+`;
+
+const SendNoteButton = styled.button<{ page?: string }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  transform: all 300ms ease-in-out;
+  > .note :hover {
+    background-color: ${COLORS.black};
+  }
+`;
+
+const NoteIcon = styled(HiMail)`
+  font-size: 1rem;
+  color: ${COLORS.violetB300};
 `;

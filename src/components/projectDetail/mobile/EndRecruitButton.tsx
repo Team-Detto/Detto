@@ -1,6 +1,11 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 
+interface EndRecruitButtonProps {
+  onClick: () => void;
+  isRecruiting: boolean;
+}
+
 const EndRecruitButton = ({ onClick, isRecruiting }: any) => {
   return (
     <>

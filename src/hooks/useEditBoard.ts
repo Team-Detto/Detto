@@ -1,9 +1,17 @@
-import { useCallback, useState, ChangeEvent, useRef, MouseEvent } from 'react';
+import {
+  useCallback,
+  useState,
+  ChangeEvent,
+  useRef,
+  MouseEvent,
+  useEffect,
+} from 'react';
+import { useRecoilValue } from 'recoil';
+import { deletedPidState } from '../recoil/atoms';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { firebaseEditProjectRequest } from 'apis/boardService';
 import { useModal, useToastPopup } from 'hooks';
-import { EditType } from 'types/write/writeType';
 import { getCurrentPathName, logEvent } from 'utils/amplitude';
 import {
   contentValidation,
@@ -24,15 +32,31 @@ const useEditBoard = () => {
   const editRef = useRef<any>(null);
   const imageRef = useRef<any>(null);
 
-  const [editFormValue, setEditFormValue] =
-    useState<EditType.EditFormType>(state);
+  const deletedPid = useRecoilValue(deletedPidState);
+
+  const [editFormValue, setEditFormValue] = useState<EditType.EditFormType>(
+    state || JSON.parse(sessionStorage.getItem('editFormValue') || '{}'),
+  );
   const [editThumbnail, setEditThumbnail] = useState<File | null>(null);
 
+  useEffect(() => {
+    sessionStorage.setItem('editFormValue', JSON.stringify(editFormValue));
+
+    return () => {
+      sessionStorage.removeItem('editFormValue');
+    };
+  }, [state]);
+
   const { isOpen, handleModalStateChange } = useModal(false);
+  const {
+    isOpen: isPrompt,
+    handleModalOpenChange,
+    handleModalCloseChange,
+  } = useModal(false);
   const { showToast, ToastMessage, handleToastPopup } = useToastPopup();
 
   const { mutate: editProjectRequest } = useMutation(
-    (resizedFile: any) =>
+    (resizedFile: File | null) =>
       firebaseEditProjectRequest(
         params.id as string,
         editFormValue,
@@ -115,11 +139,11 @@ const useEditBoard = () => {
       return;
     }
     const resizedFile = await resizeFile(editThumbnail);
-    editProjectRequest(resizedFile);
+    editProjectRequest(resizedFile as File);
   };
 
   const handleAddThumbnailImage = useCallback(() => {
-    imageRef.current.click();
+    imageRef.current?.click();
     logEvent('Button Click', {
       from: getCurrentPathName(),
       to: 'project_detail',
@@ -167,7 +191,7 @@ const useEditBoard = () => {
       const numberValue = Number(value);
       const updatedValue =
         id === 'plus' ? numberValue + 1 : Math.max(0, numberValue - 1);
-      setEditFormValue((prev: any) => ({
+      setEditFormValue((prev: EditType.EditFormType) => ({
         ...prev,
         positions: {
           ...prev.positions,
@@ -178,8 +202,40 @@ const useEditBoard = () => {
     [setEditFormValue],
   );
 
+  const preventGoBack = () => {
+    history.pushState(null, '', location.href);
+    handleModalOpenChange();
+  };
+
+  const preventRefresh = (e: BeforeUnloadEvent) => {
+    e.preventDefault();
+    e.returnValue = '';
+  };
+
+  const handlePreventGoBack = useCallback(() => {
+    handleModalCloseChange();
+    window.removeEventListener('popstate', preventGoBack);
+    return navigate(-2);
+  }, []);
+
+  useEffect(() => {
+    (() => {
+      if (deletedPid) return;
+      history.pushState(null, '', location.href);
+      window.addEventListener('popstate', preventGoBack);
+      window.addEventListener('beforeunload', preventRefresh);
+    })();
+
+    return () => {
+      if (deletedPid) return;
+      window.removeEventListener('popstate', preventGoBack);
+      window.removeEventListener('beforeunload', preventRefresh);
+    };
+  }, []);
+
   return {
     isOpen,
+    isPrompt,
     editRef,
     imageRef,
     showToast,
@@ -188,8 +244,10 @@ const useEditBoard = () => {
     editFormValue,
     setEditFormValue,
     handleCalculate,
+    handlePreventGoBack,
     handleFormValueChange,
     handleModalStateChange,
+    handleModalCloseChange,
     handleAddThumbnailImage,
     handleEditProjectButtonClick,
     handleAddThumbnailImageChange,

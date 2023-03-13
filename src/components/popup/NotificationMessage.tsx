@@ -2,7 +2,7 @@ import useNotificationMessage from 'hooks/useNotificationMessage';
 import { getDateAndTime } from 'utils/date';
 import { MessageContainer, MessageDateDiv, MessageTitleDiv } from './styles';
 
-export default function NotificationMessage({ data }: { data: Notification }) {
+const NotificationMessage = ({ data }: { data: Notification }) => {
   const { handleTitleClick } = useNotificationMessage(data);
 
   return (
@@ -13,4 +13,6 @@ export default function NotificationMessage({ data }: { data: Notification }) {
       <MessageDateDiv>{getDateAndTime(data.date)}</MessageDateDiv>
     </MessageContainer>
   );
-}
+};
+
+export default NotificationMessage;

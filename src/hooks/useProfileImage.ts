@@ -20,7 +20,9 @@ const useProfileImage = (uid: string, photoURL?: string) => {
     const resizedImage = await resizeFile(file);
 
     // 이미지를 스토리지에 업로드 후 반환받은 이미지 url을 상태(profileImg)로 저장
-    uploadProfileImg(resizedImage, uid).then((res) => setProfileImg(res));
+    uploadProfileImg(resizedImage as File, uid).then((res) =>
+      setProfileImg(res),
+    );
   };
 
   // 이미지 삭제 이벤트 핸들러
@@ -43,7 +45,7 @@ const useProfileImage = (uid: string, photoURL?: string) => {
 
 export default useProfileImage;
 
-const resizeFile = (file: File) =>
+const resizeFile = (file: File): any =>
   new Promise((resolve) => {
     Resizer.imageFileResizer(
       file,

@@ -30,15 +30,7 @@ const useGlobalModal = () => {
     });
   };
 
-  const updateModalSize = (width: string, height: string) => {
-    setModal({
-      ...modal,
-      width,
-      height,
-    });
-  };
-
-  return { modal, openModal, openModalWithData, closeModal, updateModalSize };
+  return { modal, openModal, openModalWithData, closeModal };
 };
 
 export default useGlobalModal;

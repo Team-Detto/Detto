@@ -5,18 +5,27 @@ import ConfirmAlert from 'components/common/ConfirmAlert';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteProject, updateRecruiting } from 'apis/postDetail';
 import { useAuth, useModal } from 'hooks';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import defaultThumbnail from 'assets/images/thumbnail_big.webp';
 import {
   amplitudeToNoneButtonClick,
   amplitudeNeedToButtonClick,
 } from 'utils/amplitude';
+import { DocumentData } from 'firebase/firestore';
+import { useSetRecoilState } from 'recoil';
+import { deletedPidState } from '../../recoil/atoms';
 
-const TitleThumbnailArea = ({ projectData, pid }: any) => {
+interface TitleThumbnailAreaProps {
+  projectData: DocumentData;
+  pid: string;
+}
+
+const TitleThumbnailArea = ({ projectData, pid }: TitleThumbnailAreaProps) => {
   const { thumbnail, title, isRecruiting, deadline } = projectData;
   const today = new Date().getTime();
   const { isOpen, handleModalStateChange } = useModal(false);
   const queryClient = useQueryClient();
+  const setDeletedPid = useSetRecoilState(deletedPidState);
   //글 삭제하기 useMutation
   const { mutate: deleteProjectMutate } = useMutation(
     () => deleteProject(pid),
@@ -27,20 +36,21 @@ const TitleThumbnailArea = ({ projectData, pid }: any) => {
     },
   );
 
+  const { mutate: updateRecruitingMutate } = useMutation(() =>
+    updateRecruiting(pid, false),
+  );
+
   const { uid } = useAuth();
   const handleDeleteProject = () => {
-    deleteProjectMutate(pid); //post 컬렉션에서 프로젝트 삭제
-    amplitudeToNoneButtonClick('delete_project');
+    deleteProjectMutate(); //post 컬렉션에서 프로젝트 삭제
+    amplitudeToNoneButtonClick('delete_project_yes');
+    setDeletedPid(pid);
     window.history.back();
   };
 
-  const { mutate: updateRecruitingMutate } = useMutation(() =>
-    updateRecruiting(pid as string, false),
-  );
-
   useEffect(() => {
     if (today > deadline) {
-      updateRecruitingMutate(pid, false as any);
+      updateRecruitingMutate();
     }
   }, []);
 
@@ -55,7 +65,7 @@ const TitleThumbnailArea = ({ projectData, pid }: any) => {
         }}
         onCloseEvent={() => {
           handleModalStateChange();
-          amplitudeToNoneButtonClick('delete_project_cancel');
+          amplitudeToNoneButtonClick('delete_project_no');
         }}
       />
       <TitleToModifyButtonWrap>

@@ -3,8 +3,8 @@ import { firestore } from './firebaseService';
 
 // 단일 정보 조회
 export const findWithCollectionName = async (
-  collectionName?: any,
-  pid?: any, //프로젝트 id
+  collectionName: string,
+  pid: string, //프로젝트 id
 ) => {
   if (pid === undefined) return null;
   else {

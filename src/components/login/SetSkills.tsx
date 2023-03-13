@@ -6,11 +6,12 @@ import ModalNavigator from 'components/common/modal/ModalNavigator';
 import SetSkillsPageStack from './SetSkillsPageStack';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
 import useSetSkills from 'hooks/useSetSkills';
+import { GlobalModalWrapper } from 'components/common/modal/GlobalModal';
 
 // 페이지 2 : 기술스택 선택
 const page = 2;
 
-export default function SetSkills() {
+const SetSkills = () => {
   const [skills, setSkills] = useState({
     plannerStack: [],
     designerStack: [],
@@ -21,20 +22,26 @@ export default function SetSkills() {
     useSetSkills(skills);
 
   return (
-    <Container>
-      {showToast && <ValidationToastPopup message={ToastMessage} top={2} />}
-      <ModalNavigator page={page} back />
-      <BodyContainer>
-        <TextContainer>
-          <TitleText>어떤 기술 스택을 하실 수 있으신지 선택해주세요</TitleText>
-          <SubText>(중복 선택 가능해요)</SubText>
-        </TextContainer>
-        <SetSkillsPageStack skills={skills} setSkills={setSkills} />
-      </BodyContainer>
-      <ConfirmButton onClick={handleConfirmButtonClick} />
-    </Container>
+    <GlobalModalWrapper width="68.0625rem" height="44.75rem">
+      <Container>
+        {showToast && <ValidationToastPopup message={ToastMessage} top={2} />}
+        <ModalNavigator page={page} back />
+        <BodyContainer>
+          <TextContainer>
+            <TitleText>
+              어떤 기술 스택을 하실 수 있으신지 선택해주세요
+            </TitleText>
+            <SubText>(중복 선택 가능해요)</SubText>
+          </TextContainer>
+          <SetSkillsPageStack skills={skills} setSkills={setSkills} />
+        </BodyContainer>
+        <ConfirmButton onClick={handleConfirmButtonClick} />
+      </Container>
+    </GlobalModalWrapper>
   );
-}
+};
+
+export default SetSkills;
 
 const Container = styled.div`
   display: flex;

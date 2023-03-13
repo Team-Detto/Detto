@@ -8,50 +8,68 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getUserInfoData } from 'apis/mypageUsers';
 import { staleTime } from 'utils/staleTime';
+import { DocumentData } from 'firebase/firestore';
 
-const MobileApplicantCard = ({ pid, applicant, applicantUid }: any) => {
+interface MobileApplicantCardProps {
+  pid: string;
+  applicant: any;
+  applicantUid: string;
+}
+
+const MobileApplicantCard = ({
+  pid,
+  applicant,
+  applicantUid,
+}: MobileApplicantCardProps) => {
   const navigate = useNavigate();
   const { isOpen, handleModalStateChange } = useModal(false);
   const [applicantKey, setApplicantKey] = useState('');
 
   // 유저 정보 받아오는 쿼리
-  const { data: applierInfoData }: any = useQuery({
+  const { data: applierInfoData }: DocumentData = useQuery({
     queryKey: ['users', applicantUid],
     queryFn: getUserInfoData,
     staleTime: staleTime.users,
   });
 
   return (
-    <ApplicantCard>
-      <ProfileImg
-        src={applierInfoData.photoURL}
-        alt={applierInfoData.displayName}
-        referrerPolicy="no-referrer"
-        onClick={() => navigate(`/profile/${applicant.uid}`)}
-      />
-      <UserInfoDiv>
-        <Position>{applicant.position}</Position>
-        <DisplayName>{applierInfoData.displayName}</DisplayName>
-        <Stacks>
-          <UserStacks stacks={applicant.skills} version="mobile"></UserStacks>
-        </Stacks>
-      </UserInfoDiv>
-      <InviteButton
-        onClick={() => {
-          handleModalStateChange();
-          setApplicantKey(applicantUid);
-        }}
-      >
-        팀원으로 초대하기
-      </InviteButton>
-      <InviteModal
-        pid={pid}
-        isOpen={isOpen}
-        applicant={applicant}
-        applicantKey={applicantKey}
-        onClickEvent={handleModalStateChange}
-      />
-    </ApplicantCard>
+    <>
+      {applierInfoData && (
+        <ApplicantCard>
+          <ProfileImg
+            src={applierInfoData?.photoURL}
+            alt={applierInfoData?.displayName}
+            referrerPolicy="no-referrer"
+            onClick={() => navigate(`/profile/${applicant.uid}`)}
+          />
+          <UserInfoDiv>
+            <Position>{applicant?.position}</Position>
+            <DisplayName>{applierInfoData?.displayName}</DisplayName>
+            <Stacks>
+              <UserStacks
+                stacks={applicant?.skills}
+                version="mobile"
+              ></UserStacks>
+            </Stacks>
+          </UserInfoDiv>
+          <InviteButton
+            onClick={() => {
+              handleModalStateChange();
+              setApplicantKey(applicantUid);
+            }}
+          >
+            팀원으로 초대하기
+          </InviteButton>
+          <InviteModal
+            pid={pid}
+            isOpen={isOpen}
+            applicant={applicant}
+            applicantKey={applicantKey}
+            onClickEvent={handleModalStateChange}
+          />
+        </ApplicantCard>
+      )}
+    </>
   );
 };
 

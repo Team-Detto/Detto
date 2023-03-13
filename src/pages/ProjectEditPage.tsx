@@ -12,10 +12,14 @@ import EditPageMobileHeader from 'components/editpage/mobile/EditPageMobileHeade
 import EditPageMobileBody from 'components/editpage/mobile/EditPageMobileBody';
 import EditPageMobileFooter from 'components/editpage/mobile/EditPageMobileFooter';
 import styled from '@emotion/styled';
+import { useEffect } from 'react';
+import { useRecoilValue } from 'recoil';
+import { deletedPidState } from '../recoil/atoms';
 
 const ProjectEditPage = () => {
   const {
     isOpen,
+    isPrompt,
     editRef,
     imageRef,
     showToast,
@@ -23,14 +27,25 @@ const ProjectEditPage = () => {
     editFormValue,
     setEditFormValue,
     handleCalculate,
+    handlePreventGoBack,
     handleFormValueChange,
     handleModalStateChange,
+    handleModalCloseChange,
     handleAddThumbnailImage,
     handleEditProjectButtonClick,
     handleAddThumbnailImageChange,
     handleCheckValidationButtonClick,
   } = useEditBoard();
   const isMobile = useIsMobile();
+
+  const deletedPid = useRecoilValue(deletedPidState);
+  //이 페이지가 delete된 후에 넘어왔다면 메인페이지로 이동
+  useEffect(() => {
+    if (deletedPid) {
+      window.location.href = '/';
+    }
+  }, [deletedPid]);
+
   if (isMobile) {
     return (
       <>
@@ -62,6 +77,13 @@ const ProjectEditPage = () => {
               subMessage="수정한 게시글은 마이페이지에서 볼 수 있습니다."
               onClickEvent={handleEditProjectButtonClick}
               onCloseEvent={handleModalStateChange}
+            />
+            <MobileConfirmAlert
+              isOpen={isPrompt}
+              message="게시글 작성을 취소하시겠습니까?"
+              subMessage="작성 중인 게시글은 저장되지 않습니다."
+              onClickEvent={handlePreventGoBack}
+              onCloseEvent={handleModalCloseChange}
             />
             {showToast && <ValidationToastPopup message={ToastMessage} />}
           </EditPageMobileContainer>
@@ -100,6 +122,13 @@ const ProjectEditPage = () => {
             subMessage="수정한 게시글은 마이페이지에서 확인할 수 있습니다."
             onClickEvent={handleEditProjectButtonClick}
             onCloseEvent={handleModalStateChange}
+          />
+          <ConfirmAlert
+            isOpen={isPrompt}
+            message="정말 나가시겠습니까?"
+            subMessage="작성한 내용은 저장되지 않습니다."
+            onClickEvent={handlePreventGoBack}
+            onCloseEvent={handleModalCloseChange}
           />
           {showToast && <ValidationToastPopup message={ToastMessage} />}
         </EditPageWrapper>

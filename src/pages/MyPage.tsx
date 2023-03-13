@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import styled from '@emotion/styled';
 import { useAuth, useIsMobile, useProjectList } from 'hooks';
 import { Helmet } from 'react-helmet-async';
+import { DocumentData } from 'firebase/firestore';
 import LoadingPage from './LoadingPage';
 import MobileMyPage from 'components/mypage/mobile/MobileMyPage';
 import WebContainer from 'components/common/WebContainer';
@@ -21,14 +22,14 @@ const MyPage = () => {
     useProjectList();
 
   // 유저 정보 받아오는 쿼리
-  const { status, data: userInfoData }: any = useQuery({
+  const { status, data: userInfoData }: DocumentData = useQuery({
     queryKey: ['users', uid],
     queryFn: getUserInfoData,
     staleTime: staleTime.users,
   });
 
   // 유저 프로젝트 리스트 받아오는 쿼리
-  const { data: userProjectListsData }: any = useQuery({
+  const { data: userProjectListsData }: DocumentData = useQuery({
     queryKey: ['myProjects', uid],
     queryFn: getUserProjectList,
     staleTime: staleTime.myProjects,

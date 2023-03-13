@@ -1,7 +1,8 @@
 import { logEvent } from '@amplitude/analytics-browser';
 import { useQueries, useQuery } from '@tanstack/react-query';
 import { getUserInfoData, getUserProjectList } from 'apis/mypageUsers';
-import { modalTypes } from 'components/common/modal/modal';
+import { modalTypes } from 'components/common/modal/modalTypes';
+import { DocumentData } from 'firebase/firestore';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import {
@@ -24,7 +25,10 @@ const usePubicProfile = () => {
   const { openModalWithData, openModal } = useGlobalModal();
   const isMobile = useIsMobile();
 
-  const [{ data: userInfoData }, { data: userProjectListsData }] = useQueries({
+  const [
+    { data: userInfoData },
+    { data: userProjectListsData },
+  ]: DocumentData[] = useQueries({
     queries: [
       //유저 정보 조회
       {

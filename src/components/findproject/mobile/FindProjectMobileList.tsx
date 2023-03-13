@@ -1,5 +1,4 @@
 import MobileContentCard from 'components/MobileContentCard';
-import { EditType } from 'types/write/writeType';
 import styled from '@emotion/styled';
 
 interface Props {
@@ -7,7 +6,6 @@ interface Props {
   toggle: boolean;
   category: string;
   likedProjects: string[];
-  onUpdateLikedCountEvent: (id: string) => void;
   onNavigateToProjectDetailEvent: (path: string) => () => void;
 }
 
@@ -16,7 +14,6 @@ const FindProjectMobileList = ({
   toggle,
   category,
   likedProjects,
-  onUpdateLikedCountEvent,
   onNavigateToProjectDetailEvent,
 }: Props) => {
   return (
@@ -30,7 +27,6 @@ const FindProjectMobileList = ({
                 key={project.id}
                 project={project}
                 likedProjects={likedProjects}
-                onUpdateLikedCountEvent={onUpdateLikedCountEvent}
                 onNavigateToProjectDetailEvent={onNavigateToProjectDetailEvent}
               />
             )
@@ -39,7 +35,6 @@ const FindProjectMobileList = ({
               key={project.id}
               project={project}
               likedProjects={likedProjects}
-              onUpdateLikedCountEvent={onUpdateLikedCountEvent}
               onNavigateToProjectDetailEvent={onNavigateToProjectDetailEvent}
             />
           ),

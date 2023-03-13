@@ -2,7 +2,7 @@ import Slider from 'react-slick';
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
 import mobileFirstBanner from 'assets/images/mobileFirstBanner.webp';
-import mobilesecondBanner from 'assets/images/mobilesecondBanner.webp';
+import mobileSecondBanner from 'assets/images/mobileSecondBanner.webp';
 
 const settings = {
   arrows: false,
@@ -23,7 +23,7 @@ const MobileMainBanner = () => {
         <MobileBannerImg src={mobileFirstBanner} alt="배너1" />
       </MobileSlideWrapper>
       <MobileSlideWrapper>
-        <MobileBannerImg src={mobilesecondBanner} alt="배너2" />
+        <MobileBannerImg src={mobileSecondBanner} alt="배너2" />
         <MobileBannerImg />
       </MobileSlideWrapper>
     </MobileSliderWrapper>
@@ -34,6 +34,7 @@ export default MobileMainBanner;
 
 const MobileSliderWrapper = styled(Slider)`
   background-color: ${COLORS.gray50};
+  max-height: 40vh;
 
   .slick-dots {
     position: absolute;
@@ -65,9 +66,11 @@ const MobileSliderWrapper = styled(Slider)`
 const MobileSlideWrapper = styled.div`
   width: 100%;
   overflow: hidden;
+  max-height: 40vh;
 `;
 
 const MobileBannerImg = styled.img`
   width: 100%;
   object-fit: cover;
+  max-height: 40vh;
 `;

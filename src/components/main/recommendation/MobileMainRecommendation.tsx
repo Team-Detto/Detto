@@ -11,6 +11,7 @@ import {
 } from 'apis/getPost';
 import MobileContentCard from 'components/MobileContentCard';
 import { getCurrentPathName, logEvent } from 'utils/amplitude';
+import { DocumentData } from 'firebase/firestore';
 
 const tapType = [
   { type: 'orderByViews', name: '조회순' },
@@ -20,13 +21,13 @@ const MobileMainRecommendation = () => {
   const [tap, setTap] = useState(tapType[0].type);
   const { handleNavigateToProjectDetail, likedProjects } = useFindProject();
 
-  const { data: mostViewedProjects }: any = useQuery({
+  const { data: mostViewedProjects }: DocumentData = useQuery({
     queryKey: ['post', 'mostViewed'],
     queryFn: firebaseMostViewedProjectsRequest,
     staleTime: staleTime.mostViewedPosts,
   });
 
-  const { data: mostLikedProjects }: any = useQuery({
+  const { data: mostLikedProjects }: DocumentData = useQuery({
     queryKey: ['post', 'mostLiked'],
     queryFn: firebaseMostLikedProjectsRequest,
     staleTime: staleTime.mostLikedPosts,

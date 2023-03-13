@@ -1,7 +1,6 @@
 import { firestore } from 'apis/firebaseService';
 import {
   addDoc,
-  arrayRemove,
   arrayUnion,
   collection,
   doc,
@@ -12,16 +11,14 @@ import {
   query,
   startAfter,
   updateDoc,
-  increment,
   getDoc,
 } from 'firebase/firestore';
 import { firebaseImageUploadRequest } from './imageService';
-import { WriteType } from 'types/write/writeType';
 
 export const firebaseCreateProjectRequest = async (
   formData: WriteType.WriteFormType,
   markdownText: string,
-  image: any,
+  image: File | null,
   uid: string,
 ) => {
   try {
@@ -65,20 +62,16 @@ export const firebaseGetProjectDataRequest = (setProjectData: any) => {
   });
 };
 
-export const firebaseInfinityScrollProjectDataRequest = async (
-  setProjectData: any,
-  lastVisible: any,
-  setLastVisible: any,
-) => {
+export const firebaseInfinityScrollProjectDataRequest = async ({
+  pageParam = null,
+}) => {
   let q;
-  if (lastVisible === -1) {
-    return;
-  } else if (lastVisible) {
+  if (pageParam) {
     q = query(
       collection(firestore, 'post'),
       orderBy('createdAt', 'desc'),
       limit(9),
-      startAfter(lastVisible),
+      startAfter(pageParam),
     );
   } else {
     q = query(
@@ -88,29 +81,20 @@ export const firebaseInfinityScrollProjectDataRequest = async (
     );
   }
 
-  await getDocs(q).then((querySnapshot) => {
-    setProjectData((prev: any) => {
-      const arr = [...prev];
-      querySnapshot.forEach((doc) => {
-        if (!arr.find((project: any) => project.id === doc.id)) {
-          arr.push({ ...doc.data(), id: doc.id });
-        }
-      });
-      return arr;
-    });
-    if (querySnapshot.docs.length === 0) {
-      setLastVisible(-1);
-    } else {
-      setLastVisible(querySnapshot.docs[querySnapshot.docs.length - 1]);
-    }
+  const querySnapshot = await getDocs(q);
+  const data: any = [];
+  querySnapshot.forEach((doc) => {
+    data.push({ ...doc.data(), id: doc.id as string });
   });
+
+  return data;
 };
 
 export const firebaseEditProjectRequest = async (
   id: string,
-  editFormData: any,
+  editFormData: EditType.EditFormType,
   markdownText: string,
-  image: any,
+  image: File | null,
 ) => {
   try {
     const thumbnailUrl = await firebaseImageUploadRequest(image);
@@ -124,27 +108,6 @@ export const firebaseEditProjectRequest = async (
     });
   } catch (e) {
     throw new Error('프로젝트 수정에 실패했습니다.');
-  }
-};
-
-export const firebaseLikeProjectUpdateRequest = async (
-  id: string,
-  uid: string,
-) => {
-  try {
-    const postRef = doc(firestore, 'post', id);
-    const projectsRef = doc(firestore, 'myprojects', uid);
-    const snapshot = await getDoc(projectsRef);
-    const duplicate = snapshot.data()?.likedProjects?.includes(id);
-    if (duplicate) {
-      await updateDoc(postRef, { like: increment(-1) });
-      await updateDoc(projectsRef, { likedProjects: arrayRemove(id) });
-    } else {
-      await updateDoc(postRef, { like: increment(1) });
-      await updateDoc(projectsRef, { likedProjects: arrayUnion(id) });
-    }
-  } catch (e) {
-    throw new Error('좋아요 업데이트에 실패했습니다.');
   }
 };
 

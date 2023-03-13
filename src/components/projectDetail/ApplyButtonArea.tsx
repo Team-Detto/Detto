@@ -1,13 +1,21 @@
 import styled from '@emotion/styled';
 import COLORS from 'assets/styles/colors';
+import { DocumentData } from 'firebase/firestore';
 import { useAuth, useGlobalModal } from 'hooks';
+
+interface ButtonWrapperProps {
+  isApplicant: boolean;
+  projectData: DocumentData;
+  onApplyModalStateChangeEvent: () => void;
+  onCloseModalStateChangeEvent: () => void;
+}
 
 const ApplyButtonArea = ({
   isApplicant,
   projectData,
   onApplyModalStateChangeEvent,
   onCloseModalStateChangeEvent,
-}: any) => {
+}: ButtonWrapperProps) => {
   const { uid } = useAuth();
   const { openModal } = useGlobalModal();
   const { isRecruiting, applicants } = projectData;

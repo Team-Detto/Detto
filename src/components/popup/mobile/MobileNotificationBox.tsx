@@ -8,7 +8,7 @@ import { staleTime } from 'utils/staleTime';
 import NotificationMessage from '../NotificationMessage';
 import { MobilePopupWrapper } from './styles';
 
-export default function MobileNotificationBox() {
+const MobileNotificationBox = () => {
   const {
     popup: { isNotificationOpen },
   } = usePopup();
@@ -52,7 +52,9 @@ export default function MobileNotificationBox() {
       </MessageWrapper>
     </MobilePopupWrapper>
   );
-}
+};
+
+export default MobileNotificationBox;
 
 const TitleWrapper = styled.div`
   width: 100%;

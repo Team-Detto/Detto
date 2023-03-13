@@ -6,35 +6,40 @@ import FACEBOOK_IMG from 'assets/images/login_facebook.png';
 import GOOGLE_IMG from 'assets/images/login_google.png';
 import useSocialLogin from 'hooks/useSocialLogin';
 import ModalNavigator from '../common/modal/ModalNavigator';
+import { GlobalModalWrapper } from 'components/common/modal/GlobalModal';
 
 // 페이지 0 : 로그인
-export default function SocialLogin() {
+const SocialLogin = () => {
   const { overlay, handleGithubLogin, handleGoogleLogin, handleFacebookLogin } =
     useSocialLogin();
 
   return (
-    <Container>
-      <Overlay overlay={overlay} />
-      <ModalNavigator page={0} close />
-      <LogoImg src={LOGO_IMG} alt="login" />
-      <Title>Detto에 오신 걸 환영합니다!</Title>
-      <LoginButtons>
-        <LoginButton onClick={handleGithubLogin} color="black">
-          <SocialImg src={GITHUB_IMG} alt="github" />
-          <LogoText>GitHub</LogoText>
-        </LoginButton>
-        <LoginButton onClick={handleFacebookLogin} color="blue">
-          <SocialImg src={FACEBOOK_IMG} alt="facebook" />
-          <LogoText>Facebook</LogoText>
-        </LoginButton>
-        <LoginButton onClick={handleGoogleLogin} color="white">
-          <SocialImg src={GOOGLE_IMG} alt="google" />
-          <LogoText color="gray">Google</LogoText>
-        </LoginButton>
-      </LoginButtons>
-    </Container>
+    <GlobalModalWrapper width="28.875rem" height="32.5rem">
+      <Container>
+        <Overlay overlay={overlay} />
+        <ModalNavigator page={0} close />
+        <LogoImg src={LOGO_IMG} alt="login" />
+        <Title>Detto에 오신 걸 환영합니다!</Title>
+        <LoginButtons>
+          <LoginButton onClick={handleGithubLogin} color="black">
+            <SocialImg src={GITHUB_IMG} alt="github" />
+            <LogoText>GitHub</LogoText>
+          </LoginButton>
+          <LoginButton onClick={handleFacebookLogin} color="blue">
+            <SocialImg src={FACEBOOK_IMG} alt="facebook" />
+            <LogoText>Facebook</LogoText>
+          </LoginButton>
+          <LoginButton onClick={handleGoogleLogin} color="white">
+            <SocialImg src={GOOGLE_IMG} alt="google" />
+            <LogoText color="gray">Google</LogoText>
+          </LoginButton>
+        </LoginButtons>
+      </Container>
+    </GlobalModalWrapper>
   );
-}
+};
+
+export default SocialLogin;
 
 const Container = styled.div`
   display: flex;

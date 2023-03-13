@@ -10,8 +10,9 @@ import {
 } from 'firebase/firestore';
 
 //좋아요 수 업데이트
-export const updateLike = async (pid: any, countLike: any) => {
+export const updateLike = async (pid: string, countLike: number) => {
   if (pid === undefined) return;
+  if (countLike === undefined) return;
   const docRef = doc(firestore, 'post', pid);
   try {
     await updateDoc(docRef, { like: countLike });
@@ -20,7 +21,7 @@ export const updateLike = async (pid: any, countLike: any) => {
   }
 };
 
-export const updateViews = async (pid: any, countViews: number) => {
+export const updateViews = async (pid: string, countViews: number) => {
   if (pid === undefined) return;
   const docRef = doc(firestore, 'post', pid);
   await updateDoc(docRef, { view: countViews });
@@ -60,7 +61,7 @@ export const updateAppliedProject = async (
 export const updateApplicants = async (
   pid: string,
   uid: string,
-  skills: any,
+  skills: string[],
   position: string,
   motive: string,
   recruit?: boolean,
@@ -108,14 +109,17 @@ export const deleteProject = async (pid: string) => {
 };
 
 //모집중, 모집마감 업데이트
-export const updateRecruiting = async (pid: string, isRecruiting: any) => {
+export const updateRecruiting = async (pid: string, isRecruiting: boolean) => {
   if (pid === undefined) return;
   const docRef = doc(firestore, 'post', pid);
   await updateDoc(docRef, { isRecruiting: isRecruiting });
 };
 
 // 지원 여부 확인
-export const firebaseGetIsApplicantRequest = async (pid: any, uid: string) => {
+export const firebaseGetIsApplicantRequest = async (
+  pid: string,
+  uid: string,
+) => {
   const postDocRef = doc(firestore, 'post', pid);
   const docSnap = await getDoc(postDocRef);
   const applicants = docSnap.data()?.applicants;

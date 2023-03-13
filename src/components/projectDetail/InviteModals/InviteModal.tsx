@@ -10,7 +10,7 @@ import {
 } from 'hooks';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { updateAppliedProject, updateParticipants } from 'apis/postDetail';
-import { modalTypes } from 'components/common/modal/modal';
+import { modalTypes } from 'components/common/modal/modalTypes';
 import MobileInviteModal from '../mobile/MobileModal/MobileInviteModal';
 import {
   amplitudeNeedToButtonClick,
@@ -110,7 +110,6 @@ const InviteModal = ({
         onClickEvent={onClickEvent}
         inviteFunction={inviteFunction}
         onAlertClickEvent={onAlertClickEvent}
-        invitedProjectMutate={invitedProjectMutate} //applicants 데이터 변경
       />
     );
   }

@@ -1,5 +1,4 @@
 import { ChangeEvent } from 'react';
-import { WriteType } from 'types/write/writeType';
 import { positionList } from 'utils/positions';
 import LabelInput from 'components/common/LabelInput';
 import COLORS from 'assets/styles/colors';

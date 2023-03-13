@@ -14,8 +14,9 @@ import {
   MobileNameText,
   MobileProfileImage,
 } from './styles';
+import { GlobalModalWrapper } from 'components/common/modal/GlobalModal';
 
-export default function MobileReplyNote({ data }: { data: Note }) {
+const MobileReplyNote = ({ data }: { data: Note }) => {
   const [disabled, setDisabled] = useState(false);
   const [note, setNote] = useState<SendNote>({ title: '', content: '' });
   const [isSent, setIsSent] = useState(false);
@@ -46,46 +47,57 @@ export default function MobileReplyNote({ data }: { data: Note }) {
   if (!receiver) return null;
 
   return (
-    <MobileContainer>
-      {showToast && (
-        <ValidationToastPopup message={ToastMessage} top={2} isCheck={isSent} />
-      )}
-      <ModalNavigator page={0} close />
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
-        <MobileProfileImage
-          src={receiver.photoURL}
-          alt={receiver.displayName + ' 프로필 이미지'}
-          referrerPolicy="no-referrer"
+    <GlobalModalWrapper width="82%" height="26.1875rem" isMobile>
+      <MobileContainer>
+        {showToast && (
+          <ValidationToastPopup
+            message={ToastMessage}
+            top={2}
+            isCheck={isSent}
+          />
+        )}
+        <ModalNavigator page={0} close />
+        <div style={{ display: 'flex', flexDirection: 'row' }}>
+          <MobileProfileImage
+            src={receiver.photoURL}
+            alt={receiver.displayName + ' 프로필 이미지'}
+            referrerPolicy="no-referrer"
+          />
+          <MobileNameText>
+            {receiver.displayName}님께 쪽지 보내기
+          </MobileNameText>
+        </div>
+        <TitleInput
+          type="text"
+          placeholder="제목을 입력해주세요."
+          autoFocus
+          maxLength={30}
+          value={note.title}
+          onChange={(e) => setNote({ ...note, title: e.target.value })}
         />
-        <MobileNameText>{receiver.displayName}님께 쪽지 보내기</MobileNameText>
-      </div>
-      <TitleInput
-        type="text"
-        placeholder="제목을 입력해주세요."
-        autoFocus
-        maxLength={30}
-        value={note.title}
-        onChange={(e) => setNote({ ...note, title: e.target.value })}
-      />
-      <div style={{ position: 'relative' }}>
-        <MobileContentTextarea
-          placeholder="내용을 입력해주세요."
-          value={note.content}
-          maxLength={500}
-          onChange={(e) => setNote({ ...note, content: e.target.value })}
+        <div style={{ position: 'relative' }}>
+          <MobileContentTextarea
+            placeholder="내용을 입력해주세요."
+            value={note.content}
+            maxLength={500}
+            onChange={(e) => setNote({ ...note, content: e.target.value })}
+          />
+          <ContentCharCount>
+            <Count length={note.content.length}>{note.content.length}</Count>
+            /500
+          </ContentCharCount>
+        </div>
+        <MobileCustomButton
+          label="쪽지를 보낼게요"
+          onClick={handleSendButtonClick}
+          disabled={disabled}
         />
-        <ContentCharCount>
-          <Count length={note.content.length}>{note.content.length}</Count>/500
-        </ContentCharCount>
-      </div>
-      <MobileCustomButton
-        label="쪽지를 보낼게요"
-        onClick={handleSendButtonClick}
-        disabled={disabled}
-      />
-    </MobileContainer>
+      </MobileContainer>
+    </GlobalModalWrapper>
   );
-}
+};
+
+export default MobileReplyNote;
 
 const TitleInput = styled.input`
   width: 100%;

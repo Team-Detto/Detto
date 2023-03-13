@@ -3,15 +3,15 @@ import Calendar from 'react-calendar';
 import styled from '@emotion/styled';
 import { firebaseGetProjectDataRequest } from 'apis/boardService';
 import { getDate } from 'utils/date';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { dayListState } from '../../../recoil/atoms';
 import COLORS from '../../../assets/styles/colors';
 const ProjectCalendar = () => {
   const [projectData, setProjectData] = useState<any>([]);
   const [value, onChange] = useState(new Date());
-  const setDayList = useSetRecoilState(dayListState);
+  const [dayList, setDayList] = useRecoilState(dayListState);
   const SelectDate = getDate(value.getTime());
-  const getDayList = (createAt: any, deadline: any) => {
+  const getDayList = (createAt: number, deadline: number) => {
     const dayList = [];
     const start = new Date(getDate(createAt));
     const end = new Date(getDate(deadline));
@@ -34,15 +34,49 @@ const ProjectCalendar = () => {
       ),
     );
   }, [projectData, value]);
+
+  const isAllDayProject = (date: any) => {
+    const day = getDate(date.getTime());
+    return projectData.some((el: any) =>
+      getDayList(el.createdAt, el.deadline)
+        .map((el) => getDate(el.getTime()))
+        .includes(day),
+    );
+  };
+
+  const tileContent = ({ date, view }: any): any => {
+    if (view === 'month' && isAllDayProject(date)) {
+      return (
+        <span
+          style={{
+            fontSize: '15px',
+            position: 'absolute',
+            marginBottom: '15px',
+            color: COLORS.violetB50,
+          }}
+        >
+          •
+        </span>
+      );
+    }
+  };
+
   return (
     <ProjectCalendarWrap
       onChange={onChange}
       value={value}
       calendarType={'US'}
       formatDay={(locale, date) => `${date.getDate()}`}
+      tileContent={tileContent}
     />
   );
 };
+const Dots = styled.div`
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background-color: ${COLORS.violetA100};
+`;
 const ProjectCalendarWrap = styled(Calendar)`
   button {
     width: 2.75rem;
@@ -51,7 +85,10 @@ const ProjectCalendarWrap = styled(Calendar)`
     font-style: normal;
     font-weight: 500;
     font-size: 1rem;
-    line-height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: column;
   }
 
   .react-calendar {
@@ -88,7 +125,7 @@ const ProjectCalendarWrap = styled(Calendar)`
     text-align: center;
     width: 19rem;
     height: 15.125rem;
-    margin: 0 auto;
+    margin: -8px auto 0 auto;
   }
   .react-calendar__month-view__days__day--neighboringMonth {
     color: ${COLORS.gray500} !important;

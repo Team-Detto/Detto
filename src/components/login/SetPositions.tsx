@@ -5,8 +5,9 @@ import { career as careerList, mobilePositionList } from 'utils/positions';
 import ConfirmButton from './ConfirmButton';
 import ValidationToastPopup from 'components/common/ValidationToastPopup';
 import useSetPositions from 'hooks/useSetPositions';
+import { GlobalModalWrapper } from 'components/common/modal/GlobalModal';
 
-export default function SetPositions() {
+const SetPositions = () => {
   const {
     showToast,
     ToastMessage,
@@ -16,50 +17,54 @@ export default function SetPositions() {
   } = useSetPositions();
 
   return (
-    <Container>
-      {showToast && <ValidationToastPopup message={ToastMessage} top={2} />}
-      <BodyContainer>
-        <TextContainer>
-          <TitleText>어떤 포지션인지 알려주세요</TitleText>
-          <SubText>(중복 선택 가능해요)</SubText>
-        </TextContainer>
-        <Buttons>
-          {mobilePositionList.map(({ type, name }) => (
-            <Fragment key={type}>
-              <Input
-                type="checkbox"
-                name="position"
-                id={type}
-                onChange={(e) =>
-                  handleCheckPositions(e.currentTarget.checked, type)
-                }
-              />
-              <Label htmlFor={type}>{name}</Label>
-            </Fragment>
-          ))}
-        </Buttons>
-        <TextContainer>
-          <TitleText>경력을 선택해주세요</TitleText>
-        </TextContainer>
-        <Buttons>
-          {careerList.map(({ id, value }) => (
-            <Fragment key={id}>
-              <Input
-                type="radio"
-                name="career"
-                value={id}
-                id={id}
-                onChange={(e) => setCareer(e.currentTarget.value)}
-              />
-              <Label htmlFor={id}>{value}</Label>
-            </Fragment>
-          ))}
-        </Buttons>
-        <ConfirmButton onClick={handleConfirmButtonClick} />
-      </BodyContainer>
-    </Container>
+    <GlobalModalWrapper width="44.25rem" height="32rem">
+      <Container>
+        {showToast && <ValidationToastPopup message={ToastMessage} top={2} />}
+        <BodyContainer>
+          <TextContainer>
+            <TitleText>어떤 포지션인지 알려주세요</TitleText>
+            <SubText>(중복 선택 가능해요)</SubText>
+          </TextContainer>
+          <Buttons>
+            {mobilePositionList.map(({ type, name }) => (
+              <Fragment key={type}>
+                <Input
+                  type="checkbox"
+                  name="position"
+                  id={type}
+                  onChange={(e) =>
+                    handleCheckPositions(e.currentTarget.checked, type)
+                  }
+                />
+                <Label htmlFor={type}>{name}</Label>
+              </Fragment>
+            ))}
+          </Buttons>
+          <TextContainer>
+            <TitleText>경력을 선택해주세요</TitleText>
+          </TextContainer>
+          <Buttons>
+            {careerList.map(({ id, value }) => (
+              <Fragment key={id}>
+                <Input
+                  type="radio"
+                  name="career"
+                  value={id}
+                  id={id}
+                  onChange={(e) => setCareer(e.currentTarget.value)}
+                />
+                <Label htmlFor={id}>{value}</Label>
+              </Fragment>
+            ))}
+          </Buttons>
+          <ConfirmButton onClick={handleConfirmButtonClick} />
+        </BodyContainer>
+      </Container>
+    </GlobalModalWrapper>
   );
-}
+};
+
+export default SetPositions;
 
 const Container = styled.div`
   display: flex;

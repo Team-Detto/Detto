@@ -1,19 +1,29 @@
 import styled from '@emotion/styled';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { updateLike, updateMyProject } from '../../apis/postDetail'; //여기서 에러 발생 :모듈 또는 해당 형식 선언을 찾을 수 없습니다.
 import { findWithCollectionName } from 'apis/findWithCollectionName';
 import { useAuth, useGlobalModal } from 'hooks';
 import COLORS from 'assets/styles/colors';
-import { amplitudeToNoneButtonClick } from 'utils/amplitude';
+import {
+  amplitudeToNoneButtonClick,
+  getCurrentPathName,
+} from 'utils/amplitude';
 import { staleTime } from 'utils/staleTime';
+import { logEvent } from '@amplitude/analytics-browser';
 
-const Likes = ({ pid, version = 'web' }: any) => {
+interface LikesProps {
+  pid: string;
+  version?: string;
+  page?: string;
+}
+
+const Likes = ({ pid, version = 'web', page = 'detail' }: LikesProps) => {
   const { uid } = useAuth();
   const { openModal } = useGlobalModal();
 
-  const handleLikeButton = async (event: any) => {
+  const handleLikeButton = async (event: React.MouseEvent) => {
     event.preventDefault();
     if (isLike) {
       setIsLike(false);
@@ -22,6 +32,11 @@ const Likes = ({ pid, version = 'web' }: any) => {
       setIsLike(true);
       setCountLike(countLike + 1);
     }
+    logEvent('Button Click', {
+      from: getCurrentPathName(),
+      to: 'none',
+      name: 'like',
+    });
   };
 
   //좋아요한 프로젝트 조회
@@ -60,17 +75,24 @@ const Likes = ({ pid, version = 'web' }: any) => {
         queryClient.invalidateQueries(['post', 'mostViewed']);
         queryClient.invalidateQueries(['post', 'mostLiked']);
         queryClient.invalidateQueries(['likedProjects', uid]);
+        queryClient.invalidateQueries(['post', 'findProject']);
       },
     },
   );
+
   useEffect(() => {
     updateMyProjectMutate();
     updateLikeMutate();
-  }, [isLike]);
+  }, [isLike, countLike]);
 
   useEffect(() => {
     setCountLike(projectLike?.like);
   }, [projectLike?.like]);
+
+  // 새로고침 시 myProjects가 늦게 불러와져서 추가한 useEffect
+  useEffect(() => {
+    setIsLike(myProjects?.likedProjects?.includes(pid));
+  }, [myProjects?.likedProjects]);
 
   return (
     <IconButton
@@ -90,7 +112,7 @@ const Likes = ({ pid, version = 'web' }: any) => {
       ) : (
         <LineHeart version={version} />
       )}
-      관심 {countLike ?? ' 0'}
+      <>{page === 'detail' && <span>관심 {countLike ?? ' 0'}</span>}</>
     </IconButton> // 로그아웃인 경우 관심 버튼 클릭 시 likedProjects에 데이터가 없어서 로직 에러 발생: 예외처리 필요
   );
 };
