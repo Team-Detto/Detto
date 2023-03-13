@@ -43,7 +43,7 @@ const TitleThumbnailArea = ({ projectData, pid }: TitleThumbnailAreaProps) => {
   const { uid } = useAuth();
   const handleDeleteProject = () => {
     deleteProjectMutate(); //post 컬렉션에서 프로젝트 삭제
-    amplitudeToNoneButtonClick('delete_project');
+    amplitudeToNoneButtonClick('delete_project_yes');
     setDeletedPid(pid);
     window.history.back();
   };
@@ -65,7 +65,7 @@ const TitleThumbnailArea = ({ projectData, pid }: TitleThumbnailAreaProps) => {
         }}
         onCloseEvent={() => {
           handleModalStateChange();
-          amplitudeToNoneButtonClick('delete_project_cancel');
+          amplitudeToNoneButtonClick('delete_project_no');
         }}
       />
       <TitleToModifyButtonWrap>

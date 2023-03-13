@@ -10,6 +10,8 @@ import {
   amplitudeNeedToButtonClick,
 } from 'utils/amplitude';
 import { DocumentData } from 'firebase/firestore';
+import { useSetRecoilState } from 'recoil';
+import { deletedPidState } from '../../../recoil/atoms';
 
 interface ModifyDeleteDropDownProps {
   pid: string;
@@ -25,15 +27,18 @@ const ModifyDeleteDropDown = ({
   projectData,
 }: ModifyDeleteDropDownProps) => {
   const { isOpen, handleModalStateChange } = useModal(false);
+  const setDeletedPid = useSetRecoilState(deletedPidState);
   const queryClient = useQueryClient();
   const { mutate: deleteProjectMutate } = useMutation(
     () => deleteProject(pid),
     {
       onSuccess: () => {
         queryClient.invalidateQueries(['post', 'projectIdList']);
+        setDeletedPid(pid);
       },
     },
   );
+
   return (
     <>
       <MobileConfirmAlert
