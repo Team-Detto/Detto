@@ -18,13 +18,15 @@ const ValidationToastPopup = ({ message, top, isCopy, isCheck }: Props) => {
       <ValidationToastAlertIcon isMobile={isMobile}>{`${
         isCopy ? '🔗' : isCheck ? '✅' : '❌'
       }`}</ValidationToastAlertIcon>
-      <ValidationToastAlertText>{message}</ValidationToastAlertText>
+      <ValidationToastAlertText isMobile={isMobile}>
+        {message}
+      </ValidationToastAlertText>
     </ValidationToastAlertContainer>
   );
 };
 
 const ValidationToastAlertContainer = styled.div<Partial<Props>>`
-  width: ${(props) => (props.isMobile ? '90%' : '30%')};
+  width: ${(props) => (props.isMobile ? '90%' : '23rem')};
   height: ${(props) => (props.isMobile ? '1.8rem' : '2.5rem')};
   display: flex;
   flex-direction: row;
@@ -56,16 +58,16 @@ const ValidationToastAlertContainer = styled.div<Partial<Props>>`
 const ValidationToastAlertIcon = styled.div<Partial<Props>>`
   width: 5%;
   height: ${(props) => (props.isMobile ? '100%' : '')};
-  display: ${(props) => (props.isMobile ? 'flex' : 'none')};
+  display: ${(props) => (props.isMobile ? 'flex' : '')};
   text-align: center;
   align-items: center;
 `;
 
-const ValidationToastAlertText = styled.p`
+const ValidationToastAlertText = styled.p<Partial<Props>>`
   width: 95%;
   height: 100%;
   font-weight: 500;
-  font-size: 0.8rem;
+  font-size: ${(props) => (props.isMobile ? '0.7rem' : '0.8rem')};
   line-height: 1.5rem;
   display: flex;
   align-items: center;
