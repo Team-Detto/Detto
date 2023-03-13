@@ -7,9 +7,9 @@
 
 프로젝트 기간 : 2023.02.06 ~ 2023.03.13
 
-🔗 [Detto 서비스 둘러보기 (데스크탑/모바일 환경에서 이용 가능)](https://www.detto.site/) 
+🔗 [Detto 서비스 둘러보기](https://www.detto.site/) (데스크탑/모바일 환경에서 이용 가능)
 
-🎬 [시연영상 보러가기 ](https://www.youtube.com/watch?v=LcIOjxE0Wxs&t=2s)
+🎬 [시연영상 보러가기 ](https://www.youtube.com/watch?v=6KTbgMv2B70)
 
 
 
@@ -28,7 +28,7 @@
 
 **프로젝트 문서**
  
-| 📒 [팀 디토 Notion ](https://www.notion.so/sunohvoiin/f3ea4c69953d4c4dbbaf0256d9f3dc70) | 🎉 [프로젝트 S.A](https://sunohvoiin.notion.site/Detto-S-A-cc26bd8ec18f4d969cd06cfc412652fe) | 💌 [베타 테스트 피드백](https://www.notion.so/sunohvoiin/ac659f3772f0480c9243ba5b7b7ada13) | 🚀 [트러블 슈팅 및 최적화](https://www.notion.so/sunohvoiin/9076e7263c4c416eb19a706f1114602d?pvs=4) | 💬 [KPT 회고]()
+| 📒 [팀 Notion ](https://sunohvoiin.notion.site/f3ea4c69953d4c4dbbaf0256d9f3dc70) | 🎉 [프로젝트 S.A](https://sunohvoiin.notion.site/Detto-S-A-cc26bd8ec18f4d969cd06cfc412652fe) | 💌 [베타 테스트 피드백](https://sunohvoiin.notion.site/ac659f3772f0480c9243ba5b7b7ada13) | 🚀 [트러블 슈팅 및 최적화](https://sunohvoiin.notion.site/9076e7263c4c416eb19a706f1114602d) | 💬 [KPT 회고]()
 | ---- | ---- | ---- | ---- | ---- |
 
 <br/>
@@ -64,7 +64,7 @@
 
 <img src="https://user-images.githubusercontent.com/82587107/224234547-9f16a4ed-2806-4d79-bdda-db31af0b4e88.png" alt="기술스택" width="70%">
 
-[🛠️ 기술적 의사결정 과정 보러가기](https://www.notion.so/sunohvoiin/6d06fa0a303042339b90573dd957373d?pvs=4)
+[🛠️ 기술적 의사결정 과정 보러가기](https://sunohvoiin.notion.site/6d06fa0a303042339b90573dd957373d)
 
 | 구분                 | 사용 기술          |
 | -------------------- | ------------------ |
