@@ -57,7 +57,6 @@ const ValidationToastAlertIcon = styled.div<Partial<Props>>`
   width: 5%;
   height: ${(props) => (props.isMobile ? '100%' : '')};
   display: ${(props) => (props.isMobile ? 'flex' : 'none')};
-  /* justify-content: ${(props) => (props.isMobile ? 'center' : '')}; */
   text-align: center;
   align-items: center;
 `;
