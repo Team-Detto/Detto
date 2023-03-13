@@ -26,7 +26,7 @@ const ValidationToastPopup = ({ message, top, isCopy, isCheck }: Props) => {
 };
 
 const ValidationToastAlertContainer = styled.div<Partial<Props>>`
-  width: ${(props) => (props.isMobile ? '90%' : '30%')};
+  width: ${(props) => (props.isMobile ? '90%' : '23rem')};
   height: ${(props) => (props.isMobile ? '1.8rem' : '2.5rem')};
   display: flex;
   flex-direction: row;
@@ -58,7 +58,7 @@ const ValidationToastAlertContainer = styled.div<Partial<Props>>`
 const ValidationToastAlertIcon = styled.div<Partial<Props>>`
   width: 5%;
   height: ${(props) => (props.isMobile ? '100%' : '')};
-  display: ${(props) => (props.isMobile ? 'flex' : 'none')};
+  display: ${(props) => (props.isMobile ? 'flex' : '')};
   text-align: center;
   align-items: center;
 `;
