@@ -12,7 +12,7 @@ import {
   MobileWelcome,
 } from 'components/login';
 
-const LoginModal = () => {
+export default function LoginModal() {
   const isMobile = useIsMobile();
 
   const {
@@ -23,9 +23,7 @@ const LoginModal = () => {
     return modals[page].mobileComponent;
   }
   return modals[page].component;
-};
-
-export default LoginModal;
+}
 
 const modals = [
   {
