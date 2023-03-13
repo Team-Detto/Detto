@@ -8,7 +8,7 @@ import Junior from 'assets/images/junior.png';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { staleTime } from 'utils/staleTime';
-import { firebaseActiveUsersRequest } from 'apis/userService';
+import { firebaseRandomActiveUsersRequest } from 'apis/userService';
 import COLORS from 'assets/styles/colors';
 import defaultProfile from 'assets/images/default_profile.jpg';
 import { getCurrentPathName, logEvent } from 'utils/amplitude';
@@ -22,9 +22,9 @@ const settings = {
 
 const MobileFindUserSlider = ({ tap }: { tap: string }) => {
   const { data: users } = useQuery({
-    queryKey: ['users'],
-    queryFn: firebaseActiveUsersRequest,
-    staleTime: staleTime.users,
+    queryKey: ['users', 'random'],
+    queryFn: firebaseRandomActiveUsersRequest,
+    staleTime: staleTime.randomUsers,
   });
 
   if (!users) return null;
@@ -38,34 +38,31 @@ const MobileFindUserSlider = ({ tap }: { tap: string }) => {
 
   return (
     <StyledSlider {...settings} infinite={filteredUsers.length >= 5}>
-      {filteredUsers
-        // 랜덤으로 섞기
-        .sort(() => Math.random() - 0.5)
-        .map((user: any) => (
-          <Link
-            onClick={() => {
-              logEvent('Visit Page', {
-                from: getCurrentPathName(),
-                to: 'profile',
-                name: 'find_user',
-              });
-            }}
-            to={`/profile/${user.uid}`}
-            key={user.uid}
-          >
-            <MobileCard key={user}>
-              <CardImage
-                src={user.photoURL || defaultProfile}
-                referrerPolicy="no-referrer"
-                alt={user.displayName}
-              />
-              <CardNickname>
-                {user.isJunior && <JuniorImage src={Junior} alt="주니어" />}{' '}
-                {user.displayName}
-              </CardNickname>
-            </MobileCard>
-          </Link>
-        ))}
+      {filteredUsers.map((user: any) => (
+        <Link
+          onClick={() => {
+            logEvent('Visit Page', {
+              from: getCurrentPathName(),
+              to: 'profile',
+              name: 'find_user',
+            });
+          }}
+          to={`/profile/${user.uid}`}
+          key={user.uid}
+        >
+          <MobileCard key={user}>
+            <CardImage
+              src={user.photoURL || defaultProfile}
+              referrerPolicy="no-referrer"
+              alt={user.displayName}
+            />
+            <CardNickname>
+              {user.isJunior && <JuniorImage src={Junior} alt="주니어" />}{' '}
+              {user.displayName}
+            </CardNickname>
+          </MobileCard>
+        </Link>
+      ))}
     </StyledSlider>
   );
 };
