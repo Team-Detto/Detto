@@ -6,15 +6,13 @@
 <div align="center"><img src="https://user-images.githubusercontent.com/88768022/224604036-7bef065d-272f-4b4d-af67-9392cd6bc0a3.png" alt="로고" width="700px"></div>
 <br/>
 
-
-
 **프로젝트 기간** : 2023.02.06 ~ 2023.03.13
 
 🔗 [Detto 서비스 둘러보기](https://www.detto.site/) (데스크탑/모바일 환경에서 이용 가능)
 
-🎬 [시연영상 보러가기 ](https://www.youtube.com/watch?v=6KTbgMv2B70)
+🎬 [발표 영상 보러가기 ](https://youtu.be/EiGtTtG5M0Q)
 
-
+🎬 [시연 영상 보러가기 ](https://youtu.be/6KTbgMv2B70)
 
 <br/>
 
@@ -37,8 +35,6 @@
 <br/>
 <br/>
 <br/>
-
-
 
 ## 🙌 팀원 소개
 
@@ -138,7 +134,6 @@
 
 - 포지션 별로 필터링 된 프로젝트를 확인할 수 있습니다.
     
-
  <img src="https://user-images.githubusercontent.com/82587107/224244006-a5381fbf-59c0-4bcb-b719-2b6f58735935.gif" alt="필터링" width="60%">   
     
  <br/>   
@@ -148,11 +143,9 @@
 - 유저는 참여하고 싶은 프로젝트에 지원할 수 있습니다.
 - 작성자는 지원자 목록에서 함께 하고 싶은 지원자를 프로젝트에 초대할 수 있습니다.
 
-
 <div>
     <img src="https://user-images.githubusercontent.com/82587107/224249794-9c3d1b24-8461-437a-979f-849f2087511f.gif" alt="지원하기" width="50%"><img src="https://user-images.githubusercontent.com/82587107/224249842-4872decf-b911-4ccf-ad10-95347fc29d00.gif" alt="초대하기" width="50%">    
 </div>
-
 
 <br/>
 
@@ -164,8 +157,6 @@
 <div>
     <img src="https://user-images.githubusercontent.com/82587107/224250012-1ad627b8-3a48-4ccc-bc39-69609a0162c2.gif" alt="쪽지보내기" width="50%"><img src="https://user-images.githubusercontent.com/82587107/224250016-0958e399-c7c7-41e9-93eb-31a9e989fd9f.gif" alt="쪽지-알림확인" width="50%">    
 </div>
-
-
 
 <br/>
 <br/>
