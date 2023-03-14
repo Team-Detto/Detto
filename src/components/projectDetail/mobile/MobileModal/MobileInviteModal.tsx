@@ -151,9 +151,11 @@ const StackDiv = styled.div`
 
 const StackList = styled.div`
   display: flex;
-  flex-wrap: wrap;
   gap: 0.6rem;
-  /* margin: 0.4rem; */
+  overflow: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const Stacks = styled.p`
