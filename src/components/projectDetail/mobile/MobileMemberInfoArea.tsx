@@ -5,105 +5,74 @@ import { useNavigate } from 'react-router-dom';
 import { logEvent } from 'utils/amplitude';
 import ParticipantsProfile from '../ParticipantsProfile';
 
+const positions = [
+  { name: '기획', label: '기획' },
+  { name: '디자인', label: '디자인' },
+  { name: '프론트엔드', label: '프론트' },
+  { name: '백엔드', label: '백엔드' },
+];
+
 const MobileMemberInfoArea = ({ applicantsData }: DocumentData) => {
   const navigate = useNavigate();
   if (applicantsData === undefined) applicantsData = {};
 
-  const data = Object?.keys(applicantsData).filter((key) => {
-    return applicantsData?.[key]?.recruit === true;
+  const participantsData = Object?.keys(applicantsData).map((applicant) => {
+    if (applicantsData?.[applicant]?.recruit === true) {
+      return {
+        uid: applicant,
+        position: applicantsData?.[applicant]?.position,
+      };
+    }
   });
 
   const handlePosition = (position: string) => {
-    return Object?.keys(applicantsData).filter((key) => {
-      return (
-        applicantsData?.[key]?.recruit === true &&
-        applicantsData?.[key]?.position === position
-      );
+    return participantsData.filter((participant) => {
+      return participant?.position === position;
     });
   };
 
   const onClickEvent = (uid: string) => {
     navigate(`/profile/${uid}`);
     logEvent('Button Click', {
-      from: `project_detail`, //pathname으로 하면 이동한페이지로 인식해서 수정
+      from: 'project_detail', //pathname으로 하면 이동한페이지로 인식해서 수정
       to: 'profile',
       name: 'profile',
     });
   };
 
+  if (participantsData.length === 0)
+    return (
+      <MobileMemberInfoAreaContainer>
+        <MemberInfoTitle>현재 참여 중인 인원</MemberInfoTitle>
+        <NodataMessage>아직 모집 중이에요 :/</NodataMessage>
+      </MobileMemberInfoAreaContainer>
+    );
+
   return (
     <MobileMemberInfoAreaContainer>
       <MemberInfoTitle>현재 참여 중인 인원</MemberInfoTitle>
-      {data.length <= 0 ? (
-        <NodataMessage>아직 모집 중이에요 :/</NodataMessage>
-      ) : (
-        <MemberInfoWrapper>
-          {handlePosition('기획').length > 0 && (
-            <MemberInfoObject>
-              <MemberInfoKey>기획</MemberInfoKey>
-              {data?.map((key) => {
-                if (applicantsData[key].position === '기획')
-                  return (
-                    <ParticipantsProfile
-                      key={key}
-                      LinkToPublicProfile={onClickEvent}
-                      participantsUid={applicantsData[key].uid}
-                      version="mobile"
-                    />
-                  );
-              })}
-            </MemberInfoObject>
-          )}
-          {handlePosition('디자인').length > 0 && (
-            <MemberInfoObject>
-              <MemberInfoKey>디자인</MemberInfoKey>
-              {data?.map((key) => {
-                if (applicantsData[key].position === '디자인')
-                  return (
-                    <ParticipantsProfile
-                      key={key}
-                      LinkToPublicProfile={onClickEvent}
-                      participantsUid={applicantsData[key].uid}
-                      version="mobile"
-                    />
-                  );
-              })}
-            </MemberInfoObject>
-          )}
-          {handlePosition('프론트엔드').length > 0 && (
-            <MemberInfoObject>
-              <MemberInfoKey>프론트</MemberInfoKey>
-              {data?.map((key) => {
-                if (applicantsData[key].position === '프론트엔드')
-                  return (
-                    <ParticipantsProfile
-                      key={key}
-                      LinkToPublicProfile={onClickEvent}
-                      participantsUid={applicantsData[key].uid}
-                      version="mobile"
-                    />
-                  );
-              })}
-            </MemberInfoObject>
-          )}
-          {handlePosition('백엔드').length > 0 && (
-            <MemberInfoObject>
-              <MemberInfoKey>백엔드</MemberInfoKey>
-              {data?.map((key) => {
-                if (applicantsData[key].position === '백엔드')
-                  return (
-                    <ParticipantsProfile
-                      key={key}
-                      LinkToPublicProfile={onClickEvent}
-                      participantsUid={applicantsData[key].uid}
-                      version="mobile"
-                    />
-                  );
-              })}
-            </MemberInfoObject>
-          )}
-        </MemberInfoWrapper>
-      )}
+      <MemberInfoWrapper>
+        {positions.map((position) => {
+          return (
+            handlePosition(position.name).length > 0 && (
+              <MemberInfoObject key={position.name}>
+                <MemberInfoKey>{position.label}</MemberInfoKey>
+                {participantsData?.map((participant) => {
+                  if (participant?.position === position.name)
+                    return (
+                      <ParticipantsProfile
+                        key={participant.uid}
+                        LinkToPublicProfile={onClickEvent}
+                        participantsUid={participant.uid}
+                        version="mobile"
+                      />
+                    );
+                })}
+              </MemberInfoObject>
+            )
+          );
+        })}
+      </MemberInfoWrapper>
     </MobileMemberInfoAreaContainer>
   );
 };
