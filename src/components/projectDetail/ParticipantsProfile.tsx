@@ -19,6 +19,7 @@ const ParticipantsProfile = ({
     queryKey: ['users', participantsUid],
     queryFn: getUserInfoData,
     staleTime: staleTime.users,
+    enabled: !!participantsUid,
   });
 
   return (

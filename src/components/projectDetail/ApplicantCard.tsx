@@ -29,6 +29,7 @@ const ApplicantCard = ({
     queryKey: ['users', applicantUid],
     queryFn: getUserInfoData,
     staleTime: staleTime.users,
+    enabled: !!applicantUid,
   });
 
   return (
