@@ -199,15 +199,12 @@ const MotiveTitle = styled.p`
   font-weight: 500;
   font-size: 0.875rem;
   line-height: 140%;
-  /* identical to box height, or 1.25rem */
 
   display: flex;
   align-items: center;
   letter-spacing: -0.02em;
 
-  /* Gary 750 */
-
-  color: #6b7684;
+  color: ${COLORS.gray750};
 `;
 
 const MotiveContent = styled.div`
@@ -217,7 +214,7 @@ const MotiveContent = styled.div`
 
   width: 100%;
   height: 8.8125rem;
-  overflow: scroll;
+  overflow: overlay;
 
   border: 0.0625rem solid ${COLORS.gray300};
   border-radius: 0.5rem;
