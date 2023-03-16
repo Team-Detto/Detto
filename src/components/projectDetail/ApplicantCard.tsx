@@ -33,7 +33,7 @@ const ApplicantCard = ({
 
   return (
     <>
-      <ApplicantWrap key={applicantUid} isOpen={isOpen}>
+      <ApplicantWrap key={applicantUid}>
         <ProfileImageDiv>
           <ProfileImage
             src={applierInfoData?.photoURL}
@@ -74,7 +74,7 @@ const ApplicantCard = ({
 
 export default ApplicantCard;
 
-const ApplicantWrap = styled.div<{ isOpen: boolean }>`
+const ApplicantWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -83,7 +83,6 @@ const ApplicantWrap = styled.div<{ isOpen: boolean }>`
   height: 22.625rem;
   border-radius: 0.625rem;
   padding: 0 1.25rem;
-  margin-bottom: ${({ isOpen }) => (!isOpen ? '0' : '20rem')};
 `;
 
 const ProfileImageDiv = styled.div`
