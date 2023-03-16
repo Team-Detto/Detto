@@ -32,7 +32,7 @@ const ContentCard = ({ project, onNavigateToProjectDetailEvent }: Props) => {
   const queryClient = useQueryClient();
 
   const { mutate: updateRecruitingMutate } = useMutation(
-    () => updateRecruiting(id as string, false),
+    () => updateRecruiting(id, false),
     {
       onSuccess: () => {
         queryClient.invalidateQueries(['post', id]);
@@ -44,7 +44,7 @@ const ContentCard = ({ project, onNavigateToProjectDetailEvent }: Props) => {
   const today: any = Date.now();
   useEffect(() => {
     if (today > deadline) {
-      updateRecruitingMutate(id, false as any);
+      updateRecruitingMutate();
     }
   }, []);
 

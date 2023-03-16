@@ -6,7 +6,7 @@ interface EndRecruitButtonProps {
   isRecruiting: boolean;
 }
 
-const EndRecruitButton = ({ onClick, isRecruiting }: any) => {
+const EndRecruitButton = ({ onClick, isRecruiting }: EndRecruitButtonProps) => {
   return (
     <>
       <ButtonWrapper>
