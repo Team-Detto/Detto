@@ -19,40 +19,54 @@ const ApplyButtonArea = ({
   const { uid } = useAuth();
   const { openModal } = useGlobalModal();
   const { isRecruiting, applicants } = projectData;
-  return (
-    <ButtonWrapper>
-      {
-        projectData?.uid === uid ? (
-          //작성자 버튼
-          <ApplyButton
-            onClick={onCloseModalStateChangeEvent}
-            disabled={!isRecruiting}
-          >
-            {isRecruiting ? '지원공고 마감하기' : '마감 완료'}
+
+  // 로그인하지 않은 경우
+  if (!uid)
+    return (
+      <ButtonWrapper>
+        {isRecruiting ? (
+          <ApplyButton onClick={() => openModal('login', 0)}>
+            간단 지원하기
           </ApplyButton>
-        ) : //작성자가 아닌 사람에 대해 모집중인 글이면
-        isRecruiting ? (
-          applicants?.[uid]?.recruit ? ( //이미 초대된 경우
-            <ApplyButton disabled={true}>이미 초대되었어요!</ApplyButton>
-          ) : (
-            <ApplyButton
-              onClick={() => {
-                if (!uid) {
-                  openModal('login', 0);
-                  return;
-                }
-                isApplicant //지원하고 초대는 안된 상태
-                  ? onCloseModalStateChangeEvent()
-                  : onApplyModalStateChangeEvent();
-              }}
-            >
-              {isApplicant ? '지원 취소' : '간단 지원하기'}
-            </ApplyButton>
-          )
         ) : (
           <ApplyButton disabled={true}>모집이 마감되었어요!</ApplyButton>
-        ) // 모집이 마감된경우
-      }
+        )}
+      </ButtonWrapper>
+    );
+
+  // 프로젝트 작성자일 경우
+  if (projectData?.uid === uid)
+    return (
+      <ButtonWrapper>
+        <ApplyButton
+          onClick={onCloseModalStateChangeEvent}
+          disabled={!isRecruiting}
+        >
+          {isRecruiting ? '지원공고 마감하기' : '마감 완료'}
+        </ApplyButton>
+      </ButtonWrapper>
+    );
+
+  // 지원자일 경우
+  return (
+    <ButtonWrapper>
+      {isRecruiting ? (
+        applicants?.[uid]?.recruit ? (
+          <ApplyButton disabled={true}>이미 초대되었어요!</ApplyButton>
+        ) : (
+          <ApplyButton
+            onClick={() => {
+              isApplicant //지원하고 초대는 안된 상태
+                ? onCloseModalStateChangeEvent()
+                : onApplyModalStateChangeEvent();
+            }}
+          >
+            {isApplicant ? '지원 취소' : '간단 지원하기'}
+          </ApplyButton>
+        )
+      ) : (
+        <ApplyButton disabled={true}>모집이 마감되었어요!</ApplyButton>
+      )}
     </ButtonWrapper>
   );
 };
