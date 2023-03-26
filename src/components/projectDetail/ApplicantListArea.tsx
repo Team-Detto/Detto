@@ -12,6 +12,14 @@ import { useModal } from 'hooks';
 import { allowScroll, preventScroll } from 'utils/modal';
 import { DocumentData } from 'firebase/firestore';
 
+const settings = {
+  centerPadding: '60px',
+  slidesToShow: 4,
+  slidesToScroll: 4,
+  swipeToSlide: true,
+  autoplay: true,
+  autoplaySpeed: 4000,
+};
 interface ApplicantListAreaProps {
   projectData: DocumentData;
   pid: string;
@@ -21,15 +29,14 @@ const ApplicantListArea = ({ projectData, pid }: ApplicantListAreaProps) => {
   const { applicants } = projectData;
   const [clickApplicant, setClickApplicant] = useState('');
   const { isOpen, handleModalStateChange } = useModal(false);
-  let countFlag = 0;
-  const settings = {
-    centerPadding: '60px',
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    swipeToSlide: true,
-    autoplay: true,
-    autoplaySpeed: 4000,
-  };
+
+  const applicantsCount = Object.keys(applicants).reduce((acc, cur) => {
+    if (applicants?.[cur]?.recruit === false) {
+      return acc + 1;
+    }
+    return acc;
+  }, 0);
+
   useEffect(() => {
     if (isOpen) {
       preventScroll();
@@ -38,34 +45,44 @@ const ApplicantListArea = ({ projectData, pid }: ApplicantListAreaProps) => {
       };
     }
   }, [isOpen]);
+
+  if (applicantsCount === 0)
+    <>
+      <ApplicantListContainer>
+        <ApplicantListTitle>지원자 목록</ApplicantListTitle>
+        <ApplicantListContent>
+          <StyledSlider
+            {...settings}
+            infinite={applicants.length >= 4}
+          ></StyledSlider>
+        </ApplicantListContent>
+        <CannotFoundApplicant>아직 지원자가 없어요 :/</CannotFoundApplicant>
+      </ApplicantListContainer>
+    </>;
+
   return (
     <>
       <ApplicantListContainer>
         <ApplicantListTitle>지원자 목록</ApplicantListTitle>
         <ApplicantListContent>
           <StyledSlider {...settings} infinite={applicants.length >= 4}>
-            {applicants &&
-              Object.keys(applicants).map((key) => {
-                if (applicants?.[key]?.recruit === false) {
-                  countFlag += 1;
-                  return (
-                    <ApplicantCard
-                      key={key}
-                      pid={pid}
-                      applicantUid={key}
-                      applicant={applicants?.[key]}
-                      setClickApplicant={setClickApplicant}
-                      handleModalStateChange={handleModalStateChange}
-                      isOpen={isOpen}
-                    />
-                  );
-                }
-              })}
+            {Object.keys(applicants).map((key) => {
+              if (applicants?.[key].recruit === false) {
+                return (
+                  <ApplicantCard
+                    key={key}
+                    pid={pid}
+                    applicantUid={key}
+                    applicant={applicants?.[key]}
+                    setClickApplicant={setClickApplicant}
+                    handleModalStateChange={handleModalStateChange}
+                    isOpen={isOpen}
+                  />
+                );
+              }
+            })}
           </StyledSlider>
         </ApplicantListContent>
-        {countFlag === 0 && (
-          <CannotFoundApplicant>아직 지원자가 없어요 :/</CannotFoundApplicant>
-        )}
       </ApplicantListContainer>
       <InviteModal
         isOpen={isOpen}

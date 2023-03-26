@@ -11,6 +11,7 @@ interface MobileInviteModalProps {
   pid: string;
   isOpen: boolean;
   applicant: any;
+  applierInfoData: UserInfoWithUid;
   isAlertOpen: boolean;
   onClickEvent: () => void;
   inviteFunction: () => void;
@@ -21,14 +22,16 @@ const MobileInviteModal = ({
   pid,
   isOpen,
   applicant,
+  applierInfoData,
   isAlertOpen,
   onClickEvent,
   inviteFunction,
   onAlertClickEvent,
 }: MobileInviteModalProps) => {
   const queryClient = useQueryClient();
+
   const { mutate: MobileInvitedProjectMutate } = useMutation(
-    () => updateAppliedProject(applicant?.uid, pid, true),
+    () => updateAppliedProject(applierInfoData.uid, pid, true),
     {
       onSuccess: () => {
         setTimeout(() => {
@@ -42,7 +45,7 @@ const MobileInviteModal = ({
   const { mutate: applicantMutate } = useMutation(() =>
     updateParticipants(
       pid, //pid로 수정
-      applicant?.uid, //지원자uid
+      applierInfoData.uid, //지원자uid
       true,
     ),
   );
@@ -52,13 +55,6 @@ const MobileInviteModal = ({
       onClickEvent();
     }
   };
-
-  // 유저 정보 받아오는 쿼리
-  const { data: applierInfoData }: any = useQuery({
-    queryKey: ['users', applicant?.uid],
-    queryFn: getUserInfoData,
-    staleTime: staleTime.users,
-  });
 
   return (
     <>
