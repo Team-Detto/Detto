@@ -12,6 +12,10 @@ interface UserInfo {
   isActive?: boolean;
 }
 
+interface UserInfoWithUid extends UserInfo {
+  uid: string;
+}
+
 interface Note {
   id: string;
   senderUid: string;
