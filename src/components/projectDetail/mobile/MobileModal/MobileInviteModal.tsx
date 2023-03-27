@@ -11,6 +11,7 @@ interface MobileInviteModalProps {
   pid: string;
   isOpen: boolean;
   applicant: any;
+  applierInfoData: UserInfoWithUid;
   isAlertOpen: boolean;
   onClickEvent: () => void;
   inviteFunction: () => void;
@@ -21,14 +22,16 @@ const MobileInviteModal = ({
   pid,
   isOpen,
   applicant,
+  applierInfoData,
   isAlertOpen,
   onClickEvent,
   inviteFunction,
   onAlertClickEvent,
 }: MobileInviteModalProps) => {
   const queryClient = useQueryClient();
+
   const { mutate: MobileInvitedProjectMutate } = useMutation(
-    () => updateAppliedProject(applicant?.uid, pid, true),
+    () => updateAppliedProject(applierInfoData.uid, pid, true),
     {
       onSuccess: () => {
         setTimeout(() => {
@@ -42,7 +45,7 @@ const MobileInviteModal = ({
   const { mutate: applicantMutate } = useMutation(() =>
     updateParticipants(
       pid, //pid로 수정
-      applicant?.uid, //지원자uid
+      applierInfoData.uid, //지원자uid
       true,
     ),
   );
@@ -52,13 +55,6 @@ const MobileInviteModal = ({
       onClickEvent();
     }
   };
-
-  // 유저 정보 받아오는 쿼리
-  const { data: applierInfoData }: any = useQuery({
-    queryKey: ['users', applicant?.uid],
-    queryFn: getUserInfoData,
-    staleTime: staleTime.users,
-  });
 
   return (
     <>
@@ -151,9 +147,11 @@ const StackDiv = styled.div`
 
 const StackList = styled.div`
   display: flex;
-  flex-wrap: wrap;
   gap: 0.6rem;
-  /* margin: 0.4rem; */
+  overflow: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const Stacks = styled.p`
@@ -197,15 +195,12 @@ const MotiveTitle = styled.p`
   font-weight: 500;
   font-size: 0.875rem;
   line-height: 140%;
-  /* identical to box height, or 1.25rem */
 
   display: flex;
   align-items: center;
   letter-spacing: -0.02em;
 
-  /* Gary 750 */
-
-  color: #6b7684;
+  color: ${COLORS.gray750};
 `;
 
 const MotiveContent = styled.div`
@@ -215,7 +210,7 @@ const MotiveContent = styled.div`
 
   width: 100%;
   height: 8.8125rem;
-  overflow: scroll;
+  overflow: overlay;
 
   border: 0.0625rem solid ${COLORS.gray300};
   border-radius: 0.5rem;

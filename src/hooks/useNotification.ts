@@ -17,7 +17,7 @@ const useNotification = () => {
     link?: Pick<Notification, 'link'>['link'];
   }) => {
     if (title.length === 0 || title.length > 25) {
-      console.log('알림 title은 1자 이상 25자 이하로 입력해주세요.');
+      console.error('알림 title은 1자 이상 25자 이하로 입력해주세요.');
     }
 
     const date = Date.now();
