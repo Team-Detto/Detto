@@ -45,6 +45,7 @@ const InviteModal = ({
     queryKey: ['users', applicantKey],
     queryFn: getUserInfoData,
     staleTime: staleTime.users,
+    enabled: !!applicantKey,
   });
 
   const { mutate: applicantMutate } = useMutation(() =>
@@ -56,7 +57,7 @@ const InviteModal = ({
   );
   const queryClient = useQueryClient();
   const { mutate: invitedProjectMutate } = useMutation(
-    () => updateAppliedProject(applicant?.uid, pid, true),
+    () => updateAppliedProject(applicantKey, pid, true),
     {
       onSuccess: () => {
         setTimeout(() => {
@@ -70,8 +71,8 @@ const InviteModal = ({
   const sendInviteNotification = () => {
     // 초대 알림 보내기
     sendNotification({
-      title: `${user.displayName}님의 프로젝트에 초대되었습니다. 🎉`,
-      receiverUid: applicant?.uid,
+      title: `${applierInfoData.displayName}님의 프로젝트에 초대되었습니다. 🎉`,
+      receiverUid: applicantKey,
       link: {
         type: 'project',
         id: pid,
@@ -106,6 +107,7 @@ const InviteModal = ({
         pid={pid}
         isOpen={isOpen}
         applicant={applicant}
+        applierInfoData={applierInfoData}
         isAlertOpen={isAlertOpen}
         onClickEvent={onClickEvent}
         inviteFunction={inviteFunction}
@@ -316,6 +318,8 @@ const MotiveText = styled.div`
   height: 12.3125rem;
   border: 0.0625rem solid ${COLORS.gray300};
   border-radius: 0.25rem;
+
+  overflow: overlay;
 `;
 
 const MotiveButtonContainer = styled.div`
