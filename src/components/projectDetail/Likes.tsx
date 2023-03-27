@@ -1,17 +1,12 @@
 import styled from '@emotion/styled';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import React, { useEffect, useState } from 'react';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { updateLike, updateMyProject } from '../../apis/postDetail'; //여기서 에러 발생 :모듈 또는 해당 형식 선언을 찾을 수 없습니다.
 import { findWithCollectionName } from 'apis/findWithCollectionName';
 import { useAuth, useGlobalModal } from 'hooks';
 import COLORS from 'assets/styles/colors';
-import {
-  amplitudeToNoneButtonClick,
-  getCurrentPathName,
-} from 'utils/amplitude';
+import { amplitudeToNoneButtonClick } from 'utils/amplitude';
 import { staleTime } from 'utils/staleTime';
-import { logEvent } from '@amplitude/analytics-browser';
 
 interface LikesProps {
   pid: string;
@@ -22,22 +17,6 @@ interface LikesProps {
 const Likes = ({ pid, version = 'web', page = 'detail' }: LikesProps) => {
   const { uid } = useAuth();
   const { openModal } = useGlobalModal();
-
-  const handleLikeButton = async (event: React.MouseEvent) => {
-    event.preventDefault();
-    if (isLike) {
-      setIsLike(false);
-      setCountLike(countLike - 1);
-    } else {
-      setIsLike(true);
-      setCountLike(countLike + 1);
-    }
-    logEvent('Button Click', {
-      from: getCurrentPathName(),
-      to: 'none',
-      name: 'like',
-    });
-  };
 
   //좋아요한 프로젝트 조회
   const { data: myProjects } = useQuery({
@@ -54,14 +33,25 @@ const Likes = ({ pid, version = 'web', page = 'detail' }: LikesProps) => {
     enabled: !!pid,
   });
 
-  const [countLike, setCountLike] = useState(projectLike?.like);
-  const [isLike, setIsLike] = useState(myProjects?.likedProjects.includes(pid));
+  let countLike = projectLike?.like;
+  let isLike = myProjects?.likedProjects.includes(pid);
 
   const queryClient = useQueryClient();
   const { mutate: updateLikeMutate } = useMutation(
     () => updateLike(pid, countLike),
     {
-      onSuccess: () => {
+      onMutate: async () => {
+        await queryClient.cancelQueries(['post', pid]);
+        const previousProjectLike = queryClient.getQueryData(['post', pid]);
+        queryClient.setQueryData(['post', pid], () => {
+          isLike ? (countLike -= 1) : (countLike += 1);
+        });
+        return { previousProjectLike };
+      },
+      onError: (err, variables, context) => {
+        queryClient.setQueryData(['post', pid], context?.previousProjectLike);
+      },
+      onSettled: () => {
         queryClient.invalidateQueries(['post', pid]);
       },
     },
@@ -70,7 +60,24 @@ const Likes = ({ pid, version = 'web', page = 'detail' }: LikesProps) => {
   const { mutate: updateMyProjectMutate } = useMutation(
     () => updateMyProject(uid, pid, isLike),
     {
-      onSuccess: () => {
+      onMutate: async () => {
+        await queryClient.cancelQueries(['myProjects', uid]);
+        const previousMyProjects = queryClient.getQueryData([
+          'myProjects',
+          uid,
+        ]);
+        queryClient.setQueryData(['myProjects', uid], () => {
+          isLike = !isLike;
+        });
+        return { previousMyProjects };
+      },
+      onError: (err, variables, context) => {
+        queryClient.setQueryData(
+          ['myProjects', uid],
+          context?.previousMyProjects,
+        );
+      },
+      onSettled: () => {
         queryClient.invalidateQueries(['myProjects', uid]);
         queryClient.invalidateQueries(['post', 'mostViewed']);
         queryClient.invalidateQueries(['post', 'mostLiked']);
@@ -80,30 +87,17 @@ const Likes = ({ pid, version = 'web', page = 'detail' }: LikesProps) => {
     },
   );
 
-  useEffect(() => {
-    updateMyProjectMutate();
-    updateLikeMutate();
-  }, [isLike, countLike]);
-
-  useEffect(() => {
-    setCountLike(projectLike?.like);
-  }, [projectLike?.like]);
-
-  // 새로고침 시 myProjects가 늦게 불러와져서 추가한 useEffect
-  useEffect(() => {
-    setIsLike(myProjects?.likedProjects?.includes(pid));
-  }, [myProjects?.likedProjects]);
-
   return (
     <IconButton
       id={`${isLike ? 'like' : 'unlike'} ${pid}`}
       aria-label={isLike ? 'like' : 'unlike'}
-      onClick={(event) => {
+      onClick={() => {
         if (!uid) {
           openModal('login', 0);
           return;
         }
-        handleLikeButton(event);
+        updateLikeMutate();
+        updateMyProjectMutate();
         amplitudeToNoneButtonClick('like');
       }}
     >
@@ -113,7 +107,7 @@ const Likes = ({ pid, version = 'web', page = 'detail' }: LikesProps) => {
         <LineHeart version={version} />
       )}
       <>{page === 'detail' && <span>관심 {countLike ?? ' 0'}</span>}</>
-    </IconButton> // 로그아웃인 경우 관심 버튼 클릭 시 likedProjects에 데이터가 없어서 로직 에러 발생: 예외처리 필요
+    </IconButton>
   );
 };
 
